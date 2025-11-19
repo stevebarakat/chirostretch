@@ -39,9 +39,12 @@ type FeaturedProductsProps = {
       name?: string;
       slug?: string;
       price?: string;
-      image?: {
-        sourceUrl?: string;
-        altText?: string;
+      featuredImage?: {
+        node?: {
+          id?: string;
+          sourceUrl?: string;
+          altText?: string;
+        };
       };
     }>;
   };
@@ -67,17 +70,19 @@ export default function FeaturedProducts({
   if (sourceArray.includes("featured") && featuredProductsFromQuery?.nodes) {
     featuredProductsFromQuery.nodes.forEach((product) => {
       if (product) {
+        if (process.env.NODE_ENV === "development") {
+          console.log("Product data:", {
+            id: product.id,
+            name: product.name,
+            featuredImage: product.featuredImage,
+          });
+        }
         products.push({
           id: product.id,
           name: product.name,
           slug: product.slug,
           price: product.price,
-          image: product.image
-            ? {
-                sourceUrl: product.image.sourceUrl,
-                altText: product.image.altText,
-              }
-            : undefined,
+          featuredImage: product.featuredImage,
         });
       }
     });
@@ -123,15 +128,31 @@ export default function FeaturedProducts({
 
               return (
                 <div key={product.id} className={styles.productCard}>
-                  {imageUrl && (
+                  {imageUrl ? (
                     <div className={styles.imageWrapper}>
                       <Image
                         src={imageUrl}
                         alt={imageAlt}
                         fill
                         className={styles.image}
+                        loading="eager"
                         unoptimized
                       />
+                    </div>
+                  ) : (
+                    <div className={styles.imageWrapper}>
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'var(--color-bg-tertiary)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--color-text-tertiary)',
+                        fontSize: 'var(--font-size-sm)'
+                      }}>
+                        No Image
+                      </div>
                     </div>
                   )}
                   <div className={styles.content}>

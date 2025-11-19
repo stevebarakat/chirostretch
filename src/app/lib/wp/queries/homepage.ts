@@ -5,17 +5,6 @@ export const HOMEPAGE_QUERY = `
         id
         name
         slug
-        ... on NodeWithFeaturedImage {
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        ... on ProductWithPricing {
-          price
-        }
         ... on SimpleProduct {
           price
         }
@@ -27,6 +16,15 @@ export const HOMEPAGE_QUERY = `
         }
         ... on GroupProduct {
           price
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+            }
+          }
         }
       }
     }
@@ -175,9 +173,12 @@ type HomepageQueryResponse = {
       id?: string;
       name?: string;
       slug?: string;
-      image?: {
-        sourceUrl?: string;
-        altText?: string;
+      featuredImage?: {
+        node?: {
+          id?: string;
+          sourceUrl?: string;
+          altText?: string;
+        };
       };
       price?: string;
     }>;
