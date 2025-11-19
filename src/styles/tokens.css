@@ -1,0 +1,137 @@
+:root {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-primary-50: hsl(200, 100%, 98%);
+  --color-primary-100: hsl(200, 95%, 95%);
+  --color-primary-200: hsl(200, 90%, 88%);
+  --color-primary-300: hsl(200, 85%, 78%);
+  --color-primary-400: hsl(200, 75%, 65%);
+  --color-primary-500: hsl(200, 70%, 52%);
+  --color-primary-600: hsl(200, 65%, 45%);
+  --color-primary-700: hsl(200, 60%, 38%);
+  --color-primary-800: hsl(200, 55%, 30%);
+  --color-primary-900: hsl(200, 50%, 22%);
+  --color-primary-950: hsl(200, 45%, 15%);
+
+  --color-secondary-50: hsl(160, 50%, 98%);
+  --color-secondary-100: hsl(160, 45%, 95%);
+  --color-secondary-200: hsl(160, 40%, 88%);
+  --color-secondary-300: hsl(160, 35%, 78%);
+  --color-secondary-400: hsl(160, 30%, 65%);
+  --color-secondary-500: hsl(160, 50%, 45%);
+  --color-secondary-600: hsl(160, 55%, 38%);
+  --color-secondary-700: hsl(160, 60%, 32%);
+  --color-secondary-800: hsl(160, 65%, 26%);
+  --color-secondary-900: hsl(160, 70%, 20%);
+  --color-secondary-950: hsl(160, 75%, 14%);
+
+  --color-neutral-50: hsl(0, 0%, 98%);
+  --color-neutral-100: hsl(0, 0%, 95%);
+  --color-neutral-200: hsl(0, 0%, 90%);
+  --color-neutral-300: hsl(0, 0%, 82%);
+  --color-neutral-400: hsl(0, 0%, 64%);
+  --color-neutral-500: hsl(0, 0%, 45%);
+  --color-neutral-600: hsl(0, 0%, 32%);
+  --color-neutral-700: hsl(0, 0%, 23%);
+  --color-neutral-800: hsl(0, 0%, 15%);
+  --color-neutral-900: hsl(0, 0%, 9%);
+  --color-neutral-950: hsl(0, 0%, 4%);
+
+  --color-success-50: hsl(142, 76%, 96%);
+  --color-success-100: hsl(142, 70%, 90%);
+  --color-success-500: hsl(142, 71%, 45%);
+  --color-success-600: hsl(142, 72%, 38%);
+  --color-success-700: hsl(142, 73%, 32%);
+
+  --color-warning-50: hsl(38, 92%, 96%);
+  --color-warning-100: hsl(38, 88%, 90%);
+  --color-warning-500: hsl(38, 92%, 50%);
+  --color-warning-600: hsl(38, 94%, 43%);
+  --color-warning-700: hsl(38, 96%, 36%);
+
+  --color-error-50: hsl(0, 93%, 96%);
+  --color-error-100: hsl(0, 90%, 90%);
+  --color-error-500: hsl(0, 84%, 60%);
+  --color-error-600: hsl(0, 86%, 53%);
+  --color-error-700: hsl(0, 88%, 46%);
+
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-700);
+  --color-text-tertiary: var(--color-neutral-500);
+  --color-text-inverse: var(--color-neutral-50);
+  --color-text-link: var(--color-primary-600);
+  --color-text-link-hover: var(--color-primary-700);
+
+  --color-bg-primary: var(--color-neutral-50);
+  --color-bg-secondary: var(--color-neutral-100);
+  --color-bg-tertiary: var(--color-neutral-200);
+  --color-bg-inverse: var(--color-neutral-900);
+  --color-bg-overlay: hsla(0, 0%, 0%, 0.4);
+
+  --color-border-primary: var(--color-neutral-300);
+  --color-border-secondary: var(--color-neutral-200);
+  --color-border-focus: var(--color-primary-500);
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+  --spacing-5xl: 128px;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 hsla(0, 0%, 0%, 0.05);
+  --shadow-md: 0 4px 6px -1px hsla(0, 0%, 0%, 0.1),
+    0 2px 4px -1px hsla(0, 0%, 0%, 0.06);
+  --shadow-lg: 0 10px 15px -3px hsla(0, 0%, 0%, 0.1),
+    0 4px 6px -2px hsla(0, 0%, 0%, 0.05);
+  --shadow-xl: 0 20px 25px -5px hsla(0, 0%, 0%, 0.1),
+    0 10px 10px -5px hsla(0, 0%, 0%, 0.04);
+
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+}
+

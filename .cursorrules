@@ -1,0 +1,378 @@
+# ==========================================
+# Cursor Project Rules
+# Headless WordPress + Next.js App Router
+# ChiroStretch Fully-Branded Configuration
+# ==========================================
+
+project:
+  description: >
+    This project is a fully branded Headless WordPress → Next.js App Router
+    implementation for ChiroStretch, including design rules, coding preferences,
+    API conventions, content tone, and architecture guidelines.
+
+# ------------------------------------------
+# STYLING
+# ------------------------------------------
+styling:
+  colorFormat: hsl
+  cssFramework: css-modules
+  respectGlobalStyles: true
+  avoid:
+    - tailwindcss
+
+# ------------------------------------------
+# CODE GENERATION
+# ------------------------------------------
+codeGeneration:
+  preferredPackages:
+    - postcss
+    - autoprefixer
+    - postcss-preset-env
+    - stylelint
+    - stylelint-order
+    - stylelint-config-standard
+    - react-router-dom
+    - zustand
+    - zod
+
+documentation:
+  includeComments: false
+
+# ------------------------------------------
+# TYPESCRIPT
+# ------------------------------------------
+typescript:
+  preferTypes: true
+  preferFunctionDeclarations: true
+
+# ------------------------------------------
+# REACT RULES
+# ------------------------------------------
+react:
+  preferComponentProps: true
+  preferEventHandlers: true
+
+  useEffect:
+    guideline: >
+      useEffect should only synchronize with external APIs (e.g., Web Audio API).
+      Avoid handling UI events inside useEffect — use event handlers instead.
+
+    dependencies: >
+      One concern per effect. If an effect has mixed responsibilities or unrelated
+      dependencies, split it into smaller effects.
+
+# ------------------------------------------
+# WORDPRESS (HEADLESS)
+# ------------------------------------------
+wordpress:
+  mode: headless
+
+  preferredPackages:
+    - wp-graphql
+    - wp-graphql-gravity-forms
+    - wp-graphql-acf
+    - wp-graphql-stripe
+    - wp-graphql-jwt-auth
+    - wp-graphql-blocks
+
+  customPostTypes:
+    - events
+    - registrations
+
+  customTaxonomies:
+    - event-category
+    - event-tag
+    - event-location
+
+  customFields:
+    - event-featured-image
+    - event-start-date
+    - event-end-date
+    - event-location
+    - event-capacity
+    - event-current-registrations
+    - event-status
+
+  preview:
+    enable: true
+    route: /api/preview
+    secret: use-environment-variable
+    exitRoute: /api/exit-preview
+    tokenExpiration: 3600
+    supportDraft: true
+    supportRevisions: true
+
+  redirects:
+    handleInternalLinks: true
+    redirectWordPressPermalinks: true
+    redirectToNextJsRoutes: true
+    strategy: middleware
+    preserveQueryParams: true
+    statusCode: 307
+    excludedPaths:
+      - /wp-admin
+      - /wp-content
+      - /wp-includes
+
+# ------------------------------------------
+# NEXT.JS RULES
+# ------------------------------------------
+nextjs:
+  style: app-router
+
+  preferredPackages:
+    - next
+    - zustand
+    - zod
+    - stripe
+    - react-hook-form
+    - date-fns
+    - lucide-react
+
+  revalidation:
+    onDemand: true
+    strategy: isr
+    route: /api/revalidate
+    secret: use-environment-variable
+    revalidateOnContentUpdate: true
+    revalidateOnPublish: true
+    revalidateOnUnpublish: true
+
+# ------------------------------------------
+# UI RULES
+# ------------------------------------------
+ui:
+  iconLibrary: lucide
+
+# ------------------------------------------
+# PROGRAMMING PARADIGM
+# ------------------------------------------
+programming:
+  paradigm: functional
+  preferImmutability: true
+  preferPureFunctions: true
+  avoidSideEffects: true
+
+# ------------------------------------------
+# STRUCTURE & ORGANIZATION
+# ------------------------------------------
+structure:
+  colocateFiles: true
+  colocationDescription: >
+    UI components, styles, hooks, Zustand stores, types, and related utilities
+    should be grouped in the same directory whenever possible.
+
+  indexFileForComponents: true
+  indexFileDescription: >
+    Components should export through an index.ts file for clean import paths.
+
+# ------------------------------------------
+# SINGLE RESPONSIBILITY PRINCIPLES
+# ------------------------------------------
+principles:
+  singleResponsibility:
+    enforceComponentSeparation: true
+    maxComponentLines: 200
+    maxFunctionLines: 50
+    preferPureFunctions: true
+
+# ------------------------------------------
+# TESTING STRATEGY
+# ------------------------------------------
+testing:
+  focusOnBehavior: true
+  avoidImplementationDetails: true
+
+  layeredStrategy:
+    unitTests:
+      dspLayer: >
+        Test Web Audio API DSP modules (oscillators, filters, envelopes)
+        in isolation using OfflineAudioContext. Assert numerical correctness
+        of parameters and audio buffer output.
+
+    integrationTests:
+      audioGraph: >
+        Build small synth graphs and verify correct propagation of frequency,
+        envelope, and filter parameters.
+
+    uiBehaviorTests:
+      userInteractions: >
+        Use React Testing Library to simulate knob/touch/keyboard interactions.
+        Assert that UI actions trigger correct DSP state updates.
+
+  guidelines: >
+    UI tests should avoid internal implementation details. DSP internals are
+    part of the public API and should be tested directly.
+
+# ===================================================
+# CHIROSTRETCH — BRANDING & DOMAIN MODEL (FULL COMMIT)
+# ===================================================
+
+chirostretch:
+  brand:
+    name: ChiroStretch
+    tagline: "Global Mobility. Smarter Movement. Better Living."
+
+    description: >
+      ChiroStretch is a fictional global chiropractic wellness network used to
+      demonstrate modern, high-performance Headless WordPress + Next.js builds.
+      It emphasizes movement science, global accessibility, assisted stretching,
+      and evidence-based spinal mobility training.
+
+    tone: >
+      Confident, global, health-forward, and modern. Avoid anything resembling a
+      local chiropractor clinic. Speak with scientific clarity and global
+      perspective.
+
+    voiceGuidelines:
+      - Use strong, concise statements.
+      - Emphasize global reach and mobility science.
+      - Avoid hype or exaggerated medical claims.
+      - Prefer clarity over verbosity.
+
+  domainModel:
+    siteSections:
+      - home
+      - about
+      - blog
+      - events
+      - training-and-certification
+      - wellness-equipment-shop
+      - franchise-opportunities
+      - global-clinic-locations
+      - webinars
+      - partners
+      - contact
+
+    contentTypes:
+      blogPosts:
+        themes:
+          - mobility science
+          - spinal longevity
+          - global wellness
+          - posture and ergonomics
+          - assisted stretching
+          - rehabilitation tools
+          - chiropractic education
+
+      events:
+        description: >
+          Events include global workshops, certification programs, mobility
+          conferences, and virtual/in-person training intensives.
+
+        properties:
+          - title
+          - event-start-date
+          - event-end-date
+          - event-location
+          - event-capacity
+          - event-status
+          - event-featured-image
+
+        defaultStatusWorkflow:
+          - scheduled
+          - registration-open
+          - sold-out
+          - completed
+          - archived
+
+        namingConvention: "City + Event Type (example: 'Berlin Mobility Summit')"
+
+      products:
+        categories:
+          - Mobility Tools
+          - Rehabilitation Accessories
+          - Chiropractic Equipment
+          - Resistance Bands
+          - Recovery Rollers
+          - Ergonomics & Posture Support
+
+        productTone: >
+          Focus on biomechanics, usefulness, durability, and integration with
+          assisted stretching protocols.
+
+      training:
+        courseTypes:
+          - Certified Mobility Specialist (CMS)
+          - Assisted Stretching Level 1
+          - Assisted Stretching Level 2
+          - Global Chiropractic Techniques
+
+        courseProperties:
+          - title
+          - certification-level
+          - duration
+          - syllabus
+          - outcomes
+          - exam-requirements
+
+      franchise:
+        messagingPillars:
+          - Standardized clinical systems
+          - Global operational support
+          - Efficient practitioner onboarding
+          - Scalable mobility training platform
+
+    componentNaming:
+      guidelines: >
+        Components must be domain-aware. Avoid vague names like Widget, Box, or
+        MainComponent. Prefer descriptive components that reflect mobility,
+        training, events, or global wellness.
+
+      examples:
+        - EventCard
+        - EventRegistrationForm
+        - TrainingCourseOutline
+        - MobilityToolSpecs
+        - GlobalClinicMap
+        - CertificationBadge
+        - FranchiseInquiryForm
+        - ProductOverview
+
+    seo:
+      primaryKeywords:
+        - chiropractic wellness
+        - global mobility training
+        - assisted stretching
+        - spinal longevity
+        - rehabilitation tools
+        - chiropractic education
+        - mobility certification
+
+      metaDescriptionGuideline: >
+        Descriptions should be 140–160 characters, global in tone, and focused
+        on wellness, movement optimization, and evidence-based mobility training.
+
+    navigation:
+      globalNav:
+        - Home
+        - Training & Certification
+        - Events
+        - Wellness Equipment Shop
+        - Franchise Opportunities
+        - Blog
+        - Contact
+
+    imageryGuidelines:
+      themes:
+        - global maps
+        - motion paths
+        - dynamic movement poses
+        - modern clinic aesthetics
+        - diverse human models in motion
+
+      avoid:
+        - cliché chiropractor imagery
+        - hyper-medical or clinical photos
+        - outdated stock images
+
+    callToActions:
+      primary:
+        - Join a Global Event
+        - Explore Certification
+        - Shop Mobility Tools
+        - Become a Franchise Partner
+        - Read the Wellness Blog
+
+      tone: >
+        Empowering, global, movement-forward. Never pushy or salesy.
