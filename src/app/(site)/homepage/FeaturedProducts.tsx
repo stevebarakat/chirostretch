@@ -3,6 +3,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./FeaturedProducts.module.css";
 
 type Product = {
@@ -15,11 +16,23 @@ type Product = {
   image?: {
     sourceUrl?: string;
     altText?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
   };
   featuredImage?: {
     node?: {
       sourceUrl?: string;
       altText?: string;
+      srcSet?: string;
+      sizes?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
+      };
     };
   };
 };
@@ -64,19 +77,12 @@ export default function FeaturedProducts({
   const sourceArray = Array.isArray(featuredProductsSource)
     ? featuredProductsSource
     : featuredProductsSource
-      ? [featuredProductsSource]
-      : [];
+    ? [featuredProductsSource]
+    : [];
 
   if (sourceArray.includes("featured") && featuredProductsFromQuery?.nodes) {
     featuredProductsFromQuery.nodes.forEach((product) => {
       if (product) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("Product data:", {
-            id: product.id,
-            name: product.name,
-            featuredImage: product.featuredImage,
-          });
-        }
         products.push({
           id: product.id,
           name: product.name,
@@ -105,7 +111,6 @@ export default function FeaturedProducts({
     });
   }
 
-
   return (
     <section className={styles.section}>
       <Container>
@@ -131,26 +136,28 @@ export default function FeaturedProducts({
                   {imageUrl ? (
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={imageUrl}
+                        src={normalizeImageUrl(imageUrl) || ""}
                         alt={imageAlt}
                         fill
+                        quality={90}
+                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                         className={styles.image}
-                        loading="eager"
-                        unoptimized
                       />
                     </div>
                   ) : (
                     <div className={styles.imageWrapper}>
-                      <div style={{
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'var(--color-bg-tertiary)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'var(--color-text-tertiary)',
-                        fontSize: 'var(--font-size-sm)'
-                      }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "var(--color-bg-tertiary)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "var(--color-text-tertiary)",
+                          fontSize: "var(--font-size-sm)",
+                        }}
+                      >
                         No Image
                       </div>
                     </div>
@@ -191,18 +198,29 @@ export default function FeaturedProducts({
           </div>
         ) : (
           <div style={{ textAlign: "center", padding: "var(--spacing-3xl) 0" }}>
-            <p style={{ color: "var(--color-text-secondary)", marginBottom: "var(--spacing-md)" }}>
+            <p
+              style={{
+                color: "var(--color-text-secondary)",
+                marginBottom: "var(--spacing-md)",
+              }}
+            >
               No products available at this time.
             </p>
-            {featuredProductsSource && Array.isArray(featuredProductsSource) && featuredProductsSource.length > 0 && (
-              <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-tertiary)" }}>
-                Source: {featuredProductsSource.join(", ")}
-              </p>
-            )}
+            {featuredProductsSource &&
+              Array.isArray(featuredProductsSource) &&
+              featuredProductsSource.length > 0 && (
+                <p
+                  style={{
+                    fontSize: "var(--font-size-sm)",
+                    color: "var(--color-text-tertiary)",
+                  }}
+                >
+                  Source: {featuredProductsSource.join(", ")}
+                </p>
+              )}
           </div>
         )}
       </Container>
     </section>
   );
 }
-

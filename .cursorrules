@@ -1,14 +1,14 @@
 # ==========================================
 # Cursor Project Rules
 # Headless WordPress + Next.js App Router
-# ChiroStretch Fully-Branded Configuration
+# ChiroStretch Configuration (Slim)
 # ==========================================
 
 project:
   description: >
-    This project is a fully branded Headless WordPress → Next.js App Router
-    implementation for ChiroStretch, including design rules, coding preferences,
-    API conventions, content tone, and architecture guidelines.
+    Fully branded Headless WordPress → Next.js App Router implementation for
+    ChiroStretch. Rules cover design, code style, headless integration,
+    content modeling, and architecture.
 
 # ------------------------------------------
 # STYLING
@@ -54,12 +54,11 @@ react:
 
   useEffect:
     guideline: >
-      useEffect should only synchronize with external APIs (e.g., Web Audio API).
-      Avoid handling UI events inside useEffect — use event handlers instead.
-
+      useEffect is for syncing with external systems (APIs, Web Audio, etc.),
+      not for basic UI event handling.
     dependencies: >
-      One concern per effect. If an effect has mixed responsibilities or unrelated
-      dependencies, split it into smaller effects.
+      One concern per effect. Split large or mixed-responsibility effects into
+      smaller ones.
 
 # ------------------------------------------
 # WORDPRESS (HEADLESS)
@@ -74,6 +73,37 @@ wordpress:
     - wp-graphql-stripe
     - wp-graphql-jwt-auth
     - wp-graphql-blocks
+
+  media:
+    conventions:
+      folderStructure:
+        - chirostretch/images
+        - chirostretch/products
+        - chirostretch/events
+        - chirostretch/blog
+      namingGuidelines: kebab-case
+
+  contentEditing:
+    useBlockEditor: true
+    rationale: >
+      Use Gutenberg for all structured content to leverage wp-graphql-blocks
+      and block-level data instead of classic HTML blobs.
+
+    conversionGuidelines:
+      pages: >
+        Convert Pages to blocks. Page layouts map cleanly to React components
+        and benefit most from structured block data.
+      posts: >
+        Posts may remain classic unless block-level structure is needed.
+      products: >
+        WooCommerce descriptions can remain simple; block structure is optional.
+
+    headlessIntegration:
+      renderStrategy: component-map
+      description: >
+        Map each Gutenberg block type to a React component
+        (core/paragraph → ParagraphBlock, core/image → ImageBlock, etc.)
+        for consistent, predictable rendering.
 
   customPostTypes:
     - events
@@ -159,12 +189,10 @@ programming:
 structure:
   colocateFiles: true
   colocationDescription: >
-    UI components, styles, hooks, Zustand stores, types, and related utilities
-    should be grouped in the same directory whenever possible.
-
+    Colocate components, styles, hooks, stores, and utilities by feature/domain.
   indexFileForComponents: true
   indexFileDescription: >
-    Components should export through an index.ts file for clean import paths.
+    Export components via index.ts for clean import paths.
 
 # ------------------------------------------
 # SINGLE RESPONSIBILITY PRINCIPLES
@@ -185,50 +213,35 @@ testing:
 
   layeredStrategy:
     unitTests:
-      dspLayer: >
-        Test Web Audio API DSP modules (oscillators, filters, envelopes)
-        in isolation using OfflineAudioContext. Assert numerical correctness
-        of parameters and audio buffer output.
-
+      ui: >
+        Use React Testing Library for component behavior. Assert rendered output
+        and interactions, not internal implementation details.
+      utilities: >
+        Test utility functions directly with representative inputs.
     integrationTests:
-      audioGraph: >
-        Build small synth graphs and verify correct propagation of frequency,
-        envelope, and filter parameters.
-
-    uiBehaviorTests:
-      userInteractions: >
-        Use React Testing Library to simulate knob/touch/keyboard interactions.
-        Assert that UI actions trigger correct DSP state updates.
-
-  guidelines: >
-    UI tests should avoid internal implementation details. DSP internals are
-    part of the public API and should be tested directly.
+      headlessFlows: >
+        Test end-to-end flows: WordPress content → WPGraphQL → Next.js page
+        rendering, including ISR revalidation behavior.
 
 # ===================================================
-# CHIROSTRETCH — BRANDING & DOMAIN MODEL (FULL COMMIT)
+# CHIROSTRETCH — BRANDING & DOMAIN MODEL (SLIM)
 # ===================================================
 
 chirostretch:
   brand:
     name: ChiroStretch
     tagline: "Global Mobility. Smarter Movement. Better Living."
-
     description: >
-      ChiroStretch is a fictional global chiropractic wellness network used to
-      demonstrate modern, high-performance Headless WordPress + Next.js builds.
-      It emphasizes movement science, global accessibility, assisted stretching,
-      and evidence-based spinal mobility training.
-
+      Fictional global chiropractic wellness network used to demonstrate modern,
+      high-performance Headless WordPress + Next.js builds, with an emphasis on
+      mobility, assisted stretching, and spinal longevity.
     tone: >
-      Confident, global, health-forward, and modern. Avoid anything resembling a
-      local chiropractor clinic. Speak with scientific clarity and global
-      perspective.
-
+      Confident, global, modern, health-forward. Avoid “local clinic” vibes and
+      exaggerated medical claims.
     voiceGuidelines:
       - Use strong, concise statements.
-      - Emphasize global reach and mobility science.
-      - Avoid hype or exaggerated medical claims.
-      - Prefer clarity over verbosity.
+      - Emphasize mobility science and global reach.
+      - Prefer clarity over hype.
 
   domainModel:
     siteSections:
@@ -257,9 +270,8 @@ chirostretch:
 
       events:
         description: >
-          Events include global workshops, certification programs, mobility
-          conferences, and virtual/in-person training intensives.
-
+          Includes workshops, certifications, conferences, and virtual/in-person
+          mobility training.
         properties:
           - title
           - event-start-date
@@ -268,15 +280,13 @@ chirostretch:
           - event-capacity
           - event-status
           - event-featured-image
-
         defaultStatusWorkflow:
           - scheduled
           - registration-open
           - sold-out
           - completed
           - archived
-
-        namingConvention: "City + Event Type (example: 'Berlin Mobility Summit')"
+        namingConvention: "City + Event Type (e.g., 'Berlin Mobility Summit')"
 
       products:
         categories:
@@ -286,7 +296,6 @@ chirostretch:
           - Resistance Bands
           - Recovery Rollers
           - Ergonomics & Posture Support
-
         productTone: >
           Focus on biomechanics, usefulness, durability, and integration with
           assisted stretching protocols.
@@ -297,7 +306,6 @@ chirostretch:
           - Assisted Stretching Level 1
           - Assisted Stretching Level 2
           - Global Chiropractic Techniques
-
         courseProperties:
           - title
           - certification-level
@@ -315,19 +323,9 @@ chirostretch:
 
     componentNaming:
       guidelines: >
-        Components must be domain-aware. Avoid vague names like Widget, Box, or
-        MainComponent. Prefer descriptive components that reflect mobility,
-        training, events, or global wellness.
-
-      examples:
-        - EventCard
-        - EventRegistrationForm
-        - TrainingCourseOutline
-        - MobilityToolSpecs
-        - GlobalClinicMap
-        - CertificationBadge
-        - FranchiseInquiryForm
-        - ProductOverview
+        Components should be domain-aware and descriptive (e.g., EventCard,
+        TrainingCourseOutline, MobilityToolSpecs). Avoid vague names like
+        Widget, Box, or MainComponent.
 
     seo:
       primaryKeywords:
@@ -338,10 +336,9 @@ chirostretch:
         - rehabilitation tools
         - chiropractic education
         - mobility certification
-
       metaDescriptionGuideline: >
-        Descriptions should be 140–160 characters, global in tone, and focused
-        on wellness, movement optimization, and evidence-based mobility training.
+        140–160 characters, global tone, emphasizing wellness, mobility, and
+        evidence-based training.
 
     navigation:
       globalNav:
@@ -355,16 +352,13 @@ chirostretch:
 
     imageryGuidelines:
       themes:
-        - global maps
-        - motion paths
+        - global maps and networks
         - dynamic movement poses
         - modern clinic aesthetics
         - diverse human models in motion
-
       avoid:
-        - cliché chiropractor imagery
-        - hyper-medical or clinical photos
-        - outdated stock images
+        - cliché chiropractor “spine holding” imagery
+        - hyper-medical or outdated stock photos
 
     callToActions:
       primary:
@@ -373,6 +367,5 @@ chirostretch:
         - Shop Mobility Tools
         - Become a Franchise Partner
         - Read the Wellness Blog
-
       tone: >
-        Empowering, global, movement-forward. Never pushy or salesy.
+        Empowering, global, movement-forward. Not pushy or aggressive.

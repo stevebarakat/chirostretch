@@ -3,6 +3,14 @@ import { Poppins, Montserrat } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/tokens.css";
 import "@/styles/globals.css";
+import "@/styles/swiper.css";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import { wpQuery } from "@app/lib/wp/graphql";
+import {
+  LAYOUT_QUERY,
+  type LayoutQueryResponse,
+} from "@app/lib/wp/queries/layout";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -34,14 +42,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY);
+  const logo = data?.logo;
+
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Navbar logo={logo} />
+        {children}
+        <Footer logo={logo} />
+      </body>
     </html>
   );
 }

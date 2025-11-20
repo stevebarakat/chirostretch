@@ -3,10 +3,7 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 
 import styles from "./HeroSlider.module.css";
 
@@ -21,6 +18,12 @@ type HeroSlide = {
     node?: {
       sourceUrl?: string;
       altText?: string;
+      srcSet?: string;
+      sizes?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
+      };
     };
   };
   slideHeading?: string;
@@ -57,12 +60,14 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             <div className={styles.slide}>
               {slide.slideBackgroundImage?.node?.sourceUrl && (
                 <Image
-                  src={slide.slideBackgroundImage.node.sourceUrl}
+                  src={normalizeImageUrl(slide.slideBackgroundImage.node.sourceUrl) || ""}
                   alt={slide.slideBackgroundImage.node.altText || ""}
                   fill
                   priority={index === 0}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  quality={95}
+                  sizes="100vw"
                   className={styles.image}
-                  unoptimized
                 />
               )}
 

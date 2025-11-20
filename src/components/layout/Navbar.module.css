@@ -1,0 +1,85 @@
+.header {
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) 0;
+  gap: var(--spacing-lg);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-decoration: none;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+}
+
+.logoImage {
+  height: auto;
+  width: auto;
+  max-height: 50px;
+  object-fit: contain;
+}
+
+.logoChiro {
+  color: var(--color-neutral-900);
+}
+
+.logoStretch {
+  color: hsl(270, 70%, 55%);
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.navLink {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-base);
+}
+
+.navLink:hover {
+  color: var(--color-primary-600);
+}
+
+.phone {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.phone:hover {
+  color: var(--color-primary-600);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .phone {
+    font-size: var(--font-size-sm);
+  }
+}
+

@@ -1,11 +1,18 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
+import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./WhyUsSection.module.css";
 
 type Benefit = {
   benefitIcon?: {
     sourceUrl?: string;
     altText?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
   };
   benefitTitle?: string;
   benefitDescription?: string;
@@ -17,6 +24,12 @@ type WhyUsSectionProps = {
   whyusImage?: {
     sourceUrl?: string;
     altText?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
   };
   whyusBenefits?: Benefit[];
 };
@@ -46,12 +59,12 @@ export default function WhyUsSection({
                   <li key={index} className={styles.benefit}>
               {benefit.benefitIcon?.sourceUrl && (
                 <Image
-                  src={benefit.benefitIcon.sourceUrl}
+                  src={normalizeImageUrl(benefit.benefitIcon.sourceUrl) || ""}
                   alt={benefit.benefitIcon.altText || ""}
                         width={24}
                         height={24}
+                  quality={90}
                         className={styles.benefitIcon}
-                  unoptimized
                 />
               )}
                     <div className={styles.benefitContent}>
@@ -74,11 +87,12 @@ export default function WhyUsSection({
           {whyusImage?.sourceUrl && (
             <div className={styles.imageWrapper}>
               <Image
-                src={whyusImage.sourceUrl}
+                src={normalizeImageUrl(whyusImage.sourceUrl) || ""}
                 alt={whyusImage.altText || ""}
                 fill
+                quality={90}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className={styles.image}
-                unoptimized
               />
             </div>
           )}

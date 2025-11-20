@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
+import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./AboutSection.module.css";
 
 type AcfLink = {
@@ -15,6 +16,12 @@ type AboutSectionProps = {
   aboutImage?: {
     sourceUrl?: string;
     altText?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
   };
   aboutCtaText?: string;
   aboutCtaLink?: AcfLink;
@@ -57,11 +64,12 @@ export default function AboutSection({
           {aboutImage?.sourceUrl && (
             <div className={styles.imageWrapper}>
               <Image
-                src={aboutImage.sourceUrl}
+                src={normalizeImageUrl(aboutImage.sourceUrl) || ""}
                 alt={aboutImage.altText || ""}
                 fill
+                quality={90}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className={styles.image}
-                unoptimized
               />
             </div>
       )}

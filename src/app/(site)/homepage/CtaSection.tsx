@@ -1,11 +1,18 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./CtaSection.module.css";
 
 type CtaSectionProps = {
   ctaBackgroundImage?: {
     sourceUrl?: string;
     altText?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
   };
   ctaHeading?: string;
   ctaDescription?: string;
@@ -27,11 +34,12 @@ export default function CtaSection({
       {ctaBackgroundImage?.sourceUrl && (
         <div className={styles.imageWrapper}>
         <Image
-          src={ctaBackgroundImage.sourceUrl}
+          src={normalizeImageUrl(ctaBackgroundImage.sourceUrl) || ""}
           alt={ctaBackgroundImage.altText || ""}
             fill
+          quality={90}
+          sizes="100vw"
             className={styles.image}
-          unoptimized
         />
         </div>
       )}

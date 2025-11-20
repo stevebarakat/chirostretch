@@ -26,6 +26,8 @@
 }
 
 .image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -47,7 +49,7 @@
 
 .contentInner {
   max-width: 768px;
-  color: var(--color-text-inverse);
+  color: hsl(0, 0%, 100%);
 }
 
 .heading {
@@ -55,13 +57,15 @@
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
   line-height: var(--line-height-tight);
+  color: hsl(0, 0%, 100%);
 }
 
 .subheading {
   font-size: var(--font-size-xl);
   margin-bottom: var(--spacing-lg);
-  opacity: 0.9;
   line-height: var(--line-height-normal);
+  color: hsl(0, 0%, 100%);
+  opacity: 0.95;
 }
 
 .cta {
@@ -89,4 +93,3 @@
     font-size: var(--font-size-2xl);
   }
 }
-

@@ -23,6 +23,12 @@ export const HOMEPAGE_QUERY = `
               id
               sourceUrl
               altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
             }
           }
         }
@@ -39,6 +45,12 @@ export const HOMEPAGE_QUERY = `
           node {
             sourceUrl
             altText
+            srcSet
+            sizes
+            mediaDetails {
+              width
+              height
+            }
           }
         }
         ... on Event {
@@ -63,6 +75,12 @@ export const HOMEPAGE_QUERY = `
             node {
               sourceUrl
               altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
             }
           }
           slideHeading
@@ -82,6 +100,12 @@ export const HOMEPAGE_QUERY = `
           node {
             sourceUrl
             altText
+            srcSet
+            sizes
+            mediaDetails {
+              width
+              height
+            }
           }
         }
         aboutCtaText
@@ -98,6 +122,12 @@ export const HOMEPAGE_QUERY = `
           node {
             sourceUrl
             altText
+            srcSet
+            sizes
+            mediaDetails {
+              width
+              height
+            }
           }
         }
         whyusBenefits {
@@ -105,6 +135,12 @@ export const HOMEPAGE_QUERY = `
             node {
               sourceUrl
               altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
             }
           }
           benefitTitle
@@ -129,6 +165,12 @@ export const HOMEPAGE_QUERY = `
                     node {
                       sourceUrl
                       altText
+                      srcSet
+                      sizes
+                      mediaDetails {
+                        width
+                        height
+                      }
                     }
                   }
                 }
@@ -156,6 +198,12 @@ export const HOMEPAGE_QUERY = `
           node {
             sourceUrl
             altText
+            srcSet
+            sizes
+            mediaDetails {
+              width
+              height
+            }
           }
         }
         ctaHeading
@@ -178,6 +226,12 @@ type HomepageQueryResponse = {
           id?: string;
           sourceUrl?: string;
           altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
         };
       };
       price?: string;
@@ -214,6 +268,12 @@ type HomepageQueryResponse = {
           node?: {
             sourceUrl?: string;
             altText?: string;
+            srcSet?: string;
+            sizes?: string;
+            mediaDetails?: {
+              width?: number;
+              height?: number;
+            };
           };
         };
         slideHeading?: string;
@@ -233,6 +293,12 @@ type HomepageQueryResponse = {
         node?: {
           sourceUrl?: string;
           altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
         };
       };
       aboutCtaText?: string;
@@ -249,6 +315,12 @@ type HomepageQueryResponse = {
         node?: {
           sourceUrl?: string;
           altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
         };
       };
       whyusBenefits?: Array<{
@@ -256,6 +328,12 @@ type HomepageQueryResponse = {
           node?: {
             sourceUrl?: string;
             altText?: string;
+            srcSet?: string;
+            sizes?: string;
+            mediaDetails?: {
+              width?: number;
+              height?: number;
+            };
           };
         };
         benefitTitle?: string;
@@ -276,6 +354,12 @@ type HomepageQueryResponse = {
               node?: {
                 sourceUrl?: string;
                 altText?: string;
+                srcSet?: string;
+                sizes?: string;
+                mediaDetails?: {
+                  width?: number;
+                  height?: number;
+                };
               };
             };
           }>;
@@ -301,6 +385,12 @@ type HomepageQueryResponse = {
         node?: {
           sourceUrl?: string;
           altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
         };
       };
       ctaHeading?: string;
