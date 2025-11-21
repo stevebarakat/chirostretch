@@ -65,10 +65,18 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <head>
-        <link rel="dns-prefetch" href="http://chirostretch-new.local" />
-        <link rel="dns-prefetch" href="https://chirostretch-new.local" />
-        <link rel="preconnect" href="http://chirostretch-new.local" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://chirostretch-new.local" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="http://chirostretch-copy.local" />
+        <link rel="dns-prefetch" href="https://chirostretch-copy.local" />
+        <link
+          rel="preconnect"
+          href="http://chirostretch-copy.local"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://chirostretch-copy.local"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <Navbar logo={logo} />

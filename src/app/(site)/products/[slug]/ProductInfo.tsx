@@ -1,4 +1,7 @@
+"use client";
+
 import Button from "@components/ui/Button";
+import { useCartStore } from "@/lib/useCartStore";
 import styles from "./ProductInfo.module.css";
 
 type ProductVariation = {
@@ -76,8 +79,11 @@ type ProductInfoProps = {
 };
 
 export default function ProductInfo({ product }: ProductInfoProps) {
-  const isOnSale = product.salePrice && product.salePrice !== product.regularPrice;
-  const displayPrice = product.salePrice || product.price || product.regularPrice;
+  const addToCart = useCartStore((state) => state.addToCart);
+  const isOnSale =
+    product.salePrice && product.salePrice !== product.regularPrice;
+  const displayPrice =
+    product.salePrice || product.price || product.regularPrice;
   const isInStock = product.stockStatus === "IN_STOCK";
   const isVariable = product.__typename === "VariableProduct";
   const isExternal = product.__typename === "ExternalProduct";
@@ -93,15 +99,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
   return (
     <div className={styles.info}>
-      {product.productCategories?.nodes && product.productCategories.nodes.length > 0 && (
-        <div className={styles.categories}>
-          {product.productCategories.nodes.map((category, index) => (
-            <span key={category.id || index} className={styles.category}>
-              {category.name}
-            </span>
-          ))}
-        </div>
-      )}
+      {product.productCategories?.nodes &&
+        product.productCategories.nodes.length > 0 && (
+          <div className={styles.categories}>
+            {product.productCategories.nodes.map((category, index) => (
+              <span key={category.id || index} className={styles.category}>
+                {category.name}
+              </span>
+            ))}
+          </div>
+        )}
 
       <h1 className={styles.title}>{product.name}</h1>
 
@@ -125,9 +132,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             )}
           </div>
         )}
-        {isOnSale && (
-          <span className={styles.saleBadge}>On Sale</span>
-        )}
+        {isOnSale && <span className={styles.saleBadge}>On Sale</span>}
       </div>
 
       {product.sku && (
@@ -146,8 +151,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <div className={styles.attributes}>
           {product.attributes.nodes.map((attr, index) => (
             <div key={attr.id || index} className={styles.attribute}>
-              <strong>{attr.name}:</strong>{" "}
-              {attr.options?.join(", ") || "N/A"}
+              <strong>{attr.name}:</strong> {attr.options?.join(", ") || "N/A"}
             </div>
           ))}
         </div>
@@ -186,6 +190,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             variant="primary"
             className={styles.button}
             disabled={!isInStock}
+            onClick={() => addToCart(product.databaseId!)}
           >
             {isInStock ? "Add to Cart" : "Out of Stock"}
           </Button>
@@ -194,4 +199,3 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     </div>
   );
 }
-

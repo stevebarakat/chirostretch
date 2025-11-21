@@ -289,6 +289,23 @@
           "packages": ["lucide-react"],
           "rationale": "Reduces bundled JS by tree-shaking unused exports from icon libraries and other packages.",
         },
+
+      "urlState":
+        {
+          "preferred": true,
+          "rationale": "URL state management enables shareable links, browser back/forward navigation, bookmarking, and improved SEO. It also reduces client-side state complexity.",
+          "rules":
+            [
+              "Prefer URL search parameters (searchParams) for filter, sort, pagination, and view state when possible.",
+              "Use Next.js useSearchParams() hook for reading URL state in client components.",
+              "Use router.push() or router.replace() with updated query strings for updating URL state.",
+              "For server components, use searchParams prop from page.tsx to read URL state.",
+              "Use URL state for state that should be shareable, bookmarkable, or accessible via direct link.",
+              "Only use client-side state (useState, Zustand) when state is temporary, UI-only, or not meant to be shared.",
+              "Examples suitable for URL state: product filters, search queries, pagination, sort order, selected tabs/views, modal content IDs.",
+              "Examples suitable for client state: form input values before submission, temporary UI toggles, animation states, transient notifications.",
+            ],
+        },
     },
 
   "performance":
