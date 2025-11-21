@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./CtaSection.module.css";
 
 type CtaSectionProps = {
@@ -34,10 +33,10 @@ export default function CtaSection({
       {ctaBackgroundImage?.sourceUrl && (
         <div className={styles.imageWrapper}>
         <Image
-          src={normalizeImageUrl(ctaBackgroundImage.sourceUrl) || ""}
+          src={ctaBackgroundImage.sourceUrl}
           alt={ctaBackgroundImage.altText || ""}
             fill
-          quality={90}
+          quality={75}
           sizes="100vw"
             className={styles.image}
         />

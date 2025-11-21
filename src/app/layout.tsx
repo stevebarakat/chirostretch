@@ -6,23 +6,29 @@ import "@/styles/globals.css";
 import "@/styles/swiper.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { wpQuery } from "@app/lib/wp/graphql";
+import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,
-} from "@app/lib/wp/queries/layout";
+} from "@app/_lib/wp/queries/layout-query";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  preload: true,
 });
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "ChiroStretch",
@@ -47,11 +53,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY);
-  const logo = data?.logo;
+  let logo;
+  try {
+    const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY);
+    logo = data?.logo;
+  } catch (error) {
+    console.warn("Failed to fetch layout data from WordPress:", error);
+    logo = undefined;
+  }
 
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
+      <head>
+        <link rel="dns-prefetch" href="http://chirostretch-new.local" />
+        <link rel="dns-prefetch" href="https://chirostretch-new.local" />
+        <link rel="preconnect" href="http://chirostretch-new.local" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://chirostretch-new.local" crossOrigin="anonymous" />
+      </head>
       <body>
         <Navbar logo={logo} />
         {children}

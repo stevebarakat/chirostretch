@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
-import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./WhyUsSection.module.css";
 
 type Benefit = {
@@ -59,11 +58,11 @@ export default function WhyUsSection({
                   <li key={index} className={styles.benefit}>
               {benefit.benefitIcon?.sourceUrl && (
                 <Image
-                  src={normalizeImageUrl(benefit.benefitIcon.sourceUrl) || ""}
+                  src={benefit.benefitIcon.sourceUrl}
                   alt={benefit.benefitIcon.altText || ""}
                         width={24}
                         height={24}
-                  quality={90}
+                  quality={75}
                         className={styles.benefitIcon}
                 />
               )}
@@ -87,10 +86,10 @@ export default function WhyUsSection({
           {whyusImage?.sourceUrl && (
             <div className={styles.imageWrapper}>
               <Image
-                src={normalizeImageUrl(whyusImage.sourceUrl) || ""}
+                src={whyusImage.sourceUrl}
                 alt={whyusImage.altText || ""}
                 fill
-                quality={90}
+                quality={75}
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className={styles.image}
               />

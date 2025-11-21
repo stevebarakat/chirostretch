@@ -1,371 +1,313 @@
-# ==========================================
-# Cursor Project Rules
-# Headless WordPress + Next.js App Router
-# ChiroStretch Configuration (Slim)
-# ==========================================
+{
+  "project":
+    {
+      "description": "High-performance Headless WordPress → Next.js App Router build. Includes design rules, code generation preferences, caching, ISR, image optimization, WordPress integration, and clean component conventions.",
+    },
 
-project:
-  description: >
-    Fully branded Headless WordPress → Next.js App Router implementation for
-    ChiroStretch. Rules cover design, code style, headless integration,
-    content modeling, and architecture.
+  "styling":
+    {
+      "colors": "hsl",
+      "cssFramework": "css-modules",
+      "respectGlobalStyles": true,
+    },
 
-# ------------------------------------------
-# STYLING
-# ------------------------------------------
-styling:
-  colorFormat: hsl
-  cssFramework: css-modules
-  respectGlobalStyles: true
-  avoid:
-    - tailwindcss
+  "codeGeneration":
+    {
+      "avoidPackages": ["tailwindcss"],
+      "preferredPackages":
+        [
+          "postcss",
+          "autoprefixer",
+          "postcss-preset-env",
+          "stylelint",
+          "stylelint-order",
+          "stylelint-config-standard",
+          "zustand",
+          "zod",
+          "react-hook-form",
+          "date-fns",
+        ],
+    },
 
-# ------------------------------------------
-# CODE GENERATION
-# ------------------------------------------
-codeGeneration:
-  preferredPackages:
-    - postcss
-    - autoprefixer
-    - postcss-preset-env
-    - stylelint
-    - stylelint-order
-    - stylelint-config-standard
-    - react-router-dom
-    - zustand
-    - zod
+  "documentation": { "includeComments": false },
 
-documentation:
-  includeComments: false
+  "typescript": { "preferTypes": true, "preferFunctionDeclarations": true },
 
-# ------------------------------------------
-# TYPESCRIPT
-# ------------------------------------------
-typescript:
-  preferTypes: true
-  preferFunctionDeclarations: true
+  "react":
+    {
+      "preferComponentProps": true,
+      "preferEventHandlers": true,
+      "useEffectGuidelines": "useEffect should only synchronize with external systems (APIs, observers, Web Audio API). Avoid using useEffect for UI event logic.",
+      "useEffectDependencies": "One concern per useEffect. Split effects if dependencies represent unrelated concerns. Use useMemo/useCallback where appropriate.",
+    },
 
-# ------------------------------------------
-# REACT RULES
-# ------------------------------------------
-react:
-  preferComponentProps: true
-  preferEventHandlers: true
+  "ui":
+    {
+      "iconLibrary": "lucide",
+      "componentNaming":
+        {
+          "guidelines": "UI components must be clear, descriptive, and meaningful. Avoid generic names like Box, Widget, Wrapper. Prefer names that reflect purpose, such as ProductCard, EventCard, FormSection, HeroBanner.",
+        },
+    },
 
-  useEffect:
-    guideline: >
-      useEffect is for syncing with external systems (APIs, Web Audio, etc.),
-      not for basic UI event handling.
-    dependencies: >
-      One concern per effect. Split large or mixed-responsibility effects into
-      smaller ones.
+  "programming":
+    {
+      "paradigm": "functional",
+      "preferImmutability": true,
+      "preferPureFunctions": true,
+      "avoidSideEffects": true,
+    },
 
-# ------------------------------------------
-# WORDPRESS (HEADLESS)
-# ------------------------------------------
-wordpress:
-  mode: headless
+  "principles":
+    {
+      "singleResponsibility":
+        {
+          "enforceComponentSeparation": true,
+          "maxComponentLines": 200,
+          "maxFunctionLines": 50,
+          "preferPureFunctions": true,
+        },
+    },
 
-  preferredPackages:
-    - wp-graphql
-    - wp-graphql-gravity-forms
-    - wp-graphql-acf
-    - wp-graphql-stripe
-    - wp-graphql-jwt-auth
-    - wp-graphql-blocks
+  "structure":
+    {
+      "colocateFiles": true,
+      "colocationDescription": "Place related files (component, styles, hooks, utils, types, Zustand stores, etc.) into the same directory.",
+      "indexFileForComponents": true,
+      "indexFileDescription": "Each component folder should include an index.ts with a clean export for consistent imports.",
+    },
 
-  media:
-    conventions:
-      folderStructure:
-        - chirostretch/images
-        - chirostretch/products
-        - chirostretch/events
-        - chirostretch/blog
-      namingGuidelines: kebab-case
+  "wordpress":
+    {
+      "mode": "headless",
 
-  contentEditing:
-    useBlockEditor: true
-    rationale: >
-      Use Gutenberg for all structured content to leverage wp-graphql-blocks
-      and block-level data instead of classic HTML blobs.
+      "preferredPackages":
+        [
+          "wp-graphql",
+          "wp-graphql-gravity-forms",
+          "wp-graphql-acf",
+          "wp-graphql-jwt-auth",
+          "wp-graphql-stripe",
+          "wp-graphql-blocks",
+        ],
 
-    conversionGuidelines:
-      pages: >
-        Convert Pages to blocks. Page layouts map cleanly to React components
-        and benefit most from structured block data.
-      posts: >
-        Posts may remain classic unless block-level structure is needed.
-      products: >
-        WooCommerce descriptions can remain simple; block structure is optional.
+      "media":
+        {
+          "provider": "wordpress",
+          "rationale": "Use WordPress media with Next.js built-in image optimization. Do not use Cloudinary or custom loaders unless explicitly requested.",
+          "rules":
+            [
+              "Always use WordPress sourceUrl exactly as provided.",
+              "Never strip domains from media URLs.",
+              "Never rewrite URLs to Cloudinary automatically.",
+              "Always pass full WordPress URLs directly to <Image>.",
+              "Never use normalizeImageUrl() or any URL normalization functions.",
+              "Pass sourceUrl values directly without modification.",
+            ],
+        },
 
-    headlessIntegration:
-      renderStrategy: component-map
-      description: >
-        Map each Gutenberg block type to a React component
-        (core/paragraph → ParagraphBlock, core/image → ImageBlock, etc.)
-        for consistent, predictable rendering.
+      "contentEditing":
+        {
+          "useBlockEditor": true,
+          "rationale": "Pages should use Gutenberg blocks so they can be mapped to React components using wp-graphql-blocks.",
+          "conversionGuidelines":
+            {
+              "pages": "Convert Pages to blocks for structured headless rendering.",
+              "posts": "Posts may remain classic if structure is not required.",
+              "products": "WooCommerce product descriptions do not require block conversion.",
+            },
+          "headlessIntegration":
+            {
+              "renderStrategy": "component-map",
+              "description": "Each Gutenberg block maps to a corresponding React component (e.g., core/paragraph → ParagraphBlock, core/image → ImageBlock).",
+            },
+        },
 
-  customPostTypes:
-    - events
-    - registrations
+      "customPostTypes": ["events", "registrations"],
+      "customTaxonomies": ["event-category", "event-tag", "event-location"],
 
-  customTaxonomies:
-    - event-category
-    - event-tag
-    - event-location
+      "preview":
+        {
+          "enable": true,
+          "route": "/api/preview",
+          "exitRoute": "/api/exit-preview",
+          "secret": "use-environment-variable",
+          "supportDraft": true,
+          "supportRevisions": true,
+        },
+    },
 
-  customFields:
-    - event-featured-image
-    - event-start-date
-    - event-end-date
-    - event-location
-    - event-capacity
-    - event-current-registrations
-    - event-status
+  "nextjs":
+    {
+      "style": "app-router",
 
-  preview:
-    enable: true
-    route: /api/preview
-    secret: use-environment-variable
-    exitRoute: /api/exit-preview
-    tokenExpiration: 3600
-    supportDraft: true
-    supportRevisions: true
+      "imageOptimization":
+        {
+          "strategy": "nextjs-built-in",
+          "rationale": "Use Next.js native image optimization for all WordPress media. Ensures WebP/AVIF conversion, resizing, and proper LCP behavior.",
+          "remotePatterns":
+            [
+              {
+                "protocol": "http",
+                "hostname": "localhost",
+                "pathname": "/wp-content/uploads/**",
+              },
+              {
+                "protocol": "http",
+                "hostname": "127.0.0.1",
+                "pathname": "/wp-content/uploads/**",
+              },
+            ],
+          "rules":
+            [
+              "Always use <Image> from next/image.",
+              "Pass WordPress sourceUrl values directly without any normalization or transformation.",
+              "Never use normalizeImageUrl() or similar URL manipulation functions.",
+              "Avoid custom loaders unless explicitly requested.",
+              "Provide width/height or use fill + sizes.",
+              "The first visible image on any page must always have priority={true} and fetchPriority='high'.",
+              "Hero images and above-the-fold images must use priority={true} and fetchPriority='high'.",
+              "Below-the-fold images should not use priority.",
+            ],
+        },
 
-  redirects:
-    handleInternalLinks: true
-    redirectWordPressPermalinks: true
-    redirectToNextJsRoutes: true
-    strategy: middleware
-    preserveQueryParams: true
-    statusCode: 307
-    excludedPaths:
-      - /wp-admin
-      - /wp-content
-      - /wp-includes
+      "caching":
+        {
+          "useISR": true,
+          "defaultRevalidate": 300,
+          "rule": "All pages should use ISR unless intentionally dynamic.",
+        },
 
-# ------------------------------------------
-# NEXT.JS RULES
-# ------------------------------------------
-nextjs:
-  style: app-router
+      "dataFetching":
+        {
+          "guidelines":
+            [
+              "Use fetch with { next: { revalidate } } for WordPress data.",
+              "Avoid dynamic server rendering unless required.",
+              "Avoid cache: 'no-store' unless explicitly needed.",
+              "Queries must be minimal and only return fields used in the component.",
+            ],
+        },
 
-  preferredPackages:
-    - next
-    - zustand
-    - zod
-    - stripe
-    - react-hook-form
-    - date-fns
-    - lucide-react
+      "serverComponents":
+        {
+          "useServerComponents": true,
+          "rationale": "Use server components to reduce client bundle size and improve performance.",
+          "rules":
+            [
+              "If a component has no event listeners, uses no state, uses no effects, and just displays content, it must be a server component.",
+              "Only use 'use client' when absolutely necessary (interactivity, hooks, browser APIs).",
+              "Never fetch data in client components unless absolutely required.",
+              "Move all WordPress queries to server components.",
+            ],
+        },
 
-  revalidation:
-    onDemand: true
-    strategy: isr
-    route: /api/revalidate
-    secret: use-environment-variable
-    revalidateOnContentUpdate: true
-    revalidateOnPublish: true
-    revalidateOnUnpublish: true
+      "dynamicImports":
+        {
+          "enabled": true,
+          "rationale": "Use dynamic imports for below-the-fold sections to reduce initial bundle size and improve hydration time.",
+          "rules":
+            [
+              "All sections below the fold must use dynamic imports with next/dynamic.",
+              "Critical above-the-fold sections (hero, first content section) should be statically imported.",
+              "Use dynamic imports for: Swiper sliders, complex marketing blocks, calendar sections, product carousels, animation-heavy components.",
+              "Always set ssr: true for dynamic imports to maintain SEO and initial render.",
+            ],
+        },
 
-# ------------------------------------------
-# UI RULES
-# ------------------------------------------
-ui:
-  iconLibrary: lucide
+      "optimizePackageImports":
+        {
+          "enabled": true,
+          "packages": ["lucide-react"],
+          "rationale": "Reduces bundled JS by tree-shaking unused exports from icon libraries and other packages.",
+        },
+    },
 
-# ------------------------------------------
-# PROGRAMMING PARADIGM
-# ------------------------------------------
-programming:
-  paradigm: functional
-  preferImmutability: true
-  preferPureFunctions: true
-  avoidSideEffects: true
+  "performance":
+    {
+      "lcp":
+        {
+          "priority": "critical",
+          "rules":
+            [
+              "First visible image must have priority={true} and fetchPriority='high'.",
+              "Hero sections should not exceed 60vh in height.",
+              "Avoid enormous source images (3000px+) - Next.js handles resizing but large sources slow initial load.",
+            ],
+        },
 
-# ------------------------------------------
-# STRUCTURE & ORGANIZATION
-# ------------------------------------------
-structure:
-  colocateFiles: true
-  colocationDescription: >
-    Colocate components, styles, hooks, stores, and utilities by feature/domain.
-  indexFileForComponents: true
-  indexFileDescription: >
-    Export components via index.ts for clean import paths.
+      "fonts":
+        {
+          "optimization":
+            {
+              "maxWeights": 3,
+              "rules":
+                [
+                  "Use next/font/google for all Google Fonts.",
+                  "Always set display: 'swap' for font loading.",
+                  "Load only 2-3 font weights maximum per font family.",
+                  "Prefer weight: ['400', '600', '700'] over loading 4+ weights.",
+                  "Set preload: true for critical fonts only.",
+                ],
+            },
+        },
 
-# ------------------------------------------
-# SINGLE RESPONSIBILITY PRINCIPLES
-# ------------------------------------------
-principles:
-  singleResponsibility:
-    enforceComponentSeparation: true
-    maxComponentLines: 200
-    maxFunctionLines: 50
-    preferPureFunctions: true
+      "swiper":
+        {
+          "optimization":
+            {
+              "rules":
+                [
+                  "Always use effect='fade' for fastest performance.",
+                  "Next.js Image component automatically lazy-loads non-priority images, so no Swiper-specific lazy loading needed.",
+                  "Only use loop={true} when slides.length > 1, otherwise set loop={false}.",
+                  "Never use loop={true} with many slides (10+) as it duplicates DOM.",
+                  "First slide image must have priority={true} and fetchPriority='high'.",
+                  "Subsequent slide images should not use priority (Next.js handles lazy loading automatically).",
+                ],
+            },
+        },
 
-# ------------------------------------------
-# TESTING STRATEGY
-# ------------------------------------------
-testing:
-  focusOnBehavior: true
-  avoidImplementationDetails: true
+      "css":
+        {
+          "optimization":
+            {
+              "rules":
+                [
+                  "Avoid 100vh - use 60vh for hero sections or container-based heights.",
+                  "Add contain: layout paint size; to all animation-heavy elements.",
+                  "Don't animate expensive properties (width, height, top, left). Prefer transform and opacity.",
+                  "If a section contains only static text + image, use no motion and no JS.",
+                  "Prefer fade-only transitions over complex animations.",
+                ],
+            },
+        },
 
-  layeredStrategy:
-    unitTests:
-      ui: >
-        Use React Testing Library for component behavior. Assert rendered output
-        and interactions, not internal implementation details.
-      utilities: >
-        Test utility functions directly with representative inputs.
-    integrationTests:
-      headlessFlows: >
-        Test end-to-end flows: WordPress content → WPGraphQL → Next.js page
-        rendering, including ISR revalidation behavior.
+      "bundleSize":
+        {
+          "rules":
+            [
+              "Remove unused imports automatically.",
+              "Avoid client components unless necessary.",
+              "Use dynamic imports for non-critical sections.",
+              "Enable optimizePackageImports in next.config.ts for icon libraries.",
+              "Warn when a dependency would significantly inflate bundle size.",
+            ],
+        },
+    },
 
-# ===================================================
-# CHIROSTRETCH — BRANDING & DOMAIN MODEL (SLIM)
-# ===================================================
-
-chirostretch:
-  brand:
-    name: ChiroStretch
-    tagline: "Global Mobility. Smarter Movement. Better Living."
-    description: >
-      Fictional global chiropractic wellness network used to demonstrate modern,
-      high-performance Headless WordPress + Next.js builds, with an emphasis on
-      mobility, assisted stretching, and spinal longevity.
-    tone: >
-      Confident, global, modern, health-forward. Avoid “local clinic” vibes and
-      exaggerated medical claims.
-    voiceGuidelines:
-      - Use strong, concise statements.
-      - Emphasize mobility science and global reach.
-      - Prefer clarity over hype.
-
-  domainModel:
-    siteSections:
-      - home
-      - about
-      - blog
-      - events
-      - training-and-certification
-      - wellness-equipment-shop
-      - franchise-opportunities
-      - global-clinic-locations
-      - webinars
-      - partners
-      - contact
-
-    contentTypes:
-      blogPosts:
-        themes:
-          - mobility science
-          - spinal longevity
-          - global wellness
-          - posture and ergonomics
-          - assisted stretching
-          - rehabilitation tools
-          - chiropractic education
-
-      events:
-        description: >
-          Includes workshops, certifications, conferences, and virtual/in-person
-          mobility training.
-        properties:
-          - title
-          - event-start-date
-          - event-end-date
-          - event-location
-          - event-capacity
-          - event-status
-          - event-featured-image
-        defaultStatusWorkflow:
-          - scheduled
-          - registration-open
-          - sold-out
-          - completed
-          - archived
-        namingConvention: "City + Event Type (e.g., 'Berlin Mobility Summit')"
-
-      products:
-        categories:
-          - Mobility Tools
-          - Rehabilitation Accessories
-          - Chiropractic Equipment
-          - Resistance Bands
-          - Recovery Rollers
-          - Ergonomics & Posture Support
-        productTone: >
-          Focus on biomechanics, usefulness, durability, and integration with
-          assisted stretching protocols.
-
-      training:
-        courseTypes:
-          - Certified Mobility Specialist (CMS)
-          - Assisted Stretching Level 1
-          - Assisted Stretching Level 2
-          - Global Chiropractic Techniques
-        courseProperties:
-          - title
-          - certification-level
-          - duration
-          - syllabus
-          - outcomes
-          - exam-requirements
-
-      franchise:
-        messagingPillars:
-          - Standardized clinical systems
-          - Global operational support
-          - Efficient practitioner onboarding
-          - Scalable mobility training platform
-
-    componentNaming:
-      guidelines: >
-        Components should be domain-aware and descriptive (e.g., EventCard,
-        TrainingCourseOutline, MobilityToolSpecs). Avoid vague names like
-        Widget, Box, or MainComponent.
-
-    seo:
-      primaryKeywords:
-        - chiropractic wellness
-        - global mobility training
-        - assisted stretching
-        - spinal longevity
-        - rehabilitation tools
-        - chiropractic education
-        - mobility certification
-      metaDescriptionGuideline: >
-        140–160 characters, global tone, emphasizing wellness, mobility, and
-        evidence-based training.
-
-    navigation:
-      globalNav:
-        - Home
-        - Training & Certification
-        - Events
-        - Wellness Equipment Shop
-        - Franchise Opportunities
-        - Blog
-        - Contact
-
-    imageryGuidelines:
-      themes:
-        - global maps and networks
-        - dynamic movement poses
-        - modern clinic aesthetics
-        - diverse human models in motion
-      avoid:
-        - cliché chiropractor “spine holding” imagery
-        - hyper-medical or outdated stock photos
-
-    callToActions:
-      primary:
-        - Join a Global Event
-        - Explore Certification
-        - Shop Mobility Tools
-        - Become a Franchise Partner
-        - Read the Wellness Blog
-      tone: >
-        Empowering, global, movement-forward. Not pushy or aggressive.
+  "utilities":
+    {
+      "normalizeImageUrl":
+        {
+          "deprecated": true,
+          "description": "This function is deprecated and must never be used. WordPress sourceUrl values must be passed directly to Next.js Image components without any normalization or transformation.",
+          "rules":
+            [
+              "Do not import or use normalizeImageUrl() anywhere in the codebase.",
+              "Always pass sourceUrl values directly to <Image> components.",
+              "Next.js native image optimization handles all URL processing automatically.",
+            ],
+        },
+    },
+}

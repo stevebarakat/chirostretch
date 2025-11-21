@@ -1,32 +1,61 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
+
   images: {
     remotePatterns: [
+      // Local WordPress (HTTP)
       {
         protocol: "http",
         hostname: "chirostretch-new.local",
+        pathname: "/wp-content/uploads/**",
       },
+      // Local WordPress (HTTPS)
       {
         protocol: "https",
         hostname: "chirostretch-new.local",
+        pathname: "/wp-content/uploads/**",
       },
+
+      // Localhost
       {
         protocol: "http",
         hostname: "localhost",
+        pathname: "/wp-content/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "localhost",
+        pathname: "/wp-content/uploads/**",
+      },
+
+      // 127.0.0.1
       {
         protocol: "http",
         hostname: "127.0.0.1",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "127.0.0.1",
+        pathname: "/wp-content/uploads/**",
       },
     ],
+
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000,
+    minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowLocalIP: true,
-    qualities: [75, 90, 95],
   },
+
   async headers() {
     return [
       {
@@ -40,6 +69,15 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
         headers: [
           {
             key: "Cache-Control",

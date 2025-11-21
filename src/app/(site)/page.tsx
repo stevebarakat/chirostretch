@@ -1,17 +1,37 @@
-import { wpQuery } from "@app/lib/wp/graphql";
+import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   HOMEPAGE_QUERY,
   type HomepageQueryResponse,
-} from "@app/lib/wp/queries/homepage";
+} from "@app/_lib/wp/queries/homepage";
+import dynamic from "next/dynamic";
 
-// Page-specific sections
+// Critical above-the-fold sections (server-rendered)
 import HeroSlider from "./homepage/HeroSlider";
 import AboutSection from "./homepage/AboutSection";
-import WhyUsSection from "./homepage/WhyUsSection";
-import FeaturedProducts from "./homepage/FeaturedProducts";
-import UpcomingEvents from "./homepage/UpcomingEvents";
-import LatestInsights from "./homepage/LatestInsights";
-import CtaSection from "./homepage/CtaSection";
+
+// Below-the-fold sections (dynamically imported for code splitting)
+const WhyUsSection = dynamic(() => import("./homepage/WhyUsSection"), {
+  ssr: true,
+});
+
+const FeaturedProducts = dynamic(
+  () => import("./homepage/FeaturedProducts"),
+  {
+    ssr: true,
+  }
+);
+
+const UpcomingEvents = dynamic(() => import("./homepage/UpcomingEvents"), {
+  ssr: true,
+});
+
+const LatestInsights = dynamic(() => import("./homepage/LatestInsights"), {
+  ssr: true,
+});
+
+const CtaSection = dynamic(() => import("./homepage/CtaSection"), {
+  ssr: true,
+});
 
 export default async function HomePage() {
   const data = await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY);

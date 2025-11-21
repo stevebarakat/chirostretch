@@ -3,7 +3,6 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 import styles from "./FeaturedProducts.module.css";
 
 type Product = {
@@ -136,10 +135,10 @@ export default function FeaturedProducts({
                   {imageUrl ? (
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={normalizeImageUrl(imageUrl) || ""}
+                        src={imageUrl}
                         alt={imageAlt}
                         fill
-                        quality={90}
+                        quality={75}
                         sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                         className={styles.image}
                       />

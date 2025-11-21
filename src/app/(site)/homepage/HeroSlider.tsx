@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
-import { normalizeImageUrl } from "@/lib/utils/normalizeImageUrl";
 
 import styles from "./HeroSlider.module.css";
 
@@ -18,12 +17,6 @@ type HeroSlide = {
     node?: {
       sourceUrl?: string;
       altText?: string;
-      srcSet?: string;
-      sizes?: string;
-      mediaDetails?: {
-        width?: number;
-        height?: number;
-      };
     };
   };
   slideHeading?: string;
@@ -45,63 +38,69 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         modules={[Pagination, Autoplay, EffectFade]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
-        loop
+        loop={slides.length > 1}
         speed={600}
         autoplay={{ delay: 4500, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         className={styles.swiper}
       >
-        {slides.map((slide, index) => (
-          <SwiperSlide
-            key={`slide-${index}-${
-              slide.slideBackgroundImage?.node?.sourceUrl || ""
-            }`}
-          >
-            <div className={styles.slide}>
-              {slide.slideBackgroundImage?.node?.sourceUrl && (
-                <Image
-                  src={normalizeImageUrl(slide.slideBackgroundImage.node.sourceUrl) || ""}
-                  alt={slide.slideBackgroundImage.node.altText || ""}
-                  fill
-                  priority={index === 0}
-                  fetchPriority={index === 0 ? "high" : "auto"}
-                  quality={95}
-                  sizes="100vw"
-                  className={styles.image}
-                />
-              )}
+        {slides.map((slide, index) => {
+          const imageUrl = slide.slideBackgroundImage?.node?.sourceUrl;
+          const imageAlt =
+            slide.slideBackgroundImage?.node?.altText || "Slide background";
 
-              <div className={styles.overlay} />
+          return (
+            <SwiperSlide key={`slide-${index}-${imageUrl || "no-img"}`}>
+              <div className={styles.slide}>
+                {imageUrl && (
+                  <Image
+                    src={imageUrl}
+                    alt={imageAlt}
+                    fill
+                    sizes="100vw"
+                    /* Optimal LCP behavior */
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    /* Slightly higher quality for hero clarity */
+                    quality={75}
+                    className={styles.image}
+                  />
+                )}
 
-              <div className={styles.content}>
-                <div className={styles.contentInner}>
-                  {slide.slideHeading && (
-                    <h1 className={styles.heading}>{slide.slideHeading}</h1>
-                  )}
+                <div className={styles.overlay} />
 
-                  {slide.slideSubheading && (
-                    <p className={styles.subheading}>{slide.slideSubheading}</p>
-                  )}
+                <div className={styles.content}>
+                  <div className={styles.contentInner}>
+                    {slide.slideHeading && (
+                      <h1 className={styles.heading}>{slide.slideHeading}</h1>
+                    )}
 
-                  {slide.slideCtaText && slide.slideCtaLink?.url && (
-                    <a
-                      href={slide.slideCtaLink.url}
-                      target={slide.slideCtaLink.target || undefined}
-                      rel={
-                        slide.slideCtaLink.target === "_blank"
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
-                      className={styles.cta}
-                    >
-                      {slide.slideCtaText}
-                    </a>
-                  )}
+                    {slide.slideSubheading && (
+                      <p className={styles.subheading}>
+                        {slide.slideSubheading}
+                      </p>
+                    )}
+
+                    {slide.slideCtaText && slide.slideCtaLink?.url && (
+                      <a
+                        href={slide.slideCtaLink.url}
+                        target={slide.slideCtaLink.target || undefined}
+                        rel={
+                          slide.slideCtaLink.target === "_blank"
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        className={styles.cta}
+                      >
+                        {slide.slideCtaText}
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </section>
   );
