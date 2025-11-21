@@ -167,6 +167,11 @@
   font-size: var(--font-size-base);
 }
 
+.viewCartButton {
+  text-decoration: none;
+  display: inline-block;
+}
+
 .metadata {
   display: flex;
   flex-direction: column;

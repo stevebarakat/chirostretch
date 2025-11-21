@@ -5,23 +5,46 @@ const WORDPRESS_URL =
 
 type CartItem = {
   key: string;
-  productId: number;
+  id?: number;
+  productId?: number;
   quantity: number;
   name: string;
-  price: string;
+  price?: string;
+  prices?: {
+    price?: string;
+    regular_price?: string;
+    sale_price?: string;
+  };
+  totals?: {
+    line_subtotal?: string;
+    line_total?: string;
+  };
 };
 
 type CartState = {
   items: CartItem[];
   itemsCount: number;
+  totals: {
+    total_price: string;
+    total_items: string;
+    total_items_tax: string;
+    total_fees: string;
+    total_discount: string;
+    total_shipping: string;
+    total_tax: string;
+    total_price_display: string;
+  } | null;
   loading: boolean;
   addToCart: (productId: number, quantity?: number) => Promise<void>;
+  updateCartItem: (key: string, quantity: number) => Promise<void>;
+  removeCartItem: (key: string) => Promise<void>;
   fetchCart: () => Promise<void>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
   items: [],
   itemsCount: 0,
+  totals: null,
   loading: false,
 
   fetchCart: async () => {
@@ -38,11 +61,26 @@ export const useCartStore = create<CartState>((set, get) => ({
 
       const data = await res.json();
 
-      set({
-        items: data.items || [],
-        itemsCount: data.items_count || 0,
-        loading: false,
-      });
+      console.log("Cart data received:", data);
+      console.log("Cart items:", data.items);
+      if (data.items && data.items.length > 0) {
+        console.log("First item structure:", data.items[0]);
+      }
+      console.log("Items count:", data.items_count);
+
+      const currentState = get();
+      const newItems = data.items || [];
+
+      if (newItems.length > 0 || currentState.items.length === 0) {
+        set({
+          items: newItems,
+          itemsCount: data.items_count || newItems.length || 0,
+          totals: data.totals || null,
+          loading: false,
+        });
+      } else {
+        set({ loading: false });
+      }
     } catch (error) {
       console.error("Error fetching cart:", error);
       set({ loading: false });
@@ -73,14 +111,120 @@ export const useCartStore = create<CartState>((set, get) => ({
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
+        console.error("Add to cart API error:", res.status, res.statusText, errorData);
         throw new Error(
           `Failed to add to cart: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
         );
       }
 
-      await get().fetchCart();
+      const addItemData = await res.json();
+      console.log("Add to cart response:", addItemData);
+
+      if (addItemData.items && Array.isArray(addItemData.items)) {
+        set({
+          items: addItemData.items || [],
+          itemsCount: addItemData.items_count || addItemData.items?.length || 0,
+          totals: addItemData.totals || null,
+          loading: false,
+        });
+      } else {
+        await get().fetchCart();
+      }
     } catch (error) {
       console.error("Error adding to cart:", error);
+      set({ loading: false });
+      throw error;
+    }
+  },
+
+  updateCartItem: async (key: string, quantity: number) => {
+    if (!key || quantity < 1) {
+      console.error("Cannot update cart item: key and quantity (>=1) are required");
+      return;
+    }
+
+    set({ loading: true });
+
+    try {
+      const res = await fetch(
+        `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/update-item`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            key,
+            quantity,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(
+          `Failed to update cart item: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
+        );
+      }
+
+      const updateData = await res.json();
+      if (updateData.items && Array.isArray(updateData.items)) {
+        set({
+          items: updateData.items || [],
+          itemsCount: updateData.items_count || updateData.items?.length || 0,
+          totals: updateData.totals || null,
+          loading: false,
+        });
+      } else {
+        await get().fetchCart();
+      }
+    } catch (error) {
+      console.error("Error updating cart item:", error);
+      set({ loading: false });
+      throw error;
+    }
+  },
+
+  removeCartItem: async (key: string) => {
+    if (!key) {
+      console.error("Cannot remove cart item: key is required");
+      return;
+    }
+
+    set({ loading: true });
+
+    try {
+      const res = await fetch(
+        `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/remove-item`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            key,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(
+          `Failed to remove cart item: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
+        );
+      }
+
+      const removeData = await res.json();
+      if (removeData.items && Array.isArray(removeData.items)) {
+        set({
+          items: removeData.items || [],
+          itemsCount: removeData.items_count || removeData.items?.length || 0,
+          totals: removeData.totals || null,
+          loading: false,
+        });
+      } else {
+        await get().fetchCart();
+      }
+    } catch (error) {
+      console.error("Error removing cart item:", error);
       set({ loading: false });
       throw error;
     }

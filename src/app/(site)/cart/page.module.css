@@ -1,0 +1,235 @@
+.cartPage {
+  padding: var(--spacing-xl) 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  gap: var(--spacing-md);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.refreshButton {
+  flex-shrink: 0;
+}
+
+.loading {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-secondary);
+}
+
+.emptyCart {
+  text-align: center;
+  padding: var(--spacing-2xl);
+}
+
+.emptyCart p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cartContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+.cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.cartItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-primary);
+}
+
+.itemInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.itemName {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  flex: 1;
+}
+
+.itemPrice {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.itemActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.quantityLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  min-width: 80px;
+}
+
+.quantityInput {
+  width: 100px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  text-align: center;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.quantityInput:focus {
+  outline: none;
+  border-color: var(--color-primary-600);
+}
+
+.quantityInput:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.itemSubtotal {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.removeButton {
+  align-self: flex-start;
+}
+
+.cartSummary {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-secondary);
+  height: fit-content;
+}
+
+.summaryTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-lg) 0;
+  color: var(--color-text-primary);
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.totalRowFinal {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.discount {
+  color: var(--color-success);
+}
+
+.totalAmount {
+  color: var(--color-primary-600);
+}
+
+.checkoutActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.checkoutLink {
+  text-decoration: none;
+  display: block;
+}
+
+.checkoutButton {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .cartContent {
+    grid-template-columns: 1fr 400px;
+  }
+
+  .cartItem {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .itemInfo {
+    flex: 1;
+  }
+
+  .itemActions {
+    flex-direction: row;
+    align-items: center;
+    border-top: none;
+    border-left: 1px solid var(--color-border);
+    padding-top: 0;
+    padding-left: var(--spacing-lg);
+    gap: var(--spacing-lg);
+  }
+
+  .quantityControl {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .quantityLabel {
+    min-width: auto;
+  }
+
+  .removeButton {
+    align-self: center;
+  }
+}
+

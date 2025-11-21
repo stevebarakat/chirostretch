@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Button from "@components/ui/Button";
 import { useCartStore } from "@/lib/useCartStore";
 import styles from "./ProductInfo.module.css";
@@ -208,6 +209,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 ? "Add to Cart"
                 : "Out of Stock"}
             </Button>
+            <Link href="/cart" className={styles.viewCartButton}>
+              <Button variant="secondary">View Cart</Button>
+            </Link>
           </>
         )}
       </div>
