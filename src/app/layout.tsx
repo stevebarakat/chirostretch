@@ -6,6 +6,8 @@ import "@/styles/globals.css";
 import "@/styles/swiper.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { CartProvider } from "@/components/cart";
+import { getServerCart } from "@/lib/woocommerce/getServerCart";
 import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   LAYOUT_QUERY,
@@ -64,6 +66,8 @@ export default async function RootLayout({
     logo = undefined;
   }
 
+  const cart = await getServerCart();
+
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <head>
@@ -71,9 +75,11 @@ export default async function RootLayout({
         <link rel="preconnect" href={WORDPRESS_URL} crossOrigin="anonymous" />
       </head>
       <body>
-        <Navbar logo={logo} />
-        {children}
-        <Footer logo={logo} />
+        <CartProvider initialCart={cart}>
+          <Navbar logo={logo} />
+          {children}
+          <Footer logo={logo} />
+        </CartProvider>
       </body>
     </html>
   );

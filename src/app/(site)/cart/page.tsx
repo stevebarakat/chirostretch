@@ -4,13 +4,22 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Container from "@components/ui/Container";
 import Button from "@components/ui/Button";
-import { useCartStore } from "@/lib/useCartStore";
+import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import styles from "./page.module.css";
 
 export default function CartPage() {
-  const { items, itemsCount, totals, loading, fetchCart, updateCartItem, removeCartItem } =
-    useCartStore();
-  const [localQuantities, setLocalQuantities] = useState<Record<string, number>>({});
+  const {
+    items,
+    itemsCount,
+    totals,
+    loading,
+    fetchCart,
+    updateCartItem,
+    removeCartItem,
+  } = useCartStore();
+  const [localQuantities, setLocalQuantities] = useState<
+    Record<string, number>
+  >({});
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -127,8 +136,15 @@ export default function CartPage() {
         <div className={styles.cartContent}>
           <div className={styles.cartItems}>
             {items.map((item) => {
-              const itemPrice = item.price || (item as any).prices?.price || (item as any).totals?.line_subtotal || "0";
-              const priceStr = typeof itemPrice === "string" ? itemPrice : itemPrice.toString();
+              const itemPrice =
+                item.price ||
+                (item as any).prices?.price ||
+                (item as any).totals?.line_subtotal ||
+                "0";
+              const priceStr =
+                typeof itemPrice === "string"
+                  ? itemPrice
+                  : itemPrice.toString();
               const cleaned = priceStr.replace(/[^0-9.]/g, "");
               let itemPriceNum = parseFloat(cleaned);
 
@@ -141,46 +157,54 @@ export default function CartPage() {
               const subtotal = itemPriceNum * item.quantity;
 
               return (
-              <div key={item.key} className={styles.cartItem}>
-                <div className={styles.itemInfo}>
-                  <h3 className={styles.itemName}>{item.name}</h3>
-                  <div className={styles.itemPrice}>{formatPrice(itemPrice)}</div>
-                </div>
+                <div key={item.key} className={styles.cartItem}>
+                  <div className={styles.itemInfo}>
+                    <h3 className={styles.itemName}>{item.name}</h3>
+                    <div className={styles.itemPrice}>
+                      {formatPrice(itemPrice)}
+                    </div>
+                  </div>
 
-                <div className={styles.itemActions}>
-                  <div className={styles.quantityControl}>
-                    <label htmlFor={`quantity-${item.key}`} className={styles.quantityLabel}>
-                      Quantity
-                    </label>
-                    <input
-                      id={`quantity-${item.key}`}
-                      type="number"
-                      min="1"
-                      value={localQuantities[item.key] || item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(item.key, parseInt(e.target.value, 10))
-                      }
-                      onBlur={() => handleUpdateQuantity(item.key)}
-                      className={styles.quantityInput}
+                  <div className={styles.itemActions}>
+                    <div className={styles.quantityControl}>
+                      <label
+                        htmlFor={`quantity-${item.key}`}
+                        className={styles.quantityLabel}
+                      >
+                        Quantity
+                      </label>
+                      <input
+                        id={`quantity-${item.key}`}
+                        type="number"
+                        min="1"
+                        value={localQuantities[item.key] || item.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            item.key,
+                            parseInt(e.target.value, 10)
+                          )
+                        }
+                        onBlur={() => handleUpdateQuantity(item.key)}
+                        className={styles.quantityInput}
+                        disabled={loading}
+                      />
+                    </div>
+
+                    <div className={styles.itemSubtotal}>
+                      {formatPrice(subtotal)}
+                    </div>
+
+                    <Button
+                      variant="secondary"
+                      onClick={() => handleRemoveItem(item.key)}
                       disabled={loading}
-                    />
+                      className={styles.removeButton}
+                    >
+                      Remove
+                    </Button>
                   </div>
-
-                  <div className={styles.itemSubtotal}>
-                    {formatPrice(subtotal)}
-                  </div>
-
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleRemoveItem(item.key)}
-                    disabled={loading}
-                    className={styles.removeButton}
-                  >
-                    Remove
-                  </Button>
                 </div>
-              </div>
-            );
+              );
             })}
           </div>
 
@@ -194,7 +218,8 @@ export default function CartPage() {
                   <span>{formatPrice(totals.total_items)}</span>
                 </div>
                 {totals.total_discount &&
-                  parseFloat(totals.total_discount.replace(/[^0-9.]/g, "")) > 0 && (
+                  parseFloat(totals.total_discount.replace(/[^0-9.]/g, "")) >
+                    0 && (
                     <div className={styles.totalRow}>
                       <span>Discount</span>
                       <span className={styles.discount}>
@@ -203,7 +228,8 @@ export default function CartPage() {
                     </div>
                   )}
                 {totals.total_shipping &&
-                  parseFloat(totals.total_shipping.replace(/[^0-9.]/g, "")) > 0 && (
+                  parseFloat(totals.total_shipping.replace(/[^0-9.]/g, "")) >
+                    0 && (
                     <div className={styles.totalRow}>
                       <span>Shipping</span>
                       <span>{formatPrice(totals.total_shipping)}</span>
@@ -241,4 +267,3 @@ export default function CartPage() {
     </Container>
   );
 }
-

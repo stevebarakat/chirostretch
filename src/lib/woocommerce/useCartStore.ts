@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { StoreCart } from "@/lib/woocommerce/getServerCart";
 
 const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
@@ -52,7 +53,9 @@ type CartState = {
   totals: StoreCartTotals | null;
   loading: boolean;
   error: string | null;
+  isHydrated: boolean;
 
+  hydrateFromServer: (cart: StoreCart | null) => void;
   fetchCart: () => Promise<void>;
   addToCart: (productId: number, quantity?: number) => Promise<void>;
   updateCartItem: (key: string, quantity: number) => Promise<void>;
@@ -125,8 +128,24 @@ export const useCartStore = create<CartState>((set, get) => ({
   totals: null,
   loading: false,
   error: null,
+  isHydrated: false,
 
-  // Get the current cart from Woo session
+  hydrateFromServer: (cart: StoreCart | null) => {
+    if (!cart) {
+      set({ isHydrated: true });
+      return;
+    }
+
+    const { items, itemsCount, totals } = getCartFromResponse(cart);
+
+    set({
+      items,
+      itemsCount,
+      totals,
+      isHydrated: true,
+    });
+  },
+
   fetchCart: async () => {
     set({ loading: true, error: null });
 

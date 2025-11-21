@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Navbar.module.css";
 import Container from "../ui/Container";
+import CartBadge from "../cart/CartBadge";
 
 type NavbarProps = {
   logo?: {
@@ -53,9 +54,12 @@ export default function Navbar({ logo }: NavbarProps) {
             </Link>
           </nav>
 
-          <a href="tel:+17202902364" className={styles.phone}>
-            (720) 290-2364
-          </a>
+          <div className={styles.rightSide}>
+            <a href="tel:+17202902364" className={styles.phone}>
+              (720) 290-2364
+            </a>
+            <CartBadge /> {/* ← NEW */}
+          </div>
         </div>
       </Container>
     </header>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "@components/ui/Button";
-import { useCartStore } from "@/lib/useCartStore";
+import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import styles from "./ProductInfo.module.css";
 
 type ProductVariation = {
