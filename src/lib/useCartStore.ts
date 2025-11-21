@@ -7,6 +7,7 @@ type CartItem = {
   key: string;
   id?: number;
   productId?: number;
+  product_id?: number;
   quantity: number;
   name: string;
   price?: string;
@@ -18,6 +19,9 @@ type CartItem = {
   totals?: {
     line_subtotal?: string;
     line_total?: string;
+  };
+  variation?: {
+    id?: number;
   };
 };
 
@@ -96,6 +100,34 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ loading: true });
 
     try {
+      const currentState = get();
+
+      const existingItem = currentState.items.find(
+        (item) => {
+          const itemId = item.id || item.productId || item.product_id || (item as any).variation?.id;
+          return itemId === productId;
+        }
+      );
+
+      if (currentState.items.length > 0) {
+        console.log("Current cart items:", currentState.items.map(item => ({
+          id: item.id,
+          productId: item.productId,
+          product_id: item.product_id,
+          name: item.name,
+          quantity: item.quantity
+        })));
+      }
+
+      const quantityToAdd = existingItem
+        ? existingItem.quantity + quantity
+        : quantity;
+
+      console.log(
+        `Adding product ${productId}: ${existingItem ? `existing quantity ${existingItem.quantity} + ${quantity} = ${quantityToAdd}` : `new item quantity ${quantity}`
+      }`
+      );
+
       const res = await fetch(
         `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/add-item`,
         {
@@ -104,7 +136,7 @@ export const useCartStore = create<CartState>((set, get) => ({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             id: productId,
-            quantity,
+            quantity: quantityToAdd,
           }),
         }
       );
@@ -119,6 +151,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 
       const addItemData = await res.json();
       console.log("Add to cart response:", addItemData);
+      console.log("Response items:", addItemData.items);
 
       if (addItemData.items && Array.isArray(addItemData.items)) {
         set({
