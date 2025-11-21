@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# --------------------------------------------------
+# DEPENDENCIES
+# --------------------------------------------------
 /node_modules
 /.pnp
 .pnp.*
@@ -10,54 +12,88 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# --------------------------------------------------
+# TESTING
+# --------------------------------------------------
 /coverage
 
-# next.js
+# --------------------------------------------------
+# NEXT.JS BUILD OUTPUT
+# --------------------------------------------------
 /.next/
 /out/
-
-# production
 /build
 
-# misc
+# --------------------------------------------------
+# MISC
+# --------------------------------------------------
 .DS_Store
 *.pem
 
-# debug
+# --------------------------------------------------
+# DEBUG LOGS
+# --------------------------------------------------
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# --------------------------------------------------
+# ENVIRONMENT FILES
+# --------------------------------------------------
 .env*
 
-# vercel
+# --------------------------------------------------
+# VERCEL
+# --------------------------------------------------
 .vercel
 
-# typescript
+# --------------------------------------------------
+# TYPESCRIPT
+# --------------------------------------------------
 *.tsbuildinfo
 next-env.d.ts
 
-# certificates
+# --------------------------------------------------
+# CERTIFICATES
+# --------------------------------------------------
 certificates
 
 # --------------------------------------------------
 # DOCKER WORDPRESS (mounted into ./wordpress)
 # --------------------------------------------------
 
-# Ignore entire WordPress core install
-wordpress/
+# Ignore ALL WordPress core files
+wordpress/*
 
-# But *keep* your custom theme
-!wordpress/wp-content/themes/chirostretch/
+# But KEEP wp-content so we can selectively re-include things
+!wordpress/wp-content/
 
-# Ignore uploads
+# Ignore uploads (giant folder; never commit)
 wordpress/wp-content/uploads/
 
-# Ignore plugins except custom ones (if any)
+# Ignore ALL plugins
 wordpress/wp-content/plugins/
+
+# Uncomment if you ever want to keep a custom plugin:
+# !wordpress/wp-content/plugins/my-custom-plugin/
+
+# Allow themes directory so we can include your custom theme
+!wordpress/wp-content/themes/
+
+# Track ONLY your custom theme
+!wordpress/wp-content/themes/chirostretch/
+
+# Ignore all other themes if desired (optional safeguard)
+# wordpress/wp-content/themes/*
+
+# --------------------------------------------------
+# DOCKER VOLUMES / STATE
+# --------------------------------------------------
 
 # Database volume (if stored locally)
 docker/db_data/
+
+# Any local docker-compose artifacts (if present)
+docker/*.pid
+docker/*.sock

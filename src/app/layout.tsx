@@ -12,6 +12,8 @@ import {
   type LayoutQueryResponse,
 } from "@app/_lib/wp/queries/layout-query";
 
+const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -65,18 +67,8 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <head>
-        <link rel="dns-prefetch" href="http://chirostretch.local" />
-        <link rel="dns-prefetch" href="https://chirostretch.local" />
-        <link
-          rel="preconnect"
-          href="http://chirostretch.local"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://chirostretch.local"
-          crossOrigin="anonymous"
-        />
+        <link rel="dns-prefetch" href={WORDPRESS_URL} />
+        <link rel="preconnect" href={WORDPRESS_URL} crossOrigin="anonymous" />
       </head>
       <body>
         <Navbar logo={logo} />

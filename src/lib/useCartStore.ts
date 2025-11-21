@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
-const WORDPRESS_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "https://chirostretch.local";
+const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
 type StoreCartItem = {
   key: string;

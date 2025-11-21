@@ -1,0 +1,49 @@
+{
+    "name": "the-events-calendar/ql-events",
+    "description": "The Events Calendar bindings for WPGraphQL",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+          "name": "Geoff Taylor",
+          "email": "geoff@axistaylor.com",
+          "role": "Lead Developer"
+        }
+    ],
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5",
+        "wp-coding-standards/wpcs": "^2.3"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "johnpbloch/wordpress-core-installer": true
+        }
+    },
+    "scripts": {
+        "install-test-env": "bash bin/install-test-env.local.sh",
+        "cleanup": "bash bin/cleanup.local.sh",
+        "cli": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/ql-events --user $(id -u) wordpress wait_for_it $TEST_DB -s -t 300 --",
+        "run-codeception": "env TEST_DB=mysql:3306 composer cli vendor/bin/codecept run wpunit --",
+        "lint": "vendor/bin/phpcs -vp .",
+        "fix": "vendor/bin/phpcbf -vp ."
+    },
+    "archive": {
+        "name": "ql-events",
+        "exclude": [
+            "/.*",
+            "/bin",
+            "/plugin-build",
+            "/tests",
+            "!/vendor",
+            "/codeception.dist.yml",
+            "/codeception.tric.yml",
+            "/codeception.yml",
+            "/composer.json",
+            "/composer.lock",
+            "/docker-compose.yml",
+            "/Dockerfile",
+            "/README.md"
+        ]
+    }
+}
