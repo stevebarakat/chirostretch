@@ -27,33 +27,63 @@ export const useCartStore = create<CartState>((set, get) => ({
   fetchCart: async () => {
     set({ loading: true });
 
-    const res = await fetch(`${WORDPRESS_URL}/wp-json/wc/store/v1/cart`, {
-      credentials: "include",
-    });
+    try {
+      const res = await fetch(`${WORDPRESS_URL}/wp-json/wc/store/v1/cart`, {
+        credentials: "include",
+      });
 
-    const data = await res.json();
+      if (!res.ok) {
+        throw new Error(`Failed to fetch cart: ${res.status} ${res.statusText}`);
+      }
 
-    set({
-      items: data.items || [],
-      itemsCount: data.items_count || 0,
-      loading: false,
-    });
+      const data = await res.json();
+
+      set({
+        items: data.items || [],
+        itemsCount: data.items_count || 0,
+        loading: false,
+      });
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+      set({ loading: false });
+    }
   },
 
   addToCart: async (productId: number, quantity = 1) => {
+    if (!productId) {
+      console.error("Cannot add to cart: productId is required");
+      return;
+    }
+
     set({ loading: true });
 
-    await fetch(`${WORDPRESS_URL}/wp-json/wc/store/v1/cart/add-item`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: productId,
-        quantity,
-      }),
-    });
+    try {
+      const res = await fetch(
+        `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/add-item`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: productId,
+            quantity,
+          }),
+        }
+      );
 
-    await get().fetchCart();
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(
+          `Failed to add to cart: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
+        );
+      }
+
+      await get().fetchCart();
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      set({ loading: false });
+      throw error;
+    }
   },
 }));
 

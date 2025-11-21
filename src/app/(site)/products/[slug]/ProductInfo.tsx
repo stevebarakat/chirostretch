@@ -80,6 +80,7 @@ type ProductInfoProps = {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const addToCart = useCartStore((state) => state.addToCart);
+  const loading = useCartStore((state) => state.loading);
   const isOnSale =
     product.salePrice && product.salePrice !== product.regularPrice;
   const displayPrice =
@@ -87,6 +88,22 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const isInStock = product.stockStatus === "IN_STOCK";
   const isVariable = product.__typename === "VariableProduct";
   const isExternal = product.__typename === "ExternalProduct";
+
+  const handleAddToCart = async () => {
+    if (!product.databaseId) {
+      console.error("Cannot add to cart: product databaseId is missing", product);
+      return;
+    }
+
+    console.log("Adding product to cart:", product.databaseId, product.name);
+
+    try {
+      await addToCart(product.databaseId);
+      console.log("Successfully added to cart");
+    } catch (error) {
+      console.error("Failed to add product to cart:", error);
+    }
+  };
 
   const formatPrice = (price?: string) => {
     if (!price) return "";
@@ -189,10 +206,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <Button
             variant="primary"
             className={styles.button}
-            disabled={!isInStock}
-            onClick={() => addToCart(product.databaseId!)}
+            disabled={!isInStock || loading}
+            onClick={handleAddToCart}
           >
-            {isInStock ? "Add to Cart" : "Out of Stock"}
+            {loading ? "Adding..." : isInStock ? "Add to Cart" : "Out of Stock"}
           </Button>
         )}
       </div>
