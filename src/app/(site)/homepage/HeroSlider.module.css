@@ -9,9 +9,21 @@
   overflow: hidden;
 }
 
+.staticImageWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.staticImage {
+  object-fit: cover;
+}
+
 .swiper {
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 /* Fade logic */

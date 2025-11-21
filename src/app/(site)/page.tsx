@@ -5,6 +5,8 @@ import {
 } from "@app/_lib/wp/queries/homepage";
 import dynamic from "next/dynamic";
 
+export const revalidate = 300;
+
 // Critical above-the-fold sections (server-rendered)
 import HeroSlider from "./homepage/HeroSlider";
 import AboutSection from "./homepage/AboutSection";
@@ -34,7 +36,7 @@ const CtaSection = dynamic(() => import("./homepage/CtaSection"), {
 });
 
 export default async function HomePage() {
-  const data = await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY);
+  const data = await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, 300);
 
   if (!data?.page) {
     return <div>Homepage not found in WordPress.</div>;

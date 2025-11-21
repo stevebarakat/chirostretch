@@ -1,6 +1,9 @@
+import { fetchWP } from "./fetch";
+
 export async function wpQuery<T>(
   query: string,
-  variables: Record<string, unknown> = {}
+  variables: Record<string, unknown> = {},
+  revalidate: number = 300
 ) {
   const wpGraphqlUrl = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
 
@@ -10,14 +13,8 @@ export async function wpQuery<T>(
     );
   }
 
-  let res: Response;
   try {
-    res = await fetch(wpGraphqlUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, variables }),
-      cache: "no-store",
-    });
+    return await fetchWP<T>({ query, variables, revalidate });
   } catch (error) {
     const cause =
       error instanceof Error && "cause" in error ? error.cause : null;
@@ -38,13 +35,4 @@ export async function wpQuery<T>(
       }`
     );
   }
-
-  const json = await res.json();
-
-  if (json.errors) {
-    console.error(JSON.stringify(json.errors, null, 2));
-    throw new Error("WPGraphQL query failed.");
-  }
-
-  return json.data as T;
 }

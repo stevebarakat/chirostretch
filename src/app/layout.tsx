@@ -28,7 +28,7 @@ const montserrat = Montserrat({
   preload: true,
 });
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "ChiroStretch",
@@ -55,7 +55,7 @@ export default async function RootLayout({
 }>) {
   let logo;
   try {
-    const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY);
+    const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, 3600);
     logo = data?.logo;
   } catch (error) {
     console.warn("Failed to fetch layout data from WordPress:", error);

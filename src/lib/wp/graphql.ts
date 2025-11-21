@@ -1,6 +1,7 @@
 export async function wpQuery<T>(
   query: string,
-  variables: Record<string, unknown> = {}
+  variables: Record<string, unknown> = {},
+  revalidate: number = 300
 ) {
   const wpGraphqlUrl = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
 
@@ -15,8 +16,8 @@ export async function wpQuery<T>(
     res = await fetch(wpGraphqlUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      next: { revalidate },
       body: JSON.stringify({ query, variables }),
-      cache: "no-store",
     });
   } catch (error) {
     const cause =
