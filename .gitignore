@@ -39,3 +39,25 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# certificates
+certificates
+
+# --------------------------------------------------
+# DOCKER WORDPRESS (mounted into ./wordpress)
+# --------------------------------------------------
+
+# Ignore entire WordPress core install
+wordpress/
+
+# But *keep* your custom theme
+!wordpress/wp-content/themes/chirostretch/
+
+# Ignore uploads
+wordpress/wp-content/uploads/
+
+# Ignore plugins except custom ones (if any)
+wordpress/wp-content/plugins/
+
+# Database volume (if stored locally)
+docker/db_data/

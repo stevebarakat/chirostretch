@@ -14,13 +14,13 @@ const nextConfig: NextConfig = {
       // Local WordPress (HTTP)
       {
         protocol: "http",
-        hostname: "chirostretch-copy.local",
+        hostname: "chirostretch.local",
         pathname: "/wp-content/uploads/**",
       },
       // Local WordPress (HTTPS)
       {
         protocol: "https",
-        hostname: "chirostretch-copy.local",
+        hostname: "chirostretch.local",
         pathname: "/wp-content/uploads/**",
       },
 

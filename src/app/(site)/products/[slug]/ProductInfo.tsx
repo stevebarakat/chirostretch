@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "@components/ui/Button";
 import { useCartStore } from "@/lib/useCartStore";
@@ -64,26 +64,17 @@ type BaseProduct = {
   __typename?: string;
 };
 
-type SimpleProduct = BaseProduct & {
-  __typename?: "SimpleProduct";
-};
-
+type SimpleProduct = BaseProduct & { __typename?: "SimpleProduct" };
 type VariableProduct = BaseProduct & {
   __typename?: "VariableProduct";
-  variations?: {
-    nodes?: ProductVariation[];
-  };
+  variations?: { nodes?: ProductVariation[] };
 };
-
 type ExternalProduct = BaseProduct & {
   __typename?: "ExternalProduct";
   externalUrl?: string;
   buttonText?: string;
 };
-
-type GroupProduct = BaseProduct & {
-  __typename?: "GroupProduct";
-};
+type GroupProduct = BaseProduct & { __typename?: "GroupProduct" };
 
 type ProductInfoProps = {
   product: SimpleProduct | VariableProduct | ExternalProduct | GroupProduct;
@@ -91,8 +82,11 @@ type ProductInfoProps = {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
+
   const addToCart = useCartStore((state) => state.addToCart);
+  const fetchCart = useCartStore((state) => state.fetchCart);
   const loading = useCartStore((state) => state.loading);
+
   const isOnSale =
     product.salePrice && product.salePrice !== product.regularPrice;
   const displayPrice =
@@ -101,26 +95,19 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const isVariable = product.__typename === "VariableProduct";
   const isExternal = product.__typename === "ExternalProduct";
 
+  // Ensure cart is hydrated when component mounts
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
   const handleAddToCart = async () => {
     if (!product.databaseId) {
-      console.error(
-        "Cannot add to cart: product databaseId is missing",
-        product
-      );
+      console.error("Cannot add to cart: missing databaseId", product);
       return;
     }
 
-    console.log(
-      "Adding product to cart:",
-      product.databaseId,
-      product.name,
-      "quantity:",
-      quantity
-    );
-
     try {
       await addToCart(product.databaseId, quantity);
-      console.log("Successfully added to cart");
     } catch (error) {
       console.error("Failed to add product to cart:", error);
     }
@@ -170,7 +157,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       )}
 
       <div className={styles.actions}>
-        {isExternal && "externalUrl" in product && product.externalUrl ? (
+        {isExternal && product.externalUrl ? (
           <Button
             as="a"
             href={product.externalUrl}
@@ -197,6 +184,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 disabled={!isInStock}
               />
             </div>
+
             <Button
               variant="primary"
               className={styles.button}
@@ -209,6 +197,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 ? "Add to Cart"
                 : "Out of Stock"}
             </Button>
+
             <Link href="/cart" className={styles.viewCartButton}>
               <Button variant="secondary">View Cart</Button>
             </Link>
@@ -222,6 +211,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             <strong>SKU:</strong> {product.sku}
           </span>
         )}
+
         {product.productCategories?.nodes &&
           product.productCategories.nodes.length > 0 && (
             <span className={styles.metadataItem}>
@@ -239,6 +229,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               ))}
             </span>
           )}
+
         {product.productTags?.nodes && product.productTags.nodes.length > 0 && (
           <span className={styles.metadataItem}>
             <strong>Tag:</strong>{" "}

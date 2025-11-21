@@ -1,266 +1,294 @@
 import { create } from "zustand";
 
 const WORDPRESS_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "https://chirostretch.local";
 
-type CartItem = {
+type StoreCartItem = {
   key: string;
   id?: number;
-  productId?: number;
   product_id?: number;
   quantity: number;
   name: string;
-  price?: string;
+
   prices?: {
     price?: string;
     regular_price?: string;
     sale_price?: string;
   };
+
   totals?: {
     line_subtotal?: string;
     line_total?: string;
   };
+
   variation?: {
     id?: number;
   };
+
+  // Allow Woo extras without breaking typing
+  [key: string]: unknown;
+};
+
+type StoreCartTotals = {
+  total_price?: string;
+  total_items?: string;
+  total_items_tax?: string;
+  total_fees?: string;
+  total_discount?: string;
+  total_shipping?: string | null;
+  total_tax?: string;
+  [key: string]: unknown;
+};
+
+type StoreCartResponse = {
+  items?: StoreCartItem[];
+  items_count?: number;
+  totals?: StoreCartTotals | null;
+  [key: string]: unknown;
 };
 
 type CartState = {
-  items: CartItem[];
+  items: StoreCartItem[];
   itemsCount: number;
-  totals: {
-    total_price: string;
-    total_items: string;
-    total_items_tax: string;
-    total_fees: string;
-    total_discount: string;
-    total_shipping: string;
-    total_tax: string;
-    total_price_display: string;
-  } | null;
+  totals: StoreCartTotals | null;
   loading: boolean;
+  error: string | null;
+
+  fetchCart: () => Promise<void>;
   addToCart: (productId: number, quantity?: number) => Promise<void>;
   updateCartItem: (key: string, quantity: number) => Promise<void>;
   removeCartItem: (key: string) => Promise<void>;
-  fetchCart: () => Promise<void>;
+  clearCart: () => Promise<void>;
 };
+
+// ---- helpers ---------------------------------------------------------------
+
+function getCartFromResponse(data: StoreCartResponse) {
+  const items = Array.isArray(data.items) ? data.items : [];
+  const itemsCountFromApi =
+    typeof data.items_count === "number" ? data.items_count : undefined;
+
+  const itemsCount =
+    itemsCountFromApi ??
+    items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+
+  return {
+    items,
+    itemsCount,
+    totals: data.totals ?? null,
+  };
+}
+
+async function fetchJson(
+  path: string,
+  options: RequestInit = {}
+): Promise<StoreCartResponse> {
+  const res = await fetch(`${WORDPRESS_URL}/wp-json/wc/store/v1${path}`, {
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers ?? {}),
+    },
+    ...options,
+  });
+
+  let body: unknown = null;
+
+  try {
+    body = await res.json();
+  } catch {
+    // Some WC endpoints can return 204 or non-JSON on error; fail gracefully.
+  }
+
+  if (!res.ok) {
+    // Surface something useful in dev; keep it generic in state.
+    console.error(
+      "WooCommerce Store API error:",
+      res.status,
+      res.statusText,
+      body
+    );
+    throw new Error(
+      `Store API error: ${res.status} ${res.statusText}${
+        body ? ` – ${JSON.stringify(body)}` : ""
+      }`
+    );
+  }
+
+  return (body ?? {}) as StoreCartResponse;
+}
+
+// ---- store -----------------------------------------------------------------
 
 export const useCartStore = create<CartState>((set, get) => ({
   items: [],
   itemsCount: 0,
   totals: null,
   loading: false,
+  error: null,
 
+  // Get the current cart from Woo session
   fetchCart: async () => {
-    set({ loading: true });
+    set({ loading: true, error: null });
 
     try {
-      const res = await fetch(`${WORDPRESS_URL}/wp-json/wc/store/v1/cart`, {
-        credentials: "include",
+      const data = await fetchJson("/cart", { method: "GET" });
+      const { items, itemsCount, totals } = getCartFromResponse(data);
+
+      set({
+        items,
+        itemsCount,
+        totals,
+        loading: false,
+        error: null,
+      });
+    } catch (err) {
+      console.error("Error fetching cart:", err);
+      set({
+        loading: false,
+        error: err instanceof Error ? err.message : "Failed to fetch cart",
+      });
+    }
+  },
+
+  // Add a product to the cart. Quantity is exactly what the user is adding now.
+  addToCart: async (productId: number, quantity = 1) => {
+    if (!productId || quantity < 1) {
+      console.error("addToCart: invalid productId or quantity", {
+        productId,
+        quantity,
+      });
+      return;
+    }
+
+    set({ loading: true, error: null });
+
+    try {
+      const data = await fetchJson("/cart/add-item", {
+        method: "POST",
+        body: JSON.stringify({
+          id: productId,
+          quantity, // <-- the only correct thing to send
+        }),
       });
 
-      if (!res.ok) {
-        throw new Error(`Failed to fetch cart: ${res.status} ${res.statusText}`);
-      }
+      const { items, itemsCount, totals } = getCartFromResponse(data);
 
-      const data = await res.json();
-
-      console.log("Cart data received:", data);
-      console.log("Cart items:", data.items);
-      if (data.items && data.items.length > 0) {
-        console.log("First item structure:", data.items[0]);
-      }
-      console.log("Items count:", data.items_count);
-
-      const currentState = get();
-      const newItems = data.items || [];
-
-      if (newItems.length > 0 || currentState.items.length === 0) {
-        set({
-          items: newItems,
-          itemsCount: data.items_count || newItems.length || 0,
-          totals: data.totals || null,
-          loading: false,
-        });
-      } else {
-        set({ loading: false });
-      }
-    } catch (error) {
-      console.error("Error fetching cart:", error);
-      set({ loading: false });
+      set({
+        items,
+        itemsCount,
+        totals,
+        loading: false,
+        error: null,
+      });
+    } catch (err) {
+      console.error("Error adding to cart:", err);
+      set({
+        loading: false,
+        error: err instanceof Error ? err.message : "Failed to add to cart",
+      });
+      throw err;
     }
   },
 
-  addToCart: async (productId: number, quantity = 1) => {
-    if (!productId) {
-      console.error("Cannot add to cart: productId is required");
-      return;
-    }
-
-    set({ loading: true });
-
-    try {
-      const currentState = get();
-
-      const existingItem = currentState.items.find(
-        (item) => {
-          const itemId = item.id || item.productId || item.product_id || (item as any).variation?.id;
-          return itemId === productId;
-        }
-      );
-
-      if (currentState.items.length > 0) {
-        console.log("Current cart items:", currentState.items.map(item => ({
-          id: item.id,
-          productId: item.productId,
-          product_id: item.product_id,
-          name: item.name,
-          quantity: item.quantity
-        })));
-      }
-
-      const quantityToAdd = existingItem
-        ? existingItem.quantity + quantity
-        : quantity;
-
-      console.log(
-        `Adding product ${productId}: ${existingItem ? `existing quantity ${existingItem.quantity} + ${quantity} = ${quantityToAdd}` : `new item quantity ${quantity}`
-      }`
-      );
-
-      const res = await fetch(
-        `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/add-item`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: productId,
-            quantity: quantityToAdd,
-          }),
-        }
-      );
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        console.error("Add to cart API error:", res.status, res.statusText, errorData);
-        throw new Error(
-          `Failed to add to cart: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
-        );
-      }
-
-      const addItemData = await res.json();
-      console.log("Add to cart response:", addItemData);
-      console.log("Response items:", addItemData.items);
-
-      if (addItemData.items && Array.isArray(addItemData.items)) {
-        set({
-          items: addItemData.items || [],
-          itemsCount: addItemData.items_count || addItemData.items?.length || 0,
-          totals: addItemData.totals || null,
-          loading: false,
-        });
-      } else {
-        await get().fetchCart();
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      set({ loading: false });
-      throw error;
-    }
-  },
-
+  // Update an existing line item by key (not productId).
   updateCartItem: async (key: string, quantity: number) => {
     if (!key || quantity < 1) {
-      console.error("Cannot update cart item: key and quantity (>=1) are required");
+      console.error("updateCartItem: invalid key or quantity", {
+        key,
+        quantity,
+      });
       return;
     }
 
-    set({ loading: true });
+    set({ loading: true, error: null });
 
     try {
-      const res = await fetch(
-        `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/update-item`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            key,
-            quantity,
-          }),
-        }
-      );
+      const data = await fetchJson("/cart/update-item", {
+        method: "POST",
+        body: JSON.stringify({ key, quantity }),
+      });
 
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(
-          `Failed to update cart item: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
-        );
-      }
+      const { items, itemsCount, totals } = getCartFromResponse(data);
 
-      const updateData = await res.json();
-      if (updateData.items && Array.isArray(updateData.items)) {
-        set({
-          items: updateData.items || [],
-          itemsCount: updateData.items_count || updateData.items?.length || 0,
-          totals: updateData.totals || null,
-          loading: false,
-        });
-      } else {
-        await get().fetchCart();
-      }
-    } catch (error) {
-      console.error("Error updating cart item:", error);
-      set({ loading: false });
-      throw error;
+      set({
+        items,
+        itemsCount,
+        totals,
+        loading: false,
+        error: null,
+      });
+    } catch (err) {
+      console.error("Error updating cart item:", err);
+      set({
+        loading: false,
+        error:
+          err instanceof Error ? err.message : "Failed to update cart item",
+      });
+      throw err;
     }
   },
 
+  // Remove a line item by key.
   removeCartItem: async (key: string) => {
     if (!key) {
-      console.error("Cannot remove cart item: key is required");
+      console.error("removeCartItem: key is required");
       return;
     }
 
-    set({ loading: true });
+    set({ loading: true, error: null });
 
     try {
-      const res = await fetch(
-        `${WORDPRESS_URL}/wp-json/wc/store/v1/cart/remove-item`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            key,
-          }),
-        }
-      );
+      const data = await fetchJson("/cart/remove-item", {
+        method: "POST",
+        body: JSON.stringify({ key }),
+      });
 
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(
-          `Failed to remove cart item: ${res.status} ${res.statusText} - ${JSON.stringify(errorData)}`
-        );
-      }
+      const { items, itemsCount, totals } = getCartFromResponse(data);
 
-      const removeData = await res.json();
-      if (removeData.items && Array.isArray(removeData.items)) {
-        set({
-          items: removeData.items || [],
-          itemsCount: removeData.items_count || removeData.items?.length || 0,
-          totals: removeData.totals || null,
-          loading: false,
-        });
-      } else {
-        await get().fetchCart();
-      }
-    } catch (error) {
-      console.error("Error removing cart item:", error);
-      set({ loading: false });
-      throw error;
+      set({
+        items,
+        itemsCount,
+        totals,
+        loading: false,
+        error: null,
+      });
+    } catch (err) {
+      console.error("Error removing cart item:", err);
+      set({
+        loading: false,
+        error:
+          err instanceof Error ? err.message : "Failed to remove cart item",
+      });
+      throw err;
+    }
+  },
+
+  // Clear the entire cart (if you want this in the UI later)
+  clearCart: async () => {
+    set({ loading: true, error: null });
+
+    try {
+      const data = await fetchJson("/cart/items", {
+        method: "DELETE",
+      });
+
+      const { items, itemsCount, totals } = getCartFromResponse(data);
+
+      set({
+        items,
+        itemsCount,
+        totals,
+        loading: false,
+        error: null,
+      });
+    } catch (err) {
+      console.error("Error clearing cart:", err);
+      set({
+        loading: false,
+        error: err instanceof Error ? err.message : "Failed to clear cart",
+      });
+      throw err;
     }
   },
 }));
-
