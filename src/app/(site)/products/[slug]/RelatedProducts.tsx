@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import Button from "@components/ui/Button";
 import styles from "./RelatedProducts.module.css";
 
 type RelatedProduct = {
@@ -70,7 +69,9 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
               <div className={styles.content}>
                 <h3 className={styles.title}>{product.name}</h3>
                 {product.price && (
-                  <div className={styles.price}>{formatPrice(product.price)}</div>
+                  <div className={styles.price}>
+                    {formatPrice(product.price)}
+                  </div>
                 )}
               </div>
             </Link>
@@ -80,4 +81,3 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
     </section>
   );
 }
-

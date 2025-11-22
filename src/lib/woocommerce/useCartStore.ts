@@ -120,7 +120,7 @@ async function fetchJson(
 
 // ---- store -----------------------------------------------------------------
 
-export const useCartStore = create<CartState>((set, get) => ({
+export const useCartStore = create<CartState>((set) => ({
   items: [],
   itemsCount: 0,
   totals: null,

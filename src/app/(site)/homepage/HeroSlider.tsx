@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 
 import styles from "./HeroSlider.module.css";
 
@@ -31,16 +31,20 @@ type HeroSliderProps = {
 };
 
 export default function HeroSlider({ slides }: HeroSliderProps) {
+  // Enable Swiper only on the client to avoid hydration blocking LCP
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    startTransition(() => {
+      setIsClient(true);
+    });
+  }, []);
+
   if (!slides || slides.length === 0) return null;
 
   const first = slides[0];
   const firstImage = first.slideBackgroundImage?.node?.sourceUrl || "";
   const firstAlt =
     first.slideBackgroundImage?.node?.altText || "Hero background";
-
-  // Enable Swiper only on the client to avoid hydration blocking LCP
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true), []);
 
   return (
     <section className={styles.section}>

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, startTransition } from "react";
 import Link from "next/link";
 import Container from "@components/ui/Container";
 import Button from "@components/ui/Button";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
+import type { StoreCartItem } from "@/lib/woocommerce/getServerCart";
 import styles from "./page.module.css";
 
 export default function CartPage() {
@@ -22,30 +23,27 @@ export default function CartPage() {
   >({});
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    const loadCart = async () => {
-      await fetchCart();
-    };
-    loadCart();
-  }, []);
+  const loadCart = useCallback(async () => {
+    await fetchCart();
+  }, [fetchCart]);
 
   useEffect(() => {
-    if (mounted && items.length > 0) {
+    startTransition(() => {
+      setMounted(true);
+    });
+    loadCart();
+  }, [loadCart]);
+
+  useEffect(() => {
+    if (items.length > 0) {
       const quantities: Record<string, number> = {};
       items.forEach((item) => {
         quantities[item.key] = item.quantity;
       });
-      setLocalQuantities(quantities);
+      startTransition(() => {
+        setLocalQuantities(quantities);
+      });
     }
-  }, [items, mounted]);
-
-  useEffect(() => {
-    const quantities: Record<string, number> = {};
-    items.forEach((item) => {
-      quantities[item.key] = item.quantity;
-    });
-    setLocalQuantities(quantities);
   }, [items]);
 
   const handleQuantityChange = (key: string, value: number) => {
@@ -136,11 +134,9 @@ export default function CartPage() {
         <div className={styles.cartContent}>
           <div className={styles.cartItems}>
             {items.map((item) => {
+              const cartItem = item as StoreCartItem;
               const itemPrice =
-                item.price ||
-                (item as any).prices?.price ||
-                (item as any).totals?.line_subtotal ||
-                "0";
+                cartItem.prices?.price || cartItem.totals?.line_subtotal || "0";
               const priceStr =
                 typeof itemPrice === "string"
                   ? itemPrice

@@ -24,10 +24,13 @@ export default function Button(props: ButtonComponentProps) {
   const { variant = "primary", children, className = "", ...rest } = props;
   const isLink = "as" in props && props.as === "a";
 
-  const buttonClasses = `${styles.button} ${styles[variant]} ${className}`.trim();
+  const buttonClasses =
+    `${styles.button} ${styles[variant]} ${className}`.trim();
 
   if (isLink) {
     const { as, ...linkProps } = rest as LinkButtonProps;
+    // 'as' is used for type narrowing but not needed in runtime
+    void as;
     return (
       <a className={buttonClasses} {...linkProps}>
         {children}
@@ -35,11 +38,13 @@ export default function Button(props: ButtonComponentProps) {
     );
   }
 
-  const buttonProps = rest as Omit<ButtonProps, "as" | "variant" | "children" | "className">;
+  const buttonProps = rest as Omit<
+    ButtonProps,
+    "as" | "variant" | "children" | "className"
+  >;
   return (
     <button type="button" className={buttonClasses} {...buttonProps}>
       {children}
     </button>
   );
 }
-
