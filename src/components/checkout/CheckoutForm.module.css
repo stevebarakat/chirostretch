@@ -126,6 +126,13 @@
   box-shadow: 0 0 0 3px hsla(200, 70%, 52%, 0.1);
 }
 
+.loadingMessage {
+  padding: var(--spacing-sm) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .formRow {
     grid-template-columns: 1fr 1fr;

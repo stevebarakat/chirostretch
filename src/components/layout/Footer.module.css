@@ -57,12 +57,20 @@
 }
 
 .socialLink {
+  display: flex;
+  align-items: center;
   color: var(--color-text-secondary);
   transition: color var(--transition-base);
 }
 
 .socialLink:hover {
   color: var(--color-primary-600);
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .columnTitle {
@@ -79,6 +87,21 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.officeHours {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
 }
 
 .listLink {
@@ -139,4 +162,3 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
-

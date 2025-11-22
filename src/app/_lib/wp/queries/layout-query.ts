@@ -10,8 +10,49 @@ export const LAYOUT_QUERY = `
         height
       }
     }
+    headerMenu: menu(id: "main-menu", idType: SLUG) {
+      menuItems(where: {parentDatabaseId: 0}) {
+        nodes {
+          label
+          uri
+          id
+          childItems {
+            nodes {
+              label
+              uri
+              id
+            }
+          }
+        }
+      }
+    }
+    footerMenu: menu(id: "footer-menu", idType: SLUG) {
+      menuItems(where: {parentDatabaseId: 0}) {
+        nodes {
+          label
+          uri
+          id
+          childItems {
+            nodes {
+              label
+              uri
+              id
+            }
+          }
+        }
+      }
+    }
   }
 `;
+
+export type MenuItem = {
+  label: string;
+  uri: string;
+  id: string;
+  childItems?: {
+    nodes: MenuItem[];
+  };
+};
 
 export type LayoutQueryResponse = {
   logo?: {
@@ -24,5 +65,14 @@ export type LayoutQueryResponse = {
       height?: number;
     };
   };
+  headerMenu?: {
+    menuItems?: {
+      nodes: MenuItem[];
+    };
+  };
+  footerMenu?: {
+    menuItems?: {
+      nodes: MenuItem[];
+    };
+  };
 };
-

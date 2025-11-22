@@ -1,0 +1,51 @@
+:root {
+  --primaryFont: var(--font-inter), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  --secondaryFont: var(--font-montserrat), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  --primaryColor: hsla(201, 100%, 45%, 1);
+  --primaryColor50: hsla(201, 100%, 45%, 0.5);
+  --primaryGradient: -webkit-linear-gradient(
+    top,
+    hsla(201, 100%, 45%, 1) 0%,
+    hsla(201, 100%, 55%, 1) 51%,
+    hsla(201, 100%, 45%, 1) 100%
+  );
+  --accentColor: hsla(324, 80%, 47%, 1);
+  --accentColor50: hsla(324, 80%, 67%, 0.5);
+  --accentGradient: -webkit-linear-gradient(
+    top,
+    hsla(324, 80%, 57%, 1) 0%,
+    hsla(324, 80%, 67%, 1) 50%,
+    hsla(324, 80%, 57%, 1) 100%
+  );
+  --darkColor: hsla(201, 100%, 10%, 1);
+  --grey025: hsla(0, 0%, 97.5%, 1);
+  --grey05: hsla(0, 0%, 95%, 1);
+  --grey10: hsla(0, 0%, 90%, 1);
+  --grey15: hsla(0, 0%, 85%, 1);
+  --grey20: hsla(0, 0%, 80%, 1);
+  --grey25: hsla(0, 0%, 75%, 1);
+  --grey30: hsla(0, 0%, 70%, 1);
+  --grey40: hsla(0, 0%, 60%, 1);
+  --grey50: hsla(0, 0%, 50%, 1);
+  --grey60: hsla(0, 0%, 40%, 1);
+  --grey75: hsla(0, 0%, 25%, 1);
+  --transparentWhite25: hsla(0, 100%, 100%, 0.25);
+  --transparentBlack25: hsla(0, 0%, 10%, 0.25);
+  --transparentBlack50: hsla(0, 0%, 10%, 0.5);
+  --transparentBlack75: hsla(0, 0%, 10%, 0.75);
+  --papayaWhip25: hsla(37, 100%, 92%, 0.25);
+  --papayaWhip50: hsla(37, 100%, 92%, 0.5);
+  --papayaWhip75: hsla(37, 100%, 92%, 0.75);
+  --papayaWhip: hsla(37, 100%, 92%, 1);
+
+  --shadow-color: 0deg 0% 0%;
+
+  --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.11),
+    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.11),
+    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.11),
+    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.11);
+}

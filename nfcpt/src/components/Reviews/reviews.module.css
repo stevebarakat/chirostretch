@@ -1,0 +1,72 @@
+.testimonial {
+  color: var(--grey05);
+  font-size: 1.75rem;
+  line-height: 2;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+  padding: 1.25rem;
+  overflow: hidden;
+  background: var(--grey01);
+}
+
+.testimonialAuthor {
+  color: white;
+  font-size: clamp(3.5rem, 2vw, 4rem);
+  font-weight: 800;
+  text-align: center;
+  display: block;
+  padding: 2.5rem 0;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+.testimonialStars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2.5rem;
+  color: yellow;
+  font-size: 3.5rem;
+  gap: 0.1rem;
+}
+
+.testimonialImg {
+  display: block;
+  border: 55px solid var(--grey05);
+  border-radius: 90%;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.testimonialImg img {
+  border-radius: 90%;
+}
+
+.reviewBtn {
+  padding: 1rem 2rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: transparent;
+  border: 1px solid var(--grey05);
+  border-radius: 4px;
+  color: var(--grey05);
+  &:hover {
+    background: var(--grey05);
+    color: var(--primaryColor);
+  }
+}
+
+.reviewBtn a {
+  color: var(--grey05);
+}
+
+@media (min-width: 700px) and (max-width: 1050px) {
+  .testimonialImg {
+    display: none;
+  }
+}

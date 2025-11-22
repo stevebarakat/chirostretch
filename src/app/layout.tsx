@@ -12,6 +12,7 @@ import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,
+  type MenuItem,
 } from "@app/_lib/wp/queries/layout-query";
 
 const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
@@ -58,12 +59,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   let logo;
+  let headerMenuItems: MenuItem[] | undefined;
+  let footerMenuItems: MenuItem[] | undefined;
+
   try {
     const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, 3600);
     logo = data?.logo;
+    headerMenuItems = data?.headerMenu?.menuItems?.nodes;
+    footerMenuItems = data?.footerMenu?.menuItems?.nodes;
   } catch (error) {
     console.warn("Failed to fetch layout data from WordPress:", error);
     logo = undefined;
+    headerMenuItems = undefined;
+    footerMenuItems = undefined;
   }
 
   const cart = await getServerCart();
@@ -76,9 +84,9 @@ export default async function RootLayout({
       </head>
       <body>
         <CartProvider initialCart={cart}>
-          <Navbar logo={logo} />
+          <Navbar logo={logo} menuItems={headerMenuItems} />
           {children}
-          <Footer logo={logo} />
+          <Footer logo={logo} menuItems={footerMenuItems} />
         </CartProvider>
       </body>
     </html>

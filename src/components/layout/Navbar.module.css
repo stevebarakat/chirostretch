@@ -43,19 +43,15 @@
 .nav {
   display: none;
   align-items: center;
+}
+
+.menuList {
+  display: flex;
+  align-items: center;
   gap: var(--spacing-xl);
-}
-
-.navLink {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  color: var(--color-text-primary);
-  transition: color var(--transition-base);
-}
-
-.navLink:hover {
-  color: var(--color-primary-600);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .phone {

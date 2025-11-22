@@ -172,7 +172,9 @@ export default function CheckoutForm() {
         } else if (responseData.errors) {
           const errorMessages = Object.values(responseData.errors)
             .flat()
-            .filter(Boolean);
+            .filter(
+              (msg): msg is string => typeof msg === "string" && msg.length > 0
+            );
           setSubmitError(
             errorMessages[0] || "An error occurred during checkout"
           );
@@ -544,25 +546,33 @@ export default function CheckoutForm() {
           <label className={styles.label}>
             Card Details <span className={styles.required}>*</span>
           </label>
-          <div className={styles.cardElementWrapper}>
-            <CardElement
-              options={{
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "hsl(0, 0%, 9%)",
-                    "::placeholder": {
-                      color: "hsl(0, 0%, 45%)",
+          {!stripe || !elements ? (
+            <div className={styles.cardElementWrapper}>
+              <div className={styles.loadingMessage}>
+                Loading payment form...
+              </div>
+            </div>
+          ) : (
+            <div className={styles.cardElementWrapper}>
+              <CardElement
+                options={{
+                  style: {
+                    base: {
+                      fontSize: "16px",
+                      color: "#171717",
+                      "::placeholder": {
+                        color: "#737373",
+                      },
+                    },
+                    invalid: {
+                      color: "#F44336",
                     },
                   },
-                  invalid: {
-                    color: "hsl(0, 84%, 60%)",
-                  },
-                },
-              }}
-              onChange={handleCardChange}
-            />
-          </div>
+                }}
+                onChange={handleCardChange}
+              />
+            </div>
+          )}
           {cardError && <span className={styles.error}>{cardError}</span>}
         </div>
       </div>

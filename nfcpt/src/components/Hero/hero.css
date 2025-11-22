@@ -1,0 +1,40 @@
+.hero {
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 150px 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-headline {
+  max-width: 13ch;
+  color: var(--grey10);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-family: var(--secondaryFont);
+  letter-spacing: -0.15rem;
+  font-weight: 800;
+  line-height: 1;
+  z-index: 9;
+}
+
+.description {
+  padding-top: 1rem;
+  display: inline-block;
+  color: white;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 500;
+  z-index: 9;
+  max-width: 55ch;
+}
+
+.hero img {
+  filter: brightness(0.75);
+}
+
+@media (min-width: 700px) {
+  .description {
+    line-height: 2.25rem;
+  }
+}

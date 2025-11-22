@@ -1,0 +1,8 @@
+.ubu {
+  display: block;
+}
+@media (width <= 410px) {
+  .ubu {
+    margin: 0 2rem;
+  }
+}

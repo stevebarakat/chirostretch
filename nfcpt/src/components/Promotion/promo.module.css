@@ -1,0 +1,77 @@
+.promo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  color: white;
+  padding: 1rem 2rem 0;
+}
+
+@media (min-width: 1390px) {
+  .promo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .price {
+    font-size: 9.5rem;
+  }
+}
+
+.offer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  diaplay: flex;
+  flex-direction: column;
+}
+
+.price {
+  font-size: 9.5rem;
+  font-size: clamp(5rem, 15vw, 9.5rem);
+  font-weight: 800;
+  line-height: 0.75;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  margin-right: 0.5rem;
+  & > span {
+    font-size: 3rem;
+    font-weight: 800;
+    vertical-align: top;
+  }
+}
+
+.newPatient {
+  font-size: 1.7rem;
+  font-size: clamp(1.5rem, 5vw, 1.7rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7rem;
+  letter-spacing: clamp(0.25rem, 2vw, 0.7rem);
+  display: block;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.special {
+  font-size: 4.1rem;
+  font-size: clamp(2rem, 10vw, 4.1rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+  line-height: 1.1;
+}
+
+.points {
+  font-size: 1rem;
+  font-size: clamp(0.75rem, 3vw, 1rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+  line-height: 1.5;
+}

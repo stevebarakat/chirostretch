@@ -23,9 +23,9 @@ export const checkoutFormSchema = z
   .object({
     billing: billingSchema,
     shipping: addressSchema,
-    payment_method: z.string().default("stripe"),
-    shipping_method: z.array(z.string()).default([]),
-    sameAsBilling: z.boolean().default(true),
+    payment_method: z.string().min(1, "Payment method is required"),
+    shipping_method: z.array(z.string()),
+    sameAsBilling: z.boolean(),
   })
   .refine(
     (data) => {
