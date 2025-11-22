@@ -31,9 +31,13 @@ export default function Menu({
     }
   };
 
+  const itemClassName = `${styles.item} ${
+    variant === "header" ? styles.itemHeader : ""
+  }`;
+
   if (!hasDropdown) {
     return (
-      <li className={styles.item}>
+      <li className={itemClassName}>
         <Link href={item.uri} className={styles.link} onClick={handleClick}>
           {item.label}
         </Link>
@@ -42,7 +46,7 @@ export default function Menu({
   }
 
   return (
-    <li ref={ref} className={styles.item}>
+    <li ref={ref} className={itemClassName}>
       <button
         className={styles.button}
         onClick={() => setIsOpen(!isOpen)}

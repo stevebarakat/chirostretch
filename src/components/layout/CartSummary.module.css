@@ -1,0 +1,22 @@
+.cartSummary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  transition: color var(--transition-base);
+}
+
+.cartSummary:hover {
+  color: var(--color-primary-600);
+}
+
+.cartText {
+  white-space: nowrap;
+}
+
+.cartIcon {
+  flex-shrink: 0;
+  color: currentColor;
+}

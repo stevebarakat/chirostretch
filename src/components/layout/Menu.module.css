@@ -3,6 +3,14 @@
   list-style: none;
 }
 
+.itemHeader {
+  display: inline-block;
+}
+
+.itemHeader .link {
+  font-weight: var(--font-weight-normal);
+}
+
 .link {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
@@ -15,6 +23,10 @@
 
 .link:hover {
   color: var(--color-primary-600);
+}
+
+.itemHeader .button {
+  font-weight: var(--font-weight-normal);
 }
 
 .button {
