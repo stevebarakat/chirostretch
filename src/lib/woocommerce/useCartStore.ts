@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import type { StoreCart } from "@/lib/woocommerce/getServerCart";
 
-const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
-
 type StoreCartItem = {
   key: string;
   id?: number;
@@ -85,7 +83,7 @@ async function fetchJson(
   path: string,
   options: RequestInit = {}
 ): Promise<StoreCartResponse> {
-  const res = await fetch(`${WORDPRESS_URL}/wp-json/wc/store/v1${path}`, {
+  const res = await fetch(`/api/cart${path}`, {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
@@ -150,7 +148,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const data = await fetchJson("/cart", { method: "GET" });
+      const data = await fetchJson("", { method: "GET" });
       const { items, itemsCount, totals } = getCartFromResponse(data);
 
       set({
@@ -182,11 +180,11 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const data = await fetchJson("/cart/add-item", {
+      const data = await fetchJson("/add-item", {
         method: "POST",
         body: JSON.stringify({
           id: productId,
-          quantity, // <-- the only correct thing to send
+          quantity,
         }),
       });
 
@@ -222,7 +220,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const data = await fetchJson("/cart/update-item", {
+      const data = await fetchJson("/update-item", {
         method: "POST",
         body: JSON.stringify({ key, quantity }),
       });
@@ -257,7 +255,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const data = await fetchJson("/cart/remove-item", {
+      const data = await fetchJson("/remove-item", {
         method: "POST",
         body: JSON.stringify({ key }),
       });
@@ -287,7 +285,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const data = await fetchJson("/cart/items", {
+      const data = await fetchJson("/items", {
         method: "DELETE",
       });
 

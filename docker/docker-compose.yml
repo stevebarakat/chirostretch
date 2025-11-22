@@ -1,55 +1,78 @@
-services:
-  db:
-    image: mariadb:10.6
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - chiro_net
+version: "3.9"
 
+services:
   wordpress:
-    image: wordpress:6.6-php8.2-apache
-    restart: unless-stopped
+    image: wordpress:php8.2-fpm
+    container_name: docker-wordpress-1
     depends_on:
       - db
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_USER: steve
+      WORDPRESS_DB_PASSWORD: steve
+      WORDPRESS_DB_NAME: chirostretch
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DEBUG_LOG: 1
     volumes:
-      - ./wordpress:/var/www/html
+      # NATIVE DOCKER VOLUME (FAST)
+      - wordpress-data:/var/www/html
+
+      # ONLY MOUNT WHAT YOU NEED TO EDIT
+      - ./wp-overrides/themes/chirostretch:/var/www/html/wp-content/themes/chirostretch
+      - ./wp-overrides/plugins/mu-plugins:/var/www/html/wp-content/mu-plugins
+
     networks:
       - chiro_net
 
   nginx:
-    image: nginx:stable-alpine
-    restart: unless-stopped
+    image: nginx:latest
+    container_name: docker-nginx-1
+    ports:
+      - "8080:80"
     depends_on:
       - wordpress
-    ports:
-      - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx:/etc/nginx/conf.d
+      - wordpress-data:/var/www/html
     networks:
       - chiro_net
 
-  adminer:
-    image: adminer
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
+  db:
+    image: mysql:8.0
+    container_name: docker-db-1
+    platform: linux/amd64
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chirostretch
+      MYSQL_USER: steve
+      MYSQL_PASSWORD: steve
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - chiro_net
+
+  wpcli:
+    image: wordpress:cli
+    container_name: docker-wpcli-1
+    depends_on:
+      - wordpress
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: steve
+      WORDPRESS_DB_PASSWORD: steve
+      WORDPRESS_DB_NAME: chirostretch
+    volumes:
+      - wordpress-data:/var/www/html
+      - ./wp-overrides/themes/chirostretch:/var/www/html/wp-content/themes/chirostretch
+      - ./wp-overrides/plugins/mu-plugins:/var/www/html/wp-content/mu-plugins
     networks:
       - chiro_net
 
 volumes:
-  db_data:
+  wordpress-data:
+  db-data:
 
 networks:
   chiro_net:

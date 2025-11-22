@@ -1,6 +1,7 @@
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? 'http://chirostretch.local';
+const WP_URL =
+  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
 
 export type StoreCartItem = {
   key: string;
@@ -46,22 +47,21 @@ export async function getServerCart(): Promise<StoreCart | null> {
   const cookieHeader = cookieStore
     .getAll()
     .map((cookie) => `${cookie.name}=${cookie.value}`)
-    .join('; ');
+    .join("; ");
 
   const res = await fetch(`${WP_URL}/wp-json/wc/store/v1/cart`, {
-    method: 'GET',
+    method: "GET",
     headers: {
       ...(cookieHeader ? { cookie: cookieHeader } : {}),
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    cache: 'no-store',
+    cache: "no-store",
   });
 
   if (!res.ok) {
-    console.error('Failed to fetch server cart', res.status);
+    console.error("Failed to fetch server cart", res.status);
     return null;
   }
 
   return res.json();
 }
-

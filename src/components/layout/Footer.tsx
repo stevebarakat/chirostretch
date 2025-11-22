@@ -25,7 +25,6 @@ export default function Footer({ logo }: FooterProps) {
                   width={200}
                   height={50}
                   className={styles.logoImage}
-                  style={{ width: "auto", height: "auto" }}
                   quality={75}
                 />
               ) : (
@@ -65,17 +64,26 @@ export default function Footer({ logo }: FooterProps) {
             <h3 className={styles.columnTitle}>Latest Posts</h3>
             <ul className={styles.list}>
               <li>
-                <Link href="/blog/how-chiropractic-mobility-training-supports-long-term-wellness" className={styles.listLink}>
+                <Link
+                  href="/blog/how-chiropractic-mobility-training-supports-long-term-wellness"
+                  className={styles.listLink}
+                >
                   How Chiropractic Mobility Training Supports Long-Term Wellness
                 </Link>
               </li>
               <li>
-                <Link href="/blog/movement-as-a-form-of-self-care" className={styles.listLink}>
+                <Link
+                  href="/blog/movement-as-a-form-of-self-care"
+                  className={styles.listLink}
+                >
                   Movement as a Form of Self-Care
                 </Link>
               </li>
               <li>
-                <Link href="/blog/what-makes-chiropractic-mobility-care-different" className={styles.listLink}>
+                <Link
+                  href="/blog/what-makes-chiropractic-mobility-care-different"
+                  className={styles.listLink}
+                >
                   What Makes Chiropractic Mobility Care Different?
                 </Link>
               </li>
@@ -86,17 +94,26 @@ export default function Footer({ logo }: FooterProps) {
             <h3 className={styles.columnTitle}>Upcoming Events</h3>
             <ul className={styles.list}>
               <li>
-                <Link href="/events/global-mobility-reset-workshop" className={styles.listLink}>
+                <Link
+                  href="/events/global-mobility-reset-workshop"
+                  className={styles.listLink}
+                >
                   Global Mobility Reset Workshop
                 </Link>
               </li>
               <li>
-                <Link href="/events/assisted-stretching-practitioner-certification-level-1" className={styles.listLink}>
+                <Link
+                  href="/events/assisted-stretching-practitioner-certification-level-1"
+                  className={styles.listLink}
+                >
                   Assisted Stretching Practitioner Certification - Level 1
                 </Link>
               </li>
               <li>
-                <Link href="/events/chiropractic-education-spinal-longevity-seminar" className={styles.listLink}>
+                <Link
+                  href="/events/chiropractic-education-spinal-longevity-seminar"
+                  className={styles.listLink}
+                >
                   Chiropractic Education: Spinal Longevity Seminar
                 </Link>
               </li>
@@ -109,7 +126,10 @@ export default function Footer({ logo }: FooterProps) {
               <p>123 Main Street</p>
               <p>New York, NY 10001</p>
               <p>
-                <a href="mailto:contact@mysite.com" className={styles.contactLink}>
+                <a
+                  href="mailto:contact@mysite.com"
+                  className={styles.contactLink}
+                >
                   contact@mysite.com
                 </a>
               </p>
@@ -129,4 +149,3 @@ export default function Footer({ logo }: FooterProps) {
     </footer>
   );
 }
-

@@ -10,7 +10,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 npm run dev
 ```
 
-Runs Next.js dev server on `http://chirostretch.local:4443` with HTTPS enabled.
+Runs Next.js dev server on `http://chirostretch-copy.local:4443` with HTTPS enabled.
 
 ### Build & Production
 

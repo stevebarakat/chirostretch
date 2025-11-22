@@ -1,5 +1,6 @@
 const WP_GRAPHQL_ENDPOINT =
-  process.env.WORDPRESS_GRAPHQL_ENDPOINT ?? "http://chirostretch.local/graphql";
+  process.env.WORDPRESS_GRAPHQL_ENDPOINT ??
+  "http://chirostretch-copy.local/graphql";
 
 type FetchWPOptions = {
   query: string;
