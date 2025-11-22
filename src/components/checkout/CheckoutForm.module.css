@@ -129,8 +129,8 @@
 .loadingMessage {
   padding: var(--spacing-sm) 0;
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
   text-align: center;
+  color: var(--color-text-secondary);
 }
 
 @media (min-width: 768px) {

@@ -52,7 +52,9 @@ export default function CheckoutForm() {
     },
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const sameAsBilling = watch("sameAsBilling");
+  // eslint-disable-next-line react-hooks/incompatible-library
   const billingData = watch("billing");
   const [cardError, setCardError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);

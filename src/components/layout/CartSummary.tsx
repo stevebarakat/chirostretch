@@ -3,18 +3,14 @@
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
+import { formatPrice } from "@/lib/utils/formatPrice";
 import styles from "./CartSummary.module.css";
 
 export default function CartSummary() {
   const itemsCount = useCartStore((s) => s.itemsCount);
   const totals = useCartStore((s) => s.totals);
 
-  const totalPrice = totals?.total_price ? parseFloat(totals.total_price) : 0;
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(totalPrice);
+  const formattedPrice = formatPrice(totals?.total_price);
 
   return (
     <Link href="/cart" className={styles.cartSummary}>

@@ -48,7 +48,6 @@ export default function Footer({
                   alt={logo.altText || "ChiroStretch"}
                   width={200}
                   height={50}
-                  className={styles.logoImage}
                   quality={75}
                 />
               ) : (

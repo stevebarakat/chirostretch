@@ -12,13 +12,13 @@
 }
 
 .link {
+  display: block;
+  padding: var(--spacing-xs) 0;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
   color: var(--color-text-primary);
   transition: color var(--transition-base);
-  display: block;
-  padding: var(--spacing-xs) 0;
 }
 
 .link:hover {
@@ -33,15 +33,15 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
+  padding: var(--spacing-xs) 0;
+  font-family: inherit;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
   background: none;
   border: none;
   cursor: pointer;
-  padding: var(--spacing-xs) 0;
   transition: color var(--transition-base);
-  font-family: inherit;
 }
 
 .button:hover {
@@ -60,19 +60,19 @@
   position: absolute;
   top: 100%;
   left: 0;
+  z-index: 10;
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-xs);
   min-width: 200px;
   background-color: var(--color-bg-primary);
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
-  padding: var(--spacing-xs);
-  margin-top: var(--spacing-xs);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px);
   transition: opacity var(--transition-base), transform var(--transition-base),
     visibility var(--transition-base);
-  z-index: 10;
+  transform: translateY(-8px);
 }
 
 .dropdownOpen {
@@ -98,18 +98,18 @@
 }
 
 .dropdownLink:hover {
-  background-color: var(--color-bg-secondary);
   color: var(--color-primary-600);
+  background-color: var(--color-bg-secondary);
 }
 
 @media (max-width: 767px) {
   .dropdown {
     position: static;
-    box-shadow: none;
-    border: none;
-    padding: 0;
     margin-top: 0;
     margin-left: var(--spacing-md);
+    padding: 0;
+    border: none;
+    box-shadow: none;
   }
 
   .dropdownOpen {

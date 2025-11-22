@@ -24,12 +24,6 @@ export function validateEnvironmentVariables(): {
   missing: string[];
 } {
   const required: string[] = [];
-  const optional = [
-    "WORDPRESS_GRAPHQL_ENDPOINT",
-    "NEXT_PUBLIC_GRAPHQL_ENDPOINT",
-    "NEXT_PUBLIC_WORDPRESS_URL",
-    "NEXT_PUBLIC_SITE_URL",
-  ];
 
   const missing = required.filter((key) => !process.env[key]);
 

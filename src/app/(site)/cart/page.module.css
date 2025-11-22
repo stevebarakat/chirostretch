@@ -126,11 +126,11 @@
 
 .updateButton,
 .removeButton {
-  flex-shrink: 0;
   padding: var(--spacing-sm);
-  min-width: 40px;
   width: 40px;
+  min-width: 40px;
   height: 40px;
+  flex-shrink: 0;
 }
 
 .cartSummary {

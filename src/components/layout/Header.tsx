@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart } from "lucide-react";
+import { Search } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Menu from "./Menu";
 import CartSummary from "./CartSummary";
@@ -31,9 +31,12 @@ export default function Header({ logo, menuItems }: HeaderProps) {
               <Image
                 src={logo.sourceUrl}
                 alt={logo.altText || "Chiro Stretch"}
-                width={logo.mediaDetails?.width || 200}
-                height={logo.mediaDetails?.height || 50}
-                className={styles.logoImage}
+                width={
+                  logo.mediaDetails?.width ? logo.mediaDetails.width / 4 : 200
+                }
+                height={
+                  logo.mediaDetails?.height ? logo.mediaDetails.height / 4 : 50
+                }
                 priority
                 fetchPriority="high"
               />
