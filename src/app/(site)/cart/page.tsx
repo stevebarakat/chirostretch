@@ -249,12 +249,14 @@ export default function CartPage() {
 
             <div className={styles.checkoutActions}>
               <Link href="/checkout" className={styles.checkoutLink}>
-                <Button variant="primary" className={styles.checkoutButton}>
+                <Button variant="primary" fullWidth>
                   Proceed to Checkout
                 </Button>
               </Link>
               <Link href="/">
-                <Button variant="secondary">Continue Shopping</Button>
+                <Button variant="secondary" fullWidth>
+                  Continue Shopping
+                </Button>
               </Link>
             </div>
           </div>

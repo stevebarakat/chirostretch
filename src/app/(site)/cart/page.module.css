@@ -190,10 +190,6 @@
   text-decoration: none;
 }
 
-.checkoutButton {
-  width: 100%;
-}
-
 @media (min-width: 768px) {
   .cartContent {
     grid-template-columns: 1fr 400px;

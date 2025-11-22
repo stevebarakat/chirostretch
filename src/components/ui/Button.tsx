@@ -3,6 +3,7 @@ import styles from "./Button.module.css";
 
 type BaseButtonProps = {
   variant?: "primary" | "secondary" | "warning";
+  fullWidth?: boolean;
   children: ReactNode;
   className?: string;
 };
@@ -21,11 +22,18 @@ type LinkButtonProps = BaseButtonProps &
 type ButtonComponentProps = ButtonProps | LinkButtonProps;
 
 export default function Button(props: ButtonComponentProps) {
-  const { variant = "primary", children, className = "", ...rest } = props;
+  const {
+    variant = "primary",
+    fullWidth = false,
+    children,
+    className = "",
+    ...rest
+  } = props;
   const isLink = "as" in props && props.as === "a";
 
-  const buttonClasses =
-    `${styles.button} ${styles[variant]} ${className}`.trim();
+  const buttonClasses = `${styles.button} ${styles[variant]} ${
+    fullWidth ? styles.fullWidth : ""
+  } ${className}`.trim();
 
   if (isLink) {
     const { as, ...linkProps } = rest as LinkButtonProps;

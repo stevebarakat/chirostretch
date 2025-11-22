@@ -574,7 +574,7 @@ export default function CheckoutForm() {
           type="submit"
           variant="primary"
           disabled={isSubmitting}
-          className={styles.submitButton}
+          fullWidth
         >
           {isSubmitting ? "Processing..." : "Place Order"}
         </Button>
