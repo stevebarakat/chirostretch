@@ -2,8 +2,10 @@
 
 import { useEffect, useState, useCallback, startTransition } from "react";
 import Link from "next/link";
+import { RefreshCcw, Trash2 } from "lucide-react";
 import Container from "@components/ui/Container";
 import Button from "@components/ui/Button";
+import VisuallyHidden from "@components/ui/VisuallyHidden";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import type { StoreCartItem } from "@/lib/woocommerce/getServerCart";
 import styles from "./page.module.css";
@@ -60,6 +62,18 @@ export default function CartPage() {
         console.error("Failed to update quantity:", error);
       }
     }
+  };
+
+  const handleUpdateItem = async (key: string) => {
+    await handleUpdateQuantity(key);
+  };
+
+  const hasQuantityChanged = (itemKey: string) => {
+    const localQty = localQuantities[itemKey];
+    const savedItem = items.find((item) => item.key === itemKey);
+    return (
+      savedItem && localQty !== undefined && localQty !== savedItem.quantity
+    );
   };
 
   const handleRemoveItem = async (key: string) => {
@@ -121,14 +135,6 @@ export default function CartPage() {
           <h1 className={styles.title}>
             Cart ({itemsCount} {itemsCount === 1 ? "item" : "items"})
           </h1>
-          <Button
-            variant="secondary"
-            onClick={() => fetchCart()}
-            disabled={loading}
-            className={styles.refreshButton}
-          >
-            {loading ? "Refreshing..." : "Refresh"}
-          </Button>
         </div>
 
         <div className={styles.cartContent}>
@@ -180,7 +186,6 @@ export default function CartPage() {
                             parseInt(e.target.value, 10)
                           )
                         }
-                        onBlur={() => handleUpdateQuantity(item.key)}
                         className={styles.quantityInput}
                         disabled={loading}
                       />
@@ -192,11 +197,26 @@ export default function CartPage() {
 
                     <Button
                       variant="secondary"
+                      onClick={() => handleUpdateItem(item.key)}
+                      disabled={loading || !hasQuantityChanged(item.key)}
+                      className={styles.updateButton}
+                      aria-label="Update quantity"
+                    >
+                      <RefreshCcw size={18} />
+                      <VisuallyHidden>
+                        {loading ? "Updating..." : "Update"}
+                      </VisuallyHidden>
+                    </Button>
+
+                    <Button
+                      variant="secondary"
                       onClick={() => handleRemoveItem(item.key)}
                       disabled={loading}
                       className={styles.removeButton}
+                      aria-label="Remove item"
                     >
-                      Remove
+                      <Trash2 size={18} />
+                      <VisuallyHidden>Remove</VisuallyHidden>
                     </Button>
                   </div>
                 </div>

@@ -17,10 +17,6 @@
   color: var(--color-text-primary);
 }
 
-.refreshButton {
-  flex-shrink: 0;
-}
-
 .loading {
   padding: var(--spacing-2xl);
   text-align: center;
@@ -128,8 +124,13 @@
   color: var(--color-text-primary);
 }
 
+.updateButton,
 .removeButton {
-  align-self: flex-start;
+  flex-shrink: 0;
+  padding: var(--spacing-sm);
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .cartSummary {
@@ -224,6 +225,7 @@
     min-width: auto;
   }
 
+  .updateButton,
   .removeButton {
     align-self: center;
   }
