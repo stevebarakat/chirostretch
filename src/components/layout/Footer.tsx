@@ -25,6 +25,7 @@ export default function Footer({ logo }: FooterProps) {
                   width={200}
                   height={50}
                   className={styles.logoImage}
+                  style={{ width: "auto", height: "auto" }}
                   quality={75}
                 />
               ) : (

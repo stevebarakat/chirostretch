@@ -24,6 +24,7 @@ export default function Navbar({ logo }: NavbarProps) {
                 width={200}
                 height={50}
                 className={styles.logoImage}
+                style={{ width: "auto", height: "auto" }}
                 priority
                 quality={75}
               />
