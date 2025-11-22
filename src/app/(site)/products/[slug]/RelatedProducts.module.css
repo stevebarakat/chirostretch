@@ -5,11 +5,11 @@
 }
 
 .heading {
+  margin-bottom: var(--spacing-xl);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-xl);
 }
 
 .grid {
@@ -23,15 +23,15 @@
   flex-direction: column;
   text-decoration: none;
   color: inherit;
+  background-color: var(--color-bg-secondary);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background-color: var(--color-bg-secondary);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
 }
 
 .imageWrapper {
@@ -54,18 +54,18 @@
 }
 
 .content {
-  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  padding: var(--spacing-md);
 }
 
 .title {
+  margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
-  margin: 0;
 }
 
 .price {

@@ -7,10 +7,10 @@
 .mainImage {
   position: relative;
   width: 100%;
-  aspect-ratio: 1;
+  background-color: var(--color-bg-secondary);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background-color: var(--color-bg-secondary);
+  aspect-ratio: 1;
 }
 
 .image {
@@ -28,12 +28,12 @@
 .thumbnail {
   position: relative;
   width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  cursor: pointer;
   background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  overflow: hidden;
   transition: opacity 0.2s ease;
+  aspect-ratio: 1;
 }
 
 .thumbnail:hover {

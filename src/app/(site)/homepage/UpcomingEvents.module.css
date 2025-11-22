@@ -13,14 +13,14 @@
 .eventCard {
   background-color: var(--color-bg-primary);
   border-radius: var(--radius-lg);
-  overflow: hidden;
   box-shadow: var(--shadow-md);
+  overflow: hidden;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .eventCard:hover {
-  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
 }
 
 .imageWrapper {
@@ -41,30 +41,30 @@
 }
 
 .title {
+  margin-bottom: var(--spacing-sm);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-sm);
   line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
 }
 
 .description {
+  margin-bottom: var(--spacing-md);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-md);
 }
 
 .date {
+  margin-bottom: var(--spacing-md);
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-bottom: var(--spacing-md);
 }
 
 .actions {
   display: flex;
-  gap: var(--spacing-md);
   flex-wrap: wrap;
+  gap: var(--spacing-md);
 }
 
 .cta {

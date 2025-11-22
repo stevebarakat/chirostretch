@@ -37,7 +37,7 @@
     {
       "preferComponentProps": true,
       "preferEventHandlers": true,
-      "useEffectGuidelines": "useEffect should only synchronize with external systems (APIs, observers, Web Audio API). Avoid using useEffect for UI event logic.",
+      "useEffectGuidelines": "useEffect is meant for synchronizing with external APIs outside of React (ie: browser APIs, external APIs, etc). Prefer event handlers for UI event logic.",
       "useEffectDependencies": "One concern per useEffect. Split effects if dependencies represent unrelated concerns. Use useMemo/useCallback where appropriate.",
     },
 

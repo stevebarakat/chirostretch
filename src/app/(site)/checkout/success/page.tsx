@@ -1,0 +1,64 @@
+import Link from "next/link";
+import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
+import styles from "./page.module.css";
+
+type SuccessPageProps = {
+  searchParams: Promise<{ order?: string }>;
+};
+
+export default async function CheckoutSuccessPage({
+  searchParams,
+}: SuccessPageProps) {
+  const params = await searchParams;
+  const orderId = params.order;
+
+  return (
+    <Container>
+      <div className={styles.successPage}>
+        <div className={styles.successContent}>
+          <div className={styles.iconWrapper}>
+            <svg
+              className={styles.checkIcon}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+
+          <h1 className={styles.title}>Order Confirmed!</h1>
+
+          <p className={styles.message}>
+            Thank you for your purchase. Your order has been received and is
+            being processed.
+          </p>
+
+          {orderId && (
+            <div className={styles.orderInfo}>
+              <p className={styles.orderLabel}>Order Number:</p>
+              <p className={styles.orderNumber}>{orderId}</p>
+            </div>
+          )}
+
+          <p className={styles.emailMessage}>
+            You will receive an email confirmation shortly with your order
+            details.
+          </p>
+
+          <div className={styles.actions}>
+            <Link href="/">
+              <Button variant="primary">Continue Shopping</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
+}

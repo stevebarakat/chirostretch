@@ -1,8 +1,8 @@
 .footer {
+  margin-top: var(--spacing-4xl);
+  padding: var(--spacing-3xl) 0 var(--spacing-lg);
   background-color: var(--color-bg-secondary);
   border-top: 1px solid var(--color-border-secondary);
-  padding: var(--spacing-3xl) 0 var(--spacing-lg);
-  margin-top: var(--spacing-4xl);
 }
 
 .main {
@@ -22,16 +22,16 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  text-decoration: none;
+  margin-bottom: var(--spacing-sm);
   font-family: var(--font-secondary);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-sm);
+  text-decoration: none;
 }
 
 .logoImage {
-  height: auto;
   width: auto;
+  height: auto;
   max-height: 50px;
   object-fit: contain;
 }
@@ -45,9 +45,9 @@
 }
 
 .description {
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
   margin-bottom: var(--spacing-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
 }
 
 .social {
@@ -66,26 +66,26 @@
 }
 
 .columnTitle {
+  margin-bottom: var(--spacing-sm);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-sm);
 }
 
 .list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .listLink {
-  color: var(--color-text-secondary);
-  text-decoration: none;
   font-size: var(--font-size-sm);
   line-height: var(--line-height-relaxed);
+  text-decoration: none;
+  color: var(--color-text-secondary);
   transition: color var(--transition-base);
 }
 
@@ -94,21 +94,21 @@
 }
 
 .contact {
-  font-style: normal;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  font-style: normal;
 }
 
 .contact p {
   margin: 0;
-  color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
 }
 
 .contactLink {
-  color: var(--color-text-secondary);
   text-decoration: none;
+  color: var(--color-text-secondary);
   transition: color var(--transition-base);
 }
 
@@ -118,14 +118,14 @@
 
 .copyright {
   padding-top: var(--spacing-xl);
-  border-top: 1px solid var(--color-border-secondary);
   text-align: center;
+  border-top: 1px solid var(--color-border-secondary);
 }
 
 .copyright p {
   margin: 0;
-  color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
 }
 
 @media (min-width: 768px) {

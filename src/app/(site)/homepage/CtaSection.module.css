@@ -1,10 +1,10 @@
 .section {
+  display: flex;
   position: relative;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   min-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -22,33 +22,33 @@
 
 .overlay {
   position: absolute;
-  inset: 0;
-  background-color: var(--color-bg-overlay);
   z-index: 1;
+  background-color: var(--color-bg-overlay);
+  inset: 0;
 }
 
 .content {
   position: relative;
   z-index: 2;
-  text-align: center;
+  margin: 0 auto;
   padding: var(--spacing-3xl) var(--spacing-lg);
   max-width: 800px;
-  margin: 0 auto;
+  text-align: center;
 }
 
 .heading {
+  margin-bottom: var(--spacing-md);
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-text-inverse);
-  margin-bottom: var(--spacing-md);
 }
 
 .description {
+  margin-bottom: var(--spacing-xl);
   font-size: var(--font-size-lg);
   line-height: var(--line-height-relaxed);
   color: var(--color-text-inverse);
-  margin-bottom: var(--spacing-xl);
   opacity: 0.95;
 }
 

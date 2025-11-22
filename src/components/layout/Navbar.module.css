@@ -1,33 +1,33 @@
 .header {
-  background-color: var(--color-bg-primary);
-  border-bottom: 1px solid var(--color-border-secondary);
   position: sticky;
   top: 0;
   z-index: 100;
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
 .wrapper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-md) 0;
+  align-items: center;
   gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  text-decoration: none;
   font-family: var(--font-secondary);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
+  text-decoration: none;
   white-space: nowrap;
 }
 
 .logoImage {
-  height: auto;
   width: auto;
+  height: auto;
   max-height: 50px;
   object-fit: contain;
 }
@@ -47,10 +47,10 @@
 }
 
 .navLink {
-  color: var(--color-text-primary);
-  text-decoration: none;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  color: var(--color-text-primary);
   transition: color var(--transition-base);
 }
 
@@ -59,11 +59,11 @@
 }
 
 .phone {
-  color: var(--color-text-primary);
-  text-decoration: none;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
+  text-decoration: none;
   white-space: nowrap;
+  color: var(--color-text-primary);
   transition: color var(--transition-base);
 }
 

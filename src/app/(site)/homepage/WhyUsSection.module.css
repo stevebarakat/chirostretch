@@ -5,9 +5,9 @@
 
 .wrapper {
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr;
   gap: var(--spacing-3xl);
-  align-items: center;
 }
 
 .content {
@@ -17,27 +17,27 @@
 }
 
 .heading {
+  margin-bottom: var(--spacing-md);
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-md);
 }
 
 .description {
+  margin-bottom: var(--spacing-lg);
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-lg);
 }
 
 .benefits {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .benefit {
@@ -58,10 +58,10 @@
 }
 
 .benefitTitle {
+  margin-bottom: var(--spacing-xs);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-xs);
 }
 
 .benefitDescription {

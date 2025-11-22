@@ -11,26 +11,26 @@
 }
 
 .postCard {
-  background-color: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
   display: flex;
   flex-direction: column;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .postCard:hover {
-  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
   background-color: var(--color-bg-tertiary);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
 }
 
 .image {
@@ -38,34 +38,34 @@
 }
 
 .content {
-  padding: var(--spacing-lg);
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
   gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
 }
 
 .title {
+  margin-bottom: var(--spacing-xs);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
   line-height: var(--line-height-tight);
-  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-primary);
 }
 
 .date {
+  margin-bottom: var(--spacing-md);
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-bottom: var(--spacing-md);
 }
 
 .link {
-  color: var(--color-text-link);
-  text-decoration: none;
+  margin-top: auto;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  color: var(--color-text-link);
   transition: color var(--transition-base);
-  margin-top: auto;
 }
 
 .link:hover {

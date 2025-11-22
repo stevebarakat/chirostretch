@@ -5,7 +5,6 @@
   /* BEST FOR PERFORMANCE */
   height: min(60vh, 100svh);
   min-height: 420px;
-
   overflow: hidden;
 }
 
@@ -20,10 +19,10 @@
 }
 
 .swiper {
-  width: 100%;
-  height: 100%;
   position: relative;
   z-index: 2;
+  width: 100%;
+  height: 100%;
 }
 
 /* Fade logic */
@@ -64,15 +63,13 @@
 }
 
 .content {
-  position: absolute;
-  inset: 0;
-
   display: flex;
-  align-items: center;
+  position: absolute;
   justify-content: center;
-
-  text-align: center;
+  align-items: center;
   padding: 0 var(--spacing-lg);
+  text-align: center;
+  inset: 0;
 
   pointer-events: none; /* Keeps interactions clean */
 }
@@ -84,16 +81,16 @@
 }
 
 .heading {
+  margin-bottom: var(--spacing-md);
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-md);
   line-height: var(--line-height-tight);
   color: hsl(0, 0%, 100%);
 }
 
 .subheading {
-  font-size: var(--font-size-xl);
   margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-xl);
   line-height: var(--line-height-normal);
   color: hsl(0, 0%, 100%);
   opacity: 0.95;
@@ -101,13 +98,13 @@
 
 .cta {
   display: inline-block;
-  background-color: var(--color-text-inverse);
-  color: var(--color-text-primary);
   padding: var(--spacing-md) var(--spacing-xl);
-  border-radius: var(--radius-md);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   text-decoration: none;
+  color: var(--color-text-primary);
+  background-color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
   transition: background-color var(--transition-base);
 }
 
