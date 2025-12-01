@@ -11,6 +11,8 @@ export const LAYOUT_QUERY = `
       }
     }
     headerMenu: menu(id: "main-menu", idType: SLUG) {
+      id
+      name
       menuItems(where: {parentDatabaseId: 0}) {
         nodes {
           label
@@ -27,6 +29,8 @@ export const LAYOUT_QUERY = `
       }
     }
     footerMenu: menu(id: "footer-menu", idType: SLUG) {
+      id
+      name
       menuItems(where: {parentDatabaseId: 0}) {
         nodes {
           label
@@ -66,11 +70,15 @@ export type LayoutQueryResponse = {
     };
   };
   headerMenu?: {
+    id?: string;
+    name?: string;
     menuItems?: {
       nodes: MenuItem[];
     };
   };
   footerMenu?: {
+    id?: string;
+    name?: string;
     menuItems?: {
       nodes: MenuItem[];
     };

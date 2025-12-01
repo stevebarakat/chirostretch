@@ -66,8 +66,32 @@ export default async function RootLayout({
     logo = data?.logo;
     headerMenuItems = data?.headerMenu?.menuItems?.nodes;
     footerMenuItems = data?.footerMenu?.menuItems?.nodes;
+
+    if (!data?.headerMenu) {
+      console.warn(
+        "Header menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
+      );
+    } else if (!headerMenuItems || headerMenuItems.length === 0) {
+      console.warn(
+        `Header menu found (${
+          data.headerMenu.name || "unknown"
+        }) but has no menu items.`
+      );
+    }
+
+    if (!data?.footerMenu) {
+      console.warn(
+        "Footer menu not found. Expected menu slug: 'footer-menu'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
+      );
+    } else if (!footerMenuItems || footerMenuItems.length === 0) {
+      console.warn(
+        `Footer menu found (${
+          data.footerMenu.name || "unknown"
+        }) but has no menu items.`
+      );
+    }
   } catch (error) {
-    console.warn("Failed to fetch layout data from WordPress:", error);
+    console.error("Failed to fetch layout data from WordPress:", error);
     logo = undefined;
     headerMenuItems = undefined;
     footerMenuItems = undefined;
