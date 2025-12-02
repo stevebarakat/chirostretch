@@ -8,7 +8,7 @@ import {
   type AllPageSlugsResponse,
 } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
-import { BlockRenderer } from "@/components/blocks";
+import { BlockRenderer, type Block } from "@/components/blocks";
 import Image from "next/image";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
@@ -156,7 +156,7 @@ export default async function WordPressPage({ params }: PageProps) {
   return (
     <Container>
       <article className={styles.page}>
-        {page.featuredImage?.node && (
+        {page.featuredImage?.node?.sourceUrl && (
           <div className={styles.featuredImage}>
             <Image
               src={page.featuredImage.node.sourceUrl}
@@ -180,17 +180,7 @@ export default async function WordPressPage({ params }: PageProps) {
 
         {blocks && blocks.length > 0 ? (
           <div className={styles.content}>
-            <BlockRenderer
-              blocks={
-                blocks as Array<{
-                  name: string;
-                  attributes?: Record<string, unknown>;
-                  innerBlocks?: unknown[];
-                  innerHTML?: string;
-                  innerContent?: string[];
-                }>
-              }
-            />
+            <BlockRenderer blocks={blocks as Block[]} />
           </div>
         ) : (
           <div

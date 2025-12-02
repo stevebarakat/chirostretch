@@ -3,7 +3,7 @@ import HeadingBlock from "./HeadingBlock";
 import ImageBlock from "./ImageBlock";
 import CoverBlock from "./CoverBlock";
 
-type Block = {
+export type Block = {
   name: string;
   attributes?: Record<string, unknown>;
   innerBlocks?: Block[];
@@ -161,15 +161,7 @@ export default function BlockRenderer({
                   contentPosition={
                     coverAttrs?.contentPosition || "center center"
                   }
-                  innerBlocks={
-                    block.innerBlocks as Array<{
-                      name: string;
-                      attributes?: Record<string, unknown>;
-                      innerBlocks?: unknown[];
-                      innerHTML?: string;
-                      innerContent?: string[];
-                    }>
-                  }
+                  innerBlocks={block.innerBlocks}
                 />
               );
             }
@@ -182,15 +174,7 @@ export default function BlockRenderer({
                 overlayColor={coverAttrs?.overlayColor || "black"}
                 minHeight={coverAttrs?.minHeight || 300}
                 contentPosition={coverAttrs?.contentPosition || "center center"}
-                innerBlocks={
-                  block.innerBlocks as Array<{
-                    name: string;
-                    attributes?: Record<string, unknown>;
-                    innerBlocks?: unknown[];
-                    innerHTML?: string;
-                    innerContent?: string[];
-                  }>
-                }
+                innerBlocks={block.innerBlocks}
               />
             );
 

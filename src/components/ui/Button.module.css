@@ -51,3 +51,15 @@
 .warning:hover {
   background-color: var(--color-warning-600);
 }
+
+.outline {
+  color: var(--color-primary-600);
+  background-color: transparent;
+  border: 2px solid var(--color-primary-500);
+}
+
+.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}

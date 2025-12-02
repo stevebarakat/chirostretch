@@ -7,15 +7,7 @@ import dynamic from "next/dynamic";
 
 export const revalidate = 300;
 
-// Critical above-the-fold sections (server-rendered)
-import HeroSlider from "./homepage/HeroSlider";
-import AboutSection from "./homepage/AboutSection";
-
 // Below-the-fold sections (dynamically imported for code splitting)
-const WhyUsSection = dynamic(() => import("./homepage/WhyUsSection"), {
-  ssr: true,
-});
-
 const FeaturedProducts = dynamic(() => import("./homepage/FeaturedProducts"), {
   ssr: true,
 });
@@ -43,26 +35,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSlider slides={page.homepageHero?.heroSlides} />
-
-      <AboutSection
-        aboutHeading={page.homepageAbout?.aboutHeading}
-        aboutSubheading={page.homepageAbout?.aboutSubheading}
-        aboutImage={page.homepageAbout?.aboutImage?.node}
-        aboutCtaText={page.homepageAbout?.aboutCtaText}
-        aboutCtaLink={page.homepageAbout?.aboutCtaLink}
-      />
-
-      <WhyUsSection
-        whyusHeading={page.homepageWhyUs?.whyusHeading}
-        whyusDescription={page.homepageWhyUs?.whyusDescription}
-        whyusImage={page.homepageWhyUs?.whyusImage?.node}
-        whyusBenefits={page.homepageWhyUs?.whyusBenefits?.map((benefit) => ({
-          ...benefit,
-          benefitIcon: benefit.benefitIcon?.node,
-        }))}
-      />
-
       <FeaturedProducts
         featuredProductsHeading={
           page.homepageFeaturedProducts?.featuredProductsHeading

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ElementType } from "react";
 
 type HeadingBlockProps = {
   level: number;
@@ -13,10 +13,7 @@ export default function HeadingBlock({
 }: HeadingBlockProps) {
   if (!content) return null;
 
-  const HeadingTag = `h${Math.min(
-    Math.max(level, 1),
-    6
-  )}` as keyof JSX.IntrinsicElements;
+  const HeadingTag = `h${Math.min(Math.max(level, 1), 6)}` as ElementType;
 
   return (
     <HeadingTag

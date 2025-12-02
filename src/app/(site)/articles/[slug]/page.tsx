@@ -8,7 +8,7 @@ import {
   type AllPostSlugsResponse,
 } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
-import BlockRenderer from "@/components/blocks/BlockRenderer";
+import { BlockRenderer, type Block } from "@/components/blocks";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -134,17 +134,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           Array.isArray(post.blocks) &&
           post.blocks.length > 0 ? (
             <div className={styles.content}>
-              <BlockRenderer
-                blocks={
-                  post.blocks as Array<{
-                    name: string;
-                    attributes?: Record<string, unknown>;
-                    innerBlocks?: unknown[];
-                    innerHTML?: string;
-                    innerContent?: string[];
-                  }>
-                }
-              />
+              <BlockRenderer blocks={post.blocks as Block[]} />
             </div>
           ) : post.content ? (
             <div

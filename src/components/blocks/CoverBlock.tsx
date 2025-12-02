@@ -1,5 +1,5 @@
 import Image from "next/image";
-import BlockRenderer from "./BlockRenderer";
+import BlockRenderer, { type Block } from "./BlockRenderer";
 import styles from "./CoverBlock.module.css";
 
 type CoverBlockProps = {
@@ -9,13 +9,7 @@ type CoverBlockProps = {
   overlayColor?: string;
   minHeight?: number;
   contentPosition?: string;
-  innerBlocks?: Array<{
-    name: string;
-    attributes?: Record<string, unknown>;
-    innerBlocks?: unknown[];
-    innerHTML?: string;
-    innerContent?: string[];
-  }>;
+  innerBlocks?: Block[];
   className?: string;
 };
 

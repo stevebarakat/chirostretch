@@ -17,6 +17,8 @@ export async function GET() {
     });
   }
 
+  const client = adminClient;
+
   try {
     const indices = [
       algoliaConfig.indices.products,
@@ -28,8 +30,8 @@ export async function GET() {
     const status = await Promise.all(
       indices.map(async (indexName) => {
         try {
-          const settings = await adminClient.getSettings({ indexName });
-          const searchResult = await adminClient.searchSingleIndex({
+          const settings = await client.getSettings({ indexName });
+          const searchResult = await client.searchSingleIndex({
             indexName,
             searchParams: { query: "", hitsPerPage: 0 },
           });

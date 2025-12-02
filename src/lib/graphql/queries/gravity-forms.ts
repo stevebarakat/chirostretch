@@ -30,6 +30,10 @@ export type GravityFormFieldInput = {
   name: string;
   placeholder?: string;
   isHidden?: boolean;
+  key?: string;
+  customLabel?: string | null;
+  defaultValue?: string | null;
+  autocompleteAttribute?: string;
 };
 
 export type GravityFormFieldChoice = {

@@ -22,6 +22,8 @@ type AboutSectionProps = {
   };
   aboutCtaText?: string;
   aboutCtaLink?: AcfLink;
+  aboutCta2Text?: string;
+  aboutCta2Link?: AcfLink;
 };
 
 export default function AboutSection({
@@ -30,10 +32,14 @@ export default function AboutSection({
   aboutImage,
   aboutCtaText,
   aboutCtaLink,
+  aboutCta2Text,
+  aboutCta2Link,
 }: AboutSectionProps) {
   if (!aboutHeading) return null;
 
   const imgUrl = aboutImage?.sourceUrl || "";
+
+  console.log("aboutCta2Text", aboutCta2Link);
 
   return (
     <section className={styles.section}>
@@ -43,24 +49,45 @@ export default function AboutSection({
             {aboutHeading && <h2 className={styles.heading}>{aboutHeading}</h2>}
 
             {aboutSubheading && (
-              <p className={styles.description}>{aboutSubheading}</p>
+              <div
+                className={styles.description}
+                dangerouslySetInnerHTML={{ __html: aboutSubheading }}
+              ></div>
             )}
 
-            {aboutCtaText && aboutCtaLink?.url && (
-              <Button
-                as="a"
-                href={aboutCtaLink.url}
-                target={aboutCtaLink.target || undefined}
-                rel={
-                  aboutCtaLink.target === "_blank"
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                variant="primary"
-              >
-                {aboutCtaText}
-              </Button>
-            )}
+            <div className={styles.ctaWrapper}>
+              {aboutCtaText && aboutCtaLink?.url && (
+                <Button
+                  as="a"
+                  href={aboutCtaLink.url}
+                  target={aboutCtaLink.target || undefined}
+                  rel={
+                    aboutCtaLink.target === "_blank"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  variant="primary"
+                >
+                  {aboutCtaText}
+                </Button>
+              )}
+
+              {aboutCta2Text && aboutCta2Link?.url && (
+                <Button
+                  as="a"
+                  href={aboutCta2Link.url}
+                  target={aboutCta2Link.target || undefined}
+                  rel={
+                    aboutCta2Link.target === "_blank"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  variant="outline"
+                >
+                  {aboutCta2Text}
+                </Button>
+              )}
+            </div>
           </div>
 
           {imgUrl && (

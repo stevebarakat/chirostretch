@@ -15,7 +15,8 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: transform var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .eventCard:hover {
@@ -83,4 +84,3 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-

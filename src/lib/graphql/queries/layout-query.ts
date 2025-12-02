@@ -1,3 +1,5 @@
+import type { MenuItem } from "./menu";
+
 export const LAYOUT_QUERY = `
   query Layout {
     logo: mediaItem(id: "chirostretch-logo", idType: SLUG) {
@@ -48,15 +50,6 @@ export const LAYOUT_QUERY = `
     }
   }
 `;
-
-export type MenuItem = {
-  label: string;
-  uri: string;
-  id: string;
-  childItems?: {
-    nodes: MenuItem[];
-  };
-};
 
 export type LayoutQueryResponse = {
   logo?: {
