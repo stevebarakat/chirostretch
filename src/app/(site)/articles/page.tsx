@@ -11,7 +11,7 @@ import styles from "./page.module.css";
 
 export const revalidate = 300;
 
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 6;
 
 type ArticlesPageProps = {
   searchParams: Promise<{ after?: string }>;
@@ -78,7 +78,7 @@ export default async function ArticlesPage({
                           width={imageWidth}
                           height={imageHeight}
                           className={styles.image}
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          sizes="(max-width: 639px) 100vw, 320px"
                         />
                       </div>
                     ) : (
