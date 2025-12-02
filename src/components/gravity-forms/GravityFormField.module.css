@@ -1,0 +1,103 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.25rem);
+}
+
+.label {
+  font-size: var(--font-size-base, 1rem);
+  font-weight: 600;
+  color: var(--color-text-primary, hsl(0, 0%, 10%));
+  margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.required {
+  color: hsl(0, 70%, 50%);
+  margin-left: var(--spacing-xs, 0.25rem);
+}
+
+.description {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, hsl(0, 0%, 40%));
+  margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: var(--spacing-md, 1rem);
+  font-size: var(--font-size-base, 1rem);
+  font-family: inherit;
+  color: var(--color-text-primary, hsl(0, 0%, 10%));
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid var(--color-border, hsl(0, 0%, 80%));
+  border-radius: var(--radius-md, 0.5rem);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: hsl(220, 90%, 50%);
+  box-shadow: 0 0 0 3px hsla(220, 90%, 50%, 0.1);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.select {
+  cursor: pointer;
+}
+
+.nameInputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md, 1rem);
+}
+
+.nameInput {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.25rem);
+}
+
+.radioGroup,
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.5rem);
+}
+
+.radioLabel,
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 0.5rem);
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-primary, hsl(0, 0%, 10%));
+  cursor: pointer;
+}
+
+.radio,
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: hsl(220, 90%, 50%);
+}
+
+.fileInput {
+  padding: var(--spacing-sm, 0.5rem);
+  font-size: var(--font-size-base, 1rem);
+  cursor: pointer;
+}
+
+.error {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: hsl(0, 70%, 50%);
+  margin-top: var(--spacing-xs, 0.25rem);
+}

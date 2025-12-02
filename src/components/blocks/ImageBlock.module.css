@@ -1,57 +1,33 @@
 .figure {
-  margin: var(--spacing-xl) 0;
+  margin: var(--spacing-lg, 1.5rem) 0;
+  line-height: 0;
 }
 
-.hasAspectRatio {
+.imageWrapper {
   position: relative;
-  width: 100%;
-  display: block;
-}
-
-.hasAspectRatio .imageWrapper {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 0;
-  overflow: hidden;
-}
-
-.hasAspectRatio[style*="aspect-ratio"] .imageWrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
 }
 
-.rounded {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.circle {
-  border-radius: 9999px;
-  overflow: hidden;
-}
-
 .alignLeft {
   float: left;
-  margin-right: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+  margin-right: var(--spacing-lg, 1.5rem);
+  margin-bottom: var(--spacing-md, 1rem);
   max-width: 50%;
 }
 
 .alignRight {
   float: right;
-  margin-left: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+  margin-left: var(--spacing-lg, 1.5rem);
+  margin-bottom: var(--spacing-md, 1rem);
   max-width: 50%;
 }
 
 .alignCenter {
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  display: block;
+  text-align: center;
 }
 
 .alignWide {
@@ -63,17 +39,32 @@
 
 .alignFull {
   width: 100vw;
-  max-width: none;
+  max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
+.rounded {
+  border-radius: var(--radius-md, 0.5rem);
+  overflow: hidden;
+}
+
+.circle {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hasAspectRatio {
+  position: relative;
+  width: 100%;
+}
+
 .caption {
-  margin-top: var(--spacing-sm);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-xs, 0.25rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, hsl(0, 0%, 40%));
   text-align: center;
-  font-style: italic;
+  line-height: 1.5;
 }
 
 @media (max-width: 767px) {
