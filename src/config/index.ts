@@ -1,3 +1,6 @@
+import { siteConfig } from "./site.config";
+import { wordpressConfig } from "./wordpress.config";
+
 export { siteConfig } from "./site.config";
 export { wordpressConfig } from "./wordpress.config";
 

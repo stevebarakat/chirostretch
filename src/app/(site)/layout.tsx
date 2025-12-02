@@ -13,6 +13,7 @@ import {
   type LayoutQueryResponse,
   type MenuItem,
 } from "@app/_lib/wp/queries/layout-query";
+import { getSiteConfig } from "@/config";
 
 const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
@@ -34,7 +35,10 @@ const montserrat = Montserrat({
 
 export const revalidate = 300;
 
+const siteConfig = getSiteConfig();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: "ChiroStretch",
   description:
     "ChiroStretch - Global Mobility. Smarter Movement. Better Living.",

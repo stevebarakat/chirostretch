@@ -141,12 +141,9 @@ export default function CartPage() {
           <div className={styles.cartItems}>
             {items.map((item) => {
               const cartItem = item as StoreCartItem;
-              const itemPrice =
+              const itemPrice: string =
                 cartItem.prices?.price || cartItem.totals?.line_subtotal || "0";
-              const priceStr =
-                typeof itemPrice === "string"
-                  ? itemPrice
-                  : itemPrice.toString();
+              const priceStr = itemPrice;
               const cleaned = priceStr.replace(/[^0-9.]/g, "");
               let itemPriceNum = parseFloat(cleaned);
 
@@ -273,7 +270,7 @@ export default function CartPage() {
                   Proceed to Checkout
                 </Button>
               </Link>
-              <Link href="/">
+              <Link href="/shop">
                 <Button variant="secondary" fullWidth>
                   Continue Shopping
                 </Button>
