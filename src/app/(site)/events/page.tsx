@@ -1,8 +1,15 @@
+import Image from "next/image";
+import Link from "next/link";
 import { fetchGraphQL } from "@/lib/graphql/client";
+import Container from "@/components/ui/Container";
+import Pagination from "@/components/ui/Pagination";
+import styles from "./page.module.css";
+
+const EVENTS_PER_PAGE = 6;
 
 const EVENTS_INDEX = `
-  query getEvents {
-    events {
+  query getEvents($first: Int, $after: String) {
+    events(first: $first, after: $after) {
       nodes {
         slug
         title
@@ -14,13 +21,34 @@ const EVENTS_INDEX = `
           }
         }
         content
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
       }
     }
   }
 `;
 
 type EventsIndexPageProps = {
-  searchParams: Promise<{ location?: string; venue?: string }>;
+  searchParams: Promise<{ after?: string; location?: string; venue?: string }>;
 };
 
 type EventsIndexData = {
@@ -36,28 +64,125 @@ type EventsIndexData = {
         };
       } | null;
       content: string;
+      featuredImage?: {
+        node?: {
+          id: string;
+          sourceUrl: string;
+          altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
+        };
+      } | null;
     }>;
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string | null;
+      hasPreviousPage?: boolean;
+      startCursor?: string | null;
+    };
   } | null;
 };
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "").trim();
+}
 
 export default async function EventsIndex({
   searchParams,
 }: EventsIndexPageProps) {
   const params = await searchParams;
-  const data = await fetchGraphQL<EventsIndexData>(EVENTS_INDEX);
+  const after = params.after || null;
+
+  const variables: { first: number; after?: string | null } = {
+    first: EVENTS_PER_PAGE,
+  };
+
+  if (after) {
+    variables.after = after;
+  }
+
+  const data = await fetchGraphQL<EventsIndexData>(EVENTS_INDEX, variables);
   const events = data.events?.nodes ?? [];
+  const pageInfo = data.events?.pageInfo;
 
   return (
-    <main>
-      <h1>Events</h1>
+    <main className={styles.main}>
+      <Container>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Events</h1>
+          <p className={styles.subtitle}>
+            Discover upcoming events and workshops
+          </p>
+        </div>
 
-      <ul>
-        {events.map((ev) => (
-          <li key={ev.slug}>
-            <a href={`/events/${ev.slug}`}>{ev.title}</a>
-          </li>
-        ))}
-      </ul>
+        {events.length > 0 ? (
+          <>
+            <div className={styles.grid}>
+              {events.map((event) => {
+                if (!event.slug) return null;
+
+                const image = event.featuredImage?.node;
+                const imageWidth = image?.mediaDetails?.width || 800;
+                const imageHeight = image?.mediaDetails?.height || 450;
+                const excerpt = event.content
+                  ? stripHtml(event.content).substring(0, 150) + "..."
+                  : "";
+
+                return (
+                  <Link
+                    key={event.id || event.slug}
+                    href={`/events/${event.slug}`}
+                    className={styles.card}
+                  >
+                    {image?.sourceUrl ? (
+                      <div className={styles.imageWrapper}>
+                        <Image
+                          src={image.sourceUrl}
+                          alt={image.altText || event.title || "Event image"}
+                          width={imageWidth}
+                          height={imageHeight}
+                          className={styles.image}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      </div>
+                    ) : (
+                      <div className={styles.imageWrapper}>
+                        <div className={styles.placeholder}>No Image</div>
+                      </div>
+                    )}
+                    <div className={styles.content}>
+                      <h3 className={styles.cardTitle}>{event.title}</h3>
+                      {event.author?.node?.name && (
+                        <div className={styles.author}>
+                          By {event.author.node.name}
+                        </div>
+                      )}
+                      {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            {pageInfo && (
+              <Pagination
+                hasNextPage={pageInfo.hasNextPage ?? false}
+                hasPreviousPage={pageInfo.hasPreviousPage ?? false}
+                endCursor={pageInfo.endCursor}
+                startCursor={pageInfo.startCursor}
+                currentPath="/events"
+              />
+            )}
+          </>
+        ) : (
+          <div className={styles.empty}>
+            <p>No events available at this time.</p>
+          </div>
+        )}
+      </Container>
     </main>
   );
 }
