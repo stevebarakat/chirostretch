@@ -64,7 +64,7 @@ export default async function LocationsPage({
                 const imageWidth = image?.mediaDetails?.width || 800;
                 const imageHeight = image?.mediaDetails?.height || 450;
                 const excerpt = location.content
-                  ? stripHtml(location.content).substring(0, 150) + "..."
+                  ? stripHtml(location.content)
                   : "";
 
                 return (
@@ -91,14 +91,16 @@ export default async function LocationsPage({
                         <div className={styles.placeholder}>No Image</div>
                       </div>
                     )}
-                    <div className={styles.content}>
-                      <h3 className={styles.cardTitle}>{location.title}</h3>
-                      {excerpt && (
-                        <p className={styles.description}>{excerpt}</p>
-                      )}
-                    </div>
-                    <div className={styles.mapWrapper}>
-                      <LocationMapWrapper title={location.title} />
+                    <div className={styles.rightColumn}>
+                      <div className={styles.content}>
+                        <h3 className={styles.cardTitle}>{location.title}</h3>
+                        {excerpt && (
+                          <p className={styles.description}>{excerpt}</p>
+                        )}
+                      </div>
+                      <div className={styles.mapWrapper}>
+                        <LocationMapWrapper title={location.title} />
+                      </div>
                     </div>
                   </Link>
                 );
