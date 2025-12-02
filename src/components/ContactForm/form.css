@@ -1,0 +1,42 @@
+.contactWrap {
+  display: grid;
+  grid-template-columns: 100%;
+  justify-content: center;
+  max-width: 100%;
+  padding-bottom: 2rem;
+}
+
+.contactWrap iframe {
+  border: none;
+}
+
+.contactWrap > div:first-of-type {
+  padding-bottom: 2rem;
+}
+
+.inputWrap {
+  padding: 0 0 2rem;
+  text-align: left;
+}
+
+.inputWrap label {
+  display: inline-block;
+  padding-bottom: 16px;
+}
+
+.inputWrap input,
+textarea {
+  width: 100%;
+  padding: 12px;
+}
+
+@media (min-width: 1250px) {
+  .contactWrap {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contactWrap > div:first-of-type {
+    padding-right: 6rem;
+    padding-bottom: 0;
+  }
+}

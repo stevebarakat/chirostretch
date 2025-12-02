@@ -1,3 +1,107 @@
+export const GET_HOMEPAGE_SETTINGS_QUERY = `
+  query GetHomepageSettings {
+    galleryPage {
+      services {
+        galleryTitle
+        image {
+          image {
+            node {
+              altText
+              caption
+              sourceUrl
+              slug
+              link
+            }
+          }
+        }
+      }
+    }
+    customSEO {
+      customSeoSettings {
+        googleAnalyticsId
+        canonical
+        schema
+      }
+    }
+    intro {
+      introduction {
+        leftSide {
+          headline
+          text
+        }
+        rightSide {
+          bulletPoints
+          headline
+        }
+      }
+      stats {
+        stats {
+          ... on StatsStatsLayout {
+            stat {
+              description
+              number
+              prefix
+              suffix
+            }
+          }
+        }
+      }
+    }
+    cta {
+      callToAction {
+        headings {
+          headline
+          subheading
+        }
+        button1 {
+          btn1Link {
+            nodes {
+              uri
+            }
+          }
+          button1Text
+        }
+        button2 {
+          btn2Link {
+            nodes {
+              uri
+            }
+          }
+          button2Text
+        }
+      }
+    }
+    blox {
+      blocks {
+        bottomBlocks {
+          bottomBlocksButtonText
+          bottomBlocksHeadline
+          bottomBlocksImage {
+            node {
+              altText
+              slug
+              sourceUrl
+            }
+          }
+          bottomBlocksLink
+          bottomBlocksText
+        }
+        topBlocks {
+          topBlocksAuthor
+          topBlocksQuote
+          topBlocksImage {
+            node {
+              altText
+              sourceUrl
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const HOMEPAGE_QUERY = `
   query Homepage {
     featuredProducts: products(where: { featured: true }, first: 4) {
@@ -104,6 +208,24 @@ export const HOMEPAGE_QUERY = `
     }
     page(id: "/homepage", idType: URI) {
       title
+      ... on NodeWithFeaturedImage {
+        featuredImage {
+          node {
+            id
+            sourceUrl
+            altText
+            slug
+            title
+            caption
+            srcSet
+            sizes
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
       homepageFeaturedProducts {
         featuredProductsHeading
         featuredProductsSubheading
@@ -113,21 +235,19 @@ export const HOMEPAGE_QUERY = `
             nodes {
               id
               __typename
-              ... on ContentNode {
-                ... on NodeWithTitle {
-                  title
-                }
-                ... on NodeWithFeaturedImage {
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                      srcSet
-                      sizes
-                      mediaDetails {
-                        width
-                        height
-                      }
+              ... on NodeWithTitle {
+                title
+              }
+              ... on NodeWithFeaturedImage {
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                    srcSet
+                    sizes
+                    mediaDetails {
+                      width
+                      height
                     }
                   }
                 }
@@ -260,6 +380,22 @@ type HomepageQueryResponse = {
   };
   page: {
     title: string;
+    featuredImage?: {
+      node?: {
+        id?: string;
+        sourceUrl?: string;
+        altText?: string;
+        slug?: string;
+        title?: string;
+        caption?: string;
+        srcSet?: string;
+        sizes?: string;
+        mediaDetails?: {
+          width?: number;
+          height?: number;
+        };
+      };
+    };
     homepageFeaturedProducts?: {
       featuredProductsHeading?: string;
       featuredProductsSubheading?: string;
@@ -322,3 +458,105 @@ type HomepageQueryResponse = {
 };
 
 export type { HomepageQueryResponse };
+
+type GetHomepageSettingsQueryResponse = {
+  galleryPage?: {
+    services?: {
+      galleryTitle?: string;
+      image?: {
+        image?: {
+          node?: {
+            altText?: string;
+            caption?: string;
+            sourceUrl?: string;
+            slug?: string;
+            link?: string;
+          };
+        };
+      };
+    };
+  };
+  customSEO?: {
+    customSeoSettings?: {
+      googleAnalyticsId?: string;
+      canonical?: string;
+      schema?: string;
+    };
+  };
+  intro?: {
+    introduction?: {
+      leftSide?: {
+        headline?: string;
+        text?: string;
+      };
+      rightSide?: {
+        bulletPoints?: string;
+        headline?: string;
+      };
+    };
+    stats?: {
+      stats?: Array<{
+        stat?: {
+          description?: string;
+          number?: string;
+          prefix?: string;
+          suffix?: string;
+        };
+      }>;
+    };
+  };
+  cta?: {
+    callToAction?: {
+      headings?: {
+        headline?: string;
+        subheading?: string;
+      };
+      button1?: {
+        btn1Link?: {
+          nodes?: Array<{
+            uri?: string;
+          }>;
+        };
+        button1Text?: string;
+      };
+      button2?: {
+        btn2Link?: {
+          nodes?: Array<{
+            uri?: string;
+          }>;
+        };
+        button2Text?: string;
+      };
+    };
+  };
+  blox?: {
+    blocks?: {
+      bottomBlocks?: {
+        bottomBlocksButtonText?: string;
+        bottomBlocksHeadline?: string;
+        bottomBlocksImage?: {
+          node?: {
+            altText?: string;
+            slug?: string;
+            sourceUrl?: string;
+          };
+        };
+        bottomBlocksLink?: string;
+        bottomBlocksText?: string;
+      };
+      topBlocks?: {
+        topBlocksAuthor?: string;
+        topBlocksQuote?: string;
+        topBlocksImage?: {
+          node?: {
+            altText?: string;
+            sourceUrl?: string;
+            slug?: string;
+          };
+        };
+      };
+    };
+  };
+};
+
+export type { GetHomepageSettingsQueryResponse };

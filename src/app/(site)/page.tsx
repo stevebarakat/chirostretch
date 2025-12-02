@@ -4,6 +4,7 @@ import {
   type HomepageQueryResponse,
 } from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
+import { Hero } from "@/components/Hero";
 
 export const revalidate = 300;
 
@@ -35,6 +36,25 @@ export default async function HomePage() {
 
   return (
     <>
+      {page.featuredImage?.node && (
+        <Hero
+          home={{
+            title: page.title,
+            seo: {
+              metaDesc: "",
+            },
+            featuredImage: {
+              node: {
+                sourceUrl: page.featuredImage.node.sourceUrl || "",
+                altText: page.featuredImage.node.altText || "",
+                slug: page.featuredImage.node.slug || "",
+                title: page.featuredImage.node.title || "",
+                caption: page.featuredImage.node.caption || "",
+              },
+            },
+          }}
+        />
+      )}
       <FeaturedProducts
         featuredProductsHeading={
           page.homepageFeaturedProducts?.featuredProductsHeading
