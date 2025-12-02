@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Search } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Menu from "./Menu";
 import CartSummary from "./CartSummary";
+import SearchInput from "./SearchInput";
 import styles from "./Header.module.css";
 import type { MenuItem } from "@app/_lib/wp/queries/layout-query";
 
@@ -47,19 +47,7 @@ export default function Header({ logo, menuItems }: HeaderProps) {
               </div>
             )}
           </Link>
-          <div className={styles.search}>
-            <Search
-              className={styles.searchIcon}
-              size={20}
-              aria-hidden="true"
-            />
-            <input
-              type="search"
-              placeholder="Search products..."
-              className={styles.searchInput}
-              aria-label="Search products"
-            />
-          </div>
+          <SearchInput />
         </div>
         <div className={styles.bottomRow}>
           <nav className={styles.nav} aria-label="Main navigation">
