@@ -1,0 +1,206 @@
+export const ALL_POSTS_QUERY = `
+  query AllPosts($first: Int, $after: String) {
+    posts(first: $first, after: $after) {
+      nodes {
+        id
+        databaseId
+        slug
+        title
+        excerpt
+        content
+        date
+        modified
+        author {
+          node {
+            id
+            name
+            slug
+          }
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+        categories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+        tags {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
+export const POST_BY_SLUG_QUERY = `
+  query PostBySlug($slug: ID!) {
+    post(id: $slug, idType: SLUG) {
+      id
+      databaseId
+      slug
+      title
+      excerpt
+      content
+      date
+      modified
+      author {
+        node {
+          id
+          name
+          slug
+        }
+      }
+      ... on NodeWithFeaturedImage {
+        featuredImage {
+          node {
+            id
+            sourceUrl
+            altText
+            srcSet
+            sizes
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
+      categories {
+        nodes {
+          id
+          name
+          slug
+        }
+      }
+      tags {
+        nodes {
+          id
+          name
+          slug
+        }
+      }
+    }
+  }
+`;
+
+export const ALL_POST_SLUGS_QUERY = `
+  query AllPostSlugs {
+    posts(first: 1000) {
+      nodes {
+        id
+        slug
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;
+
+type PostImage = {
+  id?: string;
+  sourceUrl?: string;
+  altText?: string;
+  srcSet?: string;
+  sizes?: string;
+  mediaDetails?: {
+    width?: number;
+    height?: number;
+  };
+};
+
+type PostAuthor = {
+  id?: string;
+  name?: string;
+  slug?: string;
+};
+
+type PostCategory = {
+  id?: string;
+  name?: string;
+  slug?: string;
+};
+
+type PostTag = {
+  id?: string;
+  name?: string;
+  slug?: string;
+};
+
+type Post = {
+  id?: string;
+  databaseId?: number;
+  slug?: string;
+  title?: string;
+  excerpt?: string;
+  content?: string;
+  date?: string;
+  modified?: string;
+  author?: {
+    node?: PostAuthor;
+  };
+  featuredImage?: {
+    node?: PostImage;
+  };
+  categories?: {
+    nodes?: PostCategory[];
+  };
+  tags?: {
+    nodes?: PostTag[];
+  };
+};
+
+export type AllPostsResponse = {
+  posts?: {
+    nodes?: Post[];
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string | null;
+      hasPreviousPage?: boolean;
+      startCursor?: string | null;
+    };
+  };
+};
+
+export type PostBySlugResponse = {
+  post?: Post | null;
+};
+
+export type AllPostSlugsResponse = {
+  posts?: {
+    nodes?: Array<{
+      id?: string;
+      slug?: string;
+    }>;
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string;
+    };
+  };
+};
