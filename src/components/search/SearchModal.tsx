@@ -37,11 +37,20 @@ function getIndexName(pathname: string): string {
     return algoliaConfig.indices.articles;
   }
 
+  if (
+    path.startsWith("/shop") ||
+    path.startsWith("/cart") ||
+    path.startsWith("/checkout") ||
+    path.startsWith("/products")
+  ) {
+    return algoliaConfig.indices.products;
+  }
+
   if (path.startsWith("/locations")) {
     return algoliaConfig.indices.locations;
   }
 
-  return algoliaConfig.indices.products;
+  return algoliaConfig.indices.locations;
 }
 
 function SearchBox() {
@@ -107,7 +116,12 @@ type LocationHit = {
   city?: string;
   state?: string;
   streetAddress?: string;
+  zip?: string;
+  phone?: string;
+  email?: string;
   shortDescription?: string;
+  services?: string;
+  content?: string;
   image?: string;
   imageAlt?: string;
   type: "location";
@@ -187,9 +201,16 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
       locationHit.streetAddress,
       locationHit.city,
       locationHit.state,
+      locationHit.zip,
     ]
       .filter(Boolean)
       .join(", ");
+
+    const displayText =
+      addressParts ||
+      locationHit.shortDescription?.substring(0, 100) ||
+      locationHit.content?.substring(0, 100) ||
+      "";
 
     return (
       <Link
@@ -210,12 +231,7 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
         )}
         <div className={styles.hitContent}>
           <h3 className={styles.hitTitle}>{locationHit.title}</h3>
-          {addressParts && <p className={styles.hitExcerpt}>{addressParts}</p>}
-          {!addressParts && locationHit.shortDescription && (
-            <p className={styles.hitExcerpt}>
-              {locationHit.shortDescription.substring(0, 100)}
-            </p>
-          )}
+          {displayText && <p className={styles.hitExcerpt}>{displayText}</p>}
         </div>
       </Link>
     );

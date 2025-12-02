@@ -20,6 +20,21 @@ const ALL_LOCATIONS_QUERY = `
             }
           }
         }
+        locationDetails {
+          city
+          email
+          hours {
+            close
+            day
+            open
+          }
+          phone
+          services
+          shortDescription
+          state
+          streetAddress
+          zip
+        }
       }
       pageInfo {
         hasNextPage
@@ -41,6 +56,21 @@ type Location = {
       altText?: string;
     };
   };
+  locationDetails?: {
+    city?: string;
+    email?: string;
+    hours?: Array<{
+      close?: string;
+      day?: string;
+      open?: string;
+    }>;
+    phone?: string;
+    services?: string;
+    shortDescription?: string;
+    state?: string;
+    streetAddress?: string;
+    zip?: string;
+  };
 };
 
 type LocationsResponse = {
@@ -58,11 +88,21 @@ function transformLocationToAlgolia(location: Location) {
     ? location.content.replace(/<[^>]*>/g, "").substring(0, 500)
     : "";
 
+  const details = location.locationDetails;
+
   return {
     objectID: location.id || location.databaseId?.toString() || "",
     title: location.title || "",
     slug: location.slug || "",
     content: contentText,
+    city: details?.city || "",
+    state: details?.state || "",
+    streetAddress: details?.streetAddress || "",
+    zip: details?.zip || "",
+    phone: details?.phone || "",
+    email: details?.email || "",
+    shortDescription: details?.shortDescription || "",
+    services: details?.services || "",
     image: location.featuredImage?.node?.sourceUrl || "",
     imageAlt: location.featuredImage?.node?.altText || "",
     type: "location" as const,
@@ -78,10 +118,7 @@ export async function GET() {
 }
 
 export async function POST() {
-  console.log("📍 Index locations API route called");
-
   if (!adminClient) {
-    console.error("Algolia admin client not configured");
     return NextResponse.json(
       { error: "Algolia admin client not configured" },
       { status: 500 }
@@ -109,41 +146,20 @@ export async function POST() {
       );
 
       if (!data) {
-        console.error("No data returned from GraphQL query");
         break;
       }
 
       if (data?.locations?.nodes) {
         allLocations.push(...data.locations.nodes);
-      } else {
-        console.warn("No location nodes in response:", data);
       }
 
       hasNextPage = data?.locations?.pageInfo?.hasNextPage || false;
       cursor = data?.locations?.pageInfo?.endCursor || null;
     }
 
-    console.log(`Found ${allLocations.length} locations from WordPress`);
-
-    if (allLocations.length > 0) {
-      console.log(
-        "Sample location data:",
-        JSON.stringify(allLocations[0], null, 2)
-      );
-    }
-
     const algoliaObjects = allLocations
       .filter((location) => location.id && location.slug)
       .map(transformLocationToAlgolia);
-
-    console.log(`Transformed ${algoliaObjects.length} locations for Algolia`);
-
-    if (algoliaObjects.length > 0) {
-      console.log(
-        "Sample Algolia object:",
-        JSON.stringify(algoliaObjects[0], null, 2)
-      );
-    }
 
     if (algoliaObjects.length === 0) {
       return NextResponse.json({
@@ -165,10 +181,8 @@ export async function POST() {
       indexed: algoliaObjects.length,
     });
   } catch (error) {
-    console.error("Error indexing locations:", error);
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorStack = error instanceof Error ? error.stack : undefined;
-    console.error("Error details:", { errorMessage, errorStack });
     return NextResponse.json(
       {
         error: "Failed to index locations",

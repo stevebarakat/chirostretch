@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import Menu from "./Menu";
 import CartSummary from "./CartSummary";
@@ -21,7 +24,20 @@ type HeaderProps = {
   menuItems?: MenuItem[];
 };
 
+function isShopPage(pathname: string): boolean {
+  const path = pathname.toLowerCase();
+  return (
+    path.startsWith("/shop") ||
+    path.startsWith("/cart") ||
+    path.startsWith("/checkout") ||
+    path.startsWith("/products")
+  );
+}
+
 export default function Header({ logo, menuItems }: HeaderProps) {
+  const pathname = usePathname();
+  const showCart = isShopPage(pathname);
+
   return (
     <header className={styles.header}>
       <Container>
@@ -57,7 +73,7 @@ export default function Header({ logo, menuItems }: HeaderProps) {
               ))}
             </ul>
           </nav>
-          <CartSummary />
+          {showCart && <CartSummary />}
         </div>
       </Container>
     </header>

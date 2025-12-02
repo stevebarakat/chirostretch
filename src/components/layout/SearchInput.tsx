@@ -48,8 +48,8 @@ function getSearchConfig(pathname: string) {
   }
 
   return {
-    placeholder: "Search products...",
-    ariaLabel: "Search products",
+    placeholder: "Search locations...",
+    ariaLabel: "Search locations",
   };
 }
 
