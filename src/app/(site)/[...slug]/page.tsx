@@ -1,0 +1,204 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { wpQuery } from "@app/_lib/wp/graphql";
+import {
+  PAGE_BY_URI_QUERY,
+  ALL_PAGE_SLUGS_QUERY,
+  type PageByUriResponse,
+  type AllPageSlugsResponse,
+} from "@app/_lib/wp/queries/pages";
+import Container from "@/components/ui/Container";
+import { BlockRenderer } from "@/components/blocks";
+import Image from "next/image";
+import { getSiteConfig } from "@/config";
+import styles from "./page.module.css";
+
+export const revalidate = 300;
+
+const siteConfig = getSiteConfig();
+
+const EXCLUDED_SLUGS = [
+  "homepage",
+  "products",
+  "events",
+  "cart",
+  "checkout",
+  "shop",
+  "locations",
+];
+
+export async function generateStaticParams() {
+  try {
+    const data = await wpQuery<AllPageSlugsResponse>(
+      ALL_PAGE_SLUGS_QUERY,
+      {},
+      300
+    );
+
+    const pages = data?.pages?.nodes || [];
+
+    return pages
+      .filter((page) => {
+        if (!page.slug) return false;
+        if (EXCLUDED_SLUGS.includes(page.slug)) return false;
+        if (page.uri === "/" || page.uri === "/homepage/") return false;
+        return true;
+      })
+      .map((page) => {
+        if (!page.uri) return null;
+        const uri = page.uri;
+        const slugPath = uri
+          .replace(/^\//, "")
+          .replace(/\/$/, "")
+          .split("/")
+          .filter(Boolean);
+
+        return {
+          slug: slugPath,
+        };
+      })
+      .filter((param): param is { slug: string[] } => param !== null);
+  } catch (error) {
+    console.error("Failed to generate static params for pages:", error);
+    return [];
+  }
+}
+
+type PageProps = {
+  params: Promise<{ slug: string[] }>;
+};
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+
+  if (!slug || slug.length === 0) {
+    return {
+      title: "Page Not Found",
+    };
+  }
+
+  const pageSlug = slug[slug.length - 1];
+
+  if (EXCLUDED_SLUGS.includes(pageSlug)) {
+    return {
+      title: "Page Not Found",
+    };
+  }
+
+  try {
+    const uri = `/${slug.join("/")}/`;
+    const data = await wpQuery<PageByUriResponse>(
+      PAGE_BY_URI_QUERY,
+      { uri },
+      300
+    );
+
+    if (!data?.page) {
+      return {
+        title: "Page Not Found",
+      };
+    }
+
+    const page = data.page;
+    const description = page.content
+      ? page.content.replace(/<[^>]*>/g, "").substring(0, 160)
+      : undefined;
+
+    return {
+      title: `${page.title} | ${siteConfig.name || "ChiroStretch"}`,
+      description: description || siteConfig.description || "",
+      openGraph: {
+        title: page.title,
+        description: description || siteConfig.description,
+        images: page.featuredImage?.node?.sourceUrl
+          ? [page.featuredImage.node.sourceUrl]
+          : undefined,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to generate metadata:", error);
+    return {
+      title: "Page",
+    };
+  }
+}
+
+export default async function WordPressPage({ params }: PageProps) {
+  const { slug } = await params;
+
+  if (!slug || slug.length === 0) {
+    notFound();
+  }
+
+  const pageSlug = slug[slug.length - 1];
+
+  if (EXCLUDED_SLUGS.includes(pageSlug)) {
+    notFound();
+  }
+
+  const uri = `/${slug.join("/")}/`;
+  const data = await wpQuery<PageByUriResponse>(
+    PAGE_BY_URI_QUERY,
+    { uri },
+    300
+  );
+
+  if (!data?.page) {
+    notFound();
+  }
+
+  const page = data.page;
+
+  const blocks = page.blocks && Array.isArray(page.blocks) ? page.blocks : null;
+
+  return (
+    <Container>
+      <article className={styles.page}>
+        {page.featuredImage?.node && (
+          <div className={styles.featuredImage}>
+            <Image
+              src={page.featuredImage.node.sourceUrl}
+              alt={page.featuredImage.node.altText || page.title}
+              width={page.featuredImage.node.mediaDetails?.width || 1200}
+              height={page.featuredImage.node.mediaDetails?.height || 800}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              priority={true}
+              fetchPriority="high"
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+            />
+          </div>
+        )}
+
+        <header className={styles.header}>
+          <h1>{page.title}</h1>
+        </header>
+
+        {blocks && blocks.length > 0 ? (
+          <div className={styles.content}>
+            <BlockRenderer
+              blocks={
+                blocks as Array<{
+                  name: string;
+                  attributes?: Record<string, unknown>;
+                  innerBlocks?: unknown[];
+                  innerHTML?: string;
+                  innerContent?: string[];
+                }>
+              }
+            />
+          </div>
+        ) : (
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: page.content }}
+          />
+        )}
+      </article>
+    </Container>
+  );
+}
