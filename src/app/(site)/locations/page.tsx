@@ -7,6 +7,7 @@ import {
 } from "@/app/_lib/wp/queries/locations";
 import Container from "@/components/ui/Container";
 import Pagination from "@/components/ui/Pagination";
+import { LocationMapWrapper } from "@/components/locations";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -95,6 +96,9 @@ export default async function LocationsPage({
                       {excerpt && (
                         <p className={styles.description}>{excerpt}</p>
                       )}
+                    </div>
+                    <div className={styles.mapWrapper}>
+                      <LocationMapWrapper title={location.title} />
                     </div>
                   </Link>
                 );

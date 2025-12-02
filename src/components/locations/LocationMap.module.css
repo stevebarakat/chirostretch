@@ -1,0 +1,46 @@
+.mapContainer {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-bg-tertiary);
+}
+
+.mapContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.mapIframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.mapError {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+@media (min-width: 640px) {
+  .mapIframe {
+    height: 250px;
+  }
+
+  .mapContainer {
+    height: 250px;
+  }
+
+  .mapError {
+    height: 250px;
+  }
+}
