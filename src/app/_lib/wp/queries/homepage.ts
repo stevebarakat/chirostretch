@@ -34,37 +34,18 @@ export const HOMEPAGE_QUERY = `
         }
       }
     }
-    upcomingEvents: events(first: 50, where: { orderby: { field: DATE, order: ASC } }) {
+    upcomingEvents: events {
       nodes {
-        id
         slug
         title
+        id
         databaseId
-        content
-        featuredImage {
+        author {
           node {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            name
           }
         }
-        ... on Event {
-          startDate
-          endDate
-          allDay
-          venue {
-            ... on Venue {
-              id
-              title
-              address
-            }
-          }
-        }
+        content
       }
     }
     page(id: "/homepage", idType: URI) {
@@ -239,25 +220,16 @@ type HomepageQueryResponse = {
   };
   upcomingEvents?: {
     nodes?: Array<{
-      id?: string;
       slug?: string;
       title?: string;
+      id?: string;
       databaseId?: number;
-      content?: string;
-      featuredImage?: {
+      author?: {
         node?: {
-          sourceUrl?: string;
-          altText?: string;
+          name?: string;
         };
-      };
-      startDate?: string;
-      endDate?: string;
-      allDay?: boolean;
-      venue?: {
-        id?: string;
-        title?: string;
-        address?: string;
-      };
+      } | null;
+      content?: string;
     }>;
   };
   page: {

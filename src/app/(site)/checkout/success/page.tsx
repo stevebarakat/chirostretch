@@ -53,7 +53,7 @@ export default async function CheckoutSuccessPage({
           </p>
 
           <div className={styles.actions}>
-            <Link href="/">
+            <Link href="/shop">
               <Button variant="primary">Continue Shopping</Button>
             </Link>
           </div>

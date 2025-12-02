@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -6,31 +5,16 @@ import Button from "@/components/ui/Button";
 import styles from "./UpcomingEvents.module.css";
 
 type Event = {
-  id?: string;
   slug?: string;
   title?: string;
+  id?: string;
   databaseId?: number;
-  content?: string;
-  featuredImage?: {
+  author?: {
     node?: {
-      sourceUrl?: string;
-      altText?: string;
-      srcSet?: string;
-      sizes?: string;
-      mediaDetails?: {
-        width?: number;
-        height?: number;
-      };
+      name?: string;
     };
-  };
-  startDate?: string;
-  endDate?: string;
-  allDay?: boolean;
-  venue?: {
-    id?: string;
-    title?: string;
-    address?: string;
-  };
+  } | null;
+  content?: string;
 };
 
 type UpcomingEventsProps = {
@@ -44,29 +28,6 @@ type UpcomingEventsProps = {
   eventsLimit?: number;
 };
 
-function formatEventDate(startDate?: string, endDate?: string, allDay?: boolean): string {
-  if (!startDate) return "";
-
-  const start = new Date(startDate);
-  const end = endDate ? new Date(endDate) : null;
-
-  const options: Intl.DateTimeFormatOptions = allDay
-    ? { year: "numeric", month: "long", day: "numeric" }
-    : { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "2-digit" };
-
-  const startFormatted = start.toLocaleDateString("en-US", options);
-
-  if (end && end.getTime() !== start.getTime()) {
-    const endOptions: Intl.DateTimeFormatOptions = allDay
-      ? { month: "long", day: "numeric" }
-      : { month: "long", day: "numeric", hour: "numeric", minute: "2-digit" };
-    const endFormatted = end.toLocaleDateString("en-US", endOptions);
-    return `${startFormatted} - ${endFormatted}`;
-  }
-
-  return startFormatted;
-}
-
 export default function UpcomingEvents({
   eventsHeading,
   eventsSubheading,
@@ -79,15 +40,8 @@ export default function UpcomingEvents({
 
   const eventsList = events?.nodes || [];
 
-  const now = new Date();
-  const upcomingEvents = eventsList.filter((event) => {
-    if (!event.startDate) return false;
-    const eventDate = new Date(event.startDate);
-    return eventDate >= now;
-  });
-
   const limit = eventsLimit && eventsLimit >= 3 ? eventsLimit : 3;
-  const displayEvents = upcomingEvents.slice(0, limit);
+  const displayEvents = eventsList.slice(0, limit);
 
   return (
     <section className={styles.section}>
@@ -96,31 +50,11 @@ export default function UpcomingEvents({
         {displayEvents.length > 0 ? (
           <div className={styles.grid}>
             {displayEvents.map((event) => {
-              const imageUrl = event.featuredImage?.node?.sourceUrl;
-              const imageAlt =
-                event.featuredImage?.node?.altText ||
-                event.title ||
-                "Event";
-              const eventDate = formatEventDate(
-                event.startDate,
-                event.endDate,
-                event.allDay
-              );
-
               return (
-                <div key={event.id || event.databaseId} className={styles.eventCard}>
-                  {imageUrl && (
-                    <div className={styles.imageWrapper}>
-                      <Image
-                        src={imageUrl}
-                        alt={imageAlt}
-                        fill
-                        quality={75}
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className={styles.image}
-                      />
-                    </div>
-                  )}
+                <div
+                  key={event.id || event.databaseId}
+                  className={styles.eventCard}
+                >
                   <div className={styles.content}>
                     {event.title && (
                       <h3 className={styles.title}>
@@ -133,11 +67,10 @@ export default function UpcomingEvents({
                         )}
                       </h3>
                     )}
-                    {eventDate && (
-                      <div className={styles.date}>{eventDate}</div>
-                    )}
-                    {event.venue?.title && (
-                      <div className={styles.date}>{event.venue.title}</div>
+                    {event.author?.node?.name && (
+                      <div className={styles.date}>
+                        By {event.author.node.name}
+                      </div>
                     )}
                     {event.content && (
                       <div
@@ -179,4 +112,3 @@ export default function UpcomingEvents({
     </section>
   );
 }
-
