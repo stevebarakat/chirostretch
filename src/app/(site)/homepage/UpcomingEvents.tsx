@@ -75,8 +75,8 @@ export default function UpcomingEvents({
                   key={event.id || event.databaseId}
                   className={styles.eventCard}
                 >
-                  {imageUrl && (
-                    <div className={styles.imageWrapper}>
+                  <div className={styles.imageWrapper}>
+                    {imageUrl ? (
                       <Image
                         src={imageUrl}
                         alt={imageAlt}
@@ -85,8 +85,23 @@ export default function UpcomingEvents({
                         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                         className={styles.image}
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "var(--color-bg-tertiary)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "var(--color-text-tertiary)",
+                          fontSize: "var(--font-size-sm)",
+                        }}
+                      >
+                        No Image
+                      </div>
+                    )}
+                  </div>
                   <div className={styles.content}>
                     {event.title && (
                       <h3 className={styles.title}>
