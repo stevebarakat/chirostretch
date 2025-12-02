@@ -170,6 +170,66 @@ export const ALL_PRODUCT_SLUGS_QUERY = `
   }
 `;
 
+export const ALL_PRODUCTS_QUERY = `
+  query AllProducts($first: Int, $after: String) {
+    products(first: $first, after: $after) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        ... on SimpleProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+        }
+        ... on VariableProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+        }
+        ... on ExternalProduct {
+          price
+          regularPrice
+          salePrice
+        }
+        ... on GroupProduct {
+          price
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+        productCategories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
 type ProductImage = {
   sourceUrl?: string;
   altText?: string;
@@ -298,3 +358,31 @@ export type AllProductSlugsResponse = {
   };
 };
 
+type ShopProduct = {
+  id?: string;
+  databaseId?: number;
+  name?: string;
+  slug?: string;
+  price?: string;
+  regularPrice?: string;
+  salePrice?: string;
+  stockStatus?: string;
+  featuredImage?: {
+    node?: ProductImage;
+  };
+  productCategories?: {
+    nodes?: ProductCategory[];
+  };
+};
+
+export type AllProductsResponse = {
+  products?: {
+    nodes?: ShopProduct[];
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string;
+      hasPreviousPage?: boolean;
+      startCursor?: string;
+    };
+  };
+};
