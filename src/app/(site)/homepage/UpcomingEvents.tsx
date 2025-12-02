@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -15,6 +16,19 @@ type Event = {
     };
   } | null;
   content?: string;
+  featuredImage?: {
+    node?: {
+      id?: string;
+      sourceUrl?: string;
+      altText?: string;
+      srcSet?: string;
+      sizes?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
+      };
+    };
+  };
 };
 
 type UpcomingEventsProps = {
@@ -50,11 +64,29 @@ export default function UpcomingEvents({
         {displayEvents.length > 0 ? (
           <div className={styles.grid}>
             {displayEvents.map((event) => {
+              const imageUrl = event.featuredImage?.node?.sourceUrl;
+              const imageAlt =
+                event.featuredImage?.node?.altText ||
+                event.title ||
+                "Event image";
+
               return (
                 <div
                   key={event.id || event.databaseId}
                   className={styles.eventCard}
                 >
+                  {imageUrl && (
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src={imageUrl}
+                        alt={imageAlt}
+                        fill
+                        quality={75}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className={styles.image}
+                      />
+                    </div>
+                  )}
                   <div className={styles.content}>
                     {event.title && (
                       <h3 className={styles.title}>

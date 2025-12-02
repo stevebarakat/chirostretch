@@ -46,6 +46,21 @@ export const HOMEPAGE_QUERY = `
           }
         }
         content
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
       }
     }
     page(id: "/homepage", idType: URI) {
@@ -230,6 +245,19 @@ type HomepageQueryResponse = {
         };
       } | null;
       content?: string;
+      featuredImage?: {
+        node?: {
+          id?: string;
+          sourceUrl?: string;
+          altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
+        };
+      };
     }>;
   };
   page: {

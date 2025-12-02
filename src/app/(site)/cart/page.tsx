@@ -119,7 +119,7 @@ export default function CartPage() {
           <h1 className={styles.title}>Cart</h1>
           <div className={styles.emptyCart}>
             <p>Your cart is empty.</p>
-            <Link href="/">
+            <Link href="/shop">
               <Button variant="primary">Continue Shopping</Button>
             </Link>
           </div>
