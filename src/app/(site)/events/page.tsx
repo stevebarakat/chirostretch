@@ -1,90 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { fetchGraphQL } from "@/lib/graphql/client";
+import {
+  EVENTS_INDEX_QUERY,
+  type EventsIndexData,
+} from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import Pagination from "@/components/ui/Pagination";
 import styles from "./page.module.css";
 
 const EVENTS_PER_PAGE = 6;
 
-const EVENTS_INDEX = `
-  query getEvents($first: Int, $after: String) {
-    events(first: $first, after: $after) {
-      nodes {
-        slug
-        title
-        id
-        databaseId
-        author {
-          node {
-            name
-          }
-        }
-        content
-        ... on NodeWithFeaturedImage {
-          featuredImage {
-            node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
-            }
-          }
-        }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
-      }
-    }
-  }
-`;
-
 type EventsIndexPageProps = {
   searchParams: Promise<{ after?: string; location?: string; venue?: string }>;
-};
-
-type EventsIndexData = {
-  events: {
-    nodes: Array<{
-      slug: string;
-      title: string;
-      id: string;
-      databaseId: number;
-      author: {
-        node: {
-          name: string;
-        };
-      } | null;
-      content: string;
-      featuredImage?: {
-        node?: {
-          id: string;
-          sourceUrl: string;
-          altText?: string;
-          srcSet?: string;
-          sizes?: string;
-          mediaDetails?: {
-            width?: number;
-            height?: number;
-          };
-        };
-      } | null;
-    }>;
-    pageInfo?: {
-      hasNextPage?: boolean;
-      endCursor?: string | null;
-      hasPreviousPage?: boolean;
-      startCursor?: string | null;
-    };
-  } | null;
 };
 
 function stripHtml(html: string): string {
@@ -105,7 +33,10 @@ export default async function EventsIndex({
     variables.after = after;
   }
 
-  const data = await fetchGraphQL<EventsIndexData>(EVENTS_INDEX, variables);
+  const data = await fetchGraphQL<EventsIndexData>(
+    EVENTS_INDEX_QUERY,
+    variables
+  );
   const events = data.events?.nodes ?? [];
   const pageInfo = data.events?.pageInfo;
 

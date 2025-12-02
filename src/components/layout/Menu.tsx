@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import styles from "./Menu.module.css";
-import type { MenuItem } from "@app/_lib/wp/queries/layout-query";
+import type { MenuItem } from "@/lib/graphql/queries";
 
 type MenuProps = {
   item: MenuItem;

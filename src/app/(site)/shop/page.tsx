@@ -6,7 +6,7 @@ import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_PRODUCTS_QUERY,
   type AllProductsResponse,
-} from "@/app/_lib/wp/queries/products";
+} from "@/lib/graphql/queries";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import styles from "./page.module.css";
 

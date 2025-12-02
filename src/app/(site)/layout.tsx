@@ -12,7 +12,7 @@ import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,
   type MenuItem,
-} from "@app/_lib/wp/queries/layout-query";
+} from "@/lib/graphql/queries";
 import { getSiteConfig } from "@/config";
 
 const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;

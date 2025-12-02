@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./Footer.module.css";
 import Container from "../ui/Container";
 import Menu from "./Menu";
-import type { MenuItem } from "@app/_lib/wp/queries/layout-query";
+import type { MenuItem } from "@/lib/graphql/queries";
 
 type FooterProps = {
   logo?: {

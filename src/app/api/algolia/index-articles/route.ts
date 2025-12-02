@@ -2,39 +2,7 @@ import { NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { wpQuery } from "@app/_lib/wp/graphql";
-
-const ALL_POSTS_QUERY = `
-  query getAllPosts($first: Int, $after: String) {
-    posts(first: $first, after: $after) {
-      nodes {
-        id
-        databaseId
-        slug
-        title
-        excerpt
-        content
-        ... on NodeWithFeaturedImage {
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        categories {
-          nodes {
-            name
-            slug
-          }
-        }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-    }
-  }
-`;
+import { ALL_POSTS_QUERY } from "@/lib/graphql/queries";
 
 type Post = {
   id?: string;

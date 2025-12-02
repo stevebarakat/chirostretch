@@ -6,7 +6,7 @@ import {
   ALL_PAGE_SLUGS_QUERY,
   type PageByUriResponse,
   type AllPageSlugsResponse,
-} from "@app/_lib/wp/queries/pages";
+} from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import { BlockRenderer } from "@/components/blocks";
 import Image from "next/image";

@@ -6,7 +6,7 @@ import {
   ALL_LOCATION_SLUGS_QUERY,
   type LocationBySlugResponse,
   type AllLocationSlugsResponse,
-} from "@/app/_lib/wp/queries/locations";
+} from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import { LocationMapWrapper } from "@/components/locations";
 import styles from "./page.module.css";

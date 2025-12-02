@@ -1,21 +1,5 @@
 import { fetchGraphQL } from "@/lib/graphql/client";
-
-const EVENT_BY_SLUG = `
-  query EventBySlug($slug: ID!) {
-    event(id: $slug, idType: SLUG) {
-      slug
-      title
-      id
-      databaseId
-      author {
-        node {
-          name
-        }
-      }
-      content
-    }
-  }
-`;
+import { EVENT_BY_SLUG_QUERY, type EventData } from "@/lib/graphql/queries";
 
 type EventPageProps = {
   params: Promise<{ slug: string }>;
@@ -23,9 +7,12 @@ type EventPageProps = {
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const data = await fetchGraphQL<{ event: EventData | null }>(EVENT_BY_SLUG, {
-    slug,
-  });
+  const data = await fetchGraphQL<{ event: EventData | null }>(
+    EVENT_BY_SLUG_QUERY,
+    {
+      slug,
+    }
+  );
 
   const event = data.event;
   if (!event) return <div>Event not found.</div>;
@@ -40,16 +27,3 @@ export default async function EventPage({ params }: EventPageProps) {
     </main>
   );
 }
-
-type EventData = {
-  slug: string;
-  title: string;
-  id: string;
-  databaseId: number;
-  author: {
-    node: {
-      name: string;
-    };
-  } | null;
-  content: string;
-};

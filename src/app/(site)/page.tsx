@@ -2,7 +2,7 @@ import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   HOMEPAGE_QUERY,
   type HomepageQueryResponse,
-} from "@app/_lib/wp/queries/homepage";
+} from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
 
 export const revalidate = 300;

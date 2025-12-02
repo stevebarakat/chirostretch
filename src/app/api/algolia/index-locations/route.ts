@@ -2,47 +2,7 @@ import { NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { fetchGraphQL } from "@/lib/graphql/client";
-
-const ALL_LOCATIONS_QUERY = `
-  query getAllLocations($first: Int, $after: String) {
-    locations(first: $first, after: $after) {
-      nodes {
-        id
-        databaseId
-        slug
-        title
-        content
-        ... on NodeWithFeaturedImage {
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        locationDetails {
-          city
-          email
-          hours {
-            close
-            day
-            open
-          }
-          phone
-          services
-          shortDescription
-          state
-          streetAddress
-          zip
-        }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-    }
-  }
-`;
+import { ALL_LOCATIONS_QUERY } from "@/lib/graphql/queries";
 
 type Location = {
   id?: string;

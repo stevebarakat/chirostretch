@@ -4,7 +4,7 @@ import {
   ALL_PRODUCT_SLUGS_QUERY,
   type ProductBySlugResponse,
   type AllProductSlugsResponse,
-} from "@app/_lib/wp/queries/products";
+} from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
 import Container from "@components/ui/Container";
 import ProductGallery from "./ProductGallery";
@@ -33,7 +33,9 @@ export async function generateStaticParams() {
   }
 }
 
-function generateProductStructuredData(product: NonNullable<ProductBySlugResponse["product"]>) {
+function generateProductStructuredData(
+  product: NonNullable<ProductBySlugResponse["product"]>
+) {
   const image = product.featuredImage?.node?.sourceUrl;
   const price = product.price || product.regularPrice;
 
@@ -54,9 +56,12 @@ function generateProductStructuredData(product: NonNullable<ProductBySlugRespons
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
     },
-    ...(product.productCategories?.nodes && product.productCategories.nodes.length > 0
+    ...(product.productCategories?.nodes &&
+    product.productCategories.nodes.length > 0
       ? {
-          category: product.productCategories.nodes.map((cat) => cat.name).join(", "),
+          category: product.productCategories.nodes
+            .map((cat) => cat.name)
+            .join(", "),
         }
       : {}),
   };
@@ -102,17 +107,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {product.description && (
             <div className={styles.productDescription}>
               <h2>Description</h2>
-              <div
-                dangerouslySetInnerHTML={{ __html: product.description }}
-              />
+              <div dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
           )}
-          {product.related && product.related.nodes && product.related.nodes.length > 0 && (
-            <RelatedProducts products={product.related.nodes} />
-          )}
+          {product.related &&
+            product.related.nodes &&
+            product.related.nodes.length > 0 && (
+              <RelatedProducts products={product.related.nodes} />
+            )}
         </div>
       </Container>
     </>
   );
 }
-

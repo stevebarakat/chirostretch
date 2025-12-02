@@ -2,32 +2,7 @@ import { NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { fetchGraphQL } from "@/lib/graphql/client";
-
-const ALL_EVENTS_QUERY = `
-  query getAllEvents($first: Int, $after: String) {
-    events(first: $first, after: $after) {
-      nodes {
-        id
-        databaseId
-        slug
-        title
-        content
-        ... on NodeWithFeaturedImage {
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-    }
-  }
-`;
+import { ALL_EVENTS_QUERY } from "@/lib/graphql/queries";
 
 type Event = {
   id?: string;

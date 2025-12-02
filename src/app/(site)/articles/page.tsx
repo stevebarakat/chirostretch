@@ -1,10 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { wpQuery } from "@/app/_lib/wp/graphql";
-import {
-  ALL_POSTS_QUERY,
-  type AllPostsResponse,
-} from "@/app/_lib/wp/queries/posts";
+import { ALL_POSTS_QUERY, type AllPostsResponse } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import Pagination from "@/components/ui/Pagination";
 import styles from "./page.module.css";

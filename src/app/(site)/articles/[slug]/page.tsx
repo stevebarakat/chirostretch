@@ -6,7 +6,7 @@ import {
   ALL_POST_SLUGS_QUERY,
   type PostBySlugResponse,
   type AllPostSlugsResponse,
-} from "@/app/_lib/wp/queries/posts";
+} from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import BlockRenderer from "@/components/blocks/BlockRenderer";
 import styles from "./page.module.css";

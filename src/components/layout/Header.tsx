@@ -8,7 +8,7 @@ import Menu from "./Menu";
 import CartSummary from "./CartSummary";
 import SearchInput from "./SearchInput";
 import styles from "./Header.module.css";
-import type { MenuItem } from "@app/_lib/wp/queries/layout-query";
+import type { MenuItem } from "@/lib/graphql/queries";
 
 type HeaderProps = {
   logo?: {

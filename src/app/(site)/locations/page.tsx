@@ -4,7 +4,7 @@ import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_LOCATIONS_QUERY,
   type AllLocationsResponse,
-} from "@/app/_lib/wp/queries/locations";
+} from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import Pagination from "@/components/ui/Pagination";
 import { LocationMapWrapper } from "@/components/locations";
