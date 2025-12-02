@@ -63,6 +63,45 @@ export const HOMEPAGE_QUERY = `
         }
       }
     }
+    latestPosts: posts(first: 2) {
+      nodes {
+        id
+        databaseId
+        slug
+        title
+        excerpt
+        date
+        author {
+          node {
+            id
+            name
+            slug
+          }
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+        categories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+      }
+    }
     page(id: "/homepage", idType: URI) {
       title
       homepageHero {
@@ -257,6 +296,43 @@ type HomepageQueryResponse = {
             height?: number;
           };
         };
+      };
+    }>;
+  };
+  latestPosts?: {
+    nodes?: Array<{
+      id?: string;
+      databaseId?: number;
+      slug?: string;
+      title?: string;
+      excerpt?: string;
+      date?: string;
+      author?: {
+        node?: {
+          id?: string;
+          name?: string;
+          slug?: string;
+        };
+      };
+      featuredImage?: {
+        node?: {
+          id?: string;
+          sourceUrl?: string;
+          altText?: string;
+          srcSet?: string;
+          sizes?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
+        };
+      };
+      categories?: {
+        nodes?: Array<{
+          id?: string;
+          name?: string;
+          slug?: string;
+        }>;
       };
     }>;
   };

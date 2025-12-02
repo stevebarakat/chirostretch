@@ -8,6 +8,7 @@ import {
   type AllPostSlugsResponse,
 } from "@/app/_lib/wp/queries/posts";
 import Container from "@/components/ui/Container";
+import BlockRenderer from "@/components/blocks/BlockRenderer";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -129,12 +130,28 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
           )}
 
-          {post.content && (
+          {post.blocks &&
+          Array.isArray(post.blocks) &&
+          post.blocks.length > 0 ? (
+            <div className={styles.content}>
+              <BlockRenderer
+                blocks={
+                  post.blocks as Array<{
+                    name: string;
+                    attributes?: Record<string, unknown>;
+                    innerBlocks?: unknown[];
+                    innerHTML?: string;
+                    innerContent?: string[];
+                  }>
+                }
+              />
+            </div>
+          ) : post.content ? (
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
-          )}
+          ) : null}
         </article>
       </Container>
     </main>

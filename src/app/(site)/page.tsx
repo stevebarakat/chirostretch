@@ -16,12 +16,9 @@ const WhyUsSection = dynamic(() => import("./homepage/WhyUsSection"), {
   ssr: true,
 });
 
-const FeaturedProducts = dynamic(
-  () => import("./homepage/FeaturedProducts"),
-  {
-    ssr: true,
-  }
-);
+const FeaturedProducts = dynamic(() => import("./homepage/FeaturedProducts"), {
+  ssr: true,
+});
 
 const UpcomingEvents = dynamic(() => import("./homepage/UpcomingEvents"), {
   ssr: true,
@@ -96,6 +93,7 @@ export default async function HomePage() {
         insightsSubheading={page.homepageLatestInsights?.insightsSubheading}
         insightsCtaText={page.homepageLatestInsights?.insightsCtaText}
         insightsCtaLink={page.homepageLatestInsights?.insightsCtaLink}
+        posts={data.latestPosts?.nodes}
       />
 
       <CtaSection

@@ -1,6 +1,7 @@
 import ParagraphBlock from "./ParagraphBlock";
 import HeadingBlock from "./HeadingBlock";
 import ImageBlock from "./ImageBlock";
+import CoverBlock from "./CoverBlock";
 
 type Block = {
   name: string;
@@ -51,19 +52,145 @@ export default function BlockRenderer({
           case "core/image":
             const imageAttrs = block.attributes as {
               url?: string;
+              id?: string | number;
               alt?: string;
               width?: number;
               height?: number;
               caption?: string;
+              align?: "left" | "center" | "right" | "wide" | "full";
+              sizeSlug?: string;
+              className?: string;
+              style?: {
+                border?: {
+                  radius?: string;
+                };
+                borderRadius?: string;
+                aspectRatio?: string;
+                objectFit?: string;
+              };
+              borderRadius?: string;
+              aspectRatio?: string;
+              scale?: "cover" | "contain";
+              objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
             };
+            const imageUrl = imageAttrs?.url || "";
+            if (!imageUrl || imageUrl.startsWith("IMAGE:")) {
+              return null;
+            }
+
+            const aspectRatio =
+              imageAttrs?.aspectRatio ||
+              (imageAttrs?.style?.aspectRatio as string | undefined) ||
+              ((imageAttrs as Record<string, unknown>)?.["aspect-ratio"] as
+                | string
+                | undefined) ||
+              undefined;
+
+            const scale =
+              imageAttrs?.scale ||
+              (imageAttrs?.style?.objectFit as
+                | "cover"
+                | "contain"
+                | undefined) ||
+              undefined;
+
+            const objectFit =
+              imageAttrs?.objectFit ||
+              (imageAttrs?.style?.objectFit as
+                | "cover"
+                | "contain"
+                | "fill"
+                | "none"
+                | "scale-down"
+                | undefined) ||
+              undefined;
+
+            if (process.env.NODE_ENV === "development") {
+              console.log("Image block attributes:", {
+                aspectRatio: aspectRatio || "NOT FOUND",
+                scale: scale || "NOT FOUND",
+                objectFit: objectFit || "NOT FOUND",
+                rawAspectRatio: imageAttrs?.aspectRatio,
+                rawScale: imageAttrs?.scale,
+                rawObjectFit: imageAttrs?.objectFit,
+                styleAspectRatio: imageAttrs?.style?.aspectRatio,
+                styleObjectFit: imageAttrs?.style?.objectFit,
+                allAttrsKeys: Object.keys(imageAttrs || {}),
+              });
+            }
+
             return (
               <ImageBlock
                 key={key}
-                url={imageAttrs?.url || ""}
+                url={imageUrl}
                 alt={imageAttrs?.alt || ""}
                 width={imageAttrs?.width}
                 height={imageAttrs?.height}
                 caption={imageAttrs?.caption}
+                align={imageAttrs?.align}
+                sizeSlug={imageAttrs?.sizeSlug}
+                className={imageAttrs?.className || ""}
+                style={imageAttrs?.style}
+                borderRadius={imageAttrs?.borderRadius}
+                aspectRatio={aspectRatio}
+                scale={scale}
+                objectFit={objectFit}
+              />
+            );
+
+          case "core/cover":
+            const coverAttrs = block.attributes as {
+              url?: string;
+              id?: string | number;
+              alt?: string;
+              dimRatio?: number;
+              overlayColor?: string;
+              minHeight?: number;
+              contentPosition?: string;
+            };
+            const coverUrl = coverAttrs?.url || "";
+            if (coverUrl && coverUrl.startsWith("IMAGE:")) {
+              return (
+                <CoverBlock
+                  key={key}
+                  url=""
+                  alt={coverAttrs?.alt || ""}
+                  dimRatio={coverAttrs?.dimRatio || 0}
+                  overlayColor={coverAttrs?.overlayColor || "black"}
+                  minHeight={coverAttrs?.minHeight || 300}
+                  contentPosition={
+                    coverAttrs?.contentPosition || "center center"
+                  }
+                  innerBlocks={
+                    block.innerBlocks as Array<{
+                      name: string;
+                      attributes?: Record<string, unknown>;
+                      innerBlocks?: unknown[];
+                      innerHTML?: string;
+                      innerContent?: string[];
+                    }>
+                  }
+                />
+              );
+            }
+            return (
+              <CoverBlock
+                key={key}
+                url={coverUrl}
+                alt={coverAttrs?.alt || ""}
+                dimRatio={coverAttrs?.dimRatio || 0}
+                overlayColor={coverAttrs?.overlayColor || "black"}
+                minHeight={coverAttrs?.minHeight || 300}
+                contentPosition={coverAttrs?.contentPosition || "center center"}
+                innerBlocks={
+                  block.innerBlocks as Array<{
+                    name: string;
+                    attributes?: Record<string, unknown>;
+                    innerBlocks?: unknown[];
+                    innerHTML?: string;
+                    innerContent?: string[];
+                  }>
+                }
               />
             );
 

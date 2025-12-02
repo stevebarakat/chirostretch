@@ -104,6 +104,7 @@ export const POST_BY_SLUG_QUERY = `
           slug
         }
       }
+      blocks
     }
   }
 `;
@@ -189,7 +190,17 @@ export type AllPostsResponse = {
 };
 
 export type PostBySlugResponse = {
-  post?: Post | null;
+  post?:
+    | (Post & {
+        blocks?: Array<{
+          name: string;
+          attributes?: Record<string, unknown>;
+          innerBlocks?: unknown[];
+          innerHTML?: string;
+          innerContent?: string[];
+        }>;
+      })
+    | null;
 };
 
 export type AllPostSlugsResponse = {
