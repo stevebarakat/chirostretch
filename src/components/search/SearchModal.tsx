@@ -37,6 +37,10 @@ function getIndexName(pathname: string): string {
     return algoliaConfig.indices.articles;
   }
 
+  if (path.startsWith("/locations")) {
+    return algoliaConfig.indices.locations;
+  }
+
   return algoliaConfig.indices.products;
 }
 
@@ -96,7 +100,20 @@ type ArticleHit = {
   type: "article";
 };
 
-type Hit = ProductHit | EventHit | ArticleHit;
+type LocationHit = {
+  objectID: string;
+  title: string;
+  slug: string;
+  city?: string;
+  state?: string;
+  streetAddress?: string;
+  shortDescription?: string;
+  image?: string;
+  imageAlt?: string;
+  type: "location";
+};
+
+type Hit = ProductHit | EventHit | ArticleHit | LocationHit;
 
 type HitComponentProps = {
   hit: Hit;
@@ -157,6 +174,46 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
           {eventHit.content && (
             <p className={styles.hitExcerpt}>
               {eventHit.content.replace(/<[^>]*>/g, "").substring(0, 100)}...
+            </p>
+          )}
+        </div>
+      </Link>
+    );
+  }
+
+  if (hit.type === "location") {
+    const locationHit = hit as LocationHit;
+    const addressParts = [
+      locationHit.streetAddress,
+      locationHit.city,
+      locationHit.state,
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+    return (
+      <Link
+        href={`/locations/${locationHit.slug}`}
+        className={styles.hit}
+        onClick={onHitClick}
+      >
+        {locationHit.image && (
+          <div className={styles.hitImage}>
+            <Image
+              src={locationHit.image}
+              alt={locationHit.imageAlt || locationHit.title}
+              width={80}
+              height={80}
+              className={styles.hitImageInner}
+            />
+          </div>
+        )}
+        <div className={styles.hitContent}>
+          <h3 className={styles.hitTitle}>{locationHit.title}</h3>
+          {addressParts && <p className={styles.hitExcerpt}>{addressParts}</p>}
+          {!addressParts && locationHit.shortDescription && (
+            <p className={styles.hitExcerpt}>
+              {locationHit.shortDescription.substring(0, 100)}
             </p>
           )}
         </div>

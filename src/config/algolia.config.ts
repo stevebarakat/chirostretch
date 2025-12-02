@@ -6,6 +6,7 @@ export const algoliaConfig = {
     products: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_PRODUCTS || "products",
     events: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_EVENTS || "events",
     articles: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_ARTICLES || "articles",
+    locations: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_LOCATIONS || "locations",
   },
 } as const;
 

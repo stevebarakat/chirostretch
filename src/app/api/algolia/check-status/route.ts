@@ -22,6 +22,7 @@ export async function GET() {
       algoliaConfig.indices.products,
       algoliaConfig.indices.events,
       algoliaConfig.indices.articles,
+      algoliaConfig.indices.locations,
     ];
 
     const status = await Promise.all(

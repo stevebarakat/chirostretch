@@ -28,6 +28,13 @@ function getSearchConfig(pathname: string) {
     };
   }
 
+  if (path.startsWith("/locations")) {
+    return {
+      placeholder: "Search locations...",
+      ariaLabel: "Search locations",
+    };
+  }
+
   if (
     path.startsWith("/shop") ||
     path.startsWith("/cart") ||

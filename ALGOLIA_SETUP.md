@@ -1,6 +1,6 @@
 # Algolia Search Setup
 
-This project uses Algolia for search functionality across products, events, and articles.
+This project uses Algolia for search functionality across products, events, articles, and locations.
 
 ## Environment Variables
 
@@ -16,22 +16,25 @@ ALGOLIA_ADMIN_API_KEY=your_admin_api_key
 NEXT_PUBLIC_ALGOLIA_INDEX_PRODUCTS=products
 NEXT_PUBLIC_ALGOLIA_INDEX_EVENTS=events
 NEXT_PUBLIC_ALGOLIA_INDEX_ARTICLES=articles
+NEXT_PUBLIC_ALGOLIA_INDEX_LOCATIONS=locations
 ```
 
 ## Initial Setup
 
 1. Create an Algolia account at https://www.algolia.com/
-2. Create three indices in your Algolia dashboard:
+2. Create four indices in your Algolia dashboard:
 
    - `products` (or your custom name)
    - `events` (or your custom name)
    - `articles` (or your custom name)
+   - `locations` (or your custom name)
 
 3. Configure the searchable attributes for each index:
 
    - **Products**: `name`, `slug`, `categories`, `excerpt`
    - **Events**: `title`, `slug`, `content`
    - **Articles**: `title`, `slug`, `excerpt`, `categories`
+   - **Locations**: `title`, `city`, `state`, `shortDescription`, `streetAddress`
 
 4. Index your data by calling the API routes:
 
@@ -53,6 +56,9 @@ NEXT_PUBLIC_ALGOLIA_INDEX_ARTICLES=articles
 
    # Index articles
    curl -X POST http://localhost:3000/api/algolia/index-articles
+
+   # Index locations
+   curl -X POST http://localhost:3000/api/algolia/index-locations
    ```
 
    **Check index status:**
@@ -69,6 +75,7 @@ NEXT_PUBLIC_ALGOLIA_INDEX_ARTICLES=articles
   - Shop/product pages → searches products
   - Events pages → searches events
   - Blog/article pages → searches articles
+  - Locations pages → searches locations
   - Default → searches products
 
 - Clicking the search input opens a modal with real-time search results

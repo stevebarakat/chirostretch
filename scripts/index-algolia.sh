@@ -32,6 +32,25 @@ ARTICLES_RESPONSE=$(curl -s -X POST "$BASE_URL/api/algolia/index-articles")
 echo "$ARTICLES_RESPONSE" | jq '.' || echo "$ARTICLES_RESPONSE"
 echo ""
 
+# Index locations
+echo "📍 Indexing locations..."
+LOCATIONS_RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "$BASE_URL/api/algolia/index-locations")
+HTTP_STATUS=$(echo "$LOCATIONS_RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
+RESPONSE_BODY=$(echo "$LOCATIONS_RESPONSE" | sed '/HTTP_STATUS:/d')
+if [ -n "$HTTP_STATUS" ]; then
+  echo "HTTP Status: $HTTP_STATUS"
+fi
+if [ -n "$RESPONSE_BODY" ]; then
+  if command -v jq &> /dev/null; then
+    echo "$RESPONSE_BODY" | jq '.' 2>/dev/null || echo "$RESPONSE_BODY"
+  else
+    echo "$RESPONSE_BODY"
+  fi
+else
+  echo "No response received"
+fi
+echo ""
+
 # Check status after indexing
 echo "📊 Checking index status after indexing..."
 curl -s "$BASE_URL/api/algolia/check-status" | jq '.' || echo "Status check failed"
