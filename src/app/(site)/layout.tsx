@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Poppins, Montserrat } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/tokens.css";
@@ -102,7 +103,17 @@ export default async function RootLayout({
     footerMenuItems = undefined;
   }
 
-  const cart = await getServerCart();
+  // Only fetch cart on shop-related pages where it's displayed or needed
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const path = pathname.toLowerCase();
+  const isShopPage =
+    path.startsWith("/shop") ||
+    path.startsWith("/cart") ||
+    path.startsWith("/checkout") ||
+    path.startsWith("/products");
+
+  const cart = isShopPage ? await getServerCart() : null;
 
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>

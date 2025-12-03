@@ -58,9 +58,10 @@
   font-weight: 800;
   line-height: 1;
   margin: 0;
+  color: white;
 }
 
-.description {
+.description p {
   padding-top: 1rem;
   display: inline-block;
   color: white;

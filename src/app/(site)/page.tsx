@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   HOMEPAGE_QUERY,
@@ -15,6 +15,11 @@ import { RawHtml } from "@/components/RawHtml";
 import { Container } from "@/components/Container";
 
 export const revalidate = 300;
+
+// Cache the homepage query to deduplicate requests between generateMetadata() and the page component
+const getHomepageData = cache(async () => {
+  return await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, 300);
+});
 
 // Below-the-fold sections (dynamically imported for code splitting)
 const FeaturedProducts = dynamic(() => import("./homepage/FeaturedProducts"), {
@@ -34,7 +39,7 @@ const CtaSection = dynamic(() => import("./homepage/CtaSection"), {
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, 300);
+  const data = await getHomepageData();
 
   if (!data?.customSEO?.customSeoSettings) {
     return {
@@ -61,7 +66,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const data = await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, 300);
+  const data = await getHomepageData();
 
   if (!data?.page) {
     return <div>Homepage not found in WordPress.</div>;
