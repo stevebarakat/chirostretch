@@ -1,0 +1,12 @@
+export { getSitemapData } from "./getSitemapData";
+export { getAllPosts } from "./getAllPosts";
+export { getHomepage } from "./getHomepage";
+export { getHomepageSettings } from "./getHomepageSettings";
+export { getFooterContent } from "./getFooterContent";
+export { getHierarchicalMenuBySlug } from "./getHierarchicalMenuBySlug";
+export { getMenuBySlug } from "./getMenuBySlug";
+export { getMenuItems } from "./getMenuItems";
+export { getPageBySlug } from "./getPageBySlug";
+export { getPostBySlug } from "./getPostBySlug";
+export { getRobotsTxt } from "./getRobotsTxt";
+export { getCurrentPromo } from "./getCurrentPromo";

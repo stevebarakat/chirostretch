@@ -12,30 +12,45 @@
   text-decoration: none;
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .ctaLeftWrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
+  background: var(--color-primary-500);
   padding: 2rem clamp(1rem, 7vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaLeftContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  max-width: 100%;
 }
 
 .ctaRightWrap {
+  background: hsl(0, 0%, 95%);
+  color: hsl(0, 0%, 20%);
+  padding: 2rem clamp(1rem, 7vw, 4rem);
   display: flex;
-  border-left: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   border-top: 4px solid white;
-  width: 100%;
-  background: var(--accentGradient);
-  padding: 2rem;
 }
 
-.ctaRightWrap > div {
+.ctaRightContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   max-width: 42.18rem;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  align-self: center;
-  justify-self: center;
+  width: 100%;
 }
 
 .ctaHeader {
@@ -56,25 +71,50 @@
   font-weight: 400;
 }
 
+.ctaForm {
+  margin: 1rem 0;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 @media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .ctaHeader {
     font-size: 2.25rem;
   }
+
   .ctaSubHeader {
     font-size: 1.5rem;
   }
+
   .ctaLeftWrap {
-    padding-left: 2rem;
-    padding-right: 4rem;
-    justify-content: flex-end;
-  }
-  .ctaRightWrap {
-    border-left: 2px solid white;
+    border-right: 2px solid white;
     border-top: none;
   }
-  .ctaRightWrap div {
+
+  .ctaRightWrap {
+    border-top: none;
+    border-left: 2px solid white;
+  }
+
+  .ctaLeftContent {
     text-align: left;
-    margin: 0;
-    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .ctaRightContent {
+    text-align: left;
+  }
+
+  .buttonGroup {
+    justify-content: flex-start;
   }
 }

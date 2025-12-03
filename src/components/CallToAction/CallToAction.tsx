@@ -1,5 +1,5 @@
 import styles from "./cta.module.css";
-import { Button } from "@/components/Button";
+import Button from "../ui/Button";
 import Link from "next/link";
 import { Promotion } from "../Promotion";
 
@@ -34,7 +34,7 @@ const CallToAction = ({
   cta,
   promo,
 }: {
-  cta: CallToAction;
+  cta: CallToAction | null;
   promo: {
     price: number;
     topLine: string;
@@ -42,52 +42,35 @@ const CallToAction = ({
     bottomLine: string;
   };
 }) => {
-  const { button1, button2, headings } = cta;
-  const { headline, subheading } = headings;
-  const { button1Text, btn1Link } = button1;
-  const { button2Text, btn2Link } = button2;
-  const { uri: btn1Uri } = btn1Link.nodes[0];
-  const { uri: btn2Uri } = btn2Link.nodes[0];
+  // if (!cta) return null;
+
+  const { headline, subheading } = cta?.headings || {};
+  const { button1Text, btn1Link } = cta?.button1 || {};
+  const { button2Text, btn2Link } = cta?.button2 || {};
+  const btn1Uri = (btn1Link?.nodes?.[0]?.uri as string) || "";
+  const btn2Uri = (btn2Link?.nodes?.[0]?.uri as string) || "";
 
   return (
     <div className={styles.cta}>
-      <div className="grid">
-        <div id="left" className={styles.ctaLeftWrap}>
-          <Promotion promo={promo} />
+      <div className={styles.grid}>
+        <div className={styles.ctaLeftWrap}>
+          <div className={styles.ctaLeftContent}>
+            <Promotion promo={promo} />
+          </div>
         </div>
-        <div id="right" className={styles.ctaRightWrap}>
-          <div>
+        <div className={styles.ctaRightWrap}>
+          <div className={styles.ctaRightContent}>
             <span className={styles.ctaHeader}>{headline}</span>
             <span className={styles.ctaSubHeader}>{subheading}</span>
-            <div className={styles.ctaForm}>
-              <div className="flex">
-                <div
-                  style={{
-                    marginRight: "0.25rem",
-                  }}
-                >
-                  <Link passHref href={btn1Uri}>
-                    <Button color="white" textColor="var(--accentColor)">
-                      {button1Text}
-                    </Button>
-                  </Link>
-                </div>
-                <div
-                  style={{
-                    marginLeft: "0.25rem",
-                  }}
-                >
-                  <Link passHref href={btn2Uri}>
-                    <Button
-                      color="var(--accentColor)"
-                      borderColor="var(--grey05)"
-                      textColor="white"
-                    >
-                      {button2Text}
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+          </div>
+          <div className={styles.ctaForm}>
+            <div className={styles.buttonGroup}>
+              <Link href={btn1Uri}>
+                <Button variant="primary">{button1Text}</Button>
+              </Link>
+              <Link href={btn2Uri}>
+                <Button variant="outline">{button2Text}</Button>
+              </Link>
             </div>
           </div>
         </div>

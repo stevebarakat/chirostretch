@@ -20,7 +20,6 @@ export const GET_HOMEPAGE_SETTINGS_QUERY = `
       customSeoSettings {
         googleAnalyticsId
         canonical
-        schema
       }
     }
     intro {
@@ -208,6 +207,7 @@ export const HOMEPAGE_QUERY = `
     }
     page(id: "/homepage", idType: URI) {
       title
+      content
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
@@ -215,7 +215,7 @@ export const HOMEPAGE_QUERY = `
             sourceUrl
             altText
             slug
-            title
+          title
             caption
             srcSet
             sizes
@@ -235,19 +235,19 @@ export const HOMEPAGE_QUERY = `
             nodes {
               id
               __typename
-              ... on NodeWithTitle {
-                title
-              }
-              ... on NodeWithFeaturedImage {
-                featuredImage {
-                  node {
-                    sourceUrl
-                    altText
-                    srcSet
-                    sizes
-                    mediaDetails {
-                      width
-                      height
+                ... on NodeWithTitle {
+                  title
+                }
+                ... on NodeWithFeaturedImage {
+                  featuredImage {
+                    node {
+                      sourceUrl
+                      altText
+                      srcSet
+                      sizes
+                      mediaDetails {
+                        width
+                        height
                     }
                   }
                 }
@@ -287,6 +287,114 @@ export const HOMEPAGE_QUERY = `
         ctaDescription
         ctaButtonText
         ctaButtonLink
+      }
+    }
+    galleryPage {
+      services {
+        galleryTitle
+        image {
+          image {
+            node {
+              altText
+              caption
+              sourceUrl
+              slug
+              link
+            }
+          }
+        }
+      }
+    }
+    customSEO {
+      customSeoSettings {
+        googleAnalyticsId
+        canonical
+        googleVerify
+        bingVerify
+      }
+    }
+    intro {
+      introduction {
+        leftSide {
+          headline
+          text
+        }
+        rightSide {
+          bulletPoints
+          headline
+        }
+      }
+      stats {
+        stats {
+          ... on StatsStatsLayout {
+            stat {
+              description
+              number
+              prefix
+              suffix
+            }
+          }
+        }
+      }
+    }
+    cta {
+      callToAction {
+        headings {
+          headline
+          subheading
+        }
+        button1 {
+          btn1Link {
+            nodes {
+              uri
+            }
+          }
+          button1Text
+        }
+        button2 {
+          btn2Link {
+            nodes {
+              uri
+            }
+          }
+          button2Text
+        }
+      }
+    }
+    blox {
+      blocks {
+        bottomBlocks {
+          bottomBlocksButtonText
+          bottomBlocksHeadline
+          bottomBlocksImage {
+            node {
+              altText
+              slug
+              sourceUrl
+            }
+          }
+          bottomBlocksLink
+          bottomBlocksText
+        }
+        topBlocks {
+          topBlocksAuthor
+          topBlocksQuote
+          topBlocksImage {
+            node {
+              altText
+              sourceUrl
+              slug
+            }
+          }
+        }
+      }
+    }
+    currentPromo {
+      promo {
+        bottomLine
+        middleLine
+        price
+        topLine
       }
     }
   }
@@ -380,21 +488,22 @@ type HomepageQueryResponse = {
   };
   page: {
     title: string;
+    content?: string;
     featuredImage?: {
-      node?: {
+          node?: {
         id?: string;
-        sourceUrl?: string;
-        altText?: string;
+            sourceUrl?: string;
+            altText?: string;
         slug?: string;
         title?: string;
         caption?: string;
-        srcSet?: string;
-        sizes?: string;
-        mediaDetails?: {
-          width?: number;
-          height?: number;
-        };
-      };
+            srcSet?: string;
+            sizes?: string;
+            mediaDetails?: {
+              width?: number;
+              height?: number;
+            };
+          };
     };
     homepageFeaturedProducts?: {
       featuredProductsHeading?: string;
@@ -455,6 +564,112 @@ type HomepageQueryResponse = {
       ctaButtonLink?: string;
     };
   } | null;
+  galleryPage?: {
+    services?: {
+      galleryTitle?: string;
+      image?: {
+        image?: {
+          node?: {
+            altText?: string;
+            caption?: string;
+            sourceUrl?: string;
+            slug?: string;
+            link?: string;
+          };
+        };
+      }[];
+    };
+  };
+  customSEO?: {
+    customSeoSettings?: {
+      googleAnalyticsId?: string;
+      canonical?: string;
+      googleVerify?: string;
+      bingVerify?: string;
+    };
+  };
+  intro?: {
+    introduction?: {
+      leftSide?: {
+        headline?: string;
+        text?: string;
+      };
+      rightSide?: {
+        bulletPoints?: string;
+        headline?: string;
+      };
+    };
+    stats?: {
+      stats?: Array<{
+        stat?: {
+          description?: string;
+          number?: number;
+          prefix?: string;
+          suffix?: string;
+        };
+      }>;
+    };
+  };
+  cta?: {
+    callToAction?: {
+      headings?: {
+        headline?: string;
+        subheading?: string;
+      };
+      button1?: {
+        btn1Link?: {
+          nodes?: Array<{
+            uri?: string;
+          }>;
+        };
+        button1Text?: string;
+      };
+      button2?: {
+        btn2Link?: {
+          nodes?: Array<{
+            uri?: string;
+          }>;
+        };
+        button2Text?: string;
+      };
+    };
+  };
+  blox?: {
+    blocks?: {
+      bottomBlocks?: {
+        bottomBlocksButtonText?: string;
+        bottomBlocksHeadline?: string;
+        bottomBlocksImage?: {
+          node?: {
+            altText?: string;
+            slug?: string;
+            sourceUrl?: string;
+          };
+        };
+        bottomBlocksLink?: string;
+        bottomBlocksText?: string;
+      };
+      topBlocks?: {
+        topBlocksAuthor?: string;
+        topBlocksQuote?: string;
+        topBlocksImage?: {
+          node?: {
+            altText?: string;
+            sourceUrl?: string;
+            slug?: string;
+          };
+        };
+      };
+    };
+  };
+  currentPromo?: {
+    promo?: {
+      bottomLine?: string;
+      middleLine?: string;
+      price?: number;
+      topLine?: string;
+    };
+  };
 };
 
 export type { HomepageQueryResponse };
