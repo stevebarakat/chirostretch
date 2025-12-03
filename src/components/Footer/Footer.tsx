@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { FaCircleUp } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
-import { Button } from "@/components/Button";
+import Button from "@/components/ui/Button";
 import styles from "./footer.module.css";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef, useState } from "react";

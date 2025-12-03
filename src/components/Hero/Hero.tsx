@@ -1,15 +1,14 @@
 "use client";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
-import carAccident from "../../../public/images/carAccident.webp";
 import {
   getSafeImageUrl,
   useImageFallback,
   FALLBACK_IMAGES,
 } from "@/utils/image-helpers";
-import "./hero.css";
+import styles from "./Hero.module.css";
 
 type HeroProps = {
   home: {
@@ -39,25 +38,30 @@ function Hero({ home: { featuredImage, title, seo } }: HeroProps) {
   );
 
   return (
-    <div className="hero">
-      <Image
-        priority
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-        placeholder="blur"
-        blurDataURL={blurDataURL}
-        src={currentUrl}
-        alt={featuredImage?.node?.altText || "car accident"}
-        onError={handleError}
-      />
-      <span className="hero-headline">
-        {featuredImage?.node?.title || title}
-      </span>
-      <RawHtml className="description">
-        {featuredImage?.node?.caption || seo.metaDesc}
-      </RawHtml>
-    </div>
+    <section className={styles.hero}>
+      <div className={styles.imageWrapper}>
+        <Image
+          priority
+          fill
+          placeholder="blur"
+          blurDataURL={blurDataURL}
+          src={currentUrl}
+          alt={featuredImage?.node?.altText || "car accident"}
+          onError={handleError}
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
+      <div className={styles.overlay} />
+      <div className={styles.content}>
+        <h1 className={styles.headline}>
+          {featuredImage?.node?.title || title}
+        </h1>
+        <RawHtml className={styles.description}>
+          {featuredImage?.node?.caption || seo.metaDesc}
+        </RawHtml>
+      </div>
+    </section>
   );
 }
 

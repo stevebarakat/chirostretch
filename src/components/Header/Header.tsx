@@ -1,24 +1,57 @@
 "use client";
 import { useState } from "react";
 import Hamburger from "hamburger-react";
-import { Logo } from "../Logo";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu } from "@/components/Menu";
-import "./header.css";
+import CartSummary from "@/components/layout/CartSummary";
+import SearchInput from "@/components/layout/SearchInput";
+import styles from "./Header.module.css";
+import type { MenuItem } from "@/lib/graphql/queries";
+import { Logo } from "@/components/Logo";
 
-export default function Header({ menuItems }: { menuItems?: MenuItem[] }) {
+type HeaderProps = {
+  logo?: {
+    altText?: string;
+    sourceUrl?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
+  };
+  menuItems?: MenuItem[];
+};
+
+function isShopPage(pathname: string): boolean {
+  const path = pathname.toLowerCase();
+  return (
+    path.startsWith("/shop") ||
+    path.startsWith("/cart") ||
+    path.startsWith("/checkout") ||
+    path.startsWith("/products")
+  );
+}
+
+export default function Header({ logo, menuItems }: HeaderProps) {
+  const pathname = usePathname();
+  const showCart = isShopPage(pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  console.log("logo", logo);
+
   return (
-    <header className="site-header">
-      <span className="sr-only">Open main menu</span>
+    <header className={styles.siteHeader}>
       <div
-        className="toggle-mobile-btn"
+        className={styles.toggleMobileBtn}
         onPointerUp={() => setMobileOpen((mobileOpen) => !mobileOpen)}
       >
         <Hamburger label="toggle menu" toggled={mobileOpen} size={20} />
       </div>
       <nav
-        className="nav"
+        className={styles.nav}
         style={
           {
             "--toggleMobile": mobileOpen
@@ -27,16 +60,15 @@ export default function Header({ menuItems }: { menuItems?: MenuItem[] }) {
           } as React.CSSProperties
         }
       >
-        <div className="nav-container">
+        <div className={styles.navContainer}>
           <Logo isMobile={false} />
-          <ul className="menu">
+          <ul className={styles.menu}>
             {menuItems?.map((item) => (
               <Menu setMobileOpen={setMobileOpen} key={item.id} item={item} />
             ))}
           </ul>
-          <div className="link tel">
-            <a href="tel:904-272-4329">(904) 272-4329</a>
-          </div>
+          <SearchInput />
+          {showCart && <CartSummary />}
         </div>
       </nav>
       <Logo isMobile={true} />

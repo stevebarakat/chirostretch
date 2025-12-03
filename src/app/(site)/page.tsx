@@ -13,8 +13,6 @@ import { Blocks } from "@/components/blocks";
 import { CallToAction } from "@/components/CallToAction";
 import { RawHtml } from "@/components/RawHtml";
 import { Container } from "@/components/Container";
-import { JsonLd } from "@/components/JsonLd";
-import Promotion from "@/components/Promotion/Promotion";
 
 export const revalidate = 300;
 
@@ -159,16 +157,6 @@ export default async function HomePage() {
         />
       )}
 
-      {/* {promo && (
-        <Promotion
-          promo={{
-            price: promo.price ?? 0,
-            topLine: promo.topLine ?? "",
-            middleLine: promo.middleLine ?? "",
-            bottomLine: promo.bottomLine ?? "",
-          }}
-        />
-      )} */}
       {cta &&
         cta.headings &&
         typeof cta.button1?.button1Text === "string" &&

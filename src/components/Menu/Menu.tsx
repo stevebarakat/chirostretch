@@ -2,6 +2,16 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
+import styles from "@/components/Header/Header.module.css";
+
+type MenuItem = {
+  id: string;
+  uri: string;
+  label: string;
+  childItems?: {
+    nodes: MenuItem[];
+  };
+};
 
 type MenuType = {
   item: MenuItem;
@@ -23,13 +33,13 @@ export default function Menu({ item, setMobileOpen }: MenuType) {
           href={item.uri}
           passHref
           onPointerUp={() => setMobileOpen(false)}
-          className="link"
+          className={styles.link}
         >
           {item.label}
         </Link>
       ) : (
         <button
-          className="link"
+          className={styles.link}
           onClick={() => {
             setIsActive((isActive) => !isActive);
           }}
@@ -40,16 +50,18 @@ export default function Menu({ item, setMobileOpen }: MenuType) {
       )}
 
       {item.childItems?.nodes.length! > 0 && (
-        <ul className={isActive ? "dropdown" : "dropdown sr-only"}>
+        <ul
+          className={isActive ? styles.dropdown : `${styles.dropdown} sr-only`}
+        >
           {item.childItems?.nodes.map((item) => {
             if (!setMobileOpen) return;
             return (
-              <li key={item.id} className="dropdown-item">
+              <li key={item.id} className={styles.dropdownItem}>
                 <Link
                   href={item.uri}
                   passHref
                   onPointerUp={() => setMobileOpen(false)}
-                  className="link"
+                  className={styles.link}
                 >
                   {item.label}
                 </Link>

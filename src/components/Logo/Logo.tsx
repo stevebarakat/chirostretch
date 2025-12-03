@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import logo from "/public/images/logo.svg";
 import "./logo.css";
+
+const logo = "/images/logo.svg";
 
 export default function Logo({ isMobile }: { isMobile?: boolean }) {
   return (
@@ -9,7 +10,7 @@ export default function Logo({ isMobile }: { isMobile?: boolean }) {
       <Link href="/" passHref>
         <Image
           priority
-          src={logo}
+          src={logo as string}
           alt="North Florida Chiropractic Physical Therapy"
           width={249}
           height={71}

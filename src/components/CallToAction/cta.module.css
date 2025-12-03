@@ -1,6 +1,6 @@
 .cta {
   position: relative;
-  background: var(--primaryGradient);
+  background: var(--color-primary-500);
   border-top: 4px solid white;
   font-family: var(--secondaryFont);
   color: white;
@@ -22,7 +22,7 @@
   padding: 2rem clamp(1rem, 7vw, 4rem);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .ctaLeftContent {

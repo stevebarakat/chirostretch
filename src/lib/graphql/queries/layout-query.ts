@@ -2,7 +2,7 @@ import type { MenuItem } from "./menu";
 
 export const LAYOUT_QUERY = `
   query Layout {
-    logo: mediaItem(id: "chirostretch-logo", idType: SLUG) {
+    logo: mediaItem(id: "logo", idType: SLUG) {
       altText
       sourceUrl
       srcSet

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import SearchModal from "@/components/search/SearchModal";
-import styles from "./Header.module.css";
+import styles from "./SearchInput.module.css";
 
 function getSearchConfig(pathname: string) {
   const path = pathname.toLowerCase();
