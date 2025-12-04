@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(wp plugin list:*)",
+      "Bash(wp plugin deactivate:*)",
+      "Bash(wp option get:*)",
+      "Bash(wp option add:*)",
+      "Bash(wp graphql login:*)",
+      "Bash(TOKEN=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.test\")",
+      "Bash(wp eval:*)",
+      "Bash(wp cache flush:*)",
+      "Bash(wp user list:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -16,8 +16,8 @@ const COOKIE_OPTIONS = {
   path: "/",
 };
 
-const AUTH_TOKEN_MAX_AGE = 60 * 5; // 5 minutes (WPGraphQL JWT default)
-const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+const AUTH_TOKEN_MAX_AGE = 3600; // 1 hour
+const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 14; // 14 days
 
 /**
  * Set auth tokens in cookies (server-side only)

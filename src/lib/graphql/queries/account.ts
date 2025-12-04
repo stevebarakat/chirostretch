@@ -65,6 +65,14 @@ export const VIEWER_ACCOUNT_QUERY = `
       firstName
       lastName
       username
+    }
+    customer {
+      id
+      databaseId
+      email
+      firstName
+      lastName
+      username
       billing {
         ...AddressFields
       }
@@ -209,6 +217,14 @@ export type CustomerAddress = {
 
 export type ViewerAccount = {
   viewer: {
+    id: string;
+    databaseId: number;
+    email: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    username: string;
+  } | null;
+  customer: {
     id: string;
     databaseId: number;
     email: string;

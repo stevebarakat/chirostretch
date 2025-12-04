@@ -4,7 +4,7 @@
 
 export const LOGIN_MUTATION = `
   mutation Login($username: String!, $password: String!) {
-    login(input: { username: $username, password: $password }) {
+    login(input: { provider: PASSWORD, credentials: { username: $username, password: $password } }) {
       authToken
       refreshToken
       user {
@@ -21,7 +21,7 @@ export const LOGIN_MUTATION = `
 
 export const REFRESH_TOKEN_MUTATION = `
   mutation RefreshToken($refreshToken: String!) {
-    refreshJwtAuthToken(input: { jwtRefreshToken: $refreshToken }) {
+    refreshToken(input: { refreshToken: $refreshToken }) {
       authToken
     }
   }

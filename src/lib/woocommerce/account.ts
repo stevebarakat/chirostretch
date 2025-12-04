@@ -24,16 +24,17 @@ import {
  * Get the current viewer's account details
  * Requires authentication (JWT/cookie-based)
  *
- * @returns ViewerAccount object or null if not authenticated
+ * @returns Customer account object with user info and WooCommerce data, or null if not authenticated
  */
-export async function getViewerAccount(): Promise<ViewerAccount["viewer"]> {
+export async function getViewerAccount(): Promise<ViewerAccount["customer"]> {
   try {
     const data = await wpGraphQLFetch<ViewerAccount>({
       query: VIEWER_ACCOUNT_QUERY,
       auth: true,
     });
 
-    return data.viewer;
+    // Return the customer data which includes billing and shipping
+    return data.customer;
   } catch (error) {
     console.error("Failed to fetch viewer account:", error);
     return null;
@@ -178,24 +179,6 @@ export async function updateUserAccount(
   } catch (error) {
     console.error("Failed to update user account:", error);
     throw error;
-  }
-}
-
-/**
- * Check if a user is authenticated
- * This is a placeholder - actual implementation depends on your auth strategy
- *
- * TODO: Implement proper authentication check
- * - For JWT: Verify token exists and is valid
- * - For cookie-based: Check for auth cookie
- * - Return user ID if authenticated, null otherwise
- */
-export async function isAuthenticated(): Promise<boolean> {
-  try {
-    const account = await getViewerAccount();
-    return account !== null;
-  } catch {
-    return false;
   }
 }
 

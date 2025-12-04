@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       auth: false, // Don't use auth for refresh
     });
 
-    const newAuthToken = data.refreshJwtAuthToken?.authToken;
+    const newAuthToken = data.refreshToken?.authToken;
 
     if (!newAuthToken) {
       return NextResponse.json(

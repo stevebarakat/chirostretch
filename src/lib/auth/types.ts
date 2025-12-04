@@ -28,7 +28,7 @@ export type LoginResponse = {
 };
 
 export type RefreshTokenResponse = {
-  refreshJwtAuthToken: {
+  refreshToken: {
     authToken: string;
   };
 };

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { wpGraphQLFetch } from "@/lib/wpgraphql";
-import { setAuthCookies } from "@/lib/auth/cookies";
 import { LOGIN_MUTATION } from "@/lib/auth/queries";
 import type { LoginResponse, LoginCredentials } from "@/lib/auth/types";
 
@@ -37,11 +36,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Set httpOnly cookies
-    await setAuthCookies(authToken, refreshToken);
-
-    // Return user data (without tokens)
-    return NextResponse.json({
+    // Create response with user data
+    const response = NextResponse.json({
       success: true,
       user: {
         id: user.id,
@@ -52,8 +48,34 @@ export async function POST(request: NextRequest) {
         username: user.username,
       },
     });
+
+    // Set httpOnly cookies on the response
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax" as const,
+      path: "/",
+    };
+
+    response.cookies.set("wp-auth-token", authToken, {
+      ...cookieOptions,
+      maxAge: 3600, // 1 hour
+    });
+
+    response.cookies.set("wp-refresh-token", refreshToken, {
+      ...cookieOptions,
+      maxAge: 60 * 60 * 24 * 14, // 14 days
+    });
+
+    return response;
   } catch (error) {
     console.error("Login error:", error);
+
+    // Log full error details for debugging
+    if (error instanceof Error) {
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);
+    }
 
     // Check if it's a GraphQL error (invalid credentials)
     const errorMessage =
@@ -66,8 +88,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Return detailed error in development
     return NextResponse.json(
-      { error: "An error occurred during login" },
+      {
+        error: "An error occurred during login",
+        details: process.env.NODE_ENV === "development" ? errorMessage : undefined
+      },
       { status: 500 }
     );
   }

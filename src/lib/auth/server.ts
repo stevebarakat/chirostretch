@@ -26,7 +26,7 @@ export async function getValidAuthToken(): Promise<string | null> {
         auth: false, // Don't use auth for refresh mutation
       });
 
-      const newAuthToken = data.refreshJwtAuthToken?.authToken;
+      const newAuthToken = data.refreshToken?.authToken;
 
       if (newAuthToken) {
         // Store the new auth token

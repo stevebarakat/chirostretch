@@ -1,0 +1,51 @@
+.loginPage {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-2xl, 3rem) 0;
+  background-color: var(--color-bg-secondary, #f9fafb);
+}
+
+.loginContainer {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl, 3rem);
+}
+
+.loginHeader {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-3xl, 2.25rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #1a1a1a);
+  font-family: var(--font-montserrat, sans-serif);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-secondary, #666666);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .loginPage {
+    padding: var(--spacing-xl, 2rem) 0;
+  }
+
+  .title {
+    font-size: var(--font-size-2xl, 1.875rem);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-sm, 0.875rem);
+  }
+}
