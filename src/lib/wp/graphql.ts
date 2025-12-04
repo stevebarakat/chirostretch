@@ -3,11 +3,11 @@ export async function wpQuery<T>(
   variables: Record<string, unknown> = {},
   revalidate: number = 300
 ) {
-  const wpGraphqlUrl = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
+  const wpGraphqlUrl = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 
   if (!wpGraphqlUrl) {
     throw new Error(
-      "WORDPRESS_GRAPHQL_ENDPOINT environment variable is not set. Please configure it in your .env.local file."
+      "NEXT_PUBLIC_WPGRAPHQL_ENDPOINT environment variable is not set. Please configure it in your .env.local file."
     );
   }
 
@@ -30,7 +30,7 @@ export async function wpQuery<T>(
 
     if (isENotFound) {
       throw new Error(
-        `Cannot resolve WordPress GraphQL endpoint hostname: ${wpGraphqlUrl}. Please check your WORDPRESS_GRAPHQL_ENDPOINT environment variable and ensure the WordPress server is running and accessible.`
+        `Cannot resolve WordPress GraphQL endpoint hostname: ${wpGraphqlUrl}. Please check your NEXT_PUBLIC_WPGRAPHQL_ENDPOINT environment variable and ensure the WordPress server is running and accessible.`
       );
     }
     throw new Error(

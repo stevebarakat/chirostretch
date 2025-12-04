@@ -1,0 +1,176 @@
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl, 2rem);
+}
+
+.greeting {
+  padding-bottom: var(--spacing-xl, 2rem);
+  border-bottom: 1px solid var(--color-neutral-200, #e5e5e5);
+}
+
+.greetingTitle {
+  font-size: var(--font-size-2xl, 2rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #1a1a1a);
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  font-family: var(--font-montserrat, sans-serif);
+}
+
+.greetingText {
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-secondary, #666666);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.greetingText a {
+  color: var(--color-primary-600, #0066cc);
+  text-decoration: none;
+}
+
+.greetingText a:hover {
+  text-decoration: underline;
+}
+
+.recentOrders {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-xl, 1.5rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+  margin: 0;
+  font-family: var(--font-montserrat, sans-serif);
+}
+
+.ordersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+.orderCard {
+  border: 1px solid var(--color-neutral-200, #e5e5e5);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-lg, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+  transition: box-shadow var(--transition-base, 0.2s ease);
+}
+
+.orderCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm, 0.75rem);
+}
+
+.orderNumber {
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+  font-size: var(--font-size-lg, 1.125rem);
+}
+
+.orderStatus {
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  text-transform: capitalize;
+  background: var(--color-neutral-100, #f5f5f5);
+  color: var(--color-text-secondary, #666666);
+}
+
+.statuscompleted,
+.statuscomplete {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusprocessing,
+.statuspending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.statuscancelled,
+.statusfailed,
+.statusrefunded {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.statuson-hold {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+.orderDate,
+.orderTotal {
+  margin: 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666666);
+}
+
+.orderTotal {
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.orderLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-md, 1rem);
+  background: var(--color-primary-500, #0070f3);
+  color: var(--color-text-inverse, #ffffff);
+  text-decoration: none;
+  border-radius: var(--radius-sm, 4px);
+  font-weight: var(--font-weight-semibold, 600);
+  font-size: var(--font-size-sm, 0.875rem);
+  transition: background var(--transition-base, 0.2s ease);
+  margin-top: auto;
+}
+
+.orderLink:hover {
+  background: var(--color-primary-600, #0066cc);
+}
+
+.viewAllLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.5rem);
+  background: var(--color-neutral-100, #f5f5f5);
+  color: var(--color-text-primary, #1a1a1a);
+  text-decoration: none;
+  border-radius: var(--radius-md, 8px);
+  font-weight: var(--font-weight-semibold, 600);
+  transition: background var(--transition-base, 0.2s ease);
+  align-self: flex-start;
+}
+
+.viewAllLink:hover {
+  background: var(--color-neutral-200, #e5e5e5);
+}
+
+@media (max-width: 768px) {
+  .ordersGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -46,30 +46,6 @@ export const GET_HOMEPAGE_SETTINGS_QUERY = `
         }
       }
     }
-    cta {
-      callToAction {
-        headings {
-          headline
-          subheading
-        }
-        button1 {
-          btn1Link {
-            nodes {
-              uri
-            }
-          }
-          button1Text
-        }
-        button2 {
-          btn2Link {
-            nodes {
-              uri
-            }
-          }
-          button2Text
-        }
-      }
-    }
     blox {
       blocks {
         bottomBlocks {
@@ -215,7 +191,7 @@ export const HOMEPAGE_QUERY = `
             sourceUrl
             altText
             slug
-          title
+            title
             caption
             srcSet
             sizes
@@ -270,24 +246,6 @@ export const HOMEPAGE_QUERY = `
         insightsCtaText
         insightsCtaLink
       }
-      homepageCta {
-        ctaBackgroundImage {
-          node {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
-          }
-        }
-        ctaHeading
-        ctaDescription
-        ctaButtonText
-        ctaButtonLink
-      }
     }
     galleryPage {
       services {
@@ -334,30 +292,6 @@ export const HOMEPAGE_QUERY = `
               suffix
             }
           }
-        }
-      }
-    }
-    cta {
-      callToAction {
-        headings {
-          headline
-          subheading
-        }
-        button1 {
-          btn1Link {
-            nodes {
-              uri
-            }
-          }
-          button1Text
-        }
-        button2 {
-          btn2Link {
-            nodes {
-              uri
-            }
-          }
-          button2Text
         }
       }
     }
@@ -490,20 +424,20 @@ type HomepageQueryResponse = {
     title: string;
     content?: string;
     featuredImage?: {
-          node?: {
+      node?: {
         id?: string;
-            sourceUrl?: string;
-            altText?: string;
+        sourceUrl?: string;
+        altText?: string;
         slug?: string;
         title?: string;
         caption?: string;
-            srcSet?: string;
-            sizes?: string;
-            mediaDetails?: {
-              width?: number;
-              height?: number;
-            };
-          };
+        srcSet?: string;
+        sizes?: string;
+        mediaDetails?: {
+          width?: number;
+          height?: number;
+        };
+      };
     };
     homepageFeaturedProducts?: {
       featuredProductsHeading?: string;
@@ -611,27 +545,25 @@ type HomepageQueryResponse = {
     };
   };
   cta?: {
-    callToAction?: {
-      headings?: {
-        headline?: string;
-        subheading?: string;
+    headings?: {
+      headline?: string;
+      subheading?: string;
+    };
+    button1?: {
+      btn1Link?: {
+        nodes?: Array<{
+          uri?: string;
+        }>;
       };
-      button1?: {
-        btn1Link?: {
-          nodes?: Array<{
-            uri?: string;
-          }>;
-        };
-        button1Text?: string;
+      button1Text?: string;
+    };
+    button2?: {
+      btn2Link?: {
+        nodes?: Array<{
+          uri?: string;
+        }>;
       };
-      button2?: {
-        btn2Link?: {
-          nodes?: Array<{
-            uri?: string;
-          }>;
-        };
-        button2Text?: string;
-      };
+      button2Text?: string;
     };
   };
   blox?: {
@@ -721,27 +653,25 @@ type GetHomepageSettingsQueryResponse = {
     };
   };
   cta?: {
-    callToAction?: {
-      headings?: {
-        headline?: string;
-        subheading?: string;
+    headings?: {
+      headline?: string;
+      subheading?: string;
+    };
+    button1?: {
+      btn1Link?: {
+        nodes?: Array<{
+          uri?: string;
+        }>;
       };
-      button1?: {
-        btn1Link?: {
-          nodes?: Array<{
-            uri?: string;
-          }>;
-        };
-        button1Text?: string;
+      button1Text?: string;
+    };
+    button2?: {
+      btn2Link?: {
+        nodes?: Array<{
+          uri?: string;
+        }>;
       };
-      button2?: {
-        btn2Link?: {
-          nodes?: Array<{
-            uri?: string;
-          }>;
-        };
-        button2Text?: string;
-      };
+      button2Text?: string;
     };
   };
   blox?: {

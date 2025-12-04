@@ -1,5 +1,5 @@
 const WP_GRAPHQL_ENDPOINT =
-  process.env.WORDPRESS_GRAPHQL_ENDPOINT ??
+  process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ??
   process.env.WP_GRAPHQL_ENDPOINT ??
   "http://chirostretch-copy.local/graphql";
 

@@ -77,7 +77,7 @@ export default async function HomePage() {
   const stats = data.intro?.stats?.stats || [];
   const services = data.galleryPage?.services;
   const blocks = data.blox?.blocks;
-  const { headings, button1, button2 } = data.cta?.callToAction || {};
+  const { headings, button1, button2 } = data.cta || {};
   const promo = data.currentPromo?.promo;
 
   const cta = {
@@ -278,13 +278,6 @@ export default async function HomePage() {
         insightsCtaText={page.homepageLatestInsights?.insightsCtaText}
         insightsCtaLink={page.homepageLatestInsights?.insightsCtaLink}
         posts={data.latestPosts?.nodes}
-      />
-      <CtaSection
-        ctaBackgroundImage={page.homepageCta?.ctaBackgroundImage?.node}
-        ctaHeading={page.homepageCta?.ctaHeading}
-        ctaDescription={page.homepageCta?.ctaDescription}
-        ctaButtonText={page.homepageCta?.ctaButtonText}
-        ctaButtonLink={page.homepageCta?.ctaButtonLink}
       />
     </Suspense>
   );

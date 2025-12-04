@@ -1,0 +1,142 @@
+.empty {
+  text-align: center;
+  padding: var(--spacing-2xl, 3rem) var(--spacing-xl, 2rem);
+}
+
+.empty p {
+  font-size: var(--font-size-lg, 1.125rem);
+  color: var(--color-text-secondary, #666666);
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+}
+
+.emptyNote {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-tertiary, #999999);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error {
+  padding: var(--spacing-md, 1rem);
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  margin-bottom: var(--spacing-lg, 1.5rem);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+.method {
+  border: 1px solid var(--color-neutral-200, #e5e5e5);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-lg, 1.5rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-lg, 1.5rem);
+  transition: box-shadow var(--transition-base, 0.2s ease);
+}
+
+.method:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.methodInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.75rem);
+  flex: 1;
+}
+
+.methodHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md, 1rem);
+}
+
+.methodBrand {
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+  text-transform: capitalize;
+}
+
+.defaultBadge {
+  display: inline-block;
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+  background: var(--color-primary-100, #dbeafe);
+  color: var(--color-primary-700, #0056b3);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-semibold, 600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.methodDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.5rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666666);
+}
+
+.cardNumber {
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+
+.expiry {
+  color: var(--color-text-tertiary, #999999);
+}
+
+.deleteButton {
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-md, 1rem);
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-base, 0.2s ease);
+  white-space: nowrap;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background: #dc2626;
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.deleteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.note {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-tertiary, #999999);
+  text-align: center;
+  padding: var(--spacing-lg, 1.5rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-md, 8px);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .method {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .deleteButton {
+    width: 100%;
+  }
+}

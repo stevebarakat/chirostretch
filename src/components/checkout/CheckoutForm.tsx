@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import type { StripeCardElementChangeEvent } from "@stripe/stripe-js";
 import Button from "@/components/ui/Button";
 import styles from "./CheckoutForm.module.css";
 import { type CheckoutFormData, checkoutFormSchema } from "./checkoutSchema";
+import { formatPrice } from "@/lib/utils/formatPrice";
 
 export default function CheckoutForm() {
   const router = useRouter();
@@ -56,8 +57,160 @@ export default function CheckoutForm() {
   const sameAsBilling = watch("sameAsBilling");
   // eslint-disable-next-line react-hooks/incompatible-library
   const billingData = watch("billing");
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const shippingData = watch("shipping");
   const [cardError, setCardError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [shippingRates, setShippingRates] = useState<
+    Array<{
+      rate_id: string;
+      name: string;
+      price: string;
+      description?: string;
+    }>
+  >([]);
+  const [loadingShippingRates, setLoadingShippingRates] = useState(false);
+  const [selectedShippingRateId, setSelectedShippingRateId] = useState<
+    string | null
+  >(null);
+
+  const updateShippingAddressAndFetchRates = useCallback(
+    async (shippingAddress: CheckoutFormData["shipping"]) => {
+      const hasRequiredFields =
+        shippingAddress.address_1 &&
+        shippingAddress.city &&
+        shippingAddress.state &&
+        shippingAddress.postcode &&
+        shippingAddress.country;
+
+      if (!hasRequiredFields) {
+        return;
+      }
+
+      setLoadingShippingRates(true);
+      try {
+        const addressPayload = {
+          shipping_address: {
+            first_name: shippingAddress.first_name || "",
+            last_name: shippingAddress.last_name || "",
+            address_1: shippingAddress.address_1,
+            address_2: shippingAddress.address_2 || "",
+            city: shippingAddress.city,
+            state: shippingAddress.state,
+            postcode: shippingAddress.postcode,
+            country: shippingAddress.country,
+          },
+          billing_address: {
+            first_name: billingData.first_name || "",
+            last_name: billingData.last_name || "",
+            email: billingData.email || "",
+            phone: billingData.phone || "",
+            address_1: billingData.address_1 || "",
+            address_2: billingData.address_2 || "",
+            city: billingData.city || "",
+            state: billingData.state || "",
+            postcode: billingData.postcode || "",
+            country: billingData.country || "",
+          },
+        };
+
+        console.log("Updating cart with addresses:", addressPayload);
+
+        const updateResponse = await fetch(
+          "/api/cart/update-shipping-address",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify(addressPayload),
+          }
+        );
+
+        if (!updateResponse.ok) {
+          const errorData = await updateResponse.json();
+          console.error("Failed to update shipping address:", errorData);
+          return;
+        }
+
+        await updateResponse.json();
+
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        const ratesResponse = await fetch("/api/cart/shipping-rates", {
+          credentials: "include",
+        });
+        const ratesData = await ratesResponse.json();
+
+        console.log(
+          "Shipping rates response:",
+          JSON.stringify(ratesData, null, 2)
+        );
+
+        if (ratesResponse.ok) {
+          let rates: Array<{
+            rate_id: string;
+            name: string;
+            price: string;
+            description?: string;
+          }> = [];
+
+          if (ratesData.shipping_rates) {
+            if (Array.isArray(ratesData.shipping_rates)) {
+              rates = ratesData.shipping_rates.flatMap(
+                (pkg: {
+                  shipping_rates?: Array<{
+                    rate_id: string;
+                    name: string;
+                    price: string;
+                    description?: string;
+                  }>;
+                }) => {
+                  if (pkg.shipping_rates && Array.isArray(pkg.shipping_rates)) {
+                    return pkg.shipping_rates;
+                  }
+                  return [];
+                }
+              );
+            }
+          }
+
+          console.log("Parsed shipping rates:", rates);
+
+          setShippingRates(rates);
+          if (rates.length > 0 && !selectedShippingRateId) {
+            setSelectedShippingRateId(rates[0].rate_id);
+            setValue("shipping_method", [rates[0].rate_id]);
+          } else if (rates.length === 0) {
+            console.warn("No shipping rates found in response:", ratesData);
+          }
+        } else {
+          console.error("Shipping rates response error:", ratesData);
+        }
+      } catch (error) {
+        console.error("Error updating address and fetching rates:", error);
+      } finally {
+        setLoadingShippingRates(false);
+      }
+    },
+    [selectedShippingRateId, setValue]
+  );
+
+  useEffect(() => {
+    const shippingAddress = sameAsBilling ? billingData : shippingData;
+
+    const timeoutId = setTimeout(() => {
+      updateShippingAddressAndFetchRates(shippingAddress);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    sameAsBilling,
+    billingData,
+    shippingData,
+    updateShippingAddressAndFetchRates,
+  ]);
 
   useEffect(() => {
     if (sameAsBilling) {
@@ -103,8 +256,40 @@ export default function CheckoutForm() {
       return;
     }
 
+    if (!selectedShippingRateId) {
+      setSubmitError("Please select a shipping method.");
+      return;
+    }
+
     setSubmitError(null);
     setCardError(null);
+
+    try {
+      const selectShippingResponse = await fetch(
+        "/api/cart/select-shipping-rate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ rate_id: selectedShippingRateId }),
+        }
+      );
+
+      if (!selectShippingResponse.ok) {
+        const errorData = await selectShippingResponse.json();
+        setSubmitError(
+          errorData.message ||
+            "Failed to select shipping method. Please try again."
+        );
+        return;
+      }
+    } catch (error) {
+      console.error("Error selecting shipping rate:", error);
+      setSubmitError("Failed to select shipping method. Please try again.");
+      return;
+    }
 
     try {
       const { error: pmError, paymentMethod } =
@@ -151,38 +336,58 @@ export default function CheckoutForm() {
         },
       ];
 
+      const requestBody = {
+        billing_address: data.billing,
+        shipping_address: sameAsBilling ? data.billing : data.shipping,
+        payment_method: data.payment_method,
+        payment_data: paymentData,
+      };
+
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({
-          billing_address: data.billing,
-          shipping_address: sameAsBilling ? data.billing : data.shipping,
-          payment_method: data.payment_method,
-          shipping_method: data.shipping_method,
-          payment_data: paymentData,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const responseData = await response.json();
 
       if (!response.ok) {
+        console.error("Checkout API error - Status:", response.status);
+        console.error(
+          "Checkout API error - Response:",
+          JSON.stringify(responseData, null, 2)
+        );
+        console.error(
+          "Checkout API error - Request:",
+          JSON.stringify(requestBody, null, 2)
+        );
+
+        let errorMessage = "An error occurred during checkout";
+
         if (responseData.message) {
-          setSubmitError(responseData.message);
+          errorMessage = responseData.message;
         } else if (responseData.errors) {
           const errorMessages = Object.values(responseData.errors)
             .flat()
             .filter(
               (msg): msg is string => typeof msg === "string" && msg.length > 0
             );
-          setSubmitError(
-            errorMessages[0] || "An error occurred during checkout"
-          );
-        } else {
-          setSubmitError("An error occurred during checkout");
+          errorMessage = errorMessages[0] || errorMessage;
+        } else if (responseData.error) {
+          errorMessage =
+            typeof responseData.error === "string"
+              ? responseData.error
+              : errorMessage;
+        } else if (responseData.code) {
+          errorMessage = `${responseData.code}: ${
+            responseData.message || errorMessage
+          }`;
         }
+
+        setSubmitError(errorMessage);
         return;
       }
 
@@ -539,6 +744,69 @@ export default function CheckoutForm() {
             </div>
           </>
         )}
+
+        <div className={styles.formGroup}>
+          <label className={styles.label}>
+            Shipping Method <span className={styles.required}>*</span>
+          </label>
+          {loadingShippingRates ? (
+            <div className={styles.loadingMessage}>
+              Loading shipping options...
+            </div>
+          ) : shippingRates.length === 0 ? (
+            <div className={styles.infoMessage}>
+              {billingData.address_1 &&
+              billingData.city &&
+              billingData.state &&
+              billingData.postcode
+                ? "No shipping methods available for this address. This may mean: (1) No shipping zones are configured for this address, (2) Shipping methods are disabled, or (3) The address doesn't match any shipping zones. Please check your WooCommerce shipping settings or try a different address."
+                : "Please enter your complete shipping address (address, city, state, postal code, and country) to see available shipping options."}
+            </div>
+          ) : (
+            <div className={styles.shippingMethods}>
+              {shippingRates.map((rate) => (
+                <label
+                  key={rate.rate_id}
+                  className={`${styles.shippingMethodOption} ${
+                    selectedShippingRateId === rate.rate_id
+                      ? styles.shippingMethodOptionSelected
+                      : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="shipping_method"
+                    value={rate.rate_id}
+                    checked={selectedShippingRateId === rate.rate_id}
+                    onChange={(e) => {
+                      setSelectedShippingRateId(e.target.value);
+                      setValue("shipping_method", [e.target.value]);
+                    }}
+                    className={styles.radio}
+                  />
+                  <div className={styles.shippingMethodInfo}>
+                    <span className={styles.shippingMethodName}>
+                      {rate.name}
+                    </span>
+                    {rate.description && (
+                      <span className={styles.shippingMethodDescription}>
+                        {rate.description}
+                      </span>
+                    )}
+                  </div>
+                  <span className={styles.shippingMethodPrice}>
+                    {formatPrice(rate.price)}
+                  </span>
+                </label>
+              ))}
+            </div>
+          )}
+          {!selectedShippingRateId && shippingRates.length > 0 && (
+            <span className={styles.error}>
+              Please select a shipping method
+            </span>
+          )}
+        </div>
       </div>
 
       <div className={styles.formSection}>

@@ -1,8 +1,8 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 60vh;
-  max-height: 80vh;
+  min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -78,10 +78,10 @@
 }
 
 @media (max-width: 767px) {
-  .hero {
+  /* .hero {
     min-height: 50vh;
     max-height: 60vh;
-  }
+  } */
 
   .content {
     padding: 2rem 1.5rem;

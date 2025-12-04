@@ -1,5 +1,5 @@
 const WP_GRAPHQL_ENDPOINT =
-  process.env.WORDPRESS_GRAPHQL_ENDPOINT ??
+  process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ??
   "http://chirostretch-copy.local/graphql";
 
 const FETCH_TIMEOUT = 30000; // 30 seconds (less than Next.js 60s build timeout)
@@ -54,7 +54,7 @@ export async function fetchWP<T>({
 
     if (isENotFound) {
       throw new Error(
-        `Cannot resolve WordPress GraphQL endpoint hostname: ${WP_GRAPHQL_ENDPOINT}. Please check your WORDPRESS_GRAPHQL_ENDPOINT environment variable and ensure the WordPress server is running and accessible.`
+        `Cannot resolve WordPress GraphQL endpoint hostname: ${WP_GRAPHQL_ENDPOINT}. Please check your NEXT_PUBLIC_WPGRAPHQL_ENDPOINT environment variable and ensure the WordPress server is running and accessible.`
       );
     }
 
@@ -65,15 +65,35 @@ export async function fetchWP<T>({
     );
   }
 
-  if (!res.ok) {
-    throw new Error(`WPGraphQL fetch failed: ${res.status} ${res.statusText}`);
+  let json: { data?: T; errors?: unknown };
+  try {
+    json = (await res.json()) as { data?: T; errors?: unknown };
+  } catch (parseError) {
+    if (!res.ok) {
+      throw new Error(
+        `WPGraphQL fetch failed: ${res.status} ${res.statusText}. Could not parse response as JSON.`
+      );
+    }
+    throw new Error("WPGraphQL response was not valid JSON");
   }
 
-  const json = (await res.json()) as { data?: T; errors?: unknown };
+  if (!res.ok) {
+    const errorMessage = `WPGraphQL fetch failed: ${res.status} ${res.statusText}`;
+    if (json.errors) {
+      const errorsStr = JSON.stringify(json.errors, null, 2);
+      console.error("WPGraphQL errors:", errorsStr);
+      throw new Error(`${errorMessage}\nGraphQL errors:\n${errorsStr}`);
+    }
+    throw new Error(errorMessage);
+  }
 
   if (!json.data) {
     if (json.errors) {
-      console.error("WPGraphQL errors:", JSON.stringify(json.errors, null, 2));
+      const errorsStr = JSON.stringify(json.errors, null, 2);
+      console.error("WPGraphQL errors:", errorsStr);
+      throw new Error(
+        `WPGraphQL response had no data.\nGraphQL errors:\n${errorsStr}`
+      );
     }
     throw new Error("WPGraphQL response had no data");
   }

@@ -1,0 +1,115 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl, 3rem);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-xl, 1.5rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+  margin: 0;
+  font-family: var(--font-montserrat, sans-serif);
+}
+
+.sectionDescription {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666666);
+  margin: calc(var(--spacing-md, 1rem) * -1) 0 0 0;
+}
+
+.error {
+  padding: var(--spacing-md, 1rem);
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.success {
+  padding: var(--spacing-md, 1rem);
+  background: #dcfce7;
+  color: #166534;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+.label {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.required {
+  color: #dc2626;
+}
+
+.input {
+  padding: var(--spacing-md, 1rem);
+  border: 1px solid var(--color-neutral-300, #d4d4d4);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-base, 1rem);
+  font-family: inherit;
+  color: var(--color-text-primary, #1a1a1a);
+  transition: border-color var(--transition-base, 0.2s ease);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary-500, #0070f3);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+}
+
+.submitButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md, 1rem) var(--spacing-xl, 2rem);
+  background: var(--color-primary-500, #0070f3);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-semibold, 600);
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--transition-base, 0.2s ease);
+  align-self: flex-start;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--color-primary-600, #0066cc);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .submitButton {
+    align-self: stretch;
+  }
+}

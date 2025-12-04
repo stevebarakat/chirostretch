@@ -27,6 +27,19 @@ export async function POST(request: NextRequest) {
     const data = await res.json();
 
     if (!res.ok) {
+      console.error(
+        "WooCommerce checkout error - Status:",
+        res.status,
+        res.statusText
+      );
+      console.error(
+        "WooCommerce checkout error - Response:",
+        JSON.stringify(data, null, 2)
+      );
+      console.error(
+        "WooCommerce checkout error - Request:",
+        JSON.stringify(body, null, 2)
+      );
       return NextResponse.json(data, { status: res.status });
     }
 

@@ -1,6 +1,6 @@
 export const wordpressConfig = {
   graphqlEndpoint:
-    process.env.WORDPRESS_GRAPHQL_ENDPOINT ||
+    process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ||
     process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
     "",
   siteUrl: process.env.NEXT_PUBLIC_WORDPRESS_URL || "",

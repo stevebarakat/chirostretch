@@ -17,7 +17,7 @@ export function getWordPressConfig() {
   return {
     ...wordpressConfig,
     graphqlEndpoint:
-      process.env.WORDPRESS_GRAPHQL_ENDPOINT ||
+      process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ||
       process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
       wordpressConfig.graphqlEndpoint,
     siteUrl: process.env.NEXT_PUBLIC_WORDPRESS_URL || wordpressConfig.siteUrl,

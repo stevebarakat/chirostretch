@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const WORDPRESS_URL =
-  process.env.WORDPRESS_GRAPHQL_ENDPOINT?.replace("/graphql", "") ||
+  process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT?.replace("/graphql", "") ||
   process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
 export async function GET() {
