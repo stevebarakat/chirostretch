@@ -14,17 +14,17 @@
   --color-primary-900: hsl(200, 50%, 22%);
   --color-primary-950: hsl(200, 45%, 15%);
 
-  --color-secondary-50: hsl(160, 50%, 98%);
-  --color-secondary-100: hsl(160, 45%, 95%);
-  --color-secondary-200: hsl(160, 40%, 88%);
-  --color-secondary-300: hsl(160, 35%, 78%);
-  --color-secondary-400: hsl(160, 30%, 65%);
-  --color-secondary-500: hsl(160, 50%, 45%);
-  --color-secondary-600: hsl(160, 55%, 38%);
-  --color-secondary-700: hsl(160, 60%, 32%);
-  --color-secondary-800: hsl(160, 65%, 26%);
-  --color-secondary-900: hsl(160, 70%, 20%);
-  --color-secondary-950: hsl(160, 75%, 14%);
+  --color-secondary-50: hsl(324, 100%, 98%);
+  --color-secondary-100: hsl(324, 95%, 95%);
+  --color-secondary-200: hsl(324, 90%, 88%);
+  --color-secondary-300: hsl(324, 85%, 78%);
+  --color-secondary-400: hsl(324, 80%, 65%);
+  --color-secondary-500: hsl(324, 100%, 51%);
+  --color-secondary-600: hsl(324, 90%, 44%);
+  --color-secondary-700: hsl(324, 85%, 37%);
+  --color-secondary-800: hsl(324, 80%, 30%);
+  --color-secondary-900: hsl(324, 75%, 22%);
+  --color-secondary-950: hsl(324, 70%, 14%);
 
   --color-neutral-50: hsl(0, 0%, 98%);
   --color-neutral-100: hsl(0, 0%, 95%);

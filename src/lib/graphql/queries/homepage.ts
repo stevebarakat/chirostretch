@@ -295,34 +295,6 @@ export const HOMEPAGE_QUERY = `
         }
       }
     }
-    blox {
-      blocks {
-        bottomBlocks {
-          bottomBlocksButtonText
-          bottomBlocksHeadline
-          bottomBlocksImage {
-            node {
-              altText
-              slug
-              sourceUrl
-            }
-          }
-          bottomBlocksLink
-          bottomBlocksText
-        }
-        topBlocks {
-          topBlocksAuthor
-          topBlocksQuote
-          topBlocksImage {
-            node {
-              altText
-              sourceUrl
-              slug
-            }
-          }
-        }
-      }
-    }
     currentPromo {
       promo {
         bottomLine
