@@ -34,10 +34,6 @@ const LatestInsights = dynamic(() => import("./homepage/LatestInsights"), {
   ssr: true,
 });
 
-const CtaSection = dynamic(() => import("./homepage/CtaSection"), {
-  ssr: true,
-});
-
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomepageData();
 
@@ -73,35 +69,27 @@ export default async function HomePage() {
   }
 
   const { page } = data;
-  const { rightSide, leftSide } = data.intro?.introduction || {};
-  const stats = data.intro?.stats?.stats || [];
+  const { rightSide, leftSide } = page.homepageIntroduction || {};
+  const stats = page.homepageStats?.homepageStats || [];
   const services = data.galleryPage?.services;
   const blocks = data.blox?.blocks;
-  const { headings, button1, button2 } = data.cta || {};
   const promo = data.currentPromo?.promo;
 
-  const cta = {
-    headings: {
-      headline: headings?.headline,
-      subheading: headings?.subheading,
-    },
-    button1: {
-      button1Text: button1?.button1Text,
-      btn1Link: {
-        nodes: [{ uri: button1?.btn1Link?.nodes?.[0]?.uri ?? "" }] as [
-          { uri: string }
-        ],
-      },
-    },
-    button2: {
-      button2Text: button2?.button2Text!,
-      btn2Link: {
-        nodes: [{ uri: button2?.btn2Link?.nodes?.[0]?.uri }] as [
-          { uri: string }
-        ],
-      },
-    },
-  };
+  console.log("Homepage Stats Debug:", {
+    homepageStats: page.homepageStats,
+    stats,
+    statsLength: stats.length,
+  });
+
+  console.log("Introduction Data Debug:", {
+    leftSide,
+    rightSide,
+    hasAllFields:
+      leftSide?.headline &&
+      leftSide?.text &&
+      rightSide?.headline &&
+      rightSide?.bulletPoints,
+  });
 
   const intro =
     leftSide?.headline &&
@@ -128,6 +116,8 @@ export default async function HomePage() {
         }
       : null;
 
+  console.log("Intro object:", intro);
+
   const galleryImages =
     services?.image?.filter(
       (img) =>
@@ -136,9 +126,6 @@ export default async function HomePage() {
         img?.image?.node?.caption &&
         img?.image?.node?.slug
     ) || [];
-
-  console.log("promo", promo);
-  console.log("cta", cta);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -161,46 +148,43 @@ export default async function HomePage() {
           }}
         />
       )}
-
-      {cta &&
-        cta.headings &&
-        typeof cta.button1?.button1Text === "string" &&
-        typeof cta.button2?.button2Text === "string" && (
-          <CallToAction
-            cta={{
-              ...cta,
-              headings: {
-                headline: cta.headings.headline ?? "",
-                subheading: cta.headings.subheading ?? "",
+      {page.homepageCta?.headings?.headline && (
+        <CallToAction
+          cta={{
+            headings: {
+              headline: page.homepageCta.headings.headline ?? "",
+              subheading: page.homepageCta.headings.subheading ?? "",
+            },
+            button1: {
+              button1Text: page.homepageCta.button1?.button1Text ?? "",
+              btn1Link: {
+                nodes: [{ uri: "" }],
               },
-              button1: {
-                ...cta.button1,
-                button1Text: cta.button1.button1Text,
-                btn1Link: cta.button1.btn1Link,
+            },
+            button2: {
+              button2Text: page.homepageCta.button2?.button2Text ?? "",
+              btn2Link: {
+                nodes: [{ uri: "" }],
               },
-              button2: {
-                ...cta.button2,
-                button2Text: cta.button2.button2Text,
-                btn2Link: cta.button2.btn2Link,
-              },
-            }}
-            promo={
-              promo
-                ? {
-                    price: promo.price ?? 0,
-                    topLine: promo.topLine ?? "",
-                    middleLine: promo.middleLine ?? "",
-                    bottomLine: promo.bottomLine ?? "",
-                  }
-                : {
-                    price: 0,
-                    topLine: "",
-                    middleLine: "",
-                    bottomLine: "",
-                  }
-            }
-          />
-        )}
+            },
+          }}
+          promo={
+            promo
+              ? {
+                  price: promo.price ?? 0,
+                  topLine: promo.topLine ?? "",
+                  middleLine: promo.middleLine ?? "",
+                  bottomLine: promo.bottomLine ?? "",
+                }
+              : {
+                  price: 0,
+                  topLine: "",
+                  middleLine: "",
+                  bottomLine: "",
+                }
+          }
+        />
+      )}
       {intro && <Introduction intro={intro} />}
       {galleryImages.length > 0 && services?.galleryTitle && (
         <Gallery
@@ -264,6 +248,7 @@ export default async function HomePage() {
         }
         featuredProductsFromQuery={data.featuredProducts}
       />
+
       <UpcomingEvents
         eventsHeading={page.homepageUpcomingEvents?.eventsHeading}
         eventsSubheading={page.homepageUpcomingEvents?.eventsSubheading}

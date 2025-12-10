@@ -1,60 +1,47 @@
-import Image from "next/image";
-import Button from "@/components/ui/Button";
 import styles from "./CtaSection.module.css";
 
 type CtaSectionProps = {
-  ctaBackgroundImage?: {
-    sourceUrl?: string;
-    altText?: string;
-    srcSet?: string;
-    sizes?: string;
-    mediaDetails?: {
-      width?: number;
-      height?: number;
-    };
+  headings?: {
+    headline?: string;
+    subheading?: string;
   };
-  ctaHeading?: string;
-  ctaDescription?: string;
-  ctaButtonText?: string;
-  ctaButtonLink?: string;
+  button1?: {
+    button1Text?: string;
+  };
+  button2?: {
+    button2Text?: string;
+  };
 };
 
 export default function CtaSection({
-  ctaBackgroundImage,
-  ctaHeading,
-  ctaDescription,
-  ctaButtonText,
-  ctaButtonLink,
+  headings,
+  button1,
+  button2,
 }: CtaSectionProps) {
-  if (!ctaHeading) return null;
+  if (!headings?.headline) return null;
 
   return (
     <section className={styles.section}>
-      {ctaBackgroundImage?.sourceUrl && (
-        <div className={styles.imageWrapper}>
-        <Image
-          src={ctaBackgroundImage.sourceUrl}
-          alt={ctaBackgroundImage.altText || ""}
-            fill
-          quality={75}
-          sizes="100vw"
-            className={styles.image}
-        />
-        </div>
-      )}
-      <div className={styles.overlay} />
       <div className={styles.content}>
-        {ctaHeading && <h2 className={styles.heading}>{ctaHeading}</h2>}
-        {ctaDescription && (
-          <p className={styles.description}>{ctaDescription}</p>
+        <div className={styles.headings}>
+          {headings.headline && (
+            <h2 className={styles.heading}>{headings.headline}</h2>
+          )}
+          {headings.subheading && (
+            <p className={styles.subheading}>{headings.subheading}</p>
+          )}
+        </div>
+        {(button1?.button1Text || button2?.button2Text) && (
+          <div className={styles.buttons}>
+            {button1?.button1Text && (
+              <div className={styles.buttonText}>{button1.button1Text}</div>
+            )}
+            {button2?.button2Text && (
+              <div className={styles.buttonText}>{button2.button2Text}</div>
+            )}
+          </div>
         )}
-      {ctaButtonText && ctaButtonLink && (
-          <Button as="a" href={ctaButtonLink} variant="primary">
-            {ctaButtonText}
-          </Button>
-      )}
       </div>
     </section>
   );
 }
-

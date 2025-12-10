@@ -1,82 +1,3 @@
-export const GET_HOMEPAGE_SETTINGS_QUERY = `
-  query GetHomepageSettings {
-    galleryPage {
-      services {
-        galleryTitle
-        image {
-          image {
-            node {
-              altText
-              caption
-              sourceUrl
-              slug
-              link
-            }
-          }
-        }
-      }
-    }
-    customSEO {
-      customSeoSettings {
-        googleAnalyticsId
-        canonical
-      }
-    }
-    intro {
-      introduction {
-        leftSide {
-          headline
-          text
-        }
-        rightSide {
-          bulletPoints
-          headline
-        }
-      }
-      stats {
-        stats {
-          ... on StatsStatsLayout {
-            stat {
-              description
-              number
-              prefix
-              suffix
-            }
-          }
-        }
-      }
-    }
-    blox {
-      blocks {
-        bottomBlocks {
-          bottomBlocksButtonText
-          bottomBlocksHeadline
-          bottomBlocksImage {
-            node {
-              altText
-              slug
-              sourceUrl
-            }
-          }
-          bottomBlocksLink
-          bottomBlocksText
-        }
-        topBlocks {
-          topBlocksAuthor
-          topBlocksQuote
-          topBlocksImage {
-            node {
-              altText
-              sourceUrl
-              slug
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const HOMEPAGE_QUERY = `
   query Homepage {
     featuredProducts: products(where: { featured: true }, first: 4) {
@@ -202,6 +123,18 @@ export const HOMEPAGE_QUERY = `
           }
         }
       }
+      homepageCta {
+        headings {
+          headline
+          subheading
+        }
+        button1 {
+          button1Text
+        }
+        button2 {
+          button2Text
+        }
+      }
       homepageFeaturedProducts {
         featuredProductsHeading
         featuredProductsSubheading
@@ -246,6 +179,28 @@ export const HOMEPAGE_QUERY = `
         insightsCtaText
         insightsCtaLink
       }
+      homepageIntroduction {
+        leftSide {
+          headline
+          text
+        }
+        rightSide {
+          bulletPoints
+          headline
+        }
+      }
+      homepageStats {
+        homepageStats {
+          ... on HomepageStatsHomepageStatsLayout {
+            stat {
+              description
+              number
+              prefix
+              suffix
+            }
+          }
+        }
+      }
     }
     galleryPage {
       services {
@@ -269,30 +224,6 @@ export const HOMEPAGE_QUERY = `
         canonical
         googleVerify
         bingVerify
-      }
-    }
-    intro {
-      introduction {
-        leftSide {
-          headline
-          text
-        }
-        rightSide {
-          bulletPoints
-          headline
-        }
-      }
-      stats {
-        stats {
-          ... on StatsStatsLayout {
-            stat {
-              description
-              number
-              prefix
-              suffix
-            }
-          }
-        }
       }
     }
     currentPromo {
@@ -452,22 +383,36 @@ type HomepageQueryResponse = {
       insightsCtaLink?: string;
     };
     homepageCta?: {
-      ctaBackgroundImage?: {
-        node?: {
-          sourceUrl?: string;
-          altText?: string;
-          srcSet?: string;
-          sizes?: string;
-          mediaDetails?: {
-            width?: number;
-            height?: number;
-          };
-        };
+      headings?: {
+        headline?: string;
+        subheading?: string;
       };
-      ctaHeading?: string;
-      ctaDescription?: string;
-      ctaButtonText?: string;
-      ctaButtonLink?: string;
+      button1?: {
+        button1Text?: string;
+      };
+      button2?: {
+        button2Text?: string;
+      };
+    };
+    homepageIntroduction?: {
+      leftSide?: {
+        headline?: string;
+        text?: string;
+      };
+      rightSide?: {
+        bulletPoints?: string;
+        headline?: string;
+      };
+    };
+    homepageStats?: {
+      homepageStats?: Array<{
+        stat?: {
+          description?: string;
+          number?: number;
+          prefix?: string;
+          suffix?: string;
+        };
+      }>;
     };
   } | null;
   galleryPage?: {
@@ -492,28 +437,6 @@ type HomepageQueryResponse = {
       canonical?: string;
       googleVerify?: string;
       bingVerify?: string;
-    };
-  };
-  intro?: {
-    introduction?: {
-      leftSide?: {
-        headline?: string;
-        text?: string;
-      };
-      rightSide?: {
-        bulletPoints?: string;
-        headline?: string;
-      };
-    };
-    stats?: {
-      stats?: Array<{
-        stat?: {
-          description?: string;
-          number?: number;
-          prefix?: string;
-          suffix?: string;
-        };
-      }>;
     };
   };
   cta?: {

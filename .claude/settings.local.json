@@ -13,7 +13,9 @@
       "Bash(TOKEN=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.test\")",
       "Bash(wp eval:*)",
       "Bash(wp cache flush:*)",
-      "Bash(wp user list:*)"
+      "Bash(wp user list:*)",
+      "Bash(node test-schema.js:*)",
+      "Bash(node -e:*)"
     ],
     "deny": [],
     "ask": []
