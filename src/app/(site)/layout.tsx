@@ -66,16 +66,12 @@ export default async function RootLayout({
   let logo;
   let headerMenuItems: MenuItem[] | undefined;
   let footerMenuItems: MenuItem[] | undefined;
-  let contactInfo: string | undefined;
-  let officeHours: string | undefined;
 
   try {
     const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, 3600);
     logo = data?.logo;
     headerMenuItems = data?.headerMenu?.menuItems?.nodes;
     footerMenuItems = data?.footerMenu?.menuItems?.nodes;
-    contactInfo = data?.lowFooter?.lowerFooter?.contactInfo;
-    officeHours = data?.lowFooter?.lowerFooter?.officeHours;
 
     if (!data?.headerMenu) {
       console.warn(
@@ -105,8 +101,6 @@ export default async function RootLayout({
     logo = undefined;
     headerMenuItems = undefined;
     footerMenuItems = undefined;
-    contactInfo = undefined;
-    officeHours = undefined;
   }
 
   // Only fetch cart on shop-related pages where it's displayed or needed
@@ -131,12 +125,7 @@ export default async function RootLayout({
         <CartProvider initialCart={cart}>
           <Header logo={logo} menuItems={headerMenuItems} />
           {children}
-          <Footer
-            logo={logo}
-            menuItems={footerMenuItems}
-            contactInfo={contactInfo}
-            officeHours={officeHours}
-          />
+          <Footer logo={logo} menuItems={footerMenuItems} />
         </CartProvider>
       </body>
     </html>

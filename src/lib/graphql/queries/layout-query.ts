@@ -48,12 +48,6 @@ export const LAYOUT_QUERY = `
         }
       }
     }
-    lowFooter {
-      lowerFooter {
-        contactInfo
-        officeHours
-      }
-    }
   }
 `;
 
@@ -80,12 +74,6 @@ export type LayoutQueryResponse = {
     name?: string;
     menuItems?: {
       nodes: MenuItem[];
-    };
-  };
-  lowFooter?: {
-    lowerFooter?: {
-      contactInfo?: string;
-      officeHours?: string;
     };
   };
 };
