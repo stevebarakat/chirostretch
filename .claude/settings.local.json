@@ -43,7 +43,10 @@
       "Bash(php fix-field-35.php:*)",
       "Bash(php setup-user-registration.php:*)",
       "Bash(php create-franchise-role.php:*)",
-      "Bash(php:*)"
+      "Bash(php:*)",
+      "Bash(wp gf feed list:*)",
+      "Bash(bash:*)",
+      "Bash(wp plugin install:*)"
     ],
     "deny": [],
     "ask": []
