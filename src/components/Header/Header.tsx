@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import Hamburger from "hamburger-react";
-import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu } from "@/components/Menu";
 import CartSummary from "@/components/layout/CartSummary";
