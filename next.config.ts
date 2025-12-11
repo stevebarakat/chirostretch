@@ -68,6 +68,11 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    // Only apply aggressive caching in production
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
+
     return [
       {
         source: "/_next/image",

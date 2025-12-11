@@ -49,7 +49,6 @@
   position: absolute;
   transition: transform 0.25s;
   font-size: 1.25rem;
-  border-bottom: 1px solid white;
 }
 
 .navContainer {
@@ -72,6 +71,7 @@
   display: none;
 }
 
+.btnLink,
 .link {
   background: none;
   border: none;
@@ -101,6 +101,7 @@
 
 .dropdown .dropdownItem .link {
   box-shadow: none;
+  background: var(--color-secondary-600);
 }
 
 .dropdown {
@@ -127,7 +128,6 @@
   font-weight: 600;
   color: white;
   text-decoration: none;
-  border-right: 1px solid white;
   transition: background-color 0.25s ease;
 }
 
@@ -153,7 +153,6 @@
 
   .nav {
     z-index: 99;
-    position: fixed;
     flex-direction: column;
     min-height: 100vh;
     transform: var(--toggleMobile);
@@ -180,6 +179,12 @@
     border: 1px solid white;
     background: var(--darkColor);
     display: block;
+  }
+
+  .btnLink {
+    border-right: none;
+    border-bottom: 1px solid white;
+    width: 100%;
   }
 
   .accountLink {

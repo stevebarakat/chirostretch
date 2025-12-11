@@ -39,7 +39,7 @@ export default function Menu({ item, setMobileOpen }: MenuType) {
         </Link>
       ) : (
         <button
-          className={styles.link}
+          className={styles.btnLink}
           onClick={() => {
             setIsActive((isActive) => !isActive);
           }}
