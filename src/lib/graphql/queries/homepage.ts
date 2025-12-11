@@ -1,4 +1,33 @@
 export const HOMEPAGE_QUERY = `
+  # Reusable Fragments
+  fragment MediaDetailsFields on MediaDetails {
+    width
+    height
+  }
+
+  fragment FeaturedImageFields on MediaItem {
+    id
+    sourceUrl
+    altText
+    srcSet
+    sizes
+    mediaDetails {
+      ...MediaDetailsFields
+    }
+  }
+
+  fragment AuthorFields on User {
+    id
+    name
+    slug
+  }
+
+  fragment CategoryFields on Category {
+    id
+    name
+    slug
+  }
+
   query Homepage {
     featuredProducts: products(where: { featured: true }, first: 4) {
       nodes {
@@ -20,15 +49,7 @@ export const HOMEPAGE_QUERY = `
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...FeaturedImageFields
             }
           }
         }
@@ -49,15 +70,7 @@ export const HOMEPAGE_QUERY = `
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...FeaturedImageFields
             }
           }
         }
@@ -73,31 +86,19 @@ export const HOMEPAGE_QUERY = `
         date
         author {
           node {
-            id
-            name
-            slug
+            ...AuthorFields
           }
         }
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...FeaturedImageFields
             }
           }
         }
         categories {
           nodes {
-            id
-            name
-            slug
+            ...CategoryFields
           }
         }
       }
@@ -108,18 +109,10 @@ export const HOMEPAGE_QUERY = `
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            id
-            sourceUrl
-            altText
+            ...FeaturedImageFields
             slug
             title
             caption
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
           }
         }
       }
@@ -155,9 +148,8 @@ export const HOMEPAGE_QUERY = `
                       srcSet
                       sizes
                       mediaDetails {
-                        width
-                        height
-                    }
+                        ...MediaDetailsFields
+                      }
                   }
                 }
               }
