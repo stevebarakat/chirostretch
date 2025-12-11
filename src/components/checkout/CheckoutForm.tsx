@@ -398,6 +398,7 @@ export default function CheckoutForm() {
         shipping_address: shippingAddress,
         payment_method: data.payment_method,
         payment_data: paymentData,
+        create_account: true,
       };
 
       const response = await fetch("/api/checkout", {
