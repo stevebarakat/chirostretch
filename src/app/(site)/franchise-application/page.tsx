@@ -6,6 +6,7 @@ import Container from "@/components/ui/Container";
 import { GravityForm } from "@/components/gravity-forms";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
+import { FormDebugInterceptor } from "./debug-interceptor";
 
 export const revalidate = 300;
 
@@ -52,6 +53,7 @@ export default async function FranchiseApplicationPage() {
 
     return (
       <Container>
+        <FormDebugInterceptor />
         <article className={styles.page}>
           <header className={styles.header}>
             {form.description && (

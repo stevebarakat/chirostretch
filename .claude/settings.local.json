@@ -36,7 +36,11 @@
       "Bash(node /Users/sb/Dev/chirostretch/test-form-submission.js:*)",
       "Bash(node /Users/sb/Dev/chirostretch/test-schema.js:*)",
       "Bash(node:*)",
-      "Bash(wp config:*)"
+      "Bash(wp config:*)",
+      "Bash(find:*)",
+      "Bash(npm view:*)",
+      "Bash(php check-field-35.php:*)",
+      "Bash(php fix-field-35.php:*)"
     ],
     "deny": [],
     "ask": []

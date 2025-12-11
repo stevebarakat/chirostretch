@@ -59,7 +59,7 @@ export function GravityForm({ form }: GravityFormProps) {
           const choices = field.choices;
           if ((inputs === null || inputs === undefined || (Array.isArray(inputs) && inputs.length === 0)) && choices && Array.isArray(choices)) {
             // Generate inputs from choices
-            // Note: Input IDs must be integers for GraphQL API
+            // Note: Input IDs must be integers for GraphQL API (1, 2, 3...)
             const generatedInputs = choices.map((choice: any, index: number) => ({
               id: index + 1,
               label: choice.text,
