@@ -7,8 +7,7 @@ import {
 } from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
-import { Introduction } from "./homepage/Introduction";
-import { CallToAction } from "@/components/CallToAction";
+import { CallToAction } from "./homepage/CallToAction";
 
 export const revalidate = 300;
 
@@ -18,6 +17,10 @@ const getHomepageData = cache(async () => {
 });
 
 // Below-the-fold sections (dynamically imported for code splitting)
+const Introduction = dynamic(() => import("./homepage/Introduction"), {
+  ssr: true,
+});
+
 const FeaturedProducts = dynamic(() => import("./homepage/FeaturedProducts"), {
   ssr: true,
 });

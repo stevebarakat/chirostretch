@@ -1,7 +1,7 @@
 import styles from "./cta.module.css";
-import Button from "../ui/Button";
+import Button from "@/components/ui/Button";
 import Link from "next/link";
-import { Promotion } from "../Promotion";
+import { Promotion } from "@/components/Promotion";
 
 type CallToAction = {
   button1: {
