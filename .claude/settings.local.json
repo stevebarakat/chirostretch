@@ -40,7 +40,10 @@
       "Bash(find:*)",
       "Bash(npm view:*)",
       "Bash(php check-field-35.php:*)",
-      "Bash(php fix-field-35.php:*)"
+      "Bash(php fix-field-35.php:*)",
+      "Bash(php setup-user-registration.php:*)",
+      "Bash(php create-franchise-role.php:*)",
+      "Bash(php:*)"
     ],
     "deny": [],
     "ask": []
