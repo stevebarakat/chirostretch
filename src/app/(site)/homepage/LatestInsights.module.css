@@ -6,7 +6,7 @@
 .posts {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3xl);
+  /* gap: var(--spacing-3xl); */
   margin-top: var(--spacing-3xl);
 }
 
@@ -19,11 +19,19 @@
   overflow: hidden;
   transition: transform var(--transition-base),
     box-shadow var(--transition-base);
+
+  &:first-child {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  &:nth-child(2) {
+    flex-direction: row-reverse;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
 }
 
 .postCard:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+  background: var(--color-neutral-100);
 }
 
 .imageWrapper {
