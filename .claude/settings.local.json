@@ -15,7 +15,14 @@
       "Bash(wp cache flush:*)",
       "Bash(wp user list:*)",
       "Bash(node test-schema.js:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "Bash(if [ -f /Users/sb/Dev/chirostretch/.env.local ])",
+      "Bash(then echo \"exists\")",
+      "Bash(else echo \"not found\")",
+      "Bash(fi)",
+      "Bash(node test-acf-options.js:*)",
+      "Bash(node test-footer-type.js:*)",
+      "Bash(node test-all-footer-types.js:*)"
     ],
     "deny": [],
     "ask": []

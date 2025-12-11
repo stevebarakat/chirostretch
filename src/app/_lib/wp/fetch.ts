@@ -27,7 +27,15 @@ export async function fetchWP<T>({
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate },
+      // Disable cache in development, use revalidate with tags in production
+      ...(process.env.NODE_ENV === "development"
+        ? { cache: "no-store" as const }
+        : {
+            next: {
+              revalidate,
+              tags: ["wordpress-content"],
+            },
+          }),
       body: JSON.stringify({ query, variables }),
       signal: controller.signal,
     });

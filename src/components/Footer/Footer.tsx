@@ -91,9 +91,20 @@ type FooterContent = {
 };
 
 export default function Footer({
+  logo,
   menuItems,
   content,
 }: {
+  logo?: {
+    altText?: string;
+    sourceUrl?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
+  };
   menuItems: MenuItem[];
   content: FooterContent;
 }) {

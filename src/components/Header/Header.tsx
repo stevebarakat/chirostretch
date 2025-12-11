@@ -40,8 +40,6 @@ export default function Header({ logo, menuItems }: HeaderProps) {
   const showCart = isShopPage(pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  console.log("logo", logo);
-
   return (
     <header className={styles.siteHeader}>
       <div
@@ -61,7 +59,7 @@ export default function Header({ logo, menuItems }: HeaderProps) {
         }
       >
         <div className={styles.navContainer}>
-          <Logo isMobile={false} />
+          <Logo isMobile={false} logo={logo} />
           <ul className={styles.menu}>
             {menuItems?.map((item) => (
               <Menu setMobileOpen={setMobileOpen} key={item.id} item={item} />
@@ -71,7 +69,7 @@ export default function Header({ logo, menuItems }: HeaderProps) {
           {showCart && <CartSummary />}
         </div>
       </nav>
-      <Logo isMobile={true} />
+      <Logo isMobile={true} logo={logo} />
     </header>
   );
 }
