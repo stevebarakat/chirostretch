@@ -22,7 +22,11 @@
       "Bash(fi)",
       "Bash(node test-acf-options.js:*)",
       "Bash(node test-footer-type.js:*)",
-      "Bash(node test-all-footer-types.js:*)"
+      "Bash(node test-all-footer-types.js:*)",
+      "Bash(chmod:*)",
+      "Bash(wp gf field create --help:*)",
+      "Bash(wp gf field --help:*)",
+      "Bash(/Users/sb/Dev/chirostretch/create-franchise-form-v2.sh:*)"
     ],
     "deny": [],
     "ask": []

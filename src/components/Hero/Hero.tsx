@@ -1,9 +1,11 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
 import Button from "@/components/ui/Button";
+import SearchModal from "@/components/search/SearchModal";
 import {
   getSafeImageUrl,
   useImageFallback,
@@ -35,9 +37,12 @@ type HeroProps = {
     };
   };
   fallbackTitle?: string;
+  isHomepage?: boolean;
 };
 
-function Hero({ heroUnit, fallbackTitle }: HeroProps) {
+function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const initialUrl = getSafeImageUrl(
     heroUnit?.heroImage?.node?.sourceUrl || "",
     "hero"
@@ -56,44 +61,60 @@ function Hero({ heroUnit, fallbackTitle }: HeroProps) {
   }
 
   return (
-    <section className={styles.hero}>
-      <div className={styles.imageWrapper}>
-        <Image
-          priority
-          fill
-          placeholder="blur"
-          blurDataURL={blurDataURL}
-          src={currentUrl}
-          alt={heroUnit?.heroImage?.node?.altText || "Hero image"}
-          onError={handleError}
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center" }}
-        />
-      </div>
-      <div className={styles.overlay} />
-      <div className={styles.content}>
-        <h1 className={styles.headline}>
-          {heroUnit?.heroHeading || fallbackTitle}
-        </h1>
-        {heroUnit?.heroSubheading && (
-          <RawHtml className={styles.description}>
-            {heroUnit.heroSubheading}
-          </RawHtml>
-        )}
-        {heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
-          <div className={styles.ctaWrapper}>
-            <Button
-              as="a"
-              href={heroUnit.heroLink.url}
-              target={heroUnit.heroLink.target || undefined}
-              variant="primary"
-            >
-              {heroUnit.heroLink.title}
-            </Button>
-          </div>
-        )}
-      </div>
-    </section>
+    <>
+      <section className={styles.hero}>
+        <div className={styles.imageWrapper}>
+          <Image
+            priority
+            fill
+            placeholder="blur"
+            blurDataURL={blurDataURL}
+            src={currentUrl}
+            alt={heroUnit?.heroImage?.node?.altText || "Hero image"}
+            onError={handleError}
+            sizes="100vw"
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+        </div>
+        <div className={styles.overlay} />
+        <div className={styles.content}>
+          <h1 className={styles.headline}>
+            {heroUnit?.heroHeading || fallbackTitle}
+          </h1>
+          {heroUnit?.heroSubheading && (
+            <RawHtml className={styles.description}>
+              {heroUnit.heroSubheading}
+            </RawHtml>
+          )}
+          {isHomepage ? (
+            <div className={styles.ctaWrapper}>
+              <Button
+                as="button"
+                onClick={() => setIsSearchOpen(true)}
+                variant="primary"
+              >
+                Find A Location
+              </Button>
+            </div>
+          ) : (
+            heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
+              <div className={styles.ctaWrapper}>
+                <Button
+                  as="a"
+                  href={heroUnit.heroLink.url}
+                  target={heroUnit.heroLink.target || undefined}
+                  variant="primary"
+                >
+                  {heroUnit.heroLink.title}
+                </Button>
+              </div>
+            )
+          )}
+        </div>
+      </section>
+
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+    </>
   );
 }
 

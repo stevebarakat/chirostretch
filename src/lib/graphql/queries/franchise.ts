@@ -2,28 +2,26 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
   query FranchiseOpportunities {
     page(id: "/franchise-opportunities", idType: URI) {
       title
-      franchiseOpportunitiesHero {
-        heroSlides {
-          slideBackgroundImage {
-            node {
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+      heroUnit {
+        heroHeading
+        heroSubheading
+        heroImage {
+          node {
+            altText
+            sourceUrl
+            srcSet
+            sizes
+            slug
+            mediaDetails {
+              width
+              height
             }
           }
-          slideHeading
-          slideSubheading
-          slideCtaText
-          slideCtaLink {
-            url
-            title
-            target
-          }
+        }
+        heroLink {
+          target
+          title
+          url
         }
       }
       franchiseOpportunitiesAbout {
@@ -93,29 +91,27 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
 type FranchiseOpportunitiesQueryResponse = {
   page: {
     title: string;
-    franchiseOpportunitiesHero?: {
-      heroSlides?: Array<{
-        slideBackgroundImage?: {
-          node?: {
-            sourceUrl?: string;
-            altText?: string;
-            srcSet?: string;
-            sizes?: string;
-            mediaDetails?: {
-              width?: number;
-              height?: number;
-            };
+    heroUnit?: {
+      heroHeading?: string;
+      heroSubheading?: string;
+      heroImage?: {
+        node?: {
+          altText?: string;
+          sourceUrl?: string;
+          srcSet?: string;
+          sizes?: string;
+          slug?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
           };
         };
-        slideHeading?: string;
-        slideSubheading?: string;
-        slideCtaText?: string;
-        slideCtaLink?: {
-          url?: string;
-          title?: string;
-          target?: string;
-        };
-      }>;
+      };
+      heroLink?: {
+        target?: string;
+        title?: string;
+        url?: string;
+      };
     };
     franchiseOpportunitiesAbout?: {
       aboutHeading?: string;
