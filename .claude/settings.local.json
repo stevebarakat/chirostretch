@@ -26,7 +26,17 @@
       "Bash(chmod:*)",
       "Bash(wp gf field create --help:*)",
       "Bash(wp gf field --help:*)",
-      "Bash(/Users/sb/Dev/chirostretch/create-franchise-form-v2.sh:*)"
+      "Bash(/Users/sb/Dev/chirostretch/create-franchise-form-v2.sh:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(wp gf form:*)",
+      "Bash(wp gf field list:*)",
+      "Bash(cat:*)",
+      "Bash(wp gf field get:*)",
+      "Bash(node /Users/sb/Dev/chirostretch/test-form-submission.js:*)",
+      "Bash(node /Users/sb/Dev/chirostretch/test-schema.js:*)",
+      "Bash(node:*)",
+      "Bash(wp config:*)"
     ],
     "deny": [],
     "ask": []
