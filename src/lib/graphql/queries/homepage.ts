@@ -421,34 +421,6 @@ type HomepageQueryResponse = {
       button2Text?: string;
     };
   };
-  blox?: {
-    blocks?: {
-      bottomBlocks?: {
-        bottomBlocksButtonText?: string;
-        bottomBlocksHeadline?: string;
-        bottomBlocksImage?: {
-          node?: {
-            altText?: string;
-            slug?: string;
-            sourceUrl?: string;
-          };
-        };
-        bottomBlocksLink?: string;
-        bottomBlocksText?: string;
-      };
-      topBlocks?: {
-        topBlocksAuthor?: string;
-        topBlocksQuote?: string;
-        topBlocksImage?: {
-          node?: {
-            altText?: string;
-            sourceUrl?: string;
-            slug?: string;
-          };
-        };
-      };
-    };
-  };
   currentPromo?: {
     promo?: {
       bottomLine?: string;
@@ -527,34 +499,6 @@ type GetHomepageSettingsQueryResponse = {
         }>;
       };
       button2Text?: string;
-    };
-  };
-  blox?: {
-    blocks?: {
-      bottomBlocks?: {
-        bottomBlocksButtonText?: string;
-        bottomBlocksHeadline?: string;
-        bottomBlocksImage?: {
-          node?: {
-            altText?: string;
-            slug?: string;
-            sourceUrl?: string;
-          };
-        };
-        bottomBlocksLink?: string;
-        bottomBlocksText?: string;
-      };
-      topBlocks?: {
-        topBlocksAuthor?: string;
-        topBlocksQuote?: string;
-        topBlocksImage?: {
-          node?: {
-            altText?: string;
-            sourceUrl?: string;
-            slug?: string;
-          };
-        };
-      };
     };
   };
 };

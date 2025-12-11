@@ -70,7 +70,6 @@ export default async function HomePage() {
   const { page } = data;
   const { rightSide, leftSide } = page.homepageIntroduction || {};
   const stats = page.homepageStats?.homepageStats || [];
-  const blocks = data.blox?.blocks;
   const promo = data.currentPromo?.promo;
 
   console.log("Homepage Stats Debug:", {
@@ -180,22 +179,6 @@ export default async function HomePage() {
           <RawHtml className="homepage-content">{page.content}</RawHtml>
         </Container>
       )}
-      {blocks && <Blocks blocks={blocks} />}
-      <FeaturedProducts
-        featuredProductsHeading={
-          page.homepageFeaturedProducts?.featuredProductsHeading
-        }
-        featuredProductsSubheading={
-          page.homepageFeaturedProducts?.featuredProductsSubheading
-        }
-        featuredProductsSource={
-          page.homepageFeaturedProducts?.featuredProductsSource
-        }
-        featuredProductsManual={
-          page.homepageFeaturedProducts?.featuredProductsManual
-        }
-        featuredProductsFromQuery={data.featuredProducts}
-      />
 
       <UpcomingEvents
         eventsHeading={page.homepageUpcomingEvents?.eventsHeading}
