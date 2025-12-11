@@ -323,6 +323,10 @@ export default function CheckoutForm() {
 
       const paymentData = [
         {
+          key: "stripe_source",
+          value: paymentMethod.id,
+        },
+        {
           key: "wc-stripe-payment-method",
           value: paymentMethod.id,
         },
@@ -337,6 +341,46 @@ export default function CheckoutForm() {
         {
           key: "billing_email",
           value: data.billing.email,
+        },
+        {
+          key: "billing_first_name",
+          value: data.billing.first_name,
+        },
+        {
+          key: "billing_last_name",
+          value: data.billing.last_name,
+        },
+        {
+          key: "billing_name",
+          value: `${data.billing.first_name} ${data.billing.last_name}`,
+        },
+        {
+          key: "billing_address_1",
+          value: data.billing.address_1,
+        },
+        {
+          key: "billing_address_2",
+          value: data.billing.address_2 || "",
+        },
+        {
+          key: "billing_city",
+          value: data.billing.city,
+        },
+        {
+          key: "billing_state",
+          value: data.billing.state,
+        },
+        {
+          key: "billing_postcode",
+          value: data.billing.postcode,
+        },
+        {
+          key: "billing_country",
+          value: data.billing.country,
+        },
+        {
+          key: "billing_phone",
+          value: data.billing.phone,
         },
       ];
 

@@ -4,7 +4,7 @@ import CountUp from "react-countup";
 import { RawHtml } from "@/components/RawHtml";
 import useOnScreen from "@/hooks/useOnScreen";
 import "./intro.css";
-import { Container } from "../../../../components/Container";
+import Container from "@/components/ui/Container";
 
 type IntroductionProps = {
   intro: {

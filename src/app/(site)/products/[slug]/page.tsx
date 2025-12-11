@@ -11,6 +11,7 @@ import ProductGallery from "./ProductGallery";
 import ProductInfo from "./ProductInfo";
 import RelatedProducts from "./RelatedProducts";
 import styles from "./page.module.css";
+import CartSummary from "@/components/layout/CartSummary";
 
 export const revalidate = 300;
 
@@ -97,6 +98,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       />
       <Container>
         <div className={styles.productPage}>
+          <div className={styles.productSummary}>
+            <CartSummary />
+          </div>
           <div className={styles.productLayout}>
             <ProductGallery
               mainImage={product.featuredImage?.node}

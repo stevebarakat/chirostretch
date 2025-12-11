@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
@@ -9,8 +10,13 @@ import styles from "./CartSummary.module.css";
 export default function CartSummary() {
   const itemsCount = useCartStore((s) => s.itemsCount);
   const totals = useCartStore((s) => s.totals);
+  const fetchCart = useCartStore((s) => s.fetchCart);
 
-  const formattedPrice = formatPrice(totals?.total_price);
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
+  const formattedPrice = formatPrice(totals?.total_items);
 
   return (
     <Link href="/cart" className={styles.cartSummary}>

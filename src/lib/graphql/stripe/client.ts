@@ -13,7 +13,9 @@ export function getStripe(): Promise<Stripe | null> {
       return Promise.resolve(null);
     }
 
-    stripePromise = loadStripe(publishableKey);
+    stripePromise = loadStripe(publishableKey, {
+      locale: "en",
+    });
   }
 
   return stripePromise;
