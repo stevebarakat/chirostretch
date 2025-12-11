@@ -106,14 +106,25 @@ export const HOMEPAGE_QUERY = `
     page(id: "/homepage", idType: URI) {
       title
       content
-      ... on NodeWithFeaturedImage {
-        featuredImage {
+      heroUnit {
+        heroHeading
+        heroSubheading
+        heroImage {
           node {
-            ...FeaturedImageFields
+            altText
+            sourceUrl
+            srcSet
+            sizes
             slug
-            title
-            caption
+            mediaDetails {
+              ...MediaDetailsFields
+            }
           }
+        }
+        heroLink {
+          target
+          title
+          url
         }
       }
       homepageCta {
@@ -302,20 +313,26 @@ type HomepageQueryResponse = {
   page: {
     title: string;
     content?: string;
-    featuredImage?: {
-      node?: {
-        id?: string;
-        sourceUrl?: string;
-        altText?: string;
-        slug?: string;
-        title?: string;
-        caption?: string;
-        srcSet?: string;
-        sizes?: string;
-        mediaDetails?: {
-          width?: number;
-          height?: number;
+    heroUnit?: {
+      heroHeading?: string;
+      heroSubheading?: string;
+      heroImage?: {
+        node?: {
+          altText?: string;
+          sourceUrl?: string;
+          srcSet?: string;
+          sizes?: string;
+          slug?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
         };
+      };
+      heroLink?: {
+        target?: string;
+        title?: string;
+        url?: string;
       };
     };
     homepageFeaturedProducts?: {

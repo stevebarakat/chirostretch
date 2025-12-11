@@ -99,24 +99,8 @@ export default async function HomePage() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      {page.featuredImage?.node && (
-        <Hero
-          home={{
-            title: page.title,
-            seo: {
-              metaDesc: "",
-            },
-            featuredImage: {
-              node: {
-                sourceUrl: page.featuredImage.node.sourceUrl || "",
-                altText: page.featuredImage.node.altText || "",
-                slug: page.featuredImage.node.slug || "",
-                title: page.featuredImage.node.title || "",
-                caption: page.featuredImage.node.caption || "",
-              },
-            },
-          }}
-        />
+      {page.heroUnit && (
+        <Hero heroUnit={page.heroUnit} fallbackTitle={page.title} />
       )}
       {page.homepageCta?.headings?.headline && (
         <CallToAction

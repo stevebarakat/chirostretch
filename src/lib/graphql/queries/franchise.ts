@@ -1,6 +1,6 @@
 export const FRANCHISE_OPPORTUNITIES_QUERY = `
   query FranchiseOpportunities {
-    page(id: "/homepage", idType: URI) {
+    page(id: "/franchise-opportunities", idType: URI) {
       title
       franchiseOpportunitiesHero {
         heroSlides {

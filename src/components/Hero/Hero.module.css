@@ -71,9 +71,17 @@
   line-height: 1.6;
 }
 
+.ctaWrapper {
+  margin-top: 1.5rem;
+}
+
 @media (min-width: 700px) {
   .description {
     line-height: 2.25rem;
+  }
+
+  .ctaWrapper {
+    margin-top: 2rem;
   }
 }
 

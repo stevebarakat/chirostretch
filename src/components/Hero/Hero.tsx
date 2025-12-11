@@ -3,6 +3,7 @@ import Image from "next/image";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
+import Button from "@/components/ui/Button";
 import {
   getSafeImageUrl,
   useImageFallback,
@@ -11,31 +12,48 @@ import {
 import styles from "./Hero.module.css";
 
 type HeroProps = {
-  home: {
-    title: string;
-    seo: { metaDesc: string };
-    featuredImage: {
-      node: {
-        sourceUrl: string;
-        altText: string;
-        slug: string;
-        title: string;
-        caption: string;
+  heroUnit?: {
+    heroHeading?: string;
+    heroSubheading?: string;
+    heroImage?: {
+      node?: {
+        altText?: string;
+        sourceUrl?: string;
+        srcSet?: string;
+        sizes?: string;
+        slug?: string;
+        mediaDetails?: {
+          width?: number;
+          height?: number;
+        };
       };
     };
+    heroLink?: {
+      target?: string;
+      title?: string;
+      url?: string;
+    };
   };
+  fallbackTitle?: string;
 };
 
-function Hero({ home: { featuredImage, title, seo } }: HeroProps) {
-  const initialUrl = getSafeImageUrl(featuredImage?.node.sourceUrl, "hero");
+function Hero({ heroUnit, fallbackTitle }: HeroProps) {
+  const initialUrl = getSafeImageUrl(
+    heroUnit?.heroImage?.node?.sourceUrl || "",
+    "hero"
+  );
   const { currentUrl, handleError } = useImageFallback(
     initialUrl,
     FALLBACK_IMAGES.hero
   );
   const blurDataURL = buildUrl(
-    featuredImage?.node.slug || "car-accident",
+    heroUnit?.heroImage?.node?.slug || "car-accident",
     blurOptions
   );
+
+  if (!heroUnit?.heroImage?.node?.sourceUrl) {
+    return null;
+  }
 
   return (
     <section className={styles.hero}>
@@ -46,7 +64,7 @@ function Hero({ home: { featuredImage, title, seo } }: HeroProps) {
           placeholder="blur"
           blurDataURL={blurDataURL}
           src={currentUrl}
-          alt={featuredImage?.node?.altText || "car accident"}
+          alt={heroUnit?.heroImage?.node?.altText || "Hero image"}
           onError={handleError}
           sizes="100vw"
           style={{ objectFit: "cover", objectPosition: "center" }}
@@ -55,11 +73,25 @@ function Hero({ home: { featuredImage, title, seo } }: HeroProps) {
       <div className={styles.overlay} />
       <div className={styles.content}>
         <h1 className={styles.headline}>
-          {featuredImage?.node?.title || title}
+          {heroUnit?.heroHeading || fallbackTitle}
         </h1>
-        <RawHtml className={styles.description}>
-          {featuredImage?.node?.caption || seo.metaDesc}
-        </RawHtml>
+        {heroUnit?.heroSubheading && (
+          <RawHtml className={styles.description}>
+            {heroUnit.heroSubheading}
+          </RawHtml>
+        )}
+        {heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
+          <div className={styles.ctaWrapper}>
+            <Button
+              as="a"
+              href={heroUnit.heroLink.url}
+              target={heroUnit.heroLink.target || undefined}
+              variant="primary"
+            >
+              {heroUnit.heroLink.title}
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

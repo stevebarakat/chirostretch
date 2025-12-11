@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 export const revalidate = 300;
 
 // Critical above-the-fold sections (server-rendered)
-import HeroSlider from "../homepage/HeroSlider";
+import { Hero } from "@/components/Hero";
 import AboutSection from "../homepage/AboutSection";
 
 // Below-the-fold sections (dynamically imported for code splitting)
@@ -31,7 +31,9 @@ export default async function FranchiseOpportunitiesPage() {
 
   return (
     <>
-      <HeroSlider slides={page.franchiseOpportunitiesHero?.heroSlides} />
+      {page.heroUnit && (
+        <Hero heroUnit={page.heroUnit} fallbackTitle={page.title} />
+      )}
 
       <AboutSection
         aboutHeading={page.franchiseOpportunitiesAbout?.aboutHeading}
