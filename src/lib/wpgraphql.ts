@@ -107,21 +107,8 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
     );
   }
 
-  if (!res.ok) {
-    // Try to get more details about the error
-    let errorDetails = "";
-    try {
-      const text = await res.text();
-      errorDetails = text ? ` - Response: ${text.substring(0, 200)}` : "";
-    } catch {
-      // Ignore errors when trying to get response text
-    }
-
-    const errorMsg = `WPGraphQL fetch failed: ${res.status} ${res.statusText}${errorDetails}`;
-    console.error("[wpGraphQLFetch]", errorMsg);
-    throw new Error(errorMsg);
-  }
-
+  // Try to parse JSON response even if status is not OK
+  // WPGraphQL may return 403 with valid GraphQL response for auth errors
   let json: { data?: TData; errors?: Array<{ message: string }> };
   try {
     json = (await res.json()) as {
@@ -129,7 +116,20 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
       errors?: Array<{ message: string }>;
     };
   } catch (parseError) {
+    // If we can't parse JSON and status is not OK, throw HTTP error
+    if (!res.ok) {
+      const errorMsg = `WPGraphQL fetch failed: ${res.status} ${res.statusText}`;
+      console.error("[wpGraphQLFetch]", errorMsg);
+      throw new Error(errorMsg);
+    }
     throw new Error("WPGraphQL response was not valid JSON");
+  }
+
+  // Log warning for non-OK status but continue processing GraphQL response
+  if (!res.ok) {
+    console.warn(
+      `[wpGraphQLFetch] HTTP ${res.status} ${res.statusText} - processing GraphQL response anyway`
+    );
   }
 
   if (json.errors) {

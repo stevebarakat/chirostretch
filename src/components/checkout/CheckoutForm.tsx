@@ -334,11 +334,24 @@ export default function CheckoutForm() {
           key: "paymentRequestType",
           value: "cc",
         },
+        {
+          key: "billing_email",
+          value: data.billing.email,
+        },
       ];
+
+      // Ensure shipping address has email and phone for WooCommerce
+      const shippingAddress = sameAsBilling
+        ? data.billing
+        : {
+            ...data.shipping,
+            email: data.billing.email,
+            phone: data.billing.phone,
+          };
 
       const requestBody = {
         billing_address: data.billing,
-        shipping_address: sameAsBilling ? data.billing : data.shipping,
+        shipping_address: shippingAddress,
         payment_method: data.payment_method,
         payment_data: paymentData,
       };

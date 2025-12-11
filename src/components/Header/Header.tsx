@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import Hamburger from "hamburger-react";
-import { usePathname } from "next/navigation";
+import { User } from "lucide-react";
 import { Menu } from "@/components/Menu";
-import CartSummary from "@/components/layout/CartSummary";
-import SearchInput from "@/components/layout/SearchInput";
 import styles from "./Header.module.css";
 import type { MenuItem } from "@/lib/graphql/queries";
 import { Logo } from "@/components/Logo";
@@ -23,19 +22,7 @@ type HeaderProps = {
   menuItems?: MenuItem[];
 };
 
-function isShopPage(pathname: string): boolean {
-  const path = pathname.toLowerCase();
-  return (
-    path.startsWith("/shop") ||
-    path.startsWith("/cart") ||
-    path.startsWith("/checkout") ||
-    path.startsWith("/products")
-  );
-}
-
 export default function Header({ logo, menuItems }: HeaderProps) {
-  const pathname = usePathname();
-  const showCart = isShopPage(pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -63,8 +50,10 @@ export default function Header({ logo, menuItems }: HeaderProps) {
               <Menu setMobileOpen={setMobileOpen} key={item.id} item={item} />
             ))}
           </ul>
-          <SearchInput />
-          {showCart && <CartSummary />}
+          <Link href="/my-account" className={styles.accountLink}>
+            <User size={20} aria-hidden="true" />
+            <span>My Account</span>
+          </Link>
         </div>
       </nav>
       <Logo isMobile={true} logo={logo} />

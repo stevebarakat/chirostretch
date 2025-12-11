@@ -4,7 +4,7 @@ import {
   formatOrderDate,
   formatOrderStatus,
   formatPrice,
-} from "@/lib/woocommerce/account";
+} from "@/lib/utils/format";
 import styles from "./OrdersTable.module.css";
 
 type OrdersTableProps = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { AddressForm } from "@/components/account";
-import { updateCustomerAddresses } from "@/lib/woocommerce/account";
+import { updateBillingAddress, updateShippingAddress } from "./actions";
 import type { CustomerAddress } from "@/lib/graphql/queries/account";
 import styles from "./AddressFormWrapper.module.css";
 
@@ -17,11 +17,17 @@ export function AddressFormWrapper({
   shippingAddress,
 }: AddressFormWrapperProps) {
   const handleBillingSubmit = async (address: Partial<CustomerAddress>) => {
-    await updateCustomerAddresses(customerId, address, undefined);
+    const result = await updateBillingAddress(customerId, address);
+    if (!result.success) {
+      throw new Error(result.error);
+    }
   };
 
   const handleShippingSubmit = async (address: Partial<CustomerAddress>) => {
-    await updateCustomerAddresses(customerId, undefined, address);
+    const result = await updateShippingAddress(customerId, address);
+    if (!result.success) {
+      throw new Error(result.error);
+    }
   };
 
   return (

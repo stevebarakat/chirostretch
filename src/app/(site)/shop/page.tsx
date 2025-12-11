@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
+import PageHeader from "@/components/ui/PageHeader";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_PRODUCTS_QUERY,
@@ -24,7 +24,7 @@ export default async function ShopPage() {
   return (
     <main className={styles.main}>
       <Container>
-        <SectionHeading heading="Shop" subheading="Browse our collection" />
+        <PageHeader title="Shop" subtitle="Browse our collection" showCart />
         {products.length > 0 ? (
           <div className={styles.grid}>
             {products.map((product) => {

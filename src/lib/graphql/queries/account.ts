@@ -139,12 +139,15 @@ export const VIEWER_DOWNLOADS_QUERY = `
           accessExpires
           downloadsRemaining
           product {
-            node {
-              ... on Product {
-                id
-                name
-                slug
-              }
+            ... on SimpleProduct {
+              id
+              name
+              slug
+            }
+            ... on VariableProduct {
+              id
+              name
+              slug
             }
           }
         }

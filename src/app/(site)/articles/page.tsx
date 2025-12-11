@@ -3,6 +3,7 @@ import Link from "next/link";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import { ALL_POSTS_QUERY, type AllPostsResponse } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
+import PageHeader from "@/components/ui/PageHeader";
 import Pagination from "@/components/ui/Pagination";
 import styles from "./page.module.css";
 
@@ -39,13 +40,10 @@ export default async function ArticlesPage({
   return (
     <main className={styles.main}>
       <Container>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Articles</h1>
-          <p className={styles.subtitle}>
-            Insights, tips, and updates from our team
-          </p>
-        </div>
-
+        <PageHeader
+          title="Articles"
+          subtitle="Insights, tips, and updates from our team"
+        />
         {posts.length > 0 ? (
           <>
             <div className={styles.grid}>

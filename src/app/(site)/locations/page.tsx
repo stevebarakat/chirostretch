@@ -6,6 +6,7 @@ import {
   type AllLocationsResponse,
 } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
+import PageHeader from "@/components/ui/PageHeader";
 import Pagination from "@/components/ui/Pagination";
 import { LocationMapWrapper } from "@/components/locations";
 import styles from "./page.module.css";
@@ -47,13 +48,10 @@ export default async function LocationsPage({
   return (
     <main className={styles.main}>
       <Container>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Our Locations</h1>
-          <p className={styles.subtitle}>
-            Find a clinic near you and visit us today
-          </p>
-        </div>
-
+        <PageHeader
+          title="Our Locations"
+          subtitle="Find a clinic near you and visit us today"
+        />
         {locations.length > 0 ? (
           <>
             <div className={styles.grid}>

@@ -118,6 +118,23 @@
   border-right: none;
 }
 
+.accountLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  font-size: inherit;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  border-right: 1px solid white;
+  transition: background-color 0.25s ease;
+}
+
+.accountLink:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 @media (max-width: 910px) {
   .link {
     width: 100%;
@@ -163,5 +180,11 @@
     border: 1px solid white;
     background: var(--darkColor);
     display: block;
+  }
+
+  .accountLink {
+    width: 100%;
+    border-bottom: 1px solid white;
+    border-right: none;
   }
 }
