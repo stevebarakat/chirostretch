@@ -8,7 +8,6 @@ import {
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
 import { Introduction } from "@/components/Introduction";
-import { Gallery } from "@/components/Gallery";
 import { Blocks } from "@/components/blocks";
 import { CallToAction } from "@/components/CallToAction";
 import { RawHtml } from "@/components/RawHtml";
@@ -71,7 +70,6 @@ export default async function HomePage() {
   const { page } = data;
   const { rightSide, leftSide } = page.homepageIntroduction || {};
   const stats = page.homepageStats?.homepageStats || [];
-  const services = data.galleryPage?.services;
   const blocks = data.blox?.blocks;
   const promo = data.currentPromo?.promo;
 
@@ -117,15 +115,6 @@ export default async function HomePage() {
       : null;
 
   console.log("Intro object:", intro);
-
-  const galleryImages =
-    services?.image?.filter(
-      (img) =>
-        img?.image?.node?.sourceUrl &&
-        img?.image?.node?.altText &&
-        img?.image?.node?.caption &&
-        img?.image?.node?.slug
-    ) || [];
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -186,47 +175,6 @@ export default async function HomePage() {
         />
       )}
       {intro && <Introduction intro={intro} />}
-      {galleryImages.length > 0 && services?.galleryTitle && (
-        <Gallery
-          images={galleryImages
-            .map((img) => {
-              const node = img.image?.node;
-              if (
-                node?.sourceUrl &&
-                node?.altText &&
-                node?.caption &&
-                node?.slug
-              ) {
-                return {
-                  image: {
-                    node: {
-                      sourceUrl: node.sourceUrl,
-                      altText: node.altText,
-                      caption: node.caption,
-                      slug: node.slug,
-                    },
-                  },
-                };
-              }
-              return null;
-            })
-            .filter(
-              (
-                img
-              ): img is {
-                image: {
-                  node: {
-                    sourceUrl: string;
-                    altText: string;
-                    caption: string;
-                    slug: string;
-                  };
-                };
-              } => img !== null
-            )}
-          title={services.galleryTitle}
-        />
-      )}
       {page.content && (
         <Container>
           <RawHtml className="homepage-content">{page.content}</RawHtml>

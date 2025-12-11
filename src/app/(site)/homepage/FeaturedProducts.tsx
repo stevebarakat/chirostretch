@@ -93,7 +93,11 @@ export default function FeaturedProducts({
     });
   }
 
-  if (featuredProductsManual && Array.isArray(featuredProductsManual)) {
+  if (
+    sourceArray.includes("manual") &&
+    featuredProductsManual &&
+    Array.isArray(featuredProductsManual)
+  ) {
     featuredProductsManual.forEach((item) => {
       if (item?.product?.nodes && Array.isArray(item.product.nodes)) {
         item.product.nodes.forEach((product) => {

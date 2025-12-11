@@ -202,22 +202,6 @@ export const HOMEPAGE_QUERY = `
         }
       }
     }
-    galleryPage {
-      services {
-        galleryTitle
-        image {
-          image {
-            node {
-              altText
-              caption
-              sourceUrl
-              slug
-              link
-            }
-          }
-        }
-      }
-    }
     customSEO {
       customSeoSettings {
         googleAnalyticsId
@@ -415,22 +399,6 @@ type HomepageQueryResponse = {
       }>;
     };
   } | null;
-  galleryPage?: {
-    services?: {
-      galleryTitle?: string;
-      image?: {
-        image?: {
-          node?: {
-            altText?: string;
-            caption?: string;
-            sourceUrl?: string;
-            slug?: string;
-            link?: string;
-          };
-        };
-      }[];
-    };
-  };
   customSEO?: {
     customSeoSettings?: {
       googleAnalyticsId?: string;
