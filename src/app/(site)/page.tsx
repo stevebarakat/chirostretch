@@ -7,11 +7,8 @@ import {
 } from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
-import { Introduction } from "@/components/Introduction";
-import { Blocks } from "@/components/blocks";
+import { Introduction } from "./homepage/Introduction";
 import { CallToAction } from "@/components/CallToAction";
-import { RawHtml } from "@/components/RawHtml";
-import { Container } from "@/components/Container";
 
 export const revalidate = 300;
 
@@ -72,22 +69,6 @@ export default async function HomePage() {
   const stats = page.homepageStats?.homepageStats || [];
   const promo = data.currentPromo?.promo;
 
-  console.log("Homepage Stats Debug:", {
-    homepageStats: page.homepageStats,
-    stats,
-    statsLength: stats.length,
-  });
-
-  console.log("Introduction Data Debug:", {
-    leftSide,
-    rightSide,
-    hasAllFields:
-      leftSide?.headline &&
-      leftSide?.text &&
-      rightSide?.headline &&
-      rightSide?.bulletPoints,
-  });
-
   const intro =
     leftSide?.headline &&
     leftSide?.text &&
@@ -112,8 +93,6 @@ export default async function HomePage() {
           })),
         }
       : null;
-
-  console.log("Intro object:", intro);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -174,11 +153,22 @@ export default async function HomePage() {
         />
       )}
       {intro && <Introduction intro={intro} />}
-      {page.content && (
-        <Container>
-          <RawHtml className="homepage-content">{page.content}</RawHtml>
-        </Container>
-      )}
+
+      <FeaturedProducts
+        featuredProductsHeading={
+          page.homepageFeaturedProducts?.featuredProductsHeading
+        }
+        featuredProductsSubheading={
+          page.homepageFeaturedProducts?.featuredProductsSubheading
+        }
+        featuredProductsSource={
+          page.homepageFeaturedProducts?.featuredProductsSource
+        }
+        featuredProductsManual={
+          page.homepageFeaturedProducts?.featuredProductsManual
+        }
+        featuredProductsFromQuery={data.featuredProducts}
+      />
 
       <UpcomingEvents
         eventsHeading={page.homepageUpcomingEvents?.eventsHeading}
