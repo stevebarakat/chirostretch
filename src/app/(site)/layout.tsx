@@ -4,7 +4,6 @@ import { Poppins, Montserrat } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/tokens.css";
 import "@/styles/globals.css";
-import "@/styles/swiper.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/layout";
 import { CartProvider } from "@/components/cart";

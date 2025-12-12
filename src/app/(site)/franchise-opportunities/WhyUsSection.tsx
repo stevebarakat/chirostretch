@@ -45,27 +45,37 @@ export default function WhyUsSection({
     <section className={styles.section}>
       <Container>
         <div className={styles.wrapper}>
+          {whyusImage?.sourceUrl && (
+            <div className={styles.imageWrapper}>
+              <Image
+                src={whyusImage.sourceUrl}
+                alt={whyusImage.altText || ""}
+                fill
+                quality={75}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className={styles.image}
+              />
+            </div>
+          )}
           <div className={styles.content}>
-            {whyusHeading && (
-              <h2 className={styles.heading}>{whyusHeading}</h2>
-            )}
+            {whyusHeading && <h2 className={styles.heading}>{whyusHeading}</h2>}
             {whyusDescription && (
               <p className={styles.description}>{whyusDescription}</p>
-      )}
-      {whyusBenefits && whyusBenefits.length > 0 && (
+            )}
+            {whyusBenefits && whyusBenefits.length > 0 && (
               <ul className={styles.benefits}>
-          {whyusBenefits.map((benefit, index) => (
+                {whyusBenefits.map((benefit, index) => (
                   <li key={index} className={styles.benefit}>
-              {benefit.benefitIcon?.sourceUrl && (
-                <Image
-                  src={benefit.benefitIcon.sourceUrl}
-                  alt={benefit.benefitIcon.altText || ""}
+                    {benefit.benefitIcon?.sourceUrl && (
+                      <Image
+                        src={benefit.benefitIcon.sourceUrl}
+                        alt={benefit.benefitIcon.altText || ""}
                         width={24}
                         height={24}
-                  quality={75}
+                        quality={75}
                         className={styles.benefitIcon}
-                />
-              )}
+                      />
+                    )}
                     <div className={styles.benefitContent}>
                       {benefit.benefitTitle && (
                         <h3 className={styles.benefitTitle}>
@@ -83,21 +93,8 @@ export default function WhyUsSection({
               </ul>
             )}
           </div>
-          {whyusImage?.sourceUrl && (
-            <div className={styles.imageWrapper}>
-              <Image
-                src={whyusImage.sourceUrl}
-                alt={whyusImage.altText || ""}
-                fill
-                quality={75}
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className={styles.image}
-              />
-            </div>
-          )}
         </div>
       </Container>
     </section>
   );
 }
-

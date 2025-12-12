@@ -12,7 +12,7 @@ import { Hero } from "@/components/Hero";
 import AboutSection from "../homepage/AboutSection";
 
 // Below-the-fold sections (dynamically imported for code splitting)
-const WhyUsSection = dynamic(() => import("../homepage/WhyUsSection"), {
+const WhyUsSection = dynamic(() => import("./WhyUsSection"), {
   ssr: true,
 });
 
