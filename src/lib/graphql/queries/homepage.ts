@@ -135,9 +135,6 @@ export const HOMEPAGE_QUERY = `
         button1 {
           button1Text
         }
-        button2 {
-          button2Text
-        }
       }
       homepageFeaturedProducts {
         featuredProductsHeading
@@ -383,9 +380,6 @@ type HomepageQueryResponse = {
       button1?: {
         button1Text?: string;
       };
-      button2?: {
-        button2Text?: string;
-      };
     };
     homepageIntroduction?: {
       leftSide?: {
@@ -428,14 +422,6 @@ type HomepageQueryResponse = {
         }>;
       };
       button1Text?: string;
-    };
-    button2?: {
-      btn2Link?: {
-        nodes?: Array<{
-          uri?: string;
-        }>;
-      };
-      button2Text?: string;
     };
   };
   currentPromo?: {
@@ -508,14 +494,6 @@ type GetHomepageSettingsQueryResponse = {
         }>;
       };
       button1Text?: string;
-    };
-    button2?: {
-      btn2Link?: {
-        nodes?: Array<{
-          uri?: string;
-        }>;
-      };
-      button2Text?: string;
     };
   };
 };

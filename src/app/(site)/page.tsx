@@ -117,12 +117,6 @@ export default async function HomePage() {
                 nodes: [{ uri: "" }],
               },
             },
-            button2: {
-              button2Text: page.homepageCta.button2?.button2Text ?? "",
-              btn2Link: {
-                nodes: [{ uri: "" }],
-              },
-            },
           }}
           promo={
             promo

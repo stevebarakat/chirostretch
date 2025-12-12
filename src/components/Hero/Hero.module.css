@@ -1,13 +1,18 @@
 .hero {
+  --max-height: calc(100vh - 88px);
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
+  max-height: var(--max-height);
+  height: 750px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
   color: white;
+
+  @media (width >= 2000px) {
+    height: var(--max-height);
+  }
 }
 
 .imageWrapper {
@@ -51,7 +56,7 @@
 }
 
 .headline {
-  max-width: 13ch;
+  max-width: 23ch;
   font-size: clamp(3rem, 8vw, 5rem);
   font-family: var(--secondaryFont);
   letter-spacing: -0.15rem;
@@ -61,7 +66,7 @@
   color: white;
 }
 
-.description p {
+.description {
   padding-top: 1rem;
   display: inline-block;
   color: white;

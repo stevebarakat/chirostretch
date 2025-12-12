@@ -14,16 +14,6 @@ type CallToAction = {
       ];
     };
   };
-  button2: {
-    btn2Link: {
-      nodes: [
-        {
-          uri: string;
-        }
-      ];
-    };
-    button2Text: string;
-  };
   headings: {
     headline: string;
     subheading: string;
@@ -46,9 +36,7 @@ const CallToAction = ({
 
   const { headline, subheading } = cta?.headings || {};
   const { button1Text, btn1Link } = cta?.button1 || {};
-  const { button2Text, btn2Link } = cta?.button2 || {};
   const btn1Uri = (btn1Link?.nodes?.[0]?.uri as string) || "";
-  const btn2Uri = (btn2Link?.nodes?.[0]?.uri as string) || "";
 
   return (
     <div className={styles.cta}>
@@ -67,9 +55,6 @@ const CallToAction = ({
             <div className={styles.buttonGroup}>
               <Link href={btn1Uri}>
                 <Button variant="primary">{button1Text}</Button>
-              </Link>
-              <Link href={btn2Uri}>
-                <Button variant="outline">{button2Text}</Button>
               </Link>
             </div>
           </div>
