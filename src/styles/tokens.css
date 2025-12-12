@@ -25,6 +25,12 @@
   --color-secondary-800: hsl(324, 80%, 30%);
   --color-secondary-900: hsl(324, 75%, 22%);
   --color-secondary-950: hsl(324, 70%, 14%);
+  --color-secondary-gradient: linear-gradient(
+    to bottom,
+    hsl(324 80% 57%) 0%,
+    hsl(324 80% 67%) 50%,
+    hsl(324 80% 57%) 100%
+  );
 
   --color-neutral-50: hsl(0, 0%, 98%);
   --color-neutral-100: hsl(0, 0%, 95%);
@@ -134,4 +140,3 @@
   --container-xl: 1280px;
   --container-2xl: 1536px;
 }
-

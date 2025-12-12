@@ -2,7 +2,7 @@ import { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import styles from "./Button.module.css";
 
 type BaseButtonProps = {
-  variant?: "primary" | "secondary" | "warning" | "outline";
+  variant?: "primary" | "secondary" | "warning" | "outline" | "white";
   fullWidth?: boolean;
   children: ReactNode;
   className?: string;

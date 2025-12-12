@@ -118,6 +118,7 @@ export default function FeaturedProducts({
     <section className={styles.section}>
       <Container>
         <SectionHeading
+          color="var(--color-text-inverse)"
           heading={featuredProductsHeading}
           subheading={featuredProductsSubheading}
         />
@@ -179,20 +180,6 @@ export default function FeaturedProducts({
                     )}
                     {product.price && (
                       <div className={styles.price}>{product.price}</div>
-                    )}
-                    {product.slug ? (
-                      <Button
-                        as="a"
-                        href={`/products/${product.slug}`}
-                        variant="secondary"
-                        className={styles.button}
-                      >
-                        View Product
-                      </Button>
-                    ) : (
-                      <Button variant="secondary" className={styles.button}>
-                        Add to cart
-                      </Button>
                     )}
                   </div>
                 </div>

@@ -35,8 +35,8 @@
 }
 
 .ctaRightWrap {
-  background: hsl(0, 0%, 95%);
-  color: hsl(0, 0%, 20%);
+  background: var(--color-secondary-gradient);
+  color: white;
   padding: 2rem clamp(1rem, 7vw, 4rem);
   display: flex;
   flex-direction: column;
