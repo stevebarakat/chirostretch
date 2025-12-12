@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 // Critical above-the-fold sections (server-rendered)
 import { Hero } from "@/components/Hero";
-import AboutSection from "../homepage/AboutSection";
+import AboutSection from "../homepage/AboutSection/AboutSection";
 
 // Below-the-fold sections (dynamically imported for code splitting)
 const WhyUsSection = dynamic(() => import("./WhyUsSection"), {

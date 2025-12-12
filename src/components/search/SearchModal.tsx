@@ -32,7 +32,8 @@ function getIndexName(pathname: string): string {
     path.startsWith("/blog") ||
     path.startsWith("/articles") ||
     path.startsWith("/insights") ||
-    path.startsWith("/posts")
+    path.startsWith("/posts") ||
+    path.startsWith("/category")
   ) {
     return algoliaConfig.indices.articles;
   }

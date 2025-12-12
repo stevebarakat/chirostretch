@@ -132,6 +132,7 @@ export default function UpcomingEvents({
                         as="a"
                         href={`/events/${event.slug}`}
                         variant="secondary"
+                        aria-label={`Learn more about ${event.title}`}
                       >
                         Learn More
                       </Button>

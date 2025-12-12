@@ -4,6 +4,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import styles from "./LatestInsights.module.css";
+import { RawHtml } from "@/components/RawHtml";
 
 type PostImage = {
   id?: string;
@@ -130,14 +131,18 @@ export default function LatestInsights({
                         </span>
                       )}
                     </div>
-                    {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
+                    {excerpt && <RawHtml>{excerpt}</RawHtml>}
                     {post.categories?.nodes &&
                       post.categories.nodes.length > 0 && (
                         <div className={styles.categories}>
                           {post.categories.nodes.map((category) => (
-                            <span key={category.id} className={styles.category}>
+                            <Link
+                              key={category.id}
+                              href={`/category/${category.slug}`}
+                              className={styles.category}
+                            >
                               {category.name}
-                            </span>
+                            </Link>
                           ))}
                         </div>
                       )}

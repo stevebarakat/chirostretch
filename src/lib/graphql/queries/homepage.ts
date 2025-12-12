@@ -29,9 +29,10 @@ export const HOMEPAGE_QUERY = `
   }
 
   query Homepage {
-    featuredProducts: products(where: { featured: true }, first: 4) {
+    featuredProducts: products(where: { featured: true }, first: 100) {
       nodes {
         id
+        databaseId
         name
         slug
         ... on SimpleProduct {
@@ -225,6 +226,7 @@ type HomepageQueryResponse = {
   featuredProducts?: {
     nodes?: Array<{
       id?: string;
+      databaseId?: number;
       name?: string;
       slug?: string;
       featuredImage?: {

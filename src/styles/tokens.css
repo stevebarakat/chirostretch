@@ -19,7 +19,17 @@
     hsl(200 65% 45%) 50%,
     hsl(200 70% 52%) 100%
   );
-  --color-primary-transparent: hsla(200, 70%, 52%, 0.5);
+  --color-primary-transparent-50: hsla(200, 70%, 52%, 0.05);
+  --color-primary-transparent-100: hsla(200, 70%, 52%, 0.1);
+  --color-primary-transparent-200: hsla(200, 70%, 52%, 0.2);
+  --color-primary-transparent-300: hsla(200, 70%, 52%, 0.3);
+  --color-primary-transparent-400: hsla(200, 70%, 52%, 0.4);
+  --color-primary-transparent-500: hsla(200, 70%, 52%, 0.5);
+  --color-primary-transparent-600: hsla(200, 70%, 52%, 0.6);
+  --color-primary-transparent-700: hsla(200, 70%, 52%, 0.7);
+  --color-primary-transparent-800: hsla(200, 70%, 52%, 0.8);
+  --color-primary-transparent-900: hsla(200, 70%, 52%, 0.9);
+  --color-primary-transparent-950: hsla(200, 70%, 52%, 0.95);
 
   --color-secondary-50: hsl(324, 100%, 98%);
   --color-secondary-100: hsl(324, 95%, 95%);
@@ -38,7 +48,18 @@
     hsl(324 80% 67%) 50%,
     hsl(324 80% 57%) 100%
   );
-  --color-secondary-transparent: hsla(324, 100%, 51%, 0.5);
+
+  --color-secondary-transparent-50: hsla(324, 100%, 51%, 0.05);
+  --color-secondary-transparent-100: hsla(324, 100%, 51%, 0.1);
+  --color-secondary-transparent-200: hsla(324, 100%, 51%, 0.2);
+  --color-secondary-transparent-300: hsla(324, 100%, 51%, 0.3);
+  --color-secondary-transparent-400: hsla(324, 100%, 51%, 0.4);
+  --color-secondary-transparent-500: hsla(324, 100%, 51%, 0.5);
+  --color-secondary-transparent-600: hsla(324, 100%, 51%, 0.6);
+  --color-secondary-transparent-700: hsla(324, 100%, 51%, 0.7);
+  --color-secondary-transparent-800: hsla(324, 100%, 51%, 0.8);
+  --color-secondary-transparent-900: hsla(324, 100%, 51%, 0.9);
+  --color-secondary-transparent-950: hsla(324, 100%, 51%, 0.95);
 
   --color-neutral-50: hsl(0, 0%, 98%);
   --color-neutral-100: hsl(0, 0%, 95%);
