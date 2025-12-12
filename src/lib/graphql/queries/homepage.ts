@@ -107,21 +107,23 @@ export const HOMEPAGE_QUERY = `
     page(id: "/homepage", idType: URI) {
       title
       content
-      heroUnit {
-        heroHeading
-        heroSubheading
-        heroImage {
+      ... on NodeWithFeaturedImage {
+        featuredImage {
           node {
             altText
             sourceUrl
             srcSet
             sizes
             slug
+            title
+            description
             mediaDetails {
               ...MediaDetailsFields
             }
           }
         }
+      }
+      heroUnit {
         heroLink {
           target
           title
@@ -312,22 +314,22 @@ type HomepageQueryResponse = {
   page: {
     title: string;
     content?: string;
-    heroUnit?: {
-      heroHeading?: string;
-      heroSubheading?: string;
-      heroImage?: {
-        node?: {
-          altText?: string;
-          sourceUrl?: string;
-          srcSet?: string;
-          sizes?: string;
-          slug?: string;
-          mediaDetails?: {
-            width?: number;
-            height?: number;
-          };
+    featuredImage?: {
+      node?: {
+        altText?: string;
+        sourceUrl?: string;
+        srcSet?: string;
+        sizes?: string;
+        slug?: string;
+        title?: string;
+        description?: string;
+        mediaDetails?: {
+          width?: number;
+          height?: number;
         };
       };
+    };
+    heroUnit?: {
       heroLink?: {
         target?: string;
         title?: string;

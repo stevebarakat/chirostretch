@@ -19,49 +19,50 @@ const SearchModal = dynamic(() => import("@/components/search/SearchModal"), {
 });
 
 type HeroProps = {
-  heroUnit?: {
-    heroHeading?: string;
-    heroSubheading?: string;
-    heroImage?: {
-      node?: {
-        altText?: string;
-        sourceUrl?: string;
-        srcSet?: string;
-        sizes?: string;
-        slug?: string;
-        mediaDetails?: {
-          width?: number;
-          height?: number;
-        };
+  featuredImage?: {
+    node?: {
+      altText?: string;
+      sourceUrl?: string;
+      srcSet?: string;
+      sizes?: string;
+      slug?: string;
+      title?: string;
+      description?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
       };
     };
-    heroLink?: {
-      target?: string;
-      title?: string;
-      url?: string;
-    };
+  };
+  heroLink?: {
+    target?: string;
+    title?: string;
+    url?: string;
   };
   fallbackTitle?: string;
   isHomepage?: boolean;
 };
 
-function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
+function Hero({
+  featuredImage,
+  heroLink,
+  fallbackTitle,
+  isHomepage,
+}: HeroProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const initialUrl = getSafeImageUrl(
-    heroUnit?.heroImage?.node?.sourceUrl || "",
-    "hero"
-  );
+  const imageNode = featuredImage?.node;
+  const heading = imageNode?.title || fallbackTitle;
+  const subheading = imageNode?.description;
+
+  const initialUrl = getSafeImageUrl(imageNode?.sourceUrl || "", "hero");
   const { currentUrl, handleError } = useImageFallback(
     initialUrl,
     FALLBACK_IMAGES.hero
   );
-  const blurDataURL = buildUrl(
-    heroUnit?.heroImage?.node?.slug || "car-accident",
-    blurOptions
-  );
+  const blurDataURL = buildUrl(imageNode?.slug || "", blurOptions);
 
-  if (!heroUnit?.heroImage?.node?.sourceUrl) {
+  if (!imageNode?.sourceUrl) {
     return null;
   }
 
@@ -76,7 +77,7 @@ function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
             placeholder="blur"
             blurDataURL={blurDataURL}
             src={currentUrl}
-            alt={heroUnit?.heroImage?.node?.altText || "Hero image"}
+            alt={imageNode?.altText || "Hero image"}
             onError={handleError}
             sizes="100vw"
             style={{ objectFit: "cover", objectPosition: "center" }}
@@ -84,13 +85,9 @@ function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
         </div>
         <div className={styles.overlay} />
         <div className={styles.content}>
-          <h1 className={styles.headline}>
-            {heroUnit?.heroHeading || fallbackTitle}
-          </h1>
-          {heroUnit?.heroSubheading && (
-            <RawHtml className={styles.description}>
-              {heroUnit.heroSubheading}
-            </RawHtml>
+          <h1 className={styles.headline}>{heading}</h1>
+          {subheading && (
+            <RawHtml className={styles.description}>{subheading}</RawHtml>
           )}
           {isHomepage ? (
             <div className={styles.ctaWrapper}>
@@ -103,15 +100,16 @@ function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
               </Button>
             </div>
           ) : (
-            heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
+            heroLink?.url &&
+            heroLink?.title && (
               <div className={styles.ctaWrapper}>
                 <Button
                   as="a"
-                  href={heroUnit.heroLink.url}
-                  target={heroUnit.heroLink.target || undefined}
+                  href={heroLink.url}
+                  target={heroLink.target || undefined}
                   variant="primary"
                 >
-                  {heroUnit.heroLink.title}
+                  {heroLink.title}
                 </Button>
               </div>
             )
@@ -119,7 +117,10 @@ function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
         </div>
       </section>
 
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </>
   );
 }

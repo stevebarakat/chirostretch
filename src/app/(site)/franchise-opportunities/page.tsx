@@ -31,8 +31,12 @@ export default async function FranchiseOpportunitiesPage() {
 
   return (
     <>
-      {page.heroUnit && (
-        <Hero heroUnit={page.heroUnit} fallbackTitle={page.title} />
+      {page.featuredImage && (
+        <Hero
+          featuredImage={page.featuredImage}
+          heroLink={page.heroUnit?.heroLink}
+          fallbackTitle={page.title}
+        />
       )}
 
       <AboutSection

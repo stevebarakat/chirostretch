@@ -99,8 +99,13 @@ export default async function HomePage() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      {page.heroUnit && (
-        <Hero heroUnit={page.heroUnit} fallbackTitle={page.title} isHomepage />
+      {page.featuredImage && (
+        <Hero
+          featuredImage={page.featuredImage}
+          heroLink={page.heroUnit?.heroLink}
+          fallbackTitle={page.title}
+          isHomepage
+        />
       )}
       {page.homepageCta?.headings?.headline && (
         <CallToAction

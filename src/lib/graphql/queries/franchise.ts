@@ -2,22 +2,24 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
   query FranchiseOpportunities {
     page(id: "/franchise-opportunities", idType: URI) {
       title
-      heroUnit {
-        heroHeading
-        heroSubheading
-        heroImage {
+      ... on NodeWithFeaturedImage {
+        featuredImage {
           node {
             altText
             sourceUrl
             srcSet
             sizes
             slug
+            title
+            description
             mediaDetails {
               width
               height
             }
           }
         }
+      }
+      heroUnit {
         heroLink {
           target
           title
@@ -79,22 +81,22 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
 type FranchiseOpportunitiesQueryResponse = {
   page: {
     title: string;
-    heroUnit?: {
-      heroHeading?: string;
-      heroSubheading?: string;
-      heroImage?: {
-        node?: {
-          altText?: string;
-          sourceUrl?: string;
-          srcSet?: string;
-          sizes?: string;
-          slug?: string;
-          mediaDetails?: {
-            width?: number;
-            height?: number;
-          };
+    featuredImage?: {
+      node?: {
+        altText?: string;
+        sourceUrl?: string;
+        srcSet?: string;
+        sizes?: string;
+        slug?: string;
+        title?: string;
+        description?: string;
+        mediaDetails?: {
+          width?: number;
+          height?: number;
         };
       };
+    };
+    heroUnit?: {
       heroLink?: {
         target?: string;
         title?: string;
