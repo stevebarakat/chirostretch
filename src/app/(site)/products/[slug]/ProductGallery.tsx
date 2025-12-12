@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import ImageMagnifier from "@/components/ImageMagnifier/ImageMagnifier";
 import styles from "./ProductGallery.module.css";
 
 type ProductImage = {
@@ -15,29 +19,42 @@ type ProductImage = {
 type ProductGalleryProps = {
   mainImage?: ProductImage;
   galleryImages?: ProductImage[];
+  enableMagnifier?: boolean;
 };
 
 export default function ProductGallery({
   mainImage,
   galleryImages = [],
+  enableMagnifier = true,
 }: ProductGalleryProps) {
-  const allImages = mainImage
-    ? [mainImage, ...galleryImages]
-    : galleryImages;
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const allImages = mainImage ? [mainImage, ...galleryImages] : galleryImages;
 
   if (allImages.length === 0) {
     return null;
   }
 
-  const mainImageSrc = mainImage?.sourceUrl || galleryImages[0]?.sourceUrl;
-  const mainImageAlt = mainImage?.altText || galleryImages[0]?.altText || "";
-  const mainImageWidth = mainImage?.mediaDetails?.width || 800;
-  const mainImageHeight = mainImage?.mediaDetails?.height || 800;
+  const selectedImage = allImages[selectedImageIndex];
+  const mainImageSrc = selectedImage?.sourceUrl || allImages[0]?.sourceUrl;
+  const mainImageAlt = selectedImage?.altText || allImages[0]?.altText || "";
+  const mainImageWidth = selectedImage?.mediaDetails?.width || 800;
+  const mainImageHeight = selectedImage?.mediaDetails?.height || 800;
 
   return (
     <div className={styles.gallery}>
-      <div className={styles.mainImage}>
-        {mainImageSrc && (
+      {mainImageSrc && enableMagnifier ? (
+        <ImageMagnifier
+          src={mainImageSrc}
+          alt={mainImageAlt}
+          width={mainImageWidth}
+          height={mainImageHeight}
+          priority
+          fetchPriority="high"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={styles.mainImage}
+        />
+      ) : mainImageSrc ? (
+        <div className={styles.mainImage}>
           <Image
             src={mainImageSrc}
             alt={mainImageAlt}
@@ -48,14 +65,22 @@ export default function ProductGallery({
             className={styles.image}
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-        )}
-      </div>
-      {galleryImages.length > 0 && (
+        </div>
+      ) : null}
+      {allImages.length > 1 && (
         <div className={styles.thumbnails}>
-          {galleryImages.map((image, index) => {
+          {allImages.map((image, index) => {
             if (!image.sourceUrl) return null;
             return (
-              <div key={index} className={styles.thumbnail}>
+              <button
+                key={index}
+                className={`${styles.thumbnail} ${
+                  selectedImageIndex === index ? styles.active : ""
+                }`}
+                onClick={() => setSelectedImageIndex(index)}
+                type="button"
+                aria-label={`Select image: ${image.altText || "Product image"}`}
+              >
                 <Image
                   src={image.sourceUrl}
                   alt={image.altText || ""}
@@ -64,7 +89,7 @@ export default function ProductGallery({
                   className={styles.thumbnailImage}
                   sizes="150px"
                 />
-              </div>
+              </button>
             );
           })}
         </div>
@@ -72,4 +97,3 @@ export default function ProductGallery({
     </div>
   );
 }
-

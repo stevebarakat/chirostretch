@@ -73,6 +73,10 @@ export const VIEWER_ACCOUNT_QUERY = `
       firstName
       lastName
       username
+      metaData {
+        key
+        value
+      }
       billing {
         ...AddressFields
       }
@@ -226,6 +230,7 @@ export type ViewerAccount = {
     firstName?: string | null;
     lastName?: string | null;
     username: string;
+    metaData?: Array<{ key?: string | null; value?: string | null }> | null;
   } | null;
   customer: {
     id: string;
@@ -234,6 +239,7 @@ export type ViewerAccount = {
     firstName?: string | null;
     lastName?: string | null;
     username: string;
+    metaData?: Array<{ key?: string | null; value?: string | null }> | null;
     billing?: CustomerAddress | null;
     shipping?: CustomerAddress | null;
   } | null;

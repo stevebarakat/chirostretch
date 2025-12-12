@@ -10,6 +10,10 @@ type AccountDetails = {
   currentPassword?: string;
   newPassword?: string;
   confirmPassword?: string;
+  nickname?: string;
+  description?: string;
+  url?: string;
+  job_title?: string;
 };
 
 type AccountDetailsFormProps = {
@@ -17,6 +21,11 @@ type AccountDetailsFormProps = {
     firstName?: string | null;
     lastName?: string | null;
     email?: string | null;
+    nickname?: string | null;
+    description?: string | null;
+    url?: string | null;
+    job_title?: string | null;
+    avatarUrl?: string | null;
   };
   onSubmit: (data: Partial<AccountDetails>) => Promise<void>;
 };
@@ -32,6 +41,10 @@ export function AccountDetailsForm({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
+    nickname: initialData.nickname || "",
+    description: initialData.description || "",
+    url: initialData.url || "",
+    job_title: initialData.job_title || "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,6 +52,13 @@ export function AccountDetailsForm({
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(null);
+    setSuccess(false);
+  };
+
+  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setError(null);
@@ -65,10 +85,7 @@ export function AccountDetailsForm({
         return;
       }
 
-      if (
-        formData.newPassword &&
-        formData.newPassword.length < 8
-      ) {
+      if (formData.newPassword && formData.newPassword.length < 8) {
         setError("New password must be at least 8 characters");
         setIsSubmitting(false);
         return;
@@ -86,6 +103,15 @@ export function AccountDetailsForm({
       if (formData.newPassword && formData.currentPassword) {
         submitData.newPassword = formData.newPassword;
       }
+
+      // Include profile fields
+      if (formData.nickname !== undefined)
+        submitData.nickname = formData.nickname;
+      if (formData.description !== undefined)
+        submitData.description = formData.description;
+      if (formData.url !== undefined) submitData.url = formData.url;
+      if (formData.job_title !== undefined)
+        submitData.job_title = formData.job_title;
 
       await onSubmit(submitData);
 
@@ -111,6 +137,16 @@ export function AccountDetailsForm({
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>Account Information</h3>
+
+        {initialData.avatarUrl && (
+          <div className={styles.avatarRow}>
+            <img
+              src={initialData.avatarUrl}
+              alt="Avatar"
+              className={styles.avatar}
+            />
+          </div>
+        )}
 
         {error && <div className={styles.error}>{error}</div>}
         {success && (
@@ -149,6 +185,62 @@ export function AccountDetailsForm({
               className={styles.input}
             />
           </div>
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="nickname" className={styles.label}>
+            Display Name
+          </label>
+          <input
+            type="text"
+            id="nickname"
+            name="nickname"
+            value={formData.nickname}
+            onChange={handleChange}
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="url" className={styles.label}>
+            Website
+          </label>
+          <input
+            type="url"
+            id="url"
+            name="url"
+            value={formData.url}
+            onChange={handleChange}
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="job_title" className={styles.label}>
+            Job Title
+          </label>
+          <input
+            type="text"
+            id="job_title"
+            name="job_title"
+            value={formData.job_title}
+            onChange={handleChange}
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="description" className={styles.label}>
+            Bio / Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleTextAreaChange}
+            className={styles.textarea}
+            rows={4}
+          />
         </div>
 
         <div className={styles.field}>

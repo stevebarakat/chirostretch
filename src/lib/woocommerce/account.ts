@@ -1,4 +1,5 @@
 import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { getValidAuthToken } from "@/lib/auth/server";
 import {
   VIEWER_ACCOUNT_QUERY,
   VIEWER_ORDERS_QUERY,
@@ -178,6 +179,67 @@ export async function updateUserAccount(
     return data.updateUser?.user ?? null;
   } catch (error) {
     console.error("Failed to update user account:", error);
+    throw error;
+  }
+}
+
+/**
+ * Update user profile fields via WP REST API (nickname, description, url, meta)
+ * Note: arbitrary user meta (like `job_title`) requires REST API support on the WP side.
+ */
+export async function updateUserMeta(
+  userId: number,
+  meta: {
+    nickname?: string;
+    description?: string;
+    url?: string;
+    job_title?: string;
+  }
+) {
+  try {
+    const token = await getValidAuthToken();
+
+    const WP_URL =
+      process.env.WORDPRESS_URL ||
+      process.env.NEXT_PUBLIC_WORDPRESS_URL ||
+      "http://chirostretch-copy.local";
+
+    const endpoint = `${WP_URL.replace(
+      /\/$/,
+      ""
+    )}/wp-json/wp/v2/users/${userId}`;
+
+    const body: any = {};
+    if (meta.nickname !== undefined) body.nickname = meta.nickname;
+    if (meta.description !== undefined) body.description = meta.description;
+    if (meta.url !== undefined) body.url = meta.url;
+
+    // Try to write arbitrary meta under `meta` - this requires the WP REST API to expose/allow meta updates
+    if (meta.job_title !== undefined) {
+      body.meta = { ...(body.meta || {}), job_title: meta.job_title };
+    }
+
+    const headers: HeadersInit = { "Content-Type": "application/json" };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(
+        `Failed to update user meta: ${res.status} ${res.statusText} - ${text}`
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("updateUserMeta failed:", error);
     throw error;
   }
 }

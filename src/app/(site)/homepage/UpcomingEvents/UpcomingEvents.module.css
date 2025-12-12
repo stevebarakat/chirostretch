@@ -11,6 +11,8 @@
 }
 
 .eventCard {
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -29,6 +31,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .image {
@@ -39,6 +42,9 @@
 
 .content {
   padding: var(--spacing-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -74,13 +80,21 @@
 }
 
 @media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .eventCard {
+    flex-direction: row;
+  }
+
+  .imageWrapper {
+    width: 40%;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 200px;
   }
 }
 
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+  .imageWrapper {
+    width: 35%;
+    min-height: 250px;
   }
 }

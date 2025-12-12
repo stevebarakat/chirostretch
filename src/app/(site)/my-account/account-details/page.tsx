@@ -3,6 +3,7 @@ import { DashboardLayout } from "@/components/account";
 import { AccountDetailsFormWrapper } from "./AccountDetailsFormWrapper";
 import { getViewerAccount } from "@/lib/woocommerce/account";
 import { isAuthenticated } from "@/lib/auth";
+import crypto from "crypto";
 
 export const metadata = {
   title: "Account Details - My Account - ChiroStretch",
@@ -37,6 +38,22 @@ export default async function AccountDetailsPage() {
           firstName: account.firstName,
           lastName: account.lastName,
           email: account.email,
+          nickname:
+            account.metaData?.find((m) => m?.key === "nickname")?.value ?? null,
+          description:
+            account.metaData?.find((m) => m?.key === "description")?.value ??
+            null,
+          url:
+            account.metaData?.find((m) => m?.key === "user_url")?.value ?? null,
+          job_title:
+            account.metaData?.find((m) => m?.key === "job_title")?.value ??
+            null,
+          avatarUrl: account.email
+            ? `https://www.gravatar.com/avatar/${crypto
+                .createHash("md5")
+                .update(account.email.trim().toLowerCase())
+                .digest("hex")}?d=identicon&s=160`
+            : null,
         }}
       />
     </DashboardLayout>
