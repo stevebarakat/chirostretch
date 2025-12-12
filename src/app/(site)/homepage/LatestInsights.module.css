@@ -22,11 +22,13 @@
 
   &:first-child {
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: var(--color-secondary-transparent);
   }
 
   &:nth-child(2) {
     flex-direction: row-reverse;
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    background: var(--color-primary-transparent);
   }
 }
 
@@ -39,7 +41,7 @@
   width: 100%;
   background-color: var(--color-bg-tertiary);
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  max-height: 40vh;
 }
 
 .image {

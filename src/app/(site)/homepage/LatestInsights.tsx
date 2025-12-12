@@ -72,7 +72,7 @@ export default function LatestInsights({
 
   return (
     <section className={styles.section}>
-      <Container>
+      <>
         <SectionHeading
           heading={insightsHeading}
           subheading={insightsSubheading}
@@ -164,7 +164,7 @@ export default function LatestInsights({
             </Button>
           </div>
         )}
-      </Container>
+      </>
     </section>
   );
 }
