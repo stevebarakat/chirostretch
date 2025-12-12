@@ -215,12 +215,12 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         {product.productCategories?.nodes &&
           product.productCategories.nodes.length > 0 && (
             <span className={styles.metadataItem}>
-              <strong>Category:</strong>{" "}
+              <strong>Category:</strong>
               {product.productCategories.nodes.map((category, index) => (
                 <span key={category.id || index}>
                   {index > 0 && ", "}
                   <a
-                    href={`/category/${category.slug}`}
+                    href={`/taxonomy/${category.slug}`}
                     className={styles.metadataLink}
                   >
                     {category.name}
@@ -236,7 +236,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             {product.productTags.nodes.map((tag, index) => (
               <span key={tag.id || index}>
                 {index > 0 && ", "}
-                <a href={`/tag/${tag.slug}`} className={styles.metadataLink}>
+                <a
+                  href={`/taxonomy/${tag.slug}`}
+                  className={styles.metadataLink}
+                >
                   {tag.name}
                 </a>
               </span>

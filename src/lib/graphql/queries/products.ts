@@ -230,6 +230,139 @@ export const ALL_PRODUCTS_QUERY = `
   }
 `;
 
+export const PRODUCTS_BY_CATEGORY_QUERY = `
+  query ProductsByCategory($slug: ID!, $categorySlug: String!, $first: Int, $after: String) {
+    productCategory(id: $slug, idType: SLUG) {
+      id
+      databaseId
+      name
+      slug
+      description
+    }
+    products(where: { category: $categorySlug }, first: $first, after: $after) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        ... on SimpleProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+        }
+        ... on VariableProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+        }
+        ... on ExternalProduct {
+          price
+          regularPrice
+          salePrice
+        }
+        ... on GroupProduct {
+          price
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+        productCategories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
+export const PRODUCTS_BY_TAG_QUERY = `
+  query ProductsByTag($slug: ID!, $tagId: Int!, $first: Int, $after: String) {
+    productTag(id: $slug, idType: SLUG) {
+      id
+      name
+      slug
+      description
+    }
+    products(where: { tagId: $tagId }, first: $first, after: $after) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        ... on SimpleProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+        }
+        ... on VariableProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+        }
+        ... on ExternalProduct {
+          price
+          regularPrice
+          salePrice
+        }
+        ... on GroupProduct {
+          price
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+        productCategories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
 type ProductImage = {
   sourceUrl?: string;
   altText?: string;
@@ -383,6 +516,40 @@ export type AllProductsResponse = {
       endCursor?: string;
       hasPreviousPage?: boolean;
       startCursor?: string;
+    };
+  };
+};
+export type ProductsByCategoryResponse = {
+  productCategory?: {
+    id?: string;
+    name?: string;
+    slug?: string;
+    description?: string;
+  } | null;
+  products?: {
+    nodes?: ShopProduct[];
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string | null;
+      hasPreviousPage?: boolean;
+      startCursor?: string | null;
+    };
+  };
+};
+export type ProductsByTagResponse = {
+  productTag?: {
+    id?: string;
+    name?: string;
+    slug?: string;
+    description?: string;
+  } | null;
+  products?: {
+    nodes?: ShopProduct[];
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string | null;
+      hasPreviousPage?: boolean;
+      startCursor?: string | null;
     };
   };
 };

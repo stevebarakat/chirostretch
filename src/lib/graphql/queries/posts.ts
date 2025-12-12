@@ -189,6 +189,71 @@ export const POSTS_BY_CATEGORY_QUERY = `
   }
 `;
 
+export const POSTS_BY_TAG_QUERY = `
+  query PostsByTag($slug: ID!, $tagName: String!, $first: Int, $after: String) {
+    tag(id: $slug, idType: SLUG) {
+      id
+      name
+      slug
+      description
+    }
+    posts(where: { tag: $tagName }, first: $first, after: $after) {
+      nodes {
+        id
+        databaseId
+        slug
+        title
+        excerpt
+        content
+        date
+        modified
+        author {
+          node {
+            id
+            name
+            slug
+          }
+        }
+        ... on NodeWithFeaturedImage {
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              srcSet
+              sizes
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
+        categories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+        tags {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
 type PostImage = {
   id?: string;
   sourceUrl?: string;
@@ -283,6 +348,23 @@ export type AllPostSlugsResponse = {
 
 export type PostsByCategoryResponse = {
   category?: {
+    id?: string;
+    name?: string;
+    slug?: string;
+    description?: string;
+  } | null;
+  posts?: {
+    nodes?: Post[];
+    pageInfo?: {
+      hasNextPage?: boolean;
+      endCursor?: string | null;
+      hasPreviousPage?: boolean;
+      startCursor?: string | null;
+    };
+  };
+};
+export type PostsByTagResponse = {
+  tag?: {
     id?: string;
     name?: string;
     slug?: string;

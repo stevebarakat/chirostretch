@@ -124,6 +124,42 @@
   color: var(--color-text-tertiary);
 }
 
+.price {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.regularPrice {
+  text-decoration: line-through;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.salePrice {
+  color: var(--color-success-600);
+  font-size: var(--font-size-lg);
+}
+
+.stockStatus {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.inStock {
+  background-color: var(--color-success-100);
+  color: var(--color-success-700);
+}
+
+.outOfStock {
+  background-color: var(--color-error-100);
+  color: var(--color-error-700);
+}
+
 .excerpt {
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
