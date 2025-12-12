@@ -52,36 +52,24 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
           target
         }
       }
-      franchiseOpportunitiesWhyUs {
+      componentDescriptionList {
+        descriptionListItems {
+          itemTitle
+          itemDescription
+          itemIcon {
+            node {
+              altText
+              sourceUrl
+            }
+          }
+        }
         whyusHeading
         whyusDescription
         whyusImage {
           node {
-            sourceUrl
             altText
             srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
           }
-        }
-        whyusBenefits {
-          benefitIcon {
-            node {
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
-            }
-          }
-          benefitTitle
-          benefitDescription
         }
       }
     }
@@ -141,37 +129,25 @@ type FranchiseOpportunitiesQueryResponse = {
         target?: string;
       };
     };
-    franchiseOpportunitiesWhyUs?: {
+    componentDescriptionList?: {
+      descriptionListItems?: Array<{
+        itemTitle?: string;
+        itemDescription?: string;
+        itemIcon?: {
+          node?: {
+            altText?: string;
+            sourceUrl?: string;
+          };
+        };
+      }>;
       whyusHeading?: string;
       whyusDescription?: string;
       whyusImage?: {
         node?: {
-          sourceUrl?: string;
           altText?: string;
           srcSet?: string;
-          sizes?: string;
-          mediaDetails?: {
-            width?: number;
-            height?: number;
-          };
         };
       };
-      whyusBenefits?: Array<{
-        benefitIcon?: {
-          node?: {
-            sourceUrl?: string;
-            altText?: string;
-            srcSet?: string;
-            sizes?: string;
-            mediaDetails?: {
-              width?: number;
-              height?: number;
-            };
-          };
-        };
-        benefitTitle?: string;
-        benefitDescription?: string;
-      }>;
     };
   } | null;
 };

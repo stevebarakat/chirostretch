@@ -46,13 +46,14 @@ export default async function FranchiseOpportunitiesPage() {
       />
 
       <WhyUsSection
-        whyusHeading={page.franchiseOpportunitiesWhyUs?.whyusHeading}
-        whyusDescription={page.franchiseOpportunitiesWhyUs?.whyusDescription}
-        whyusImage={page.franchiseOpportunitiesWhyUs?.whyusImage?.node}
-        whyusBenefits={page.franchiseOpportunitiesWhyUs?.whyusBenefits?.map(
-          (benefit) => ({
-            ...benefit,
-            benefitIcon: benefit.benefitIcon?.node,
+        whyusHeading={page.componentDescriptionList?.whyusHeading}
+        whyusDescription={page.componentDescriptionList?.whyusDescription}
+        whyusImage={page.componentDescriptionList?.whyusImage?.node}
+        whyusBenefits={page.componentDescriptionList?.descriptionListItems?.map(
+          (item) => ({
+            benefitIcon: item.itemIcon?.node,
+            benefitTitle: item.itemTitle,
+            benefitDescription: item.itemDescription,
           })
         )}
       />
