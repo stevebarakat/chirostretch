@@ -109,6 +109,9 @@ export async function generateMetadata({
     return {
       title: `${page.title} | ${siteConfig.name || "ChiroStretch"}`,
       description: description || siteConfig.description || "",
+      alternates: {
+        canonical: uri,
+      },
       openGraph: {
         title: page.title,
         description: description || siteConfig.description,

@@ -27,14 +27,20 @@ export default function Header({ logo, menuItems }: HeaderProps) {
 
   return (
     <header className={styles.siteHeader}>
-      <div
+      <button
+        type="button"
         className={styles.toggleMobileBtn}
-        onPointerUp={() => setMobileOpen((mobileOpen) => !mobileOpen)}
+        onClick={() => setMobileOpen((mobileOpen) => !mobileOpen)}
+        aria-expanded={mobileOpen}
+        aria-controls="main-navigation"
+        aria-label="Toggle navigation menu"
       >
         <Hamburger label="toggle menu" toggled={mobileOpen} size={20} />
-      </div>
+      </button>
       <nav
+        id="main-navigation"
         className={styles.nav}
+        aria-label="Main navigation"
         style={
           {
             "--toggleMobile": mobileOpen

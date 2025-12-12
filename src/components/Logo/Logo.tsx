@@ -27,7 +27,7 @@ export default function Logo({ isMobile, logo }: LogoProps) {
 
   return (
     <div className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}>
-      <Link href="/" passHref>
+      <Link href="/" aria-label="ChiroStretch - Go to homepage">
         <Image
           priority
           src={logoSrc}

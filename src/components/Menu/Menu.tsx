@@ -39,13 +39,16 @@ export default function Menu({ item, setMobileOpen }: MenuType) {
         </Link>
       ) : (
         <button
+          type="button"
           className={styles.btnLink}
           onClick={() => {
             setIsActive((isActive) => !isActive);
           }}
+          aria-expanded={isActive}
+          aria-haspopup="true"
         >
           {item.label}
-          <FaCaretDown />
+          <FaCaretDown aria-hidden="true" />
         </button>
       )}
 

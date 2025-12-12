@@ -41,7 +41,7 @@ export default function Footer({
       <Container>
         <div className={styles.main}>
           <div className={styles.column}>
-            <Link href="/" className={styles.logo}>
+            <Link href="/" className={styles.logo} aria-label="ChiroStretch - Go to homepage">
               {logo?.sourceUrl ? (
                 <Image
                   src={logo.sourceUrl}

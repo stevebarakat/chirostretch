@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   title: "ChiroStretch",
   description:
     "ChiroStretch - Global Mobility. Smarter Movement. Better Living.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "ChiroStretch",
     description:
