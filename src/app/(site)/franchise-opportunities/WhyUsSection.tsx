@@ -2,8 +2,8 @@ import Image from "next/image";
 import Container from "@/components/ui/Container";
 import styles from "./WhyUsSection.module.css";
 
-type Benefit = {
-  benefitIcon?: {
+type DescriptionListItem = {
+  itemIcon?: {
     sourceUrl?: string;
     altText?: string;
     srcSet?: string;
@@ -13,8 +13,8 @@ type Benefit = {
       height?: number;
     };
   };
-  benefitTitle?: string;
-  benefitDescription?: string;
+  itemTitle?: string;
+  itemDescription?: string;
 };
 
 type WhyUsSectionProps = {
@@ -30,14 +30,14 @@ type WhyUsSectionProps = {
       height?: number;
     };
   };
-  whyusBenefits?: Benefit[];
+  descriptionListItems?: DescriptionListItem[];
 };
 
 export default function WhyUsSection({
   whyusHeading,
   whyusDescription,
   whyusImage,
-  whyusBenefits,
+  descriptionListItems,
 }: WhyUsSectionProps) {
   if (!whyusHeading) return null;
 
@@ -62,14 +62,14 @@ export default function WhyUsSection({
             {whyusDescription && (
               <p className={styles.description}>{whyusDescription}</p>
             )}
-            {whyusBenefits && whyusBenefits.length > 0 && (
+            {descriptionListItems && descriptionListItems.length > 0 && (
               <ul className={styles.benefits}>
-                {whyusBenefits.map((benefit, index) => (
+                {descriptionListItems.map((item, index) => (
                   <li key={index} className={styles.benefit}>
-                    {benefit.benefitIcon?.sourceUrl && (
+                    {item.itemIcon?.sourceUrl && (
                       <Image
-                        src={benefit.benefitIcon.sourceUrl}
-                        alt={benefit.benefitIcon.altText || ""}
+                        src={item.itemIcon.sourceUrl}
+                        alt={item.itemIcon.altText || ""}
                         width={24}
                         height={24}
                         quality={75}
@@ -77,14 +77,14 @@ export default function WhyUsSection({
                       />
                     )}
                     <div className={styles.benefitContent}>
-                      {benefit.benefitTitle && (
+                      {item.itemTitle && (
                         <h3 className={styles.benefitTitle}>
-                          {benefit.benefitTitle}
+                          {item.itemTitle}
                         </h3>
                       )}
-                      {benefit.benefitDescription && (
+                      {item.itemDescription && (
                         <p className={styles.benefitDescription}>
-                          {benefit.benefitDescription}
+                          {item.itemDescription}
                         </p>
                       )}
                     </div>

@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 // Critical above-the-fold sections (server-rendered)
 import { Hero } from "@/components/Hero";
-import AboutSection from "../homepage/AboutSection/AboutSection";
+import AboutSection from "./AboutSection";
 
 // Below-the-fold sections (dynamically imported for code splitting)
 const WhyUsSection = dynamic(() => import("./WhyUsSection"), {
@@ -53,11 +53,11 @@ export default async function FranchiseOpportunitiesPage() {
         whyusHeading={page.franchiseOpportunitiesWhyUs?.whyusHeading}
         whyusDescription={page.franchiseOpportunitiesWhyUs?.whyusDescription}
         whyusImage={page.franchiseOpportunitiesWhyUs?.whyusImage?.node}
-        whyusBenefits={page.componentDescriptionList?.franchiseOpportunitiesWhyUs?.map(
+        descriptionListItems={page.componentDescriptionList?.descriptionListItems?.map(
           (item) => ({
-            benefitIcon: item.itemIcon?.node,
-            benefitTitle: item.itemTitle,
-            benefitDescription: item.itemDescription,
+            itemIcon: item.itemIcon?.node,
+            itemTitle: item.itemTitle,
+            itemDescription: item.itemDescription,
           })
         )}
       />

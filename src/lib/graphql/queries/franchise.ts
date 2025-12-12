@@ -55,7 +55,7 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
         }
       }
       componentDescriptionList {
-        franchiseOpportunitiesWhyUs {
+        descriptionListItems {
           itemTitle
           itemDescription
           itemIcon {
@@ -135,7 +135,7 @@ type FranchiseOpportunitiesQueryResponse = {
       };
     };
     componentDescriptionList?: {
-      franchiseOpportunitiesWhyUs?: Array<{
+      descriptionListItems?: Array<{
         itemTitle?: string;
         itemDescription?: string;
         itemIcon?: {
