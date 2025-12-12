@@ -82,10 +82,15 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
       headers.Authorization = `Bearer ${token}`;
       // Debug logging
       if (process.env.NODE_ENV === "development") {
-        console.log("[wpGraphQLFetch] Using auth token:", token.substring(0, 30) + "...");
+        console.log(
+          "[wpGraphQLFetch] Using auth token:",
+          token.substring(0, 30) + "..."
+        );
       }
     } else {
-      console.warn("[wpGraphQLFetch] No auth token available for authenticated request");
+      console.warn(
+        "[wpGraphQLFetch] No auth token available for authenticated request"
+      );
     }
   }
 
@@ -97,7 +102,9 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
       body: JSON.stringify({ query, variables }),
       credentials: "include", // Send cookies with requests
       // Use cache: 'no-store' for authenticated requests and mutations
-      ...(auth ? { cache: "no-store" as RequestCache } : { next: { revalidate } }),
+      ...(auth
+        ? { cache: "no-store" as RequestCache }
+        : { next: { revalidate } }),
     });
   } catch (error) {
     throw new Error(
@@ -175,10 +182,11 @@ export async function wpGraphQLFetch<TData, TVars = Record<string, unknown>>(
     // 2. Authentication was requested
     // 3. The error is an authentication error
     if (!_isRetry && options.auth && error instanceof Error) {
-      const isGraphQLAuthError = error.message.includes("GraphQL errors:") &&
+      const isGraphQLAuthError =
+        error.message.includes("GraphQL errors:") &&
         (error.message.toLowerCase().includes("expired") ||
-         error.message.toLowerCase().includes("invalid token") ||
-         error.message.toLowerCase().includes("unauthenticated"));
+          error.message.toLowerCase().includes("invalid token") ||
+          error.message.toLowerCase().includes("unauthenticated"));
 
       if (isGraphQLAuthError) {
         // Attempt to refresh the token

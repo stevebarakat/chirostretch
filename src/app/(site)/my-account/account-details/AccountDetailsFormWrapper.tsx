@@ -1,7 +1,7 @@
 "use client";
 
 import { AccountDetailsForm } from "@/components/account";
-import { updateUserAccount } from "@/lib/woocommerce/account";
+import { updateAccountDetails } from "./actions";
 
 type AccountDetailsFormWrapperProps = {
   userId: number;
@@ -36,7 +36,10 @@ export function AccountDetailsFormWrapper({
     if (data.email) updates.email = data.email;
     if (data.newPassword) updates.password = data.newPassword;
 
-    await updateUserAccount(userId, updates);
+    const result = await updateAccountDetails(userId, updates);
+    if (!result.success) {
+      throw new Error(result.error);
+    }
   };
 
   return (

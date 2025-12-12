@@ -122,7 +122,7 @@ export async function updateCustomerAddresses(
   customerId: number,
   billing?: Partial<CustomerAddress>,
   shipping?: Partial<CustomerAddress>
-): Promise<UpdateCustomerResponse["updateCustomer"]["customer"]> {
+) {
   try {
     const input: UpdateCustomerInput = {
       id: customerId,
@@ -161,7 +161,7 @@ export async function updateCustomerAddresses(
 export async function updateUserAccount(
   userId: number,
   updates: Omit<UpdateUserInput, "id">
-): Promise<UpdateUserResponse["updateUser"]["user"]> {
+): Promise<NonNullable<UpdateUserResponse["updateUser"]>["user"]> {
   try {
     const input: UpdateUserInput = {
       id: userId,

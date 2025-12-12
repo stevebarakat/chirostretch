@@ -46,7 +46,8 @@
       "Bash(php:*)",
       "Bash(wp gf feed list:*)",
       "Bash(bash:*)",
-      "Bash(wp plugin install:*)"
+      "Bash(wp plugin install:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

@@ -14,8 +14,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json().catch(() => ({}));
     const tag = body.tag || "wordpress-content";
 
-    // Revalidate the specified tag
-    revalidateTag(tag);
+    // Revalidate the specified tag with 'max' profile for SWR behavior
+    revalidateTag(tag, "max");
 
     return NextResponse.json({
       revalidated: true,
