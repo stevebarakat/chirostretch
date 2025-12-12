@@ -55,7 +55,7 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
         }
       }
       componentDescriptionList {
-        descriptionListItems {
+        franchiseOpportunitiesWhyUs {
           itemTitle
           itemDescription
           itemIcon {
@@ -65,12 +65,15 @@ export const FRANCHISE_OPPORTUNITIES_QUERY = `
             }
           }
         }
+      }
+      franchiseOpportunitiesWhyUs {
         whyusHeading
         whyusDescription
         whyusImage {
           node {
             altText
             srcSet
+            sourceUrl
           }
         }
       }
@@ -132,7 +135,7 @@ type FranchiseOpportunitiesQueryResponse = {
       };
     };
     componentDescriptionList?: {
-      descriptionListItems?: Array<{
+      franchiseOpportunitiesWhyUs?: Array<{
         itemTitle?: string;
         itemDescription?: string;
         itemIcon?: {
@@ -142,12 +145,15 @@ type FranchiseOpportunitiesQueryResponse = {
           };
         };
       }>;
+    };
+    franchiseOpportunitiesWhyUs?: {
       whyusHeading?: string;
       whyusDescription?: string;
       whyusImage?: {
         node?: {
           altText?: string;
           srcSet?: string;
+          sourceUrl?: string;
         };
       };
     };

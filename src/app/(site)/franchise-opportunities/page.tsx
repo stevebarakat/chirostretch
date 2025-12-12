@@ -50,10 +50,10 @@ export default async function FranchiseOpportunitiesPage() {
       />
 
       <WhyUsSection
-        whyusHeading={page.componentDescriptionList?.whyusHeading}
-        whyusDescription={page.componentDescriptionList?.whyusDescription}
-        whyusImage={page.componentDescriptionList?.whyusImage?.node}
-        whyusBenefits={page.componentDescriptionList?.descriptionListItems?.map(
+        whyusHeading={page.franchiseOpportunitiesWhyUs?.whyusHeading}
+        whyusDescription={page.franchiseOpportunitiesWhyUs?.whyusDescription}
+        whyusImage={page.franchiseOpportunitiesWhyUs?.whyusImage?.node}
+        whyusBenefits={page.componentDescriptionList?.franchiseOpportunitiesWhyUs?.map(
           (item) => ({
             benefitIcon: item.itemIcon?.node,
             benefitTitle: item.itemTitle,

@@ -47,7 +47,8 @@
       "Bash(wp gf feed list:*)",
       "Bash(bash:*)",
       "Bash(wp plugin install:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(wp graphql introspect:*)"
     ],
     "deny": [],
     "ask": []
