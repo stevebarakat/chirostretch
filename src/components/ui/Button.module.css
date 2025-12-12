@@ -65,9 +65,10 @@
 }
 
 .white {
-  color: var(--color-text-primary);
-  background-color: white;
-  border: 2px solid var(--color-text-primary);
+  color: var(--color-secondary-600);
+  background-color: var(--color-transparent-white-900);
+  border: none;
+  font-weight: 700;
 }
 
 .white:hover {

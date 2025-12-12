@@ -3,7 +3,7 @@ import { useRef } from "react";
 import CountUp from "react-countup";
 import { RawHtml } from "@/components/RawHtml";
 import useOnScreen from "@/hooks/useOnScreen";
-import "./intro.css";
+import styles from "./intro.module.css";
 import Container from "@/components/ui/Container";
 
 type IntroductionProps = {
@@ -35,7 +35,7 @@ export default function Introduction({ intro }: IntroductionProps) {
 
   const statsList = intro.stats.map((stat, i) => {
     return (
-      <div key={i} className="stat">
+      <div key={i} className={styles.stat}>
         <CountUp
           start={onScreen ? 0 : stat.stat.number}
           end={stat.stat.number}
@@ -51,20 +51,20 @@ export default function Introduction({ intro }: IntroductionProps) {
 
   return (
     <Container>
-      <div className="intro">
-        <div className="introLeftWrap">
+      <div className={styles.intro}>
+        <div className={styles.introLeftWrap}>
           <div>
-            <span className="introHeader">{leftSide.headline}</span>
-            <span className="introDescription">
+            <span className={styles.introHeader}>{leftSide.headline}</span>
+            <span className={styles.introDescription}>
               <RawHtml>{leftSide.text}</RawHtml>
             </span>
           </div>
         </div>
-        <div className="introRightWrap">
+        <div className={styles.introRightWrap}>
           <div>
-            <span className="introSubHeader">{rightSide.headline}</span>
-            <RawHtml className="introList">{bulletPoints}</RawHtml>
-            <div ref={statsRef} id="stats" className="stats">
+            <span className={styles.introSubHeader}>{rightSide.headline}</span>
+            <RawHtml className={styles.introList}>{bulletPoints}</RawHtml>
+            <div ref={statsRef} id="stats" className={styles.stats}>
               {statsList}
             </div>
           </div>
