@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import "./logo.css";
+import styles from "./Logo.module.css";
 
 const fallbackLogo = "/images/logo.svg";
 
@@ -26,7 +26,7 @@ export default function Logo({ isMobile, logo }: LogoProps) {
   const logoHeight = logo?.mediaDetails?.height || 71;
 
   return (
-    <div className={isMobile ? "mobile logo" : "logo"}>
+    <div className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}>
       <Link href="/" passHref>
         <Image
           priority

@@ -97,8 +97,6 @@ export default async function HomePage() {
         }
       : null;
 
-  console.log("page.heroUnit", page.heroUnit);
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       {page.heroUnit && (

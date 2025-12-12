@@ -119,6 +119,12 @@ export default async function RootLayout({
       <head>
         <link rel="dns-prefetch" href={WORDPRESS_URL} />
         <link rel="preconnect" href={WORDPRESS_URL} crossOrigin="anonymous" />
+        {/* Cloudinary for blur placeholders */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        {/* Algolia search (uses app ID subdomain) */}
+        <link rel="preconnect" href="https://algolia.net" />
+        <link rel="dns-prefetch" href="https://algolia.net" />
       </head>
       <body>
         <CartProvider initialCart={cart}>

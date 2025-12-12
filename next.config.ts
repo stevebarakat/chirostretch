@@ -6,7 +6,13 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: [
+      "lucide-react",
+      "react-icons",
+      "date-fns",
+      "@stripe/react-stripe-js",
+      "zod",
+    ],
   },
 
   images: {

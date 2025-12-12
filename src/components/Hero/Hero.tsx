@@ -1,17 +1,22 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
 import Button from "@/components/ui/Button";
-import SearchModal from "@/components/search/SearchModal";
 import {
   getSafeImageUrl,
   useImageFallback,
   FALLBACK_IMAGES,
 } from "@/utils/image-helpers";
 import styles from "./Hero.module.css";
+
+// Lazy load SearchModal to reduce initial bundle size
+const SearchModal = dynamic(() => import("@/components/search/SearchModal"), {
+  ssr: false,
+});
 
 type HeroProps = {
   heroUnit?: {
@@ -66,6 +71,7 @@ function Hero({ heroUnit, fallbackTitle, isHomepage }: HeroProps) {
         <div className={styles.imageWrapper}>
           <Image
             priority
+            fetchPriority="high"
             fill
             placeholder="blur"
             blurDataURL={blurDataURL}
