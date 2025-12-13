@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createWebhookRequest } from "@/test/helpers/request";
 
 // Hoist mock functions
-const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockFetchGraphQL } = vi.hoisted(() => ({
+const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, mockFetchGraphQL } = vi.hoisted(() => ({
   mockSaveObject: vi.fn(),
   mockDeleteObject: vi.fn(),
   mockSaveObjects: vi.fn(),
+  mockClearObjects: vi.fn(),
   mockFetchGraphQL: vi.fn(),
 }));
 
@@ -15,6 +16,7 @@ vi.mock("@/lib/algolia/client", () => ({
     saveObject: mockSaveObject,
     deleteObject: mockDeleteObject,
     saveObjects: mockSaveObjects,
+    clearObjects: mockClearObjects,
   },
   searchClient: null,
   isAlgoliaConfigured: () => true,

@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createWebhookRequest } from "@/test/helpers/request";
 
 // Hoist mock functions
-const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockWpQuery } = vi.hoisted(() => ({
+const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, mockWpQuery } = vi.hoisted(() => ({
   mockSaveObject: vi.fn(),
   mockDeleteObject: vi.fn(),
   mockSaveObjects: vi.fn(),
+  mockClearObjects: vi.fn(),
   mockWpQuery: vi.fn(),
 }));
 
@@ -15,6 +16,7 @@ vi.mock("@/lib/algolia/client", () => ({
     saveObject: mockSaveObject,
     deleteObject: mockDeleteObject,
     saveObjects: mockSaveObjects,
+    clearObjects: mockClearObjects,
   },
   searchClient: null,
   isAlgoliaConfigured: () => true,
@@ -265,6 +267,101 @@ describe("Algolia Products Webhook", () => {
           type: "product",
         }),
       });
+    });
+
+    it("maps stock status correctly", async () => {
+      mockWpQuery.mockResolvedValueOnce({
+        product: {
+          id: "id",
+          databaseId: 300,
+          name: "In Stock Product",
+          slug: "in-stock-product",
+          stockStatus: "IN_STOCK",
+        },
+      });
+
+      const req = createWebhookRequest(
+        { post_id: 300, action: "update" },
+        {
+          webhookSecret: "test-webhook-secret",
+          url: "http://localhost:3000/api/algolia/index-products"
+        }
+      );
+
+      await POST(req);
+
+      expect(mockSaveObject).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            stockStatus: "IN_STOCK",
+          }),
+        })
+      );
+    });
+
+    it("uses sale price as primary price when on sale", async () => {
+      mockWpQuery.mockResolvedValueOnce({
+        product: {
+          id: "id",
+          databaseId: 400,
+          name: "Sale Product",
+          slug: "sale-product",
+          price: "$19.99",        // WooCommerce sets this to sale price when on sale
+          regularPrice: "$29.99",
+          salePrice: "$19.99",
+        },
+      });
+
+      const req = createWebhookRequest(
+        { post_id: 400, action: "update" },
+        {
+          webhookSecret: "test-webhook-secret",
+          url: "http://localhost:3000/api/algolia/index-products"
+        }
+      );
+
+      await POST(req);
+
+      expect(mockSaveObject).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            price: "$19.99",
+            regularPrice: "$29.99",
+            salePrice: "$19.99",
+          }),
+        })
+      );
+    });
+
+    it("falls back to regularPrice when price is missing", async () => {
+      mockWpQuery.mockResolvedValueOnce({
+        product: {
+          id: "id",
+          databaseId: 500,
+          name: "No Price Product",
+          slug: "no-price-product",
+          regularPrice: "$49.99",
+          // price field missing
+        },
+      });
+
+      const req = createWebhookRequest(
+        { post_id: 500, action: "update" },
+        {
+          webhookSecret: "test-webhook-secret",
+          url: "http://localhost:3000/api/algolia/index-products"
+        }
+      );
+
+      await POST(req);
+
+      expect(mockSaveObject).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            price: "$49.99", // Falls back to regularPrice
+          }),
+        })
+      );
     });
   });
 });

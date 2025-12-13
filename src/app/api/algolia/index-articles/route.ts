@@ -180,6 +180,9 @@ async function handleBulkReindex(indexName: string) {
         objectID: `article_${p.databaseId}`,
       }));
 
+    // Clear index before saving to remove stale records with old objectID formats
+    await adminClient!.clearObjects({ indexName });
+
     await adminClient!.saveObjects({
       indexName,
       objects: algoliaObjects,
