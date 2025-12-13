@@ -6,6 +6,7 @@ import {
   type EventsIndexData,
 } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
+import PageHeader from "@/components/ui/PageHeader";
 import Pagination from "@/components/ui/Pagination";
 import styles from "./page.module.css";
 
@@ -43,12 +44,10 @@ export default async function EventsIndex({
   return (
     <main className={styles.main}>
       <Container>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Events</h1>
-          <p className={styles.subtitle}>
-            Discover upcoming events and workshops
-          </p>
-        </div>
+        <PageHeader
+          title="Events"
+          subtitle="Discover upcoming events and workshops"
+        />
 
         {events.length > 0 ? (
           <>
