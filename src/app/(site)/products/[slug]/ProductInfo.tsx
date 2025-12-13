@@ -215,7 +215,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         {product.productCategories?.nodes &&
           product.productCategories.nodes.length > 0 && (
             <span className={styles.metadataItem}>
-              <strong>Category:</strong>
+              <strong>Category: </strong>
               {product.productCategories.nodes.map((category, index) => (
                 <span key={category.id || index}>
                   {index > 0 && ", "}
