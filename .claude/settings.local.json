@@ -48,7 +48,8 @@
       "Bash(bash:*)",
       "Bash(wp plugin install:*)",
       "Bash(npm install:*)",
-      "Bash(wp graphql introspect:*)"
+      "Bash(wp graphql introspect:*)",
+      "Bash(npm run test:run:*)"
     ],
     "deny": [],
     "ask": []
