@@ -1,8 +1,33 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { wpQuery } from "@app/_lib/wp/graphql";
 import { ALL_POSTS_QUERY } from "@/lib/graphql/queries";
+
+const SINGLE_POST_QUERY = `
+  query PostById($id: ID!) {
+    post(id: $id, idType: DATABASE_ID) {
+      id
+      databaseId
+      slug
+      title
+      excerpt
+      content
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+      categories {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  }
+`;
 
 type Post = {
   id?: string;
@@ -55,7 +80,7 @@ function transformPostToAlgolia(post: Post) {
   };
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   if (!adminClient) {
     return NextResponse.json(
       { error: "Algolia admin client not configured" },
@@ -63,8 +88,68 @@ export async function POST() {
     );
   }
 
+  const indexName = algoliaConfig.indices.articles;
+
+  // Check if this is a webhook request
+  const webhookSecret = req.headers.get("x-webhook-secret");
+  if (webhookSecret) {
+    return handleWebhook(req, webhookSecret, indexName);
+  }
+
+  // Otherwise, do bulk reindex
+  return handleBulkReindex(indexName);
+}
+
+async function handleWebhook(
+  req: NextRequest,
+  secret: string,
+  indexName: string
+) {
+  if (secret !== process.env.WP_WEBHOOK_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
-    const indexName = algoliaConfig.indices.articles;
+    const { post_id, action } = await req.json();
+    const objectID = `article_${post_id}`;
+
+    console.log("[Algolia Webhook] Articles received:", { post_id, action, objectID });
+
+    if (action === "delete") {
+      await adminClient!.deleteObject({ indexName, objectID });
+      return NextResponse.json({ deleted: true, objectID });
+    }
+
+    const data = await wpQuery<{ post: Post }>(
+      SINGLE_POST_QUERY,
+      { id: post_id },
+      0
+    );
+
+    if (!data?.post) {
+      return NextResponse.json({ skipped: true, reason: "not_found" });
+    }
+
+    const record = {
+      ...transformPostToAlgolia(data.post),
+      objectID,
+    };
+
+    await adminClient!.saveObject({ indexName, body: record });
+    console.log("[Algolia Webhook] Indexed article:", objectID);
+    return NextResponse.json({ indexed: true, objectID });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("[Algolia Webhook] Articles error:", errorMessage);
+    return NextResponse.json(
+      { error: "Webhook failed", message: errorMessage },
+      { status: 500 }
+    );
+  }
+}
+
+async function handleBulkReindex(indexName: string) {
+  try {
     const allPosts: Post[] = [];
     let hasNextPage = true;
     let cursor: string | null = null;
@@ -90,9 +175,12 @@ export async function POST() {
 
     const algoliaObjects = allPosts
       .filter((post) => post.id && post.slug)
-      .map(transformPostToAlgolia);
+      .map((p) => ({
+        ...transformPostToAlgolia(p),
+        objectID: `article_${p.databaseId}`,
+      }));
 
-    await adminClient.saveObjects({
+    await adminClient!.saveObjects({
       indexName,
       objects: algoliaObjects,
     });

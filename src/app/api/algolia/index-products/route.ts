@@ -1,8 +1,45 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { wpQuery } from "@app/_lib/wp/graphql";
 import { ALL_PRODUCTS_QUERY } from "@/lib/graphql/queries";
+
+const SINGLE_PRODUCT_QUERY = `
+  query ProductById($id: ID!) {
+    product(id: $id, idType: DATABASE_ID) {
+      id
+      databaseId
+      name
+      slug
+      ... on SimpleProduct {
+        price
+        regularPrice
+        salePrice
+        stockStatus
+      }
+      ... on VariableProduct {
+        price
+        regularPrice
+        salePrice
+        stockStatus
+      }
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+      productCategories {
+        nodes {
+          name
+          slug
+        }
+      }
+      shortDescription
+      description
+    }
+  }
+`;
 
 type Product = {
   id?: string;
@@ -60,7 +97,7 @@ function transformProductToAlgolia(product: Product) {
   };
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   if (!adminClient) {
     return NextResponse.json(
       { error: "Algolia admin client not configured" },
@@ -68,8 +105,68 @@ export async function POST() {
     );
   }
 
+  const indexName = algoliaConfig.indices.products;
+
+  // Check if this is a webhook request
+  const webhookSecret = req.headers.get("x-webhook-secret");
+  if (webhookSecret) {
+    return handleWebhook(req, webhookSecret, indexName);
+  }
+
+  // Otherwise, do bulk reindex
+  return handleBulkReindex(indexName);
+}
+
+async function handleWebhook(
+  req: NextRequest,
+  secret: string,
+  indexName: string
+) {
+  if (secret !== process.env.WP_WEBHOOK_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
-    const indexName = algoliaConfig.indices.products;
+    const { post_id, action } = await req.json();
+    const objectID = `product_${post_id}`;
+
+    console.log("[Algolia Webhook] Products received:", { post_id, action, objectID });
+
+    if (action === "delete") {
+      await adminClient!.deleteObject({ indexName, objectID });
+      return NextResponse.json({ deleted: true, objectID });
+    }
+
+    const data = await wpQuery<{ product: Product }>(
+      SINGLE_PRODUCT_QUERY,
+      { id: post_id },
+      0
+    );
+
+    if (!data?.product) {
+      return NextResponse.json({ skipped: true, reason: "not_found" });
+    }
+
+    const record = {
+      ...transformProductToAlgolia(data.product),
+      objectID,
+    };
+
+    await adminClient!.saveObject({ indexName, body: record });
+    console.log("[Algolia Webhook] Indexed product:", objectID);
+    return NextResponse.json({ indexed: true, objectID });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("[Algolia Webhook] Products error:", errorMessage);
+    return NextResponse.json(
+      { error: "Webhook failed", message: errorMessage },
+      { status: 500 }
+    );
+  }
+}
+
+async function handleBulkReindex(indexName: string) {
+  try {
     const allProducts: Product[] = [];
     let hasNextPage = true;
     let cursor: string | null = null;
@@ -99,9 +196,12 @@ export async function POST() {
 
     const algoliaObjects = allProducts
       .filter((product) => product.id && product.slug)
-      .map(transformProductToAlgolia);
+      .map((p) => ({
+        ...transformProductToAlgolia(p),
+        objectID: `product_${p.databaseId}`,
+      }));
 
-    await adminClient.saveObjects({
+    await adminClient!.saveObjects({
       indexName,
       objects: algoliaObjects,
     });

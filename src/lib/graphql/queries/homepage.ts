@@ -139,6 +139,18 @@ export const HOMEPAGE_QUERY = `
           button1Text
         }
       }
+    componentDescriptionList {
+      descriptionListItems {
+        itemTitle
+        itemIcon {
+          node {
+            altText
+            sourceUrl
+          }
+        }
+        itemDescription
+      }
+    }
       homepageFeaturedProducts {
         featuredProductsHeading
         featuredProductsSubheading
@@ -391,9 +403,20 @@ type HomepageQueryResponse = {
         text?: string;
       };
       rightSide?: {
-        bulletPoints?: string;
         headline?: string;
       };
+    };
+    componentDescriptionList?: {
+      descriptionListItems?: Array<{
+        itemTitle?: string;
+        itemDescription?: string;
+        itemIcon?: {
+          node?: {
+            altText?: string;
+            sourceUrl?: string;
+          };
+        };
+      }>;
     };
     homepageStats?: {
       homepageStats?: Array<{
