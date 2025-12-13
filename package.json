@@ -14,7 +14,9 @@
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -41,6 +43,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^16.0.3",
+    "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
