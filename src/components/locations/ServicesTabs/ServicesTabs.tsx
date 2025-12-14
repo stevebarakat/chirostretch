@@ -63,6 +63,10 @@ type ServicesTabsProps = {
   servicesOffered?: string[];
 };
 
+function slugify(str: string): string {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
   let services: Service[] = fallbackServices;
   let title = fallbackTitle;
@@ -85,9 +89,10 @@ export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
     console.error("Failed to fetch services settings:", error);
   }
 
-  // Filter services based on what this location offers
+  // Filter services based on what this location offers (slugified for flexibility)
   if (servicesOffered && servicesOffered.length > 0) {
-    services = services.filter((s) => servicesOffered.includes(s.tabLabel));
+    const offeredSlugs = servicesOffered.map(slugify);
+    services = services.filter((s) => offeredSlugs.includes(slugify(s.tabLabel)));
   }
 
   return (

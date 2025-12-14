@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { fetchGraphQL } from "@/lib/graphql/client";
 import {
   VALUE_PROPOSITIONS_SETTINGS_QUERY,
@@ -13,28 +12,28 @@ const fallbackDescription = "";
 const fallbackPropositions: ValueProposition[] = [
   {
     icon: null,
-    iconBackgroundColor: "hsl(210 100% 95%)",
+    iconBackgroundColor: "hsl(200 70% 52%)",
     title: "Pain Management",
     description:
       "Effective relief for sciatica, lower back pain, neck tension, and headaches without medication.",
   },
   {
     icon: null,
-    iconBackgroundColor: "hsl(150 60% 90%)",
+    iconBackgroundColor: "hsl(142 71% 45%)",
     title: "Enhanced Mobility",
     description:
       "Regain your range of motion. Perfect for athletes, seniors, and anyone wanting to move freely.",
   },
   {
     icon: null,
-    iconBackgroundColor: "hsl(40 90% 90%)",
+    iconBackgroundColor: "hsl(38 92% 50%)",
     title: "Posture Correction",
     description:
-      "Correct misalignments caused by office work or poor habits to preventing long-term damage.",
+      "Correct misalignments caused by office work or poor habits to prevent long-term damage.",
   },
   {
     icon: null,
-    iconBackgroundColor: "hsl(270 60% 92%)",
+    iconBackgroundColor: "hsl(270 60% 55%)",
     title: "Holistic Wellness",
     description:
       "Better sleep, reduced stress, and improved nervous system health for a better quality of life.",
@@ -50,14 +49,14 @@ export async function ValuePropositions() {
     const data = await fetchGraphQL<ValuePropositionsSettingsResponse>(
       VALUE_PROPOSITIONS_SETTINGS_QUERY
     );
-    if (data.valuePropositionsSettings?.valuePropositions?.length) {
-      propositions = data.valuePropositionsSettings.valuePropositions;
+    if (data.chiroValuePropositionsSettings?.valuePropositions?.length) {
+      propositions = data.chiroValuePropositionsSettings.valuePropositions;
     }
-    if (data.valuePropositionsSettings?.title) {
-      title = data.valuePropositionsSettings.title;
+    if (data.chiroValuePropositionsSettings?.title) {
+      title = data.chiroValuePropositionsSettings.title;
     }
-    if (data.valuePropositionsSettings?.description) {
-      description = data.valuePropositionsSettings.description;
+    if (data.chiroValuePropositionsSettings?.description) {
+      description = data.chiroValuePropositionsSettings.description;
     }
   } catch (error) {
     console.error("Failed to fetch value propositions settings:", error);
@@ -76,17 +75,18 @@ export async function ValuePropositions() {
           <div key={index} className={styles.card}>
             <div
               className={styles.iconWrapper}
-              style={{
-                backgroundColor: prop.iconBackgroundColor || "hsl(210 100% 95%)",
-              }}
+              style={
+                {
+                  "--icon-color": prop.iconBackgroundColor || "hsl(210 100% 50%)",
+                  "--icon-url": prop.icon ? `url(${prop.icon.sourceUrl})` : undefined,
+                } as React.CSSProperties
+              }
             >
               {prop.icon ? (
-                <Image
-                  src={prop.icon.sourceUrl}
-                  alt={prop.icon.altText || prop.title}
-                  width={24}
-                  height={24}
+                <span
                   className={styles.icon}
+                  role="img"
+                  aria-label={prop.icon.altText || prop.title}
                 />
               ) : (
                 <span className={styles.iconFallback}>●</span>

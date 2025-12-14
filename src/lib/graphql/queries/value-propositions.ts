@@ -1,6 +1,6 @@
 export const VALUE_PROPOSITIONS_SETTINGS_QUERY = `
-  query ValuePropositionsSettings {
-    valuePropositionsSettings {
+  query ChiroValuePropositionsSettings {
+    chiroValuePropositionsSettings {
       title
       description
       valuePropositions {
@@ -33,5 +33,5 @@ export type ValuePropositionsSettings = {
 };
 
 export type ValuePropositionsSettingsResponse = {
-  valuePropositionsSettings: ValuePropositionsSettings | null;
+  chiroValuePropositionsSettings: ValuePropositionsSettings | null;
 };

@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => '__root__',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '53d994d90b864eb115d425b32fc98c9a4e81e382',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '53d994d90b864eb115d425b32fc98c9a4e81e382',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'wordpress/abilities-api' => array(
+            'pretty_version' => 'v0.4.0',
+            'version' => '0.4.0.0',
+            'reference' => '0759075aed37c4247adbf273bdebec096d52e825',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wordpress/abilities-api',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'wordpress/mcp-adapter' => array(
+            'pretty_version' => 'v0.4.1',
+            'version' => '0.4.1.0',
+            'reference' => '1a0f9ab868e34b4375be42e873f60765e6632505',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wordpress/mcp-adapter',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);
