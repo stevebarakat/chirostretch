@@ -24,23 +24,27 @@ Next.js (App Router)
 ## Code Style
 
 ### TypeScript
+
 - Prefer `type` over `interface`
 - Prefer function declarations over arrow functions
 - No comments unless logic is non-obvious
 
 ### React
+
 - Server Components by default
 - `'use client'` only when required (interactivity, hooks, browser APIs)
 - One concern per `useEffect`
 - `useEffect` is for external APIs, not UI logic—prefer event handlers
 
 ### CSS
+
 - CSS Modules, not Tailwind
 - HSL colors
 - No `100vh`—use `60vh` for heroes
 - Animate only `transform` and `opacity`
 
 ### Components
+
 - Max 200 lines per component
 - Max 50 lines per function
 - Descriptive names: `ProductCard`, not `Card`
@@ -50,36 +54,43 @@ Next.js (App Router)
 ## WordPress Integration
 
 ### Media
+
 - Use WordPress `sourceUrl` directly—never normalize URLs
 - Pass to `<Image>` without transformation
 - Next.js handles WebP/AVIF conversion
 
 ### WooCommerce
+
 - Backend data source only
 - All rendering via Next.js
 - Fetch via WPGraphQL for WooCommerce
 - Never use PHP templates or theme hooks
 
 ### Custom Post Types
+
 - `events`, `registrations`, `locations`
 
 ### Preview
+
 - Route: `/api/preview`
 - Supports drafts and revisions
 
 ## Performance Rules
 
 ### Images
+
 - First visible image: `priority={true}` + `fetchPriority="high"`
 - Below-fold images: no priority (auto lazy-load)
 - Provide `width`/`height` or use `fill` + `sizes`
 
 ### Data Fetching
+
 - Use `fetch` with `{ next: { revalidate: 300 } }`
 - Avoid `cache: 'no-store'` unless required
 - Minimal queries—only fetch fields you use
 
 ### Bundle
+
 - Dynamic imports for below-fold sections
 - `optimizePackageImports: ['lucide-react']`
 - Remove unused imports
@@ -87,22 +98,26 @@ Next.js (App Router)
 ## Preferred Packages
 
 **Use:**
-- `zustand`, `zod`, `react-hook-form`, `date-fns`
+
+- `radix-ui`, `zustand`, `zod`, `react-hook-form`, `date-fns`
 - `postcss`, `autoprefixer`, `postcss-preset-env`
 - `stylelint`, `stylelint-order`
 - `lucide-react` for icons
 
 **Avoid:**
+
 - `tailwindcss`
 - Custom image URL normalizers
 
 ## URL State
 
 Prefer URL search params over client state for:
+
 - Filters, sort, pagination, tabs
 - Anything shareable or bookmarkable
 
 Use `useState`/Zustand only for:
+
 - Temporary UI state
 - Form inputs before submission
 - Animation states
@@ -116,6 +131,7 @@ Use `useState`/Zustand only for:
 Test the contract, not the plumbing. Don't test that WordPress fires hooks or Algolia saves objects—those are other people's problems.
 
 **Test that:**
+
 - Given a webhook payload, your code produces the correct Algolia command
 - Status transitions map to correct intent (index vs delete)
 - Object identity is stable (the objectID format)
@@ -212,11 +228,13 @@ it("handles missing optional fields", async () => {
 
 ```typescript
 // Hoist mocks for module loading
-const { mockSaveObject, mockDeleteObject, mockFetchGraphQL } = vi.hoisted(() => ({
-  mockSaveObject: vi.fn(),
-  mockDeleteObject: vi.fn(),
-  mockFetchGraphQL: vi.fn(),
-}));
+const { mockSaveObject, mockDeleteObject, mockFetchGraphQL } = vi.hoisted(
+  () => ({
+    mockSaveObject: vi.fn(),
+    mockDeleteObject: vi.fn(),
+    mockFetchGraphQL: vi.fn(),
+  })
+);
 
 vi.mock("@/lib/algolia/client", () => ({
   adminClient: {
@@ -258,6 +276,7 @@ npm run test:e2e:ui  # Run with Playwright UI
 Config: `playwright.config.ts`
 
 **Search sanity test:**
+
 1. Visit `/locations`
 2. Click search input to open modal
 3. Type a query
@@ -270,6 +289,7 @@ Don't test indexing E2E—it's async and flaky.
 ### CI
 
 GitHub Actions runs on push/PR to `main` and `develop`:
+
 1. Lint (`npm run lint`)
 2. Unit tests (`npm run test:run`)
 3. Build (`npm run build`)

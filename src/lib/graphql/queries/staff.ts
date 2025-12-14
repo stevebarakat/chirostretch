@@ -74,12 +74,5 @@ export type ViewerStaffProfileResponse = {
   } | null;
 };
 
-export const STAFF_TYPE_LABELS: Record<string, string> = {
-  chiropractor: "Chiropractor",
-  massage_therapist: "Massage Therapist",
-  physical_therapist: "Physical Therapist",
-  stretch_therapist: "Stretch Therapist",
-  acupuncturist: "Acupuncturist",
-  office_manager: "Office Manager",
-  receptionist: "Receptionist",
-};
+// Re-export from constants for backwards compatibility
+export { STAFF_TYPE_LABELS } from "@/lib/constants/staff";

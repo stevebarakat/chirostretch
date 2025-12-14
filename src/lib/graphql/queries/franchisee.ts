@@ -107,15 +107,8 @@ export async function getViewerFranchiseLocation(): Promise<FranchiseeViewer | n
   }
 }
 
-export const STAFF_TYPE_LABELS: Record<string, string> = {
-  chiropractor: "Chiropractor",
-  massage_therapist: "Massage Therapist",
-  physical_therapist: "Physical Therapist",
-  stretch_therapist: "Stretch Therapist",
-  acupuncturist: "Acupuncturist",
-  office_manager: "Office Manager",
-  receptionist: "Receptionist",
-};
+// Re-export from constants for backwards compatibility
+export { STAFF_TYPE_LABELS } from "@/lib/constants/staff";
 
 export const GET_STAFF_BY_ID_QUERY = `
   query GetStaffById($id: ID!) {

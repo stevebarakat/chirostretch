@@ -2,14 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Staff roles that should use the staff dashboard
-const STAFF_ROLES = [
-  "chiropractor",
-  "office_manager",
-  "massage_therapist",
-  "physical_therapist",
-  "stretch_therapist",
-  "acupuncturist",
-];
+const STAFF_ROLES = ["location_manager"];
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { STAFF_TYPE_LABELS } from "@/lib/graphql/queries/franchisee";
+import Image from "next/image";
+import { STAFF_TYPE_LABELS } from "@/lib/constants/staff";
 import styles from "./StaffForm.module.css";
 
 const STAFF_TYPES = Object.entries(STAFF_TYPE_LABELS);
@@ -12,14 +13,13 @@ const SERVICES = [
   "Chiropractic",
   "Stretch Therapy",
   "Massage",
-  "Physical Therapy",
-  "Accident Rehab",
-  "Sports Injuries",
-  "Cupping Therapy",
-  "Dry Needling",
-  "Spinal Decompression",
-  "Acupuncture",
+  "Sports Medicine",
 ];
+
+type Headshot = {
+  sourceUrl: string;
+  altText: string;
+} | null;
 
 type StaffFormData = {
   title: string;
@@ -36,7 +36,7 @@ type StaffFormData = {
 type StaffFormProps = {
   locationId: number;
   locationName: string;
-  initialData?: Partial<StaffFormData> & { id?: number };
+  initialData?: Partial<StaffFormData> & { id?: number; headshot?: Headshot };
   isEdit?: boolean;
 };
 
@@ -47,7 +47,9 @@ export function StaffForm({
   isEdit = false,
 }: StaffFormProps) {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<StaffFormData>({
     title: initialData?.title || "",
@@ -61,12 +63,82 @@ export function StaffForm({
     acceptingPatients: initialData?.acceptingPatients ?? true,
   });
 
+  // Photo state
+  const [currentHeadshot, setCurrentHeadshot] = useState<Headshot>(
+    initialData?.headshot || null
+  );
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      setError("Please select an image file");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Image must be less than 5MB");
+      return;
+    }
+
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    setError(null);
+  };
+
+  const removePhoto = () => {
+    setSelectedFile(null);
+    setPreviewUrl(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const uploadPhoto = async (): Promise<number | null> => {
+    if (!selectedFile) return null;
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("staffId", String(initialData?.id || 0));
+
+      const response = await fetch("/api/franchisee/staff/upload-photo", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to upload photo");
+      }
+
+      const data = await response.json();
+      return data.attachmentId;
+    } catch (err) {
+      throw err;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     setError(null);
 
     try {
+      // Upload photo first if one is selected
+      let headshotId: number | null = null;
+      if (selectedFile) {
+        headshotId = await uploadPhoto();
+      }
+
       const url = isEdit
         ? `/api/franchisee/staff/${initialData?.id}`
         : "/api/franchisee/staff";
@@ -80,10 +152,12 @@ export function StaffForm({
             servicesOffered: formData.servicesOffered,
             isPublic: formData.isPublic,
             acceptingPatients: formData.acceptingPatients,
+            ...(headshotId && { headshot: headshotId }),
           }
         : {
             ...formData,
             locationId,
+            ...(headshotId && { headshot: headshotId }),
           };
 
       const response = await fetch(url, {
@@ -122,10 +196,12 @@ export function StaffForm({
     }));
   };
 
+  const displayImageUrl = previewUrl || currentHeadshot?.sourceUrl;
+
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.header}>
-        <p className={styles.locationInfo}>Adding staff to: {locationName}</p>
+        <p className={styles.locationInfo}>Staff Location: {locationName}</p>
       </div>
 
       {error && <div className={styles.error}>{error}</div>}
@@ -225,11 +301,69 @@ export function StaffForm({
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Profile</h3>
+        <h3 className={styles.sectionTitle}>Profile Photo</h3>
+        <p className={styles.sectionDescription}>
+          Upload a professional headshot for the website.
+        </p>
+
+        <div className={styles.photoUpload}>
+          {displayImageUrl ? (
+            <div className={styles.photoPreview}>
+              <Image
+                src={displayImageUrl}
+                alt={formData.title || "Staff headshot"}
+                width={150}
+                height={150}
+                className={styles.photoImage}
+              />
+              <div className={styles.photoActions}>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className={styles.changePhotoButton}
+                >
+                  Change Photo
+                </button>
+                {previewUrl && (
+                  <button
+                    type="button"
+                    onClick={removePhoto}
+                    className={styles.removePhotoButton}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className={styles.photoPlaceholder}>
+              <div className={styles.photoPlaceholderIcon}>📷</div>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className={styles.uploadButton}
+              >
+                Upload Photo
+              </button>
+              <p className={styles.hint}>JPG, PNG, or WebP. Max 5MB.</p>
+            </div>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileSelect}
+            className={styles.fileInput}
+          />
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>Bio</h3>
 
         <div className={styles.formGroup}>
           <label htmlFor="bio" className={styles.label}>
-            Bio
+            Biography
           </label>
           <textarea
             id="bio"
@@ -301,8 +435,14 @@ export function StaffForm({
         <Link href="/my-account/franchisee/staff" className={styles.cancelButton}>
           Cancel
         </Link>
-        <button type="submit" disabled={isSaving} className={styles.saveButton}>
-          {isSaving
+        <button
+          type="submit"
+          disabled={isSaving || isUploading}
+          className={styles.saveButton}
+        >
+          {isUploading
+            ? "Uploading photo..."
+            : isSaving
             ? "Saving..."
             : isEdit
             ? "Save Changes"

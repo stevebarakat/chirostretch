@@ -267,3 +267,101 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Photo Upload Styles */
+.photoUpload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+}
+
+.photoPreview {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg, 1.5rem);
+  padding: var(--spacing-md, 1rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-md, 8px);
+}
+
+.photoImage {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-md, 8px);
+  object-fit: cover;
+  border: 2px solid var(--color-border, #e5e5e5);
+}
+
+.photoActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.75rem);
+}
+
+.changePhotoButton,
+.removePhotoButton {
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-md, 1rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  transition: all var(--transition-base, 0.2s ease);
+}
+
+.changePhotoButton {
+  background: var(--color-primary-500, #0070f3);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+}
+
+.changePhotoButton:hover {
+  background: var(--color-primary-600, #0066cc);
+}
+
+.removePhotoButton {
+  background: transparent;
+  color: hsl(0 84% 50%);
+  border: 1px solid hsl(0 84% 50%);
+}
+
+.removePhotoButton:hover {
+  background: hsl(0 84% 95%);
+}
+
+.photoPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md, 1rem);
+  padding: var(--spacing-xl, 2rem);
+  background: var(--color-neutral-50, #fafafa);
+  border: 2px dashed var(--color-border, #e5e5e5);
+  border-radius: var(--radius-md, 8px);
+  text-align: center;
+}
+
+.photoPlaceholderIcon {
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+.uploadButton {
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-lg, 1.5rem);
+  background: var(--color-primary-500, #0070f3);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: background var(--transition-base, 0.2s ease);
+}
+
+.uploadButton:hover {
+  background: var(--color-primary-600, #0066cc);
+}
+
+.fileInput {
+  display: none;
+}

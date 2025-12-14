@@ -88,6 +88,7 @@ export default async function EditStaffPage({ params }: EditStaffPageProps) {
           servicesOffered: staff.servicesOffered || [],
           isPublic: staff.isPublic,
           acceptingPatients: staff.acceptingPatients,
+          headshot: staff.headshot,
         }}
         isEdit
       />

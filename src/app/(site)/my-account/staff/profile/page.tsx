@@ -139,13 +139,13 @@ export default async function StaffProfilePage() {
               <p className={styles.locationName}>
                 {profile.assignedLocation.title}
               </p>
-              {profile.assignedLocation.address && (
+              {profile.assignedLocation.streetAddress && (
                 <p className={styles.locationAddress}>
-                  {profile.assignedLocation.address.street}
+                  {profile.assignedLocation.streetAddress}
                   <br />
-                  {profile.assignedLocation.address.city},{" "}
-                  {profile.assignedLocation.address.state}{" "}
-                  {profile.assignedLocation.address.zipCode}
+                  {profile.assignedLocation.city},{" "}
+                  {profile.assignedLocation.state}{" "}
+                  {profile.assignedLocation.zip}
                 </p>
               )}
               {profile.assignedLocation.phone && (
