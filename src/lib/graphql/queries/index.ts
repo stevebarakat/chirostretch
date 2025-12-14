@@ -9,3 +9,4 @@ export * from "./menu";
 export * from "./pages";
 export * from "./posts";
 export * from "./products";
+export * from "./services";

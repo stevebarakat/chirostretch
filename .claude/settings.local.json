@@ -52,7 +52,11 @@
       "Bash(npm run test:run:*)",
       "Bash(npx playwright install:*)",
       "Bash(wp post-type list:*)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "Bash(wp chirostretch services seed:*)",
+      "Bash(python3:*)",
+      "Bash(NODE_TLS_REJECT_UNAUTHORIZED=0 node:*)",
+      "Bash(wp option list:*)"
     ],
     "deny": [],
     "ask": []
