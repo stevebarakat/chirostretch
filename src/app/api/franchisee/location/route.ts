@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { wpGraphQLFetch } from "@/lib/wpgraphql";
 
 const UPDATE_LOCATION_MUTATION = `
-  mutation UpdateLocation($input: UpdateLocationInput!) {
-    updateLocation(input: $input) {
+  mutation UpdateFranchiseLocation($input: UpdateFranchiseLocationInput!) {
+    updateFranchiseLocation(input: $input) {
       success
       location {
         databaseId
@@ -32,7 +32,7 @@ type UpdateLocationInput = {
 };
 
 type UpdateLocationResponse = {
-  updateLocation: {
+  updateFranchiseLocation: {
     success: boolean;
     location: {
       databaseId: number;
@@ -62,6 +62,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
+    // Build input matching the custom mutation's inputFields
     const input: Record<string, unknown> = {
       id: body.id,
     };
@@ -82,7 +83,7 @@ export async function PUT(request: NextRequest) {
       auth: true,
     });
 
-    if (!data.updateLocation?.success) {
+    if (!data.updateFranchiseLocation?.success) {
       return NextResponse.json(
         { error: "Failed to update location" },
         { status: 500 }
@@ -91,7 +92,7 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      location: data.updateLocation.location,
+      location: data.updateFranchiseLocation.location,
     });
   } catch (error) {
     console.error("Error updating location:", error);
