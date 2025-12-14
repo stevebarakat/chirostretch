@@ -56,8 +56,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
   const location = data.location;
   const image = location.featuredImage?.node;
-  const chiropractors = location.chiropractors?.nodes ?? [];
+  const clinicalStaff = location.clinicalStaff?.nodes ?? [];
   const hours = location.hours ?? [];
+  const servicesOffered = location.servicesOffered ?? [];
 
   const fullAddress = [
     location.streetAddress,
@@ -180,29 +181,31 @@ export default async function LocationPage({ params }: LocationPageProps) {
       </section>
 
       {/* Services Section */}
-      <section className={styles.servicesSection}>
-        <Container>
-          <h2 className={styles.sectionTitle}>Our Core Therapies</h2>
-          <p className={styles.sectionSubtitle}>
-            We combine modern chiropractic adjustments with assisted stretching
-            to treat the root cause of your discomfort.
-          </p>
-          <ServicesTabs />
-        </Container>
-      </section>
+      {servicesOffered.length > 0 && (
+        <section className={styles.servicesSection}>
+          <Container>
+            <h2 className={styles.sectionTitle}>Our Services</h2>
+            <p className={styles.sectionSubtitle}>
+              We combine modern chiropractic adjustments with assisted stretching
+              to treat the root cause of your discomfort.
+            </p>
+            <ServicesTabs servicesOffered={servicesOffered} />
+          </Container>
+        </section>
+      )}
 
       {/* Meet Our Team Section */}
-      {chiropractors.length > 0 && (
+      {clinicalStaff.length > 0 && (
         <section id="team" className={styles.teamSection}>
           <Container>
             <h2 className={styles.sectionTitle}>Meet Our Team</h2>
             <p className={styles.sectionSubtitle}>
-              Our licensed chiropractors are dedicated to helping you achieve
-              optimal wellness through personalized care.
+              Our licensed healthcare professionals are dedicated to helping you
+              achieve optimal wellness through personalized care.
             </p>
             <div className={styles.teamGrid}>
-              {chiropractors.map((chiro) => (
-                <StaffCard key={chiro.id} staff={chiro} />
+              {clinicalStaff.map((staff) => (
+                <StaffCard key={staff.id} staff={staff} />
               ))}
             </div>
           </Container>

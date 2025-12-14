@@ -26,7 +26,19 @@ export function ServicesTabsClient({ services }: ServicesTabsClientProps) {
           const id = service.tabLabel.toLowerCase().replace(/\s+/g, "-");
           return (
             <Tabs.Trigger key={id} className={styles.trigger} value={id}>
-              <span className={styles.triggerIcon}>{service.tabIcon}</span>
+              <span className={styles.triggerIcon}>
+                {service.tabIcon?.sourceUrl ? (
+                  <Image
+                    src={service.tabIcon.sourceUrl}
+                    alt={service.tabIcon.altText || service.tabLabel}
+                    width={24}
+                    height={24}
+                    className={styles.tabIconImage}
+                  />
+                ) : (
+                  <span className={styles.tabIconFallback}>&#9670;</span>
+                )}
+              </span>
               {service.tabLabel}
             </Tabs.Trigger>
           );

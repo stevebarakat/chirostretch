@@ -1,9 +1,11 @@
 import Image from "next/image";
-import type { Chiropractor } from "@/lib/graphql/queries/locations";
+import { ArrowRight } from "lucide-react";
+import type { ClinicalStaff } from "@/lib/graphql/queries/locations";
+import Button from "@/components/ui/Button";
 import styles from "./StaffCard.module.css";
 
 type StaffCardProps = {
-  staff: Chiropractor;
+  staff: ClinicalStaff;
 };
 
 export function StaffCard({ staff }: StaffCardProps) {
@@ -16,7 +18,24 @@ export function StaffCard({ staff }: StaffCardProps) {
     prenatal: "Prenatal Care",
     pediatric: "Pediatric",
     wellness: "Wellness & Prevention",
+    deep_tissue: "Deep Tissue",
+    swedish: "Swedish Massage",
+    trigger_point: "Trigger Point Therapy",
+    myofascial: "Myofascial Release",
+    rehab: "Rehabilitation",
+    flexibility: "Flexibility Training",
   };
+
+  const staffTypeLabels: Record<string, string> = {
+    chiropractor: "Chiropractor",
+    massage_therapist: "Massage Therapist",
+    physical_therapist: "Physical Therapist",
+    stretch_therapist: "Stretch Therapist",
+    acupuncturist: "Acupuncturist",
+  };
+
+  const roleLabel =
+    staff.jobTitle || staffTypeLabels[staff.staffType || ""] || "Staff";
 
   return (
     <div className={styles.card}>
@@ -37,16 +56,20 @@ export function StaffCard({ staff }: StaffCardProps) {
       </div>
 
       <div className={styles.content}>
-        <h3 className={styles.name}>
-          {staff.title}
-          {staff.credentials && (
-            <span className={styles.credentials}>, {staff.credentials}</span>
-          )}
-        </h3>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <h3 className={styles.name}>{staff.title}</h3>
 
-        {staff.jobTitle && (
-          <p className={styles.jobTitle}>{staff.jobTitle}</p>
-        )}
+            <p className={styles.role}>
+              {roleLabel}
+              {staff.credentials && ` · ${staff.credentials}`}
+            </p>
+          </div>
+
+          {staff.acceptingPatients && (
+            <span className={styles.badge}>Accepting Patients</span>
+          )}
+        </div>
 
         {staff.specialties && staff.specialties.length > 0 && (
           <div className={styles.specialties}>
@@ -65,15 +88,16 @@ export function StaffCard({ staff }: StaffCardProps) {
           />
         )}
 
-        {staff.acceptingPatients !== undefined && (
-          <p className={styles.accepting}>
-            {staff.acceptingPatients ? (
-              <span className={styles.acceptingYes}>Accepting new patients</span>
-            ) : (
-              <span className={styles.acceptingNo}>Not accepting new patients</span>
-            )}
-          </p>
-        )}
+        <div className={styles.actions}>
+          <Button
+            as="a"
+            href="#"
+            variant="primary"
+            icon={<ArrowRight size={18} />}
+          >
+            Book Appointment
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -45,6 +45,7 @@ export const LOCATION_BY_SLUG_QUERY = `
       phone
       email
       shortDescription
+      servicesOffered
       coordinates {
         lat
         lng
@@ -66,14 +67,16 @@ export const LOCATION_BY_SLUG_QUERY = `
           }
         }
       }
-      chiropractors {
+      clinicalStaff {
         nodes {
           id
           databaseId
           title
+          staffType
           jobTitle
           credentials
           specialties
+          servicesOffered
           bio
           acceptingPatients
           headshot {
@@ -125,6 +128,23 @@ export type Chiropractor = {
   };
 };
 
+export type ClinicalStaff = {
+  id?: string;
+  databaseId?: number;
+  title?: string;
+  staffType?: string;
+  jobTitle?: string;
+  credentials?: string;
+  specialties?: string[];
+  servicesOffered?: string[];
+  bio?: string;
+  acceptingPatients?: boolean;
+  headshot?: {
+    sourceUrl?: string;
+    altText?: string;
+  };
+};
+
 type LocationHours = {
   day?: string;
   open?: string;
@@ -149,6 +169,7 @@ type Location = {
   phone?: string;
   email?: string;
   shortDescription?: string;
+  servicesOffered?: string[];
   coordinates?: LocationCoordinates;
   hours?: LocationHours[];
   featuredImage?: {
@@ -156,6 +177,9 @@ type Location = {
   };
   chiropractors?: {
     nodes?: Chiropractor[];
+  };
+  clinicalStaff?: {
+    nodes?: ClinicalStaff[];
   };
 };
 

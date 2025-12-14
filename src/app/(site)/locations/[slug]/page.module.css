@@ -185,9 +185,11 @@
 }
 
 .teamGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-xl);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* CTA Section */
@@ -301,9 +303,5 @@
 
   .ctaTitle {
     font-size: var(--font-size-2xl);
-  }
-
-  .teamGrid {
-    grid-template-columns: 1fr;
   }
 }

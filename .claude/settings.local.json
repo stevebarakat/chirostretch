@@ -56,7 +56,9 @@
       "Bash(wp chirostretch services seed:*)",
       "Bash(python3:*)",
       "Bash(NODE_TLS_REJECT_UNAUTHORIZED=0 node:*)",
-      "Bash(wp option list:*)"
+      "Bash(wp option list:*)",
+      "Bash(wp chirostretch staff seed:*)",
+      "Bash(wp post list:*)"
     ],
     "deny": [],
     "ask": []

@@ -37,7 +37,22 @@
 }
 
 .triggerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.tabIconImage {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.tabIconFallback {
   font-size: 1rem;
+  color: currentColor;
 }
 
 .content {

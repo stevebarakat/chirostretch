@@ -5,7 +5,10 @@ export const SERVICES_SETTINGS_QUERY = `
       description
       services {
         tabLabel
-        tabIcon
+        tabIcon {
+          sourceUrl
+          altText
+        }
         title
         description
         bulletPoints
@@ -25,7 +28,10 @@ export const SERVICES_SETTINGS_QUERY = `
 
 export type Service = {
   tabLabel: string;
-  tabIcon: string;
+  tabIcon: {
+    sourceUrl: string;
+    altText: string;
+  } | null;
   title: string;
   description: string;
   bulletPoints: string[];

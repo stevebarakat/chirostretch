@@ -9,7 +9,7 @@ import { ServicesTabsClient } from "./ServicesTabsClient";
 const fallbackServices: Service[] = [
   {
     tabLabel: "Chiropractic",
-    tabIcon: "🦴",
+    tabIcon: null,
     title: "Precision Spinal Adjustments",
     description:
       "Our licensed chiropractors use controlled, gentle force to realign joints, improving mobility and relieving pain. We focus on the spine to optimize nervous system function and body mechanics.",
@@ -24,7 +24,7 @@ const fallbackServices: Service[] = [
   },
   {
     tabLabel: "Stretch Therapy",
-    tabIcon: "🧘",
+    tabIcon: null,
     title: "Assisted Stretch Therapy",
     description:
       "Don't just stretch—get stretched. Our therapists use PNF (Proprioceptive Neuromuscular Facilitation) techniques to safely push your muscles further than you can on your own.",
@@ -39,7 +39,7 @@ const fallbackServices: Service[] = [
   },
   {
     tabLabel: "Massage",
-    tabIcon: "💆",
+    tabIcon: null,
     title: "Therapeutic Massage",
     description:
       "Our massage therapists work to reduce muscle tension, improve circulation, and complement your chiropractic treatment plan with targeted soft tissue work.",
@@ -54,7 +54,11 @@ const fallbackServices: Service[] = [
   },
 ];
 
-export async function ServicesTabs() {
+type ServicesTabsProps = {
+  servicesOffered?: string[];
+};
+
+export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
   let services: Service[] = fallbackServices;
 
   try {
@@ -66,6 +70,11 @@ export async function ServicesTabs() {
     }
   } catch (error) {
     console.error("Failed to fetch services settings:", error);
+  }
+
+  // Filter services based on what this location offers
+  if (servicesOffered && servicesOffered.length > 0) {
+    services = services.filter((s) => servicesOffered.includes(s.tabLabel));
   }
 
   return <ServicesTabsClient services={services} />;

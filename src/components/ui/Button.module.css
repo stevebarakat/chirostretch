@@ -76,3 +76,9 @@
   color: white;
   background-color: transparent;
 }
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
