@@ -25,11 +25,6 @@ export const LOCATION_FIELDS = `
     mapEmbed
     services
 
-    heroImage {
-      sourceUrl
-      altText
-    }
-
     shortDescription
   }
 `;
@@ -38,22 +33,27 @@ export const STAFF_FIELDS = `
   fragment StaffFields on StaffMember {
     id
     databaseId
-    slug
     title
-    content
+    staffType
+    jobTitle
+    credentials
+    specialties
+    bio
+    acceptingPatients
+    isPublic
 
-    featuredImage {
-      node {
-        sourceUrl
-        altText
-      }
+    headshot {
+      sourceUrl
+      altText
     }
 
-    clinicLocation {
-      ...LocationFields
+    assignedLocation {
+      id
+      databaseId
+      title
+      slug
     }
   }
-  ${LOCATION_FIELDS}
 `;
 
 export const EVENT_FIELDS = `

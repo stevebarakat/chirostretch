@@ -64,6 +64,11 @@ const nextConfig: NextConfig = {
         hostname: "127.0.0.1",
         pathname: "/wp-content/uploads/**",
       },
+      // Unsplash (placeholder images)
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
 
     formats: ["image/avif", "image/webp"],
