@@ -27,12 +27,12 @@ export function ServicesTabsClient({ services }: ServicesTabsClientProps) {
           return (
             <Tabs.Trigger key={id} className={styles.trigger} value={id}>
               <span className={styles.triggerIcon}>
-                {service.tabIcon?.sourceUrl ? (
+                {service.tabIcon ? (
                   <Image
                     src={service.tabIcon.sourceUrl}
                     alt={service.tabIcon.altText || service.tabLabel}
-                    width={24}
-                    height={24}
+                    width={16}
+                    height={16}
                     className={styles.tabIconImage}
                   />
                 ) : (

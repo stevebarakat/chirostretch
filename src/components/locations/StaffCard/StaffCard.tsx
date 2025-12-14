@@ -88,7 +88,7 @@ export function StaffCard({ staff }: StaffCardProps) {
           />
         )}
 
-        <div className={styles.actions}>
+        {/* <div className={styles.actions}>
           <Button
             as="a"
             href="#"
@@ -97,7 +97,7 @@ export function StaffCard({ staff }: StaffCardProps) {
           >
             Book Appointment
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -69,7 +69,9 @@
       "Bash(wp chirostretch staff reset:*)",
       "Bash(wp chirostretch staff seed-photos:*)",
       "Bash(wp help:*)",
-      "Bash(wp chirostretch staff:*)"
+      "Bash(wp chirostretch staff:*)",
+      "Bash(wp acf:*)",
+      "Bash(xargs ls:*)"
     ],
     "deny": [],
     "ask": []

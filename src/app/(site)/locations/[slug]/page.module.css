@@ -155,6 +155,12 @@
   border: none;
 }
 
+/* Value Propositions Section */
+.valuePropsSection {
+  padding: var(--spacing-4xl) 0;
+  background: var(--color-bg-secondary);
+}
+
 /* Services Section */
 .servicesSection {
   padding: var(--spacing-4xl) 0;

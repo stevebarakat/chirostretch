@@ -5,6 +5,11 @@ import {
   type Service,
 } from "@/lib/graphql/queries";
 import { ServicesTabsClient } from "./ServicesTabsClient";
+import styles from "./ServicesTabs.module.css";
+
+const fallbackTitle = "Our Core Therapies";
+const fallbackDescription =
+  "We combine modern chiropractic adjustments with assisted stretching to treat the root cause of your discomfort.";
 
 const fallbackServices: Service[] = [
   {
@@ -60,6 +65,8 @@ type ServicesTabsProps = {
 
 export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
   let services: Service[] = fallbackServices;
+  let title = fallbackTitle;
+  let description = fallbackDescription;
 
   try {
     const data = await fetchGraphQL<ServicesSettingsResponse>(
@@ -67,6 +74,12 @@ export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
     );
     if (data.chiroServicesSettings?.services?.length) {
       services = data.chiroServicesSettings.services;
+    }
+    if (data.chiroServicesSettings?.title) {
+      title = data.chiroServicesSettings.title;
+    }
+    if (data.chiroServicesSettings?.description) {
+      description = data.chiroServicesSettings.description;
     }
   } catch (error) {
     console.error("Failed to fetch services settings:", error);
@@ -77,5 +90,11 @@ export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
     services = services.filter((s) => servicesOffered.includes(s.tabLabel));
   }
 
-  return <ServicesTabsClient services={services} />;
+  return (
+    <>
+      <h2 className={styles.sectionTitle}>{title}</h2>
+      <p className={styles.sectionSubtitle}>{description}</p>
+      <ServicesTabsClient services={services} />
+    </>
+  );
 }

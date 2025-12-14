@@ -11,7 +11,7 @@ import {
 } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import { StaffCard, ServicesTabs } from "@/components/locations";
+import { StaffCard, ServicesTabs, ValuePropositions } from "@/components/locations";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -180,15 +180,17 @@ export default async function LocationPage({ params }: LocationPageProps) {
         </Container>
       </section>
 
+      {/* Value Propositions Section */}
+      <section className={styles.valuePropsSection}>
+        <Container>
+          <ValuePropositions />
+        </Container>
+      </section>
+
       {/* Services Section */}
       {servicesOffered.length > 0 && (
         <section className={styles.servicesSection}>
           <Container>
-            <h2 className={styles.sectionTitle}>Our Services</h2>
-            <p className={styles.sectionSubtitle}>
-              We combine modern chiropractic adjustments with assisted stretching
-              to treat the root cause of your discomfort.
-            </p>
             <ServicesTabs servicesOffered={servicesOffered} />
           </Container>
         </section>
