@@ -50,7 +50,9 @@
       "Bash(npm install:*)",
       "Bash(wp graphql introspect:*)",
       "Bash(npm run test:run:*)",
-      "Bash(npx playwright install:*)"
+      "Bash(npx playwright install:*)",
+      "Bash(wp post-type list:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

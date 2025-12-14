@@ -23,6 +23,9 @@ export type LoginResponse = {
       firstName?: string | null;
       lastName?: string | null;
       username: string;
+      roles: {
+        nodes: Array<{ name: string }>;
+      };
     };
   };
 };
@@ -40,6 +43,7 @@ export type AuthUser = {
   firstName?: string | null;
   lastName?: string | null;
   username: string;
+  roles?: string[];
 };
 
 export type AuthState = {

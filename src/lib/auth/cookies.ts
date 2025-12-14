@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
  */
 export const AUTH_TOKEN_COOKIE = "wp-auth-token";
 export const REFRESH_TOKEN_COOKIE = "wp-refresh-token";
+export const USER_ROLE_COOKIE = "wp-user-role";
 
 /**
  * Cookie configuration
@@ -65,6 +66,7 @@ export async function clearAuthCookies(): Promise<void> {
 
   cookieStore.delete(AUTH_TOKEN_COOKIE);
   cookieStore.delete(REFRESH_TOKEN_COOKIE);
+  cookieStore.delete(USER_ROLE_COOKIE);
 }
 
 /**

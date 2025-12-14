@@ -36,6 +36,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Extract user roles
+    const roles = user.roles?.nodes?.map((r) => r.name) || [];
+    // Get primary role (first role, or 'subscriber' as fallback)
+    const primaryRole = roles[0] || "subscriber";
+
     // Create response with user data
     const response = NextResponse.json({
       success: true,
@@ -46,6 +51,7 @@ export async function POST(request: NextRequest) {
         firstName: user.firstName,
         lastName: user.lastName,
         username: user.username,
+        roles,
       },
     });
 
@@ -64,6 +70,15 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set("wp-refresh-token", refreshToken, {
       ...cookieOptions,
+      maxAge: 60 * 60 * 24 * 14, // 14 days
+    });
+
+    // Set user role cookie (NOT httpOnly so middleware can read it)
+    response.cookies.set("wp-user-role", primaryRole, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax" as const,
+      path: "/",
       maxAge: 60 * 60 * 24 * 14, // 14 days
     });
 

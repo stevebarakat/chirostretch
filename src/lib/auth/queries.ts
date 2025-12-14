@@ -14,6 +14,11 @@ export const LOGIN_MUTATION = `
         firstName
         lastName
         username
+        roles {
+          nodes {
+            name
+          }
+        }
       }
     }
   }
