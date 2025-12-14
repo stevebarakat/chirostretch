@@ -1,9 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// WordPress admin URL
-const WP_ADMIN_URL =
-  process.env.WORDPRESS_URL || "http://chirostretch-copy.local";
+// Staff roles that should use the staff dashboard
+const STAFF_ROLES = [
+  "chiropractor",
+  "office_manager",
+  "massage_therapist",
+  "physical_therapist",
+  "stretch_therapist",
+  "acupuncturist",
+];
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -22,14 +28,34 @@ export function middleware(request: NextRequest) {
     // Role-based routing for /my-account
     if (userRole === "franchise_applicant") {
       // Franchise applicants can only access /my-account/application and /my-account/logout
-      if (!pathname.startsWith("/my-account/application") && pathname !== "/my-account/logout") {
+      if (
+        !pathname.startsWith("/my-account/application") &&
+        pathname !== "/my-account/logout"
+      ) {
         return NextResponse.redirect(
           new URL("/my-account/application", request.url)
         );
       }
     } else if (userRole === "franchisee") {
-      // Franchisees should use wp-admin profile page
-      return NextResponse.redirect(`${WP_ADMIN_URL}/wp-admin/profile.php`);
+      // Franchisees can only access /my-account/franchisee/* routes
+      if (
+        !pathname.startsWith("/my-account/franchisee") &&
+        pathname !== "/my-account/logout"
+      ) {
+        return NextResponse.redirect(
+          new URL("/my-account/franchisee", request.url)
+        );
+      }
+    } else if (userRole && STAFF_ROLES.includes(userRole)) {
+      // Staff members can only access /my-account/staff/* routes
+      if (
+        !pathname.startsWith("/my-account/staff") &&
+        pathname !== "/my-account/logout"
+      ) {
+        return NextResponse.redirect(
+          new URL("/my-account/staff", request.url)
+        );
+      }
     }
     // Other roles (customer, subscriber, etc.) can access /my-account normally
   }

@@ -42,12 +42,18 @@ export function LoginForm() {
         throw new Error(errorMsg);
       }
 
-      // Get redirect URL from query params or default to /my-account
-      const redirectTo = searchParams.get("redirect") || "/my-account";
+      // Get redirect URL: prefer explicit query param, then role-based from API
+      const explicitRedirect = searchParams.get("redirect");
+      const redirectTo = explicitRedirect || data.redirectUrl || "/my-account";
 
       // Successful login - redirect
-      router.push(redirectTo);
-      router.refresh();
+      // Use window.location for external URLs (e.g., WordPress admin for franchisees)
+      if (redirectTo.startsWith("http://") || redirectTo.startsWith("https://")) {
+        window.location.href = redirectTo;
+      } else {
+        router.push(redirectTo);
+        router.refresh();
+      }
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An error occurred during login"

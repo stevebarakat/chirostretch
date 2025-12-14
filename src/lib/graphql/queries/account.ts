@@ -88,17 +88,14 @@ export const VIEWER_ACCOUNT_QUERY = `
 `;
 
 // Query to get viewer's orders
+// Note: pageInfo removed due to WooGraphQL bug causing "Internal server error"
 export const VIEWER_ORDERS_QUERY = `
   ${ORDER_FIELDS_FRAGMENT}
-  query ViewerOrders($first: Int = 10, $after: String) {
+  query ViewerOrders($first: Int = 10) {
     customer {
-      orders(first: $first, after: $after) {
+      orders(first: $first) {
         nodes {
           ...OrderFields
-        }
-        pageInfo {
-          hasNextPage
-          endCursor
         }
       }
     }
@@ -289,10 +286,6 @@ export type ViewerOrdersResponse = {
   customer: {
     orders: {
       nodes: ViewerOrder[];
-      pageInfo: {
-        hasNextPage: boolean;
-        endCursor?: string | null;
-      };
     } | null;
   } | null;
 };

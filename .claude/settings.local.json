@@ -58,7 +58,11 @@
       "Bash(NODE_TLS_REJECT_UNAUTHORIZED=0 node:*)",
       "Bash(wp option list:*)",
       "Bash(wp chirostretch staff seed:*)",
-      "Bash(wp post list:*)"
+      "Bash(wp post list:*)",
+      "Bash(wp role:*)",
+      "Bash(TOKEN=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoaXJvc3RyZXRjaC1jb3B5LmxvY2FsIiwiaWF0IjoxNzY1NzIwNTczLCJuYmYiOjE3NjU3MjA1NzMsImV4cCI6MTc2NTcyMDg3MywiZGF0YSI6eyJ1c2VyIjp7ImlkIjozN319fQ.WprxvicDyUTJqOKtPDgOC-202fcyIMt853rmIMGOFMs\" curl -s -X POST https://chirostretch-copy.local/graphql -H \"Content-Type: application/json\" -H \"Authorization: Bearer $TOKEN\" -d '{\"\"\"\"query\"\"\"\":\"\"\"\"query { viewer { databaseId staffProfile { databaseId title } } }\"\"\"\"}' --insecure)",
+      "Bash(TOKEN=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoaXJvc3RyZXRjaC1jb3B5LmxvY2FsIiwiaWF0IjoxNzY1NzIxMjMzLCJuYmYiOjE3NjU3MjEyMzMsImV4cCI6MTc2NTcyMTUzMywiZGF0YSI6eyJ1c2VyIjp7ImlkIjozOH19fQ.o5YRhWDUACmLAkN_BZFx4f9ZoswWcXSXnVC3YmQpuj8\")",
+      "Bash(mdfind:*)"
     ],
     "deny": [],
     "ask": []

@@ -2,6 +2,7 @@ export { DashboardLayout } from "./DashboardLayout";
 export { DashboardSidebar } from "./DashboardSidebar";
 export { DashboardSummary } from "./DashboardSummary";
 export { OrdersTable } from "./OrdersTable";
+export { OrderDetails } from "./OrderDetails";
 export { DownloadsList } from "./DownloadsList";
 export { AddressForm } from "./AddressForm";
 export { PaymentMethodsList } from "./PaymentMethodsList";

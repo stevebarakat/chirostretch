@@ -1,0 +1,217 @@
+.errorState {
+  text-align: center;
+  padding: var(--spacing-2xl, 3rem) var(--spacing-xl, 2rem);
+}
+
+.errorState h2 {
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.errorState p {
+  margin: 0;
+  color: var(--color-text-secondary, #666);
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg, 1.5rem);
+  padding-bottom: var(--spacing-xl, 2rem);
+  border-bottom: 1px solid var(--color-border, #e5e5e5);
+  margin-bottom: var(--spacing-xl, 2rem);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--color-primary-100, #e6f0ff);
+  color: var(--color-primary-600, #0066cc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-3xl, 2.5rem);
+  font-weight: var(--font-weight-semibold, 600);
+  flex-shrink: 0;
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.name {
+  margin: 0 0 var(--spacing-xs, 0.25rem) 0;
+  font-size: var(--font-size-xl, 1.5rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.role {
+  margin: 0 0 var(--spacing-xs, 0.25rem) 0;
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-base, 1rem);
+}
+
+.credentials {
+  margin: 0;
+  color: var(--color-primary-600, #0066cc);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl, 2rem);
+}
+
+.section {
+  padding-bottom: var(--spacing-lg, 1.5rem);
+  border-bottom: 1px solid var(--color-border, #e5e5e5);
+}
+
+.section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.bio {
+  color: var(--color-text-secondary, #444);
+  line-height: 1.7;
+}
+
+.bio p {
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+}
+
+.bio p:last-child {
+  margin-bottom: 0;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--color-text-tertiary, #999);
+  font-style: italic;
+}
+
+.tagList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm, 0.5rem);
+}
+
+.tag {
+  background: var(--color-neutral-200, #e5e5e5);
+  color: var(--color-text-secondary, #444);
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-md, 1rem);
+  border-radius: var(--radius-full, 999px);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.tagService {
+  background: var(--color-primary-100, #e6f0ff);
+  color: var(--color-primary-700, #004d99);
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-md, 1rem);
+  border-radius: var(--radius-full, 999px);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md, 1rem);
+}
+
+@media (max-width: 480px) {
+  .statusGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statusItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md, 1rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-md, 8px);
+}
+
+.statusLabel {
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.statusValue {
+  font-weight: var(--font-weight-semibold, 600);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.statusActive {
+  color: hsl(142 76% 36%);
+}
+
+.statusInactive {
+  color: var(--color-text-tertiary, #999);
+}
+
+.locationCard {
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-lg, 1.5rem);
+}
+
+.locationName {
+  margin: 0 0 var(--spacing-sm, 0.5rem) 0;
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.locationAddress {
+  margin: 0 0 var(--spacing-sm, 0.5rem) 0;
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.5;
+}
+
+.locationContact {
+  margin: 0;
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.locationContact + .locationContact {
+  margin-top: var(--spacing-xs, 0.25rem);
+}
+
+.helpText {
+  margin: 0;
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .profileHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+}

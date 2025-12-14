@@ -1,0 +1,269 @@
+.form {
+  width: 100%;
+}
+
+.header {
+  margin-bottom: var(--spacing-lg, 1.5rem);
+  padding-bottom: var(--spacing-md, 1rem);
+  border-bottom: 1px solid var(--color-border, #e5e5e5);
+}
+
+.locationInfo {
+  margin: 0;
+  color: var(--color-text-secondary, #666);
+}
+
+.error {
+  padding: var(--spacing-md, 1rem);
+  margin-bottom: var(--spacing-lg, 1.5rem);
+  background: hsl(0 84% 95%);
+  color: hsl(0 84% 32%);
+  border-radius: var(--radius-sm, 4px);
+}
+
+.section {
+  margin-bottom: var(--spacing-xl, 2rem);
+  padding-bottom: var(--spacing-xl, 2rem);
+  border-bottom: 1px solid var(--color-border, #e5e5e5);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: var(--spacing-lg, 1.5rem);
+}
+
+.sectionTitle {
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.sectionDescription {
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md, 1rem);
+  flex: 1;
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.formRow {
+  display: flex;
+  gap: var(--spacing-md, 1rem);
+}
+
+@media (max-width: 480px) {
+  .formRow {
+    flex-direction: column;
+  }
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--spacing-xs, 0.5rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.required {
+  color: hsl(0 84% 50%);
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: var(--spacing-sm, 0.75rem);
+  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-base, 1rem);
+  transition: border-color var(--transition-base, 0.2s ease);
+  background: var(--color-surface, #ffffff);
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-primary-500, #0070f3);
+}
+
+.input:disabled,
+.select:disabled {
+  background: var(--color-neutral-100, #f5f5f5);
+  cursor: not-allowed;
+}
+
+.textarea {
+  width: 100%;
+  padding: var(--spacing-sm, 0.75rem);
+  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-base, 1rem);
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color var(--transition-base, 0.2s ease);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-500, #0070f3);
+}
+
+.hint {
+  margin: var(--spacing-xs, 0.5rem) 0 0 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-tertiary, #999);
+}
+
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm, 0.75rem);
+}
+
+@media (max-width: 480px) {
+  .checkboxGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 0.75rem);
+  padding: var(--spacing-sm, 0.75rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  transition: background var(--transition-base, 0.2s ease);
+}
+
+.checkboxLabel:hover {
+  background: var(--color-neutral-100, #f5f5f5);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary-500, #0070f3);
+}
+
+.toggleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md, 1rem);
+  padding: var(--spacing-md, 1rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+}
+
+.toggleInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: var(--color-neutral-300, #d4d4d4);
+  border-radius: 12px;
+  transition: background var(--transition-base, 0.2s ease);
+  flex-shrink: 0;
+}
+
+.toggleSwitch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform var(--transition-base, 0.2s ease);
+}
+
+.toggleInput:checked + .toggleSwitch {
+  background: var(--color-primary-500, #0070f3);
+}
+
+.toggleInput:checked + .toggleSwitch::after {
+  transform: translateX(24px);
+}
+
+.toggleText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.25rem);
+}
+
+.toggleText strong {
+  color: var(--color-text-primary, #1a1a1a);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.toggleText span {
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md, 1rem);
+  padding-top: var(--spacing-lg, 1.5rem);
+  border-top: 1px solid var(--color-border, #e5e5e5);
+}
+
+.cancelButton {
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-xl, 2rem);
+  color: var(--color-text-secondary, #666);
+  text-decoration: none;
+  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-sm, 4px);
+  font-weight: var(--font-weight-medium, 500);
+  transition: all var(--transition-base, 0.2s ease);
+}
+
+.cancelButton:hover {
+  background: var(--color-neutral-100, #f5f5f5);
+  border-color: var(--color-neutral-300, #d4d4d4);
+}
+
+.saveButton {
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-xl, 2rem);
+  background: var(--color-primary-500, #0070f3);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: background var(--transition-base, 0.2s ease);
+}
+
+.saveButton:hover:not(:disabled) {
+  background: var(--color-primary-600, #0066cc);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -47,17 +47,13 @@ export async function getViewerAccount(): Promise<ViewerAccount["customer"]> {
  * Requires authentication
  *
  * @param first - Number of orders to fetch (default: 10)
- * @param after - Cursor for pagination
  * @returns Array of orders
  */
-export async function getViewerOrders(
-  first = 10,
-  after?: string
-): Promise<ViewerOrder[]> {
+export async function getViewerOrders(first = 10): Promise<ViewerOrder[]> {
   try {
     const data = await wpGraphQLFetch<ViewerOrdersResponse>({
       query: VIEWER_ORDERS_QUERY,
-      variables: { first, after },
+      variables: { first },
       auth: true,
     });
 

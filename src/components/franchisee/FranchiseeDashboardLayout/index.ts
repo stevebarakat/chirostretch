@@ -1,0 +1,1 @@
+export { FranchiseeDashboardLayout } from "./FranchiseeDashboardLayout";

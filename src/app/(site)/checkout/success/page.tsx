@@ -53,8 +53,13 @@ export default async function CheckoutSuccessPage({
           </p>
 
           <div className={styles.actions}>
+            {orderId && (
+              <Link href={`/my-account/orders/${orderId}`}>
+                <Button variant="primary">View Order</Button>
+              </Link>
+            )}
             <Link href="/shop">
-              <Button variant="primary">Continue Shopping</Button>
+              <Button variant="secondary">Continue Shopping</Button>
             </Link>
           </div>
         </div>

@@ -10,3 +10,4 @@ export * from "./pages";
 export * from "./posts";
 export * from "./products";
 export * from "./services";
+export * from "./staff";

@@ -3,6 +3,33 @@ import { wpGraphQLFetch } from "@/lib/wpgraphql";
 import { LOGIN_MUTATION } from "@/lib/auth/queries";
 import type { LoginResponse, LoginCredentials } from "@/lib/auth/types";
 
+// Staff roles that should use the staff dashboard
+const STAFF_ROLES = [
+  "chiropractor",
+  "office_manager",
+  "massage_therapist",
+  "physical_therapist",
+  "stretch_therapist",
+  "acupuncturist",
+];
+
+/**
+ * Get the default redirect URL based on user role
+ */
+function getRedirectForRole(role: string): string {
+  if (STAFF_ROLES.includes(role)) {
+    return "/my-account/staff";
+  }
+  if (role === "franchise_applicant") {
+    return "/my-account/application";
+  }
+  if (role === "franchisee") {
+    return "/my-account/franchisee";
+  }
+  // Default for customers and other roles
+  return "/my-account";
+}
+
 /**
  * POST /api/auth/login
  * Authenticate user with WPGraphQL JWT and set httpOnly cookies
@@ -41,7 +68,10 @@ export async function POST(request: NextRequest) {
     // Get primary role (first role, or 'subscriber' as fallback)
     const primaryRole = roles[0] || "subscriber";
 
-    // Create response with user data
+    // Get role-based redirect URL
+    const redirectUrl = getRedirectForRole(primaryRole);
+
+    // Create response with user data and redirect URL
     const response = NextResponse.json({
       success: true,
       user: {
@@ -53,6 +83,7 @@ export async function POST(request: NextRequest) {
         username: user.username,
         roles,
       },
+      redirectUrl,
     });
 
     // Set httpOnly cookies on the response

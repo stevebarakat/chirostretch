@@ -19,6 +19,9 @@ type FranchiseApplication = {
 
 type ViewerApplicationsResponse = {
   viewer: {
+    roles: {
+      nodes: { name: string }[];
+    };
     franchiseApplications: {
       nodes: FranchiseApplication[];
     };
@@ -28,6 +31,11 @@ type ViewerApplicationsResponse = {
 const GET_MY_APPLICATION = `
   query GetMyApplication {
     viewer {
+      roles {
+        nodes {
+          name
+        }
+      }
       franchiseApplications(first: 1) {
         nodes {
           databaseId
@@ -41,17 +49,25 @@ const GET_MY_APPLICATION = `
   }
 `;
 
-async function getMyApplication(): Promise<FranchiseApplication | null> {
+type ApplicationData = {
+  application: FranchiseApplication | null;
+  roles: string[];
+};
+
+async function getMyApplication(): Promise<ApplicationData> {
   try {
     const data = await wpGraphQLFetch<ViewerApplicationsResponse>({
       query: GET_MY_APPLICATION,
       auth: true,
     });
 
-    return data.viewer?.franchiseApplications?.nodes?.[0] || null;
+    const roles = data.viewer?.roles?.nodes?.map((r) => r.name) || [];
+    const application = data.viewer?.franchiseApplications?.nodes?.[0] || null;
+
+    return { application, roles };
   } catch (error) {
     console.error("Error fetching franchise application:", error);
-    return null;
+    return { application: null, roles: [] };
   }
 }
 
@@ -77,7 +93,12 @@ export default async function ApplicationStatusPage() {
     redirect("/login?redirect=/my-account/application");
   }
 
-  const application = await getMyApplication();
+  const { application, roles } = await getMyApplication();
+
+  // If user has been promoted to franchisee, redirect to franchisee dashboard
+  if (roles.includes("franchisee")) {
+    redirect("/my-account/franchisee");
+  }
 
   return (
     <div className={styles.container}>

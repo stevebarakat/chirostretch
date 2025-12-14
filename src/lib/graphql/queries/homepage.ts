@@ -404,6 +404,7 @@ type HomepageQueryResponse = {
       };
       rightSide?: {
         headline?: string;
+        bulletPoints?: string;
       };
     };
     componentDescriptionList?: {

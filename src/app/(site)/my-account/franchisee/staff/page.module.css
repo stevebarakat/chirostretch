@@ -1,0 +1,291 @@
+.errorState {
+  text-align: center;
+  padding: var(--spacing-2xl, 3rem) var(--spacing-xl, 2rem);
+}
+
+.errorState h2 {
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.errorState p {
+  margin: 0;
+  color: var(--color-text-secondary, #666);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl, 2rem);
+  padding-bottom: var(--spacing-lg, 1.5rem);
+  border-bottom: 1px solid var(--color-border, #e5e5e5);
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-md, 1rem);
+  }
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.subtitle {
+  margin: 0 0 var(--spacing-xs, 0.25rem) 0;
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.staffCount {
+  margin: 0;
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.addButton {
+  padding: var(--spacing-sm, 0.75rem) var(--spacing-lg, 1.5rem);
+  background: var(--color-primary-500, #0070f3);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  transition: background var(--transition-base, 0.2s ease);
+  white-space: nowrap;
+}
+
+.addButton:hover {
+  background: var(--color-primary-600, #0066cc);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-2xl, 3rem) var(--spacing-xl, 2rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-md, 8px);
+}
+
+.emptyState p {
+  margin: 0 0 var(--spacing-xs, 0.5rem) 0;
+  color: var(--color-text-secondary, #666);
+}
+
+.emptyState p:last-child {
+  margin-bottom: 0;
+}
+
+.staffList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
+}
+
+.staffCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg, 1.5rem);
+  background: var(--color-neutral-50, #fafafa);
+  border-radius: var(--radius-md, 8px);
+  gap: var(--spacing-md, 1rem);
+}
+
+@media (max-width: 640px) {
+  .staffCard {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.staffInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md, 1rem);
+  flex: 1;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatarPlaceholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-primary-100, #e6f0ff);
+  color: var(--color-primary-600, #0066cc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl, 1.5rem);
+  font-weight: var(--font-weight-semibold, 600);
+  flex-shrink: 0;
+}
+
+.staffDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.staffName {
+  margin: 0 0 var(--spacing-xs, 0.25rem) 0;
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.staffRole {
+  margin: 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666);
+}
+
+.staffEmail {
+  margin: var(--spacing-xs, 0.25rem) 0 0 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-tertiary, #999);
+}
+
+.staffMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm, 0.75rem);
+}
+
+@media (max-width: 640px) {
+  .staffMeta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-md, 1rem);
+    border-top: 1px solid var(--color-border, #e5e5e5);
+  }
+}
+
+.badges {
+  display: flex;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+.badge {
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.75rem);
+  border-radius: var(--radius-full, 999px);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.badgeActive {
+  background: hsl(142 76% 90%);
+  color: hsl(142 76% 30%);
+}
+
+.badgeInactive {
+  background: var(--color-neutral-200, #e5e5e5);
+  color: var(--color-text-secondary, #666);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm, 0.75rem);
+}
+
+.editLink {
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+  color: var(--color-primary-600, #0066cc);
+  text-decoration: none;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  border: 1px solid var(--color-primary-200, #b3d4ff);
+  border-radius: var(--radius-sm, 4px);
+  transition: all var(--transition-base, 0.2s ease);
+}
+
+.editLink:hover {
+  background: var(--color-primary-50, #e6f0ff);
+}
+
+.deleteButton {
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+  color: hsl(0 84% 50%);
+  background: transparent;
+  border: 1px solid hsl(0 84% 80%);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-base, 0.2s ease);
+}
+
+.deleteButton:hover {
+  background: hsl(0 84% 95%);
+}
+
+.confirmDelete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.75rem);
+  align-items: flex-end;
+}
+
+.confirmText {
+  margin: 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: hsl(0 84% 40%);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.confirmActions {
+  display: flex;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+.confirmDeleteButton {
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+  background: hsl(0 84% 50%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: background var(--transition-base, 0.2s ease);
+}
+
+.confirmDeleteButton:hover:not(:disabled) {
+  background: hsl(0 84% 40%);
+}
+
+.confirmDeleteButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+  background: transparent;
+  color: var(--color-text-secondary, #666);
+  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all var(--transition-base, 0.2s ease);
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: var(--color-neutral-100, #f5f5f5);
+}
+
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
