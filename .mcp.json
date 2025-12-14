@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-fetch"]
+    },
+    "wordpress": {
+      "type": "http",
+      "url": "${NEXT_PUBLIC_WORDPRESS_URL}/wp-json/mcp/mcp-adapter-default-server"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  }
+}
