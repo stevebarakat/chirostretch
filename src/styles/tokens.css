@@ -115,8 +115,6 @@
   --color-error-600: hsl(0, 86%, 53%);
   --color-error-700: hsl(0, 88%, 46%);
 
-  --color-accent-purple: hsl(270, 60%, 55%);
-
   --color-text-primary: var(--color-neutral-900);
   --color-text-secondary: var(--color-neutral-700);
   --color-text-tertiary: var(--color-neutral-500);

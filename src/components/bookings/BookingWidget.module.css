@@ -1,0 +1,65 @@
+.widget {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 480px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.signIn {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary-500);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.signIn:hover {
+  color: var(--color-primary-600);
+  text-decoration: underline;
+}
+
+.content {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.confirmButton {
+  display: block;
+  width: calc(100% - var(--spacing-lg) * 2);
+  margin: 0 var(--spacing-lg) var(--spacing-lg);
+  padding: var(--spacing-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: white;
+  background: var(--color-primary-500);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.confirmButton:hover:not(:disabled) {
+  background: var(--color-primary-600);
+}
+
+.confirmButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
