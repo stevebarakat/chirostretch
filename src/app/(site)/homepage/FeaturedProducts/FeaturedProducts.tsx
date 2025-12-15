@@ -219,7 +219,7 @@ export default function FeaturedProducts({
                             <Button
                               as="a"
                               href={`/products/${productSlug}`}
-                              variant="white"
+                              color="white"
                               className={styles.viewItemButton}
                               aria-description={`View details for ${productName}`}
                             >

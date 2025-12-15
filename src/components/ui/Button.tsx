@@ -1,8 +1,10 @@
 import { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { clsx } from "clsx";
 import styles from "./Button.module.css";
 
 type BaseButtonProps = {
-  variant?: "primary" | "secondary" | "warning" | "outline" | "white";
+  color?: "primary" | "secondary" | "tertiary" | "black" | "white" | "warning";
+  variant?: "default" | "inverse" | "outline" | "glass";
   fullWidth?: boolean;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
@@ -25,7 +27,8 @@ type ButtonComponentProps = ButtonProps | LinkButtonProps;
 
 export default function Button(props: ButtonComponentProps) {
   const {
-    variant = "primary",
+    color = "primary",
+    variant = "default",
     fullWidth = false,
     icon,
     iconPosition = "right",
@@ -35,9 +38,13 @@ export default function Button(props: ButtonComponentProps) {
   } = props;
   const isLink = "as" in props && props.as === "a";
 
-  const buttonClasses = `${styles.button} ${styles[variant]} ${
-    fullWidth ? styles.fullWidth : ""
-  } ${className}`.trim();
+  const buttonClasses = clsx(
+    styles.button,
+    styles[color],
+    styles[variant],
+    fullWidth && styles.fullWidth,
+    className
+  );
 
   const content = (
     <>
@@ -63,7 +70,13 @@ export default function Button(props: ButtonComponentProps) {
 
   const buttonProps = rest as Omit<
     ButtonProps,
-    "as" | "variant" | "icon" | "iconPosition" | "children" | "className"
+    | "as"
+    | "color"
+    | "variant"
+    | "icon"
+    | "iconPosition"
+    | "children"
+    | "className"
   >;
   return (
     <button type="button" className={buttonClasses} {...buttonProps}>

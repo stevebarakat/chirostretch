@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { clsx } from "clsx";
 import styles from "./FranchiseeDashboardSidebar.module.css";
 
 type NavItem = {
@@ -32,9 +33,7 @@ export function FranchiseeDashboardSidebar() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`${styles.navLink} ${
-                  isActive ? styles.navLinkActive : ""
-                }`}
+                className={clsx(styles.navLink, isActive && styles.navLinkActive)}
               >
                 {item.label}
               </Link>

@@ -94,7 +94,6 @@ function Hero({
               <Button
                 as="button"
                 onClick={() => setIsSearchOpen(true)}
-                variant="primary"
               >
                 Find A Location
               </Button>
@@ -107,7 +106,6 @@ function Hero({
                   as="a"
                   href={heroLink.url}
                   target={heroLink.target || undefined}
-                  variant="primary"
                 >
                   {heroLink.title}
                 </Button>

@@ -66,7 +66,6 @@ export default function AboutSection({
                       ? "noopener noreferrer"
                       : undefined
                   }
-                  variant="primary"
                 >
                   {aboutCtaText}
                 </Button>

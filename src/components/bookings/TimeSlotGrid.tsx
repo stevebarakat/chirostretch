@@ -1,5 +1,6 @@
 "use client";
 
+import { clsx } from "clsx";
 import type { TimeSlot } from "./types";
 import styles from "./TimeSlotGrid.module.css";
 
@@ -37,7 +38,7 @@ export function TimeSlotGrid({ slots, selectedTime, onSelect, loading }: TimeSlo
             <button
               key={slot.start}
               type="button"
-              className={`${styles.slot} ${isSelected ? styles.selected : ""} ${!slot.available ? styles.unavailable : ""}`}
+              className={clsx(styles.slot, isSelected && styles.selected, !slot.available && styles.unavailable)}
               onClick={() => slot.available && onSelect(slot.start)}
               disabled={!slot.available || loading}
               aria-pressed={isSelected}

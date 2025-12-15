@@ -14,7 +14,7 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin: 0 0 var(--spacing-md) 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-primary);
 }
 
 .greetingText {
@@ -44,7 +44,7 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-primary);
 }
 
 .ordersGrid {

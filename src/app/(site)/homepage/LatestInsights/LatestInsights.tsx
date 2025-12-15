@@ -164,7 +164,7 @@ export default function LatestInsights({
         )}
         {insightsCtaText && insightsCtaLink && (
           <div className={styles.cta}>
-            <Button as="a" href={insightsCtaLink} variant="primary">
+            <Button as="a" href={insightsCtaLink}>
               {insightsCtaText}
             </Button>
           </div>

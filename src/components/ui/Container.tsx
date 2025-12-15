@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { clsx } from "clsx";
 import styles from "./Container.module.css";
 
 type ContainerProps = {
@@ -8,7 +9,7 @@ type ContainerProps = {
 
 export default function Container({ children, className }: ContainerProps) {
   return (
-    <div className={`${styles.container} ${className || ""}`}>{children}</div>
+    <div className={clsx(styles.container, className)}>{children}</div>
   );
 }
 

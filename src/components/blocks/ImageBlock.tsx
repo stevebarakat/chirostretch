@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { clsx } from "clsx";
 import styles from "./ImageBlock.module.css";
 
 type ImageBlockProps = {
@@ -116,18 +117,14 @@ export default function ImageBlock({
 }: ImageBlockProps) {
   if (!url || !isValidUrl(url)) return null;
 
-  const alignClass =
-    align === "left"
-      ? styles.alignLeft
-      : align === "right"
-      ? styles.alignRight
-      : align === "center"
-      ? styles.alignCenter
-      : align === "wide"
-      ? styles.alignWide
-      : align === "full"
-      ? styles.alignFull
-      : "";
+  const alignClassMap: Record<string, string> = {
+    left: styles.alignLeft,
+    right: styles.alignRight,
+    center: styles.alignCenter,
+    wide: styles.alignWide,
+    full: styles.alignFull,
+  };
+  const alignClass = align ? alignClassMap[align] : undefined;
 
   const imageSize = getImageSizeFromSlug(
     sizeSlug,
@@ -167,16 +164,14 @@ export default function ImageBlock({
     ...(aspectRatioValue && { aspectRatio: aspectRatioValue }),
   };
 
-  const figureClasses = [
+  const figureClasses = clsx(
     styles.figure,
     alignClass,
-    borderRadiusValue ? styles.rounded : "",
-    className.includes("is-style-rounded") ? styles.rounded : "",
-    className.includes("is-style-circle") ? styles.circle : "",
-    aspectRatioValue ? styles.hasAspectRatio : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+    borderRadiusValue && styles.rounded,
+    className.includes("is-style-rounded") && styles.rounded,
+    className.includes("is-style-circle") && styles.circle,
+    aspectRatioValue && styles.hasAspectRatio
+  );
 
   if (aspectRatioValue) {
     return (

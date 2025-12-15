@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
+import { clsx } from "clsx";
 import styles from "./Menu.module.css";
 import type { MenuItem } from "@/lib/graphql/queries";
 
@@ -31,9 +32,7 @@ export default function Menu({
     }
   };
 
-  const itemClassName = `${styles.item} ${
-    variant === "header" ? styles.itemHeader : ""
-  }`;
+  const itemClassName = clsx(styles.item, variant === "header" && styles.itemHeader);
 
   if (!hasDropdown) {
     return (
@@ -56,15 +55,12 @@ export default function Menu({
         {item.label}
         <ChevronDown
           size={16}
-          className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}
+          className={clsx(styles.icon, isOpen && styles.iconOpen)}
           aria-hidden="true"
         />
       </button>
       {hasDropdown && (
-        <ul
-          className={`${styles.dropdown} ${isOpen ? styles.dropdownOpen : ""}`}
-          role="menu"
-        >
+        <ul className={clsx(styles.dropdown, isOpen && styles.dropdownOpen)} role="menu">
           {dropdownItems.map((childItem) => (
             <li key={childItem.id} className={styles.dropdownItem}>
               <Link

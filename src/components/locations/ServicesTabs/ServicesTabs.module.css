@@ -87,7 +87,8 @@
 
 .trigger:hover .tabIconImage,
 .trigger[data-state="active"] .tabIconImage {
-  filter: brightness(0) saturate(100%) invert(55%) sepia(95%) saturate(1000%) hue-rotate(175deg) brightness(95%);
+  filter: brightness(0) saturate(100%) invert(55%) sepia(95%) saturate(1000%)
+    hue-rotate(175deg) brightness(95%);
 }
 
 .tabIconFallback {
@@ -165,7 +166,7 @@
   margin-top: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-lg);
   background: hsla(200 80% 50% / 0.08);
-  border-left: 3px solid var(--color-brand-primary);
+  border-left: 3px solid var(--color-primary-500);
   border-radius: var(--radius-md);
 }
 

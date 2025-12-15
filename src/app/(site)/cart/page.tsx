@@ -120,7 +120,7 @@ export default function CartPage() {
           <div className={styles.emptyCart}>
             <p>Your cart is empty.</p>
             <Link href="/shop">
-              <Button variant="primary">Continue Shopping</Button>
+              <Button>Continue Shopping</Button>
             </Link>
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function CartPage() {
                     </div>
 
                     <Button
-                      variant="secondary"
+                      color="secondary"
                       onClick={() => handleUpdateItem(item.key)}
                       disabled={loading || !hasQuantityChanged(item.key)}
                       className={styles.updateButton}
@@ -206,7 +206,7 @@ export default function CartPage() {
                     </Button>
 
                     <Button
-                      variant="secondary"
+                      color="secondary"
                       onClick={() => handleRemoveItem(item.key)}
                       disabled={loading}
                       className={styles.removeButton}
@@ -266,12 +266,12 @@ export default function CartPage() {
 
             <div className={styles.checkoutActions}>
               <Link href="/checkout" className={styles.checkoutLink}>
-                <Button variant="primary" fullWidth>
+                <Button fullWidth>
                   Proceed to Checkout
                 </Button>
               </Link>
               <Link href="/shop">
-                <Button variant="secondary" fullWidth>
+                <Button color="secondary" fullWidth>
                   Continue Shopping
                 </Button>
               </Link>

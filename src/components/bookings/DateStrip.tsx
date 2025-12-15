@@ -2,7 +2,8 @@
 
 import { useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { format, addDays, startOfDay, isSameDay } from "date-fns";
+import { format, addDays, startOfDay } from "date-fns";
+import { clsx } from "clsx";
 import type { AvailableDate } from "./types";
 import styles from "./DateStrip.module.css";
 
@@ -68,7 +69,7 @@ export function DateStrip({
               <button
                 key={d.date}
                 type="button"
-                className={`${styles.dateButton} ${isSelected ? styles.selected : ""} ${!d.available ? styles.unavailable : ""}`}
+                className={clsx(styles.dateButton, isSelected && styles.selected, !d.available && styles.unavailable)}
                 onClick={() => handleSelect(d.date, d.available)}
                 disabled={!d.available || loading}
                 aria-pressed={isSelected}

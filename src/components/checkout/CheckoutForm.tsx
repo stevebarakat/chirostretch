@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import type { StripeCardElementChangeEvent } from "@stripe/stripe-js";
 import Button from "@/components/ui/Button";
+import { clsx } from "clsx";
 import styles from "./CheckoutForm.module.css";
 import { type CheckoutFormData, checkoutFormSchema } from "./checkoutSchema";
 import { formatPrice } from "@/lib/utils/formatPrice";
@@ -825,11 +826,11 @@ export default function CheckoutForm() {
               {shippingRates.map((rate) => (
                 <label
                   key={rate.rate_id}
-                  className={`${styles.shippingMethodOption} ${
-                    selectedShippingRateId === rate.rate_id
-                      ? styles.shippingMethodOptionSelected
-                      : ""
-                  }`}
+                  className={clsx(
+                    styles.shippingMethodOption,
+                    selectedShippingRateId === rate.rate_id &&
+                      styles.shippingMethodOptionSelected
+                  )}
                 >
                   <input
                     type="radio"
@@ -910,7 +911,6 @@ export default function CheckoutForm() {
       <div className={styles.formActions}>
         <Button
           type="submit"
-          variant="primary"
           disabled={isSubmitting}
           fullWidth
         >

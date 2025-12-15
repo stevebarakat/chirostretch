@@ -131,7 +131,7 @@ export default function UpcomingEvents({
                       <Button
                         as="a"
                         href={`/events/${event.slug}`}
-                        variant="secondary"
+                        color="secondary"
                         aria-label={`Learn more about ${event.title}`}
                       >
                         Learn More
@@ -151,7 +151,7 @@ export default function UpcomingEvents({
         )}
         {eventsCtaText && eventsCtaLink && (
           <div className={styles.cta}>
-            <Button as="a" href={eventsCtaLink} variant="primary">
+            <Button as="a" href={eventsCtaLink}>
               {eventsCtaText}
             </Button>
           </div>

@@ -1,6 +1,6 @@
 :root {
-  --font-sans: var(--font-montserrat);
-  --font-secondary: var(--font-poppins);
+  --font-primary: var(--font-poppins);
+  --font-secondary: var(--font-montserrat);
 
   --color-primary-50: hsl(200, 100%, 98%);
   --color-primary-100: hsl(200, 95%, 95%);
@@ -99,9 +99,13 @@
 
   --color-success-50: hsl(142, 76%, 96%);
   --color-success-100: hsl(142, 70%, 90%);
+  --color-success-200: hsl(142, 70%, 80%);
+  --color-success-300: hsl(142, 70%, 70%);
+  --color-success-400: hsl(142, 70%, 60%);
   --color-success-500: hsl(142, 71%, 45%);
   --color-success-600: hsl(142, 72%, 38%);
   --color-success-700: hsl(142, 73%, 32%);
+  --color-success-800: hsl(142, 73%, 27%);
 
   --color-warning-50: hsl(38, 92%, 96%);
   --color-warning-100: hsl(38, 88%, 90%);
