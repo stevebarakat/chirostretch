@@ -11,12 +11,8 @@ export async function POST(request: NextRequest) {
     .map((cookie) => `${cookie.name}=${cookie.value}`)
     .join("; ");
 
-  console.log("Checkout API - Cookies being sent:", cookieHeader);
-
   try {
     const body = await request.json();
-
-    console.log("Checkout API - Request to WooCommerce:", JSON.stringify(body, null, 2));
 
     const res = await fetch(`${WP_URL}/wp-json/wc/store/v1/checkout`, {
       method: "POST",
@@ -29,9 +25,6 @@ export async function POST(request: NextRequest) {
     });
 
     const data = await res.json();
-
-    console.log("Checkout API - WooCommerce response status:", res.status);
-    console.log("Checkout API - WooCommerce response:", JSON.stringify(data, null, 2));
 
     if (!res.ok) {
       console.error(

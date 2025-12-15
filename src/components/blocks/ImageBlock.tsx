@@ -56,14 +56,7 @@ function getImageSizeFromSlug(
 
 function parseAspectRatio(aspectRatio?: string): string | undefined {
   if (!aspectRatio) {
-    if (process.env.NODE_ENV === "development") {
-      console.log("parseAspectRatio: no aspectRatio provided");
-    }
     return undefined;
-  }
-
-  if (process.env.NODE_ENV === "development") {
-    console.log("parseAspectRatio: parsing", aspectRatio);
   }
 
   const normalizedRatio = aspectRatio.replace(/\//g, ":");
@@ -77,26 +70,16 @@ function parseAspectRatio(aspectRatio?: string): string | undefined {
   };
 
   if (ratioMap[normalizedRatio]) {
-    if (process.env.NODE_ENV === "development") {
-      console.log("parseAspectRatio: found in map", ratioMap[normalizedRatio]);
-    }
     return ratioMap[normalizedRatio];
   }
 
   if (normalizedRatio.includes(":")) {
     const [w, h] = normalizedRatio.split(":").map(Number);
     if (!isNaN(w) && !isNaN(h) && h > 0) {
-      const result = `${w} / ${h}`;
-      if (process.env.NODE_ENV === "development") {
-        console.log("parseAspectRatio: parsed from ratio", result);
-      }
-      return result;
+      return `${w} / ${h}`;
     }
   }
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("parseAspectRatio: failed to parse", aspectRatio);
-  }
   return undefined;
 }
 
@@ -143,17 +126,6 @@ export default function ImageBlock({
   const aspectRatioValue = parseAspectRatio(aspectRatio);
   const finalObjectFit =
     objectFit || scale || (aspectRatioValue ? "cover" : undefined);
-
-  if (process.env.NODE_ENV === "development") {
-    console.log("ImageBlock props:", {
-      aspectRatio: aspectRatio || "NOT PROVIDED",
-      aspectRatioValue: aspectRatioValue || "NOT PARSED",
-      scale: scale || "NOT PROVIDED",
-      objectFit: objectFit || "NOT PROVIDED",
-      finalObjectFit: finalObjectFit || "NOT SET",
-      willUseAspectRatio: !!aspectRatioValue,
-    });
-  }
 
   const imageStyle: React.CSSProperties = {
     ...(borderRadiusValue && { borderRadius: borderRadiusValue }),

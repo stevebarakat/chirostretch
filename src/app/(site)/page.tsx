@@ -69,8 +69,6 @@ export default async function HomePage() {
 
   const { page } = data;
 
-  console.log("page.componentDescriptionList", page.componentDescriptionList);
-
   const { rightSide, leftSide } = page.homepageIntroduction || {};
   const stats = page.homepageStats?.homepageStats || [];
   const promo = data.currentPromo?.promo;

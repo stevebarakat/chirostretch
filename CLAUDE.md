@@ -68,7 +68,82 @@ Next.js (App Router)
 
 ### Custom Post Types
 
-- `events`, `registrations`, `locations`
+CPTs: `events`, `registrations`, `locations`, `staff`
+
+**Separation of concerns:**
+
+- **MU-plugin** = CPT registration (schema: slug, rewrite rules, GraphQL exposure)
+- **ACF** = fields (editorial structure: content, images, toggles)
+
+**The rule:** If deleting an ACF field group would break production logic, fields belong in PHP.
+
+**Editorial CPTs (MU-plugin + ACF):**
+
+- `locations`, `events`, `staff` — content evolves, fields iterate
+
+**System CPTs (full MU-plugin, fields in PHP):**
+
+- `registrations` — programmatic, tied to form logic
+- Any sync artifacts, logs, or computed records
+
+### Custom Blocks
+
+Blocks follow the same separation, with stricter stakes.
+
+**Separation of concerns:**
+
+- **MU-plugin** = block registration + `render_callback`
+- **ACF** = block fields (editor-facing configuration)
+- **Next.js** = React component mapped to block name
+
+**The rule:** If misconfiguration breaks runtime behavior, fields belong in code. If it only affects presentation, use ACF.
+
+**Critical headless requirement:** Blocks must be dynamic blocks.
+
+```
+Editor → ACF fields → GraphQL → Next.js → React component
+```
+
+Never:
+
+```
+Editor → serialized HTML → parse → pray
+```
+
+- Never query `innerHTML` — always query structured ACF data via GraphQL
+- Blocks are data schemas, not templates
+
+**ACF-appropriate blocks:**
+
+- Hero sections, content blocks, testimonials, cards, grids
+
+**Full-code blocks:**
+
+- Booking/checkout flows, auth UI, form integrations, anything that executes logic
+
+### Options Pages
+
+Same pattern, one nuance.
+
+**Separation of concerns:**
+
+- **MU-plugin** = options page registration (slug, menu position, GraphQL exposure)
+- **ACF** = fields on the options page
+
+**The rule:** If code breaks when an option is missing or misconfigured, define it in PHP with sensible defaults.
+
+**ACF-appropriate options:**
+
+- Footer content, social links, global CTAs
+- Site-wide copy (taglines, disclaimers)
+- Marketing toggles (promo banners, seasonal themes)
+
+**Code-appropriate options:**
+
+- Feature flags that affect runtime logic
+- Anything the frontend assumes exists
+
+**Headless-specific:** Query options via GraphQL (`acfOptionsFooter`, etc.), never rely on `get_field()` reaching the frontend.
 
 ### Preview
 

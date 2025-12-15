@@ -39,8 +39,6 @@ export default function AboutSection({
 
   const imgUrl = aboutImage?.sourceUrl || "";
 
-  console.log("aboutCta2Text", aboutCta2Link);
-
   return (
     <section className={styles.section}>
       <Container>

@@ -115,8 +115,6 @@ export default function CheckoutForm() {
           },
         };
 
-        console.log("Updating cart with addresses:", addressPayload);
-
         const updateResponse = await fetch(
           "/api/cart/update-shipping-address",
           {
@@ -143,11 +141,6 @@ export default function CheckoutForm() {
           credentials: "include",
         });
         const ratesData = await ratesResponse.json();
-
-        console.log(
-          "Shipping rates response:",
-          JSON.stringify(ratesData, null, 2)
-        );
 
         if (ratesResponse.ok) {
           let rates: Array<{
@@ -176,8 +169,6 @@ export default function CheckoutForm() {
               );
             }
           }
-
-          console.log("Parsed shipping rates:", rates);
 
           setShippingRates(rates);
           if (rates.length > 0 && !selectedShippingRateId) {

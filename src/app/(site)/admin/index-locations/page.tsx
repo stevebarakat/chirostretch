@@ -24,7 +24,6 @@ export default function IndexLocationsPage() {
       });
 
       const data = await response.json();
-      console.log("Index response:", data);
 
       if (!response.ok) {
         setResult({

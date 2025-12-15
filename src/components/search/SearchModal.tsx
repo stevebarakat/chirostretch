@@ -304,10 +304,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const indexName = getIndexName(pathname);
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("Searching index:", indexName);
-  }
-
   useOnClickOutside(modalRef, () => {
     if (isOpen) {
       onClose();
