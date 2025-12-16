@@ -91,10 +91,7 @@ function Hero({
           )}
           {isHomepage ? (
             <div className={styles.ctaWrapper}>
-              <Button
-                as="button"
-                onClick={() => setIsSearchOpen(true)}
-              >
+              <Button as="button" onClick={() => setIsSearchOpen(true)}>
                 Find A Location
               </Button>
             </div>

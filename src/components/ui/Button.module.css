@@ -33,7 +33,6 @@
 .primary:hover {
   color: var(--color-primary-500);
   background-color: white;
-  border-color: var(--color-primary-500);
 }
 
 .secondary {
@@ -44,32 +43,23 @@
 .secondary:hover {
   color: var(--color-secondary-500);
   background-color: white;
-  border-color: var(--color-secondary-500);
 }
 
-.warning {
-  color: var(--color-text-primary);
-  background-color: var(--color-warning-500);
-}
-
-.warning:hover {
-  background-color: var(--color-warning-600);
-}
-
-.outline {
-  color: white;
+/* .outline {
   background-color: transparent;
-  border: 2px solid white;
-}
+  border-color: var(--color-secondary-500);
+  }
 
-.outline:hover {
-  background-color: white;
-  border-color: white;
-}
+  .outline:hover {
+    background-color: white;
+    border-color: white;
+    } */
 
 .primary.inverse {
+  border: 2px solid var(--color-primary-500);
   color: var(--color-primary-500);
   background-color: white;
+  border-color: var(--color-primary-500);
 }
 
 .primary.inverse:hover {
@@ -86,7 +76,7 @@
 .secondary.inverse:hover {
   color: var(--color-text-inverse);
   background-color: transparent;
-  border-color: white !important;
+  border-color: white;
 }
 
 .neutral {
@@ -123,16 +113,8 @@
   border: 2px solid;
 }
 
-.primary.outlineBorder {
-  /* border-color: var(--color-primary-500); */
-}
-
 .primary.inverse.outlineBorder {
   border-color: var(--color-primary-500);
-}
-
-.secondary.outlineBorder {
-  /* border-color: var(--color-secondary-500); */
 }
 
 .secondary.inverse.outlineBorder {
@@ -149,10 +131,6 @@
 
 .glass.outlineBorder {
   border-color: white;
-}
-
-.warning.outlineBorder {
-  border-color: var(--color-warning-500);
 }
 
 .icon {

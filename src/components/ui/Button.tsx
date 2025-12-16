@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import styles from "./Button.module.css";
 
 type BaseButtonProps = {
-  color?: "primary" | "secondary" | "neutral" | "glass" | "warning";
+  color?: "primary" | "secondary" | "neutral" | "glass";
   variant?: "inverse" | "outline";
   outline?: boolean;
   fullWidth?: boolean;

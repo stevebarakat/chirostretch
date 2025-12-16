@@ -132,8 +132,8 @@ export default function UpcomingEvents({
                         as="a"
                         href={`/events/${event.slug}`}
                         color="secondary"
-                        // variant="inverse"
-                        // outline
+                        // variant="inverse"-
+                        outline
                         aria-label={`Learn more about ${event.title}`}
                       >
                         Learn More
