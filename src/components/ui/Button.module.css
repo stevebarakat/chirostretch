@@ -33,7 +33,7 @@
 .primary:hover {
   color: var(--color-primary-500);
   background-color: white;
-  border: 2px solid var(--color-primary-500);
+  border-color: var(--color-primary-500);
 }
 
 .secondary {
@@ -44,7 +44,7 @@
 .secondary:hover {
   color: var(--color-secondary-500);
   background-color: white;
-  border: 2px solid var(--color-secondary-500);
+  border-color: var(--color-secondary-500);
 }
 
 .warning {
@@ -90,13 +90,23 @@
 }
 
 .neutral {
-  color: var(--color-text-primary);
+  color: var(--color-neutral-500);
   background-color: var(--color-neutral-200);
 }
 
 .neutral:hover {
   color: var(--color-text-inverse);
   background-color: var(--color-neutral-600);
+}
+
+.neutral.inverse {
+  color: var(--color-text-inverse);
+  background-color: var(--color-neutral-500);
+}
+
+.neutral.inverse:hover {
+  color: var(--color-neutral-500);
+  background-color: var(--color-neutral-200);
 }
 
 .glass {
@@ -114,7 +124,7 @@
 }
 
 .primary.outlineBorder {
-  border-color: var(--color-primary-500);
+  /* border-color: var(--color-primary-500); */
 }
 
 .primary.inverse.outlineBorder {
@@ -122,7 +132,7 @@
 }
 
 .secondary.outlineBorder {
-  border-color: var(--color-secondary-500);
+  /* border-color: var(--color-secondary-500); */
 }
 
 .secondary.inverse.outlineBorder {
@@ -130,6 +140,10 @@
 }
 
 .neutral.outlineBorder {
+  border-color: var(--color-neutral-500);
+}
+
+.neutral.inverse.outlineBorder {
   border-color: var(--color-neutral-500);
 }
 
