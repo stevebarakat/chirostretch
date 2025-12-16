@@ -131,9 +131,9 @@ export default function UpcomingEvents({
                       <Button
                         as="a"
                         href={`/events/${event.slug}`}
-                        color="secondary"
-                        // variant="inverse"-
-                        outline
+                        color="neutral"
+                        // variant="inverse"
+                        // outline
                         aria-label={`Learn more about ${event.title}`}
                       >
                         Learn More
