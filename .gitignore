@@ -64,3 +64,8 @@ certificates
 # --------------------------------------------------
 *.sql
 old-site.sql
+
+# --------------------------------------------------
+# NESTED COMPOSER VENDOR (sub-package dependencies)
+# --------------------------------------------------
+vendor/wordpress/mcp-adapter/vendor/

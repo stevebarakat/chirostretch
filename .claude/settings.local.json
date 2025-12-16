@@ -77,7 +77,18 @@
       "Bash(wp @local option get:*)",
       "Bash(wp acf field-group:*)",
       "Bash(wp option update:*)",
-      "Bash(python3 -m json.tool:*)"
+      "Bash(python3 -m json.tool:*)",
+      "Bash(wp plugin:*)",
+      "Bash(ln:*)",
+      "Bash(wp core version:*)",
+      "Bash(composer install:*)",
+      "mcp__wordpress__mcp-adapter-discover-abilities",
+      "Bash(wp --info:*)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public user list --fields=ID,user_login,user_email)",
+      "Bash(wp graphql:*)",
+      "Bash(wp:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch ls-files:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch status --short)"
     ],
     "deny": [],
     "ask": []
