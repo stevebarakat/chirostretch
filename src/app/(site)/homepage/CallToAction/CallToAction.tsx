@@ -54,7 +54,9 @@ const CallToAction = ({
           <div className={styles.ctaForm}>
             <div className={styles.buttonGroup}>
               <Link href={btn1Uri}>
-                <Button color="white">{button1Text}</Button>
+                <Button variant="inverse" color="secondary">
+                  {button1Text}
+                </Button>
               </Link>
             </div>
           </div>

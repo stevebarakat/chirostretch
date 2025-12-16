@@ -3,8 +3,9 @@ import { clsx } from "clsx";
 import styles from "./Button.module.css";
 
 type BaseButtonProps = {
-  color?: "primary" | "secondary" | "tertiary" | "black" | "white" | "warning";
-  variant?: "default" | "inverse" | "outline" | "glass";
+  color?: "primary" | "secondary" | "neutral" | "glass" | "warning";
+  variant?: "inverse" | "outline";
+  outline?: boolean;
   fullWidth?: boolean;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
@@ -28,7 +29,8 @@ type ButtonComponentProps = ButtonProps | LinkButtonProps;
 export default function Button(props: ButtonComponentProps) {
   const {
     color = "primary",
-    variant = "default",
+    variant,
+    outline = false,
     fullWidth = false,
     icon,
     iconPosition = "right",
@@ -41,7 +43,8 @@ export default function Button(props: ButtonComponentProps) {
   const buttonClasses = clsx(
     styles.button,
     styles[color],
-    styles[variant],
+    variant && styles[variant],
+    outline && styles.outlineBorder,
     fullWidth && styles.fullWidth,
     className
   );
@@ -73,6 +76,7 @@ export default function Button(props: ButtonComponentProps) {
     | "as"
     | "color"
     | "variant"
+    | "outline"
     | "icon"
     | "iconPosition"
     | "children"

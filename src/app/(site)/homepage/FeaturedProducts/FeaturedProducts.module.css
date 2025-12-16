@@ -56,7 +56,7 @@
   left: 0;
   right: 0;
   padding: var(--spacing-md);
-  background-color: var(--color-secondary-500);
+  background-color: var(--color-secondary-400);
   display: flex;
   flex: 1;
   flex-direction: column;

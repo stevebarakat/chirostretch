@@ -217,7 +217,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
               <Button as="a" href="#book">
                 Book Appointment
               </Button>
-              <Button as="a" href="#team" color="white">
+              <Button as="a" href="#team" color="secondary" variant="inverse">
                 Meet Our Team
               </Button>
             </div>
@@ -225,7 +225,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
         </Container>
       </section>
 
-      {/* Value Propositions Section */}
+      {/* Value Props Section */}
       <section className={styles.valuePropsSection}>
         <Container>
           <ValuePropositions />
@@ -241,7 +241,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
         </section>
       )}
 
-      {/* Meet Our Team Section */}
+      {/* Team Section */}
       {clinicalStaff.length > 0 && (
         <section id="team" className={styles.teamSection}>
           <Container>

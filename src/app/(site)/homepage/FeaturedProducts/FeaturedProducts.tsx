@@ -219,7 +219,8 @@ export default function FeaturedProducts({
                             <Button
                               as="a"
                               href={`/products/${productSlug}`}
-                              color="white"
+                              color="secondary"
+                              variant="inverse"
                               className={styles.viewItemButton}
                               aria-description={`View details for ${productName}`}
                             >

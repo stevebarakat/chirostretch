@@ -13,7 +13,7 @@
   font-weight: var(--font-weight-semibold);
   text-align: center;
   text-decoration: none;
-  border: none;
+  border: 2px solid transparent;
   border-radius: var(--radius-md);
   cursor: pointer;
   overflow: hidden;
@@ -31,16 +31,20 @@
 }
 
 .primary:hover {
-  background-color: var(--color-primary-600);
+  color: var(--color-primary-500);
+  background-color: white;
+  border: 2px solid var(--color-primary-500);
 }
 
 .secondary {
-  color: var(--color-text-primary);
-  background-color: var(--color-neutral-200);
+  color: var(--color-text-inverse);
+  background-color: var(--color-secondary-500);
 }
 
 .secondary:hover {
-  background-color: var(--color-neutral-300);
+  color: var(--color-secondary-500);
+  background-color: white;
+  border: 2px solid var(--color-secondary-500);
 }
 
 .warning {
@@ -59,22 +63,82 @@
 }
 
 .outline:hover {
+  background-color: white;
+  border-color: white;
+}
+
+.primary.inverse {
+  color: var(--color-primary-500);
+  background-color: white;
+}
+
+.primary.inverse:hover {
   color: var(--color-text-inverse);
   background-color: var(--color-primary-500);
+  border-color: white;
+}
+
+.secondary.inverse {
+  color: var(--color-secondary-500);
+  background-color: white;
+}
+
+.secondary.inverse:hover {
+  color: var(--color-text-inverse);
+  background-color: transparent;
+  border-color: white !important;
+}
+
+.neutral {
+  color: var(--color-text-primary);
+  background-color: var(--color-neutral-200);
+}
+
+.neutral:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-neutral-600);
+}
+
+.glass {
+  color: var(--color-text-inverse);
+  background-color: var(--color-transparent-white-100);
+}
+
+.glass:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-transparent-white-200);
+}
+
+.outlineBorder {
+  border: 2px solid;
+}
+
+.primary.outlineBorder {
   border-color: var(--color-primary-500);
 }
 
-.white {
-  color: var(--color-secondary-600);
-  background-color: var(--color-transparent-white-900);
-  border: none;
-  font-weight: 700;
-  border: 2px solid white;
+.primary.inverse.outlineBorder {
+  border-color: var(--color-primary-500);
 }
 
-.white:hover {
-  color: white;
-  background-color: transparent;
+.secondary.outlineBorder {
+  border-color: var(--color-secondary-500);
+}
+
+.secondary.inverse.outlineBorder {
+  border-color: var(--color-secondary-500);
+}
+
+.neutral.outlineBorder {
+  border-color: var(--color-neutral-500);
+}
+
+.glass.outlineBorder {
+  border-color: white;
+}
+
+.warning.outlineBorder {
+  border-color: var(--color-warning-500);
 }
 
 .icon {

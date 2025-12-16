@@ -37,7 +37,11 @@ export function StaffCard({ staff }: StaffCardProps) {
   const roleLabel =
     staff.jobTitle || staffTypeLabels[staff.staffType || ""] || "Staff";
 
-  const firstName = staff.title?.split(" ")[0] || "Staff";
+  const firstName = staff.title?.split(" ")[0];
+
+  const staffCta = firstName
+    ? `Book with ${firstName}`
+    : "Book with this therapist";
 
   const formattedRole = staff.credentials
     ? `${staff.credentials} • ${roleLabel.toUpperCase()}`
@@ -92,9 +96,11 @@ export function StaffCard({ staff }: StaffCardProps) {
             href="#"
             icon={<ArrowRight size={18} />}
             color="primary"
-            variant="outline"
+            variant="inverse"
+            outline
+            iconPosition="right"
           >
-            Book Appointment
+            {staffCta}
           </Button>
         </div>
       </div>
