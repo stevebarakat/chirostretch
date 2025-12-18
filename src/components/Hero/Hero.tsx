@@ -34,6 +34,7 @@ type HeroProps = {
       };
     };
   };
+  description?: string;
   heroLink?: {
     target?: string;
     title?: string;
@@ -47,24 +48,27 @@ function Hero({
   featuredImage,
   heroLink,
   fallbackTitle,
+  description,
   isHomepage,
 }: HeroProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const imageNode = featuredImage?.node;
-  const heading = imageNode?.title || fallbackTitle;
-  const subheading = imageNode?.description;
+  const img = featuredImage?.node;
+  const heading = img?.title;
+  const subheading = img?.description || description;
 
-  const initialUrl = getSafeImageUrl(imageNode?.sourceUrl || "", "hero");
+  const initialUrl = getSafeImageUrl(img?.sourceUrl || "", "hero");
   const { currentUrl, handleError } = useImageFallback(
     initialUrl,
     FALLBACK_IMAGES.hero
   );
-  const blurDataURL = buildUrl(imageNode?.slug || "", blurOptions);
+  const blurDataURL = buildUrl(img?.slug || "", blurOptions);
 
-  if (!imageNode?.sourceUrl) {
+  if (!img?.sourceUrl) {
     return null;
   }
+
+  console.log("featuredImage", featuredImage);
 
   return (
     <>
@@ -77,7 +81,7 @@ function Hero({
             placeholder="blur"
             blurDataURL={blurDataURL}
             src={currentUrl}
-            alt={imageNode?.altText || "Hero image"}
+            alt={img?.altText || "Hero image"}
             onError={handleError}
             sizes="100vw"
             style={{ objectFit: "cover", objectPosition: "center" }}

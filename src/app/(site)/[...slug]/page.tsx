@@ -10,6 +10,7 @@ import {
 import Container from "@/components/ui/Container";
 import { BlockRenderer, type Block } from "@/components/blocks";
 import Image from "next/image";
+import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
 

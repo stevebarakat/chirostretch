@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!data?.customSEO?.customSeoSettings) {
     return {
-      title: "Home",
+      title: "ChiroStretch",
     };
   }
 
@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
     data.customSEO.customSeoSettings;
 
   return {
-    title: data.page?.title || "Home",
+    title: data.page?.title,
     description: "",
     alternates: canonical ? { canonical } : undefined,
     verification: {

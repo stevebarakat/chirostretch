@@ -66,6 +66,7 @@
   color: white;
 }
 
+.description,
 .description p {
   padding-top: 1rem;
   display: inline-block;

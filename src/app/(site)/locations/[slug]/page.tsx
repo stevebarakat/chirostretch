@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { Hero } from "@/components/Hero";
 import { notFound } from "next/navigation";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { wpQuery } from "@/app/_lib/wp/graphql";
@@ -11,7 +11,6 @@ import {
   type AllLocationSlugsResponse,
 } from "@/lib/graphql/queries";
 import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
 import {
   StaffCard,
   ServicesTabs,
@@ -171,7 +170,6 @@ export default async function LocationPage({ params }: LocationPageProps) {
   }
 
   const location = data.location;
-  const image = location.featuredImage?.node;
   const clinicalStaff = location.clinicalStaff?.nodes ?? [];
   const hours = location.hours ?? [];
   const servicesOffered = location.servicesOffered ?? [];
@@ -193,208 +191,193 @@ export default async function LocationPage({ params }: LocationPageProps) {
         )}`;
 
   return (
-    <main className={styles.main}>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        {image?.sourceUrl && (
-          <Image
-            src={image.sourceUrl}
-            alt={image.altText || location.title || "Location"}
-            fill
-            priority
-            fetchPriority="high"
-            className={styles.heroImage}
+    <Suspense fallback={<div>Loading...</div>}>
+      <main className={styles.main}>
+        {/* Hero Section */}
+        {location.featuredImage && (
+          <Hero
+            featuredImage={location.featuredImage}
+            description={location.shortDescription}
+            heroLink={location.heroUnit?.heroLink}
+            fallbackTitle={location.title}
           />
         )}
-        <div className={styles.heroOverlay} />
-        <Container>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>{location.title}</h1>
-            {location.shortDescription && (
-              <p className={styles.heroSubtitle}>{location.shortDescription}</p>
-            )}
-            <div className={styles.heroButtons}>
-              <Button as="a" href="#book">
-                Book Appointment
-              </Button>
-              <Button as="a" href="#team" color="glass" outline>
-                Meet Our Team
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
 
-      {/* Value Props Section */}
-      <section className={styles.valuePropsSection}>
-        <Container>
-          <ValuePropositions />
-        </Container>
-      </section>
-
-      {/* Services Section */}
-      {servicesOffered.length > 0 && (
-        <section className={styles.servicesSection}>
+        {/* Value Props Section */}
+        <section className={styles.valuePropsSection}>
           <Container>
-            <ServicesTabs servicesOffered={servicesOffered} />
+            <ValuePropositions />
           </Container>
         </section>
-      )}
 
-      {/* Team Section */}
-      {clinicalStaff.length > 0 && (
-        <section id="team" className={styles.teamSection}>
+        {/* Services Section */}
+        {servicesOffered.length > 0 && (
+          <section className={styles.servicesSection}>
+            <Container>
+              <ServicesTabs servicesOffered={servicesOffered} />
+            </Container>
+          </section>
+        )}
+
+        {/* Team Section */}
+        {clinicalStaff.length > 0 && (
+          <section id="team" className={styles.teamSection}>
+            <Container>
+              <h2 className={styles.sectionTitle}>Meet Our Team</h2>
+              <p className={styles.sectionSubtitle}>
+                Our licensed healthcare professionals are dedicated to helping
+                you achieve optimal wellness through personalized care.
+              </p>
+              <div className={styles.teamGrid}>
+                {clinicalStaff.map((staff) => (
+                  <StaffCard key={staff.id} staff={staff} />
+                ))}
+              </div>
+            </Container>
+          </section>
+        )}
+
+        {/* Book Your Session Section */}
+        <section id="book" className={styles.bookingSection}>
           <Container>
-            <h2 className={styles.sectionTitle}>Meet Our Team</h2>
-            <p className={styles.sectionSubtitle}>
-              Our licensed healthcare professionals are dedicated to helping you
-              achieve optimal wellness through personalized care.
-            </p>
-            <div className={styles.teamGrid}>
-              {clinicalStaff.map((staff) => (
-                <StaffCard key={staff.id} staff={staff} />
-              ))}
-            </div>
-          </Container>
-        </section>
-      )}
-
-      {/* Book Your Session Section */}
-      <section id="book" className={styles.bookingSection}>
-        <Container>
-          <div className={styles.bookingGrid}>
-            <div className={styles.bookingColumn}>
-              <h2 className={styles.bookingTitle}>Book Your Session</h2>
-              <p className={styles.bookingSubtitle}>
-                Select a service and time. First-time consultations are 50% off.
-              </p>
-              <Suspense fallback={<BookingWidgetSkeleton />}>
-                <BookingWidget services={SERVICES} />
-              </Suspense>
-            </div>
-            <div className={styles.visitColumn}>
-              <h2 className={styles.visitTitle}>Visit Us</h2>
-              <p className={styles.visitSubtitle}>
-                Serving {location.city} and the surrounding community.
-              </p>
-              <div className={styles.mapContainer}>
-                {location.coordinates?.lat && location.coordinates?.lng && (
-                  <iframe
-                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${location.coordinates.lat},${location.coordinates.lng}&zoom=15`}
-                    className={styles.bookingMap}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title={`Map of ${location.title}`}
-                  />
-                )}
-                <div className={styles.mapInfoOverlay}>
-                  <div className={styles.mapInfoContent}>
-                    <div className={styles.mapInfoLeft}>
-                      <div className={styles.mapInfoHeader}>
-                        <span className={styles.mapInfoDot} />
-                        <span className={styles.mapInfoName}>
-                          {location.title}
-                        </span>
-                      </div>
-                      <div className={styles.mapInfoAddress}>
-                        {location.streetAddress}
-                        <br />
-                        {location.city}, {location.state} {location.zip}
-                      </div>
-                      {hours.length > 0 && (
-                        <div className={styles.mapInfoHours}>
-                          {formatCondensedHours(hours)}
+            <div className={styles.bookingGrid}>
+              <div className={styles.bookingColumn}>
+                <h2 className={styles.bookingTitle}>Book Your Session</h2>
+                <p className={styles.bookingSubtitle}>
+                  Select a service and time. First-time consultations are 50%
+                  off.
+                </p>
+                <Suspense fallback={<BookingWidgetSkeleton />}>
+                  <BookingWidget services={SERVICES} />
+                </Suspense>
+              </div>
+              <div className={styles.visitColumn}>
+                <h2 className={styles.visitTitle}>Visit Us</h2>
+                <p className={styles.visitSubtitle}>
+                  Serving {location.city} and the surrounding community.
+                </p>
+                <div className={styles.mapContainer}>
+                  {location.coordinates?.lat && location.coordinates?.lng && (
+                    <iframe
+                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${location.coordinates.lat},${location.coordinates.lng}&zoom=15`}
+                      className={styles.bookingMap}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`Map of ${location.title}`}
+                    />
+                  )}
+                  <div className={styles.mapInfoOverlay}>
+                    <div className={styles.mapInfoContent}>
+                      <div className={styles.mapInfoLeft}>
+                        <div className={styles.mapInfoHeader}>
+                          <span className={styles.mapInfoDot} />
+                          <span className={styles.mapInfoName}>
+                            {location.title}
+                          </span>
                         </div>
+                        <div className={styles.mapInfoAddress}>
+                          {location.streetAddress}
+                          <br />
+                          {location.city}, {location.state} {location.zip}
+                        </div>
+                        {hours.length > 0 && (
+                          <div className={styles.mapInfoHours}>
+                            {formatCondensedHours(hours)}
+                          </div>
+                        )}
+                      </div>
+                      {location.phone && (
+                        <a
+                          href={`tel:${location.phone}`}
+                          className={styles.mapInfoPhone}
+                          aria-label={`Call ${location.title}`}
+                        >
+                          <Phone className={styles.mapInfoPhoneIcon} />
+                        </a>
                       )}
                     </div>
-                    {location.phone && (
-                      <a
-                        href={`tel:${location.phone}`}
-                        className={styles.mapInfoPhone}
-                        aria-label={`Call ${location.title}`}
-                      >
-                        <Phone className={styles.mapInfoPhoneIcon} />
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
 
-      {/* Location Info Section */}
-      <section className={styles.infoSection}>
-        <Container>
-          <div className={styles.infoGrid}>
-            {/* Hours Card */}
-            {hours.length > 0 && (
+        {/* Location Info Section */}
+        <section className={styles.infoSection}>
+          <Container>
+            <div className={styles.infoGrid}>
+              {/* Hours Card */}
+              {hours.length > 0 && (
+                <div className={styles.infoCard}>
+                  <h2 className={styles.infoCardTitle}>
+                    <Clock className={styles.titleIcon} />
+                    Hours
+                  </h2>
+                  <div className={styles.hoursList}>
+                    {hours.map((hour, index) => (
+                      <div key={index} className={styles.hoursRow}>
+                        <span className={styles.hoursDay}>{hour.day}</span>
+                        <span className={styles.hoursTime}>
+                          {hour.open} - {hour.close}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Location Description */}
+              {location.content && (
+                <div className={styles.infoCard}>
+                  <h2 className={styles.infoCardTitle}>
+                    <Clock className={styles.titleIcon} />
+                    About {location.title}
+                  </h2>
+                  <RawHtml>{location.content}</RawHtml>
+                </div>
+              )}
+
+              {/* Contact Card */}
               <div className={styles.infoCard}>
-                <h2 className={styles.infoCardTitle}>
-                  <Clock className={styles.titleIcon} />
-                  Hours
-                </h2>
-                <div className={styles.hoursList}>
-                  {hours.map((hour, index) => (
-                    <div key={index} className={styles.hoursRow}>
-                      <span className={styles.hoursDay}>{hour.day}</span>
-                      <span className={styles.hoursTime}>
-                        {hour.open} - {hour.close}
-                      </span>
-                    </div>
-                  ))}
+                <h2 className={styles.infoCardTitle}>Contact Us</h2>
+                <div className={styles.infoList}>
+                  {fullAddress && (
+                    <Link
+                      href={googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.infoItem}
+                    >
+                      <MapPin className={styles.infoIcon} />
+                      <span>{fullAddress}</span>
+                    </Link>
+                  )}
+                  {location.phone && (
+                    <a
+                      href={`tel:${location.phone}`}
+                      className={styles.infoItem}
+                    >
+                      <Phone className={styles.infoIcon} />
+                      <span>{location.phone}</span>
+                    </a>
+                  )}
+                  {location.email && (
+                    <a
+                      href={`mailto:${location.email}`}
+                      className={styles.infoItem}
+                    >
+                      <Mail className={styles.infoIcon} />
+                      <span>{location.email}</span>
+                    </a>
+                  )}
                 </div>
               </div>
-            )}
-
-            {/* Location Description */}
-            {location.content && (
-              <div className={styles.infoCard}>
-                <h2 className={styles.infoCardTitle}>
-                  <Clock className={styles.titleIcon} />
-                  About {location.title}
-                </h2>
-                <RawHtml>{location.content}</RawHtml>
-              </div>
-            )}
-
-            {/* Contact Card */}
-            <div className={styles.infoCard}>
-              <h2 className={styles.infoCardTitle}>Contact Us</h2>
-              <div className={styles.infoList}>
-                {fullAddress && (
-                  <Link
-                    href={googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.infoItem}
-                  >
-                    <MapPin className={styles.infoIcon} />
-                    <span>{fullAddress}</span>
-                  </Link>
-                )}
-                {location.phone && (
-                  <a href={`tel:${location.phone}`} className={styles.infoItem}>
-                    <Phone className={styles.infoIcon} />
-                    <span>{location.phone}</span>
-                  </a>
-                )}
-                {location.email && (
-                  <a
-                    href={`mailto:${location.email}`}
-                    className={styles.infoItem}
-                  >
-                    <Mail className={styles.infoIcon} />
-                    <span>{location.email}</span>
-                  </a>
-                )}
-              </div>
             </div>
-          </div>
-        </Container>
-      </section>
-    </main>
+          </Container>
+        </section>
+      </main>
+    </Suspense>
   );
 }

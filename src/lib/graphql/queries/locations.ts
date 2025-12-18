@@ -46,6 +46,13 @@ export const LOCATION_BY_SLUG_QUERY = `
       email
       shortDescription
       servicesOffered
+      heroUnit {
+        heroLink {
+          target
+          title
+          url
+        }
+      }
       coordinates {
         lat
         lng
@@ -60,6 +67,9 @@ export const LOCATION_BY_SLUG_QUERY = `
           node {
             sourceUrl
             altText
+            description
+            slug
+            title
             mediaDetails {
               width
               height
@@ -107,6 +117,9 @@ export const ALL_LOCATION_SLUGS_QUERY = `
 type LocationImage = {
   sourceUrl?: string;
   altText?: string;
+  description?: string;
+  slug?: string;
+  title?: string;
   mediaDetails?: {
     width?: number;
     height?: number;
@@ -126,6 +139,7 @@ export type Chiropractor = {
     sourceUrl?: string;
     altText?: string;
   };
+  heroLink?: LocationHeroLink;
 };
 
 export type ClinicalStaff = {
@@ -156,6 +170,18 @@ type LocationCoordinates = {
   lng?: number;
 };
 
+type LocationHeroUnit = {
+  target?: string;
+  title?: string;
+  url?: string;
+  heroLink?: LocationHeroLink;
+};
+type LocationHeroLink = {
+  target?: string;
+  title?: string;
+  url?: string;
+};
+
 type Location = {
   id?: string;
   databaseId?: number;
@@ -172,6 +198,7 @@ type Location = {
   servicesOffered?: string[];
   coordinates?: LocationCoordinates;
   hours?: LocationHours[];
+  heroUnit?: LocationHeroUnit;
   featuredImage?: {
     node?: LocationImage;
   };
