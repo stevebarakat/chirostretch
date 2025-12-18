@@ -101,7 +101,3 @@ code {
 .sr-only {
   display: none;
 }
-
-iframe > div {
-  display: none !important;
-}

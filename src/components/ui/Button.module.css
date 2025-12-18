@@ -21,7 +21,6 @@
 }
 
 .fullWidth {
-  display: block;
   width: 100%;
 }
 
@@ -44,16 +43,6 @@
   color: var(--color-secondary-500);
   background-color: white;
 }
-
-/* .outline {
-  background-color: transparent;
-  border-color: var(--color-secondary-500);
-  }
-
-  .outline:hover {
-    background-color: white;
-    border-color: white;
-    } */
 
 .primary.inverse {
   border: 2px solid var(--color-primary-500);
@@ -99,16 +88,6 @@
   background-color: var(--color-neutral-200);
 }
 
-.glass {
-  color: var(--color-text-inverse);
-  background-color: var(--color-transparent-white-100);
-}
-
-.glass:hover {
-  color: var(--color-text-inverse);
-  background-color: var(--color-transparent-white-200);
-}
-
 .outlineBorder {
   border: 2px solid;
 }
@@ -129,12 +108,28 @@
   border-color: var(--color-neutral-500);
 }
 
+.glass {
+  color: var(--color-text-inverse);
+  background-color: var(--color-transparent-white-150);
+}
+
+.glass:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-transparent-white-250);
+}
+
 .glass.outlineBorder {
-  border-color: white;
+  border-color: var(--color-transparent-white-250);
+  border-width: 1px;
 }
 
 .icon {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
+  color: inherit;
+}
+
+.icon svg {
+  stroke: currentColor;
 }

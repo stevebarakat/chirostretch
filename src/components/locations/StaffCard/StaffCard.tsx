@@ -95,9 +95,9 @@ export function StaffCard({ staff }: StaffCardProps) {
             as="a"
             href="#"
             icon={<ArrowRight size={18} />}
-            color="primary"
             variant="inverse"
             outline
+            fullWidth
             iconPosition="right"
           >
             {staffCta}

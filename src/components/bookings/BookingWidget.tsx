@@ -8,16 +8,22 @@ import { TimeSlotGrid } from "./TimeSlotGrid";
 import { useBookingParams } from "./useBookingParams";
 import type { BookableService, AvailableDate, TimeSlot } from "./types";
 import styles from "./BookingWidget.module.css";
+import Button from "../ui/Button";
 
 type BookingWidgetProps = {
   services: BookableService[];
-  onConfirm?: (booking: { serviceId: number; date: string; time: string }) => void;
+  onConfirm?: (booking: {
+    serviceId: number;
+    date: string;
+    time: string;
+  }) => void;
 };
 
 const DAYS_TO_SHOW = 5;
 
 export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
-  const { serviceId, date, time, setServiceId, setDate, setTime, isComplete } = useBookingParams();
+  const { serviceId, date, time, setServiceId, setDate, setTime, isComplete } =
+    useBookingParams();
 
   const [startDate, setStartDate] = useState(() => new Date());
   const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]);
@@ -40,7 +46,10 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
       try {
         const endDate = addDays(startDate, DAYS_TO_SHOW);
         const res = await fetch(
-          `/api/bookings/slots?productId=${serviceId}&startDate=${format(startDate, "yyyy-MM-dd")}&endDate=${format(endDate, "yyyy-MM-dd")}`
+          `/api/bookings/slots?productId=${serviceId}&startDate=${format(
+            startDate,
+            "yyyy-MM-dd"
+          )}&endDate=${format(endDate, "yyyy-MM-dd")}`
         );
 
         if (!res.ok) throw new Error("Failed to fetch availability");
@@ -58,30 +67,36 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
         }
 
         // Generate date objects for the strip
-        const dates: AvailableDate[] = Array.from({ length: DAYS_TO_SHOW }, (_, i) => {
-          const d = addDays(startDate, i);
-          const dateStr = format(d, "yyyy-MM-dd");
-          return {
-            date: dateStr,
-            dayOfWeek: format(d, "EEE"),
-            dayOfMonth: d.getDate(),
-            available: dateMap.get(dateStr) ?? true, // Default to available if not specified
-          };
-        });
+        const dates: AvailableDate[] = Array.from(
+          { length: DAYS_TO_SHOW },
+          (_, i) => {
+            const d = addDays(startDate, i);
+            const dateStr = format(d, "yyyy-MM-dd");
+            return {
+              date: dateStr,
+              dayOfWeek: format(d, "EEE"),
+              dayOfMonth: d.getDate(),
+              available: dateMap.get(dateStr) ?? true, // Default to available if not specified
+            };
+          }
+        );
 
         setAvailableDates(dates);
       } catch (error) {
         console.error("Error fetching availability:", error);
         // Set all dates as available on error (fallback)
-        const dates: AvailableDate[] = Array.from({ length: DAYS_TO_SHOW }, (_, i) => {
-          const d = addDays(startDate, i);
-          return {
-            date: format(d, "yyyy-MM-dd"),
-            dayOfWeek: format(d, "EEE"),
-            dayOfMonth: d.getDate(),
-            available: true,
-          };
-        });
+        const dates: AvailableDate[] = Array.from(
+          { length: DAYS_TO_SHOW },
+          (_, i) => {
+            const d = addDays(startDate, i);
+            return {
+              date: format(d, "yyyy-MM-dd"),
+              dayOfWeek: format(d, "EEE"),
+              dayOfMonth: d.getDate(),
+              available: true,
+            };
+          }
+        );
         setAvailableDates(dates);
       } finally {
         setLoadingDates(false);
@@ -112,23 +127,27 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
         // Transform to time slots
         const slots: TimeSlot[] = [];
         if (Array.isArray(data)) {
-          data.forEach((slot: { start?: string; end?: string; available?: boolean }) => {
-            if (slot.start) {
-              // Extract time from datetime if full ISO string, or use as-is
-              const startTime = slot.start.includes("T")
-                ? slot.start.split("T")[1].substring(0, 5)
-                : slot.start;
-              const endTime = slot.end
-                ? (slot.end.includes("T") ? slot.end.split("T")[1].substring(0, 5) : slot.end)
-                : "";
+          data.forEach(
+            (slot: { start?: string; end?: string; available?: boolean }) => {
+              if (slot.start) {
+                // Extract time from datetime if full ISO string, or use as-is
+                const startTime = slot.start.includes("T")
+                  ? slot.start.split("T")[1].substring(0, 5)
+                  : slot.start;
+                const endTime = slot.end
+                  ? slot.end.includes("T")
+                    ? slot.end.split("T")[1].substring(0, 5)
+                    : slot.end
+                  : "";
 
-              slots.push({
-                start: startTime,
-                end: endTime,
-                available: slot.available ?? true,
-              });
+                slots.push({
+                  start: startTime,
+                  end: endTime,
+                  available: slot.available ?? true,
+                });
+              }
             }
-          });
+          );
         }
 
         setTimeSlots(slots);
@@ -144,7 +163,9 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
   }, [serviceId, date]);
 
   const handleNavigate = useCallback((direction: "prev" | "next") => {
-    setStartDate((current) => addDays(current, direction === "next" ? DAYS_TO_SHOW : -DAYS_TO_SHOW));
+    setStartDate((current) =>
+      addDays(current, direction === "next" ? DAYS_TO_SHOW : -DAYS_TO_SHOW)
+    );
   }, []);
 
   async function handleConfirm() {
@@ -185,7 +206,9 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
     <div className={styles.widget}>
       <div className={styles.header}>
         <h2 className={styles.title}>New Appointment</h2>
-        <a href="/account" className={styles.signIn}>Sign in</a>
+        <a href="/account" className={styles.signIn}>
+          Sign in
+        </a>
       </div>
 
       <div className={styles.content}>
@@ -216,16 +239,14 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
             loading={loadingSlots}
           />
         )}
+        <Button
+          fullWidth
+          onClick={handleConfirm}
+          disabled={!isComplete || confirming}
+        >
+          {confirming ? "Confirming..." : "Confirm Booking"}
+        </Button>
       </div>
-
-      <button
-        type="button"
-        className={styles.confirmButton}
-        onClick={handleConfirm}
-        disabled={!isComplete || confirming}
-      >
-        {confirming ? "Confirming..." : "Confirm Booking"}
-      </button>
     </div>
   );
 }

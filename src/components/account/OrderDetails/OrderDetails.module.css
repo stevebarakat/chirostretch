@@ -198,7 +198,7 @@
 }
 
 .contactInfo {
-  margin-top: var(--spacing-sm) !important;
+  margin-top: var(--spacing-sm);
   color: var(--color-text-secondary);
 }
 

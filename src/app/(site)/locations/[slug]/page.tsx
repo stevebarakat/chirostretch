@@ -217,7 +217,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
               <Button as="a" href="#book">
                 Book Appointment
               </Button>
-              <Button as="a" href="#team" color="secondary" variant="inverse">
+              <Button as="a" href="#team" color="glass" outline>
                 Meet Our Team
               </Button>
             </div>
