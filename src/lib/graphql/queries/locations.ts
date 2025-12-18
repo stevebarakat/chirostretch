@@ -222,7 +222,7 @@ type LocationHeroLinkIcon = {
   };
 };
 
-type Location = {
+export type WPLocation = {
   id?: string;
   databaseId?: number;
   slug?: string;
@@ -250,9 +250,12 @@ type Location = {
   };
 };
 
+// Keep Location as an alias for backward compatibility, but prefer WPLocation
+export type Location = WPLocation;
+
 export type AllLocationsResponse = {
   locations?: {
-    nodes?: Location[];
+    nodes?: WPLocation[];
     pageInfo?: {
       hasNextPage?: boolean;
       endCursor?: string | null;
@@ -263,7 +266,7 @@ export type AllLocationsResponse = {
 };
 
 export type LocationBySlugResponse = {
-  location?: Location | null;
+  location?: WPLocation | null;
 };
 
 export type AllLocationSlugsResponse = {

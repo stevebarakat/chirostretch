@@ -170,7 +170,31 @@ export default async function LocationPage({ params }: LocationPageProps) {
     notFound();
   }
 
-  const location = data.location;
+  // Type assertion to include heroUnit property
+  // Note: Browser's global Location interface conflicts with our Location type name
+  type LocationWithHeroUnit = typeof data.location & {
+    heroUnit?: {
+      heroLink?: { target?: string; title?: string; url?: string };
+      heroLinkIcon?: {
+        node?: {
+          sourceUrl?: string;
+          altText?: string;
+          slug?: string;
+          mediaDetails?: { width?: number; height?: number };
+        };
+      };
+      heroLink2?: { target?: string; title?: string; url?: string };
+      heroLinkIcon2?: {
+        node?: {
+          sourceUrl?: string;
+          altText?: string;
+          slug?: string;
+          mediaDetails?: { width?: number; height?: number };
+        };
+      };
+    };
+  };
+  const location = data.location as LocationWithHeroUnit;
   const clinicalStaff = location.clinicalStaff?.nodes ?? [];
   const hours = location.hours ?? [];
   const servicesOffered = location.servicesOffered ?? [];
