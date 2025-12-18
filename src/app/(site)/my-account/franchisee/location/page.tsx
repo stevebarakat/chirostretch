@@ -6,7 +6,7 @@ import { LocationEditor } from "./LocationEditor";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Clinic Management - ChiroStretch",
+  title: "Location Management - ChiroStretch",
   description: "View and edit your franchise location details",
 };
 
@@ -46,7 +46,7 @@ export default async function FranchiseeLocationPage() {
     );
 
   return (
-    <FranchiseeDashboardLayout title="Clinic Management">
+    <FranchiseeDashboardLayout title="Location Management">
       {content}
     </FranchiseeDashboardLayout>
   );
