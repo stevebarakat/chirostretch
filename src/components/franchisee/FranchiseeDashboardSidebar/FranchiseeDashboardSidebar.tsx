@@ -12,7 +12,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { href: "/my-account/franchisee", label: "Dashboard" },
-  { href: "/my-account/franchisee/location", label: "Clinic" },
+  { href: "/my-account/franchisee/location", label: "Location" },
   { href: "/my-account/franchisee/staff", label: "Staff" },
   { href: "/my-account/franchisee/profile", label: "My Profile" },
   { href: "/my-account/logout", label: "Log out" },
