@@ -7,6 +7,7 @@ type BaseButtonProps = {
   variant?: "inverse" | "outline";
   outline?: boolean;
   fullWidth?: boolean;
+  shadow?: boolean;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
   children: ReactNode;
@@ -32,6 +33,7 @@ export default function Button(props: ButtonComponentProps) {
     variant,
     outline = false,
     fullWidth = false,
+    shadow = false,
     icon,
     iconPosition = "right",
     children,
@@ -46,6 +48,7 @@ export default function Button(props: ButtonComponentProps) {
     variant && styles[variant],
     outline && styles.outlineBorder,
     fullWidth && styles.fullWidth,
+    shadow && styles.shadow,
     className
   );
 
@@ -77,6 +80,8 @@ export default function Button(props: ButtonComponentProps) {
     | "color"
     | "variant"
     | "outline"
+    | "fullWidth"
+    | "shadow"
     | "icon"
     | "iconPosition"
     | "children"

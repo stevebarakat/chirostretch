@@ -24,6 +24,14 @@
   width: 100%;
 }
 
+.button.shadow {
+  box-shadow: var(--shadow-md);
+}
+
+.button.shadow:hover {
+  box-shadow: var(--shadow-lg);
+}
+
 .primary {
   color: var(--color-text-inverse);
   background-color: var(--color-primary-500);
