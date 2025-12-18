@@ -8,6 +8,7 @@ type BaseButtonProps = {
   outline?: boolean;
   fullWidth?: boolean;
   shadow?: boolean;
+  blur?: number;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
   children: ReactNode;
@@ -34,6 +35,7 @@ export default function Button(props: ButtonComponentProps) {
     outline = false,
     fullWidth = false,
     shadow = false,
+    blur = 0,
     icon,
     iconPosition = "right",
     children,
@@ -55,7 +57,7 @@ export default function Button(props: ButtonComponentProps) {
   const glassStyles =
     color === "glass"
       ? {
-          backdropFilter: "blur(5px) ",
+          backdropFilter: `blur(${blur}px) saturate(180%)`,
         }
       : undefined;
 
@@ -89,6 +91,7 @@ export default function Button(props: ButtonComponentProps) {
     | "outline"
     | "fullWidth"
     | "shadow"
+    | "blur"
     | "icon"
     | "iconPosition"
     | "children"
