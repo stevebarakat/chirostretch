@@ -191,6 +191,8 @@ export default async function LocationPage({ params }: LocationPageProps) {
           fullAddress
         )}`;
 
+  console.log("location.heroUnit", location.heroUnit);
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <main className={styles.main}>
@@ -199,8 +201,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
           <Hero
             featuredImage={location.featuredImage}
             description={location.shortDescription}
-            heroLink={location.heroUnit?.heroLink}
-            fallbackTitle={location.title}
+            heroUnit={location.heroUnit}
           />
         )}
 
@@ -213,7 +214,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
         {/* Services Section */}
         {servicesOffered.length > 0 && (
-          <section className={styles.servicesSection}>
+          <section id="services" className={styles.servicesSection}>
             <Container>
               <ServicesTabs servicesOffered={servicesOffered} />
             </Container>

@@ -36,6 +36,8 @@ const LatestInsights = dynamic(() => import("./homepage/LatestInsights"), {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomepageData();
 
+  console.log("data", data);
+
   if (!data?.customSEO?.customSeoSettings) {
     return {
       title: "ChiroStretch",
@@ -103,8 +105,7 @@ export default async function HomePage() {
       {page.featuredImage && (
         <Hero
           featuredImage={page.featuredImage}
-          heroLink={page.heroUnit?.heroLink}
-          fallbackTitle={page.title}
+          heroUnit={page.heroUnit}
           isHomepage
         />
       )}

@@ -33,6 +33,11 @@
   transform: translateY(-1px);
 }
 
+.button.glass.shadow:hover {
+  transform: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
 .primary {
   color: var(--color-text-inverse);
   background-color: var(--color-primary-500);
@@ -117,14 +122,44 @@
   border-color: var(--color-neutral-500);
 }
 
-.glass {
-  color: var(--color-text-inverse);
-  background-color: var(--color-transparent-white-150);
+.button.glass,
+a.button.glass,
+button.button.glass,
+a.button.glass.glass {
+  overflow: visible !important;
+  will-change: backdrop-filter !important;
+  display: inline-flex !important;
+  text-decoration: none !important;
+  position: relative !important;
+  z-index: 1 !important;
+  transition: background-color var(--transition-base) !important;
+  transform: none !important;
+  color: var(--color-text-inverse) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
 }
 
-.glass:hover {
-  color: var(--color-text-inverse);
-  background-color: var(--color-transparent-white-250);
+.button.glass:hover,
+a.button.glass:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+}
+
+.glass,
+a.glass {
+  color: var(--color-text-inverse) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+}
+
+.glass:hover,
+a.glass:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
 }
 
 .glass.outlineBorder {

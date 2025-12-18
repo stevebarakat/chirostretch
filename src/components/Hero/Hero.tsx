@@ -12,19 +12,54 @@ import {
   FALLBACK_IMAGES,
 } from "@/utils/image-helpers";
 import styles from "./Hero.module.css";
+import { CalendarDays, Compass } from "lucide-react";
 
 // Lazy load SearchModal to reduce initial bundle size
 const SearchModal = dynamic(() => import("@/components/search/SearchModal"), {
   ssr: false,
 });
 
+type HeroUnit = {
+  heroLink?: {
+    target?: string;
+    title?: string;
+    url?: string;
+  };
+  heroLinkIcon?: {
+    node?: {
+      sourceUrl?: string;
+      altText?: string;
+      slug?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
+      };
+    };
+  };
+  heroLink2?: {
+    target?: string;
+    title?: string;
+    url?: string;
+  };
+  heroLinkIcon2?: {
+    node?: {
+      sourceUrl?: string;
+      altText?: string;
+      slug?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
+      };
+    };
+  };
+};
+
 type HeroProps = {
+  heroUnit?: HeroUnit;
   featuredImage?: {
     node?: {
       altText?: string;
       sourceUrl?: string;
-      srcSet?: string;
-      sizes?: string;
       slug?: string;
       title?: string;
       description?: string;
@@ -35,22 +70,10 @@ type HeroProps = {
     };
   };
   description?: string;
-  heroLink?: {
-    target?: string;
-    title?: string;
-    url?: string;
-  };
-  fallbackTitle?: string;
   isHomepage?: boolean;
 };
 
-function Hero({
-  featuredImage,
-  heroLink,
-  fallbackTitle,
-  description,
-  isHomepage,
-}: HeroProps) {
+function Hero({ featuredImage, heroUnit, description, isHomepage }: HeroProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const img = featuredImage?.node;
@@ -68,8 +91,6 @@ function Hero({
     return null;
   }
 
-  console.log("featuredImage", featuredImage);
-
   return (
     <>
       <section className={styles.hero}>
@@ -86,34 +107,48 @@ function Hero({
             sizes="100vw"
             style={{ objectFit: "cover", objectPosition: "center" }}
           />
+          <div className={styles.overlay} />
         </div>
-        <div className={styles.overlay} />
         <div className={styles.content}>
           <h1 className={styles.headline}>{heading}</h1>
           {subheading && (
             <RawHtml className={styles.description}>{subheading}</RawHtml>
           )}
-          {isHomepage ? (
-            <div className={styles.ctaWrapper}>
+          <div className={styles.ctaWrapper}>
+            {isHomepage ? (
               <Button as="button" shadow onClick={() => setIsSearchOpen(true)}>
                 Find A Location
               </Button>
-            </div>
-          ) : (
-            heroLink?.url &&
-            heroLink?.title && (
-              <div className={styles.ctaWrapper}>
-                <Button
-                  as="a"
-                  href={heroLink.url}
-                  shadow
-                  target={heroLink.target || undefined}
-                >
-                  {heroLink.title}
-                </Button>
-              </div>
-            )
-          )}
+            ) : (
+              heroUnit?.heroLink?.url &&
+              heroUnit?.heroLink?.title && (
+                <>
+                  <Button
+                    as="a"
+                    href={heroUnit.heroLink.url}
+                    icon={<CalendarDays />}
+                    iconPosition="left"
+                    shadow
+                    target={heroUnit.heroLink.target || undefined}
+                  >
+                    {heroUnit.heroLink.title}
+                  </Button>
+                  <Button
+                    as="a"
+                    href={heroUnit.heroLink2?.url || ""}
+                    icon={<Compass />}
+                    iconPosition="left"
+                    color="glass"
+                    outline
+                    shadow
+                    target={heroUnit.heroLink2?.target || undefined}
+                  >
+                    {heroUnit.heroLink2?.title}
+                  </Button>
+                </>
+              )
+            )}
+          </div>
         </div>
       </section>
 

@@ -63,6 +63,22 @@ export const LOCATION_BY_SLUG_QUERY = `
             }
           }
         }
+        heroLink2 {
+          target
+          title
+          url
+        }
+        heroLinkIcon2 {
+          node {
+            sourceUrl
+            altText
+            slug
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
       }
       coordinates {
         lat
@@ -184,6 +200,8 @@ type LocationCoordinates = {
 type LocationHeroUnit = {
   heroLink?: LocationHeroLink;
   heroLinkIcon?: LocationHeroLinkIcon;
+  heroLink2?: LocationHeroLink;
+  heroLinkIcon2?: LocationHeroLinkIcon;
 };
 
 type LocationHeroLink = {
@@ -193,7 +211,15 @@ type LocationHeroLink = {
 };
 
 type LocationHeroLinkIcon = {
-  node?: LocationImage;
+  node?: {
+    sourceUrl?: string;
+    altText?: string;
+    slug?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
+  };
 };
 
 type Location = {

@@ -52,6 +52,13 @@ export default function Button(props: ButtonComponentProps) {
     className
   );
 
+  const glassStyles =
+    color === "glass"
+      ? {
+          backdropFilter: "blur(5px) ",
+        }
+      : undefined;
+
   const content = (
     <>
       {icon && iconPosition === "left" && (
@@ -68,7 +75,7 @@ export default function Button(props: ButtonComponentProps) {
     const { as, ...linkProps } = rest as LinkButtonProps;
     void as;
     return (
-      <a className={buttonClasses} {...linkProps}>
+      <a className={buttonClasses} style={glassStyles} {...linkProps}>
         {content}
       </a>
     );
@@ -88,7 +95,12 @@ export default function Button(props: ButtonComponentProps) {
     | "className"
   >;
   return (
-    <button type="button" className={buttonClasses} {...buttonProps}>
+    <button
+      type="button"
+      className={buttonClasses}
+      style={glassStyles}
+      {...buttonProps}
+    >
       {content}
     </button>
   );

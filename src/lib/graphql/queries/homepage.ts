@@ -129,6 +129,34 @@ export const HOMEPAGE_QUERY = `
           title
           url
         }
+        heroLinkIcon {
+          node {
+            sourceUrl
+            altText
+            slug
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        heroLink2 {
+          target
+          title
+          url
+        }
+        heroLinkIcon2 {
+          node {
+            altText
+            sourceUrl
+            slug
+            sizes
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
       }
       homepageCta {
         headings {
@@ -139,8 +167,8 @@ export const HOMEPAGE_QUERY = `
           button1Text
         }
       }
-    componentDescriptionList {
-      descriptionListItems {
+      componentDescriptionList {
+        descriptionListItems {
         itemTitle
         itemIcon {
           node {
@@ -150,7 +178,7 @@ export const HOMEPAGE_QUERY = `
         }
         itemDescription
       }
-    }
+      }
       homepageFeaturedProducts {
         featuredProductsHeading
         featuredProductsSubheading
@@ -159,20 +187,19 @@ export const HOMEPAGE_QUERY = `
           product {
             nodes {
               id
-              __typename
-                ... on NodeWithTitle {
-                  title
-                }
-                ... on NodeWithFeaturedImage {
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                      srcSet
-                      sizes
-                      mediaDetails {
-                        ...MediaDetailsFields
-                      }
+              ... on NodeWithTitle {
+                title
+              }
+              ... on NodeWithFeaturedImage {
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                    srcSet
+                    sizes
+                    mediaDetails {
+                      ...MediaDetailsFields
+                    }
                   }
                 }
               }
@@ -219,6 +246,7 @@ export const HOMEPAGE_QUERY = `
     }
     customSEO {
       customSeoSettings {
+        fieldGroupName
         googleAnalyticsId
         canonical
         googleVerify
@@ -347,6 +375,31 @@ type HomepageQueryResponse = {
         title?: string;
         url?: string;
       };
+      heroLinkIcon?: {
+        node?: {
+          sourceUrl?: string;
+          altText?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
+        };
+      };
+    };
+    heroLink2?: {
+      target?: string;
+      title?: string;
+      url?: string;
+    };
+    heroLinkIcon2?: {
+      node?: {
+        sourceUrl?: string;
+        altText?: string;
+        mediaDetails?: {
+          width?: number;
+          height?: number;
+        };
+      };
     };
     homepageFeaturedProducts?: {
       featuredProductsHeading?: string;
@@ -465,29 +518,6 @@ type HomepageQueryResponse = {
 export type { HomepageQueryResponse };
 
 type GetHomepageSettingsQueryResponse = {
-  galleryPage?: {
-    services?: {
-      galleryTitle?: string;
-      image?: {
-        image?: {
-          node?: {
-            altText?: string;
-            caption?: string;
-            sourceUrl?: string;
-            slug?: string;
-            link?: string;
-          };
-        };
-      };
-    };
-  };
-  customSEO?: {
-    customSeoSettings?: {
-      googleAnalyticsId?: string;
-      canonical?: string;
-      schema?: string;
-    };
-  };
   intro?: {
     introduction?: {
       leftSide?: {
