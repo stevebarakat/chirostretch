@@ -16,7 +16,7 @@ type LogoProps = {
   };
 };
 
-export default function Logo({ isMobile, logo }: LogoProps) {
+export default function Logo({ isMobile = false, logo }: LogoProps) {
   const logoSrc = logo?.sourceUrl;
   const logoAlt =
     logo?.altText || "North Florida Chiropractic Physical Therapy";
@@ -34,7 +34,10 @@ export default function Logo({ isMobile, logo }: LogoProps) {
     );
 
   return (
-    <div className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}>
+    <div
+      className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}
+      style={{ paddingLeft: "var(--spacing-md)" }}
+    >
       <Link href="/" aria-label="ChiroStretch - Go to homepage">
         <Image
           priority

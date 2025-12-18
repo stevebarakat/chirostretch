@@ -4,6 +4,7 @@ import styles from "./Footer.module.css";
 import Container from "../ui/Container";
 import Menu from "./Menu";
 import type { MenuItem } from "@/lib/graphql/queries";
+import { Logo } from "../Logo";
 
 type FooterProps = {
   logo?: {
@@ -41,22 +42,7 @@ export default function Footer({
       <Container>
         <div className={styles.main}>
           <div className={styles.column}>
-            <Link href="/" className={styles.logo} aria-label="ChiroStretch - Go to homepage">
-              {logo?.sourceUrl ? (
-                <Image
-                  src={logo.sourceUrl}
-                  alt={logo.altText || "ChiroStretch"}
-                  width={200}
-                  height={50}
-                  quality={75}
-                />
-              ) : (
-                <>
-                  <span className={styles.logoChiro}>Chiro</span>
-                  <span className={styles.logoStretch}>Stretch</span>
-                </>
-              )}
-            </Link>
+            <Logo logo={logo} />
             {contactInfo && (
               <div
                 className={styles.description}

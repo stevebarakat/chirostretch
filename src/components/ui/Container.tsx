@@ -8,8 +8,5 @@ type ContainerProps = {
 };
 
 export default function Container({ children, className }: ContainerProps) {
-  return (
-    <div className={clsx(styles.container, className)}>{children}</div>
-  );
+  return <div className={clsx(styles.container, className)}>{children}</div>;
 }
-
