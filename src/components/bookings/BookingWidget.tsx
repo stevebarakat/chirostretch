@@ -22,8 +22,16 @@ type BookingWidgetProps = {
 const DAYS_TO_SHOW = 5;
 
 export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
-  const { serviceId, date, time, setServiceId, setDate, setTime, isComplete } =
-    useBookingParams();
+  const {
+    serviceId,
+    date,
+    time,
+    icon,
+    setServiceId,
+    setDate,
+    setTime,
+    isComplete,
+  } = useBookingParams();
 
   const [startDate, setStartDate] = useState(() => new Date());
   const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]);

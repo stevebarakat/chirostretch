@@ -204,9 +204,9 @@ export const HOMEPAGE_QUERY = `
           headline
         }
       }
-      homepageStats {
-        homepageStats {
-          ... on HomepageStatsHomepageStatsLayout {
+      stats {
+        stats {
+          ... on StatsStatsLayout {
             stat {
               description
               number
@@ -419,8 +419,8 @@ type HomepageQueryResponse = {
         };
       }>;
     };
-    homepageStats?: {
-      homepageStats?: Array<{
+    stats?: {
+      stats?: Array<{
         stat?: {
           description?: string;
           number?: number;

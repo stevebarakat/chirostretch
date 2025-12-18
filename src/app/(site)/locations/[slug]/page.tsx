@@ -24,6 +24,7 @@ import { RawHtml } from "@/components/RawHtml";
 const SERVICES: BookableService[] = [
   {
     id: 1,
+    icon: "/images/icons/initial-consultation.svg",
     name: "Initial Consultation",
     duration: 60,
     durationUnit: "minute",

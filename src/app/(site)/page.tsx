@@ -70,7 +70,7 @@ export default async function HomePage() {
   const { page } = data;
 
   const { rightSide, leftSide } = page.homepageIntroduction || {};
-  const stats = page.homepageStats?.homepageStats || [];
+  const stats = page.stats?.stats || [];
   const promo = data.currentPromo?.promo;
 
   const intro =

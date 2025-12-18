@@ -6,6 +6,7 @@ export type PractitionerType =
 
 export type BookableService = {
   id: number;
+  icon?: string;
   name: string;
   duration: number;
   durationUnit: "minute" | "hour" | "day";
