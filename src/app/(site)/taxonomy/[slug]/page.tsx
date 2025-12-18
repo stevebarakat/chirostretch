@@ -12,9 +12,9 @@ import {
   PRODUCTS_BY_TAG_QUERY,
   type ProductsByTagResponse,
 } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
-import PageHeader from "@/components/ui/PageHeader";
-import Pagination from "@/components/ui/Pagination";
+import { Container } from "@/components/UI/Container";
+import { PageHeader } from "@/components/UI/PageHeader";
+import { Pagination } from "@/components/UI/Pagination";
 import styles from "@/app/(site)/archive.module.css";
 
 export const revalidate = 300;

@@ -6,12 +6,12 @@ import {
   type AllProductSlugsResponse,
 } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
-import Container from "@components/ui/Container";
+import { Container } from "@/components/UI/Container";
 import ProductGallery from "./ProductGallery";
 import ProductInfo from "./ProductInfo";
 import RelatedProducts from "./RelatedProducts";
 import styles from "./page.module.css";
-import CartSummary from "@/components/layout/CartSummary";
+import CartSummary from "@/components/Layout/CartSummary";
 
 export const revalidate = 300;
 

@@ -1,1 +1,0 @@
-export { FranchiseeDashboardSidebar } from "./FranchiseeDashboardSidebar";

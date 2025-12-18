@@ -10,14 +10,14 @@ import {
   type LocationBySlugResponse,
   type AllLocationSlugsResponse,
 } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
+import { Container } from "@/components/UI/Container";
 import {
   StaffCard,
   ServicesTabs,
   ValuePropositions,
-} from "@/components/locations";
-import { BookingWidget } from "@/components/bookings";
-import type { BookableService } from "@/components/bookings";
+} from "@/components/Locations";
+import { BookingWidget } from "@/components/Bookings";
+import type { BookableService } from "@/components/Bookings";
 import styles from "./page.module.css";
 import { RawHtml } from "@/components/RawHtml";
 

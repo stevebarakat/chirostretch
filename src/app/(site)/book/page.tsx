@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { BookingWidget } from "@/components/bookings";
-import type { BookableService } from "@/components/bookings";
+import { BookingWidget } from "@/components/Bookings";
+import type { BookableService } from "@/components/Bookings";
 import styles from "./page.module.css";
 
 // Services - will be replaced with WooCommerce Bookings data

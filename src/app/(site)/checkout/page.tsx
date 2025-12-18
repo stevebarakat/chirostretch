@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import Container from "@/components/ui/Container";
-import { OrderSummary } from "@/components/checkout";
-import CheckoutFormWrapper from "@/components/checkout/CheckoutFormWrapper";
+import { Container } from "@/components/UI/Container";
+import { OrderSummary } from "@/components/Checkout";
+import CheckoutFormWrapper from "@/components/Checkout/CheckoutFormWrapper";
 import { getServerCart } from "@/lib/woocommerce/getServerCart";
 import styles from "./page.module.css";
 

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
 import type { ClinicalStaff } from "@/lib/graphql/queries/locations";
 import styles from "./StaffCard.module.css";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/UI/Button";
 
 type StaffCardProps = {
   staff: ClinicalStaff;

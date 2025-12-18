@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Container from "@/components/ui/Container";
-import { LoginForm } from "@/components/auth/LoginForm";
+import { Container } from "@/components/UI/Container";
+import { LoginForm } from "@/components/Auth/LoginForm";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {

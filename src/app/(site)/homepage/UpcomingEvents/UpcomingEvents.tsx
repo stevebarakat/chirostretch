@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
+import { Container } from "@/components/UI/Container";
+import { SectionHeading } from "@/components/UI/SectionHeading";
+import { Button } from "@/components/UI/Button";
 import styles from "./UpcomingEvents.module.css";
 
 type Event = {

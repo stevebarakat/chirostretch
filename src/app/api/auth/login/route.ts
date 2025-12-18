@@ -18,16 +18,16 @@ const STAFF_ROLES = [
  */
 function getRedirectForRole(role: string): string {
   if (STAFF_ROLES.includes(role)) {
-    return "/my-account/staff";
+    return "/staff";
   }
   if (role === "franchise_applicant") {
-    return "/my-account/application";
+    return "/application";
   }
   if (role === "franchisee") {
-    return "/my-account/franchisee";
+    return "/franchisee";
   }
   // Default for customers and other roles
-  return "/my-account";
+  return "/dashboard";
 }
 
 /**

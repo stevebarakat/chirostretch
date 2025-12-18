@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import { ALL_POSTS_QUERY, type AllPostsResponse } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
-import PageHeader from "@/components/ui/PageHeader";
-import Pagination from "@/components/ui/Pagination";
+import { Container } from "@/components/UI/Container";
+import { PageHeader } from "@/components/UI/PageHeader";
+import { Pagination } from "@/components/UI/Pagination";
 import styles from "./page.module.css";
 
 export const revalidate = 300;

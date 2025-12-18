@@ -5,9 +5,9 @@ import {
   EVENTS_INDEX_QUERY,
   type EventsIndexData,
 } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
-import PageHeader from "@/components/ui/PageHeader";
-import Pagination from "@/components/ui/Pagination";
+import { Container } from "@/components/UI/Container";
+import { PageHeader } from "@/components/UI/PageHeader";
+import { Pagination } from "@/components/UI/Pagination";
 import styles from "./page.module.css";
 
 const EVENTS_PER_PAGE = 6;

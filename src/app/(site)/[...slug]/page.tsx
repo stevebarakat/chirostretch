@@ -7,8 +7,8 @@ import {
   type PageByUriResponse,
   type AllPageSlugsResponse,
 } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
-import { BlockRenderer, type Block } from "@/components/blocks";
+import { Container } from "@/components/UI/Container";
+import { BlockRenderer, type Block } from "@/components/Blocks";
 import Image from "next/image";
 import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";

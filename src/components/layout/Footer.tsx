@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Footer.module.css";
-import Container from "../ui/Container";
+import { Container } from "@/components/UI/Container";
 import Menu from "./Menu";
 import type { MenuItem } from "@/lib/graphql/queries";
 import { Logo } from "../Logo";

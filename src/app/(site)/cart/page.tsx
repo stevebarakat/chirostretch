@@ -3,9 +3,9 @@
 import { useEffect, useState, useCallback, startTransition } from "react";
 import Link from "next/link";
 import { RefreshCcw, Trash2 } from "lucide-react";
-import Container from "@components/ui/Container";
-import Button from "@components/ui/Button";
-import VisuallyHidden from "@components/ui/VisuallyHidden";
+import { Container } from "@/components/UI/Container";
+import { Button } from "@/components/UI/Button";
+import { VisuallyHidden } from "@/components/UI/VisuallyHidden";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import type { StoreCartItem } from "@/lib/woocommerce/getServerCart";
 import styles from "./page.module.css";

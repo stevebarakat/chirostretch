@@ -58,7 +58,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
               </td>
               <td data-label="Actions">
                 <Link
-                  href={`/my-account/orders/${order.databaseId}`}
+                  href={`/orders/${order.databaseId}`}
                   className={styles.viewLink}
                 >
                   View

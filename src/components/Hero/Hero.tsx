@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/UI/Button";
 import {
   getSafeImageUrl,
   useImageFallback,
@@ -15,7 +15,7 @@ import styles from "./Hero.module.css";
 import { CalendarDays, Compass } from "lucide-react";
 
 // Lazy load SearchModal to reduce initial bundle size
-const SearchModal = dynamic(() => import("@/components/search/SearchModal"), {
+const SearchModal = dynamic(() => import("@/components/Search/SearchModal"), {
   ssr: false,
 });
 

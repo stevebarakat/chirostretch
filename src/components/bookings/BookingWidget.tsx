@@ -8,7 +8,7 @@ import { TimeSlotGrid } from "./TimeSlotGrid";
 import { useBookingParams } from "./useBookingParams";
 import type { BookableService, AvailableDate, TimeSlot } from "./types";
 import styles from "./BookingWidget.module.css";
-import Button from "../ui/Button";
+import { Button } from "@/components/UI/Button";
 
 type BookingWidgetProps = {
   services: BookableService[];

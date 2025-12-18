@@ -56,7 +56,7 @@ export default function Header({ logo, menuItems }: HeaderProps) {
               <Menu setMobileOpen={setMobileOpen} key={item.id} item={item} />
             ))}
           </ul>
-          <Link href="/my-account" className={styles.accountLink}>
+          <Link href="/dashboard" className={styles.accountLink}>
             <User size={20} aria-hidden="true" />
             <span>My Account</span>
           </Link>

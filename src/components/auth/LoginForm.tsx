@@ -44,7 +44,7 @@ export function LoginForm() {
 
       // Get redirect URL: prefer explicit query param, then role-based from API
       const explicitRedirect = searchParams.get("redirect");
-      const redirectTo = explicitRedirect || data.redirectUrl || "/my-account";
+      const redirectTo = explicitRedirect || data.redirectUrl || "/dashboard";
 
       // Successful login - redirect
       // Use window.location for external URLs (e.g., WordPress admin for franchisees)

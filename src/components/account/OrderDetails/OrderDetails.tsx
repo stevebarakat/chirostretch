@@ -16,7 +16,7 @@ export function OrderDetails({ order }: OrderDetailsProps) {
 
   return (
     <div className={styles.orderDetails}>
-      <Link href="/my-account/orders" className={styles.backLink}>
+      <Link href="/orders" className={styles.backLink}>
         ← Back to Orders
       </Link>
 

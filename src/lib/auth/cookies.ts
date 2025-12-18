@@ -76,3 +76,12 @@ export async function isAuthenticated(): Promise<boolean> {
   const token = await getAuthToken();
   return token !== null;
 }
+
+/**
+ * Get user role from cookies (server-side only)
+ */
+export async function getUserRole(): Promise<string | null> {
+  const cookieStore = await cookies();
+  const role = cookieStore.get(USER_ROLE_COOKIE);
+  return role?.value || null;
+}

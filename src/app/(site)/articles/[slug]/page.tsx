@@ -7,8 +7,8 @@ import {
   type PostBySlugResponse,
   type AllPostSlugsResponse,
 } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
-import { BlockRenderer, type Block } from "@/components/blocks";
+import { Container } from "@/components/UI/Container";
+import { BlockRenderer, type Block } from "@/components/Blocks";
 import styles from "./page.module.css";
 
 export const revalidate = 300;

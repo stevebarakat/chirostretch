@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
+import { Container } from "@/components/UI/Container";
+import { Button } from "@/components/UI/Button";
 import styles from "./page.module.css";
 
 type SuccessPageProps = {
@@ -54,7 +54,7 @@ export default async function CheckoutSuccessPage({
 
           <div className={styles.actions}>
             {orderId && (
-              <Link href={`/my-account/orders/${orderId}`}>
+              <Link href={`/orders/${orderId}`}>
                 <Button>View Order</Button>
               </Link>
             )}

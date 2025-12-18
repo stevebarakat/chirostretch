@@ -5,10 +5,10 @@ import {
   ALL_LOCATIONS_QUERY,
   type AllLocationsResponse,
 } from "@/lib/graphql/queries";
-import Container from "@/components/ui/Container";
-import PageHeader from "@/components/ui/PageHeader";
-import Pagination from "@/components/ui/Pagination";
-import { LocationMapWrapper } from "@/components/locations";
+import { Container } from "@/components/UI/Container";
+import { PageHeader } from "@/components/UI/PageHeader";
+import { Pagination } from "@/components/UI/Pagination";
+import { LocationMapWrapper } from "@/components/Locations";
 import styles from "./page.module.css";
 
 export const revalidate = 300;

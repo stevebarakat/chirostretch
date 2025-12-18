@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
+import { Container } from "@/components/UI/Container";
+import { Button } from "@/components/UI/Button";
 import styles from "./AboutSection.module.css";
 
 type AcfLink = {

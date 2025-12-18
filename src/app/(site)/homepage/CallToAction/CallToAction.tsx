@@ -1,5 +1,5 @@
 import styles from "./cta.module.css";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/UI/Button";
 import Link from "next/link";
 import { Promotion } from "@/components/Promotion";
 

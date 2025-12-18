@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Container from "@/components/ui/Container";
-import PageHeader from "@/components/ui/PageHeader";
+import { Container } from "@/components/UI/Container";
+import { PageHeader } from "@/components/UI/PageHeader";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_PRODUCTS_QUERY,

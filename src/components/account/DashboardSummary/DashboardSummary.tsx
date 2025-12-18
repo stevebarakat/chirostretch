@@ -24,10 +24,10 @@ export function DashboardSummary({
         </h2>
         <p className={styles.greetingText}>
           From your account dashboard you can view your{" "}
-          <Link href="/my-account/orders">recent orders</Link>, manage your{" "}
-          <Link href="/my-account/addresses">shipping and billing addresses</Link>
+          <Link href="/orders">recent orders</Link>, manage your{" "}
+          <Link href="/addresses">shipping and billing addresses</Link>
           , and{" "}
-          <Link href="/my-account/account-details">
+          <Link href="/profile">
             edit your password and account details
           </Link>
           .
@@ -61,7 +61,7 @@ export function DashboardSummary({
                   </p>
                 </div>
                 <Link
-                  href={`/my-account/orders/${order.databaseId}`}
+                  href={`/orders/${order.databaseId}`}
                   className={styles.orderLink}
                 >
                   View Order
@@ -69,7 +69,7 @@ export function DashboardSummary({
               </div>
             ))}
           </div>
-          <Link href="/my-account/orders" className={styles.viewAllLink}>
+          <Link href="/orders" className={styles.viewAllLink}>
             View all orders
           </Link>
         </div>

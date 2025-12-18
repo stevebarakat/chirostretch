@@ -89,7 +89,10 @@
       "Bash(wp:*)",
       "Bash(git -C /Users/sb/Dev/chirostretch ls-files:*)",
       "Bash(git -C /Users/sb/Dev/chirostretch status --short)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
