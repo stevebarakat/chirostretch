@@ -17,11 +17,10 @@ type LogoProps = {
 };
 
 export default function Logo({ isMobile = false, logo }: LogoProps) {
-  const logoSrc = logo?.sourceUrl;
-  const logoAlt =
-    logo?.altText || "North Florida Chiropractic Physical Therapy";
-  const logoWidth = logo?.mediaDetails?.width || 249;
-  const logoHeight = logo?.mediaDetails?.height || 71;
+  const logoSrc = logo?.sourceUrl || "/images/logo.png";
+  const logoAlt = logo?.altText || "ChiroStretch Logo";
+  const logoWidth = logo?.mediaDetails?.width || 400;
+  const logoHeight = logo?.mediaDetails?.height || 63;
 
   if (!logoSrc)
     return (
