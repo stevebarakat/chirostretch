@@ -2,8 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Logo.module.css";
 
-const fallbackLogo = "/images/logo.svg";
-
 type LogoProps = {
   isMobile?: boolean;
   logo?: {
@@ -19,11 +17,21 @@ type LogoProps = {
 };
 
 export default function Logo({ isMobile, logo }: LogoProps) {
-  const logoSrc = logo?.sourceUrl || fallbackLogo;
+  const logoSrc = logo?.sourceUrl;
   const logoAlt =
     logo?.altText || "North Florida Chiropractic Physical Therapy";
   const logoWidth = logo?.mediaDetails?.width || 249;
   const logoHeight = logo?.mediaDetails?.height || 71;
+
+  if (!logoSrc)
+    return (
+      <div
+        className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}
+      >
+        <span className={styles.logoChiro}>Chiro</span>
+        <span className={styles.logoStretch}>Stretch</span>
+      </div>
+    );
 
   return (
     <div className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}>

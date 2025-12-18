@@ -21,7 +21,7 @@ const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["300", "400", "600", "700"],
   display: "swap",
   preload: true,
 });
