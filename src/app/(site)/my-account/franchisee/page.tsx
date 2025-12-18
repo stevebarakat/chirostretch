@@ -64,7 +64,7 @@ export default async function FranchiseeDashboardPage() {
 
       <div className={styles.grid}>
         <Link href="/my-account/franchisee/location" className={styles.card}>
-          <h3 className={styles.cardTitle}>My Location</h3>
+          <h3 className={styles.cardTitle}>Clinic Location</h3>
           <div className={styles.cardContent}>
             <p className={styles.locationName}>{location.title}</p>
             {location.streetAddress && (
@@ -125,7 +125,9 @@ export default async function FranchiseeDashboardPage() {
                   </div>
                   <span
                     className={`${styles.statusBadge} ${
-                      staff.isPublic ? styles.statusActive : styles.statusInactive
+                      staff.isPublic
+                        ? styles.statusActive
+                        : styles.statusInactive
                     }`}
                   >
                     {staff.isPublic ? "Public" : "Hidden"}

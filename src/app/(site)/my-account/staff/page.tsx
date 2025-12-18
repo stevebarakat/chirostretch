@@ -35,14 +35,13 @@ export default async function StaffDashboardPage() {
     );
   }
 
-  const staffTypeLabel = STAFF_TYPE_LABELS[profile.staffType] || profile.staffType;
+  const staffTypeLabel =
+    STAFF_TYPE_LABELS[profile.staffType] || profile.staffType;
 
   return (
     <StaffDashboardLayout title="Staff Dashboard">
       <div className={styles.welcome}>
-        <h2 className={styles.welcomeTitle}>
-          Welcome, {profile.title}
-        </h2>
+        <h2 className={styles.welcomeTitle}>Welcome, {profile.title}</h2>
         <p className={styles.welcomeSubtitle}>
           {staffTypeLabel}
           {profile.jobTitle && ` - ${profile.jobTitle}`}
@@ -80,7 +79,7 @@ export default async function StaffDashboardPage() {
 
         {profile.assignedLocation && (
           <div className={styles.card}>
-            <h3 className={styles.cardTitle}>My Location</h3>
+            <h3 className={styles.cardTitle}>Staff</h3>
             <div className={styles.locationInfo}>
               <p className={styles.locationName}>
                 {profile.assignedLocation.title}

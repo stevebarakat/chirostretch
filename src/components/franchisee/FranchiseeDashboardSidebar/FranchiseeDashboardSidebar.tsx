@@ -12,7 +12,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { href: "/my-account/franchisee", label: "Dashboard" },
-  { href: "/my-account/franchisee/location", label: "My Location" },
+  { href: "/my-account/franchisee/location", label: "Clinic" },
   { href: "/my-account/franchisee/staff", label: "Staff" },
   { href: "/my-account/franchisee/profile", label: "My Profile" },
   { href: "/my-account/logout", label: "Log out" },
@@ -33,7 +33,10 @@ export function FranchiseeDashboardSidebar() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={clsx(styles.navLink, isActive && styles.navLinkActive)}
+                className={clsx(
+                  styles.navLink,
+                  isActive && styles.navLinkActive
+                )}
               >
                 {item.label}
               </Link>
