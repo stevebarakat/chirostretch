@@ -8,6 +8,7 @@ import {
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./page.module.css";
 
 const EVENTS_PER_PAGE = 6;
@@ -69,7 +70,7 @@ export default async function EventsIndex({
                     className={styles.card}
                   >
                     {image?.sourceUrl ? (
-                      <div className={styles.imageWrapper}>
+                      <ImageWrapper className={styles.imageWrapper}>
                         <Image
                           src={image.sourceUrl}
                           alt={image.altText || event.title || "Event image"}
@@ -78,11 +79,11 @@ export default async function EventsIndex({
                           className={styles.image}
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
-                      </div>
+                      </ImageWrapper>
                     ) : (
-                      <div className={styles.imageWrapper}>
+                      <ImageWrapper className={styles.imageWrapper}>
                         <div className={styles.placeholder}>No Image</div>
-                      </div>
+                      </ImageWrapper>
                     )}
                     <div className={styles.content}>
                       <h3 className={styles.cardTitle}>{event.title}</h3>

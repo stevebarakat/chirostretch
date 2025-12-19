@@ -1,0 +1,2 @@
+export { ImageWrapper } from "./ImageWrapper";
+

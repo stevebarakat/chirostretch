@@ -41,11 +41,8 @@
 }
 
 .imageWrapper {
-  position: relative;
-  width: 100%;
   aspect-ratio: 1;
   border-radius: 9999px;
-  overflow: hidden;
 }
 
 .image {

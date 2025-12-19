@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./UpcomingEvents.module.css";
 
 type Event = {
@@ -75,7 +76,7 @@ export default function UpcomingEvents({
                   key={event.id || event.databaseId}
                   className={styles.eventCard}
                 >
-                  <div className={styles.imageWrapper}>
+                  <ImageWrapper className={styles.imageWrapper}>
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
@@ -101,7 +102,7 @@ export default function UpcomingEvents({
                         No Image
                       </div>
                     )}
-                  </div>
+                  </ImageWrapper>
                   <div className={styles.content}>
                     {event.title && (
                       <h3 className={styles.title}>

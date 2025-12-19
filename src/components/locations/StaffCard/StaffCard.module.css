@@ -9,11 +9,8 @@
 }
 
 .imageWrapper {
-  position: relative;
-  width: 100%;
   aspect-ratio: 1.35/1;
   background: var(--color-bg-tertiary);
-  overflow: hidden;
 }
 
 .image {

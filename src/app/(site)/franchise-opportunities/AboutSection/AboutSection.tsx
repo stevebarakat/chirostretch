@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/UI/Container";
 import { Button } from "@/components/UI/Button";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./AboutSection.module.css";
 
 type AcfLink = {
@@ -88,7 +89,7 @@ export default function AboutSection({
           </div>
 
           {imgUrl && (
-            <div className={styles.imageWrapper}>
+            <ImageWrapper className={styles.imageWrapper}>
               <Image
                 src={imgUrl}
                 alt={aboutImage?.altText || ""}
@@ -99,7 +100,7 @@ export default function AboutSection({
                 fetchPriority="high"
                 className={styles.image}
               />
-            </div>
+            </ImageWrapper>
           )}
         </div>
       </Container>

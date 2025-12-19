@@ -3,6 +3,7 @@ import { ArrowRight, Ban } from "lucide-react";
 import type { ClinicalStaff } from "@/lib/graphql/queries/locations";
 import styles from "./StaffCard.module.css";
 import { Button } from "@/components/UI/Button";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 
 type StaffCardProps = {
   staff: ClinicalStaff;
@@ -49,7 +50,7 @@ export function StaffCard({ staff }: StaffCardProps) {
 
   return (
     <div className={styles.card}>
-      <div className={styles.imageWrapper}>
+      <ImageWrapper className={styles.imageWrapper}>
         {staff.headshot?.sourceUrl ? (
           <Image
             src={staff.headshot.sourceUrl}
@@ -67,7 +68,7 @@ export function StaffCard({ staff }: StaffCardProps) {
         {staff.acceptingPatients && (
           <span className={styles.badge}>Accepting Patients</span>
         )}
-      </div>
+      </ImageWrapper>
 
       <div className={styles.content}>
         <h3 className={styles.name}>{staff.title}</h3>

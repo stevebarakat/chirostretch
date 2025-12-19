@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./RelatedProducts.module.css";
 
 type RelatedProduct = {
@@ -55,7 +56,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
               className={styles.card}
             >
               {image?.sourceUrl && (
-                <div className={styles.imageWrapper}>
+                <ImageWrapper className={styles.imageWrapper}>
                   <Image
                     src={image.sourceUrl}
                     alt={image.altText || product.name || "Product image"}
@@ -64,7 +65,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                     className={styles.image}
                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
-                </div>
+                </ImageWrapper>
               )}
               <div className={styles.content}>
                 <h3 className={styles.title}>{product.name}</h3>

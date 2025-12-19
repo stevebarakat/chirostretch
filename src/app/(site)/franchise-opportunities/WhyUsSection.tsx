@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/UI/Container";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./WhyUsSection.module.css";
 
 type DescriptionListItem = {
@@ -46,7 +47,7 @@ export default function WhyUsSection({
       <Container>
         <div className={styles.wrapper}>
           {whyusImage?.sourceUrl && (
-            <div className={styles.imageWrapper}>
+            <ImageWrapper className={styles.imageWrapper}>
               <Image
                 src={whyusImage.sourceUrl}
                 alt={whyusImage.altText || ""}
@@ -55,7 +56,7 @@ export default function WhyUsSection({
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className={styles.image}
               />
-            </div>
+            </ImageWrapper>
           )}
           <div className={styles.content}>
             {whyusHeading && <h2 className={styles.heading}>{whyusHeading}</h2>}

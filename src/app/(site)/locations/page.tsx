@@ -8,6 +8,7 @@ import {
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import { LocationMapWrapper } from "@/components/Locations";
 import styles from "./page.module.css";
 
@@ -72,7 +73,7 @@ export default async function LocationsPage({
                     className={styles.card}
                   >
                     {image?.sourceUrl ? (
-                      <div className={styles.imageWrapper}>
+                      <ImageWrapper className={styles.imageWrapper}>
                         <Image
                           src={image.sourceUrl}
                           alt={
@@ -83,11 +84,11 @@ export default async function LocationsPage({
                           className={styles.image}
                           sizes="(max-width: 639px) 100vw, 320px"
                         />
-                      </div>
+                      </ImageWrapper>
                     ) : (
-                      <div className={styles.imageWrapper}>
+                      <ImageWrapper className={styles.imageWrapper}>
                         <div className={styles.placeholder}>No Image</div>
-                      </div>
+                      </ImageWrapper>
                     )}
                     <div className={styles.rightColumn}>
                       <div className={styles.content}>

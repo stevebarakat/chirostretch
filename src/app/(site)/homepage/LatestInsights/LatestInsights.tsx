@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./LatestInsights.module.css";
 import { RawHtml } from "@/components/RawHtml";
 
@@ -91,7 +92,7 @@ export default function LatestInsights({
               return (
                 <article key={post.id || post.slug} className={styles.postCard}>
                   {image?.sourceUrl && (
-                    <div className={styles.imageWrapper}>
+                    <ImageWrapper className={styles.imageWrapper}>
                       <Link href={`/articles/${post.slug}`}>
                         <Image
                           src={image.sourceUrl}
@@ -106,7 +107,7 @@ export default function LatestInsights({
                           }
                         />
                       </Link>
-                    </div>
+                    </ImageWrapper>
                   )}
                   <div className={styles.content}>
                     <Link

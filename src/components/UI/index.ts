@@ -1,5 +1,6 @@
 export { Button } from "./Button";
 export { Container } from "./Container";
+export { ImageWrapper } from "./ImageWrapper";
 export { Modal } from "./Modal";
 export { PageHeader } from "./PageHeader";
 export { Pagination } from "./Pagination";

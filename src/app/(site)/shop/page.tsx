@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_PRODUCTS_QUERY,
@@ -47,7 +48,7 @@ export default async function ShopPage() {
                   className={styles.card}
                 >
                   {image?.sourceUrl ? (
-                    <div className={styles.imageWrapper}>
+                    <ImageWrapper className={styles.imageWrapper}>
                       <Image
                         src={image.sourceUrl}
                         alt={image.altText || product.name || "Product image"}
@@ -59,11 +60,11 @@ export default async function ShopPage() {
                       {isOnSale && (
                         <span className={styles.saleBadge}>Sale</span>
                       )}
-                    </div>
+                    </ImageWrapper>
                   ) : (
-                    <div className={styles.imageWrapper}>
+                    <ImageWrapper className={styles.imageWrapper}>
                       <div className={styles.placeholder}>No Image</div>
-                    </div>
+                    </ImageWrapper>
                   )}
                   <div className={styles.content}>
                     <h3 className={styles.title}>{product.name}</h3>

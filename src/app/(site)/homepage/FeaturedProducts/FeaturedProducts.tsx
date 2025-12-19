@@ -8,6 +8,7 @@ import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
 import { StarRating } from "@/components/UI/StarRating";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -171,7 +172,7 @@ export default function FeaturedProducts({
                   <SwiperSlide key={product.id} className={styles.slide}>
                     <div className={styles.productCard}>
                       {imageUrl ? (
-                        <div className={styles.imageWrapper}>
+                        <ImageWrapper className={styles.imageWrapper}>
                           <Image
                             src={imageUrl}
                             alt={imageAlt}
@@ -182,9 +183,9 @@ export default function FeaturedProducts({
                             priority={index === 0}
                             fetchPriority={index === 0 ? "high" : "auto"}
                           />
-                        </div>
+                        </ImageWrapper>
                       ) : (
-                        <div className={styles.imageWrapper}>
+                        <ImageWrapper className={styles.imageWrapper}>
                           <div
                             style={{
                               width: "100%",
@@ -199,7 +200,7 @@ export default function FeaturedProducts({
                           >
                             No Image
                           </div>
-                        </div>
+                        </ImageWrapper>
                       )}
                       <div className={styles.overlay}>
                         <div className={styles.overlayContent}>

@@ -5,6 +5,7 @@ import { ALL_POSTS_QUERY, type AllPostsResponse } from "@/lib/graphql/queries";
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -66,7 +67,7 @@ export default async function ArticlesPage({
                     className={styles.card}
                   >
                     {image?.sourceUrl ? (
-                      <div className={styles.imageWrapper}>
+                      <ImageWrapper className={styles.imageWrapper}>
                         <Image
                           src={image.sourceUrl}
                           alt={image.altText || post.title || "Article image"}
@@ -75,11 +76,11 @@ export default async function ArticlesPage({
                           className={styles.image}
                           sizes="(max-width: 639px) 100vw, 320px"
                         />
-                      </div>
+                      </ImageWrapper>
                     ) : (
-                      <div className={styles.imageWrapper}>
+                      <ImageWrapper className={styles.imageWrapper}>
                         <div className={styles.placeholder}>No Image</div>
-                      </div>
+                      </ImageWrapper>
                     )}
                     <div className={styles.content}>
                       <h3 className={styles.cardTitle}>{post.title}</h3>

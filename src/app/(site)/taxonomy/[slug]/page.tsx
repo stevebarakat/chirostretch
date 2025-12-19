@@ -15,6 +15,7 @@ import {
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "@/app/(site)/archive.module.css";
 
 export const revalidate = 300;
@@ -234,7 +235,7 @@ function renderArchive(
                         href={`/articles/${post.slug}`}
                         className={styles.imageLink}
                       >
-                        <div className={styles.imageWrapper}>
+                        <ImageWrapper className={styles.imageWrapper}>
                           <Image
                             src={image.sourceUrl}
                             alt={image.altText || post.title || "Article image"}
@@ -243,16 +244,16 @@ function renderArchive(
                             className={styles.image}
                             sizes="(max-width: 639px) 100vw, 320px"
                           />
-                        </div>
+                        </ImageWrapper>
                       </Link>
                     ) : (
                       <Link
                         href={`/articles/${post.slug}`}
                         className={styles.imageLink}
                       >
-                        <div className={styles.imageWrapper}>
+                        <ImageWrapper className={styles.imageWrapper}>
                           <div className={styles.placeholder}>No Image</div>
-                        </div>
+                        </ImageWrapper>
                       </Link>
                     )}
                     <div className={styles.content}>
@@ -364,7 +365,7 @@ function renderProductArchive(
                         href={`/products/${product.slug}`}
                         className={styles.imageLink}
                       >
-                        <div className={styles.imageWrapper}>
+                        <ImageWrapper className={styles.imageWrapper}>
                           <Image
                             src={image.sourceUrl}
                             alt={
@@ -375,16 +376,16 @@ function renderProductArchive(
                             className={styles.image}
                             sizes="(max-width: 639px) 100vw, 320px"
                           />
-                        </div>
+                        </ImageWrapper>
                       </Link>
                     ) : (
                       <Link
                         href={`/products/${product.slug}`}
                         className={styles.imageLink}
                       >
-                        <div className={styles.imageWrapper}>
+                        <ImageWrapper className={styles.imageWrapper}>
                           <div className={styles.placeholder}>No Image</div>
-                        </div>
+                        </ImageWrapper>
                       </Link>
                     )}
                     <div className={styles.content}>

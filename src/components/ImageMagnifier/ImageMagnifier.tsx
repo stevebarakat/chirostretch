@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { clsx } from "clsx";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./ImageMagnifier.module.css";
 
 type ImageMagnifierProps = {
@@ -67,7 +68,7 @@ export default function ImageMagnifier({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      <div
+      <ImageWrapper
         ref={imageRef}
         className={clsx(styles.imageWrapper, isHovered && styles.zoomed)}
         style={
@@ -88,7 +89,7 @@ export default function ImageMagnifier({
           sizes={sizes}
           className={styles.image}
         />
-      </div>
+      </ImageWrapper>
     </div>
   );
 }

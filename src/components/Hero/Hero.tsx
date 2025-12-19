@@ -6,6 +6,7 @@ import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
 import { Button } from "@/components/UI/Button";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import {
   getSafeImageUrl,
   useImageFallback,
@@ -112,7 +113,7 @@ function Hero({ featuredImage, heroUnit, description }: HeroProps) {
 
   return (
     <section className={styles.hero}>
-      <div className={styles.imageWrapper}>
+      <ImageWrapper className={styles.imageWrapper}>
         <Image
           priority
           fetchPriority="high"
@@ -126,7 +127,7 @@ function Hero({ featuredImage, heroUnit, description }: HeroProps) {
           style={{ objectFit: "cover", objectPosition: "center" }}
         />
         <div className={styles.overlay} />
-      </div>
+      </ImageWrapper>
       <div className={styles.content}>
         <h1 className={styles.headline}>{heading}</h1>
         {subheading && (

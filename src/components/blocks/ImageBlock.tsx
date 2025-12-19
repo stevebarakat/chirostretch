@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { clsx } from "clsx";
+import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import styles from "./ImageBlock.module.css";
 
 type ImageBlockProps = {
@@ -154,7 +155,7 @@ export default function ImageBlock({
           position: "relative",
         }}
       >
-        <div className={styles.imageWrapper}>
+        <ImageWrapper className={styles.imageWrapper}>
           <Image
             src={url}
             alt={alt}
@@ -174,7 +175,7 @@ export default function ImageBlock({
             }
             style={imageStyle}
           />
-        </div>
+        </ImageWrapper>
         {caption && (
           <figcaption className={styles.caption}>{caption}</figcaption>
         )}

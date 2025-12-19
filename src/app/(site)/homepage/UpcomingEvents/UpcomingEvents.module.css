@@ -27,10 +27,7 @@
 }
 
 .imageWrapper {
-  position: relative;
-  width: 100%;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
   flex-shrink: 0;
 }
 
