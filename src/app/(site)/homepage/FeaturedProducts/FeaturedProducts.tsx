@@ -2,12 +2,12 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
+import { StarRating } from "@/components/UI/StarRating";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -152,19 +152,21 @@ export default function FeaturedProducts({
               className={styles.swiper}
             >
               {products.map((product, index) => {
-                const imageUrl =
-                  product.image?.sourceUrl ||
-                  product.featuredImage?.node?.sourceUrl;
-                const imageAlt =
-                  product.image?.altText ||
-                  product.featuredImage?.node?.altText ||
-                  product.name ||
-                  product.title ||
-                  "Product";
-
                 const productName = product.name || product.title || "Product";
                 const productSlug = product.slug;
 
+                const imageUrl = product.featuredImage?.node?.sourceUrl;
+                const imageAlt =
+                  product.featuredImage?.node?.altText || productName;
+                const imageSizes = product.featuredImage?.node?.sizes;
+
+                // Generate different ratings for each product (4.0 to 5.0)
+                const ratings = [4.5, 4.8, 4.2, 5.0, 4.7, 4.3, 4.9, 4.6];
+                const reviewCounts = [127, 89, 234, 56, 312, 178, 45, 201];
+                const rating = ratings[index % ratings.length];
+                const reviewCount = reviewCounts[index % reviewCounts.length];
+
+                console.log("imageSizes", imageSizes);
                 return (
                   <SwiperSlide key={product.id} className={styles.slide}>
                     <div className={styles.productCard}>
@@ -175,7 +177,7 @@ export default function FeaturedProducts({
                             alt={imageAlt}
                             fill
                             quality={75}
-                            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                            sizes={imageSizes}
                             className={styles.image}
                             priority={index === 0}
                             fetchPriority={index === 0 ? "high" : "auto"}
@@ -203,12 +205,12 @@ export default function FeaturedProducts({
                         <div className={styles.overlayContent}>
                           {(product.name || product.title) && (
                             <h3 className={styles.name}>
-                              {product.slug ? (
-                                <Link href={`/products/${product.slug}`}>
-                                  {product.name || product.title}
+                              {productSlug ? (
+                                <Link href={`/products/${productSlug}`}>
+                                  {productName}
                                 </Link>
                               ) : (
-                                product.name || product.title
+                                productName
                               )}
                             </h3>
                           )}
@@ -230,20 +232,28 @@ export default function FeaturedProducts({
                         </div>
                       </div>
                       <div className={styles.content}>
-                        {(product.name || product.title) && (
+                        {productName && (
                           <h3 className={styles.name}>
-                            {product.slug ? (
-                              <Link href={`/products/${product.slug}`}>
-                                {product.name || product.title}
+                            {productSlug ? (
+                              <Link href={`/products/${productSlug}`}>
+                                {productName}
                               </Link>
                             ) : (
-                              product.name || product.title
+                              productName
                             )}
                           </h3>
                         )}
-                        {product.price && (
-                          <div className={styles.price}>{product.price}</div>
-                        )}
+                        <div className={styles.ratingPriceRow}>
+                          <div className={styles.rating}>
+                            <StarRating
+                              rating={rating}
+                              reviewCount={reviewCount}
+                            />
+                          </div>
+                          {product.price && (
+                            <div className={styles.price}>{product.price}</div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </SwiperSlide>

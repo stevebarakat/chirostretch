@@ -55,11 +55,12 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   background-color: var(--color-secondary-400);
   display: flex;
   flex: 1;
   flex-direction: column;
+  gap: var(--spacing-sm);
   z-index: 1;
   transition: opacity var(--transition-slow), transform var(--transition-slow),
     visibility var(--transition-slow);
@@ -139,14 +140,16 @@
 }
 
 .name {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-normal);
   color: var(--color-text-inverse);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 30ch;
+  max-width: 100%;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .name a {
@@ -160,10 +163,25 @@
   opacity: 0.9;
 }
 
+.ratingPriceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-inverse);
+}
+
 .price {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-inverse);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
 }
 
 .viewItemButton {

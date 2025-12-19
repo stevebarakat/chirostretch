@@ -125,8 +125,7 @@ const CallToAction = ({
               {button2Text && btn2Link?.url && (
                 <Link href={btn2Link.url} target={btn2Link.target || undefined}>
                   <Button
-                    variant="inverse"
-                    color="glass"
+                    color="secondary"
                     outline
                     icon={icon2Element}
                     iconPosition="left"

@@ -4,4 +4,5 @@ export { Modal } from "./Modal";
 export { PageHeader } from "./PageHeader";
 export { Pagination } from "./Pagination";
 export { SectionHeading } from "./SectionHeading";
+export { StarRating } from "./StarRating";
 export { VisuallyHidden } from "./VisuallyHidden";
