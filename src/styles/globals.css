@@ -107,3 +107,18 @@ code {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* SWIPER */
+
+:is(
+    .swiper-horizontal > .swiper-pagination-bullets,
+    .swiper-pagination-horizontal.swiper-pagination-bullets
+  )
+  .swiper-pagination-bullet {
+  width: 2rem;
+  height: 2rem;
+}
+
+.swiper-wrapper {
+  padding-bottom: 2rem;
+}

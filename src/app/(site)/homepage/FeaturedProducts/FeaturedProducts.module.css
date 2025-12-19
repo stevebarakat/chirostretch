@@ -25,21 +25,18 @@
   background-color: var(--color-bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  overflow: hidden;
   transition: transform var(--transition-base),
     box-shadow var(--transition-base);
   cursor: pointer;
-  border: 8px solid var(--color-secondary-400);
+  border: 12px solid var(--color-secondary-400);
 }
 
 .productCard:hover {
-  /* transform: translateY(-4px); */
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .imageWrapper {
-  background-color: var(--color-bg-tertiary);
-  aspect-ratio: 1.5/1;
+  aspect-ratio: 9/6;
 }
 
 .image {
@@ -53,7 +50,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-sm);
   background-color: var(--color-secondary-400);
   display: flex;
   flex: 1;
@@ -64,14 +61,6 @@
   min-height: fit-content;
 }
 
-/* .productCard:hover .content {
-  opacity: 0;
-  transform: translateY(100%);
-  visibility: hidden;
-  position: absolute;
-  pointer-events: none;
-} */
-
 .productCard:hover .overlayContent .name {
   white-space: normal;
   font-size: var(--font-size-2xl);
@@ -80,17 +69,17 @@
   display: block;
   max-width: 100%;
   line-height: var(--line-height-tight);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   background: var(--color-bg-primary);
   color: var(--color-secondary-400);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
   padding: var(--spacing-sm);
+  min-height: fit-content;
 }
 
 .productCard:hover .overlayContent .price {
   font-size: var(--font-size-4xl);
   text-align: center;
-  /* margin: var(--spacing-md) auto; */
   display: block;
 }
 
@@ -110,6 +99,8 @@
     color-mix(in srgb, var(--color-secondary-500) 85%, transparent) 0%,
     color-mix(in srgb, var(--color-secondary-500) 95%, transparent) 100%
   );
+  background: var(--color-secondary-gradient);
+  background: var(--color-secondary-500);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -118,7 +109,7 @@
   visibility: hidden;
   transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
   z-index: 2;
-  border-radius: var(--radius-lg);
+  /* border-radius: var(--radius-lg); */
 }
 
 .productCard:hover .overlay {
@@ -127,7 +118,6 @@
 }
 
 .overlayContent {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,7 +133,7 @@
 }
 
 .contentInner {
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md);
 }
 
 .productCard:hover .overlayContent {
@@ -152,7 +142,7 @@
 }
 
 .name {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-normal);
   color: var(--color-text-inverse);
@@ -161,7 +151,7 @@
   text-overflow: ellipsis;
   max-width: 100%;
   margin: 0;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.075em;
 }
 
 .name a {
@@ -170,9 +160,8 @@
   transition: color var(--transition-base);
 }
 
-.name a:hover {
-  color: var(--color-text-inverse);
-  opacity: 0.9;
+.name:hover a {
+  color: var(--color-secondary-500);
 }
 
 .ratingPriceRow {
