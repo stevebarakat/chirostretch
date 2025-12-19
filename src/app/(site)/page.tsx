@@ -116,6 +116,7 @@ export default async function HomePage() {
             button1: {
               button1Text: page.homepageCta.button1?.button1Text ?? "",
               btn1Link: page.homepageCta.button1?.btn1Link,
+              btn1Icon: page.homepageCta.button1?.btn1Icon,
             },
             button2: page.homepageCta.button2,
           }}

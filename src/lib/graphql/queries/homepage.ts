@@ -170,6 +170,16 @@ export const HOMEPAGE_QUERY = `
             title
             target
           }
+          btn1Icon {
+            node {
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
         }
         button2 {
           btn1Text
@@ -177,6 +187,16 @@ export const HOMEPAGE_QUERY = `
             url
             title
             target
+          }
+          btn2Icon {
+            node {
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+              }
+            }
           }
         }
       }
@@ -466,6 +486,16 @@ type HomepageQueryResponse = {
           title?: string;
           target?: string;
         };
+        btn1Icon?: {
+          node?: {
+            sourceUrl?: string;
+            altText?: string;
+            mediaDetails?: {
+              width?: number;
+              height?: number;
+            };
+          };
+        };
       };
       button2?: {
         btn1Text?: string;
@@ -473,6 +503,16 @@ type HomepageQueryResponse = {
           url?: string;
           title?: string;
           target?: string;
+        };
+        btn2Icon?: {
+          node?: {
+            sourceUrl?: string;
+            altText?: string;
+            mediaDetails?: {
+              width?: number;
+              height?: number;
+            };
+          };
         };
       };
     };

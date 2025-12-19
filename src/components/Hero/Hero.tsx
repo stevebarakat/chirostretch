@@ -64,13 +64,22 @@ function ButtonIcon({ icon }: { icon?: IconNode }) {
   if (!icon?.sourceUrl) return null;
 
   return (
-    <Image
-      src={icon.sourceUrl}
-      alt={icon.altText || ""}
-      width={icon.mediaDetails?.width || 20}
-      height={icon.mediaDetails?.height || 20}
+    <span
       className={styles.buttonIcon}
-    />
+      style={
+        {
+          "--icon-url": `url(${icon.sourceUrl})`,
+        } as React.CSSProperties
+      }
+    >
+      <Image
+        src={icon.sourceUrl}
+        alt={icon.altText || ""}
+        width={icon.mediaDetails?.width || 20}
+        height={icon.mediaDetails?.height || 20}
+        className={styles.buttonIconImage}
+      />
+    </span>
   );
 }
 

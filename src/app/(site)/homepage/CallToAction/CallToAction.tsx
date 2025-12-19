@@ -1,9 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./cta.module.css";
 import { Button } from "@/components/UI/Button";
 import { Promotion } from "@/components/Promotion";
+
+type IconNode = {
+  sourceUrl?: string;
+  altText?: string;
+  mediaDetails?: {
+    width?: number;
+    height?: number;
+  };
+};
 
 type CallToActionType = {
   button1: {
@@ -13,6 +23,9 @@ type CallToActionType = {
       title?: string;
       target?: string;
     };
+    btn1Icon?: {
+      node?: IconNode;
+    };
   };
   button2?: {
     btn1Text?: string;
@@ -21,12 +34,38 @@ type CallToActionType = {
       title?: string;
       target?: string;
     };
+    btn2Icon?: {
+      node?: IconNode;
+    };
   };
   headings: {
     headline: string;
     subheading: string;
   };
 };
+
+function ButtonIcon({ icon }: { icon?: IconNode }) {
+  if (!icon?.sourceUrl) return null;
+
+  return (
+    <span
+      className={styles.buttonIcon}
+      style={
+        {
+          "--icon-url": `url(${icon.sourceUrl})`,
+        } as React.CSSProperties
+      }
+    >
+      <Image
+        src={icon.sourceUrl}
+        alt={icon.altText || ""}
+        width={icon.mediaDetails?.width || 20}
+        height={icon.mediaDetails?.height || 20}
+        className={styles.buttonIconImage}
+      />
+    </span>
+  );
+}
 
 const CallToAction = ({
   cta,
@@ -41,8 +80,20 @@ const CallToAction = ({
   };
 }) => {
   const { headline, subheading } = cta?.headings || {};
-  const { button1Text, btn1Link } = cta?.button1 || {};
-  const { btn1Text: button2Text, btn1Link: btn2Link } = cta?.button2 || {};
+  const { button1Text, btn1Link, btn1Icon } = cta?.button1 || {};
+  const {
+    btn1Text: button2Text,
+    btn1Link: btn2Link,
+    btn2Icon,
+  } = cta?.button2 || {};
+
+  const icon1Element = btn1Icon?.node?.sourceUrl ? (
+    <ButtonIcon icon={btn1Icon.node} />
+  ) : undefined;
+
+  const icon2Element = btn2Icon?.node?.sourceUrl ? (
+    <ButtonIcon icon={btn2Icon.node} />
+  ) : undefined;
 
   return (
     <div className={styles.cta}>
@@ -61,14 +112,25 @@ const CallToAction = ({
             <div className={styles.buttonGroup}>
               {button1Text && btn1Link?.url && (
                 <Link href={btn1Link.url} target={btn1Link.target || undefined}>
-                  <Button variant="inverse" color="secondary">
+                  <Button
+                    variant="inverse"
+                    color="secondary"
+                    icon={icon1Element}
+                    iconPosition="left"
+                  >
                     {button1Text}
                   </Button>
                 </Link>
               )}
               {button2Text && btn2Link?.url && (
                 <Link href={btn2Link.url} target={btn2Link.target || undefined}>
-                  <Button variant="inverse" color="glass" outline>
+                  <Button
+                    variant="inverse"
+                    color="glass"
+                    outline
+                    icon={icon2Element}
+                    iconPosition="left"
+                  >
                     {button2Text}
                   </Button>
                 </Link>
