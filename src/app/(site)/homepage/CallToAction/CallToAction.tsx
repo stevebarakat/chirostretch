@@ -17,7 +17,6 @@ type IconNode = {
 
 type CallToActionType = {
   button1: {
-    button1Text: string;
     btn1Link?: {
       url?: string;
       title?: string;
@@ -28,8 +27,7 @@ type CallToActionType = {
     };
   };
   button2?: {
-    btn1Text?: string;
-    btn1Link?: {
+    btn2Link?: {
       url?: string;
       title?: string;
       target?: string;
@@ -80,12 +78,8 @@ const CallToAction = ({
   };
 }) => {
   const { headline, subheading } = cta?.headings || {};
-  const { button1Text, btn1Link, btn1Icon } = cta?.button1 || {};
-  const {
-    btn1Text: button2Text,
-    btn1Link: btn2Link,
-    btn2Icon,
-  } = cta?.button2 || {};
+  const { btn1Link, btn1Icon } = cta?.button1 || {};
+  const { btn2Link, btn2Icon } = cta?.button2 || {};
 
   const icon1Element = btn1Icon?.node?.sourceUrl ? (
     <ButtonIcon icon={btn1Icon.node} />
@@ -110,7 +104,7 @@ const CallToAction = ({
           </div>
           <div className={styles.ctaForm}>
             <div className={styles.buttonGroup}>
-              {button1Text && btn1Link?.url && (
+              {btn1Link?.url && btn1Link?.title && (
                 <Link href={btn1Link.url} target={btn1Link.target || undefined}>
                   <Button
                     variant="inverse"
@@ -118,11 +112,11 @@ const CallToAction = ({
                     icon={icon1Element}
                     iconPosition="left"
                   >
-                    {button1Text}
+                    {btn1Link.title}
                   </Button>
                 </Link>
               )}
-              {button2Text && btn2Link?.url && (
+              {btn2Link?.url && btn2Link?.title && (
                 <Link href={btn2Link.url} target={btn2Link.target || undefined}>
                   <Button
                     color="secondary"
@@ -130,7 +124,7 @@ const CallToAction = ({
                     icon={icon2Element}
                     iconPosition="left"
                   >
-                    {button2Text}
+                    {btn2Link.title}
                   </Button>
                 </Link>
               )}

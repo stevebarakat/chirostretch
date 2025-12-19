@@ -15,8 +15,19 @@
   margin-bottom: 1.5rem;
 }
 
-.formWrapper {
-  /* Gravity Forms styling overrides */
+/* Form input, textarea, select, and submit button styles now come from shared forms.css */
+/* The .formWrapper scope ensures Gravity Forms inherit the global form styles */
+
+/* Add spacing between Gravity Forms fields */
+.formWrapper form > div:not(:last-child),
+.formWrapper form > fieldset:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Target field containers more specifically */
+.formWrapper form [class*="field"]:not(:last-child),
+.formWrapper form [class*="Field"]:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
 }
 
 .error {

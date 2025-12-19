@@ -48,7 +48,10 @@ export function proxy(request: NextRequest) {
     } else if (userRole === "franchisee") {
       // Franchisees can access shared routes + /franchisee/*
       // They cannot access /staff or /application
-      if (pathname.startsWith("/staff") || pathname.startsWith("/application")) {
+      if (
+        pathname.startsWith("/staff") ||
+        pathname.startsWith("/application")
+      ) {
         return NextResponse.redirect(new URL("/franchisee", request.url));
       }
     } else if (userRole && STAFF_ROLES.includes(userRole)) {
@@ -92,4 +95,3 @@ export const config = {
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };
-

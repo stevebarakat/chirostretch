@@ -94,6 +94,17 @@ export function GravityForm({ form }: GravityFormProps) {
         return field;
       });
 
+    // Update submit button text for New Patient Offer form
+    const updatedSubmitButton = gfForm.submitButton
+      ? {
+          ...gfForm.submitButton,
+          text: gfForm.submitButton.text === "Submit" ? "Claim Your Offer" : gfForm.submitButton.text,
+        }
+      : {
+          text: "Claim Your Offer",
+          type: "text",
+        };
+
     return {
       ...formData,
       gfForm: {
@@ -102,6 +113,7 @@ export function GravityForm({ form }: GravityFormProps) {
           ...gfForm.formFields,
           nodes: processedFields,
         },
+        submitButton: updatedSubmitButton,
       },
     };
   }, [form]);

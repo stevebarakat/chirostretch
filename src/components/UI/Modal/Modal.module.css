@@ -52,7 +52,7 @@
   max-height: 90vh;
   margin: auto;
   padding: var(--spacing-xl);
-  background: var(--color-background);
+  background: var(--color-bg-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   overflow-y: auto;

@@ -166,7 +166,6 @@ export const HOMEPAGE_QUERY = `
           subheading
         }
         button1 {
-          button1Text
           btn1Link {
             url
             title
@@ -184,8 +183,7 @@ export const HOMEPAGE_QUERY = `
           }
         }
         button2 {
-          btn1Text
-          btn1Link {
+          btn2Link {
             url
             title
             target
@@ -484,7 +482,6 @@ type HomepageQueryResponse = {
         subheading?: string;
       };
       button1?: {
-        button1Text?: string;
         btn1Link?: {
           url?: string;
           title?: string;
@@ -502,8 +499,7 @@ type HomepageQueryResponse = {
         };
       };
       button2?: {
-        btn1Text?: string;
-        btn1Link?: {
+        btn2Link?: {
           url?: string;
           title?: string;
           target?: string;

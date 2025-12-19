@@ -1,14 +1,23 @@
+.modal::backdrop {
+  backdrop-filter: none;
+}
+
 .modal :global(.content) {
   max-width: 600px;
   max-height: 80vh;
   padding: 0;
   overflow: hidden;
+  background-color: var(--color-bg-primary);
+  box-shadow: 0 10px 40px hsla(0, 0%, 0%, 0.2);
+  border-radius: var(--radius-lg);
+  margin-top: var(--spacing-2xl);
 }
 
 .content {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: var(--color-bg-primary);
 }
 
 .header {
@@ -136,5 +145,6 @@
     max-width: 100%;
     max-height: 100vh;
     border-radius: 0;
+    margin-top: 0;
   }
 }

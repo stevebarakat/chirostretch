@@ -24,3 +24,25 @@
   max-width: 800px;
   margin: 0 auto;
 }
+
+/* Form styles inherited from shared forms.css */
+.content form {
+  /* All form input, textarea, select, and button styles come from global forms.css */
+}
+
+/* Add spacing between Gravity Forms fields */
+.content form > div:not(:last-child),
+.content form > fieldset:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Target field containers more specifically */
+.content form [class*="field"]:not(:last-child),
+.content form [class*="Field"]:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Add spacing between Gravity Forms fields */
+.content form > div:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
+}
