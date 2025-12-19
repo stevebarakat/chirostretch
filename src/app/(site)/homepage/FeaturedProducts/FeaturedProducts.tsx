@@ -23,6 +23,8 @@ type Product = {
   title?: string;
   slug?: string;
   price?: string;
+  averageRating?: number;
+  reviewCount?: number;
   image?: {
     sourceUrl?: string;
     altText?: string;
@@ -63,6 +65,8 @@ type FeaturedProductsProps = {
       name?: string;
       slug?: string;
       price?: string;
+      averageRating?: number;
+      reviewCount?: number;
       featuredImage?: {
         node?: {
           id?: string;
@@ -100,6 +104,8 @@ export default function FeaturedProducts({
           name: product.name,
           slug: product.slug,
           price: product.price,
+          averageRating: product.averageRating,
+          reviewCount: product.reviewCount,
           featuredImage: product.featuredImage,
         });
       }
@@ -162,13 +168,9 @@ export default function FeaturedProducts({
                   product.featuredImage?.node?.altText || productName;
                 const imageSizes = product.featuredImage?.node?.sizes;
 
-                // Generate different ratings for each product (4.0 to 5.0)
-                const ratings = [4.5, 4.8, 4.2, 5.0, 4.7, 4.3, 4.9, 4.6];
-                const reviewCounts = [127, 89, 234, 56, 312, 178, 45, 201];
-                const rating = ratings[index % ratings.length];
-                const reviewCount = reviewCounts[index % reviewCounts.length];
+                const rating = product.averageRating ?? 0;
+                const reviewCount = product.reviewCount ?? 0;
 
-                console.log("imageSizes", imageSizes);
                 return (
                   <SwiperSlide key={product.id} className={styles.slide}>
                     <div className={styles.productCard}>
@@ -203,21 +205,33 @@ export default function FeaturedProducts({
                               )}
                             </h3>
                           )}
-                          {product.price && (
-                            <div className={styles.price}>{product.price}</div>
-                          )}
-                          {productSlug && (
-                            <Button
-                              as="a"
-                              href={`/products/${productSlug}`}
-                              color="secondary"
-                              variant="inverse"
-                              className={styles.viewItemButton}
-                              aria-description={`View details for ${productName}`}
-                            >
-                              View Item
-                            </Button>
-                          )}
+                          <div className={styles.contentInner}>
+                            {(rating > 0 || reviewCount > 0) && (
+                              <div className={styles.rating}>
+                                <StarRating
+                                  rating={rating}
+                                  reviewCount={reviewCount}
+                                />
+                              </div>
+                            )}
+                            {product.price && (
+                              <div className={styles.price}>
+                                {product.price}
+                              </div>
+                            )}
+                            {productSlug && (
+                              <Button
+                                as="a"
+                                href={`/products/${productSlug}`}
+                                color="secondary"
+                                variant="inverse"
+                                className={styles.viewItemButton}
+                                aria-description={`View details for ${productName}`}
+                              >
+                                View Item
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
                       <div className={styles.content}>

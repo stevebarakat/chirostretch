@@ -35,6 +35,8 @@ export const HOMEPAGE_QUERY = `
         databaseId
         name
         slug
+        averageRating
+        reviewCount
         ... on SimpleProduct {
           price
         }
@@ -304,6 +306,8 @@ type HomepageQueryResponse = {
       databaseId?: number;
       name?: string;
       slug?: string;
+      averageRating?: number;
+      reviewCount?: number;
       featuredImage?: {
         node?: {
           id?: string;

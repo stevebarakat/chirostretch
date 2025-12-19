@@ -29,10 +29,11 @@
   transition: transform var(--transition-base),
     box-shadow var(--transition-base);
   cursor: pointer;
+  border: 8px solid var(--color-secondary-400);
 }
 
 .productCard:hover {
-  transform: translateY(-4px);
+  /* transform: translateY(-4px); */
   box-shadow: var(--shadow-lg);
 }
 
@@ -59,37 +60,43 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   z-index: 1;
-  transition: opacity var(--transition-slow), transform var(--transition-slow),
-    visibility var(--transition-slow);
+  transition: all var(--transition-slow);
   min-height: fit-content;
 }
 
-.productCard:hover .content {
+/* .productCard:hover .content {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(100%);
   visibility: hidden;
   position: absolute;
   pointer-events: none;
-}
+} */
 
 .productCard:hover .overlayContent .name {
   white-space: normal;
   font-size: var(--font-size-2xl);
   text-align: center;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto var(--spacing-sm);
+  display: block;
   max-width: 100%;
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+  background: var(--color-bg-primary);
+  color: var(--color-secondary-400);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: var(--spacing-sm);
 }
 
 .productCard:hover .overlayContent .price {
   font-size: var(--font-size-4xl);
   text-align: center;
-  margin: 0 auto;
-  display: flex;
+  /* margin: var(--spacing-md) auto; */
+  display: block;
+}
+
+.productCard:hover .overlayContent .rating {
   justify-content: center;
-  align-items: center;
+  margin: 0 auto var(--spacing-sm);
 }
 
 .overlay {
@@ -98,13 +105,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--color-secondary-500);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-secondary-500) 85%, transparent) 0%,
+    color-mix(in srgb, var(--color-secondary-500) 95%, transparent) 100%
+  );
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 400ms ease-in-out, visibility 400ms ease-in-out;
+  transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
   z-index: 2;
   border-radius: var(--radius-lg);
 }
@@ -115,20 +127,23 @@
 }
 
 .overlayContent {
-  padding: var(--spacing-lg);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   height: 100%;
-  justify-content: flex-start;
-  padding-top: var(--spacing-lg);
+  justify-content: space-between;
   position: relative;
   z-index: 3;
   opacity: 0;
-  transition: opacity 400ms ease-in-out 100ms, transform 400ms ease-in-out 100ms;
+  transform: translateY(8px);
+  transition: opacity 300ms ease-in-out 150ms, transform 300ms ease-in-out 150ms;
   box-sizing: border-box;
+}
+
+.contentInner {
+  padding: var(--spacing-xl);
 }
 
 .productCard:hover .overlayContent {
@@ -170,7 +185,12 @@
 .rating {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   color: var(--color-text-inverse);
+}
+
+.overlayContent .rating {
+  justify-content: center;
 }
 
 .price {
@@ -182,13 +202,10 @@
 }
 
 .viewItemButton {
-  margin-top: var(--spacing-sm);
-  align-self: flex-start;
-  text-align: center;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: var(--spacing-md);
+  align-self: center;
+  width: auto;
+  min-width: 140px;
 }
 
 .button {
