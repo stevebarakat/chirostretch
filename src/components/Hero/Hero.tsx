@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import Link from "next/link";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
@@ -12,12 +12,16 @@ import {
   FALLBACK_IMAGES,
 } from "@/utils/image-helpers";
 import styles from "./Hero.module.css";
-import { CalendarDays, Compass } from "lucide-react";
 
-// Lazy load SearchModal to reduce initial bundle size
-const SearchModal = dynamic(() => import("@/components/Search/SearchModal"), {
-  ssr: false,
-});
+type IconNode = {
+  sourceUrl?: string;
+  altText?: string;
+  slug?: string;
+  mediaDetails?: {
+    width?: number;
+    height?: number;
+  };
+};
 
 type HeroUnit = {
   heroLink?: {
@@ -26,15 +30,7 @@ type HeroUnit = {
     url?: string;
   };
   heroLinkIcon?: {
-    node?: {
-      sourceUrl?: string;
-      altText?: string;
-      slug?: string;
-      mediaDetails?: {
-        width?: number;
-        height?: number;
-      };
-    };
+    node?: IconNode;
   };
   heroLink2?: {
     target?: string;
@@ -42,15 +38,7 @@ type HeroUnit = {
     url?: string;
   };
   heroLinkIcon2?: {
-    node?: {
-      sourceUrl?: string;
-      altText?: string;
-      slug?: string;
-      mediaDetails?: {
-        width?: number;
-        height?: number;
-      };
-    };
+    node?: IconNode;
   };
 };
 
@@ -70,12 +58,23 @@ type HeroProps = {
     };
   };
   description?: string;
-  isHomepage?: boolean;
 };
 
-function Hero({ featuredImage, heroUnit, description, isHomepage }: HeroProps) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+function ButtonIcon({ icon }: { icon?: IconNode }) {
+  if (!icon?.sourceUrl) return null;
 
+  return (
+    <Image
+      src={icon.sourceUrl}
+      alt={icon.altText || ""}
+      width={icon.mediaDetails?.width || 20}
+      height={icon.mediaDetails?.height || 20}
+      className={styles.buttonIcon}
+    />
+  );
+}
+
+function Hero({ featuredImage, heroUnit, description }: HeroProps) {
   const img = featuredImage?.node;
   const heading = img?.title;
   const subheading = img?.description || description;
@@ -91,72 +90,65 @@ function Hero({ featuredImage, heroUnit, description, isHomepage }: HeroProps) {
     return null;
   }
 
+  const icon1 = heroUnit?.heroLinkIcon?.node;
+  const icon2 = heroUnit?.heroLinkIcon2?.node;
+
+  const icon1Element = icon1?.sourceUrl ? (
+    <ButtonIcon icon={icon1} />
+  ) : undefined;
+
+  const icon2Element = icon2?.sourceUrl ? (
+    <ButtonIcon icon={icon2} />
+  ) : undefined;
+
   return (
-    <>
-      <section className={styles.hero}>
-        <div className={styles.imageWrapper}>
-          <Image
-            priority
-            fetchPriority="high"
-            fill
-            placeholder="blur"
-            blurDataURL={blurDataURL}
-            src={currentUrl}
-            alt={img?.altText || "Hero image"}
-            onError={handleError}
-            sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center" }}
-          />
-          <div className={styles.overlay} />
-        </div>
-        <div className={styles.content}>
-          <h1 className={styles.headline}>{heading}</h1>
-          {subheading && (
-            <RawHtml className={styles.description}>{subheading}</RawHtml>
-          )}
-          <div className={styles.ctaWrapper}>
-            {isHomepage ? (
-              <Button as="button" shadow onClick={() => setIsSearchOpen(true)}>
-                Find A Location
-              </Button>
-            ) : (
-              heroUnit?.heroLink?.url &&
-              heroUnit?.heroLink?.title && (
-                <>
+    <section className={styles.hero}>
+      <div className={styles.imageWrapper}>
+        <Image
+          priority
+          fetchPriority="high"
+          fill
+          placeholder="blur"
+          blurDataURL={blurDataURL}
+          src={currentUrl}
+          alt={img?.altText || "Hero image"}
+          onError={handleError}
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+        <div className={styles.overlay} />
+      </div>
+      <div className={styles.content}>
+        <h1 className={styles.headline}>{heading}</h1>
+        {subheading && (
+          <RawHtml className={styles.description}>{subheading}</RawHtml>
+        )}
+        <div className={styles.ctaWrapper}>
+          {heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
+            <>
+              <Link href={heroUnit.heroLink.url}>
+                <Button icon={icon1Element} iconPosition="left" shadow>
+                  {heroUnit.heroLink.title}
+                </Button>
+              </Link>
+              {heroUnit.heroLink2?.url && heroUnit.heroLink2?.title && (
+                <Link href={heroUnit.heroLink2.url}>
                   <Button
-                    as="a"
-                    href={heroUnit.heroLink.url}
-                    icon={<CalendarDays />}
-                    iconPosition="left"
-                    shadow
-                    target={heroUnit.heroLink.target || undefined}
-                  >
-                    {heroUnit.heroLink.title}
-                  </Button>
-                  <Button
-                    as="a"
-                    href={heroUnit.heroLink2?.url || ""}
-                    icon={<Compass />}
+                    icon={icon2Element}
                     iconPosition="left"
                     color="glass"
                     outline
                     shadow
-                    target={heroUnit.heroLink2?.target || undefined}
                   >
-                    {heroUnit.heroLink2?.title}
+                    {heroUnit.heroLink2.title}
                   </Button>
-                </>
-              )
-            )}
-          </div>
+                </Link>
+              )}
+            </>
+          )}
         </div>
-      </section>
-
-      <SearchModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-      />
-    </>
+      </div>
+    </section>
   );
 }
 

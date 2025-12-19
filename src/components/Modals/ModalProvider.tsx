@@ -2,9 +2,15 @@
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, Suspense } from "react";
+import dynamic from "next/dynamic";
 import { Modal } from "@/components/UI";
 import { GravityForm } from "@/components/GravityForms";
 import styles from "./ModalProvider.module.css";
+
+// Lazy load SearchModal
+const SearchModal = dynamic(() => import("@/components/Search/SearchModal"), {
+  ssr: false,
+});
 
 type ModalProviderProps = {
   children: React.ReactNode;
@@ -18,6 +24,7 @@ function ModalContent({ claimOfferForm }: { claimOfferForm?: unknown }) {
 
   const modalParam = searchParams.get("modal");
   const isClaimOfferOpen = modalParam === "claim-offer";
+  const isSearchOpen = modalParam === "search";
 
   const closeModal = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -28,6 +35,9 @@ function ModalContent({ claimOfferForm }: { claimOfferForm?: unknown }) {
 
   return (
     <>
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={closeModal} />
+
       {/* Claim Offer Modal */}
       <Modal open={isClaimOfferOpen} onClose={closeModal}>
         <div className={styles.modalContent}>

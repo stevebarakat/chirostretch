@@ -165,6 +165,19 @@ export const HOMEPAGE_QUERY = `
         }
         button1 {
           button1Text
+          btn1Link {
+            url
+            title
+            target
+          }
+        }
+        button2 {
+          btn1Text
+          btn1Link {
+            url
+            title
+            target
+          }
         }
       }
       componentDescriptionList {
@@ -448,6 +461,19 @@ type HomepageQueryResponse = {
       };
       button1?: {
         button1Text?: string;
+        btn1Link?: {
+          url?: string;
+          title?: string;
+          target?: string;
+        };
+      };
+      button2?: {
+        btn1Text?: string;
+        btn1Link?: {
+          url?: string;
+          title?: string;
+          target?: string;
+        };
       };
     };
     homepageIntroduction?: {

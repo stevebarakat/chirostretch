@@ -1,20 +1,25 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import styles from "./cta.module.css";
 import { Button } from "@/components/UI/Button";
 import { Promotion } from "@/components/Promotion";
 
-type CallToAction = {
+type CallToActionType = {
   button1: {
     button1Text: string;
-    btn1Link: {
-      nodes: [
-        {
-          uri: string;
-        }
-      ];
+    btn1Link?: {
+      url?: string;
+      title?: string;
+      target?: string;
+    };
+  };
+  button2?: {
+    btn1Text?: string;
+    btn1Link?: {
+      url?: string;
+      title?: string;
+      target?: string;
     };
   };
   headings: {
@@ -27,7 +32,7 @@ const CallToAction = ({
   cta,
   promo,
 }: {
-  cta: CallToAction | null;
+  cta: CallToActionType | null;
   promo: {
     price: number;
     topLine: string;
@@ -35,21 +40,9 @@ const CallToAction = ({
     bottomLine: string;
   };
 }) => {
-  const pathname = usePathname();
   const { headline, subheading } = cta?.headings || {};
   const { button1Text, btn1Link } = cta?.button1 || {};
-  const rawUri = (btn1Link?.nodes?.[0]?.uri as string) || "";
-
-  // Handle query-only URLs (e.g., "?modal=claim-offer")
-  // WordPress may strip these, so we also check for specific modal triggers
-  let btn1Uri = rawUri;
-  if (!rawUri || rawUri === "/") {
-    // Default to claim-offer modal if no valid URL
-    btn1Uri = `${pathname}?modal=claim-offer`;
-  } else if (rawUri.startsWith("?")) {
-    // Query-only URL - prepend current pathname
-    btn1Uri = `${pathname}${rawUri}`;
-  }
+  const { btn1Text: button2Text, btn1Link: btn2Link } = cta?.button2 || {};
 
   return (
     <div className={styles.cta}>
@@ -66,11 +59,20 @@ const CallToAction = ({
           </div>
           <div className={styles.ctaForm}>
             <div className={styles.buttonGroup}>
-              <Link href={btn1Uri}>
-                <Button variant="inverse" color="secondary">
-                  {button1Text}
-                </Button>
-              </Link>
+              {button1Text && btn1Link?.url && (
+                <Link href={btn1Link.url} target={btn1Link.target || undefined}>
+                  <Button variant="inverse" color="secondary">
+                    {button1Text}
+                  </Button>
+                </Link>
+              )}
+              {button2Text && btn2Link?.url && (
+                <Link href={btn2Link.url} target={btn2Link.target || undefined}>
+                  <Button variant="inverse" color="glass" outline>
+                    {button2Text}
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

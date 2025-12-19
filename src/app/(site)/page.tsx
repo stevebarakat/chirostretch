@@ -36,8 +36,6 @@ const LatestInsights = dynamic(() => import("./homepage/LatestInsights"), {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomepageData();
 
-  console.log("data", data);
-
   if (!data?.customSEO?.customSeoSettings) {
     return {
       title: "ChiroStretch",
@@ -106,7 +104,6 @@ export default async function HomePage() {
         <Hero
           featuredImage={page.featuredImage}
           heroUnit={page.heroUnit}
-          isHomepage
         />
       )}
       {page.homepageCta?.headings?.headline && (
@@ -118,10 +115,9 @@ export default async function HomePage() {
             },
             button1: {
               button1Text: page.homepageCta.button1?.button1Text ?? "",
-              btn1Link: {
-                nodes: [{ uri: "" }],
-              },
+              btn1Link: page.homepageCta.button1?.btn1Link,
             },
+            button2: page.homepageCta.button2,
           }}
           promo={
             promo
