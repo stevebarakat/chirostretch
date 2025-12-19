@@ -120,5 +120,7 @@ code {
 }
 
 .swiper-wrapper {
-  padding-bottom: 2rem;
+  position: relative;
+  top: -2.5em;
+  padding: 4rem 0;
 }

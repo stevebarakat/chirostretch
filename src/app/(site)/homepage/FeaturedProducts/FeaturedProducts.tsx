@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/UI/Container";
@@ -144,10 +144,15 @@ export default function FeaturedProducts({
         {products.length > 0 ? (
           <div className={styles.swiperWrapper}>
             <Swiper
-              modules={[Navigation, Pagination]}
+              modules={[Navigation, Pagination, Autoplay]}
               spaceBetween={32}
               slidesPerView={1}
               pagination={{ clickable: true }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
               breakpoints={{
                 640: {
                   slidesPerView: 2,
