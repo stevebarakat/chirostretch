@@ -25,7 +25,7 @@ function isDashboardRoute(pathname: string): boolean {
   );
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const authToken = request.cookies.get("wp-auth-token")?.value;
   const userRole = request.cookies.get("wp-user-role")?.value;
@@ -92,3 +92,4 @@ export const config = {
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };
+
