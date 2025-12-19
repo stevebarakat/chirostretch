@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
 import { StarRating } from "@/components/UI/StarRating";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { NoImage } from "@/components/UI/NoImage";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -186,20 +187,7 @@ export default function FeaturedProducts({
                         </ImageWrapper>
                       ) : (
                         <ImageWrapper className={styles.imageWrapper}>
-                          <div
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              backgroundColor: "var(--color-bg-tertiary)",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              color: "var(--color-text-tertiary)",
-                              fontSize: "var(--font-size-sm)",
-                            }}
-                          >
-                            No Image
-                          </div>
+                          <NoImage />
                         </ImageWrapper>
                       )}
                       <div className={styles.overlay}>

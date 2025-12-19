@@ -146,6 +146,19 @@ export default function ImageBlock({
     aspectRatioValue && styles.hasAspectRatio
   );
 
+  const sizes =
+    align === "wide" || align === "full"
+      ? "100vw"
+      : sizeSlug === "thumbnail"
+      ? "150px"
+      : sizeSlug === "medium"
+      ? "300px"
+      : sizeSlug === "medium_large"
+      ? "768px"
+      : sizeSlug === "large"
+      ? "1024px"
+      : "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px";
+
   if (aspectRatioValue) {
     return (
       <figure
@@ -156,25 +169,7 @@ export default function ImageBlock({
         }}
       >
         <ImageWrapper className={styles.imageWrapper}>
-          <Image
-            src={url}
-            alt={alt}
-            fill
-            sizes={
-              align === "wide" || align === "full"
-                ? "100vw"
-                : sizeSlug === "thumbnail"
-                ? "150px"
-                : sizeSlug === "medium"
-                ? "300px"
-                : sizeSlug === "medium_large"
-                ? "768px"
-                : sizeSlug === "large"
-                ? "1024px"
-                : "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-            }
-            style={imageStyle}
-          />
+          <Image src={url} alt={alt} fill sizes={sizes} style={imageStyle} />
         </ImageWrapper>
         {caption && (
           <figcaption className={styles.caption}>{caption}</figcaption>
@@ -190,19 +185,7 @@ export default function ImageBlock({
         alt={alt}
         width={finalWidth}
         height={finalHeight}
-        sizes={
-          align === "wide" || align === "full"
-            ? "100vw"
-            : sizeSlug === "thumbnail"
-            ? "150px"
-            : sizeSlug === "medium"
-            ? "300px"
-            : sizeSlug === "medium_large"
-            ? "768px"
-            : sizeSlug === "large"
-            ? "1024px"
-            : "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-        }
+        sizes={sizes}
         style={imageStyle}
       />
       {caption && <figcaption className={styles.caption}>{caption}</figcaption>}

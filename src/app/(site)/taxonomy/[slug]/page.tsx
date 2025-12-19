@@ -16,6 +16,7 @@ import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { NoImage } from "@/components/UI/NoImage";
 import styles from "@/app/(site)/archive.module.css";
 
 export const revalidate = 300;
@@ -252,7 +253,7 @@ function renderArchive(
                         className={styles.imageLink}
                       >
                         <ImageWrapper className={styles.imageWrapper}>
-                          <div className={styles.placeholder}>No Image</div>
+                          <NoImage />
                         </ImageWrapper>
                       </Link>
                     )}
@@ -384,7 +385,7 @@ function renderProductArchive(
                         className={styles.imageLink}
                       >
                         <ImageWrapper className={styles.imageWrapper}>
-                          <div className={styles.placeholder}>No Image</div>
+                          <NoImage />
                         </ImageWrapper>
                       </Link>
                     )}

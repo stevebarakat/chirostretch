@@ -9,6 +9,7 @@ import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { NoImage } from "@/components/UI/NoImage";
 import { LocationMapWrapper } from "@/components/Locations";
 import styles from "./page.module.css";
 
@@ -87,7 +88,7 @@ export default async function LocationsPage({
                       </ImageWrapper>
                     ) : (
                       <ImageWrapper className={styles.imageWrapper}>
-                        <div className={styles.placeholder}>No Image</div>
+                        <NoImage />
                       </ImageWrapper>
                     )}
                     <div className={styles.rightColumn}>

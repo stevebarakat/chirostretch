@@ -4,6 +4,7 @@ import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { NoImage } from "@/components/UI/NoImage";
 import styles from "./UpcomingEvents.module.css";
 
 type Event = {
@@ -87,20 +88,7 @@ export default function UpcomingEvents({
                         className={styles.image}
                       />
                     ) : (
-                      <div
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          backgroundColor: "var(--color-bg-tertiary)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "var(--color-text-tertiary)",
-                          fontSize: "var(--font-size-sm)",
-                        }}
-                      >
-                        No Image
-                      </div>
+                      <NoImage />
                     )}
                   </ImageWrapper>
                   <div className={styles.content}>

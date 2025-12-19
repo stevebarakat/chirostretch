@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { NoImage } from "@/components/UI/NoImage";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_PRODUCTS_QUERY,
@@ -63,7 +64,7 @@ export default async function ShopPage() {
                     </ImageWrapper>
                   ) : (
                     <ImageWrapper className={styles.imageWrapper}>
-                      <div className={styles.placeholder}>No Image</div>
+                      <NoImage />
                     </ImageWrapper>
                   )}
                   <div className={styles.content}>

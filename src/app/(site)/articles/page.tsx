@@ -6,6 +6,7 @@ import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { Pagination } from "@/components/UI/Pagination";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { NoImage } from "@/components/UI/NoImage";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -79,7 +80,7 @@ export default async function ArticlesPage({
                       </ImageWrapper>
                     ) : (
                       <ImageWrapper className={styles.imageWrapper}>
-                        <div className={styles.placeholder}>No Image</div>
+                        <NoImage />
                       </ImageWrapper>
                     )}
                     <div className={styles.content}>

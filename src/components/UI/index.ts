@@ -2,6 +2,7 @@ export { Button } from "./Button";
 export { Container } from "./Container";
 export { ImageWrapper } from "./ImageWrapper";
 export { Modal } from "./Modal";
+export { NoImage } from "./NoImage";
 export { PageHeader } from "./PageHeader";
 export { Pagination } from "./Pagination";
 export { SectionHeading } from "./SectionHeading";
