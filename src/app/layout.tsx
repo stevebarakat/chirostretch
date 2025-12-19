@@ -7,7 +7,9 @@ import "@/styles/globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
+import { ModalProvider } from "@/components/Modals";
 import { getServerCart } from "@/lib/woocommerce/getServerCart";
+import { getGravityForm } from "next-gravity-forms/server";
 import { wpQuery } from "@app/_lib/wp/graphql";
 import {
   LAYOUT_QUERY,
@@ -117,6 +119,16 @@ export default async function RootLayout({
 
   const cart = isShopPage ? await getServerCart() : null;
 
+  // Fetch the New Patient Offer form for the global modal
+  // Form ID 17 = New Patient Offer form (configure in WordPress)
+  const NEW_PATIENT_OFFER_FORM_ID = 17;
+  let claimOfferForm = null;
+  try {
+    claimOfferForm = await getGravityForm(NEW_PATIENT_OFFER_FORM_ID);
+  } catch (error) {
+    console.warn("Failed to fetch New Patient Offer form:", error);
+  }
+
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <head>
@@ -131,9 +143,11 @@ export default async function RootLayout({
       </head>
       <body>
         <CartProvider initialCart={cart}>
-          <Header logo={logo} menuItems={headerMenuItems} />
-          {children}
-          <Footer logo={logo} menuItems={footerMenuItems} />
+          <ModalProvider claimOfferForm={claimOfferForm}>
+            <Header logo={logo} menuItems={headerMenuItems} />
+            {children}
+            <Footer logo={logo} menuItems={footerMenuItems} />
+          </ModalProvider>
         </CartProvider>
       </body>
     </html>

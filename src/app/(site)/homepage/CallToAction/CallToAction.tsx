@@ -1,6 +1,9 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import styles from "./cta.module.css";
 import { Button } from "@/components/UI/Button";
-import Link from "next/link";
 import { Promotion } from "@/components/Promotion";
 
 type CallToAction = {
@@ -32,11 +35,21 @@ const CallToAction = ({
     bottomLine: string;
   };
 }) => {
-  // if (!cta) return null;
-
+  const pathname = usePathname();
   const { headline, subheading } = cta?.headings || {};
   const { button1Text, btn1Link } = cta?.button1 || {};
-  const btn1Uri = (btn1Link?.nodes?.[0]?.uri as string) || "";
+  const rawUri = (btn1Link?.nodes?.[0]?.uri as string) || "";
+
+  // Handle query-only URLs (e.g., "?modal=claim-offer")
+  // WordPress may strip these, so we also check for specific modal triggers
+  let btn1Uri = rawUri;
+  if (!rawUri || rawUri === "/") {
+    // Default to claim-offer modal if no valid URL
+    btn1Uri = `${pathname}?modal=claim-offer`;
+  } else if (rawUri.startsWith("?")) {
+    // Query-only URL - prepend current pathname
+    btn1Uri = `${pathname}${rawUri}`;
+  }
 
   return (
     <div className={styles.cta}>

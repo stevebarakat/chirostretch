@@ -1,0 +1,26 @@
+.modalContent {
+  max-width: 32rem;
+  padding: 1rem;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.modalDescription {
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.formWrapper {
+  /* Gravity Forms styling overrides */
+}
+
+.error {
+  color: var(--color-error, hsl(0, 70%, 50%));
+  text-align: center;
+  padding: 2rem;
+}
