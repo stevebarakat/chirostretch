@@ -1,398 +1,126 @@
 {
-  "project":
-    {
-      "description": "High-performance Headless WordPress → Next.js App Router build. Includes design rules, code generation preferences, caching, ISR, image optimization, WordPress integration, and clean component conventions.",
-    },
+  "mode": "STRICT",
 
-  "styling":
-    {
-      "colors": "hsl",
-      "cssFramework": "css-modules",
-      "respectGlobalStyles": true,
-    },
+  "NORMAL": {
+    "description": "Daily development mode. Reasonable defaults with low friction.",
+    "rules": [
+      "Prefer modern CSS over JavaScript for layout and UI behavior",
+      "CSS Modules are the default styling system",
+      "Server Components by default",
+      "Use 'use client' only when interactivity or browser APIs are required",
+      "Avoid unnecessary useEffect; prefer event handlers",
+      "Prefer native HTML primitives where practical"
+    ]
+  },
 
-  "codeGeneration":
-    {
-      "avoidPackages": ["tailwindcss"],
-      "preferredPackages":
-        [
-          "postcss",
-          "autoprefixer",
-          "postcss-preset-env",
-          "stylelint",
-          "stylelint-order",
-          "stylelint-config-standard",
-          "zustand",
-          "zod",
-          "react-hook-form",
-          "date-fns",
-        ],
-    },
+  "STRICT": {
+    "description": "Architecture and refactor mode. Enforce CSS-first, JS-last discipline.",
+    "rules": [
+      "JavaScript must not be used for layout, responsiveness, or styling",
+      "If modern CSS or native HTML can solve it, JavaScript must not be added",
+      "Avoid ResizeObserver, scroll listeners, and DOM measurement",
+      "Prefer <dialog>, <details>, and the Popover API over custom JS UI",
+      "Animate only transform and opacity",
+      "Every 'use client' must be justified",
+      "Default to Server Components",
+      "Prefer native HTML primitives (<dialog>, <details>, Popover API) over Radix components."
+    ]
+  },
 
-  "documentation": { "includeComments": false },
+  "DEBUG": {
+    "description": "Maximum enforcement. Use when Cursor violates constraints.",
+    "rules": [
+      "Default assumption: JavaScript is unnecessary",
+      "JavaScript is forbidden unless explicitly justified",
+      "Do not add ResizeObserver, scroll listeners, or layout measurement",
+      "Do not recreate modals, accordions, tabs, or focus traps in JavaScript",
+      "Do not add JavaScript whose only purpose is toggling classes or styles",
+      "Explain in comments why JavaScript is required",
+      "Prefer solutions that work with minimal or no JavaScript",
+      "Radix components must be justified with a comment explaining why native HTML is insufficient."
+    ]
+  },
 
-  "typescript": { "preferTypes": true, "preferFunctionDeclarations": true },
+  "globalRules": [
+    "CSS Modules only (no Tailwind)",
+    "HSL color space",
+    "Modern CSS features are encouraged (container queries, :has(), light-dark(), color-mix())",
+    "Headless WordPress via WPGraphQL only",
+    "Always use next/image with WordPress sourceUrl directly",
+    "Avoid client components unless necessary",
+    "Avoid JS UI libraries that duplicate native HTML/CSS behavior"
+  ],
 
-  "react":
-    {
-      "preferComponentProps": true,
-      "preferEventHandlers": true,
-      "useEffectGuidelines": "useEffect is meant for synchronizing with external APIs outside of React (ie: browser APIs, external APIs, etc). Prefer event handlers for UI event logic.",
-      "useEffectDependencies": "One concern per useEffect. Split effects if dependencies represent unrelated concerns. Use useMemo/useCallback where appropriate.",
-    },
+  "forbiddenJavaScriptPatterns": [
+    "ResizeObserver for layout or responsiveness",
+    "getBoundingClientRect / offsetWidth / clientHeight for layout",
+    "Scroll event listeners for animation",
+    "Manual focus trapping",
+    "JS-driven accordions, modals, or tabs",
+    "Theme toggling implemented only in JavaScript",
+    "Color math utilities in JavaScript",
+    "Pure class or inline style toggling"
+  ],
 
-  "ui":
-    {
-      "iconLibrary": "lucide",
-      "componentNaming":
-        {
-          "guidelines": "UI components must be clear, descriptive, and meaningful. Avoid generic names like Box, Widget, Wrapper. Prefer names that reflect purpose, such as ProductCard, EventCard, FormSection, HeroBanner.",
-        },
-    },
+  "allowedJavaScriptIntent": [
+    "Data fetching and mutations (GraphQL, webhooks, revalidation)",
+    "Application state (auth, cart, session, optimistic updates)",
+    "Form submission, validation, and async flows",
+    "URL state (filters, pagination, tabs)",
+    "Progressive enhancement of native HTML",
+    "Non-visual business logic (pricing, permissions, feature flags)",
+    "Third-party integrations (analytics, payments, embeds)"
+  ],
 
-  "programming":
-    {
-      "paradigm": "functional",
-      "preferImmutability": true,
-      "preferPureFunctions": true,
-      "avoidSideEffects": true,
-    },
+  "htmlPrimitives": {
+    "preferFirst": [
+      "<dialog>",
+      "<details>",
+      "Popover API",
+      ":focus-visible",
+      "Native form controls"
+    ]
+  },
 
-  "principles":
-    {
-      "singleResponsibility":
-        {
-          "enforceComponentSeparation": true,
-          "maxComponentLines": 200,
-          "maxFunctionLines": 50,
-          "preferPureFunctions": true,
-        },
-    },
+  "uiPrimitivesPolicy": {
+  "defaultRule": "Use native HTML primitives and modern CSS before introducing JavaScript UI libraries.",
 
-  "structure":
-    {
-      "colocateFiles": true,
-      "colocationDescription": "Place related files (component, styles, hooks, utils, types, Zustand stores, etc.) into the same directory.",
-      "indexFileForComponents": true,
-      "indexFileDescription": "Each component folder should include an index.ts with a clean export for consistent imports.",
-    },
+  "nativeFirst": {
+    "modal": "<dialog>",
+    "popover": "Popover API",
+    "accordion": "<details>/<summary>",
+    "focus": ":focus-visible"
+  },
 
-  "wordpress":
-    {
-      "mode": "headless",
+  "rules": [
+    "Native HTML primitives must be attempted before using Radix components.",
+    "Radix components are allowed only when native primitives cannot satisfy requirements.",
+    "Do not recreate native HTML behavior using JavaScript.",
+    "JavaScript may orchestrate native primitives (open/close, state sync), but must not replace them."
+  ],
 
-      "preferredPackages":
-        [
-          "wp-graphql",
-          "wp-graphql-gravity-forms",
-          "wp-graphql-acf",
-          "wp-graphql-jwt-auth",
-          "wp-graphql-stripe",
-          "wp-graphql-blocks",
-          "wp-graphql-woocommerce",
-        ],
+  "radixUsageAllowedOnlyWhen": [
+    "Complex animation choreography not achievable with CSS",
+    "Advanced composition or controlled state across multiple primitives",
+    "Portals or layering requirements native primitives cannot express",
+    "Tabs or composite widgets without a strong native equivalent"
+  ],
 
-      "media":
-        {
-          "provider": "wordpress",
-          "rationale": "Use WordPress media with Next.js built-in image optimization. Do not use Cloudinary or custom loaders unless explicitly requested.",
-          "rules":
-            [
-              "Always use WordPress sourceUrl exactly as provided.",
-              "Never strip domains from media URLs.",
-              "Never rewrite URLs to Cloudinary automatically.",
-              "Always pass full WordPress URLs directly to <Image>.",
-              "Never use normalizeImageUrl() or any URL normalization functions.",
-              "Pass sourceUrl values directly without modification.",
-            ],
-        },
+  "radixUsageForbiddenWhen": [
+    "Native <dialog> can satisfy modal requirements",
+    "Popover API can satisfy menu or tooltip requirements",
+    "<details>/<summary> can satisfy accordion requirements",
+    "Radix is used only out of habit or convenience"
+  ]
+},
 
-      "contentEditing":
-        {
-          "useBlockEditor": true,
-          "rationale": "Pages should use Gutenberg blocks so they can be mapped to React components using wp-graphql-blocks.",
-          "conversionGuidelines":
-            {
-              "pages": "Convert Pages to blocks for structured headless rendering.",
-              "posts": "Posts may remain classic if structure is not required.",
-              "products": "WooCommerce product descriptions do not require block conversion.",
-            },
-          "headlessIntegration":
-            {
-              "renderStrategy": "component-map",
-              "description": "Each Gutenberg block maps to a corresponding React component (e.g., core/paragraph → ParagraphBlock, core/image → ImageBlock).",
-            },
-        },
-
-      "customPostTypes": ["events", "registrations"],
-      "customTaxonomies": ["event-category", "event-tag", "event-location"],
-
-      "preview":
-        {
-          "enable": true,
-          "route": "/api/preview",
-          "exitRoute": "/api/exit-preview",
-          "secret": "use-environment-variable",
-          "supportDraft": true,
-          "supportRevisions": true,
-        },
-
-      "woocommerce":
-        {
-          "mode": "headless",
-          "rationale": "WooCommerce is used only as a backend data source. Next.js handles 100% of frontend rendering including product listings, product detail pages, cart, and checkout.",
-          "dataLayer": "wpgraphql",
-          "rules":
-            [
-              "Do not use WooCommerce PHP product templates. Ignore product pages generated by WooCommerce (e.g., /product/my-product/). These pages exist only as admin data and will never be rendered in the final build.",
-              "All product data must be fetched from WPGraphQL and WPGraphQL for WooCommerce. Nothing should rely on WordPress PHP templates, theme rendering, or REST endpoints unless explicitly requested.",
-              "Create custom Next.js product pages using app/products/[slug]/page.tsx. Fetch all product data with GraphQL and render custom React templates.",
-              "Treat WooCommerce as a backend data source only. WooCommerce handles product creation, variations, pricing, inventory, orders, payments, coupons, and shipping rules. Next.js handles all page rendering.",
-              "Match WooCommerce permalink structure if requested (e.g., /product/my-product) but render the page using Next.js, not WordPress. If using /product/[slug], ensure rewrite rules forward traffic to Next.js hosting instead of WordPress.",
-              "Use WooCommerce Store API through GraphQL mutations (if enabled) or REST Store API for cart/session if needed. Do not rely on WooCommerce PHP templates for cart or checkout.",
-              "Never use WooCommerce template hooks. Do not output PHP templates, use Woo hooks like woocommerce_before_single_product, enqueue WooCommerce assets, or use the_content() or theme layouts. Everything is custom-rendered by Next.js.",
-            ],
-          "productPages":
-            {
-              "route": "app/products/[slug]/page.tsx",
-              "requiredFields":
-                [
-                  "name",
-                  "slug",
-                  "sku",
-                  "price",
-                  "regularPrice",
-                  "salePrice",
-                  "stockStatus",
-                  "description",
-                  "shortDescription",
-                  "image",
-                  "galleryImages",
-                  "categories",
-                  "attributes",
-                  "variations",
-                  "relatedProducts",
-                ],
-              "queryTemplate": "ProductBySlug",
-              "performance":
-                {
-                  "generateStaticParams": true,
-                  "structuredData": "json-ld",
-                  "imageOptimization": "nextjs-built-in",
-                },
-            },
-          "queryExample":
-            {
-              "description": "Standard product query for fetching product by slug",
-              "fields":
-                [
-                  "id",
-                  "databaseId",
-                  "name",
-                  "slug",
-                  "sku",
-                  "description",
-                  "shortDescription",
-                  "stockStatus",
-                  "image { sourceUrl altText }",
-                  "galleryImages { nodes { sourceUrl altText } }",
-                  "price",
-                  "regularPrice",
-                  "salePrice",
-                  "variations (for VariableProduct) { nodes { id databaseId price attributes { nodes { name value } } } }",
-                ],
-            },
-        },
-    },
-
-  "nextjs":
-    {
-      "style": "app-router",
-
-      "imageOptimization":
-        {
-          "strategy": "nextjs-built-in",
-          "rationale": "Use Next.js native image optimization for all WordPress media. Ensures WebP/AVIF conversion, resizing, and proper LCP behavior.",
-          "remotePatterns":
-            [
-              {
-                "protocol": "http",
-                "hostname": "localhost",
-                "pathname": "/wp-content/uploads/**",
-              },
-              {
-                "protocol": "http",
-                "hostname": "127.0.0.1",
-                "pathname": "/wp-content/uploads/**",
-              },
-            ],
-          "rules":
-            [
-              "Always use <Image> from next/image.",
-              "Pass WordPress sourceUrl values directly without any normalization or transformation.",
-              "Never use normalizeImageUrl() or similar URL manipulation functions.",
-              "Avoid custom loaders unless explicitly requested.",
-              "Provide width/height or use fill + sizes.",
-              "The first visible image on any page must always have priority={true} and fetchPriority='high'.",
-              "Hero images and above-the-fold images must use priority={true} and fetchPriority='high'.",
-              "Below-the-fold images should not use priority.",
-            ],
-        },
-
-      "caching":
-        {
-          "useISR": true,
-          "defaultRevalidate": 300,
-          "rule": "All pages should use ISR unless intentionally dynamic.",
-        },
-
-      "dataFetching":
-        {
-          "guidelines":
-            [
-              "Use fetch with { next: { revalidate } } for WordPress data.",
-              "Avoid dynamic server rendering unless required.",
-              "Avoid cache: 'no-store' unless explicitly needed.",
-              "Queries must be minimal and only return fields used in the component.",
-            ],
-        },
-
-      "serverComponents":
-        {
-          "useServerComponents": true,
-          "rationale": "Use server components to reduce client bundle size and improve performance.",
-          "rules":
-            [
-              "If a component has no event listeners, uses no state, uses no effects, and just displays content, it must be a server component.",
-              "Only use 'use client' when absolutely necessary (interactivity, hooks, browser APIs).",
-              "Never fetch data in client components unless absolutely required.",
-              "Move all WordPress queries to server components.",
-            ],
-        },
-
-      "dynamicImports":
-        {
-          "enabled": true,
-          "rationale": "Use dynamic imports for below-the-fold sections to reduce initial bundle size and improve hydration time.",
-          "rules":
-            [
-              "All sections below the fold must use dynamic imports with next/dynamic.",
-              "Critical above-the-fold sections (hero, first content section) should be statically imported.",
-              "Use dynamic imports for: Swiper sliders, complex marketing blocks, calendar sections, product carousels, animation-heavy components.",
-              "Always set ssr: true for dynamic imports to maintain SEO and initial render.",
-            ],
-        },
-
-      "optimizePackageImports":
-        {
-          "enabled": true,
-          "packages": ["lucide-react"],
-          "rationale": "Reduces bundled JS by tree-shaking unused exports from icon libraries and other packages.",
-        },
-
-      "urlState":
-        {
-          "preferred": true,
-          "rationale": "URL state management enables shareable links, browser back/forward navigation, bookmarking, and improved SEO. It also reduces client-side state complexity.",
-          "rules":
-            [
-              "Prefer URL search parameters (searchParams) for filter, sort, pagination, and view state when possible.",
-              "Use Next.js useSearchParams() hook for reading URL state in client components.",
-              "Use router.push() or router.replace() with updated query strings for updating URL state.",
-              "For server components, use searchParams prop from page.tsx to read URL state.",
-              "Use URL state for state that should be shareable, bookmarkable, or accessible via direct link.",
-              "Only use client-side state (useState, Zustand) when state is temporary, UI-only, or not meant to be shared.",
-              "Examples suitable for URL state: product filters, search queries, pagination, sort order, selected tabs/views, modal content IDs.",
-              "Examples suitable for client state: form input values before submission, temporary UI toggles, animation states, transient notifications.",
-            ],
-        },
-    },
-
-  "performance":
-    {
-      "lcp":
-        {
-          "priority": "critical",
-          "rules":
-            [
-              "First visible image must have priority={true} and fetchPriority='high'.",
-              "Hero sections should not exceed 60vh in height.",
-              "Avoid enormous source images (3000px+) - Next.js handles resizing but large sources slow initial load.",
-            ],
-        },
-
-      "fonts":
-        {
-          "optimization":
-            {
-              "maxWeights": 3,
-              "rules":
-                [
-                  "Use next/font/google for all Google Fonts.",
-                  "Always set display: 'swap' for font loading.",
-                  "Load only 2-3 font weights maximum per font family.",
-                  "Prefer weight: ['400', '600', '700'] over loading 4+ weights.",
-                  "Set preload: true for critical fonts only.",
-                ],
-            },
-        },
-
-      "swiper":
-        {
-          "optimization":
-            {
-              "rules":
-                [
-                  "Always use effect='fade' for fastest performance.",
-                  "Next.js Image component automatically lazy-loads non-priority images, so no Swiper-specific lazy loading needed.",
-                  "Only use loop={true} when slides.length > 1, otherwise set loop={false}.",
-                  "Never use loop={true} with many slides (10+) as it duplicates DOM.",
-                  "First slide image must have priority={true} and fetchPriority='high'.",
-                  "Subsequent slide images should not use priority (Next.js handles lazy loading automatically).",
-                ],
-            },
-        },
-
-      "css":
-        {
-          "optimization":
-            {
-              "rules":
-                [
-                  "Avoid 100vh - use 60vh for hero sections or container-based heights.",
-                  "Add contain: layout paint size; to all animation-heavy elements.",
-                  "Don't animate expensive properties (width, height, top, left). Prefer transform and opacity.",
-                  "If a section contains only static text + image, use no motion and no JS.",
-                  "Prefer fade-only transitions over complex animations.",
-                ],
-            },
-        },
-
-      "bundleSize":
-        {
-          "rules":
-            [
-              "Remove unused imports automatically.",
-              "Avoid client components unless necessary.",
-              "Use dynamic imports for non-critical sections.",
-              "Enable optimizePackageImports in next.config.ts for icon libraries.",
-              "Warn when a dependency would significantly inflate bundle size.",
-            ],
-        },
-    },
-
-  "utilities":
-    {
-      "normalizeImageUrl":
-        {
-          "deprecated": true,
-          "description": "This function is deprecated and must never be used. WordPress sourceUrl values must be passed directly to Next.js Image components without any normalization or transformation.",
-          "rules":
-            [
-              "Do not import or use normalizeImageUrl() anywhere in the codebase.",
-              "Always pass sourceUrl values directly to <Image> components.",
-              "Next.js native image optimization handles all URL processing automatically.",
-            ],
-        },
-    },
+  "clientComponentJustification": {
+    "required": true,
+    "template": [
+      "Reason this component must be a client component:",
+      "- What interactivity or browser API is required?",
+      "- Why Server Components are insufficient?",
+      "- Why modern CSS or native HTML cannot solve this?"
+    ]
+  }
 }

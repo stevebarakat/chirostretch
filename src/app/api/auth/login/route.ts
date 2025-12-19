@@ -26,6 +26,9 @@ function getRedirectForRole(role: string): string {
   if (role === "franchisee") {
     return "/franchisee";
   }
+  if (role === "lead") {
+    return "/dashboard";
+  }
   // Default for customers and other roles
   return "/dashboard";
 }

@@ -69,6 +69,13 @@ function getNavSections(
     sections.push({ title: "Application", items: applicantItems });
   }
 
+  if (userRole === "lead") {
+    const leadItems: NavItem[] = [
+      { href: "/book", label: "Book Appointment" },
+    ];
+    sections.push({ title: "Your Offer", items: leadItems });
+  }
+
   // Logout at the end
   sections.push({
     items: [{ href: "/logout", label: "Log out" }],

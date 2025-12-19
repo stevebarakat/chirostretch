@@ -12,6 +12,7 @@ const DASHBOARD_ROUTES = [
   "/franchisee",
   "/staff",
   "/application",
+  "/book",
   "/logout",
 ];
 
