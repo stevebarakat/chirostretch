@@ -1,28 +1,14 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: hsla(0, 0%, 0%, 0.5);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: var(--spacing-xl);
-  z-index: 1000;
-  overflow-y: auto;
-}
-
-.modal {
-  background-color: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 40px hsla(0, 0%, 0%, 0.2);
-  width: 100%;
+.modal :global(.content) {
   max-width: 600px;
   max-height: 80vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.content {
   display: flex;
   flex-direction: column;
-  margin-top: var(--spacing-2xl);
+  height: 100%;
 }
 
 .header {
@@ -146,14 +132,9 @@
 }
 
 @media (max-width: 767px) {
-  .overlay {
-    padding: 0;
-  }
-
-  .modal {
+  .modal :global(.content) {
     max-width: 100%;
     max-height: 100vh;
     border-radius: 0;
-    margin-top: 0;
   }
 }

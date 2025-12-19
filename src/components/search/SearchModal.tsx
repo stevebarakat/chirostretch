@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
 import {
   InstantSearch,
   useSearchBox,
@@ -14,6 +13,7 @@ import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
+import Modal from "@/components/UI/Modal/Modal";
 import styles from "./SearchModal.module.css";
 
 type SearchModalProps = {
@@ -301,49 +301,16 @@ function SearchResults({ onHitClick }: SearchResultsProps) {
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const pathname = usePathname();
-  const modalRef = useRef<HTMLDivElement>(null);
   const indexName = getIndexName(pathname);
 
-  useOnClickOutside(modalRef, () => {
-    if (isOpen) {
-      onClose();
-    }
-  });
-
-  if (!isOpen) {
-    return null;
-  }
-
-  if (!isAlgoliaConfigured() || !searchClient) {
-    return (
-      <div className={styles.overlay}>
-        <div ref={modalRef} className={styles.modal}>
-          <div className={styles.header}>
-            <h2 className={styles.title}>Search</h2>
-            <button
-              type="button"
-              onClick={onClose}
-              className={styles.closeButton}
-              aria-label="Close search"
-            >
-              <X size={24} />
-            </button>
-          </div>
-          <div className={styles.noResults}>
-            <p>Search is not configured. Please set up Algolia credentials.</p>
-            <p className={styles.configHint}>
-              Add NEXT_PUBLIC_ALGOLIA_APP_ID and NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
-              to your environment variables.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className={styles.overlay}>
-      <div ref={modalRef} className={styles.modal}>
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      showCloseButton={false}
+      className={styles.modal}
+    >
+      <div className={styles.content}>
         <div className={styles.header}>
           <h2 className={styles.title}>Search</h2>
           <button
@@ -355,13 +322,23 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <X size={24} />
           </button>
         </div>
-        {/* @ts-expect-error - react-instantsearch-hooks-web types are not fully compatible with React 19 */}
-        <InstantSearch searchClient={searchClient} indexName={indexName}>
-          <Configure hitsPerPage={10} />
-          <SearchBox />
-          <SearchResults onHitClick={onClose} />
-        </InstantSearch>
+        {!isAlgoliaConfigured() || !searchClient ? (
+          <div className={styles.noResults}>
+            <p>Search is not configured. Please set up Algolia credentials.</p>
+            <p className={styles.configHint}>
+              Add NEXT_PUBLIC_ALGOLIA_APP_ID and NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
+              to your environment variables.
+            </p>
+          </div>
+        ) : (
+          /* @ts-expect-error - react-instantsearch-hooks-web types are not fully compatible with React 19 */
+          <InstantSearch searchClient={searchClient} indexName={indexName}>
+            <Configure hitsPerPage={10} />
+            <SearchBox />
+            <SearchResults onHitClick={onClose} />
+          </InstantSearch>
+        )}
       </div>
-    </div>
+    </Modal>
   );
 }

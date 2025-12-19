@@ -19,11 +19,11 @@
       "JavaScript must not be used for layout, responsiveness, or styling",
       "If modern CSS or native HTML can solve it, JavaScript must not be added",
       "Avoid ResizeObserver, scroll listeners, and DOM measurement",
-      "Prefer <dialog>, <details>, and the Popover API over custom JS UI",
+      ""
       "Animate only transform and opacity",
       "Every 'use client' must be justified",
       "Default to Server Components",
-      "Prefer native HTML primitives (<dialog>, <details>, Popover API) over Radix components."
+      "Prefer native HTML primitives (<dialog>, <details>, Popover API) over custom JS UI and Radix components."
     ]
   },
 
@@ -50,6 +50,29 @@
     "Avoid client components unless necessary",
     "Avoid JS UI libraries that duplicate native HTML/CSS behavior"
   ],
+
+  "codePrinciples": {
+  "paradigm": "functional",
+  "rules": [
+    "Prefer immutability and pure functions",
+    "Enforce single responsibility per component and function",
+    "Components must not exceed 200 lines",
+    "Functions must not exceed 50 lines",
+    "Colocate related files (component, styles, types, tests, utils)",
+    "Prefer self-documenting code with meaningful names",
+    "Avoid unnecessary comments"
+  ]
+},
+
+"typescriptPreferences": {
+  "strict": true,
+  "rules": [
+    "Prefer type over interface",
+    "Use function declarations for top-level functions",
+    "Avoid any; use unknown if necessary",
+    "Use GraphQL Codegen types for all API data"
+  ]
+}
 
   "forbiddenJavaScriptPatterns": [
     "ResizeObserver for layout or responsiveness",
