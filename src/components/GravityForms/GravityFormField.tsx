@@ -2,6 +2,8 @@
 
 import { useController, Control, UseFormRegister } from "react-hook-form";
 import { type GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries";
+import { Input } from "@/components/UI/Input";
+import { FormField } from "@/components/UI/FormField";
 import styles from "./GravityFormField.module.css";
 
 type GravityFormFieldProps = {
@@ -35,27 +37,23 @@ export default function GravityFormField({
     const addressValue =
       (controllerField.value as Record<string, string>) || {};
     return (
-      <div className={styles.field}>
-        {field.label && (
-          <label className={styles.label}>
-            {field.label}
-            {field.isRequired && <span className={styles.required}>*</span>}
-          </label>
-        )}
-        {field.description && (
-          <p className={styles.description}>{field.description}</p>
-        )}
-        <div className={styles.addressFields}>
+      <FormField
+        label={field.label}
+        required={field.isRequired}
+        description={field.description || undefined}
+        error={error}
+      >
+        <div className={styles.nameInputs}>
           {field.inputs
             .filter((input) => !input.isHidden)
             .map((input) => {
               const key = input.key || input.id || "";
               return (
-                <div key={key} className={styles.nameInput}>
-                  <label className={styles.label}>
-                    {input.label || input.customLabel}
-                  </label>
-                  <input
+                <FormField
+                  key={key}
+                  label={input.label || input.customLabel || undefined}
+                >
+                  <Input
                     type="text"
                     value={addressValue[key] || input.defaultValue || ""}
                     onChange={(e) =>
@@ -66,14 +64,12 @@ export default function GravityFormField({
                     }
                     onBlur={controllerField.onBlur}
                     autoComplete={input.autocompleteAttribute}
-                    className={styles.input}
                   />
-                </div>
+                </FormField>
               );
             })}
         </div>
-        {error && <span className={styles.error}>{error}</span>}
-      </div>
+      </FormField>
     );
   }
 
@@ -148,66 +144,61 @@ export default function GravityFormField({
 
   if (field.inputType === "select" && field.choices) {
     return (
-      <div className={styles.field}>
-        {field.label && (
-          <label htmlFor={field.id} className={styles.label}>
-            {field.label}
-            {field.isRequired && <span className={styles.required}>*</span>}
-          </label>
-        )}
-        {field.description && (
-          <p className={styles.description}>{field.description}</p>
-        )}
-        <select {...register(field.id)} id={field.id} className={styles.select}>
+      <FormField
+        label={field.label}
+        required={field.isRequired}
+        description={field.description || undefined}
+        error={error}
+        htmlFor={field.id}
+      >
+        <Input
+          as="select"
+          {...register(field.id)}
+          id={field.id}
+          error={!!error}
+        >
           <option value="">Select...</option>
           {field.choices.map((choice) => (
             <option key={choice.value} value={choice.value}>
               {choice.text}
             </option>
           ))}
-        </select>
-        {error && <span className={styles.error}>{error}</span>}
-      </div>
+        </Input>
+      </FormField>
     );
   }
 
   if (field.inputType === "textarea") {
     return (
-      <div className={styles.field}>
-        {field.label && (
-          <label htmlFor={field.id} className={styles.label}>
-            {field.label}
-            {field.isRequired && <span className={styles.required}>*</span>}
-          </label>
-        )}
-        {field.description && (
-          <p className={styles.description}>{field.description}</p>
-        )}
-        <textarea
+      <FormField
+        label={field.label}
+        required={field.isRequired}
+        description={field.description || undefined}
+        error={error}
+        htmlFor={field.id}
+      >
+        <Input
+          as="textarea"
           {...register(field.id)}
           id={field.id}
           rows={5}
           placeholder={field.placeholder}
           maxLength={field.maxLength}
-          className={styles.textarea}
+          error={!!error}
         />
-        {error && <span className={styles.error}>{error}</span>}
-      </div>
+      </FormField>
     );
   }
 
   return (
-    <div className={styles.field}>
-      {field.label && (
-        <label htmlFor={field.id} className={styles.label}>
-          {field.label}
-          {field.isRequired && <span className={styles.required}>*</span>}
-        </label>
-      )}
-      {field.description && (
-        <p className={styles.description}>{field.description}</p>
-      )}
-      <input
+    <FormField
+      label={field.label}
+      required={field.isRequired}
+      description={field.description || undefined}
+      error={error}
+      htmlFor={field.id}
+    >
+      <Input
         {...register(field.id)}
         type={
           field.inputType === "email"
@@ -223,9 +214,8 @@ export default function GravityFormField({
         id={field.id}
         placeholder={field.placeholder}
         maxLength={field.maxLength}
-        className={styles.input}
+        error={!!error}
       />
-      {error && <span className={styles.error}>{error}</span>}
-    </div>
+    </FormField>
   );
 }

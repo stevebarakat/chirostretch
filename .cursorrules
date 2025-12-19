@@ -19,7 +19,6 @@
       "JavaScript must not be used for layout, responsiveness, or styling",
       "If modern CSS or native HTML can solve it, JavaScript must not be added",
       "Avoid ResizeObserver, scroll listeners, and DOM measurement",
-      ""
       "Animate only transform and opacity",
       "Every 'use client' must be justified",
       "Default to Server Components",
@@ -72,7 +71,7 @@
     "Avoid any; use unknown if necessary",
     "Use GraphQL Codegen types for all API data"
   ]
-}
+},
 
   "forbiddenJavaScriptPatterns": [
     "ResizeObserver for layout or responsiveness",
@@ -145,5 +144,26 @@
       "- Why Server Components are insufficient?",
       "- Why modern CSS or native HTML cannot solve this?"
     ]
+  },
+
+  "reactRefs": {
+    "rules": [
+      "Do NOT use React.forwardRef",
+      "React 19 treats `ref` as a normal prop on function components",
+      "Accept `ref` directly in component props and pass it to the appropriate DOM element",
+      "Use `useImperativeHandle` ONLY when exposing imperative APIs is unavoidable",
+      "Legacy forwardRef patterns should not be introduced or copied"
+    ]
+  },
+
+  "reactRefsExample": [
+    "function Input({ ref, ...props }: React.ComponentProps<'input'> & { ref?: React.Ref<HTMLInputElement> }) {",
+    "  return <input ref={ref} {...props} />",
+    "}"
+  ],
+
+  "polymorphismRule": {
+    "description": "Polymorphism is for element identity (semantics), not behavior (attributes). The `as` prop answers 'What kind of element is this?' and must be constrained to a small, intentional set of semantically equivalent elements that share the same ARIA role, keyboard behavior, and ref type. Attributes like `type`, `variant`, or `size` answer 'How should this element behave?' and belong as props, not on the polymorphic axis. For example, `type='email'` and `type='password'` are both `<input>` elements with different behaviors—they are not different element types. Create polymorphic components only when multiple render targets are semantically equivalent and interchangeable (e.g., Button supports `button` and `a` because both represent actionable triggers). Do not create separate components for attribute variations (e.g., EmailInput, PasswordInput); instead, compose behavior via props on a single polymorphic component. Avoid unconstrained polymorphism (`as?: React.ElementType`). This keeps the component library smaller, more accessible, and easier to reason about."
   }
+
 }

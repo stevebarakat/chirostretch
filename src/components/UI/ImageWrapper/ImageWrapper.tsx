@@ -1,21 +1,26 @@
-import { ReactNode, HTMLAttributes, forwardRef } from "react";
+import * as React from "react";
+import { ReactNode } from "react";
 import { clsx } from "clsx";
 import styles from "./ImageWrapper.module.css";
 
-type ImageWrapperProps = HTMLAttributes<HTMLDivElement> & {
+type ImageWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
+  ref?: React.Ref<HTMLDivElement>;
 };
 
-export const ImageWrapper = forwardRef<HTMLDivElement, ImageWrapperProps>(
-  function ImageWrapper({ children, className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        className={clsx(styles.imageWrapper, className)}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
+export function ImageWrapper({
+  children,
+  className,
+  ref,
+  ...props
+}: ImageWrapperProps) {
+  return (
+    <div
+      ref={ref}
+      className={clsx(styles.imageWrapper, className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}

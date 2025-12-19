@@ -1,10 +1,13 @@
-export { Button } from "./Button";
+export { default as Button } from "./Button";
 export { Container } from "./Container";
+export { FormField } from "./FormField";
 export { ImageWrapper } from "./ImageWrapper";
+export { Input } from "./Input";
 export { Modal } from "./Modal";
 export { NoImage } from "./NoImage";
 export { PageHeader } from "./PageHeader";
 export { Pagination } from "./Pagination";
 export { SectionHeading } from "./SectionHeading";
 export { StarRating } from "./StarRating";
+export { Text } from "./Text";
 export { VisuallyHidden } from "./VisuallyHidden";

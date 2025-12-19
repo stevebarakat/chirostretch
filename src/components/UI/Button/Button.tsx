@@ -1,4 +1,5 @@
-import { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import * as React from "react";
+import { ReactNode } from "react";
 import { clsx } from "clsx";
 import styles from "./Button.module.css";
 
@@ -16,33 +17,37 @@ type BaseButtonProps = {
 };
 
 type ButtonProps = BaseButtonProps &
-  ButtonHTMLAttributes<HTMLButtonElement> & {
+  Omit<React.ComponentPropsWithoutRef<"button">, keyof BaseButtonProps | "type"> & {
     as?: "button";
+    ref?: React.Ref<HTMLButtonElement>;
+    type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
   };
 
 type LinkButtonProps = BaseButtonProps &
-  AnchorHTMLAttributes<HTMLAnchorElement> & {
+  Omit<React.ComponentPropsWithoutRef<"a">, keyof BaseButtonProps> & {
     as: "a";
     href: string;
+    ref?: React.Ref<HTMLAnchorElement>;
   };
 
-type ButtonComponentProps = ButtonProps | LinkButtonProps;
-
-export default function Button(props: ButtonComponentProps) {
-  const {
-    color = "primary",
-    variant,
-    outline = false,
-    fullWidth = false,
-    shadow = false,
-    blur = 0,
-    icon,
-    iconPosition = "right",
-    children,
-    className = "",
-    ...rest
-  } = props;
-  const isLink = "as" in props && props.as === "a";
+function Button(props: ButtonProps): JSX.Element;
+function Button(props: LinkButtonProps): JSX.Element;
+function Button({
+  as,
+  color = "primary",
+  variant,
+  outline = false,
+  fullWidth = false,
+  shadow = false,
+  blur = 0,
+  icon,
+  iconPosition = "right",
+  children,
+  className = "",
+  ref,
+  ...props
+}: ButtonProps | LinkButtonProps) {
+  const Component = as ?? "button";
 
   const buttonClasses = clsx(
     styles.button,
@@ -73,33 +78,25 @@ export default function Button(props: ButtonComponentProps) {
     </>
   );
 
-  if (isLink) {
-    const { as, ...linkProps } = rest as LinkButtonProps;
-    void as;
+  if (Component === "a") {
+    const { as: _as, ...linkProps } = props as LinkButtonProps;
     return (
-      <a className={buttonClasses} style={glassStyles} {...linkProps}>
+      <a
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        className={buttonClasses}
+        style={glassStyles}
+        {...linkProps}
+      >
         {content}
       </a>
     );
   }
 
-  const buttonProps = rest as Omit<
-    ButtonProps,
-    | "as"
-    | "color"
-    | "variant"
-    | "outline"
-    | "fullWidth"
-    | "shadow"
-    | "blur"
-    | "icon"
-    | "iconPosition"
-    | "children"
-    | "className"
-  >;
+  const { as: _as, type, ...buttonProps } = props as ButtonProps;
   return (
     <button
-      type="button"
+      ref={ref as React.Ref<HTMLButtonElement>}
+      type={type ?? "button"}
       className={buttonClasses}
       style={glassStyles}
       {...buttonProps}
@@ -108,3 +105,5 @@ export default function Button(props: ButtonComponentProps) {
     </button>
   );
 }
+
+export default Button;
