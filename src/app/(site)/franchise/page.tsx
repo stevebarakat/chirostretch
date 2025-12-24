@@ -1,6 +1,6 @@
 import { wpQuery } from "@app/_lib/wp/graphql";
 import {
-  FRANCHISE_OPPORTUNITIES_QUERY,
+  FRANCHISE_QUERY,
   type FranchiseOpportunitiesQueryResponse,
 } from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
@@ -18,7 +18,7 @@ const WhyUsSection = dynamic(() => import("./WhyUsSection"), {
 
 export default async function FranchiseOpportunitiesPage() {
   const data = await wpQuery<FranchiseOpportunitiesQueryResponse>(
-    FRANCHISE_OPPORTUNITIES_QUERY,
+    FRANCHISE_QUERY,
     {},
     300
   );
@@ -32,21 +32,20 @@ export default async function FranchiseOpportunitiesPage() {
   return (
     <>
       {page.featuredImage && (
-        <Hero
-          featuredImage={page.featuredImage}
-          heroUnit={page.heroUnit}
-        />
+        <Hero featuredImage={page.featuredImage} heroUnit={page.heroUnit} />
       )}
 
-      <AboutSection
-        aboutHeading={page.franchiseOpportunitiesAbout?.aboutHeading}
-        aboutSubheading={page.franchiseOpportunitiesAbout?.aboutSubheading}
-        aboutImage={page.franchiseOpportunitiesAbout?.aboutImage?.node}
-        aboutCtaText={page.franchiseOpportunitiesAbout?.aboutCtaText}
-        aboutCtaLink={page.franchiseOpportunitiesAbout?.aboutCtaLink}
-        aboutCta2Text={page.franchiseOpportunitiesAbout?.aboutCta2Text}
-        aboutCta2Link={page.franchiseOpportunitiesAbout?.aboutCta2Link}
-      />
+      {page.franchiseOpportunitiesAbout && (
+        <AboutSection
+          aboutHeading={page.franchiseOpportunitiesAbout.aboutHeading}
+          aboutSubheading={page.franchiseOpportunitiesAbout.aboutSubheading}
+          aboutImage={page.franchiseOpportunitiesAbout.aboutImage?.node}
+          aboutCtaText={page.franchiseOpportunitiesAbout.aboutCtaText}
+          aboutCtaLink={page.franchiseOpportunitiesAbout.aboutCtaLink}
+          aboutCta2Text={page.franchiseOpportunitiesAbout.aboutCta2Text}
+          aboutCta2Link={page.franchiseOpportunitiesAbout.aboutCta2Link}
+        />
+      )}
 
       <WhyUsSection
         whyusHeading={page.franchiseOpportunitiesWhyUs?.whyusHeading}

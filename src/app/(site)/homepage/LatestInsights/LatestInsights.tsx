@@ -73,7 +73,7 @@ export default function LatestInsights({
   const displayPosts = posts.slice(0, 2);
 
   return (
-    <section className={styles.section}>
+    <section id="latest-insights" className={styles.section}>
       <>
         <SectionHeading
           heading={insightsHeading}

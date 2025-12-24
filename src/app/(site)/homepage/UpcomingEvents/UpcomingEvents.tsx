@@ -60,7 +60,7 @@ export default function UpcomingEvents({
   const displayEvents = eventsList.slice(0, limit);
 
   return (
-    <section className={styles.section}>
+    <section id="upcoming-events" className={styles.section}>
       <Container>
         <SectionHeading heading={eventsHeading} subheading={eventsSubheading} />
         {displayEvents.length > 0 ? (

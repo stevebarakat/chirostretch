@@ -1,6 +1,6 @@
-export const FRANCHISE_OPPORTUNITIES_QUERY = `
+export const FRANCHISE_QUERY = `
   query FranchiseOpportunities {
-    page(id: "/franchise-opportunities", idType: URI) {
+    page(id: "/franchise", idType: URI) {
       title
       ... on NodeWithFeaturedImage {
         featuredImage {

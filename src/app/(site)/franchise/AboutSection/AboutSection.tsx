@@ -36,8 +36,6 @@ export default function AboutSection({
   aboutCta2Text,
   aboutCta2Link,
 }: AboutSectionProps) {
-  if (!aboutHeading) return null;
-
   const imgUrl = aboutImage?.sourceUrl || "";
 
   return (

@@ -134,7 +134,7 @@ export default function FeaturedProducts({
   }
 
   return (
-    <section className={styles.section}>
+    <section id="featured-products" className={styles.section}>
       <Container>
         <SectionHeading
           color="var(--color-text-inverse)"
