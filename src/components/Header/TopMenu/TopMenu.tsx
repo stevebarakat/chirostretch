@@ -1,8 +1,11 @@
 "use client";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
-import Link from "next/link";
 import { useRef, useState } from "react";
+import Link from "next/link";
+import Hamburger from "hamburger-react";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { FaCaretDown } from "react-icons/fa";
+import { Logo } from "@/components/Logo";
+import { AccountMenu } from "../AccountMenu";
 import styles from "../Header.module.css";
 
 type MenuItem = {
@@ -16,9 +19,10 @@ type MenuItem = {
 
 type TopMenuItemProps = {
   item: MenuItem;
+  onNavigate?: () => void;
 };
 
-function TopMenuItem({ item }: TopMenuItemProps) {
+function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
   const dropdownButton = item?.childItems?.nodes;
   const isDropdownButton = dropdownButton && dropdownButton.length > 0;
   const ref = useRef<HTMLLIElement>(null);
@@ -29,7 +33,12 @@ function TopMenuItem({ item }: TopMenuItemProps) {
   return (
     <li ref={ref} style={{ position: "relative" }}>
       {!isDropdownButton ? (
-        <Link href={item.uri} passHref className={styles.topMenuLink}>
+        <Link
+          href={item.uri}
+          passHref
+          className={styles.topMenuLink}
+          onClick={onNavigate}
+        >
           {item.label}
         </Link>
       ) : (
@@ -48,12 +57,22 @@ function TopMenuItem({ item }: TopMenuItemProps) {
       {isDropdownButton && (
         <ul
           className={
-            isActive ? styles.topMenuDropdown : `${styles.topMenuDropdown} sr-only`
+            isActive
+              ? styles.topMenuDropdown
+              : `${styles.topMenuDropdown} sr-only`
           }
         >
           {item.childItems?.nodes.map((child) => (
             <li key={child.id}>
-              <Link href={child.uri} passHref className={styles.topMenuLink}>
+              <Link
+                href={child.uri}
+                passHref
+                className={styles.topMenuLink}
+                onClick={() => {
+                  setIsActive(false);
+                  onNavigate?.();
+                }}
+              >
                 {child.label}
               </Link>
             </li>
@@ -66,14 +85,66 @@ function TopMenuItem({ item }: TopMenuItemProps) {
 
 type TopMenuProps = {
   menuItems?: MenuItem[];
+  logo?: {
+    altText?: string;
+    sourceUrl?: string;
+    srcSet?: string;
+    sizes?: string;
+    mediaDetails?: {
+      width?: number;
+      height?: number;
+    };
+  };
 };
 
-export default function TopMenu({ menuItems }: TopMenuProps) {
+export default function TopMenu({ menuItems, logo }: TopMenuProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
-    <ul className={styles.topMenu}>
-      {menuItems?.map((item) => (
-        <TopMenuItem key={item.id} item={item} />
-      ))}
-    </ul>
+    <div className={styles.topBarContainer}>
+      <div className={styles.topBarMobileOnly}>
+        <Logo isMobile={true} logo={logo} />
+      </div>
+
+      <button
+        type="button"
+        className={styles.topBarHamburger}
+        onClick={() => setMobileOpen((prev) => !prev)}
+        aria-expanded={mobileOpen}
+        aria-controls="top-navigation"
+        aria-label="Toggle navigation menu"
+      >
+        <Hamburger label="toggle menu" toggled={mobileOpen} size={20} />
+      </button>
+
+      <nav
+        id="top-navigation"
+        className={styles.topNav}
+        aria-label="Top navigation"
+        style={
+          {
+            "--topNavToggle": mobileOpen ? "translateX(0)" : "translateX(-100%)",
+          } as React.CSSProperties
+        }
+      >
+        <div className={styles.topNavContainer}>
+          <div className={styles.topBarMobileOnly}>
+            <Logo isMobile={false} logo={logo} />
+          </div>
+          <ul className={styles.topMenu}>
+            {menuItems?.map((item) => (
+              <TopMenuItem
+                key={item.id}
+                item={item}
+                onNavigate={() => setMobileOpen(false)}
+              />
+            ))}
+          </ul>
+          <div className={styles.topBarMobileOnly}>
+            <AccountMenu />
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 }

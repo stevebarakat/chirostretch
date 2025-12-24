@@ -20,15 +20,16 @@ type HeaderProps = {
     };
   };
   menuItems?: MenuItem[];
+  topMenuItems?: MenuItem[];
 };
 
-export default function Header({ logo, menuItems }: HeaderProps) {
+export default function Header({ logo, menuItems, topMenuItems }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className={styles.siteHeader}>
       <div className={styles.topBar}>
-        <TopMenu menuItems={menuItems} />
+        <TopMenu menuItems={topMenuItems} logo={logo} />
       </div>
       <div className={styles.mainNav}>
         <button

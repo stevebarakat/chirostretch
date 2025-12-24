@@ -29,10 +29,33 @@
 }
 
 .topBar {
-  display: flex;
-  justify-content: center;
   border-bottom: 1px solid white;
   background: var(--color-secondary-600);
+}
+
+.topBarContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.topBarMobileOnly {
+  display: none;
+}
+
+.topBarHamburger {
+  display: none;
+}
+
+.topNav {
+  display: flex;
+  justify-content: center;
+}
+
+.topNavContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .topMenu {
@@ -72,6 +95,7 @@
   position: absolute;
   top: 100%;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 100;
 }
 
 .topMenuDropdown .topMenuLink {
@@ -186,10 +210,84 @@
 }
 
 @media (max-width: 910px) {
-  .topBar {
+  /* Hide main navigation on mobile */
+  .mainNav {
     display: none;
   }
 
+  /* Top bar mobile styles */
+  .topBar {
+    position: relative;
+    height: 88px;
+  }
+
+  .topBarContainer {
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  .topBarMobileOnly {
+    display: flex;
+  }
+
+  .topBarHamburger {
+    display: block;
+    color: white;
+    z-index: 55555;
+    margin: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 1px solid white;
+    background: var(--color-secondary-600);
+  }
+
+  .topNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--color-secondary-600);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: flex-start;
+    transform: var(--topNavToggle);
+    transition: transform 0.25s;
+  }
+
+  .topNavContainer {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .topMenu {
+    flex-direction: column;
+    border-top: 1px solid white;
+  }
+
+  .topMenuLink,
+  .topMenuBtnLink {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .topMenuDropdown {
+    position: relative;
+    top: auto;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .topMenuDropdown .topMenuLink {
+    padding-left: 2rem;
+  }
+
+  /* Keep main nav styles for reference but hidden */
   .link {
     width: 100%;
     border-bottom: 1px solid white;

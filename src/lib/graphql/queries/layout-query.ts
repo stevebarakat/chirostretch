@@ -12,7 +12,25 @@ export const LAYOUT_QUERY = `
         height
       }
     }
-    headerMenu: menu(id: "main-menu", idType: SLUG) {
+    topMenu: menu(id: "main-menu", idType: SLUG) {
+      id
+      name
+      menuItems(where: {parentDatabaseId: 0}) {
+        nodes {
+          label
+          uri
+          id
+          childItems {
+            nodes {
+              label
+              uri
+              id
+            }
+          }
+        }
+      }
+    }
+    headerMenu: menu(id: "chirostretch-menu", idType: SLUG) {
       id
       name
       menuItems(where: {parentDatabaseId: 0}) {
@@ -60,6 +78,13 @@ export type LayoutQueryResponse = {
     mediaDetails?: {
       width?: number;
       height?: number;
+    };
+  };
+  topMenu?: {
+    id?: string;
+    name?: string;
+    menuItems?: {
+      nodes: MenuItem[];
     };
   };
   headerMenu?: {
