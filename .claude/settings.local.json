@@ -103,7 +103,8 @@
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT session_id, session_key, LEFT\\(session_value, 200\\) FROM wp_woocommerce_sessions\" local)",
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT user_id, meta_key, meta_value FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%'' OR meta_key LIKE ''%_woocommerce_persistent%''\" local)",
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"DELETE FROM wp_woocommerce_sessions; DELETE FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%''; SELECT ''All sessions and persistent carts cleared'' as result;\" local)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Bash(gh repo create:*)"
     ],
     "deny": [],
     "ask": []
