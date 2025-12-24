@@ -91,7 +91,7 @@ export default async function RootLayout({
 
     if (!data?.footerMenu) {
       console.warn(
-        "Footer menu not found. Expected menu slug: 'footer-menu'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
+        "Footer menu not found. Expected menu slug: 'shop'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
       );
     } else if (!footerMenuItems || footerMenuItems.length === 0) {
       console.warn(

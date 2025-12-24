@@ -51,7 +51,15 @@ export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
     cache: "no-store",
   });
 
-  const data = await res.json();
+  let data: unknown;
+  const text = await res.text();
+  try {
+    data = JSON.parse(text);
+  } catch {
+    // Response wasn't JSON (could be HTML error page)
+    console.error("[storeApiFetch] Non-JSON response:", res.status, text.substring(0, 500));
+    data = { error: "Store API error", status: res.status };
+  }
 
   // Collect Set-Cookie headers to forward
   const setCookieHeaders: string[] = [];

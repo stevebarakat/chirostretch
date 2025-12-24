@@ -6,5 +6,5 @@ export const wordpressConfig = {
   siteUrl: process.env.NEXT_PUBLIC_WORDPRESS_URL || "",
   revalidationTime: 300,
   enabledPostTypes: ["page", "post", "product"],
-  enabledMenus: ["main-menu", "footer-menu"],
+  enabledMenus: ["main-menu", "shop"],
 } as const;

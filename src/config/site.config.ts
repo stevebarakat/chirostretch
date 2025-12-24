@@ -14,6 +14,6 @@ export const siteConfig = {
   },
   menus: {
     header: "main-menu",
-    footer: "footer-menu",
+    footer: "shop",
   },
 } as const;

@@ -30,7 +30,7 @@ export const LAYOUT_QUERY = `
         }
       }
     }
-    footerMenu: menu(id: "footer-menu", idType: SLUG) {
+    footerMenu: menu(id: "shop", idType: SLUG) {
       id
       name
       menuItems(where: {parentDatabaseId: 0}) {

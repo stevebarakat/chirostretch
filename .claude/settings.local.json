@@ -95,7 +95,11 @@
       "Bash(git checkout:*)",
       "WebSearch",
       "Bash(TOKEN=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoaXJvc3RyZXRjaC1jb3B5LmxvY2FsIiwiaWF0IjoxNzY2NTY4MzU3LCJuYmYiOjE3NjY1NjgzNTcsImV4cCI6MTc2NjU2ODY1NywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoyfX19.OPJ6QxJunlfImWCR2yvf7PikuzqugviVlskPRdFW7R0\")",
-      "Bash(__NEW_LINE__ node -e \"\nconst https = require\\(''https''\\);\n\nconst req = https.request\\({\n  hostname: ''chirostretch-copy.local'',\n  path: ''/wp-json/chirostretch/v1/cart/save'',\n  method: ''POST'',\n  headers: { \n    ''Content-Type'': ''application/json'',\n    ''Authorization'': ''Bearer $TOKEN''\n  },\n  rejectUnauthorized: false\n}, res => {\n  let body = '''';\n  res.on\\(''data'', chunk => body += chunk\\);\n  res.on\\(''end'', \\(\\) => console.log\\(JSON.stringify\\(JSON.parse\\(body\\), null, 2\\)\\)\\);\n}\\);\nreq.end\\(\\);\n\")"
+      "Bash(__NEW_LINE__ node -e \"\nconst https = require\\(''https''\\);\n\nconst req = https.request\\({\n  hostname: ''chirostretch-copy.local'',\n  path: ''/wp-json/chirostretch/v1/cart/save'',\n  method: ''POST'',\n  headers: { \n    ''Content-Type'': ''application/json'',\n    ''Authorization'': ''Bearer $TOKEN''\n  },\n  rejectUnauthorized: false\n}, res => {\n  let body = '''';\n  res.on\\(''data'', chunk => body += chunk\\);\n  res.on\\(''end'', \\(\\) => console.log\\(JSON.stringify\\(JSON.parse\\(body\\), null, 2\\)\\)\\);\n}\\);\nreq.end\\(\\);\n\")",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public db query \"DELETE FROM wp_woocommerce_sessions\")",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public db query \"SELECT session_id, session_key, LEFT\\(session_value, 100\\) as session_value_preview FROM wp_woocommerce_sessions LIMIT 5\")",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public db query \"SELECT user_id, meta_key, LEFT\\(meta_value, 100\\) as meta_preview FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%''\")",
+      "Bash(SESSION_COOKIE=\"wp_woocommerce_session_01426be6e9970921fb34b55c2ade4b71=t_d935ca3ec3edb375b68edd57464126%7C1766749120%7C1766662720%7C%24generic%24MBWOrRNmSuaQ46p7PFQbVWBDilV3LHf5waT27OxM\")"
     ],
     "deny": [],
     "ask": []
