@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { wpGraphQLFetch } from "@/lib/wpgraphql";
 import { LOGIN_MUTATION } from "@/lib/auth/queries";
 import type { LoginResponse, LoginCredentials } from "@/lib/auth/types";
 
 const WP_URL =
   process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
-
-const WP_GRAPHQL_ENDPOINT =
-  process.env.WORDPRESS_GRAPHQL_ENDPOINT ??
-  process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ??
-  `${WP_URL}/graphql`;
 
 // Staff roles that should use the staff dashboard
 const STAFF_ROLES = [
@@ -101,20 +97,8 @@ function getRedirectForRole(role: string): string {
 }
 
 /**
- * Extract WC session cookies from Set-Cookie header
- */
-function parseWcSessionCookies(rawSetCookie: string | null): string[] {
-  if (!rawSetCookie) return [];
-
-  // Split on comma followed by a cookie name pattern
-  // WooCommerce cookies start with woocommerce_ or wp_woocommerce_
-  return rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/);
-}
-
-/**
  * POST /api/auth/login
  * Authenticate user with WPGraphQL JWT and set httpOnly cookies
- * Also captures WC session cookies set during GraphQL login
  */
 export async function POST(request: NextRequest) {
   try {
@@ -129,42 +113,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Make direct fetch to GraphQL to capture Set-Cookie headers
-    // (wpGraphQLFetch helper doesn't expose response headers)
-    const graphqlRes = await fetch(WP_GRAPHQL_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: LOGIN_MUTATION,
-        variables: { username, password },
-      }),
-      cache: "no-store",
+    // Call WPGraphQL login mutation
+    const data = await wpGraphQLFetch<LoginResponse>({
+      query: LOGIN_MUTATION,
+      variables: { username, password },
+      auth: false, // Don't use auth for login
     });
 
-    // Capture WC session cookies from GraphQL response
-    // These are set by the wc-session-graphql-login.php hook
-    const graphqlSetCookies = parseWcSessionCookies(
-      graphqlRes.headers.get("set-cookie")
-    );
-
-    const json = (await graphqlRes.json()) as {
-      data?: { login: LoginResponse["login"] };
-      errors?: Array<{ message: string }>;
-    };
-
-    if (json.errors) {
-      const errorMessage = json.errors[0]?.message || "Authentication failed";
-      return NextResponse.json({ error: errorMessage }, { status: 401 });
-    }
-
-    if (!json.data?.login) {
-      return NextResponse.json(
-        { error: "Authentication failed: No login data" },
-        { status: 401 }
-      );
-    }
-
-    const { authToken, refreshToken, user } = json.data.login;
+    const { authToken, refreshToken, user } = data.login;
 
     if (!authToken || !refreshToken) {
       return NextResponse.json(
@@ -223,14 +179,8 @@ export async function POST(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 14, // 14 days
     });
 
-    // Forward WC session cookies from GraphQL login
-    // These are set by the wc-session-graphql-login.php hook
-    for (const cookieHeader of graphqlSetCookies) {
-      response.headers.append("Set-Cookie", cookieHeader);
-    }
-
-    // Restore user's persistent cart (uses the session created during login)
-    // This also returns additional Set-Cookie headers if session was updated
+    // Restore user's persistent cart and forward WC session cookies
+    // The cart/restore endpoint creates a guest session for Store API compatibility
     const { setCookieHeaders } = await restorePersistentCart(authToken);
     for (const cookieHeader of setCookieHeaders) {
       response.headers.append("Set-Cookie", cookieHeader);
