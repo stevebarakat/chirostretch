@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { wpQuery } from "@app/_lib/wp/graphql";
 import { getGravityForm } from "next-gravity-forms/server";
 import { Container } from "@/components/UI/Container";
-import { GravityForm } from "@/components/GravityForms";
+import { FranchiseApplicationForm } from "./FranchiseApplicationForm";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
 import { FormDebugInterceptor } from "./debug-interceptor";
@@ -62,7 +62,7 @@ export default async function FranchiseApplicationPage() {
           </header>
 
           <div className={styles.content}>
-            <GravityForm form={form} />
+            <FranchiseApplicationForm form={form} formId={FORM_ID} />
           </div>
         </article>
       </Container>

@@ -4,7 +4,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { Modal } from "@/components/UI";
-import { GravityForm } from "@/components/GravityForms";
+import { GravityFormEnhanced } from "@/components/GravityForms/GravityFormEnhanced";
 import styles from "./ModalProvider.module.css";
 
 // Lazy load SearchModal
@@ -47,10 +47,21 @@ function ModalContent({ claimOfferForm }: { claimOfferForm?: unknown }) {
           </p>
           {claimOfferForm ? (
             <div className={styles.formWrapper}>
-              <GravityForm form={claimOfferForm} />
+              <GravityFormEnhanced
+                form={claimOfferForm}
+                formId={17}
+                submitButtonText="Claim Your Offer"
+                onSubmitSuccess={(response) => {
+                  console.log("New Patient Offer submitted:", response);
+                  // Close modal after successful submission
+                  closeModal();
+                }}
+              />
             </div>
           ) : (
-            <p className={styles.error}>Form not available. Please try again later.</p>
+            <p className={styles.error}>
+              Form not available. Please try again later.
+            </p>
           )}
         </div>
       </Modal>
@@ -58,7 +69,10 @@ function ModalContent({ claimOfferForm }: { claimOfferForm?: unknown }) {
   );
 }
 
-export function ModalProvider({ children, claimOfferForm }: ModalProviderProps) {
+export function ModalProvider({
+  children,
+  claimOfferForm,
+}: ModalProviderProps) {
   return (
     <>
       {children}

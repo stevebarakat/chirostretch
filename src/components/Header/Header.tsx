@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import Hamburger from "hamburger-react";
-import { User } from "lucide-react";
 import { Menu } from "@/components/Menu";
+import { AccountMenu } from "./AccountMenu";
 import styles from "./Header.module.css";
 import type { MenuItem } from "@/lib/graphql/queries";
 import { Logo } from "@/components/Logo";
@@ -56,10 +55,7 @@ export default function Header({ logo, menuItems }: HeaderProps) {
               <Menu setMobileOpen={setMobileOpen} key={item.id} item={item} />
             ))}
           </ul>
-          <Link href="/dashboard" className={styles.accountLink}>
-            <User size={20} aria-hidden="true" />
-            <span>My Account</span>
-          </Link>
+          <AccountMenu />
         </div>
       </nav>
       <Logo isMobile={true} logo={logo} />

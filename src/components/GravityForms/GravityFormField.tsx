@@ -13,14 +13,48 @@ type GravityFormFieldProps = {
   error?: string;
 };
 
+/**
+ * Safely converts a value to a string that can be used as a field name.
+ * Ensures the result is always a non-empty string.
+ */
+function toSafeFieldName(value: unknown): string | null {
+  if (value === null || value === undefined) {
+    return null;
+  }
+  
+  if (typeof value === "string") {
+    return value.trim() || null;
+  }
+  
+  if (typeof value === "number") {
+    return String(value);
+  }
+  
+  // For other types, try to convert but be safe
+  try {
+    const str = String(value);
+    return str.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
 export default function GravityFormField({
   field,
   register,
   control,
   error,
 }: GravityFormFieldProps) {
+  // Ensure field.id is a valid string (React Hook Form requires string names)
+  const fieldName = toSafeFieldName(field.id || field.databaseId);
+
+  if (!fieldName) {
+    console.error("GravityFormField: Field ID is required", field);
+    return null;
+  }
+
   const { field: controllerField } = useController({
-    name: field.id,
+    name: fieldName,
     control,
     defaultValue:
       field.inputType === "checkbox"
@@ -129,7 +163,7 @@ export default function GravityFormField({
             <label key={choice.value} className={styles.radioLabel}>
               <input
                 type="radio"
-                {...register(field.id)}
+                {...register(fieldName)}
                 value={choice.value}
                 className={styles.radio}
               />
@@ -149,12 +183,12 @@ export default function GravityFormField({
         required={field.isRequired}
         description={field.description || undefined}
         error={error}
-        htmlFor={field.id}
+        htmlFor={fieldName}
       >
         <Input
           as="select"
-          {...register(field.id)}
-          id={field.id}
+          {...register(fieldName)}
+          id={fieldName}
           error={!!error}
         >
           <option value="">Select...</option>
@@ -175,12 +209,12 @@ export default function GravityFormField({
         required={field.isRequired}
         description={field.description || undefined}
         error={error}
-        htmlFor={field.id}
+        htmlFor={fieldName}
       >
         <Input
           as="textarea"
-          {...register(field.id)}
-          id={field.id}
+          {...register(fieldName)}
+          id={fieldName}
           rows={5}
           placeholder={field.placeholder}
           maxLength={field.maxLength}
@@ -199,7 +233,7 @@ export default function GravityFormField({
       htmlFor={field.id}
     >
       <Input
-        {...register(field.id)}
+        {...register(fieldName)}
         type={
           field.inputType === "email"
             ? "email"
@@ -211,7 +245,7 @@ export default function GravityFormField({
             ? "number"
             : "text"
         }
-        id={field.id}
+        id={fieldName}
         placeholder={field.placeholder}
         maxLength={field.maxLength}
         error={!!error}

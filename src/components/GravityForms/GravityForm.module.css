@@ -28,3 +28,37 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.description {
+  margin-bottom: var(--spacing-md, 1rem);
+  color: hsl(0, 0%, 40%);
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.5;
+}
+
+.error {
+  padding: var(--spacing-md, 1rem);
+  background-color: hsl(0, 100%, 97%);
+  border: 1px solid hsl(0, 80%, 85%);
+  border-radius: var(--radius-md, 0.5rem);
+  color: hsl(0, 70%, 40%);
+  margin-bottom: var(--spacing-md, 1rem);
+}
+
+.submitError {
+  padding: var(--spacing-md, 1rem);
+  background-color: hsl(0, 100%, 97%);
+  border: 1px solid hsl(0, 80%, 85%);
+  border-radius: var(--radius-md, 0.5rem);
+  color: hsl(0, 70%, 40%);
+  margin-top: var(--spacing-md, 1rem);
+}
+
+.successMessage {
+  padding: var(--spacing-md, 1rem);
+  background-color: hsl(120, 100%, 97%);
+  border: 1px solid hsl(120, 80%, 85%);
+  border-radius: var(--radius-md, 0.5rem);
+  color: hsl(120, 50%, 30%);
+  margin-top: var(--spacing-md, 1rem);
+}

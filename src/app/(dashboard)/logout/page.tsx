@@ -24,7 +24,7 @@ export default function LogoutPage() {
 
         // Wait a moment before redirect
         setTimeout(() => {
-          router.push("/");
+          router.push("/login");
         }, 500);
       } catch (err) {
         console.error("Logout error:", err);
@@ -32,7 +32,7 @@ export default function LogoutPage() {
 
         // Redirect anyway after error
         setTimeout(() => {
-          router.push("/");
+          router.push("/login");
         }, 2000);
       }
     }

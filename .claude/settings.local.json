@@ -92,7 +92,10 @@
       "Bash(tree:*)",
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "WebSearch",
+      "Bash(TOKEN=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoaXJvc3RyZXRjaC1jb3B5LmxvY2FsIiwiaWF0IjoxNzY2NTY4MzU3LCJuYmYiOjE3NjY1NjgzNTcsImV4cCI6MTc2NjU2ODY1NywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoyfX19.OPJ6QxJunlfImWCR2yvf7PikuzqugviVlskPRdFW7R0\")",
+      "Bash(__NEW_LINE__ node -e \"\nconst https = require\\(''https''\\);\n\nconst req = https.request\\({\n  hostname: ''chirostretch-copy.local'',\n  path: ''/wp-json/chirostretch/v1/cart/save'',\n  method: ''POST'',\n  headers: { \n    ''Content-Type'': ''application/json'',\n    ''Authorization'': ''Bearer $TOKEN''\n  },\n  rejectUnauthorized: false\n}, res => {\n  let body = '''';\n  res.on\\(''data'', chunk => body += chunk\\);\n  res.on\\(''end'', \\(\\) => console.log\\(JSON.stringify\\(JSON.parse\\(body\\), null, 2\\)\\)\\);\n}\\);\nreq.end\\(\\);\n\")"
     ],
     "deny": [],
     "ask": []

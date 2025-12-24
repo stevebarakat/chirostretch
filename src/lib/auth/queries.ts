@@ -32,10 +32,16 @@ export const REFRESH_TOKEN_MUTATION = `
   }
 `;
 
-export const LOGOUT_MUTATION = `
-  mutation Logout {
-    logout(input: {}) {
-      status
+/**
+ * Revokes the user's refresh token secret, invalidating ALL sessions.
+ * Use this for "log out everywhere" functionality.
+ * For normal logout, just clear cookies (token expires naturally).
+ */
+export const REVOKE_USER_SECRET_MUTATION = `
+  mutation RevokeUserSecret($userId: ID!) {
+    revokeUserSecret(input: { userId: $userId }) {
+      revokedUserSecret
+      success
     }
   }
 `;

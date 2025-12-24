@@ -1,75 +1,30 @@
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-
-const WP_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+import { storeApiFetch, createCartResponse } from "@/lib/woocommerce/storeApi";
 
 export async function GET() {
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((cookie) => `${cookie.name}=${cookie.value}`)
-    .join("; ");
-
   try {
-    const res = await fetch(`${WP_URL}/wp-json/wc/store/v1/cart`, {
+    const { data, status, setCookieHeaders } = await storeApiFetch({
       method: "GET",
-      headers: {
-        ...(cookieHeader ? { cookie: cookieHeader } : {}),
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
+      path: "/cart",
     });
 
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.error("Error fetching cart for shipping rates:", {
-        status: res.status,
-        statusText: res.statusText,
-        data,
-      });
-      return NextResponse.json(data, { status: res.status });
+    if (status !== 200) {
+      console.error("Error fetching cart for shipping rates:", { status, data });
+      return createCartResponse(data, status, setCookieHeaders);
     }
-
-    console.log(
-      "Cart response for shipping rates:",
-      JSON.stringify(data, null, 2)
-    );
 
     const shippingRates = data.shipping_rates || [];
 
     if (shippingRates.length === 0) {
-      console.warn(
-        "No shipping rates found in cart response. Cart data:",
-        JSON.stringify(
-          {
-            shipping_rates: data.shipping_rates,
-            shipping_address: data.shipping_address,
-            needs_shipping: data.needs_shipping,
-          },
-          null,
-          2
-        )
-      );
+      console.warn("No shipping rates found in cart response.");
     }
 
-    const response = NextResponse.json({
-      shipping_rates: shippingRates,
-      raw_cart_data: data,
-    });
-
-    const setCookieHeader = res.headers.get("set-cookie");
-    if (setCookieHeader) {
-      response.headers.set("set-cookie", setCookieHeader);
-    }
-
-    return response;
+    return createCartResponse(
+      { shipping_rates: shippingRates, raw_cart_data: data },
+      200,
+      setCookieHeaders
+    );
   } catch (error) {
     console.error("Error fetching shipping rates:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch shipping rates" },
-      { status: 500 }
-    );
+    return createCartResponse({ error: "Failed to fetch shipping rates" }, 500, []);
   }
 }

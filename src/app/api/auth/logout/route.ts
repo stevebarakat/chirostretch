@@ -1,31 +1,119 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { clearAuthCookies, getAuthToken } from "@/lib/auth/cookies";
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
-import { LOGOUT_MUTATION } from "@/lib/auth/queries";
+
+const WP_URL =
+  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+
+/**
+ * Save the user's cart to persistent storage before logout
+ */
+async function savePersistentCart(authToken: string): Promise<void> {
+  const cookieStore = await cookies();
+
+  // Get WC session cookies
+  const wcCookies = cookieStore
+    .getAll()
+    .filter(
+      (c) =>
+        c.name.startsWith("wp_woocommerce_session") ||
+        c.name.startsWith("woocommerce_")
+    )
+    .map((cookie) => `${cookie.name}=${cookie.value}`)
+    .join("; ");
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${authToken}`,
+    "Content-Type": "application/json",
+  };
+
+  if (wcCookies) {
+    headers["cookie"] = wcCookies;
+  }
+
+  try {
+    const res = await fetch(`${WP_URL}/wp-json/chirostretch/v1/cart/save`, {
+      method: "POST",
+      headers,
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      console.error("Failed to save persistent cart:", await res.text());
+    } else {
+      const data = await res.json();
+      console.log("Cart saved:", data);
+    }
+  } catch (error) {
+    console.error("Error saving persistent cart:", error);
+  }
+}
+
+/**
+ * Clear the WooCommerce session on the WordPress side
+ */
+async function clearWooCommerceSession(): Promise<void> {
+  const cookieStore = await cookies();
+  const existingCookies = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+
+  try {
+    await fetch(`${WP_URL}/wp-json/chirostretch/v1/cart/clear`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(existingCookies ? { cookie: existingCookies } : {}),
+      },
+      cache: "no-store",
+    });
+  } catch (error) {
+    console.error("Error clearing WooCommerce session:", error);
+  }
+}
+
+async function clearWooCommerceSessionCookies() {
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll();
+
+  for (const cookie of allCookies) {
+    if (
+      cookie.name.startsWith("wp_woocommerce_session") ||
+      cookie.name.startsWith("woocommerce_")
+    ) {
+      cookieStore.delete(cookie.name);
+    }
+  }
+}
 
 /**
  * POST /api/auth/logout
- * Clear auth cookies and call WPGraphQL logout mutation
+ * 1. Save the current cart to user meta (persistent cart)
+ * 2. Clear WooCommerce session on WordPress side
+ * 3. Clear session cookies on Next.js side
+ * 4. Clear auth cookies
+ *
+ * JWT expires naturally - no server-side revocation needed.
+ * The cart is preserved in user meta and restored on next login.
  */
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     // Get auth token before clearing
     const authToken = await getAuthToken();
 
-    // Call WPGraphQL logout mutation if authenticated
+    // Save the cart to persistent storage before logout (if authenticated)
     if (authToken) {
-      try {
-        await wpGraphQLFetch({
-          query: LOGOUT_MUTATION,
-          auth: true,
-        });
-      } catch (error) {
-        // Continue even if logout mutation fails
-        console.error("Logout mutation error:", error);
-      }
+      await savePersistentCart(authToken);
     }
 
-    // Clear cookies
+    // Clear WooCommerce session on WordPress side
+    await clearWooCommerceSession();
+
+    // Clear WooCommerce session cookies on Next.js side
+    await clearWooCommerceSessionCookies();
+
+    // Clear auth cookies - JWT expires naturally, no server revocation needed
     await clearAuthCookies();
 
     return NextResponse.json({ success: true });

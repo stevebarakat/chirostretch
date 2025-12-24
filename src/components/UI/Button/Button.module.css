@@ -18,6 +18,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: all var(--transition-base);
+  white-space: nowrap;
 }
 
 .fullWidth {
