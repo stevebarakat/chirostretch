@@ -11,6 +11,10 @@ const WP_URL =
 async function savePersistentCart(authToken: string): Promise<void> {
   const cookieStore = await cookies();
 
+  // Debug: log all available cookies
+  const allCookieNames = cookieStore.getAll().map((c) => c.name);
+  console.log("All cookies available at logout:", allCookieNames);
+
   // Get WC session cookies
   const wcCookies = cookieStore
     .getAll()
@@ -31,6 +35,9 @@ async function savePersistentCart(authToken: string): Promise<void> {
     headers["cookie"] = wcCookies;
   }
 
+  // Debug: log what cookies we're sending
+  console.log("Saving cart - WC cookies found:", wcCookies || "(none)");
+
   try {
     const res = await fetch(`${WP_URL}/wp-json/chirostretch/v1/cart/save`, {
       method: "POST",
@@ -42,7 +49,7 @@ async function savePersistentCart(authToken: string): Promise<void> {
       console.error("Failed to save persistent cart:", await res.text());
     } else {
       const data = await res.json();
-      console.log("Cart saved:", data);
+      console.log("Cart save response:", JSON.stringify(data, null, 2));
     }
   } catch (error) {
     console.error("Error saving persistent cart:", error);

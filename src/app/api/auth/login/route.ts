@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { wpGraphQLFetch } from "@/lib/wpgraphql";
 import { LOGIN_MUTATION } from "@/lib/auth/queries";
 import type { LoginResponse, LoginCredentials } from "@/lib/auth/types";
@@ -37,17 +38,28 @@ type CartRestoreResponse = {
  * Restore user's persistent cart after login
  * Returns WC session cookies and cart data
  */
-async function restorePersistentCart(authToken: string): Promise<{
+async function restorePersistentCart(
+  authToken: string,
+  existingCookies: string
+): Promise<{
   setCookieHeaders: string[];
   cart: CartRestoreResponse["cart"] | null;
 }> {
   try {
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json",
+    };
+
+    // Forward existing session cookies so WordPress can access the guest cart
+    if (existingCookies) {
+      headers["Cookie"] = existingCookies;
+      console.log("Forwarding cookies to cart/restore:", existingCookies);
+    }
+
     const res = await fetch(`${WP_URL}/wp-json/chirostretch/v1/cart/restore`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        "Content-Type": "application/json",
-      },
+      headers,
       cache: "no-store",
     });
 
@@ -59,10 +71,12 @@ async function restorePersistentCart(authToken: string): Promise<{
     // Collect all Set-Cookie headers
     const setCookieHeaders: string[] = [];
     const rawSetCookie = res.headers.get("set-cookie");
+    console.log("Raw Set-Cookie from cart/restore:", rawSetCookie);
     if (rawSetCookie) {
       // Split on comma followed by a cookie name pattern (handles multiple cookies)
       // WooCommerce cookies start with woocommerce_ or wp_woocommerce_
       setCookieHeaders.push(...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/));
+      console.log("Parsed Set-Cookie headers:", setCookieHeaders.length);
     }
 
     const data = (await res.json()) as CartRestoreResponse;
@@ -179,9 +193,25 @@ export async function POST(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 14, // 14 days
     });
 
+    // Get existing WC session cookies from the browser to forward to WordPress
+    // This allows WordPress to access any guest cart that existed before login
+    const cookieStore = await cookies();
+    const existingWcCookies = cookieStore
+      .getAll()
+      .filter(
+        (c) =>
+          c.name.startsWith("wp_woocommerce_session") ||
+          c.name.startsWith("woocommerce_")
+      )
+      .map((cookie) => `${cookie.name}=${cookie.value}`)
+      .join("; ");
+
     // Restore user's persistent cart and forward WC session cookies
     // The cart/restore endpoint creates a guest session for Store API compatibility
-    const { setCookieHeaders } = await restorePersistentCart(authToken);
+    const { setCookieHeaders } = await restorePersistentCart(
+      authToken,
+      existingWcCookies
+    );
     for (const cookieHeader of setCookieHeaders) {
       response.headers.append("Set-Cookie", cookieHeader);
     }
