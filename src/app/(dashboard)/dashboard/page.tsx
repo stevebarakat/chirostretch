@@ -59,7 +59,7 @@ export default async function DashboardPage() {
           />
         )}
 
-        {userRole === "location_manager" && (
+        {userRole === "staff" && (
           <DashboardCard
             title="Staff Dashboard"
             description="View your profile and location details"

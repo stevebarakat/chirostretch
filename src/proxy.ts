@@ -17,7 +17,7 @@ const DASHBOARD_ROUTES = [
 ];
 
 // Staff roles that should use the staff dashboard
-const STAFF_ROLES = ["location_manager"];
+const STAFF_ROLES = ["staff"];
 
 function isDashboardRoute(pathname: string): boolean {
   return DASHBOARD_ROUTES.some(

@@ -102,7 +102,8 @@
       "Bash(SESSION_COOKIE=\"wp_woocommerce_session_01426be6e9970921fb34b55c2ade4b71=t_d935ca3ec3edb375b68edd57464126%7C1766749120%7C1766662720%7C%24generic%24MBWOrRNmSuaQ46p7PFQbVWBDilV3LHf5waT27OxM\")",
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT session_id, session_key, LEFT\\(session_value, 200\\) FROM wp_woocommerce_sessions\" local)",
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT user_id, meta_key, meta_value FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%'' OR meta_key LIKE ''%_woocommerce_persistent%''\" local)",
-      "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"DELETE FROM wp_woocommerce_sessions; DELETE FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%''; SELECT ''All sessions and persistent carts cleared'' as result;\" local)"
+      "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"DELETE FROM wp_woocommerce_sessions; DELETE FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%''; SELECT ''All sessions and persistent carts cleared'' as result;\" local)",
+      "Bash(lsof:*)"
     ],
     "deny": [],
     "ask": []

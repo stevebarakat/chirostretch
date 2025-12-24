@@ -54,7 +54,7 @@ function getNavSections(
     sections.push({ title: "Franchise", items: franchiseeItems });
   }
 
-  if (userRole === "location_manager") {
+  if (userRole === "staff") {
     const staffItems: NavItem[] = [
       { href: "/staff", label: "Overview" },
       { href: "/staff/profile", label: "Staff Profile" },
