@@ -30,7 +30,7 @@ export const LAYOUT_QUERY = `
         }
       }
     }
-    headerMenu: menu(id: "chirostretch-menu", idType: SLUG) {
+    headerMenu: menu(id: "homepage-menu", idType: SLUG) {
       id
       name
       menuItems(where: {parentDatabaseId: 0}) {

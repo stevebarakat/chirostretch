@@ -1,5 +1,5 @@
 import Image from "next/image";
-import BlockRenderer, { type Block } from "./BlockRenderer";
+import BlockRenderer, { type Block } from "../BlockRenderer";
 import styles from "./CoverBlock.module.css";
 
 type CoverBlockProps = {

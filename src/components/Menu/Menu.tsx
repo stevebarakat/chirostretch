@@ -1,6 +1,6 @@
-import useOnClickOutside from "@/hooks/useOnClickOutside";
+"use client";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import styles from "@/components/Header/Header.module.css";
 
@@ -15,35 +15,24 @@ type MenuItem = {
 
 type MenuType = {
   item: MenuItem;
-  setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function Menu({ item, setMobileOpen }: MenuType) {
+export default function Menu({ item }: MenuType) {
   const dropdownButton = item?.childItems?.nodes;
   const isDropdownButton = dropdownButton && dropdownButton.length > 0;
-  const ref = useRef<HTMLLIElement>(null);
   const [isActive, setIsActive] = useState(false);
 
-  useOnClickOutside(ref, () => setIsActive(false));
-
-  const headerMenu = (
-    <li ref={ref}>
+  return (
+    <li onMouseLeave={() => setIsActive(false)}>
       {!isDropdownButton ? (
-        <Link
-          href={item.uri}
-          passHref
-          onPointerUp={() => setMobileOpen(false)}
-          className={styles.link}
-        >
+        <Link href={item.uri} passHref className={styles.link}>
           {item.label}
         </Link>
       ) : (
         <button
           type="button"
           className={styles.btnLink}
-          onClick={() => {
-            setIsActive((isActive) => !isActive);
-          }}
+          onClick={() => setIsActive((prev) => !prev)}
           aria-expanded={isActive}
           aria-haspopup="true"
         >
@@ -56,24 +45,15 @@ export default function Menu({ item, setMobileOpen }: MenuType) {
         <ul
           className={isActive ? styles.dropdown : `${styles.dropdown} sr-only`}
         >
-          {item.childItems?.nodes.map((item) => {
-            if (!setMobileOpen) return;
-            return (
-              <li key={item.id} className={styles.dropdownItem}>
-                <Link
-                  href={item.uri}
-                  passHref
-                  onPointerUp={() => setMobileOpen(false)}
-                  className={styles.link}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
+          {item.childItems?.nodes.map((child) => (
+            <li key={child.id} className={styles.dropdownItem}>
+              <Link href={child.uri} passHref className={styles.link}>
+                {child.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       )}
     </li>
   );
-  return <>{headerMenu}</>;
 }

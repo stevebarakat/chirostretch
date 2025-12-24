@@ -157,6 +157,10 @@ export default async function WordPressPage({ params }: PageProps) {
 
   const blocks = page.blocks && Array.isArray(page.blocks) ? page.blocks : null;
 
+  const hasStackableBlocks = blocks?.some(
+    (block: { name?: string }) => block.name?.startsWith("stackable/")
+  );
+
   return (
     <Container>
       <article className={styles.page}>
@@ -182,7 +186,7 @@ export default async function WordPressPage({ params }: PageProps) {
           <h1>{page.title}</h1>
         </header>
 
-        {blocks && blocks.length > 0 ? (
+        {blocks && blocks.length > 0 && !hasStackableBlocks ? (
           <div className={styles.content}>
             <BlockRenderer blocks={blocks as Block[]} />
           </div>

@@ -87,7 +87,7 @@ export default async function RootLayout({
 
     if (!data?.headerMenu) {
       console.warn(
-        "Header menu not found. Expected menu slug: 'chirostretch-menu'. Make sure a menu with this slug exists in WordPress."
+        "Header menu not found. Expected menu slug: 'homepage-menu'. Make sure a menu with this slug exists in WordPress."
       );
     } else if (!headerMenuItems || headerMenuItems.length === 0) {
       console.warn(
@@ -153,7 +153,7 @@ export default async function RootLayout({
       <body>
         <CartProvider initialCart={cart}>
           <ModalProvider claimOfferForm={claimOfferForm}>
-            <Header logo={logo} menuItems={headerMenuItems} topMenuItems={topMenuItems} />
+            <Header logo={logo} menuItems={headerMenuItems} topMenuItems={topMenuItems} showMainNav={path === "/" || path === ""} />
             {children}
             <Footer logo={logo} menuItems={footerMenuItems} />
           </ModalProvider>

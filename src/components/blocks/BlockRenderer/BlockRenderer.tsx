@@ -1,7 +1,8 @@
-import ParagraphBlock from "./ParagraphBlock";
-import HeadingBlock from "./HeadingBlock";
-import ImageBlock from "./ImageBlock";
-import CoverBlock from "./CoverBlock";
+import ParagraphBlock from "../ParagraphBlock";
+import HeadingBlock from "../HeadingBlock";
+import ImageBlock from "../ImageBlock";
+import CoverBlock from "../CoverBlock";
+import AccordionBlock from "../AccordionBlock";
 
 export type Block = {
   name: string;
@@ -177,6 +178,10 @@ export default function BlockRenderer({
                 innerBlocks={block.innerBlocks}
               />
             );
+
+          case "stackable/accordion":
+          case "core/details":
+            return <AccordionBlock key={key} block={block} />;
 
           case "core/columns":
           case "core/column":

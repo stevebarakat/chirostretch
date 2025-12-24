@@ -1,8 +1,7 @@
 "use client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { FaCaretDown } from "react-icons/fa";
 import { Logo } from "@/components/Logo";
 import { AccountMenu } from "../AccountMenu";
@@ -25,13 +24,10 @@ type TopMenuItemProps = {
 function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
   const dropdownButton = item?.childItems?.nodes;
   const isDropdownButton = dropdownButton && dropdownButton.length > 0;
-  const ref = useRef<HTMLLIElement>(null);
   const [isActive, setIsActive] = useState(false);
 
-  useOnClickOutside(ref, () => setIsActive(false));
-
   return (
-    <li ref={ref} style={{ position: "relative" }}>
+    <li style={{ position: "relative" }} onMouseLeave={() => setIsActive(false)}>
       {!isDropdownButton ? (
         <Link
           href={item.uri}

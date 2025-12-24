@@ -59,6 +59,8 @@
 }
 
 .topMenu {
+  position: relative;
+  z-index: 99999;
   display: flex;
   justify-content: center;
   list-style: none;
@@ -139,10 +141,6 @@
   display: flex;
   justify-content: center;
   border-left: 1px solid white;
-}
-
-.toggleMobileBtn {
-  display: none;
 }
 
 .btnLink,
@@ -285,63 +283,5 @@
 
   .topMenuDropdown .topMenuLink {
     padding-left: 2rem;
-  }
-
-  /* Keep main nav styles for reference but hidden */
-  .link {
-    width: 100%;
-    border-bottom: 1px solid white;
-    border-right: none;
-  }
-
-  .dropdown {
-    position: relative;
-    border: none;
-  }
-
-  .dropdownItem {
-    border-bottom: none;
-  }
-
-  .nav {
-    z-index: 99;
-    flex-direction: column;
-    min-height: 100vh;
-    transform: var(--toggleMobile);
-    text-align: left;
-    justify-content: flex-start;
-  }
-
-  .navContainer {
-    display: block;
-  }
-
-  .menu {
-    flex-direction: column;
-    border-left: none;
-    border-top: 1px solid white;
-  }
-
-  .toggleMobileBtn {
-    color: white;
-    z-index: 55555;
-    margin: 1rem;
-    position: absolute;
-    right: 0;
-    border: 1px solid white;
-    background: var(--darkColor);
-    display: block;
-  }
-
-  .btnLink {
-    border-right: none;
-    border-bottom: 1px solid white;
-    width: 100%;
-  }
-
-  .accountLink {
-    width: 100%;
-    border-bottom: 1px solid white;
-    border-right: none;
   }
 }
