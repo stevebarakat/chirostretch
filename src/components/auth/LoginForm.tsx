@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import styles from "./LoginForm.module.css";
 
 type LoginFormData = {
@@ -10,7 +10,6 @@ type LoginFormData = {
 };
 
 export function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState<LoginFormData>({
     username: "",
@@ -46,14 +45,10 @@ export function LoginForm() {
       const explicitRedirect = searchParams.get("redirect");
       const redirectTo = explicitRedirect || data.redirectUrl || "/dashboard";
 
-      // Successful login - redirect
-      // Use window.location for external URLs (e.g., WordPress admin for franchisees)
-      if (redirectTo.startsWith("http://") || redirectTo.startsWith("https://")) {
-        window.location.href = redirectTo;
-      } else {
-        router.push(redirectTo);
-        router.refresh();
-      }
+      // Successful login - use hard redirect to ensure cookies are sent
+      // router.push() can cause race conditions where server components
+      // fetch before cookies are available
+      window.location.href = redirectTo;
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An error occurred during login"
