@@ -9,7 +9,6 @@ import {
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/UI/Container";
 import { BlockRenderer, type Block } from "@/components/Blocks";
-import Image from "next/image";
 import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
@@ -157,46 +156,41 @@ export default async function WordPressPage({ params }: PageProps) {
 
   const blocks = page.blocks && Array.isArray(page.blocks) ? page.blocks : null;
 
-  const hasStackableBlocks = blocks?.some(
-    (block: { name?: string }) => block.name?.startsWith("stackable/")
+  const hasStackableBlocks = blocks?.some((block) =>
+    (block as { name?: string })?.name?.startsWith("stackable/")
   );
 
+  const heroImage = page.featuredImage ? page.featuredImage : undefined;
+
   return (
-    <Container>
-      <article className={styles.page}>
-        {page.featuredImage?.node?.sourceUrl && (
-          <div className={styles.featuredImage}>
-            <Image
-              src={page.featuredImage.node.sourceUrl}
-              alt={page.featuredImage.node.altText || page.title}
-              width={page.featuredImage.node.mediaDetails?.width || 1200}
-              height={page.featuredImage.node.mediaDetails?.height || 800}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-              priority={true}
-              fetchPriority="high"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
+    <>
+      {heroImage && (
+        <Hero
+          featuredImage={heroImage}
+          heroUnit={page.heroUnit}
+          maxHeight={550}
+        />
+      )}
+      <Container>
+        <article className={styles.page}>
+          {!heroImage && (
+            <header className={styles.header}>
+              <h1>{page.title}</h1>
+            </header>
+          )}
+
+          {blocks && blocks.length > 0 && !hasStackableBlocks ? (
+            <div className={styles.content}>
+              <BlockRenderer blocks={blocks as Block[]} />
+            </div>
+          ) : (
+            <div
+              className={styles.content}
+              dangerouslySetInnerHTML={{ __html: page.content }}
             />
-          </div>
-        )}
-
-        <header className={styles.header}>
-          <h1>{page.title}</h1>
-        </header>
-
-        {blocks && blocks.length > 0 && !hasStackableBlocks ? (
-          <div className={styles.content}>
-            <BlockRenderer blocks={blocks as Block[]} />
-          </div>
-        ) : (
-          <div
-            className={styles.content}
-            dangerouslySetInnerHTML={{ __html: page.content }}
-          />
-        )}
-      </article>
-    </Container>
+          )}
+        </article>
+      </Container>
+    </>
   );
 }

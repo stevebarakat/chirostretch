@@ -59,6 +59,7 @@ type HeroProps = {
     };
   };
   description?: string;
+  maxHeight?: number;
 };
 
 function ButtonIcon({ icon }: { icon?: IconNode }) {
@@ -84,10 +85,19 @@ function ButtonIcon({ icon }: { icon?: IconNode }) {
   );
 }
 
-function Hero({ featuredImage, heroUnit, description }: HeroProps) {
+function Hero({
+  featuredImage,
+  heroUnit,
+  description,
+  maxHeight = 750,
+}: HeroProps) {
   const img = featuredImage?.node;
   const heading = img?.title;
   const subheading = img?.description || description;
+
+  const style = {
+    "--max-height": `${maxHeight}px`,
+  } as React.CSSProperties;
 
   const initialUrl = getSafeImageUrl(img?.sourceUrl || "", "hero");
   const { currentUrl, handleError } = useImageFallback(
@@ -112,7 +122,7 @@ function Hero({ featuredImage, heroUnit, description }: HeroProps) {
   ) : undefined;
 
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} style={style}>
       <ImageWrapper className={styles.imageWrapper}>
         <Image
           priority
@@ -124,7 +134,10 @@ function Hero({ featuredImage, heroUnit, description }: HeroProps) {
           alt={img?.altText || "Hero image"}
           onError={handleError}
           sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
         />
         <div className={styles.overlay} />
       </ImageWrapper>

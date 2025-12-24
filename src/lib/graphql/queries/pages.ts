@@ -14,6 +14,43 @@ export const PAGE_BY_URI_QUERY = `
             altText
             srcSet
             sizes
+            slug
+            title
+            description
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
+      heroUnit {
+        heroLink {
+          target
+          title
+          url
+        }
+        heroLinkIcon {
+          node {
+            sourceUrl
+            altText
+            slug
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        heroLink2 {
+          target
+          title
+          url
+        }
+        heroLinkIcon2 {
+          node {
+            sourceUrl
+            altText
+            slug
             mediaDetails {
               width
               height
@@ -56,9 +93,46 @@ export type PageByUriResponse = {
         altText?: string;
         srcSet?: string;
         sizes?: string;
+        slug?: string;
+        title?: string;
+        description?: string;
         mediaDetails?: {
           width?: number;
           height?: number;
+        };
+      };
+    };
+    heroUnit?: {
+      heroLink?: {
+        target?: string;
+        title?: string;
+        url?: string;
+      };
+      heroLinkIcon?: {
+        node?: {
+          sourceUrl?: string;
+          altText?: string;
+          slug?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
+        };
+      };
+      heroLink2?: {
+        target?: string;
+        title?: string;
+        url?: string;
+      };
+      heroLinkIcon2?: {
+        node?: {
+          sourceUrl?: string;
+          altText?: string;
+          slug?: string;
+          mediaDetails?: {
+            width?: number;
+            height?: number;
+          };
         };
       };
     };
