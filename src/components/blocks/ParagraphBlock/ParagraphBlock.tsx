@@ -1,4 +1,5 @@
 import { parseHtml } from "../parseHtml";
+import styles from "./ParagraphBlock.module.css";
 
 type ParagraphBlockProps = {
   content: string;
@@ -11,11 +12,9 @@ export default function ParagraphBlock({
 }: ParagraphBlockProps) {
   if (!content) return null;
 
-  // Content from WordPress already includes <p> tags, so we use a fragment
-  // If className is provided, wrap in a div for styling
-  if (className) {
-    return <div className={className}>{parseHtml(content)}</div>;
-  }
+  const combinedClassName = className
+    ? `${styles.paragraph} ${className}`
+    : styles.paragraph;
 
-  return <>{parseHtml(content)}</>;
+  return <div className={combinedClassName}>{parseHtml(content)}</div>;
 }

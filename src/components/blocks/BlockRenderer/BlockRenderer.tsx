@@ -186,19 +186,16 @@ export default function BlockRenderer({
             return <AccordionBlock key={key} block={block} />;
 
           case "core/columns":
-            const columnsAttrs = block.attributes as {
-              isStackedOnMobile?: boolean;
-            };
+            // Check if first column starts with a chart - if so, reverse on mobile
+            const firstColFirstBlock =
+              block.innerBlocks?.[0]?.innerBlocks?.[0]?.name;
+            const reverseMobile = firstColFirstBlock === "b-chart/chart";
+
             return (
-              <ColumnsBlock
-                key={key}
-                isStackedOnMobile={columnsAttrs?.isStackedOnMobile ?? true}
-                columnCount={block.innerBlocks?.length}
-              >
+              <ColumnsBlock key={key} reverseMobile={reverseMobile}>
                 {block.innerBlocks?.map((col, colIndex) => {
-                  const colAttrs = col.attributes as { width?: string };
                   return (
-                    <ColumnBlock key={`col-${colIndex}`} width={colAttrs?.width}>
+                    <ColumnBlock key={`col-${colIndex}`}>
                       {col.innerBlocks && col.innerBlocks.length > 0 && (
                         <BlockRenderer blocks={col.innerBlocks} />
                       )}

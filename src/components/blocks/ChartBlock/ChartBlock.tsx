@@ -64,21 +64,31 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
   const chartType = chartData.type || "line";
   const height = parseInt(chartData.height || "400", 10);
 
+  // Default settings when not specified
+  const showXGridLine = chartData.isXGridLine ?? true;
+  const showYGridLine = chartData.isYGridLine ?? true;
+  const gridColor = chartData.gridLineColor || "#e5e5e5";
+  const showTitle = chartData.isTitle ?? !!chartData.title;
+  const showXScale = chartData.isXScale ?? true;
+  const showYScale = chartData.isYScale ?? true;
+
   const renderChart = () => {
     switch (chartType) {
       case "bar":
         return (
           <BarChart data={data}>
-            {chartData.isXGridLine && (
+            {(showXGridLine || showYGridLine) && (
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke={chartData.gridLineColor}
+                stroke={gridColor}
+                horizontal={showYGridLine}
+                vertical={showXGridLine}
               />
             )}
-            {chartData.isXScale && (
+            {showXScale && (
               <XAxis dataKey="name" stroke={chartData.textColor} />
             )}
-            {chartData.isYScale && <YAxis stroke={chartData.textColor} />}
+            {showYScale && <YAxis stroke={chartData.textColor} />}
             <Tooltip />
             <Legend />
             {datasets.map((dataset, idx) => (
@@ -124,16 +134,18 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
       default:
         return (
           <LineChart data={data}>
-            {chartData.isXGridLine && (
+            {(showXGridLine || showYGridLine) && (
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke={chartData.gridLineColor}
+                stroke={gridColor}
+                horizontal={showYGridLine}
+                vertical={showXGridLine}
               />
             )}
-            {chartData.isXScale && (
+            {showXScale && (
               <XAxis dataKey="name" stroke={chartData.textColor} />
             )}
-            {chartData.isYScale && <YAxis stroke={chartData.textColor} />}
+            {showYScale && <YAxis stroke={chartData.textColor} />}
             <Tooltip />
             <Legend />
             {datasets.map((dataset, idx) => (
@@ -154,7 +166,7 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
 
   return (
     <div className={styles.chartContainer}>
-      {chartData.isTitle && chartData.title && (
+      {showTitle && chartData.title && (
         <h3
           className={styles.title}
           style={{
