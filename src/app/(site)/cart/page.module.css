@@ -61,6 +61,11 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--spacing-md);
+  position: relative;
+}
+
+.itemDetails {
+  flex: 1;
 }
 
 .itemName {
@@ -71,27 +76,44 @@
   color: var(--color-text-primary);
 }
 
+.bookingDetails {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
 .itemPrice {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
 }
 
 .itemActions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: var(--spacing-md);
   padding-top: var(--spacing-md);
   border-top: 1px solid var(--color-border-primary);
 }
 
+.itemActions:has(.removeButton:only-child) {
+  padding-top: 0;
+  border-top: none;
+  margin-top: calc(var(--spacing-md) * -1);
+  align-self: flex-end;
+}
+
 .quantityControl {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  flex: 1;
 }
 
 .quantityLabel {
-  min-width: 80px;
+  min-width: auto;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
@@ -219,10 +241,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-xs);
-  }
-
-  .quantityLabel {
-    min-width: auto;
   }
 
   .updateButton,

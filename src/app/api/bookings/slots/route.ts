@@ -31,9 +31,10 @@ export async function GET(request: NextRequest) {
     .join("; ");
 
   try {
-    const url = new URL(`${WP_URL}/wp-json/wc-bookings/v1/products/${productId}/slots`);
-    url.searchParams.set("min_date", startDate);
-    url.searchParams.set("max_date", endDate);
+    const url = new URL(`${WP_URL}/wp-json/chirostretch/v1/bookings/slots`);
+    url.searchParams.set("productId", productId);
+    url.searchParams.set("startDate", startDate);
+    url.searchParams.set("endDate", endDate);
 
     const res = await fetch(url.toString(), {
       method: "GET",

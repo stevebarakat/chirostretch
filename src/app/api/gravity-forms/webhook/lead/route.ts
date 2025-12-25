@@ -26,21 +26,76 @@ type LeadSubmission = {
   [key: string]: string | undefined;
 };
 
+type CouponResponse = {
+  success: boolean;
+  coupon_code: string;
+  discount_amount: number;
+  final_price: number;
+  expires?: string;
+  existing?: boolean;
+};
+
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://chirostretch-copy.local";
+const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
+
 /**
- * Send confirmation email to the lead
+ * Generate a unique coupon code for the lead
  */
-async function sendLeadConfirmation(submission: LeadSubmission) {
+async function generateCoupon(submission: LeadSubmission): Promise<CouponResponse | null> {
+  if (!submission.email) {
+    console.warn("⚠️ No email address provided, skipping coupon generation");
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${WP_URL}/wp-json/chirostretch/v1/coupons/new-patient`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Internal-Secret": INTERNAL_SECRET,
+      },
+      body: JSON.stringify({
+        email: submission.email,
+        first_name: submission.first_name,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("❌ Failed to generate coupon:", await response.text());
+      return null;
+    }
+
+    const data = await response.json();
+    console.log("🎟️ Coupon generated:", {
+      code: data.coupon_code,
+      existing: data.existing,
+    });
+
+    return data as CouponResponse;
+  } catch (error) {
+    console.error("❌ Error generating coupon:", error);
+    return null;
+  }
+}
+
+/**
+ * Send confirmation email to the lead with coupon code
+ */
+async function sendLeadConfirmation(submission: LeadSubmission, coupon: CouponResponse | null) {
   if (!submission.email) {
     console.warn("⚠️ No email address provided, skipping lead confirmation");
     return;
   }
 
   const firstName = submission.first_name || "there";
+  const couponCode = coupon?.coupon_code || "NEWPATIENT29";
+  const expiryText = coupon?.expires ? `Valid until ${coupon.expires}` : "Limited time offer";
 
   console.log("📧 Lead confirmation generated:", {
     to: submission.email,
     lead: `${submission.first_name} ${submission.last_name}`,
     entry_id: submission.entry_id,
+    coupon_code: couponCode,
   });
 
   // TODO: Uncomment to enable email sending via Resend
@@ -50,17 +105,32 @@ async function sendLeadConfirmation(submission: LeadSubmission) {
   // await resend.emails.send({
   //   from: 'ChiroStretch <hello@chirostretch.com>',
   //   to: submission.email,
-  //   subject: 'Your New Patient Offer is Ready!',
+  //   subject: 'Your $29 New Patient Offer is Ready!',
   //   html: `
   //     <h1>Welcome to ChiroStretch, ${firstName}!</h1>
   //     <p>Thank you for claiming your New Patient Offer.</p>
-  //     <p>Your exclusive offer is now active and ready to use.</p>
+  //
+  //     <div style="background: #f0f9ff; border: 2px dashed #0ea5e9; padding: 24px; margin: 24px 0; text-align: center; border-radius: 8px;">
+  //       <p style="margin: 0 0 8px; font-size: 14px; color: #666;">Your exclusive coupon code:</p>
+  //       <p style="margin: 0; font-size: 32px; font-weight: bold; color: #0369a1; letter-spacing: 2px;">${couponCode}</p>
+  //       <p style="margin: 8px 0 0; font-size: 14px; color: #666;">${expiryText}</p>
+  //     </div>
+  //
+  //     <h2>Your $29 New Patient Special Includes:</h2>
+  //     <ul>
+  //       <li>✓ Comprehensive Consultation</li>
+  //       <li>✓ Thorough Examination</li>
+  //       <li>✓ Your First Adjustment</li>
+  //     </ul>
+  //     <p><em>Regular value: $99 — You save $70!</em></p>
+  //
   //     <h2>Next Steps:</h2>
   //     <ol>
-  //       <li>Log in to your account at <a href="https://chirostretch.com/login">chirostretch.com/login</a></li>
-  //       <li>Book your first appointment at ${submission.preferred_location || 'your nearest location'}</li>
-  //       <li>Mention your New Patient Offer when you arrive</li>
+  //       <li>Check your email for a link to set up your password</li>
+  //       <li><a href="https://chirostretch.com/book">Book your appointment online</a></li>
+  //       <li>Enter coupon code <strong>${couponCode}</strong> at checkout</li>
   //     </ol>
+  //
   //     <p>Questions? Reply to this email or call us at (XXX) XXX-XXXX</p>
   //   `,
   // });
@@ -215,9 +285,12 @@ export async function POST(request: NextRequest) {
       timestamp: submission.date_created,
     });
 
+    // Generate unique coupon first
+    const coupon = await generateCoupon(submission);
+
     // Process submission in parallel
     await Promise.allSettled([
-      sendLeadConfirmation(submission),
+      sendLeadConfirmation(submission, coupon),
       sendAdminNotification(submission),
       sendToCRM(submission),
       logSubmissionMetrics(submission),
@@ -228,6 +301,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: "New patient offer submission received successfully",
         entry_id: submission.entry_id,
+        coupon_code: coupon?.coupon_code,
       },
       { status: 200 }
     );

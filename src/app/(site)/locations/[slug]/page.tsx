@@ -7,8 +7,10 @@ import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   LOCATION_BY_SLUG_QUERY,
   ALL_LOCATION_SLUGS_QUERY,
+  BOOKING_PRODUCTS_QUERY,
   type LocationBySlugResponse,
   type AllLocationSlugsResponse,
+  type BookingProductsResponse,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/UI/Container";
 import {
@@ -17,62 +19,8 @@ import {
   ValuePropositions,
 } from "@/components/Locations";
 import { BookingWidget } from "@/components/Bookings";
-import type { BookableService } from "@/components/Bookings";
 import styles from "./page.module.css";
 import { RawHtml } from "@/components/RawHtml";
-
-const SERVICES: BookableService[] = [
-  {
-    id: 1,
-    icon: "/images/icons/initial-consultation.svg",
-    name: "Initial Consultation",
-    duration: 60,
-    durationUnit: "minute",
-    practitionerTypes: ["chiropractor"],
-  },
-  {
-    id: 2,
-    name: "Chiro Adjustment",
-    duration: 15,
-    durationUnit: "minute",
-    practitionerTypes: ["chiropractor"],
-  },
-  {
-    id: 3,
-    name: "Stretch Therapy",
-    duration: 30,
-    durationUnit: "minute",
-    practitionerTypes: ["physical_therapist"],
-  },
-  {
-    id: 4,
-    name: "Chiro + Stretch Combo",
-    duration: 45,
-    durationUnit: "minute",
-    practitionerTypes: ["chiropractor", "physical_therapist"],
-  },
-  {
-    id: 5,
-    name: "Massage",
-    duration: 30,
-    durationUnit: "minute",
-    practitionerTypes: ["massage_therapist"],
-  },
-  {
-    id: 6,
-    name: "Massage",
-    duration: 60,
-    durationUnit: "minute",
-    practitionerTypes: ["massage_therapist"],
-  },
-  {
-    id: 7,
-    name: "Injury Rehab",
-    duration: 60,
-    durationUnit: "minute",
-    practitionerTypes: ["sports_medicine"],
-  },
-];
 
 type HoursEntry = { day?: string; open?: string; close?: string };
 
@@ -160,15 +108,25 @@ type LocationPageProps = {
 export default async function LocationPage({ params }: LocationPageProps) {
   const { slug } = await params;
 
-  const data = await wpQuery<LocationBySlugResponse>(
-    LOCATION_BY_SLUG_QUERY,
-    { slug },
-    300
-  );
+  const [locationData, bookingData] = await Promise.all([
+    wpQuery<LocationBySlugResponse>(LOCATION_BY_SLUG_QUERY, { slug }, 300),
+    wpQuery<BookingProductsResponse>(BOOKING_PRODUCTS_QUERY, {}, 300),
+  ]);
 
-  if (!data?.location) {
+  if (!locationData?.location) {
     notFound();
   }
+
+  const data = locationData;
+
+  // Transform booking products to services
+  const services = (bookingData?.bookingProducts ?? []).map((product) => ({
+    id: product.databaseId,
+    name: product.name,
+    duration: product.bookingDuration,
+    durationUnit: product.bookingDurationUnit as "minute" | "hour" | "day",
+    price: product.price ? `$${product.price}` : undefined,
+  }));
 
   // Type assertion to include heroUnit property
   // Note: Browser's global Location interface conflicts with our Location type name
@@ -214,8 +172,6 @@ export default async function LocationPage({ params }: LocationPageProps) {
       : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
           fullAddress
         )}`;
-
-  console.log("location.heroUnit", location.heroUnit);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -270,11 +226,11 @@ export default async function LocationPage({ params }: LocationPageProps) {
               <div className={styles.bookingColumn}>
                 <h2 className={styles.bookingTitle}>Book Your Session</h2>
                 <p className={styles.bookingSubtitle}>
-                  Select a service and time. First-time consultations are 50%
-                  off.
+                  Select a service and time. First-time consultations are 70%
+                  off with coupon.
                 </p>
                 <Suspense fallback={<BookingWidgetSkeleton />}>
-                  <BookingWidget services={SERVICES} />
+                  <BookingWidget services={services} />
                 </Suspense>
               </div>
               <div className={styles.visitColumn}>

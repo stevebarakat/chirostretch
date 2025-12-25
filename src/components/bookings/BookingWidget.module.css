@@ -2,7 +2,6 @@
   background: white;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  max-width: 480px;
   width: 100%;
 }
 

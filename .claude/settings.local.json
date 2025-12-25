@@ -108,7 +108,16 @@
       "Bash(xxd:*)",
       "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=page --fields=ID,post_name,post_title --format=table)",
       "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public gf field list 4 --format=table)",
-      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public plugin list --format=table)"
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public plugin list --format=table)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp status --short)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp log -3 --oneline)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp diff --stat)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp add mu-plugins/bookings-admin-enhancements.php mu-plugins/bookings-slots-api.php mu-plugins/headless-password-reset.php mu-plugins/new-patient-coupon.php mu-plugins/wpgraphql-woocommerce-bookings.php mu-plugins/franchise-application-cpt.php)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd WooCommerce Bookings integration and headless auth improvements\n\n- Add bookings-slots-api.php: REST API for booking availability slots with\n  checkout validation bypass for headless bookings\n- Add bookings-admin-enhancements.php: Bookings > Products submenu and\n  auto-assign bookings category to booking products\n- Add wpgraphql-woocommerce-bookings.php: GraphQL integration for bookings\n- Add headless-password-reset.php: Rewrite password reset URLs in emails\n  to use frontend URL \\(fixes new account confirmation emails\\)\n- Add new-patient-coupon.php: New patient coupon functionality\n- Update franchise-application-cpt.php: Various improvements\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff --stat HEAD)",
+      "Bash(git -C /Users/sb/Dev/chirostretch log -3 --oneline)",
+      "Bash(git -C /Users/sb/Dev/chirostretch add:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch commit -m \"$\\(cat <<''EOF''\nImprove WooCommerce Bookings integration and cart/checkout flow\n\n- Update cart page to display booking date/time details and hide\n  quantity controls for booking items\n- Update CheckoutForm to conditionally show shipping section based\n  on needs_shipping from cart API\n- Add booking type and item_data fields to StoreCartItem type\n- Improve BookingWidget with better slot selection and add-to-cart\n- Add add-to-cart API route for bookings\n- Remove unused /book page \\(functionality moved to location pages\\)\n- Update bookings GraphQL queries\n- Improve Gravity Forms lead webhook handling\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ],
     "deny": [],
     "ask": []

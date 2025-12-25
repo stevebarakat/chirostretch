@@ -26,7 +26,6 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
     serviceId,
     date,
     time,
-    icon,
     setServiceId,
     setDate,
     setTime,
@@ -39,8 +38,6 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
   const [loadingDates, setLoadingDates] = useState(false);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [confirming, setConfirming] = useState(false);
-
-  const selectedService = services.find((s) => s.id === serviceId);
 
   // Fetch availability when service or date range changes
   useEffect(() => {
@@ -65,9 +62,11 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
         const data = await res.json();
 
         // Transform slots data to available dates
+        // API returns { success: true, slots: [{ date, available, slots: [...] }] }
         const dateMap = new Map<string, boolean>();
-        if (Array.isArray(data)) {
-          data.forEach((slot: { date?: string; available?: boolean }) => {
+        const slotsArray = data.slots ?? data;
+        if (Array.isArray(slotsArray)) {
+          slotsArray.forEach((slot: { date?: string; available?: boolean }) => {
             if (slot.date) {
               dateMap.set(slot.date, slot.available ?? true);
             }
@@ -133,29 +132,27 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
         const data = await res.json();
 
         // Transform to time slots
+        // API returns { slots: [{ date, available, slots: [{ time, available }] }] }
         const slots: TimeSlot[] = [];
-        if (Array.isArray(data)) {
-          data.forEach(
-            (slot: { start?: string; end?: string; available?: boolean }) => {
-              if (slot.start) {
-                // Extract time from datetime if full ISO string, or use as-is
-                const startTime = slot.start.includes("T")
-                  ? slot.start.split("T")[1].substring(0, 5)
-                  : slot.start;
-                const endTime = slot.end
-                  ? slot.end.includes("T")
-                    ? slot.end.split("T")[1].substring(0, 5)
-                    : slot.end
-                  : "";
-
-                slots.push({
-                  start: startTime,
-                  end: endTime,
-                  available: slot.available ?? true,
-                });
-              }
-            }
+        const slotsArray = data.slots ?? data;
+        if (Array.isArray(slotsArray)) {
+          // Find the slot for the selected date
+          const dateSlot = slotsArray.find(
+            (s: { date?: string }) => s.date === date
           );
+          if (dateSlot?.slots && Array.isArray(dateSlot.slots)) {
+            dateSlot.slots.forEach(
+              (slot: { time?: string; available?: boolean }) => {
+                if (slot.time) {
+                  slots.push({
+                    start: slot.time,
+                    end: "",
+                    available: slot.available ?? true,
+                  });
+                }
+              }
+            );
+          }
         }
 
         setTimeSlots(slots);
@@ -184,27 +181,32 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
       if (onConfirm) {
         onConfirm({ serviceId, date, time });
       } else {
-        // Default: add to cart and redirect
-        const res = await fetch("/api/cart/add-item", {
+        // Add booking to cart via custom endpoint
+        const res = await fetch("/api/bookings/add-to-cart", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            id: serviceId,
-            quantity: 1,
-            booking: {
-              date,
-              time,
-            },
+            productId: serviceId,
+            date,
+            time,
           }),
         });
 
-        if (!res.ok) throw new Error("Failed to add booking to cart");
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Failed to add booking to cart");
+        }
 
         window.location.href = "/cart";
       }
     } catch (error) {
       console.error("Error confirming booking:", error);
-      alert("Failed to confirm booking. Please try again.");
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to confirm booking. Please try again."
+      );
     } finally {
       setConfirming(false);
     }

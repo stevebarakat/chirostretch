@@ -10,7 +10,7 @@ export type BookableService = {
   name: string;
   duration: number;
   durationUnit: "minute" | "hour" | "day";
-  practitionerTypes: PractitionerType[];
+  practitionerTypes?: PractitionerType[];
   price?: string;
 };
 

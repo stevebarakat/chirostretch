@@ -3,12 +3,19 @@ import { cookies } from "next/headers";
 const WP_URL =
   process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
 
+export type StoreCartItemData = {
+  name?: string;
+  value?: string;
+  display?: string;
+};
+
 export type StoreCartItem = {
   key: string;
   id?: number;
   product_id?: number;
   quantity: number;
   name: string;
+  type?: string;
   prices?: {
     price?: string;
     regular_price?: string;
@@ -21,6 +28,7 @@ export type StoreCartItem = {
   variation?: {
     id?: number;
   };
+  item_data?: StoreCartItemData[];
   [key: string]: unknown;
 };
 

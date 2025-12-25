@@ -7,7 +7,7 @@ import { Container } from "@/components/UI/Container";
 import { Button } from "@/components/UI/Button";
 import { VisuallyHidden } from "@/components/UI/VisuallyHidden";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
-import type { StoreCartItem } from "@/lib/woocommerce/getServerCart";
+import type { StoreCartItem, StoreCartItemData } from "@/lib/woocommerce/getServerCart";
 import styles from "./page.module.css";
 
 export default function CartPage() {
@@ -155,55 +155,74 @@ export default function CartPage() {
 
               const subtotal = itemPriceNum * item.quantity;
 
+              // Check if this is a booking product
+              const isBooking = cartItem.type === 'booking';
+
+              // Get booking date/time from item_data
+              const bookingDate = cartItem.item_data?.find(
+                (d: StoreCartItemData) => d.name === 'Booking Date'
+              )?.value;
+              const bookingTime = cartItem.item_data?.find(
+                (d: StoreCartItemData) => d.name === 'Booking Time'
+              )?.value;
+
               return (
                 <div key={item.key} className={styles.cartItem}>
                   <div className={styles.itemInfo}>
-                    <h3 className={styles.itemName}>{item.name}</h3>
+                    <div className={styles.itemDetails}>
+                      <h3 className={styles.itemName}>{item.name}</h3>
+                      {isBooking && (bookingDate || bookingTime) && (
+                        <div className={styles.bookingDetails}>
+                          {bookingDate && <span>{bookingDate}</span>}
+                          {bookingDate && bookingTime && <span> at </span>}
+                          {bookingTime && <span>{bookingTime}</span>}
+                        </div>
+                      )}
+                    </div>
                     <div className={styles.itemPrice}>
-                      {formatPrice(itemPrice)}
+                      {formatPrice(subtotal)}
                     </div>
                   </div>
 
                   <div className={styles.itemActions}>
-                    <div className={styles.quantityControl}>
-                      <label
-                        htmlFor={`quantity-${item.key}`}
-                        className={styles.quantityLabel}
-                      >
-                        Quantity
-                      </label>
-                      <input
-                        id={`quantity-${item.key}`}
-                        type="number"
-                        min="1"
-                        value={localQuantities[item.key] || item.quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(
-                            item.key,
-                            parseInt(e.target.value, 10)
-                          )
-                        }
-                        className={styles.quantityInput}
-                        disabled={loading}
-                      />
-                    </div>
-
-                    <div className={styles.itemSubtotal}>
-                      {formatPrice(subtotal)}
-                    </div>
-
-                    <Button
-                      color="secondary"
-                      onClick={() => handleUpdateItem(item.key)}
-                      disabled={loading || !hasQuantityChanged(item.key)}
-                      className={styles.updateButton}
-                      aria-label="Update quantity"
-                    >
-                      <RefreshCcw size={18} />
-                      <VisuallyHidden>
-                        {loading ? "Updating..." : "Update"}
-                      </VisuallyHidden>
-                    </Button>
+                    {!isBooking && (
+                      <>
+                        <div className={styles.quantityControl}>
+                          <label
+                            htmlFor={`quantity-${item.key}`}
+                            className={styles.quantityLabel}
+                          >
+                            Quantity
+                          </label>
+                          <input
+                            id={`quantity-${item.key}`}
+                            type="number"
+                            min="1"
+                            value={localQuantities[item.key] || item.quantity}
+                            onChange={(e) =>
+                              handleQuantityChange(
+                                item.key,
+                                parseInt(e.target.value, 10)
+                              )
+                            }
+                            className={styles.quantityInput}
+                            disabled={loading}
+                          />
+                        </div>
+                        <Button
+                          color="secondary"
+                          onClick={() => handleUpdateItem(item.key)}
+                          disabled={loading || !hasQuantityChanged(item.key)}
+                          className={styles.updateButton}
+                          aria-label="Update quantity"
+                        >
+                          <RefreshCcw size={18} />
+                          <VisuallyHidden>
+                            {loading ? "Updating..." : "Update"}
+                          </VisuallyHidden>
+                        </Button>
+                      </>
+                    )}
 
                     <Button
                       color="secondary"

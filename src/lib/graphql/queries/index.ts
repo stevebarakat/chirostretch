@@ -1,3 +1,4 @@
+export * from "./bookings";
 export * from "./events";
 export * from "./footer-content";
 export * from "./franchise";

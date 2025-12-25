@@ -59,7 +59,7 @@ export function ServiceSelect({ services, selectedId, onSelect, loading }: Servi
         </select>
         <ChevronDown className={styles.icon} size={20} />
       </div>
-      {selectedService && (
+      {selectedService?.practitionerTypes && selectedService.practitionerTypes.length > 0 && (
         <p className={styles.practitioner}>
           {formatPractitioners(selectedService.practitionerTypes)}
         </p>

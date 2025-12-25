@@ -74,6 +74,23 @@ export default function CheckoutForm() {
   const [selectedShippingRateId, setSelectedShippingRateId] = useState<
     string | null
   >(null);
+  const [needsShipping, setNeedsShipping] = useState(true);
+
+  // Check if cart needs shipping
+  useEffect(() => {
+    async function checkShippingNeeded() {
+      try {
+        const res = await fetch("/api/cart", { credentials: "include" });
+        if (res.ok) {
+          const cart = await res.json();
+          setNeedsShipping(cart.needs_shipping ?? true);
+        }
+      } catch (error) {
+        console.error("Error checking cart shipping:", error);
+      }
+    }
+    checkShippingNeeded();
+  }, []);
 
   const updateShippingAddressAndFetchRates = useCallback(
     async (shippingAddress: CheckoutFormData["shipping"]) => {
@@ -248,7 +265,7 @@ export default function CheckoutForm() {
       return;
     }
 
-    if (!selectedShippingRateId) {
+    if (needsShipping && !selectedShippingRateId) {
       setSubmitError("Please select a shipping method.");
       return;
     }
@@ -256,31 +273,33 @@ export default function CheckoutForm() {
     setSubmitError(null);
     setCardError(null);
 
-    try {
-      const selectShippingResponse = await fetch(
-        "/api/cart/select-shipping-rate",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ rate_id: selectedShippingRateId }),
-        }
-      );
-
-      if (!selectShippingResponse.ok) {
-        const errorData = await selectShippingResponse.json();
-        setSubmitError(
-          errorData.message ||
-            "Failed to select shipping method. Please try again."
+    if (needsShipping && selectedShippingRateId) {
+      try {
+        const selectShippingResponse = await fetch(
+          "/api/cart/select-shipping-rate",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ rate_id: selectedShippingRateId }),
+          }
         );
+
+        if (!selectShippingResponse.ok) {
+          const errorData = await selectShippingResponse.json();
+          setSubmitError(
+            errorData.message ||
+              "Failed to select shipping method. Please try again."
+          );
+          return;
+        }
+      } catch (error) {
+        console.error("Error selecting shipping rate:", error);
+        setSubmitError("Failed to select shipping method. Please try again.");
         return;
       }
-    } catch (error) {
-      console.error("Error selecting shipping rate:", error);
-      setSubmitError("Failed to select shipping method. Please try again.");
-      return;
     }
 
     try {
@@ -636,228 +655,230 @@ export default function CheckoutForm() {
         </div>
       </div>
 
-      <div className={styles.formSection}>
-        <h2 className={styles.sectionTitle}>Shipping Information</h2>
+      {needsShipping && (
+        <div className={styles.formSection}>
+          <h2 className={styles.sectionTitle}>Shipping Information</h2>
 
-        <div className={styles.formGroup}>
-          <label className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              {...register("sameAsBilling")}
-              className={styles.checkbox}
-            />
-            <span>Same as billing address</span>
-          </label>
-        </div>
-
-        {!sameAsBilling && (
-          <>
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="shipping.first_name" className={styles.label}>
-                  First Name <span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  id="shipping.first_name"
-                  {...register("shipping.first_name")}
-                  className={styles.input}
-                />
-                {errors.shipping?.first_name && (
-                  <span className={styles.error}>
-                    {errors.shipping.first_name.message}
-                  </span>
-                )}
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="shipping.last_name" className={styles.label}>
-                  Last Name <span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  id="shipping.last_name"
-                  {...register("shipping.last_name")}
-                  className={styles.input}
-                />
-                {errors.shipping?.last_name && (
-                  <span className={styles.error}>
-                    {errors.shipping.last_name.message}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="shipping.address_1" className={styles.label}>
-                Address <span className={styles.required}>*</span>
-              </label>
+          <div className={styles.formGroup}>
+            <label className={styles.checkboxLabel}>
               <input
-                type="text"
-                id="shipping.address_1"
-                {...register("shipping.address_1")}
-                className={styles.input}
+                type="checkbox"
+                {...register("sameAsBilling")}
+                className={styles.checkbox}
               />
-              {errors.shipping?.address_1 && (
-                <span className={styles.error}>
-                  {errors.shipping.address_1.message}
-                </span>
-              )}
-            </div>
+              <span>Same as billing address</span>
+            </label>
+          </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="shipping.address_2" className={styles.label}>
-                Address Line 2
-              </label>
-              <input
-                type="text"
-                id="shipping.address_2"
-                {...register("shipping.address_2")}
-                className={styles.input}
-              />
-            </div>
-
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="shipping.city" className={styles.label}>
-                  City <span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  id="shipping.city"
-                  {...register("shipping.city")}
-                  className={styles.input}
-                />
-                {errors.shipping?.city && (
-                  <span className={styles.error}>
-                    {errors.shipping.city.message}
-                  </span>
-                )}
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="shipping.state" className={styles.label}>
-                  State <span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  id="shipping.state"
-                  {...register("shipping.state")}
-                  className={styles.input}
-                />
-                {errors.shipping?.state && (
-                  <span className={styles.error}>
-                    {errors.shipping.state.message}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="shipping.postcode" className={styles.label}>
-                  Postal Code <span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  id="shipping.postcode"
-                  {...register("shipping.postcode")}
-                  className={styles.input}
-                />
-                {errors.shipping?.postcode && (
-                  <span className={styles.error}>
-                    {errors.shipping.postcode.message}
-                  </span>
-                )}
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="shipping.country" className={styles.label}>
-                  Country <span className={styles.required}>*</span>
-                </label>
-                <select
-                  id="shipping.country"
-                  {...register("shipping.country")}
-                  className={styles.select}
-                >
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="AU">Australia</option>
-                </select>
-                {errors.shipping?.country && (
-                  <span className={styles.error}>
-                    {errors.shipping.country.message}
-                  </span>
-                )}
-              </div>
-            </div>
-          </>
-        )}
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>
-            Shipping Method <span className={styles.required}>*</span>
-          </label>
-          {loadingShippingRates ? (
-            <div className={styles.loadingMessage}>
-              Loading shipping options...
-            </div>
-          ) : shippingRates.length === 0 ? (
-            <div className={styles.infoMessage}>
-              {billingData.address_1 &&
-              billingData.city &&
-              billingData.state &&
-              billingData.postcode
-                ? "No shipping methods available for this address. This may mean: (1) No shipping zones are configured for this address, (2) Shipping methods are disabled, or (3) The address doesn't match any shipping zones. Please check your WooCommerce shipping settings or try a different address."
-                : "Please enter your complete shipping address (address, city, state, postal code, and country) to see available shipping options."}
-            </div>
-          ) : (
-            <div className={styles.shippingMethods}>
-              {shippingRates.map((rate) => (
-                <label
-                  key={rate.rate_id}
-                  className={clsx(
-                    styles.shippingMethodOption,
-                    selectedShippingRateId === rate.rate_id &&
-                      styles.shippingMethodOptionSelected
-                  )}
-                >
+          {!sameAsBilling && (
+            <>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="shipping.first_name" className={styles.label}>
+                    First Name <span className={styles.required}>*</span>
+                  </label>
                   <input
-                    type="radio"
-                    name="shipping_method"
-                    value={rate.rate_id}
-                    checked={selectedShippingRateId === rate.rate_id}
-                    onChange={(e) => {
-                      setSelectedShippingRateId(e.target.value);
-                      setValue("shipping_method", [e.target.value]);
-                    }}
-                    className={styles.radio}
+                    type="text"
+                    id="shipping.first_name"
+                    {...register("shipping.first_name")}
+                    className={styles.input}
                   />
-                  <div className={styles.shippingMethodInfo}>
-                    <span className={styles.shippingMethodName}>
-                      {rate.name}
+                  {errors.shipping?.first_name && (
+                    <span className={styles.error}>
+                      {errors.shipping.first_name.message}
                     </span>
-                    {rate.description && (
-                      <span className={styles.shippingMethodDescription}>
-                        {rate.description}
-                      </span>
-                    )}
-                  </div>
-                  <span className={styles.shippingMethodPrice}>
-                    {formatPrice(rate.price)}
-                  </span>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="shipping.last_name" className={styles.label}>
+                    Last Name <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="shipping.last_name"
+                    {...register("shipping.last_name")}
+                    className={styles.input}
+                  />
+                  {errors.shipping?.last_name && (
+                    <span className={styles.error}>
+                      {errors.shipping.last_name.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="shipping.address_1" className={styles.label}>
+                  Address <span className={styles.required}>*</span>
                 </label>
-              ))}
-            </div>
+                <input
+                  type="text"
+                  id="shipping.address_1"
+                  {...register("shipping.address_1")}
+                  className={styles.input}
+                />
+                {errors.shipping?.address_1 && (
+                  <span className={styles.error}>
+                    {errors.shipping.address_1.message}
+                  </span>
+                )}
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="shipping.address_2" className={styles.label}>
+                  Address Line 2
+                </label>
+                <input
+                  type="text"
+                  id="shipping.address_2"
+                  {...register("shipping.address_2")}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="shipping.city" className={styles.label}>
+                    City <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="shipping.city"
+                    {...register("shipping.city")}
+                    className={styles.input}
+                  />
+                  {errors.shipping?.city && (
+                    <span className={styles.error}>
+                      {errors.shipping.city.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="shipping.state" className={styles.label}>
+                    State <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="shipping.state"
+                    {...register("shipping.state")}
+                    className={styles.input}
+                  />
+                  {errors.shipping?.state && (
+                    <span className={styles.error}>
+                      {errors.shipping.state.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="shipping.postcode" className={styles.label}>
+                    Postal Code <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="shipping.postcode"
+                    {...register("shipping.postcode")}
+                    className={styles.input}
+                  />
+                  {errors.shipping?.postcode && (
+                    <span className={styles.error}>
+                      {errors.shipping.postcode.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="shipping.country" className={styles.label}>
+                    Country <span className={styles.required}>*</span>
+                  </label>
+                  <select
+                    id="shipping.country"
+                    {...register("shipping.country")}
+                    className={styles.select}
+                  >
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                  </select>
+                  {errors.shipping?.country && (
+                    <span className={styles.error}>
+                      {errors.shipping.country.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </>
           )}
-          {!selectedShippingRateId && shippingRates.length > 0 && (
-            <span className={styles.error}>
-              Please select a shipping method
-            </span>
-          )}
+
+          <div className={styles.formGroup}>
+            <label className={styles.label}>
+              Shipping Method <span className={styles.required}>*</span>
+            </label>
+            {loadingShippingRates ? (
+              <div className={styles.loadingMessage}>
+                Loading shipping options...
+              </div>
+            ) : shippingRates.length === 0 ? (
+              <div className={styles.infoMessage}>
+                {billingData.address_1 &&
+                billingData.city &&
+                billingData.state &&
+                billingData.postcode
+                  ? "No shipping methods available for this address. This may mean: (1) No shipping zones are configured for this address, (2) Shipping methods are disabled, or (3) The address doesn't match any shipping zones. Please check your WooCommerce shipping settings or try a different address."
+                  : "Please enter your complete shipping address (address, city, state, postal code, and country) to see available shipping options."}
+              </div>
+            ) : (
+              <div className={styles.shippingMethods}>
+                {shippingRates.map((rate) => (
+                  <label
+                    key={rate.rate_id}
+                    className={clsx(
+                      styles.shippingMethodOption,
+                      selectedShippingRateId === rate.rate_id &&
+                        styles.shippingMethodOptionSelected
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      name="shipping_method"
+                      value={rate.rate_id}
+                      checked={selectedShippingRateId === rate.rate_id}
+                      onChange={(e) => {
+                        setSelectedShippingRateId(e.target.value);
+                        setValue("shipping_method", [e.target.value]);
+                      }}
+                      className={styles.radio}
+                    />
+                    <div className={styles.shippingMethodInfo}>
+                      <span className={styles.shippingMethodName}>
+                        {rate.name}
+                      </span>
+                      {rate.description && (
+                        <span className={styles.shippingMethodDescription}>
+                          {rate.description}
+                        </span>
+                      )}
+                    </div>
+                    <span className={styles.shippingMethodPrice}>
+                      {formatPrice(rate.price)}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            )}
+            {!selectedShippingRateId && shippingRates.length > 0 && (
+              <span className={styles.error}>
+                Please select a shipping method
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className={styles.formSection}>
         <h2 className={styles.sectionTitle}>Payment Information</h2>
