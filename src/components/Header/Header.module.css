@@ -88,17 +88,17 @@
   padding: 0.5rem 1rem;
   line-height: 1.5;
   text-align: left;
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid var(--color-transparent-white-300);
   transition: 0.25s ease;
   cursor: pointer;
   &:first-of-type {
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid var(--color-transparent-white-300);
   }
 }
 
 .topMenuLink:hover,
 .topMenuBtnLink:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-transparent-white-100);
   color: var(--color-text-inverse);
 }
 
@@ -106,17 +106,13 @@
   background: var(--color-secondary-600);
   position: absolute;
   top: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--color-transparent-white-700);
   z-index: 100;
 }
 
 .topMenuDropdown .topMenuLink {
   border-right: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.topMenuDropdown .topMenuLink:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid var(--color-transparent-white-700) !important;
 }
 
 .siteHeader ul {
@@ -149,7 +145,7 @@
 }
 
 .accountLink:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-transparent-white-100);
 }
 
 @media (max-width: 910px) {
@@ -218,7 +214,7 @@
   .topMenuBtnLink {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid var(--color-transparent-white-300);
     padding: 1rem;
     font-size: 1rem;
   }
@@ -227,7 +223,7 @@
     position: relative;
     top: auto;
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid var(--color-transparent-white-200);
   }
 
   .topMenuDropdown .topMenuLink {
