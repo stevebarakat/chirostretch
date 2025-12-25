@@ -108,6 +108,11 @@
   top: 100%;
   border: 1px solid var(--color-transparent-white-700);
   z-index: 100;
+  display: none;
+}
+
+.topMenuDropdownOpen {
+  display: block;
 }
 
 .topMenuDropdown .topMenuLink {
@@ -171,6 +176,7 @@
 
   .topBarMobileOnly {
     display: flex;
+    height: calc(var(--header-height) + 26px);
   }
 
   .topBarHamburger {
@@ -224,6 +230,11 @@
     top: auto;
     border: none;
     border-top: 1px solid var(--color-transparent-white-200);
+    display: none;
+  }
+
+  .topMenuDropdownOpen {
+    display: block;
   }
 
   .topMenuDropdown .topMenuLink {

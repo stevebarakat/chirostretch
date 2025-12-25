@@ -54,8 +54,8 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
         <ul
           className={
             isActive
-              ? styles.topMenuDropdown
-              : `${styles.topMenuDropdown} sr-only`
+              ? `${styles.topMenuDropdown} ${styles.topMenuDropdownOpen}`
+              : styles.topMenuDropdown
           }
         >
           {item.childItems?.nodes.map((child) => (
