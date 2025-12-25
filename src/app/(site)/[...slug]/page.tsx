@@ -8,12 +8,7 @@ import {
   type AllPageSlugsResponse,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/UI/Container";
-import {
-  BlockRenderer,
-  ChartBlock,
-  parseChartDataFromContent,
-  type Block,
-} from "@/components/Blocks";
+import { BlockRenderer, type Block } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
@@ -161,13 +156,7 @@ export default async function WordPressPage({ params }: PageProps) {
 
   const blocks = page.blocks && Array.isArray(page.blocks) ? page.blocks : null;
 
-  const hasStackableBlocks = blocks?.some((block) =>
-    (block as { name?: string })?.name?.startsWith("stackable/")
-  );
-
   const heroImage = page.featuredImage ? page.featuredImage : undefined;
-
-  const charts = page.content ? parseChartDataFromContent(page.content) : [];
 
   return (
     <>
@@ -186,24 +175,16 @@ export default async function WordPressPage({ params }: PageProps) {
             </header>
           )}
 
-          {blocks && blocks.length > 0 && !hasStackableBlocks ? (
+          {blocks && blocks.length > 0 ? (
             <div className={styles.content}>
               <BlockRenderer blocks={blocks as Block[]} />
             </div>
-          ) : (
+          ) : page.content ? (
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{ __html: page.content }}
             />
-          )}
-
-          {charts.length > 0 && (
-            <div className={styles.content}>
-              {charts.map((chartData) => (
-                <ChartBlock key={chartData.cId} chartData={chartData} />
-              ))}
-            </div>
-          )}
+          ) : null}
         </article>
       </Container>
     </>

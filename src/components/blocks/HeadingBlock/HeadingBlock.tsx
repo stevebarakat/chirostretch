@@ -1,4 +1,5 @@
 import type { ElementType } from "react";
+import { parseHtml } from "../parseHtml";
 
 type HeadingBlockProps = {
   level: number;
@@ -15,10 +16,5 @@ export default function HeadingBlock({
 
   const HeadingTag = `h${Math.min(Math.max(level, 1), 6)}` as ElementType;
 
-  return (
-    <HeadingTag
-      className={className}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
-  );
+  return <HeadingTag className={className}>{parseHtml(content)}</HeadingTag>;
 }

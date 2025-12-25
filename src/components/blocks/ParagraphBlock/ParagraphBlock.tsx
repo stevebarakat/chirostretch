@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { parseHtml } from "../parseHtml";
 
 type ParagraphBlockProps = {
   content: string;
@@ -11,7 +11,11 @@ export default function ParagraphBlock({
 }: ParagraphBlockProps) {
   if (!content) return null;
 
-  return (
-    <p className={className} dangerouslySetInnerHTML={{ __html: content }} />
-  );
+  // Content from WordPress already includes <p> tags, so we use a fragment
+  // If className is provided, wrap in a div for styling
+  if (className) {
+    return <div className={className}>{parseHtml(content)}</div>;
+  }
+
+  return <>{parseHtml(content)}</>;
 }

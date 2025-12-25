@@ -96,7 +96,8 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
         const pieData = datasets[0]?.data.map((value, idx) => ({
           name: chartData.data.labels[idx],
           value,
-          color: datasets[0]?.backgroundColor?.[idx] || getColor(datasets[0], idx),
+          color:
+            datasets[0]?.backgroundColor?.[idx] || getColor(datasets[0], idx),
         }));
         return (
           <PieChart>

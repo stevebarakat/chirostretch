@@ -3,6 +3,8 @@ import HeadingBlock from "../HeadingBlock";
 import ImageBlock from "../ImageBlock";
 import CoverBlock from "../CoverBlock";
 import AccordionBlock from "../AccordionBlock";
+import ColumnsBlock, { ColumnBlock } from "../ColumnsBlock";
+import ChartBlock from "../ChartBlock";
 
 export type Block = {
   name: string;
@@ -184,12 +186,68 @@ export default function BlockRenderer({
             return <AccordionBlock key={key} block={block} />;
 
           case "core/columns":
+            const columnsAttrs = block.attributes as {
+              isStackedOnMobile?: boolean;
+            };
+            return (
+              <ColumnsBlock
+                key={key}
+                isStackedOnMobile={columnsAttrs?.isStackedOnMobile ?? true}
+                columnCount={block.innerBlocks?.length}
+              >
+                {block.innerBlocks?.map((col, colIndex) => {
+                  const colAttrs = col.attributes as { width?: string };
+                  return (
+                    <ColumnBlock key={`col-${colIndex}`} width={colAttrs?.width}>
+                      {col.innerBlocks && col.innerBlocks.length > 0 && (
+                        <BlockRenderer blocks={col.innerBlocks} />
+                      )}
+                    </ColumnBlock>
+                  );
+                })}
+              </ColumnsBlock>
+            );
+
           case "core/column":
+            if (block.innerBlocks && block.innerBlocks.length > 0) {
+              return <BlockRenderer key={key} blocks={block.innerBlocks} />;
+            }
+            return null;
+
           case "core/group":
             if (block.innerBlocks && block.innerBlocks.length > 0) {
               return <BlockRenderer key={key} blocks={block.innerBlocks} />;
             }
             return null;
+
+          case "b-chart/chart":
+            const chartAttrs = block.attributes as {
+              cId: string;
+              type?: "line" | "bar" | "pie" | "doughnut";
+              data: {
+                labels: string[];
+                datasets: {
+                  label: string;
+                  data: number[];
+                  backgroundColor?: string[];
+                  borderColor?: string[];
+                }[];
+              };
+              title?: string;
+              titleColor?: string;
+              titleFontSize?: number;
+              isTitle?: boolean;
+              height?: string;
+              width?: string;
+              textColor?: string;
+              isXScale?: boolean;
+              isYScale?: boolean;
+              isXGridLine?: boolean;
+              isYGridLine?: boolean;
+              gridLineColor?: string;
+            };
+            if (!chartAttrs?.cId || !chartAttrs?.data) return null;
+            return <ChartBlock key={key} chartData={chartAttrs} />;
 
           default:
             if (block.innerHTML) {
