@@ -172,7 +172,7 @@ export const ALL_PRODUCT_SLUGS_QUERY = `
 
 export const ALL_PRODUCTS_QUERY = `
   query AllProducts($first: Int, $after: String) {
-    products(first: $first, after: $after) {
+    products(first: $first, after: $after, where: { typeIn: [SIMPLE, VARIABLE, EXTERNAL, GROUPED] }) {
       nodes {
         id
         databaseId
