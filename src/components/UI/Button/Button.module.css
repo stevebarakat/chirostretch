@@ -134,14 +134,14 @@ a.button.glass.glass {
   transition: background-color var(--transition-base) !important;
   transform: none !important;
   color: var(--color-text-inverse) !important;
-  background: rgba(255, 255, 255, 0.18) !important;
+  background: var(--color-transparent-white-250) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
 }
 
 .button.glass:hover,
 a.button.glass:hover {
-  background: rgba(255, 255, 255, 0.25) !important;
+  background: var(--color-transparent-white-300) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
 }

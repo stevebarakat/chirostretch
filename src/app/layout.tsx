@@ -69,31 +69,17 @@ export default async function RootLayout({
 }>) {
   let logo;
   let topMenuItems: MenuItem[] | undefined;
-  let headerMenuItems: MenuItem[] | undefined;
   let footerMenuItems: MenuItem[] | undefined;
 
   try {
     const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, 3600);
     logo = data?.logo;
     topMenuItems = data?.topMenu?.menuItems?.nodes;
-    headerMenuItems = data?.headerMenu?.menuItems?.nodes;
     footerMenuItems = data?.footerMenu?.menuItems?.nodes;
 
     if (!data?.topMenu) {
       console.warn(
         "Top menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress."
-      );
-    }
-
-    if (!data?.headerMenu) {
-      console.warn(
-        "Header menu not found. Expected menu slug: 'homepage-menu'. Make sure a menu with this slug exists in WordPress."
-      );
-    } else if (!headerMenuItems || headerMenuItems.length === 0) {
-      console.warn(
-        `Header menu found (${
-          data.headerMenu.name || "unknown"
-        }) but has no menu items.`
       );
     }
 
@@ -112,7 +98,6 @@ export default async function RootLayout({
     console.error("Failed to fetch layout data from WordPress:", error);
     logo = undefined;
     topMenuItems = undefined;
-    headerMenuItems = undefined;
     footerMenuItems = undefined;
   }
 
@@ -153,7 +138,7 @@ export default async function RootLayout({
       <body>
         <CartProvider initialCart={cart}>
           <ModalProvider claimOfferForm={claimOfferForm}>
-            <Header logo={logo} menuItems={headerMenuItems} topMenuItems={topMenuItems} showMainNav={path === "/" || path === ""} />
+            <Header logo={logo} topMenuItems={topMenuItems} />
             {children}
             <Footer logo={logo} menuItems={footerMenuItems} />
           </ModalProvider>

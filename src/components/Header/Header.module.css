@@ -21,14 +21,20 @@
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   background: var(--color-secondary-500);
+  padding-top: 40px;
 }
 
-.mainNav {
-  height: 88px;
+.headerBar {
+  height: var(--header-height);
   position: relative;
 }
 
 .topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
   border-bottom: 1px solid white;
   background: var(--color-secondary-600);
 }
@@ -85,11 +91,15 @@
   border-right: 1px solid rgba(255, 255, 255, 0.3);
   transition: 0.25s ease;
   cursor: pointer;
+  &:first-of-type {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
 
 .topMenuLink:hover,
 .topMenuBtnLink:hover {
   background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-inverse);
 }
 
 .topMenuDropdown {
@@ -115,19 +125,7 @@
   padding: 0;
 }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  background: var(--darkColor);
-  width: 100%;
-  max-height: 100%;
-  z-index: 9999;
-  position: absolute;
-  transition: transform 0.25s;
-  font-size: 1.25rem;
-}
-
-.navContainer {
+.headerContainer {
   display: flex;
   max-width: 100%;
   width: 84.375rem;
@@ -135,60 +133,7 @@
   margin: 0 auto;
   align-items: center;
   background: var(--color-secondary-500);
-}
-
-.menu {
-  display: flex;
-  justify-content: center;
-  border-left: 1px solid white;
-}
-
-.btnLink,
-.link {
-  background: none;
-  border: none;
-  font-size: inherit;
-  font-family: inherit;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  line-height: 2.75;
-  text-align: left;
-  border-right: 1px solid white;
-  transition: 0.25s ease;
-}
-
-.link a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-}
-
-.link:hover {
-  color: white;
-}
-
-.dropdown .dropdownItem .link {
-  box-shadow: none;
-  background: var(--color-secondary-600);
-}
-
-.dropdown {
-  background: var(--darkColor);
-  position: absolute;
-  border-top: 1px solid white;
-  border-left: 1px solid white;
-}
-
-.dropdownItem {
-  border-bottom: 1px solid white;
-}
-
-.tel {
-  border-right: none;
+  height: 100%;
 }
 
 .accountLink {
@@ -208,15 +153,19 @@
 }
 
 @media (max-width: 910px) {
-  /* Hide main navigation on mobile */
-  .mainNav {
+  /* Hide header bar on mobile */
+  .headerBar {
     display: none;
   }
 
   /* Top bar mobile styles */
   .topBar {
     position: relative;
-    height: 88px;
+    height: calc(var(--header-height) + 26px);
+  }
+
+  .siteHeader {
+    padding-top: 0;
   }
 
   .topBarContainer {

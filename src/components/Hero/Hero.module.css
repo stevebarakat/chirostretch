@@ -1,5 +1,5 @@
 .hero {
-  --max-height: calc(100vh - 88px);
+  --max-height: calc(100vh - var(--header-height));
   position: relative;
   width: 100%;
   max-height: var(--max-height);
@@ -8,9 +8,12 @@
   align-items: center;
   justify-content: flex-start;
   color: white;
+}
 
-  @media (width >= 2000px) {
-    height: var(--max-height);
+@media (min-width: 2500px) {
+  .hero {
+    height: calc(100vh - var(--header-height)) !important;
+    max-height: calc(100vh - var(--header-height)) !important;
   }
 }
 

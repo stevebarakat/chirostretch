@@ -1,4 +1,3 @@
-import { Menu } from "@/components/Menu";
 import { AccountMenu } from "./AccountMenu";
 import { TopMenu } from "./TopMenu";
 import styles from "./Header.module.css";
@@ -16,31 +15,20 @@ type HeaderProps = {
       height?: number;
     };
   };
-  menuItems?: MenuItem[];
   topMenuItems?: MenuItem[];
-  showMainNav?: boolean;
 };
 
-export default function Header({ logo, menuItems, topMenuItems, showMainNav = false }: HeaderProps) {
+export default function Header({ logo, topMenuItems }: HeaderProps) {
   return (
     <header className={styles.siteHeader}>
       <div className={styles.topBar}>
         <TopMenu menuItems={topMenuItems} logo={logo} />
       </div>
-      <div className={styles.mainNav}>
-        <nav id="main-navigation" className={styles.nav} aria-label="Main navigation">
-          <div className={styles.navContainer}>
-            <Logo isMobile={false} logo={logo} />
-            {showMainNav && (
-              <ul className={styles.menu}>
-                {menuItems?.map((item) => (
-                  <Menu key={item.id} item={item} />
-                ))}
-              </ul>
-            )}
-            <AccountMenu />
-          </div>
-        </nav>
+      <div className={styles.headerBar}>
+        <div className={styles.headerContainer}>
+          <Logo isMobile={false} logo={logo} />
+          <AccountMenu />
+        </div>
       </div>
     </header>
   );
