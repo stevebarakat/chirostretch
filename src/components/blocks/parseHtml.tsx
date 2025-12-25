@@ -6,6 +6,8 @@ import parse, {
 } from "html-react-parser";
 import Link from "next/link";
 
+const FRONTEND_URL = (process.env.NEXT_PUBLIC_FRONTEND_URL || "").replace(/\/$/, "");
+
 const isInternalUrl = (href: string): boolean => {
   if (href.startsWith("/")) return true;
   if (href.startsWith("#")) return true;
@@ -21,6 +23,18 @@ const isInternalUrl = (href: string): boolean => {
   }
 };
 
+const getCanonicalUrl = (href: string): string => {
+  if (href.startsWith("#")) return href;
+  if (href.startsWith("/")) return `${FRONTEND_URL}${href}`;
+  try {
+    const url = new URL(href);
+    const path = url.pathname + url.search + url.hash;
+    return `${FRONTEND_URL}${path}`;
+  } catch {
+    return href;
+  }
+};
+
 const options: HTMLReactParserOptions = {
   replace: (domNode: DOMNode) => {
     if (!(domNode instanceof Element)) return;
@@ -32,8 +46,9 @@ const options: HTMLReactParserOptions = {
       const rel = domNode.attribs.rel;
 
       if (isInternalUrl(href)) {
+        const canonicalUrl = getCanonicalUrl(href);
         return (
-          <Link href={href} className={className}>
+          <Link href={canonicalUrl} className={className}>
             {domToReact(domNode.children as DOMNode[], options)}
           </Link>
         );

@@ -5,6 +5,7 @@ import CoverBlock from "../CoverBlock";
 import AccordionBlock from "../AccordionBlock";
 import ColumnsBlock, { ColumnBlock } from "../ColumnsBlock";
 import ChartBlock from "../ChartBlock";
+import IconListBlock from "../IconListBlock";
 
 export type Block = {
   name: string;
@@ -17,11 +18,13 @@ export type Block = {
 type BlockRendererProps = {
   blocks: Block[];
   className?: string;
+  renderedContent?: string;
 };
 
 export default function BlockRenderer({
   blocks,
   className,
+  renderedContent,
 }: BlockRendererProps) {
   if (!blocks || blocks.length === 0) return null;
 
@@ -245,6 +248,15 @@ export default function BlockRenderer({
             };
             if (!chartAttrs?.cId || !chartAttrs?.data) return null;
             return <ChartBlock key={key} chartData={chartAttrs} />;
+
+          case "stackable/icon-list":
+            return (
+              <IconListBlock
+                key={key}
+                block={block}
+                renderedHtml={renderedContent}
+              />
+            );
 
           default:
             if (block.innerHTML) {

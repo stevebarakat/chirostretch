@@ -177,7 +177,10 @@ export default async function WordPressPage({ params }: PageProps) {
 
           {blocks && blocks.length > 0 ? (
             <div className={styles.content}>
-              <BlockRenderer blocks={blocks as Block[]} />
+              <BlockRenderer
+                blocks={blocks as Block[]}
+                renderedContent={page.content}
+              />
             </div>
           ) : page.content ? (
             <div

@@ -105,7 +105,8 @@
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"DELETE FROM wp_woocommerce_sessions; DELETE FROM wp_usermeta WHERE meta_key LIKE ''%persistent_cart%''; SELECT ''All sessions and persistent carts cleared'' as result;\" local)",
       "Bash(lsof:*)",
       "Bash(gh repo create:*)",
-      "Bash(xxd:*)"
+      "Bash(xxd:*)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=page --fields=ID,post_name,post_title --format=table)"
     ],
     "deny": [],
     "ask": []
