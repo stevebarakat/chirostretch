@@ -1,0 +1,84 @@
+.iconList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.iconListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
+.text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+/* Styles for rendered Stackable HTML */
+.iconList :global(.stk-block-icon-list__ul) {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.iconList :global(.stk-block-icon-list-item) {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.iconList :global(.stk-block-icon-list-item__content) {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.iconList :global(.stk--svg-wrapper) {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
+.iconList :global(.stk--svg-wrapper svg) {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.iconList :global(.stk--inner-svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconList :global(.stk-block-icon-list-item__text) {
+  flex: 1;
+  line-height: 1.5;
+}
+
+/* Hide the SVG defs container */
+.iconList :global(svg[style*="display:none"]),
+.iconList :global(svg[style*="display: none"]) {
+  display: none !important;
+}

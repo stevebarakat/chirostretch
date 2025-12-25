@@ -5,6 +5,7 @@ import CoverBlock from "../CoverBlock";
 import AccordionBlock from "../AccordionBlock";
 import ColumnsBlock, { ColumnBlock } from "../ColumnsBlock";
 import ChartBlock from "../ChartBlock";
+import FeatureBlock from "../FeatureBlock";
 import IconListBlock from "../IconListBlock";
 
 export type Block = {
@@ -252,6 +253,15 @@ export default function BlockRenderer({
           case "stackable/icon-list":
             return (
               <IconListBlock
+                key={key}
+                block={block}
+                renderedHtml={renderedContent}
+              />
+            );
+
+          case "stackable/feature":
+            return (
+              <FeatureBlock
                 key={key}
                 block={block}
                 renderedHtml={renderedContent}
