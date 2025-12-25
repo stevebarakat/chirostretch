@@ -106,7 +106,9 @@
       "Bash(lsof:*)",
       "Bash(gh repo create:*)",
       "Bash(xxd:*)",
-      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=page --fields=ID,post_name,post_title --format=table)"
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=page --fields=ID,post_name,post_title --format=table)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public gf field list 4 --format=table)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public plugin list --format=table)"
     ],
     "deny": [],
     "ask": []

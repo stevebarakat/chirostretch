@@ -6,6 +6,7 @@ import AccordionBlock from "../AccordionBlock";
 import ColumnsBlock, { ColumnBlock } from "../ColumnsBlock";
 import ChartBlock from "../ChartBlock";
 import FeatureBlock from "../FeatureBlock";
+import GravityFormBlock from "../GravityFormBlock";
 import IconListBlock from "../IconListBlock";
 
 export type Block = {
@@ -267,6 +268,9 @@ export default function BlockRenderer({
                 renderedHtml={renderedContent}
               />
             );
+
+          case "gravityforms/form":
+            return <GravityFormBlock key={key} block={block} />;
 
           default:
             if (block.innerHTML) {

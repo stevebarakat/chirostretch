@@ -54,6 +54,41 @@
   margin-top: var(--spacing-md, 1rem);
 }
 
+.submitError strong {
+  display: block;
+  margin-bottom: var(--spacing-sm, 0.5rem);
+}
+
+.errorList {
+  margin: 0;
+  padding-left: var(--spacing-md, 1rem);
+  list-style: none;
+}
+
+.errorList li {
+  margin-bottom: var(--spacing-xs, 0.25rem);
+}
+
+.errorList li::before {
+  content: "•";
+  margin-right: var(--spacing-xs, 0.25rem);
+}
+
+.errorLink {
+  background: none;
+  border: none;
+  padding: 0;
+  color: hsl(0, 70%, 40%);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  text-align: left;
+}
+
+.errorLink:hover {
+  color: hsl(0, 70%, 30%);
+}
+
 .successMessage {
   padding: var(--spacing-md, 1rem);
   background-color: hsl(120, 100%, 97%);
@@ -61,4 +96,49 @@
   border-radius: var(--radius-md, 0.5rem);
   color: hsl(120, 50%, 30%);
   margin-top: var(--spacing-md, 1rem);
+}
+
+/* Multi-page form styles */
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.5rem);
+  margin-bottom: var(--spacing-xl, 2rem);
+}
+
+.progressBar {
+  height: 8px;
+  background-color: hsl(0, 0%, 90%);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--color-primary, hsl(220, 90%, 50%));
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: hsl(0, 0%, 50%);
+  text-align: center;
+}
+
+.fieldsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg, 1.5rem);
+}
+
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md, 1rem);
+  margin-top: var(--spacing-xl, 2rem);
+}
+
+.navigationButtons > :only-child {
+  margin-left: auto;
 }

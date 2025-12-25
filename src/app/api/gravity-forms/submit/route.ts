@@ -8,6 +8,8 @@ const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 
 // Field types that need special value mapping
 const EMAIL_FIELD_TYPES = ["EMAIL"];
+const CONSENT_FIELD_TYPES = ["CONSENT"];
+const CHECKBOX_FIELD_TYPES = ["CHECKBOX"];
 
 type FieldValueInput = {
   id: number;
@@ -54,7 +56,7 @@ function transformFormDataToFieldValues(
 
       const fieldType = fieldTypes?.[key]?.toUpperCase();
 
-      // Handle email fields specially
+      // Handle email fields
       if (fieldType && EMAIL_FIELD_TYPES.includes(fieldType)) {
         return {
           id: fieldId,
@@ -62,7 +64,31 @@ function transformFormDataToFieldValues(
         } as FieldValueInput;
       }
 
-      // Handle checkbox fields (array of values)
+      // Handle consent fields - single checkbox with value "1"
+      if (fieldType && CONSENT_FIELD_TYPES.includes(fieldType)) {
+        const isChecked = value === "1" || value === true;
+        return {
+          id: fieldId,
+          checkboxValues: isChecked
+            ? [{ inputId: parseFloat(`${fieldId}.1`), value: "1" }]
+            : [],
+        } as FieldValueInput;
+      }
+
+      // Handle checkbox fields (array of selected values)
+      if (fieldType && CHECKBOX_FIELD_TYPES.includes(fieldType)) {
+        const valuesArray = Array.isArray(value) ? value : value ? [value] : [];
+        const checkboxValues = valuesArray.map((v, index) => ({
+          inputId: parseFloat(`${fieldId}.${index + 1}`),
+          value: String(v),
+        }));
+        return {
+          id: fieldId,
+          checkboxValues,
+        } as FieldValueInput;
+      }
+
+      // Handle arrays (multi-select, etc.)
       if (Array.isArray(value)) {
         return {
           id: fieldId,
@@ -86,14 +112,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  console.log("📝 [ROUTE] Gravity Forms submit endpoint - POST request received");
-
   try {
     const body = await request.json();
-    console.log("📝 [ROUTE] Request body received:", {
-      formId: body.formId,
-      hasFormData: !!body.formData,
-    });
     const { formId, formData, fieldTypes } = body;
 
     if (!formId || !formData) {
@@ -112,7 +132,6 @@ export async function POST(request: NextRequest) {
 
     // Transform form data to GraphQL fieldValues format
     const fieldValues = transformFormDataToFieldValues(formData, fieldTypes);
-    console.log("📝 [ROUTE] Transformed fieldValues:", fieldValues);
 
     // GraphQL mutation for form submission
     const mutation = `
@@ -151,7 +170,6 @@ export async function POST(request: NextRequest) {
     });
 
     const result = await response.json();
-    console.log("📝 [ROUTE] GraphQL response:", JSON.stringify(result, null, 2));
 
     // Check for GraphQL errors
     if (result.errors && result.errors.length > 0) {
@@ -169,8 +187,6 @@ export async function POST(request: NextRequest) {
     // Check for form validation errors
     const submitResult = result.data?.submitGfForm;
     if (submitResult?.errors && submitResult.errors.length > 0) {
-      console.log("📝 [ROUTE] Validation errors:", submitResult.errors);
-
       // Transform GF GraphQL errors to the format expected by error mapper
       const validationMessages: Record<string, string> = {};
       for (const error of submitResult.errors) {

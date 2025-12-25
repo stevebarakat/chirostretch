@@ -89,6 +89,12 @@ export function generateGravityFormSchema(fields: GravityFormField[]) {
       continue;
     }
 
+    // Consent fields (string "1" when checked, empty when not)
+    if (fieldType === "CONSENT") {
+      schemaShape[fieldName] = z.string().optional();
+      continue;
+    }
+
     // File upload fields (array of file objects or strings)
     if (fieldType === "FILEUPLOAD" || fieldType === "POST_IMAGE") {
       schemaShape[fieldName] = z

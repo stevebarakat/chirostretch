@@ -48,6 +48,9 @@ export default function GravityFormField({
   // Ensure field.id is a valid string (React Hook Form requires string names)
   const fieldName = toSafeFieldName(field.id || field.databaseId);
 
+  // Normalize field type to lowercase (API may return uppercase like "RADIO", "SELECT")
+  const fieldType = (field.type || field.inputType || "").toLowerCase();
+
   if (!fieldName) {
     console.error("GravityFormField: Field ID is required", field);
     return null;
@@ -57,15 +60,15 @@ export default function GravityFormField({
     name: fieldName,
     control,
     defaultValue:
-      field.inputType === "checkbox"
+      fieldType === "checkbox"
         ? []
-        : field.inputType === "address" || field.inputType === "NAME"
+        : fieldType === "address" || fieldType === "name"
         ? {}
         : "",
   });
 
   if (
-    (field.inputType === "address" || field.inputType === "NAME") &&
+    (fieldType === "address" || fieldType === "name") &&
     field.inputs
   ) {
     const addressValue =
@@ -107,7 +110,7 @@ export default function GravityFormField({
     );
   }
 
-  if (field.inputType === "checkbox" && field.choices) {
+  if (fieldType === "checkbox" && field.choices) {
     const values = (
       Array.isArray(controllerField.value) ? controllerField.value : []
     ) as string[];
@@ -146,7 +149,35 @@ export default function GravityFormField({
     );
   }
 
-  if (field.inputType === "radio" && field.choices) {
+  // CONSENT field - single checkbox with consent text
+  if (fieldType === "consent") {
+    const isChecked = controllerField.value === "1" || controllerField.value === true;
+    return (
+      <div className={styles.field}>
+        <label className={styles.checkboxLabel}>
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => {
+              controllerField.onChange(e.target.checked ? "1" : "");
+            }}
+            onBlur={controllerField.onBlur}
+            className={styles.checkbox}
+          />
+          <span>
+            {field.label}
+            {field.isRequired && <span className={styles.required}>*</span>}
+          </span>
+        </label>
+        {field.description && (
+          <p className={styles.description}>{field.description}</p>
+        )}
+        {error && <span className={styles.error}>{error}</span>}
+      </div>
+    );
+  }
+
+  if (fieldType === "radio" && field.choices) {
     return (
       <div className={styles.field}>
         {field.label && (
@@ -176,7 +207,7 @@ export default function GravityFormField({
     );
   }
 
-  if (field.inputType === "select" && field.choices) {
+  if (fieldType === "select" && field.choices) {
     return (
       <FormField
         label={field.label}
@@ -202,7 +233,7 @@ export default function GravityFormField({
     );
   }
 
-  if (field.inputType === "textarea") {
+  if (fieldType === "textarea") {
     return (
       <FormField
         label={field.label}
@@ -235,13 +266,13 @@ export default function GravityFormField({
       <Input
         {...register(fieldName)}
         type={
-          field.inputType === "email"
+          fieldType === "email"
             ? "email"
-            : field.inputType === "tel"
+            : fieldType === "tel" || fieldType === "phone"
             ? "tel"
-            : field.inputType === "url"
+            : fieldType === "url" || fieldType === "website"
             ? "url"
-            : field.inputType === "number"
+            : fieldType === "number"
             ? "number"
             : "text"
         }

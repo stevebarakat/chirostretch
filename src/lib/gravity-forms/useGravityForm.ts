@@ -22,6 +22,7 @@ type UseGravityFormOptions<T extends z.ZodObject<any>> = {
 
 type UseGravityFormReturn<T extends z.ZodObject<any>> = Omit<UseFormReturn<z.infer<T>>, "handleSubmit"> & {
   submitError: string | null;
+  clearSubmitError: () => void;
   handleSubmit: ReturnType<UseFormReturn<z.infer<T>>["handleSubmit"]>;
 };
 
@@ -54,6 +55,10 @@ export function useGravityForm<T extends z.ZodObject<any>>({
   });
 
   const [submitError, setSubmitError] = React.useState<string | null>(null);
+
+  const clearSubmitError = React.useCallback(() => {
+    setSubmitError(null);
+  }, []);
 
   // Wrap the onSubmit to handle GF error mapping
   const wrappedOnSubmit = React.useCallback(
@@ -90,10 +95,37 @@ export function useGravityForm<T extends z.ZodObject<any>>({
         // Success
         onSuccess?.(response);
       } catch (error) {
+        // Check if this is a structured error response from the API
+        if (
+          error &&
+          typeof error === "object" &&
+          "is_valid" in error &&
+          !(error as GravityFormErrorResponse).is_valid
+        ) {
+          // Map field-specific errors to RHF
+          mapGravityFormErrorsToRHF(
+            error as GravityFormErrorResponse,
+            form.setError
+          );
+
+          // Extract general error message
+          const errorMessage = extractGravityFormErrorMessage(
+            error as GravityFormErrorResponse
+          );
+          if (errorMessage) {
+            setSubmitError(errorMessage);
+            onError?.(errorMessage);
+          }
+          return;
+        }
+
+        // Handle other errors (network errors, etc.)
         const errorMessage =
           error instanceof Error
             ? error.message
-            : "An error occurred while submitting the form.";
+            : typeof error === "object" && error !== null && "message" in error
+              ? String((error as { message: unknown }).message)
+              : "An error occurred while submitting the form.";
 
         setSubmitError(errorMessage);
         onError?.(errorMessage);
@@ -112,6 +144,7 @@ export function useGravityForm<T extends z.ZodObject<any>>({
   return {
     ...form,
     submitError,
+    clearSubmitError,
     handleSubmit,
   };
 }

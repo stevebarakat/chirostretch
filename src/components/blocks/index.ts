@@ -5,6 +5,7 @@ export { parseChartDataFromContent, type ChartData } from "./ChartBlock";
 export { default as ColumnsBlock, ColumnBlock } from "./ColumnsBlock";
 export { default as CoverBlock } from "./CoverBlock";
 export { default as FeatureBlock } from "./FeatureBlock";
+export { default as GravityFormBlock } from "./GravityFormBlock";
 export { default as HeadingBlock } from "./HeadingBlock";
 export { default as IconListBlock } from "./IconListBlock";
 export { default as ImageBlock } from "./ImageBlock";
