@@ -59,7 +59,14 @@ export class StaffGenerator {
     const seedId = `staff_${String(this.idOffset + index).padStart(5, "0")}`;
     const config = this.staffConfigs[staffType];
 
-    const gender = this.rng.chance(0.5) ? "male" : "female";
+    // Gender matches the stock photos in media library
+    const genderByType: Record<StaffType, "male" | "female"> = {
+      chiropractor: "male",
+      athletic_therapist: "male",
+      physical_therapist: "female",
+      massage_therapist: "female",
+    };
+    const gender = genderByType[staffType];
     const firstName = this.rng.pick(this.names.firstNames[gender]);
     const lastName = this.rng.pick(this.names.lastNames);
     const prefix = config.prefix;

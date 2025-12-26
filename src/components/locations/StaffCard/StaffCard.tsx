@@ -38,7 +38,11 @@ export function StaffCard({ staff }: StaffCardProps) {
   const roleLabel =
     staff.jobTitle || staffTypeLabels[staff.staffType || ""] || "Staff";
 
-  const firstName = staff.title?.split(" ")[0];
+  const nameParts = staff.title?.split(" ") ?? [];
+  const prefixes = ["Dr.", "Dr", "Mr.", "Mr", "Ms.", "Ms", "Mrs.", "Mrs"];
+  const firstName = prefixes.includes(nameParts[0])
+    ? nameParts[1]
+    : nameParts[0];
 
   const staffCta = firstName
     ? `Book with ${firstName}`
