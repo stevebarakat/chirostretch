@@ -34,9 +34,9 @@
 .ctaWrapper {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-md);
-  align-items: center;
   justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing-md);
   width: 100%;
 }
 

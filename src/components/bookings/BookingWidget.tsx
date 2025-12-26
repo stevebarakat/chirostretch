@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { addDays, format } from "date-fns";
+import Link from "next/link";
 import { ServiceSelect } from "./ServiceSelect";
 import { DateStrip } from "./DateStrip";
 import { TimeSlotGrid } from "./TimeSlotGrid";
@@ -39,7 +40,10 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
-  // Fetch availability when service or date range changes
+  // Reason this component must use useEffect:
+  // - Syncing with external API (booking availability endpoint) when service/date changes
+  // - Server Components cannot handle client-side API calls with dynamic parameters
+  // - This is a side effect that must run when dependencies change
   useEffect(() => {
     if (!serviceId) {
       setAvailableDates([]);
@@ -113,7 +117,10 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
     fetchAvailability();
   }, [serviceId, startDate]);
 
-  // Fetch time slots when date changes
+  // Reason this component must use useEffect:
+  // - Syncing with external API (time slots endpoint) when date changes
+  // - Server Components cannot handle client-side API calls with dynamic parameters
+  // - This is a side effect that must run when date dependency changes
   useEffect(() => {
     if (!serviceId || !date) {
       setTimeSlots([]);
@@ -216,9 +223,9 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
     <div className={styles.widget}>
       <div className={styles.header}>
         <h2 className={styles.title}>New Appointment</h2>
-        <a href="/account" className={styles.signIn}>
+        <Link href="/account" className={styles.signIn}>
           Sign in
-        </a>
+        </Link>
       </div>
 
       <div className={styles.content}>

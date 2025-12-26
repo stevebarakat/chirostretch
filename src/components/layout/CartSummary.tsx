@@ -13,6 +13,10 @@ export default function CartSummary() {
   const totals = useCartStore((s) => s.totals);
   const fetchCart = useCartStore((s) => s.fetchCart);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (cart data) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - This ensures cart state is available for display
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);

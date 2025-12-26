@@ -94,9 +94,9 @@
 }
 
 .infoMessage {
+  padding: var(--spacing-sm);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  padding: var(--spacing-sm);
   background-color: hsla(200, 70%, 52%, 0.1);
   border: 1px solid var(--color-primary-300);
   border-radius: var(--radius-sm);
@@ -153,21 +153,21 @@
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-md);
+  background-color: var(--color-bg-primary);
   border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-base);
-  background-color: var(--color-bg-primary);
 }
 
 .shippingMethodOption:hover {
-  border-color: var(--color-primary-600);
   background-color: hsla(200, 70%, 52%, 0.05);
+  border-color: var(--color-primary-600);
 }
 
 .shippingMethodOptionSelected {
-  border-color: var(--color-primary-600);
   background-color: hsla(200, 70%, 52%, 0.1);
+  border-color: var(--color-primary-600);
   box-shadow: 0 0 0 3px hsla(200, 70%, 52%, 0.1);
 }
 
@@ -179,8 +179,8 @@
 }
 
 .shippingMethodInfo {
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--spacing-xs);
 }

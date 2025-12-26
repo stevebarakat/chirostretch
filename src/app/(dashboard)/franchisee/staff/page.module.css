@@ -1,6 +1,6 @@
 .errorState {
-  text-align: center;
   padding: var(--spacing-2xl, 3rem) var(--spacing-xl, 2rem);
+  text-align: center;
 }
 
 .errorState h2 {
@@ -42,29 +42,29 @@
 
 .staffCount {
   margin: 0;
-  color: var(--color-text-secondary, #666);
   font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666);
 }
 
 .addButton {
   padding: var(--spacing-sm, 0.75rem) var(--spacing-lg, 1.5rem);
-  background: var(--color-primary-500, #0070f3);
-  color: var(--color-text-inverse, #ffffff);
-  border: none;
-  border-radius: var(--radius-sm, 4px);
   font-weight: var(--font-weight-medium, 500);
   text-decoration: none;
-  transition: background var(--transition-base, 0.2s ease);
   white-space: nowrap;
+  color: var(--color-text-inverse, #fff);
+  background: var(--color-primary-500, #0070f3);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  transition: background var(--transition-base, 0.2s ease);
 }
 
 .addButton:hover {
-  background: var(--color-primary-600, #0066cc);
+  background: var(--color-primary-600, #06c);
 }
 
 .emptyState {
-  text-align: center;
   padding: var(--spacing-2xl, 3rem) var(--spacing-xl, 2rem);
+  text-align: center;
   background: var(--color-neutral-50, #fafafa);
   border-radius: var(--radius-md, 8px);
 }
@@ -88,10 +88,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--spacing-md, 1rem);
   padding: var(--spacing-lg, 1.5rem);
   background: var(--color-neutral-50, #fafafa);
   border-radius: var(--radius-md, 8px);
-  gap: var(--spacing-md, 1rem);
 }
 
 @media (max-width: 640px) {
@@ -103,9 +103,9 @@
 
 .staffInfo {
   display: flex;
+  flex: 1;
   align-items: center;
   gap: var(--spacing-md, 1rem);
-  flex: 1;
 }
 
 .avatar {
@@ -117,16 +117,16 @@
 }
 
 .avatarPlaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  background: var(--color-primary-100, #e6f0ff);
-  color: var(--color-primary-600, #0066cc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: var(--font-size-xl, 1.5rem);
   font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-primary-600, #06c);
+  background: var(--color-primary-100, #e6f0ff);
+  border-radius: 50%;
   flex-shrink: 0;
 }
 
@@ -178,19 +178,19 @@
 
 .badge {
   padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.75rem);
-  border-radius: var(--radius-full, 999px);
   font-size: var(--font-size-xs, 0.75rem);
   font-weight: var(--font-weight-medium, 500);
+  border-radius: var(--radius-full, 999px);
 }
 
 .badgeActive {
-  background: hsl(142 76% 90%);
   color: hsl(142 76% 30%);
+  background: hsl(142 76% 90%);
 }
 
 .badgeInactive {
-  background: var(--color-neutral-200, #e5e5e5);
   color: var(--color-text-secondary, #666);
+  background: var(--color-neutral-200, #e5e5e5);
 }
 
 .actions {
@@ -200,10 +200,10 @@
 
 .editLink {
   padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
-  color: var(--color-primary-600, #0066cc);
-  text-decoration: none;
   font-size: var(--font-size-sm, 0.875rem);
   font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  color: var(--color-primary-600, #06c);
   border: 1px solid var(--color-primary-200, #b3d4ff);
   border-radius: var(--radius-sm, 4px);
   transition: all var(--transition-base, 0.2s ease);
@@ -215,12 +215,12 @@
 
 .deleteButton {
   padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
   color: hsl(0 84% 50%);
   background: transparent;
   border: 1px solid hsl(0 84% 80%);
   border-radius: var(--radius-sm, 4px);
-  font-size: var(--font-size-sm, 0.875rem);
-  font-weight: var(--font-weight-medium, 500);
   cursor: pointer;
   transition: all var(--transition-base, 0.2s ease);
 }
@@ -232,15 +232,15 @@
 .confirmDelete {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm, 0.75rem);
   align-items: flex-end;
+  gap: var(--spacing-sm, 0.75rem);
 }
 
 .confirmText {
   margin: 0;
   font-size: var(--font-size-sm, 0.875rem);
-  color: hsl(0 84% 40%);
   font-weight: var(--font-weight-medium, 500);
+  color: hsl(0 84% 40%);
 }
 
 .confirmActions {
@@ -250,12 +250,12 @@
 
 .confirmDeleteButton {
   padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
-  background: hsl(0 84% 50%);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm, 4px);
   font-size: var(--font-size-sm, 0.875rem);
   font-weight: var(--font-weight-medium, 500);
+  color: white;
+  background: hsl(0 84% 50%);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
   cursor: pointer;
   transition: background var(--transition-base, 0.2s ease);
 }
@@ -271,12 +271,12 @@
 
 .cancelButton {
   padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1rem);
-  background: transparent;
-  color: var(--color-text-secondary, #666);
-  border: 1px solid var(--color-border, #e5e5e5);
-  border-radius: var(--radius-sm, 4px);
   font-size: var(--font-size-sm, 0.875rem);
   font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary, #666);
+  background: transparent;
+  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-sm, 4px);
   cursor: pointer;
   transition: all var(--transition-base, 0.2s ease);
 }

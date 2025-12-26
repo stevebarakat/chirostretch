@@ -3,29 +3,48 @@
 import { useEffect, useMemo } from "react";
 import GravityFormForm from "next-gravity-forms";
 
-type GravityFormData = {
-  id: string;
+type GravityFormChoice = {
+  text?: string;
+  value?: string;
+  [key: string]: unknown;
+};
+
+type GravityFormInput = {
+  id?: number | string;
+  label?: string;
+  name?: string | null;
+  [key: string]: unknown;
+};
+
+type GravityFormField = {
+  id?: string;
   databaseId?: number;
-  title?: string;
+  type?: string;
+  inputType?: string;
+  label?: string;
   description?: string;
+  isRequired?: boolean;
+  placeholder?: string;
+  choices?: GravityFormChoice[];
+  inputs?: GravityFormInput[] | null;
+  [key: string]: unknown;
+};
+
+type GravityFormGfForm = {
   formFields?: {
-    nodes: Array<{
-      id?: string;
-      databaseId?: number;
-      type?: string;
-      inputType: string;
-      label?: string;
-      description?: string;
-      isRequired?: boolean;
-      placeholder?: string;
-      [key: string]: unknown;
-    }>;
+    nodes?: GravityFormField[];
   };
   submitButton?: {
     text?: string;
     type?: string;
     width?: string;
   };
+  [key: string]: unknown;
+};
+
+type GravityFormData = {
+  gfForm?: GravityFormGfForm;
+  [key: string]: unknown;
 };
 
 type GravityFormProps = {
@@ -35,7 +54,7 @@ type GravityFormProps = {
 export function GravityForm({ form }: GravityFormProps) {
   // Filter out PAGE fields and ensure all fields have proper structure
   const processedForm = useMemo(() => {
-    const formData = form as any; // Use any to handle nested structure
+    const formData = form as GravityFormData;
 
     // Handle nested gfForm structure
     const gfForm = formData?.gfForm;
@@ -44,12 +63,12 @@ export function GravityForm({ form }: GravityFormProps) {
     }
 
     // Filter out PAGE type fields and clean up field structures
-    const processedFields = gfForm.formFields.nodes
-      .filter((field: any) => {
+    const processedFields = (gfForm.formFields.nodes || [])
+      .filter((field) => {
         const fieldType = (field.type || field.inputType || "").toUpperCase();
         return fieldType !== "PAGE";
       })
-      .map((field: any) => {
+      .map((field) => {
         // Clean up fields with malformed inputs
         const inputs = field.inputs;
         const fieldType = (field.type || field.inputType || "").toUpperCase();
@@ -60,7 +79,7 @@ export function GravityForm({ form }: GravityFormProps) {
           if ((inputs === null || inputs === undefined || (Array.isArray(inputs) && inputs.length === 0)) && choices && Array.isArray(choices)) {
             // Generate inputs from choices
             // Note: Input IDs must be integers for GraphQL API (1, 2, 3...)
-            const generatedInputs = choices.map((choice: any, index: number) => ({
+            const generatedInputs = choices.map((choice, index: number) => ({
               id: index + 1,
               label: choice.text,
               name: `input_${field.id}_${index + 1}`,
@@ -81,7 +100,7 @@ export function GravityForm({ form }: GravityFormProps) {
         if (inputs && Array.isArray(inputs)) {
           // Check if any input has a null name
           const hasNullName = inputs.some(
-            (input: any) =>
+            (input) =>
               input.name === null || input.name === undefined
           );
 
@@ -118,17 +137,21 @@ export function GravityForm({ form }: GravityFormProps) {
     };
   }, [form]);
 
+  // Reason this component must use useEffect:
+  // - Development-only logging for debugging form data structure
+  // - This is a side effect that should not run during render
+  // - Note: This could be removed in production builds
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
       console.log("Form data:", form);
       console.log("Processed form data:", processedForm);
 
       // Debug: Log each field to find the problematic one
-      const formData = processedForm as any;
+      const formData = processedForm as GravityFormData;
       const gfForm = formData?.gfForm;
       if (gfForm?.formFields?.nodes) {
         console.log("Field details:");
-        gfForm.formFields.nodes.forEach((field: any, index: number) => {
+        gfForm.formFields.nodes.forEach((field, index: number) => {
           console.log(`Field ${index + 1}:`, {
             id: field.id,
             type: field.type || field.inputType,

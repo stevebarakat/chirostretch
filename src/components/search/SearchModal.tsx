@@ -1,6 +1,4 @@
 "use client";
-
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   InstantSearch,
@@ -56,15 +54,11 @@ function getIndexName(pathname: string): string {
 
 function SearchBox() {
   const { query, refine } = useSearchBox();
-  const [inputValue, setInputValue] = useState(query || "");
-
-  useEffect(() => {
-    setInputValue(query || "");
-  }, [query]);
+  // Use query directly as controlled value instead of syncing in effect
+  const inputValue = query || "";
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    setInputValue(value);
     refine(value);
   }
 

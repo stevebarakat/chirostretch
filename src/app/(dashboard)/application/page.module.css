@@ -1,25 +1,25 @@
 .container {
-  min-height: 60vh;
   padding: 3rem 1rem;
+  min-height: 60vh;
   background-color: hsl(0 0% 97%);
 }
 
 .wrapper {
-  max-width: 600px;
   margin: 0 auto;
+  max-width: 600px;
 }
 
 .title {
+  margin-bottom: 2rem;
   font-size: 1.75rem;
   font-weight: 600;
-  margin-bottom: 2rem;
   color: hsl(0 0% 10%);
 }
 
 .applicationCard {
+  padding: 2rem;
   background: hsl(0 0% 100%);
   border-radius: 8px;
-  padding: 2rem;
   box-shadow: 0 1px 3px hsl(0 0% 0% / 0.1);
 }
 
@@ -30,34 +30,34 @@
 .status {
   display: inline-block;
   padding: 0.5rem 1rem;
-  border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
+  border-radius: 9999px;
 }
 
 .statusPending {
-  background-color: hsl(45 100% 90%);
   color: hsl(45 100% 25%);
+  background-color: hsl(45 100% 90%);
 }
 
 .statusReviewing {
-  background-color: hsl(210 100% 90%);
   color: hsl(210 100% 30%);
+  background-color: hsl(210 100% 90%);
 }
 
 .statusApproved {
-  background-color: hsl(142 76% 90%);
   color: hsl(142 76% 25%);
+  background-color: hsl(142 76% 90%);
 }
 
 .statusRejected {
-  background-color: hsl(0 84% 92%);
   color: hsl(0 84% 32%);
+  background-color: hsl(0 84% 92%);
 }
 
 .statusWithdrawn {
-  background-color: hsl(0 0% 90%);
   color: hsl(0 0% 40%);
+  background-color: hsl(0 0% 90%);
 }
 
 .details {
@@ -76,9 +76,9 @@
 }
 
 .label {
+  min-width: 140px;
   font-weight: 500;
   color: hsl(0 0% 40%);
-  min-width: 140px;
 }
 
 .value {
@@ -93,21 +93,21 @@
 
 .statusMessage p {
   margin: 0;
-  color: hsl(0 0% 30%);
   line-height: 1.6;
+  color: hsl(0 0% 30%);
 }
 
 .noApplication {
-  background: hsl(0 0% 100%);
-  border-radius: 8px;
   padding: 2rem;
   text-align: center;
+  background: hsl(0 0% 100%);
+  border-radius: 8px;
   box-shadow: 0 1px 3px hsl(0 0% 0% / 0.1);
 }
 
 .noApplication p {
-  color: hsl(0 0% 40%);
   margin: 0.5rem 0;
+  color: hsl(0 0% 40%);
 }
 
 .actions {
@@ -119,9 +119,9 @@
 }
 
 .contactLink {
-  color: hsl(210 100% 40%);
-  text-decoration: none;
   font-weight: 500;
+  text-decoration: none;
+  color: hsl(210 100% 40%);
 }
 
 .contactLink:hover {
@@ -129,12 +129,12 @@
 }
 
 .logoutLink {
-  color: hsl(0 0% 50%);
   font-size: 0.875rem;
   text-decoration: none;
+  color: hsl(0 0% 50%);
 }
 
 .logoutLink:hover {
-  color: hsl(0 0% 30%);
   text-decoration: underline;
+  color: hsl(0 0% 30%);
 }

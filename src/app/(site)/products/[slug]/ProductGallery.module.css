@@ -5,18 +5,18 @@
 }
 
 .mainImage {
+  display: flex;
   position: relative;
+  left: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.25rem;
   width: 100%;
+  width: calc(100% - 0.75rem);
   background-color: var(--color-bg-primary);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   outline: 1px solid var(--color-border-primary);
   outline-offset: 0.75rem;
-  width: calc(100% - 0.75rem);
-  left: 0.75rem;
-  margin-bottom: 0.25rem;
 }
 
 .image {
@@ -33,21 +33,21 @@
 
 .thumbnail {
   position: relative;
+  left: 0.4rem;
+  margin-top: 0.4rem;
+  padding: 0;
   width: 100%;
+  width: calc(100% - 0.4rem);
+  font-family: inherit;
+  font-size: inherit;
   background-color: var(--color-bg-secondary);
+  border: none;
   cursor: pointer;
   overflow: hidden;
   transition: opacity 0.2s ease, border-color 0.2s ease;
   aspect-ratio: 1;
-  border: none;
-  padding: 0;
-  font-size: inherit;
-  font-family: inherit;
   outline: 1px solid var(--color-border-primary);
   outline-offset: 0.4rem;
-  width: calc(100% - 0.4rem);
-  left: 0.4rem;
-  margin-top: 0.4rem;
 }
 
 .thumbnail:hover {

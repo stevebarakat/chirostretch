@@ -15,6 +15,10 @@ export default function VisuallyHidden({
 }: VisuallyHiddenProps) {
   const [forceShow, setForceShow] = useState(false);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external browser API (keyboard event listeners) in development mode
+  // - Must subscribe/unsubscribe to window events for accessibility debugging
+  // - This is a side effect that manages external system (browser event API)
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
       function handleKeyDown(ev: KeyboardEvent) {

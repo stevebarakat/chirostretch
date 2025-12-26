@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import styles from "./LoginForm.module.css";
 
 export function SetPasswordForm() {
@@ -26,9 +27,9 @@ export function SetPasswordForm() {
         </div>
         <div className={styles.footer}>
           <p className={styles.footerText}>
-            <a href="/forgot-password" className={styles.link}>
+            <Link href="/forgot-password" className={styles.link}>
               Request a new password reset link
-            </a>
+            </Link>
           </p>
         </div>
       </div>
@@ -98,13 +99,13 @@ export function SetPasswordForm() {
           <p style={{ color: "var(--color-text-secondary)", marginBottom: "1.5rem" }}>
             You can now log in to your account.
           </p>
-          <a
+          <Link
             href="/login"
             className={styles.submitButton}
             style={{ display: "inline-block", textDecoration: "none" }}
           >
             Go to Login
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -171,9 +172,9 @@ export function SetPasswordForm() {
       <div className={styles.footer}>
         <p className={styles.footerText}>
           Already have a password?{" "}
-          <a href="/login" className={styles.link}>
+          <Link href="/login" className={styles.link}>
             Sign in
-          </a>
+          </Link>
         </p>
       </div>
     </div>

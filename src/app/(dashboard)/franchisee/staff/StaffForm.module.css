@@ -14,10 +14,10 @@
 }
 
 .error {
-  padding: var(--spacing-md, 1rem);
   margin-bottom: var(--spacing-lg, 1.5rem);
-  background: hsl(0 84% 95%);
+  padding: var(--spacing-md, 1rem);
   color: hsl(0 84% 32%);
+  background: hsl(0 84% 95%);
   border-radius: var(--radius-sm, 4px);
 }
 
@@ -28,9 +28,9 @@
 }
 
 .section:last-of-type {
-  border-bottom: none;
-  padding-bottom: 0;
   margin-bottom: var(--spacing-lg, 1.5rem);
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .sectionTitle {
@@ -42,13 +42,13 @@
 
 .sectionDescription {
   margin: 0 0 var(--spacing-md, 1rem) 0;
-  color: var(--color-text-secondary, #666);
   font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666);
 }
 
 .formGroup {
-  margin-bottom: var(--spacing-md, 1rem);
   flex: 1;
+  margin-bottom: var(--spacing-md, 1rem);
 }
 
 .formGroup:last-child {
@@ -80,13 +80,13 @@
 
 .input,
 .select {
-  width: 100%;
   padding: var(--spacing-sm, 0.75rem);
+  width: 100%;
+  font-size: var(--font-size-base, 1rem);
+  background: var(--color-surface, #fff);
   border: 1px solid var(--color-border, #e5e5e5);
   border-radius: var(--radius-sm, 4px);
-  font-size: var(--font-size-base, 1rem);
   transition: border-color var(--transition-base, 0.2s ease);
-  background: var(--color-surface, #ffffff);
 }
 
 .input:focus,
@@ -102,14 +102,14 @@
 }
 
 .textarea {
-  width: 100%;
   padding: var(--spacing-sm, 0.75rem);
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--font-size-base, 1rem);
   border: 1px solid var(--color-border, #e5e5e5);
   border-radius: var(--radius-sm, 4px);
-  font-size: var(--font-size-base, 1rem);
-  font-family: inherit;
-  resize: vertical;
   transition: border-color var(--transition-base, 0.2s ease);
+  resize: vertical;
 }
 
 .textarea:focus {
@@ -174,9 +174,9 @@
 
 .toggleInput {
   position: absolute;
-  opacity: 0;
   width: 0;
   height: 0;
+  opacity: 0;
 }
 
 .toggleSwitch {
@@ -216,13 +216,13 @@
 }
 
 .toggleText strong {
-  color: var(--color-text-primary, #1a1a1a);
   font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary, #1a1a1a);
 }
 
 .toggleText span {
-  color: var(--color-text-secondary, #666);
   font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, #666);
 }
 
 .actions {
@@ -235,11 +235,11 @@
 
 .cancelButton {
   padding: var(--spacing-sm, 0.75rem) var(--spacing-xl, 2rem);
-  color: var(--color-text-secondary, #666);
+  font-weight: var(--font-weight-medium, 500);
   text-decoration: none;
+  color: var(--color-text-secondary, #666);
   border: 1px solid var(--color-border, #e5e5e5);
   border-radius: var(--radius-sm, 4px);
-  font-weight: var(--font-weight-medium, 500);
   transition: all var(--transition-base, 0.2s ease);
 }
 
@@ -250,17 +250,17 @@
 
 .saveButton {
   padding: var(--spacing-sm, 0.75rem) var(--spacing-xl, 2rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-inverse, #fff);
   background: var(--color-primary-500, #0070f3);
-  color: var(--color-text-inverse, #ffffff);
   border: none;
   border-radius: var(--radius-sm, 4px);
-  font-weight: var(--font-weight-medium, 500);
   cursor: pointer;
   transition: background var(--transition-base, 0.2s ease);
 }
 
 .saveButton:hover:not(:disabled) {
-  background: var(--color-primary-600, #0066cc);
+  background: var(--color-primary-600, #06c);
 }
 
 .saveButton:disabled {
@@ -287,9 +287,9 @@
 .photoImage {
   width: 120px;
   height: 120px;
+  border: 2px solid var(--color-border, #e5e5e5);
   border-radius: var(--radius-md, 8px);
   object-fit: cover;
-  border: 2px solid var(--color-border, #e5e5e5);
 }
 
 .photoActions {
@@ -309,18 +309,18 @@
 }
 
 .changePhotoButton {
+  color: var(--color-text-inverse, #fff);
   background: var(--color-primary-500, #0070f3);
-  color: var(--color-text-inverse, #ffffff);
   border: none;
 }
 
 .changePhotoButton:hover {
-  background: var(--color-primary-600, #0066cc);
+  background: var(--color-primary-600, #06c);
 }
 
 .removePhotoButton {
-  background: transparent;
   color: hsl(0 84% 50%);
+  background: transparent;
   border: 1px solid hsl(0 84% 50%);
 }
 
@@ -331,14 +331,14 @@
 .photoPlaceholder {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: var(--spacing-md, 1rem);
   padding: var(--spacing-xl, 2rem);
+  text-align: center;
   background: var(--color-neutral-50, #fafafa);
   border: 2px dashed var(--color-border, #e5e5e5);
   border-radius: var(--radius-md, 8px);
-  text-align: center;
 }
 
 .photoPlaceholderIcon {
@@ -348,18 +348,18 @@
 
 .uploadButton {
   padding: var(--spacing-sm, 0.75rem) var(--spacing-lg, 1.5rem);
-  background: var(--color-primary-500, #0070f3);
-  color: var(--color-text-inverse, #ffffff);
-  border: none;
-  border-radius: var(--radius-sm, 4px);
   font-size: var(--font-size-sm, 0.875rem);
   font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-inverse, #fff);
+  background: var(--color-primary-500, #0070f3);
+  border: none;
+  border-radius: var(--radius-sm, 4px);
   cursor: pointer;
   transition: background var(--transition-base, 0.2s ease);
 }
 
 .uploadButton:hover {
-  background: var(--color-primary-600, #0066cc);
+  background: var(--color-primary-600, #06c);
 }
 
 .fileInput {

@@ -8,6 +8,10 @@ export default function useOnScreen(
 ) {
   const [isIntersecting, setIntersecting] = useState(false);
 
+  // Reason this hook must use useEffect:
+  // - Syncing with external browser API (IntersectionObserver)
+  // - Must subscribe/unsubscribe to intersection observer for visibility detection
+  // - This is a side effect that manages external system (browser observer API)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {

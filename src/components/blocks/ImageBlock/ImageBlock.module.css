@@ -1,11 +1,12 @@
 .figure {
+  margin: 0;
   line-height: 0;
   border: 1px solid var(--color-border-primary);
-  margin: 0;
 }
+
 .figure img {
-  padding: 0.5rem;
   margin: 0 !important;
+  padding: 0.5rem;
 }
 
 .imageWrapper {
@@ -26,23 +27,23 @@
 
 .alignCenter {
   display: block;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
   text-align: center;
 }
 
 .alignWide {
+  margin-right: auto;
+  margin-left: auto;
   width: 100%;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .alignFull {
+  margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
   width: 100vw;
   max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
 }
 
 .rounded {
@@ -63,9 +64,9 @@
 .caption {
   margin-top: var(--spacing-xs, 0.25rem);
   font-size: var(--font-size-sm, 0.875rem);
-  color: var(--color-text-secondary, hsl(0, 0%, 40%));
-  text-align: center;
   line-height: 1.5;
+  text-align: center;
+  color: var(--color-text-secondary, hsl(0, 0%, 40%));
   text-wrap: balance;
 }
 
@@ -74,6 +75,7 @@
     float: none;
     max-width: 100%;
   }
+
   .alignRight {
     float: none;
     max-width: 100%;

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import styles from "./AccountDetailsForm.module.css";
 
@@ -140,9 +141,11 @@ export function AccountDetailsForm({
 
         {initialData.avatarUrl && (
           <div className={styles.avatarRow}>
-            <img
+            <Image
               src={initialData.avatarUrl}
               alt="Avatar"
+              width={80}
+              height={80}
               className={styles.avatar}
             />
           </div>

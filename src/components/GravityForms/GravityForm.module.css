@@ -31,27 +31,27 @@
 
 .description {
   margin-bottom: var(--spacing-md, 1rem);
-  color: hsl(0, 0%, 40%);
   font-size: var(--font-size-sm, 0.875rem);
   line-height: 1.5;
+  color: hsl(0, 0%, 40%);
 }
 
 .error {
+  margin-bottom: var(--spacing-md, 1rem);
   padding: var(--spacing-md, 1rem);
+  color: hsl(0, 70%, 40%);
   background-color: hsl(0, 100%, 97%);
   border: 1px solid hsl(0, 80%, 85%);
   border-radius: var(--radius-md, 0.5rem);
-  color: hsl(0, 70%, 40%);
-  margin-bottom: var(--spacing-md, 1rem);
 }
 
 .submitError {
+  margin-top: var(--spacing-md, 1rem);
   padding: var(--spacing-md, 1rem);
+  color: hsl(0, 70%, 40%);
   background-color: hsl(0, 100%, 97%);
   border: 1px solid hsl(0, 80%, 85%);
   border-radius: var(--radius-md, 0.5rem);
-  color: hsl(0, 70%, 40%);
-  margin-top: var(--spacing-md, 1rem);
 }
 
 .submitError strong {
@@ -75,14 +75,14 @@
 }
 
 .errorLink {
-  background: none;
-  border: none;
   padding: 0;
-  color: hsl(0, 70%, 40%);
-  text-decoration: underline;
-  cursor: pointer;
   font-size: inherit;
   text-align: left;
+  text-decoration: underline;
+  color: hsl(0, 70%, 40%);
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .errorLink:hover {
@@ -90,12 +90,12 @@
 }
 
 .successMessage {
+  margin-top: var(--spacing-md, 1rem);
   padding: var(--spacing-md, 1rem);
+  color: hsl(120, 50%, 30%);
   background-color: hsl(120, 100%, 97%);
   border: 1px solid hsl(120, 80%, 85%);
   border-radius: var(--radius-md, 0.5rem);
-  color: hsl(120, 50%, 30%);
-  margin-top: var(--spacing-md, 1rem);
 }
 
 /* Multi-page form styles */
@@ -122,8 +122,8 @@
 
 .progressText {
   font-size: var(--font-size-sm, 0.875rem);
-  color: hsl(0, 0%, 50%);
   text-align: center;
+  color: hsl(0, 0%, 50%);
 }
 
 .fieldsContainer {

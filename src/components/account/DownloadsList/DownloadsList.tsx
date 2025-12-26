@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import type { DownloadableItem } from "@/lib/graphql/queries/account";
 import styles from "./DownloadsList.module.css";
@@ -7,6 +10,9 @@ type DownloadsListProps = {
 };
 
 export function DownloadsList({ downloads }: DownloadsListProps) {
+  // Initialize now value once on mount using lazy initializer
+  const [now] = useState(() => Date.now());
+
   if (downloads.length === 0) {
     return (
       <div className={styles.empty}>
@@ -22,7 +28,7 @@ export function DownloadsList({ downloads }: DownloadsListProps) {
     if (!expiry) return "Never expires";
     try {
       const date = new Date(expiry);
-      if (date.getTime() > Date.now()) {
+      if (date.getTime() > now) {
         return `Expires ${date.toLocaleDateString("en-US")}`;
       }
       return "Expired";

@@ -11,8 +11,8 @@
 }
 
 .empty {
-  text-align: center;
   padding: var(--spacing-4xl) 0;
+  text-align: center;
   color: var(--color-text-secondary);
 }
 

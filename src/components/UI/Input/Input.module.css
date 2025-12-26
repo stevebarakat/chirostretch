@@ -1,8 +1,8 @@
 .input,
 .textarea,
 .select {
-  width: 100%;
   padding: var(--spacing-md);
+  width: 100%;
   font-family: inherit;
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
@@ -38,12 +38,12 @@
 }
 
 .select {
-  cursor: pointer;
+  padding-right: calc(var(--spacing-md) + 12px + var(--spacing-sm));
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--spacing-md) center;
   background-size: 12px;
-  padding-right: calc(var(--spacing-md) + 12px + var(--spacing-sm));
+  cursor: pointer;
   appearance: none;
 }
 

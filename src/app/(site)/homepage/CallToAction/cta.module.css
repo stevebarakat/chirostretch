@@ -1,11 +1,11 @@
 .cta {
   position: relative;
-  background: var(--color-primary-500);
-  border-top: 4px solid white;
-  font-family: var(--secondaryFont);
-  color: white;
   z-index: 10;
   height: auto;
+  font-family: var(--secondaryFont);
+  color: white;
+  background: var(--color-primary-500);
+  border-top: 4px solid white;
 }
 
 .cta a {
@@ -18,56 +18,56 @@
 }
 
 .ctaLeftWrap {
-  background: var(--color-primary-500);
-  padding: 2rem clamp(1rem, 7vw, 4rem);
   display: flex;
-  align-items: center;
   justify-content: flex-end;
+  align-items: center;
+  padding: 2rem clamp(1rem, 7vw, 4rem);
+  background: var(--color-primary-500);
 }
 
 .ctaLeftContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   gap: 1rem;
   max-width: 100%;
+  text-align: center;
 }
 
 .ctaRightWrap {
-  background: var(--color-secondary-gradient);
-  color: white;
-  padding: 2rem clamp(1rem, 7vw, 4rem);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
+  align-items: flex-start;
+  padding: 2rem clamp(1rem, 7vw, 4rem);
+  color: white;
+  background: var(--color-secondary-gradient);
   border-top: 4px solid white;
 }
 
 .ctaRightContent {
   display: flex;
   flex-direction: column;
-  max-width: 42.18rem;
   width: 100%;
+  max-width: 42.18rem;
 }
 
 .ctaHeader {
-  font-size: clamp(2rem, 6vw, 6rem);
-  font-weight: 800;
-  letter-spacing: -0.1rem;
-  line-height: 1;
   display: block;
   padding-bottom: 1rem;
+  font-size: clamp(2rem, 6vw, 6rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.1rem;
 }
 
 .ctaSubHeader {
-  padding-bottom: 0.5rem;
   display: block;
+  padding-bottom: 0.5rem;
   font-size: 1rem;
+  font-weight: 400;
   letter-spacing: -0.05rem;
   text-transform: uppercase;
-  font-weight: 400;
 }
 
 .ctaForm {
@@ -76,42 +76,42 @@
 
 .buttonGroup {
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .buttonIcon {
-  width: 1.25em;
-  height: 1.25em;
-  flex-shrink: 0;
   display: inline-block;
   position: relative;
+  width: 1.25em;
+  height: 1.25em;
   color: inherit;
+  flex-shrink: 0;
 }
 
 .buttonIconImage {
+  position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: contain;
   opacity: 0;
-  position: absolute;
+  object-fit: contain;
   inset: 0;
 }
 
 .buttonIcon::after {
-  content: "";
   position: absolute;
-  inset: 0;
   background-color: currentColor;
-  mask-image: var(--icon-url);
+  content: "";
+  inset: 0;
   -webkit-mask-image: var(--icon-url);
-  mask-size: contain;
+  mask-image: var(--icon-url);
   -webkit-mask-size: contain;
-  mask-repeat: no-repeat;
+  mask-size: contain;
   -webkit-mask-repeat: no-repeat;
-  mask-position: center;
+  mask-repeat: no-repeat;
   -webkit-mask-position: center;
+  mask-position: center;
 }
 
 @media (min-width: 1000px) {
@@ -128,8 +128,8 @@
   }
 
   .ctaLeftWrap {
-    border-right: 2px solid white;
     border-top: none;
+    border-right: 2px solid white;
   }
 
   .ctaRightWrap {
@@ -138,8 +138,8 @@
   }
 
   .ctaLeftContent {
-    text-align: left;
     align-items: flex-start;
+    text-align: left;
   }
 
   .ctaRightContent {

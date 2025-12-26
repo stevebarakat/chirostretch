@@ -22,7 +22,6 @@ type BlockRendererProps = {
 export default function BlockRenderer({
   blocks,
   className,
-  renderedContent,
 }: BlockRendererProps) {
   if (!blocks || blocks.length === 0) return null;
 

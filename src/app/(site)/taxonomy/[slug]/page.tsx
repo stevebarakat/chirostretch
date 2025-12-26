@@ -19,6 +19,26 @@ import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import { NoImage } from "@/components/UI/NoImage";
 import styles from "@/app/(site)/archive.module.css";
 
+type Post = NonNullable<
+  NonNullable<PostsByCategoryResponse["posts"]>["nodes"]
+>[number];
+
+type ShopProduct = NonNullable<
+  NonNullable<ProductsByCategoryResponse["products"]>["nodes"]
+>[number];
+
+type PageInfo = NonNullable<PostsByCategoryResponse["posts"]>["pageInfo"];
+
+type PostCategory = NonNullable<
+  NonNullable<Post["categories"]>["nodes"]
+>[number];
+
+type PostTag = NonNullable<NonNullable<Post["tags"]>["nodes"]>[number];
+
+type ProductCategory = NonNullable<
+  NonNullable<ShopProduct["productCategories"]>["nodes"]
+>[number];
+
 export const revalidate = 300;
 
 const POSTS_PER_PAGE = 6;
@@ -203,8 +223,8 @@ export default async function TaxonomyPage({
 
 function renderArchive(
   term: { name?: string; description?: string },
-  posts: any[],
-  pageInfo: any,
+  posts: (Post | null | undefined)[],
+  pageInfo: PageInfo | null | undefined,
   currentPath: string
 ) {
   return (
@@ -284,7 +304,7 @@ function renderArchive(
                       {post.categories?.nodes &&
                         post.categories.nodes.length > 0 && (
                           <div className={styles.categories}>
-                            {post.categories.nodes.map((category: any) => (
+                            {post.categories.nodes.map((category: PostCategory) => (
                               <Link
                                 key={category.id}
                                 href={`/taxonomy/${category.slug}`}
@@ -297,7 +317,7 @@ function renderArchive(
                         )}
                       {post.tags?.nodes && post.tags.nodes.length > 0 && (
                         <div className={styles.categories}>
-                          {post.tags.nodes.map((tag: any) => (
+                          {post.tags.nodes.map((tag: PostTag) => (
                             <Link
                               key={tag.id}
                               href={`/taxonomy/${tag.slug}`}
@@ -335,8 +355,8 @@ function renderArchive(
 
 function renderProductArchive(
   term: { name?: string; description?: string },
-  products: any[],
-  pageInfo: any,
+  products: (ShopProduct | null | undefined)[],
+  pageInfo: PageInfo | null | undefined,
   currentPath: string
 ) {
   return (
@@ -433,7 +453,7 @@ function renderProductArchive(
                         product.productCategories.nodes.length > 0 && (
                           <div className={styles.categories}>
                             {product.productCategories.nodes.map(
-                              (productCategory: any) => (
+                              (productCategory: ProductCategory) => (
                                 <Link
                                   key={productCategory.id}
                                   href={`/taxonomy/${productCategory.slug}`}

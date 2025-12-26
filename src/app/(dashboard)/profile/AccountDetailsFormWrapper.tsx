@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AccountDetailsForm } from "@/components/Account";
 import { updateAccountDetails } from "./actions";
 import { useState } from "react";
@@ -81,7 +82,7 @@ export function AccountDetailsFormWrapper({
           ...Object.fromEntries(
             Object.entries(data).filter(([, v]) => v !== undefined)
           ),
-        } as any)
+        }) as AccountDetails & { avatarUrl?: string | null }
     );
 
     setEditing(false);
@@ -99,10 +100,12 @@ export function AccountDetailsFormWrapper({
           }}
         >
           {profile.avatarUrl && (
-            <img
+            <Image
               src={profile.avatarUrl}
               alt="Avatar"
-              style={{ width: 80, height: 80, borderRadius: 8 }}
+              width={80}
+              height={80}
+              style={{ borderRadius: 8 }}
             />
           )}
           <div>

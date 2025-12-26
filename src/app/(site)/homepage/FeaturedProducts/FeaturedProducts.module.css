@@ -4,8 +4,8 @@
 }
 
 .header {
-  position: relative;
   display: grid;
+  position: relative;
   grid-template-columns: 25% 50% 25%;
   width: 100%;
 }
@@ -22,9 +22,9 @@
   }
 
   .cartWrapper {
-    width: 100%;
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 }
 
@@ -37,8 +37,8 @@
 }
 
 .slide {
-  height: auto;
   display: flex;
+  height: auto;
 }
 
 .productCard {

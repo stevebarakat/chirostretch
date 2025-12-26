@@ -125,5 +125,5 @@ export function generateGravityFormSchema(fields: GravityFormField[]) {
 /**
  * Type helper to infer the form data type from a generated schema
  */
-export type GravityFormData<T extends z.ZodObject<any>> = z.infer<T>;
+export type GravityFormData<T extends z.ZodObject<z.ZodRawShape>> = z.infer<T>;
 

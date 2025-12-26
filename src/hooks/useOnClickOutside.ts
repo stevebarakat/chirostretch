@@ -14,6 +14,10 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     [ref, handler]
   );
 
+  // Reason this hook must use useEffect:
+  // - Syncing with external browser API (DOM event listeners)
+  // - Must subscribe/unsubscribe to document events for click-outside detection
+  // - This is a side effect that manages external system (DOM) subscriptions
   useEffect(() => {
     document.addEventListener("mousedown", listener);
     document.addEventListener("touchstart", listener);

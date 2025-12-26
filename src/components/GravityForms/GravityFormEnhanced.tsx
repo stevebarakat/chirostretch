@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import { useMemo, useState, useCallback, useEffect, useRef, startTransition } from "react";
 import { Button } from "@/components/UI/Button";
 import { FormErrors } from "@/components/UI/FormErrors";
 import { useGravityForm } from "@/lib/gravity-forms";
@@ -195,9 +195,11 @@ export function GravityFormEnhanced({
   const navigateToErrorField = useCallback((fieldId: string) => {
     const targetPage = fieldToPageMap[fieldId];
     if (targetPage !== undefined && targetPage !== currentPageIndex) {
-      // Navigate to the page with the error
-      setCurrentPageIndex(targetPage);
-      pendingFocusFieldRef.current = fieldId;
+      // Navigate to the page with the error - use startTransition to avoid blocking
+      startTransition(() => {
+        setCurrentPageIndex(targetPage);
+        pendingFocusFieldRef.current = fieldId;
+      });
     } else {
       // Already on the right page, just scroll to the field
       requestAnimationFrame(() => {
@@ -240,7 +242,10 @@ export function GravityFormEnhanced({
     navigateToErrorField(firstErrorField);
   }, [fieldToPageMap, navigateToErrorField]);
 
-  // Watch for errors and navigate to the first error field
+  // Reason this component must use useEffect:
+  // - Syncing with external form validation state (React Hook Form errors)
+  // - React Hook Form is an external state management library
+  // - This effect watches for validation errors and navigates to the first error field
   useEffect(() => {
     const errorKeys = Object.keys(errors).filter((key) => key !== "root");
     if (errorKeys.length > 0) {

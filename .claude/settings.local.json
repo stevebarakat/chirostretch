@@ -147,7 +147,17 @@
       "Bash(git -C /Users/sb/Dev/chirostretch commit -m \"$\\(cat <<''EOF''\nRevert to native WP layout blocks, remove custom layout components\n\n- Remove Stack, Row, Grid custom components\n- Add back core/group, core/columns, core/column handling in BlockRenderer\n- core/columns renders as basic flex layout\n- core/group and core/column pass through to render children\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git -C /Users/sb/Dev/chirostretch diff --stat)",
       "Bash(git -C /Users/sb/Dev/chirostretch diff src/components/blocks/ChartBlock/)",
-      "Bash(git -C /Users/sb/Dev/chirostretch commit:*)"
+      "Bash(git -C /Users/sb/Dev/chirostretch commit:*)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public gf form list --format=table)",
+      "Bash(/usr/local/bin/wp:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff HEAD~5 --name-only)",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff HEAD -- src/components/Blocks/GravityFormBlock/)",
+      "Bash(git -C /Users/sb/Dev/chirostretch log --oneline -5)",
+      "Bash(git -C /Users/sb/Dev/chirostretch status --short src/components/Blocks/GravityFormBlock/)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public plugin list --status=active)",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff HEAD -- src/lib/graphql/queries/layout-query.ts src/lib/graphql/queries/footer-content.ts src/app/layout.tsx)",
+      "Bash(git -C /Users/sb/Dev/chirostretch checkout HEAD -- src/lib/graphql/queries/layout-query.ts src/lib/graphql/queries/footer-content.ts src/app/layout.tsx src/styles/globals.css src/components/layout/Footer.module.css)",
+      "Bash(git -C /Users/sb/Dev/chirostretch checkout HEAD -- src/components/layout/Footer.tsx)"
     ],
     "deny": [],
     "ask": []

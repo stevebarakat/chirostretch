@@ -64,7 +64,7 @@ export function StaffForm({
   });
 
   // Photo state
-  const [currentHeadshot, setCurrentHeadshot] = useState<Headshot>(
+  const [currentHeadshot] = useState<Headshot>(
     initialData?.headshot || null
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

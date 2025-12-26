@@ -17,6 +17,10 @@ export default function AccountMenu() {
 
   useOnClickOutside(ref, () => setIsOpen(false));
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (auth status endpoint) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - This is a side effect that must run after mount to check authentication state
   useEffect(() => {
     async function checkAuth() {
       try {

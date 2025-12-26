@@ -10,8 +10,8 @@
   }
 
   img {
-    height: unset;
     width: unset;
+    height: unset;
   }
 }
 
@@ -26,15 +26,15 @@
       height: auto;
     }
   }
+
   .mobile {
-    visibility: hidden;
     position: absolute;
     width: 1px;
     height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0); /* Legacy property for Internet Explorer */
-    clip-path: inset(50%);
     white-space: nowrap;
+    visibility: hidden;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
 }
 

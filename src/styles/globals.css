@@ -99,14 +99,13 @@ code {
 
 /* HELPERS */
 
-.sr-only:not(:focus):not(:active) {
+.sr-only:not(:focus, :active) {
   position: absolute;
   width: 1px;
   height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0); /* Legacy property for Internet Explorer */
-  clip-path: inset(50%);
   white-space: nowrap;
+  overflow: hidden;
+  clip-path: inset(50%);
 }
 
 /* SWIPER */

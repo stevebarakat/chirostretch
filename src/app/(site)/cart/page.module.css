@@ -58,10 +58,10 @@
 
 .itemInfo {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--spacing-md);
-  position: relative;
 }
 
 .itemDetails {
@@ -98,18 +98,18 @@
 }
 
 .itemActions:has(.removeButton:only-child) {
+  align-self: flex-end;
+  margin-top: calc(var(--spacing-md) * -1);
   padding-top: 0;
   border-top: none;
-  margin-top: calc(var(--spacing-md) * -1);
-  align-self: flex-end;
 }
 
 .quantityControl {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-xs);
-  flex: 1;
 }
 
 .quantityLabel {

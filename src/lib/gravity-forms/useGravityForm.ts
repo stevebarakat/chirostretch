@@ -12,7 +12,7 @@ import {
   type GravityFormErrorResponse,
 } from "./error-mapper";
 
-type UseGravityFormOptions<T extends z.ZodObject<any>> = {
+type UseGravityFormOptions<T extends z.ZodObject<z.ZodRawShape>> = {
   fields: GravityFormField[];
   schema?: T;
   onSubmit: (data: z.infer<T>) => Promise<unknown>;
@@ -20,7 +20,7 @@ type UseGravityFormOptions<T extends z.ZodObject<any>> = {
   onError?: (error: string) => void;
 };
 
-type UseGravityFormReturn<T extends z.ZodObject<any>> = Omit<UseFormReturn<z.infer<T>>, "handleSubmit"> & {
+type UseGravityFormReturn<T extends z.ZodObject<z.ZodRawShape>> = Omit<UseFormReturn<z.infer<T>>, "handleSubmit"> & {
   submitError: string | null;
   clearSubmitError: () => void;
   handleSubmit: ReturnType<UseFormReturn<z.infer<T>>["handleSubmit"]>;
@@ -39,7 +39,7 @@ type UseGravityFormReturn<T extends z.ZodObject<any>> = Omit<UseFormReturn<z.inf
  * - RHF manages form state (steering wheel)
  * - Gravity Forms validates business rules (the law)
  */
-export function useGravityForm<T extends z.ZodObject<any>>({
+export function useGravityForm<T extends z.ZodObject<z.ZodRawShape>>({
   fields,
   schema,
   onSubmit,

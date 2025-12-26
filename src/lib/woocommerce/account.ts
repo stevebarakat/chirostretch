@@ -205,7 +205,7 @@ export async function updateUserMeta(
       ""
     )}/wp-json/wp/v2/users/${userId}`;
 
-    const body: any = {};
+    const body: Record<string, unknown> = {};
     if (meta.nickname !== undefined) body.nickname = meta.nickname;
     if (meta.description !== undefined) body.description = meta.description;
     if (meta.url !== undefined) body.url = meta.url;

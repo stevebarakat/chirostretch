@@ -1,39 +1,39 @@
 .setPasswordPage {
-  min-height: calc(100vh - 200px);
   display: flex;
   align-items: center;
   padding: var(--spacing-2xl, 3rem) 0;
+  min-height: calc(100vh - 200px);
   background-color: var(--color-bg-secondary, #f9fafb);
 }
 
 .setPasswordContainer {
-  max-width: 480px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2xl, 3rem);
+  margin: 0 auto;
+  max-width: 480px;
 }
 
 .setPasswordHeader {
-  text-align: center;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md, 1rem);
+  text-align: center;
 }
 
 .title {
   margin: 0;
+  font-family: var(--font-montserrat, sans-serif);
   font-size: var(--font-size-3xl, 2.25rem);
   font-weight: var(--font-weight-bold, 700);
   color: var(--color-text-primary, #1a1a1a);
-  font-family: var(--font-montserrat, sans-serif);
 }
 
 .subtitle {
   margin: 0;
   font-size: var(--font-size-base, 1rem);
-  color: var(--color-text-secondary, #666666);
   line-height: 1.6;
+  color: var(--color-text-secondary, #666);
 }
 
 @media (max-width: 640px) {

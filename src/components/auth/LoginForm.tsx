@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import styles from "./LoginForm.module.css";
 
 type LoginFormData = {
@@ -116,9 +117,9 @@ export function LoginForm() {
       <div className={styles.footer}>
         <p className={styles.footerText}>
           Don&apos;t have an account?{" "}
-          <a href="/register" className={styles.link}>
+          <Link href="/register" className={styles.link}>
             Create one
-          </a>
+          </Link>
         </p>
       </div>
     </div>

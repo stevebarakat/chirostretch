@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";

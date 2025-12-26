@@ -76,7 +76,10 @@ export default function CheckoutForm() {
   >(null);
   const [needsShipping, setNeedsShipping] = useState(true);
 
-  // Check if cart needs shipping
+  // Reason this component must use useEffect:
+  // - Syncing with external API (cart endpoint) to check shipping requirements
+  // - Server Components cannot handle client-side API calls
+  // - This is a side effect that must run on mount to determine shipping needs
   useEffect(() => {
     async function checkShippingNeeded() {
       try {
@@ -206,6 +209,10 @@ export default function CheckoutForm() {
     [selectedShippingRateId, setValue]
   );
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (shipping rates endpoint) when address changes
+  // - Debounced API call to fetch shipping rates based on address
+  // - This is a side effect that syncs form state with external shipping API
   useEffect(() => {
     const shippingAddress = sameAsBilling ? billingData : shippingData;
 
@@ -221,6 +228,10 @@ export default function CheckoutForm() {
     updateShippingAddressAndFetchRates,
   ]);
 
+  // Reason this component must use useEffect:
+  // - Syncing external form state (React Hook Form) when sameAsBilling changes
+  // - React Hook Form is an external state management library
+  // - This effect copies billing data to shipping fields when checkbox is checked
   useEffect(() => {
     if (sameAsBilling) {
       setValue("shipping.first_name", billingData.first_name);

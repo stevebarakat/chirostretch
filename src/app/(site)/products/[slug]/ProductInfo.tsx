@@ -95,7 +95,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const isVariable = product.__typename === "VariableProduct";
   const isExternal = product.__typename === "ExternalProduct";
 
-  // Ensure cart is hydrated when component mounts
+  // Reason this component must use useEffect:
+  // - Syncing with external API (cart data) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - This ensures cart state is available for add-to-cart functionality
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);

@@ -10,6 +10,15 @@ const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 const EMAIL_FIELD_TYPES = ["EMAIL"];
 const CONSENT_FIELD_TYPES = ["CONSENT"];
 const CHECKBOX_FIELD_TYPES = ["CHECKBOX"];
+const NAME_FIELD_TYPES = ["NAME"];
+
+type NameValues = {
+  first?: string;
+  last?: string;
+  middle?: string;
+  prefix?: string;
+  suffix?: string;
+};
 
 type FieldValueInput = {
   id: number;
@@ -17,6 +26,7 @@ type FieldValueInput = {
   values?: string[];
   emailValues?: { value: string; confirmationValue?: string };
   checkboxValues?: Array<{ inputId: number; value: string }>;
+  nameValues?: NameValues;
 };
 
 // Extract numeric field ID from key (handles both numeric IDs and base64 GraphQL IDs)
@@ -85,6 +95,31 @@ function transformFormDataToFieldValues(
         return {
           id: fieldId,
           checkboxValues,
+        } as FieldValueInput;
+      }
+
+      // Handle name fields
+      if (fieldType && NAME_FIELD_TYPES.includes(fieldType)) {
+        // Value could be an object with first/last or a simple string
+        if (typeof value === "object" && value !== null) {
+          const nameObj = value as Record<string, unknown>;
+          return {
+            id: fieldId,
+            nameValues: {
+              first: String(nameObj.first || ""),
+              last: String(nameObj.last || ""),
+              middle: nameObj.middle ? String(nameObj.middle) : undefined,
+              prefix: nameObj.prefix ? String(nameObj.prefix) : undefined,
+              suffix: nameObj.suffix ? String(nameObj.suffix) : undefined,
+            },
+          } as FieldValueInput;
+        }
+        // Simple string - treat as first name only
+        return {
+          id: fieldId,
+          nameValues: {
+            first: String(value || ""),
+          },
         } as FieldValueInput;
       }
 

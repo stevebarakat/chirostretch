@@ -28,6 +28,10 @@ export default function Modal({
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external browser API (HTMLDialogElement.showModal/close)
+  // - Native <dialog> element requires imperative API calls
+  // - This is a side effect that syncs React state with browser dialog state
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;

@@ -11,19 +11,19 @@
 }
 
 .required {
-  color: var(--color-error-500);
   margin-left: var(--spacing-xs);
+  color: var(--color-error-500);
 }
 
 .description {
+  margin-top: calc(var(--spacing-xs) * -1);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin-top: calc(var(--spacing-xs) * -1);
 }
 
 .error {
+  margin-top: var(--spacing-xs);
   font-size: var(--font-size-sm);
   color: var(--color-error-600);
-  margin-top: var(--spacing-xs);
 }
 

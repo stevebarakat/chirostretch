@@ -21,15 +21,15 @@ function toSafeFieldName(value: unknown): string | null {
   if (value === null || value === undefined) {
     return null;
   }
-  
+
   if (typeof value === "string") {
     return value.trim() || null;
   }
-  
+
   if (typeof value === "number") {
     return String(value);
   }
-  
+
   // For other types, try to convert but be safe
   try {
     const str = String(value);
@@ -51,13 +51,11 @@ export default function GravityFormField({
   // Normalize field type to lowercase (API may return uppercase like "RADIO", "SELECT")
   const fieldType = (field.type || field.inputType || "").toLowerCase();
 
-  if (!fieldName) {
-    console.error("GravityFormField: Field ID is required", field);
-    return null;
-  }
+  // Always call hooks unconditionally - use a fallback name if fieldName is invalid
+  const safeFieldName = fieldName || `field_${field.databaseId || "unknown"}`;
 
   const { field: controllerField } = useController({
-    name: fieldName,
+    name: safeFieldName,
     control,
     defaultValue:
       fieldType === "checkbox"
@@ -66,6 +64,11 @@ export default function GravityFormField({
         ? {}
         : "",
   });
+
+  if (!fieldName) {
+    console.error("GravityFormField: Field ID is required", field);
+    return null;
+  }
 
   if (
     (fieldType === "address" || fieldType === "name") &&

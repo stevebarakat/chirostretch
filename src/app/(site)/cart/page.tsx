@@ -29,6 +29,10 @@ export default function CartPage() {
     await fetchCart();
   }, [fetchCart]);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (cart data) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - Setting mounted state prevents hydration mismatch with server-rendered content
   useEffect(() => {
     startTransition(() => {
       setMounted(true);
@@ -36,6 +40,10 @@ export default function CartPage() {
     loadCart();
   }, [loadCart]);
 
+  // Reason this component must use useEffect:
+  // - Syncing local form state with external cart store state
+  // - Cart store is external state management (Zustand) that updates asynchronously
+  // - This ensures local quantities stay in sync with server cart data
   useEffect(() => {
     if (items.length > 0) {
       const quantities: Record<string, number> = {};

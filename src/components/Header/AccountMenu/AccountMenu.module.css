@@ -9,8 +9,8 @@
   padding: 1rem;
   font-size: inherit;
   font-weight: 600;
-  color: white;
   text-decoration: none;
+  color: white;
   transition: background-color 0.25s ease;
 }
 
@@ -19,21 +19,21 @@
 }
 
 .accountButton {
-  background: none;
-  border: none;
-  font-size: inherit;
-  font-family: inherit;
-  font-weight: 600;
-  color: white;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
   line-height: 2.75;
   text-align: left;
+  color: white;
+  background: none;
+  border: none;
   border-right: 1px solid white;
-  transition: 0.25s ease;
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .accountButton:hover {
@@ -49,18 +49,18 @@
 }
 
 .dropdown {
-  background: var(--darkColor);
   position: absolute;
   top: 100%;
   right: 0;
-  border-top: 1px solid white;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
-  list-style: none;
+  z-index: 1000;
   margin: 0;
   padding: 0;
   min-width: 200px;
-  z-index: 1000;
+  background: var(--darkColor);
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  list-style: none;
 }
 
 .dropdownItem {
@@ -68,22 +68,22 @@
 }
 
 .dropdownLink {
-  background: none;
-  border: none;
-  font-size: inherit;
-  font-family: inherit;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
   display: flex;
   align-items: center;
   padding: 1rem;
   width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
   text-align: left;
+  text-decoration: none;
+  color: white;
+  background: none;
+  background: var(--color-secondary-600);
+  border: none;
+  box-shadow: none;
   cursor: pointer;
   transition: background-color 0.25s ease;
-  box-shadow: none;
-  background: var(--color-secondary-600);
 }
 
 .dropdownLink:hover:not(:disabled) {
@@ -98,8 +98,8 @@
 @media (max-width: 910px) {
   .accountLink {
     width: 100%;
-    border-bottom: 1px solid white;
     border-right: none;
+    border-bottom: 1px solid white;
   }
 
   .accountButton {
@@ -110,8 +110,8 @@
 
   .dropdown {
     position: relative;
-    border: none;
     width: 100%;
+    border: none;
   }
 
   .dropdownItem {

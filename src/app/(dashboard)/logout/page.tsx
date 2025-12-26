@@ -7,6 +7,10 @@ export default function LogoutPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (logout endpoint) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - This is a one-time side effect that must run after mount
   useEffect(() => {
     async function logout() {
       try {

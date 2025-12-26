@@ -57,7 +57,7 @@ type FranchiseSubmission = {
   utm_campaign?: string;
   utm_medium?: string;
   referrer?: string;
-  [key: string]: any; // Allow additional fields
+  [key: string]: unknown; // Allow additional fields
 };
 
 /**

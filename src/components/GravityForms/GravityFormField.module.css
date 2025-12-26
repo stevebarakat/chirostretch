@@ -5,30 +5,30 @@
 }
 
 .label {
+  margin-bottom: var(--spacing-xs, 0.25rem);
   font-size: var(--font-size-base, 1rem);
   font-weight: 600;
   color: var(--color-text-primary, hsl(0, 0%, 10%));
-  margin-bottom: var(--spacing-xs, 0.25rem);
 }
 
 .required {
-  color: hsl(0, 70%, 50%);
   margin-left: var(--spacing-xs, 0.25rem);
+  color: hsl(0, 70%, 50%);
 }
 
 .description {
+  margin-bottom: var(--spacing-xs, 0.25rem);
   font-size: var(--font-size-sm, 0.875rem);
   color: var(--color-text-secondary, hsl(0, 0%, 40%));
-  margin-bottom: var(--spacing-xs, 0.25rem);
 }
 
 .input,
 .textarea,
 .select {
-  width: 100%;
   padding: var(--spacing-md, 1rem);
-  font-size: var(--font-size-base, 1rem);
+  width: 100%;
   font-family: inherit;
+  font-size: var(--font-size-base, 1rem);
   color: var(--color-text-primary, hsl(0, 0%, 10%));
   background-color: hsl(0, 0%, 100%);
   border: 1px solid var(--color-border, hsl(0, 0%, 80%));
@@ -97,7 +97,7 @@
 }
 
 .error {
+  margin-top: var(--spacing-xs, 0.25rem);
   font-size: var(--font-size-sm, 0.875rem);
   color: hsl(0, 70%, 50%);
-  margin-top: var(--spacing-xs, 0.25rem);
 }

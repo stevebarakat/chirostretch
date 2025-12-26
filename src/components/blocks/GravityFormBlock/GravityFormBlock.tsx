@@ -9,9 +9,19 @@ type GravityFormBlockProps = {
   block: Block;
 };
 
+type GravityFormData = {
+  title?: string;
+  description?: string;
+  [key: string]: unknown;
+};
+
+type GravityForm = GravityFormData & {
+  gfForm?: GravityFormData;
+};
+
 type FormState = {
   status: "loading" | "error" | "ready" | "submitted";
-  form: unknown | null;
+  form: GravityForm | null;
   error: string | null;
   submissionResponse: SubmissionResponse | null;
 };
@@ -19,6 +29,8 @@ type FormState = {
 type SubmissionResponse = {
   success?: boolean;
   confirmation_message?: string;
+  confirmation_type?: "MESSAGE" | "PAGE" | "REDIRECT";
+  confirmation_url?: string;
   entry_id?: number;
 };
 
@@ -31,6 +43,10 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
     submissionResponse: null,
   });
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (Gravity Forms endpoint) when formId changes
+  // - Server Components cannot handle client-side API calls with dynamic parameters
+  // - This is a side effect that must run when formId dependency changes
   useEffect(() => {
     if (!formId) {
       setState({ status: "error", form: null, error: "No form ID provided", submissionResponse: null });
@@ -79,40 +95,26 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
   }
 
   // Show confirmation screen after successful submission
-  if (state.status === "submitted") {
+  if (state.status === "submitted" && state.submissionResponse) {
+    const { confirmation_message, confirmation_type, confirmation_url } = state.submissionResponse;
+
+    // Handle redirect confirmation
+    if (confirmation_type === "REDIRECT" && confirmation_url) {
+      window.location.href = confirmation_url;
+      return null;
+    }
+
     return (
       <div className={styles.confirmation}>
         <div className={styles.confirmationIcon}>✓</div>
-        <h2 className={styles.confirmationTitle}>Application Submitted!</h2>
-
-        <div className={styles.confirmationContent}>
-          <p>Thank you for your interest in becoming a ChiroStretch franchise partner.</p>
-
-          <div className={styles.nextSteps}>
-            <h3>What happens next?</h3>
-            <ol>
-              <li>
-                <strong>Check your email</strong> — We&apos;ve sent you a link to set up your password and access your application portal.
-              </li>
-              <li>
-                <strong>Review process</strong> — Our franchise team will review your application within 3-5 business days.
-              </li>
-              <li>
-                <strong>We&apos;ll be in touch</strong> — A member of our team will contact you to discuss next steps.
-              </li>
-            </ol>
-          </div>
-
-          <p className={styles.editNote}>
-            Need to make changes? You can edit your application anytime before it enters review by logging into your account.
-          </p>
-        </div>
-
-        <div className={styles.confirmationActions}>
-          <a href="/login" className={styles.loginButton}>
-            Log In to Your Account
-          </a>
-        </div>
+        {confirmation_message ? (
+          <div
+            className={styles.confirmationContent}
+            dangerouslySetInnerHTML={{ __html: confirmation_message }}
+          />
+        ) : (
+          <p className={styles.confirmationContent}>Thank you for your submission!</p>
+        )}
       </div>
     );
   }
@@ -127,8 +129,15 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
 
   const numericFormId = typeof formId === "string" ? parseInt(formId, 10) : formId;
 
+  // Form data might be nested under gfForm (GraphQL) or at top level (REST)
+  const formData = (state.form?.gfForm || state.form) as GravityFormData | undefined;
+  const formTitle = formData?.title;
+
   return (
     <div className={styles.formBlock}>
+      {formTitle && (
+        <h3 className={styles.formTitle}>{formTitle}</h3>
+      )}
       <GravityFormEnhanced
         form={state.form}
         formId={numericFormId}

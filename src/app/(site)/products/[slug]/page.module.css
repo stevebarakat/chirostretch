@@ -34,9 +34,9 @@
 }
 
 .productSummary {
+  display: flex;
   position: relative;
   top: -2rem;
-  display: flex;
   justify-content: flex-end;
 }
 

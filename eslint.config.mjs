@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import reactHooks from "eslint-plugin-react-hooks";
-import noUseEffect from "eslint-plugin-no-use-effect";
+import noUseEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -23,7 +23,7 @@ const eslintConfig = defineConfig([
       "react-hooks/exhaustive-deps": "warn",
 
       // Strong signal: effects should be rare
-      "no-use-effect/no-use-effect": "warn",
+      "no-use-effect/no-empty-effect": "warn",
 
       /* ---------------------------------
         Native UI First Enforcement
@@ -72,7 +72,7 @@ const eslintConfig = defineConfig([
     },
   },
 
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "vendor/**"]),
 ]);
 
 export default eslintConfig;

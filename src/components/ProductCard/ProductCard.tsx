@@ -63,6 +63,10 @@ export function ProductCard({
   const fetchCart = useCartStore((state) => state.fetchCart);
   const loading = useCartStore((state) => state.loading);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (cart data) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - This ensures cart state is available for add-to-cart functionality
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);

@@ -5,10 +5,10 @@
 }
 
 .formContainer {
-  border: 1px solid var(--color-neutral-200, #e5e5e5);
-  border-radius: var(--radius-md, 8px);
   padding: var(--spacing-xl, 2rem);
   background: var(--color-neutral-50, #fafafa);
+  border: 1px solid var(--color-neutral-200, #e5e5e5);
+  border-radius: var(--radius-md, 8px);
 }
 
 @media (max-width: 1024px) {

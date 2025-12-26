@@ -1,9 +1,9 @@
 .card {
-  position: relative;
   display: flex;
-  text-align: center;
+  position: relative;
   margin: 3rem auto;
   width: fit-content;
+  text-align: center;
 }
 
 .card img {
@@ -12,17 +12,17 @@
 }
 
 .cardHeader {
-  z-index: 9;
   position: absolute;
-  height: fit-content;
+  bottom: 0;
+  z-index: 9;
+  padding: 0 0.5rem;
   width: 100%;
-  color: white;
+  height: fit-content;
   font-size: 1rem;
   font-weight: 800;
+  line-height: 0.75;
   letter-spacing: -0.05rem;
-  bottom: 0;
-  padding: 0 0.5rem;
+  color: white;
   background: hsla(324, 79%, 68%, 0.75);
   border-radius: 0 0 8px 8px;
-  line-height: 0.75;
 }
