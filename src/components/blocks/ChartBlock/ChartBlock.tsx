@@ -18,84 +18,41 @@ import {
 import styles from "./ChartBlock.module.css";
 import type { ChartData } from "./parseChartData";
 
-type Dataset = {
-  label: string;
-  data: number[];
-  backgroundColor?: string[];
-  borderColor?: string[];
-};
+const FALLBACK_COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300", "#00C49F", "#FFBB28"];
 
 type ChartBlockProps = {
   chartData: ChartData;
 };
 
-function transformData(chartData: ChartData) {
-  const { labels, datasets } = chartData.data;
-  return labels.map((label, index) => {
+// Transform normalized data for Recharts
+function toRechartsData(chart: ChartData) {
+  return chart.labels.map((label, i) => {
     const point: Record<string, string | number> = { name: label };
-    datasets.forEach((dataset) => {
-      point[dataset.label] = dataset.data[index];
+    chart.data.forEach((dataset) => {
+      point[dataset.name] = dataset.values[i];
     });
     return point;
   });
 }
 
-function getColor(dataset: Dataset, index: number): string {
-  if (dataset.borderColor?.[index]) {
-    return dataset.borderColor[index];
-  }
-  if (dataset.borderColor?.[0]) {
-    return dataset.borderColor[0];
-  }
-  const defaultColors = [
-    "#8884d8",
-    "#82ca9d",
-    "#ffc658",
-    "#ff7300",
-    "#00C49F",
-    "#FFBB28",
-  ];
-  return defaultColors[index % defaultColors.length];
-}
-
 export default function ChartBlock({ chartData }: ChartBlockProps) {
-  const data = transformData(chartData);
-  const { datasets } = chartData.data;
-  const chartType = chartData.type || "line";
-  const height = parseInt(chartData.height || "400", 10);
-
-  // Default settings when not specified
-  const showXGridLine = chartData.isXGridLine ?? true;
-  const showYGridLine = chartData.isYGridLine ?? true;
-  const gridColor = chartData.gridLineColor || "#e5e5e5";
-  const showTitle = chartData.isTitle ?? !!chartData.title;
-  const showXScale = chartData.isXScale ?? true;
-  const showYScale = chartData.isYScale ?? true;
+  const data = toRechartsData(chartData);
 
   const renderChart = () => {
-    switch (chartType) {
+    switch (chartData.type) {
       case "bar":
         return (
           <BarChart data={data}>
-            {(showXGridLine || showYGridLine) && (
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke={gridColor}
-                horizontal={showYGridLine}
-                vertical={showXGridLine}
-              />
-            )}
-            {showXScale && (
-              <XAxis dataKey="name" stroke={chartData.textColor} />
-            )}
-            {showYScale && <YAxis stroke={chartData.textColor} />}
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
             <Tooltip />
             <Legend />
-            {datasets.map((dataset, idx) => (
+            {chartData.data.map((dataset, idx) => (
               <Bar
-                key={dataset.label}
-                dataKey={dataset.label}
-                fill={getColor(dataset, idx)}
+                key={dataset.name}
+                dataKey={dataset.name}
+                fill={dataset.borderColor?.[0] || FALLBACK_COLORS[idx % FALLBACK_COLORS.length]}
               />
             ))}
           </BarChart>
@@ -103,12 +60,11 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
 
       case "pie":
       case "doughnut":
-        const pieData = datasets[0]?.data.map((value, idx) => ({
-          name: chartData.data.labels[idx],
+        const pieData = chartData.data[0]?.values.map((value, idx) => ({
+          name: chartData.labels[idx],
           value,
-          color:
-            datasets[0]?.backgroundColor?.[idx] || getColor(datasets[0], idx),
         }));
+        const pieColors = chartData.data[0]?.backgroundColor || FALLBACK_COLORS;
         return (
           <PieChart>
             <Pie
@@ -117,12 +73,12 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
               nameKey="name"
               cx="50%"
               cy="50%"
-              innerRadius={chartType === "doughnut" ? 60 : 0}
+              innerRadius={chartData.type === "doughnut" ? 60 : 0}
               outerRadius={80}
               label
             >
-              {pieData?.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+              {pieData?.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={pieColors[index % pieColors.length]} />
               ))}
             </Pie>
             <Tooltip />
@@ -134,29 +90,18 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
       default:
         return (
           <LineChart data={data}>
-            {(showXGridLine || showYGridLine) && (
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke={gridColor}
-                horizontal={showYGridLine}
-                vertical={showXGridLine}
-              />
-            )}
-            {showXScale && (
-              <XAxis dataKey="name" stroke={chartData.textColor} />
-            )}
-            {showYScale && <YAxis stroke={chartData.textColor} />}
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
             <Tooltip />
             <Legend />
-            {datasets.map((dataset, idx) => (
+            {chartData.data.map((dataset, idx) => (
               <Line
-                key={dataset.label}
+                key={dataset.name}
                 type="monotone"
-                dataKey={dataset.label}
-                stroke={getColor(dataset, idx)}
-                strokeWidth={dataset.borderWidth || 2}
-                dot={{ r: 3 }}
-                activeDot={{ r: 5 }}
+                dataKey={dataset.name}
+                stroke={dataset.borderColor?.[0] || FALLBACK_COLORS[idx % FALLBACK_COLORS.length]}
+                strokeWidth={2}
               />
             ))}
           </LineChart>
@@ -166,18 +111,7 @@ export default function ChartBlock({ chartData }: ChartBlockProps) {
 
   return (
     <div className={styles.chartContainer}>
-      {showTitle && chartData.title && (
-        <h3
-          className={styles.title}
-          style={{
-            color: chartData.titleColor,
-            fontSize: chartData.titleFontSize,
-          }}
-        >
-          {chartData.title}
-        </h3>
-      )}
-      <ResponsiveContainer width="100%" height={height}>
+      <ResponsiveContainer width="100%" height={400}>
         {renderChart()}
       </ResponsiveContainer>
     </div>

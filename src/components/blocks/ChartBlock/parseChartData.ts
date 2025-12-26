@@ -1,32 +1,36 @@
-type Dataset = {
+// Normalized chart data (stable application schema)
+export type ChartData = {
+  type: "line" | "bar" | "pie" | "doughnut";
+  labels: string[];
+  data: Array<{
+    name: string;
+    values: number[];
+    backgroundColor?: string[];
+    borderColor?: string[];
+  }>;
+};
+
+type RawDataset = {
   label: string;
   data: number[];
   backgroundColor?: string[];
   borderColor?: string[];
-  tension?: number;
-  borderWidth?: number;
 };
 
-export type ChartData = {
-  cId: string;
-  type?: "line" | "bar" | "pie" | "doughnut";
-  data: {
-    labels: string[];
-    datasets: Dataset[];
+// Raw WordPress block attributes → stable schema
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function normalizeChartBlock(block: any): ChartData {
+  return {
+    type: block.type || "line",
+    labels: block.data?.labels || [],
+    data: (block.data?.datasets || []).map((ds: RawDataset) => ({
+      name: ds.label,
+      values: ds.data,
+      backgroundColor: ds.backgroundColor,
+      borderColor: ds.borderColor,
+    })),
   };
-  width?: string;
-  height?: string;
-  title?: string;
-  titleColor?: string;
-  titleFontSize?: number;
-  isTitle?: boolean;
-  textColor?: string;
-  isXScale?: boolean;
-  isYScale?: boolean;
-  isXGridLine?: boolean;
-  isYGridLine?: boolean;
-  gridLineColor?: string;
-};
+}
 
 export function parseChartDataFromContent(content: string): ChartData[] {
   const charts: ChartData[] = [];
@@ -38,7 +42,7 @@ export function parseChartDataFromContent(content: string): ChartData[] {
       const decoded = match[1].replace(/&quot;/g, '"');
       const parsed = JSON.parse(decoded);
       if (parsed.data?.labels && parsed.data?.datasets) {
-        charts.push(parsed as ChartData);
+        charts.push(normalizeChartBlock(parsed));
       }
     } catch {
       // Skip invalid JSON

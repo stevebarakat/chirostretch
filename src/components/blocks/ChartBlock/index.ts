@@ -1,2 +1,6 @@
 export { default } from "./ChartBlock";
-export { parseChartDataFromContent, type ChartData } from "./parseChartData";
+export {
+  normalizeChartBlock,
+  parseChartDataFromContent,
+  type ChartData,
+} from "./parseChartData";
