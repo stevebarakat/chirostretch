@@ -33,7 +33,6 @@ function SearchBox() {
       onChange={handleChange}
       placeholder="Search by city, state, or zip..."
       className={styles.searchBox}
-      autoFocus
     />
   );
 }
@@ -65,7 +64,10 @@ function LocationHitComponent({ hit, onHitClick }: HitComponentProps) {
       onClick={onHitClick}
     >
       <div className={styles.hitImage}>
-        <MapPin size={32} style={{ margin: "auto", color: "var(--color-text-tertiary)" }} />
+        <MapPin
+          size={32}
+          style={{ margin: "auto", color: "var(--color-text-tertiary)" }}
+        />
       </div>
       <div className={styles.hitContent}>
         <h3 className={styles.hitTitle}>{hit.title}</h3>

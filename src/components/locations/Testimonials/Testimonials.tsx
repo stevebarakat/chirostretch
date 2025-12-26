@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/UI/Container";
 import { StarRating } from "@/components/UI/StarRating";
+import type { TestimonialNode } from "@/lib/graphql/queries/testimonials";
 import styles from "./Testimonials.module.css";
 
 type Testimonial = {
@@ -11,7 +12,7 @@ type Testimonial = {
   imageAlt: string;
 };
 
-const testimonials: Testimonial[] = [
+const defaultTestimonials: Testimonial[] = [
   {
     name: "Kathy M.",
     rating: 5,
@@ -30,7 +31,13 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-export function Testimonials() {
+type TestimonialsProps = {
+  testimonials?: TestimonialNode[];
+};
+
+export function Testimonials({ testimonials = [] }: TestimonialsProps) {
+  const hasWPTestimonials = testimonials.length > 0;
+
   return (
     <section className={styles.section}>
       <Container>
@@ -40,30 +47,57 @@ export function Testimonials() {
           wellness.
         </p>
         <div className={styles.grid}>
-          {testimonials.map((testimonial, index) => (
-            <article key={index} className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.avatar}>
-                  <Image
-                    src={testimonial.imageUrl}
-                    alt={testimonial.imageAlt}
-                    width={60}
-                    height={60}
-                    className={styles.avatarImage}
-                  />
-                </div>
-                <div className={styles.cardInfo}>
-                  <h3 className={styles.name}>{testimonial.name}</h3>
-                  <StarRating
-                    rating={testimonial.rating}
-                    color="gold"
-                    className={styles.rating}
-                  />
-                </div>
-              </div>
-              <p className={styles.text}>{testimonial.text}</p>
-            </article>
-          ))}
+          {hasWPTestimonials
+            ? testimonials.map((testimonial) => (
+                <article key={testimonial.databaseId} className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    {testimonial.featuredImage?.node?.sourceUrl && (
+                      <div className={styles.avatar}>
+                        <Image
+                          src={testimonial.featuredImage.node.sourceUrl}
+                          alt={testimonial.featuredImage.node.altText || testimonial.title || ""}
+                          width={60}
+                          height={60}
+                          className={styles.avatarImage}
+                        />
+                      </div>
+                    )}
+                    <div className={styles.cardInfo}>
+                      <h3 className={styles.name}>{testimonial.title}</h3>
+                      <StarRating
+                        rating={testimonial.rating || 5}
+                        color="gold"
+                        className={styles.rating}
+                      />
+                    </div>
+                  </div>
+                  <p className={styles.text}>{testimonial.reviewText}</p>
+                </article>
+              ))
+            : defaultTestimonials.map((testimonial, index) => (
+                <article key={index} className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.avatar}>
+                      <Image
+                        src={testimonial.imageUrl}
+                        alt={testimonial.imageAlt}
+                        width={60}
+                        height={60}
+                        className={styles.avatarImage}
+                      />
+                    </div>
+                    <div className={styles.cardInfo}>
+                      <h3 className={styles.name}>{testimonial.name}</h3>
+                      <StarRating
+                        rating={testimonial.rating}
+                        color="gold"
+                        className={styles.rating}
+                      />
+                    </div>
+                  </div>
+                  <p className={styles.text}>{testimonial.text}</p>
+                </article>
+              ))}
         </div>
       </Container>
     </section>

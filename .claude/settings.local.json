@@ -165,7 +165,8 @@
       "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public chirostretch import reset --yes)",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
-      "WebFetch(domain:www.algolia.com)"
+      "WebFetch(domain:www.algolia.com)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=testimonial --format=table)"
     ],
     "deny": [],
     "ask": []

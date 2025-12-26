@@ -8,9 +8,11 @@ import {
   LOCATION_BY_SLUG_QUERY,
   ALL_LOCATION_SLUGS_QUERY,
   BOOKING_PRODUCTS_QUERY,
+  ALL_TESTIMONIALS_QUERY,
   type LocationBySlugResponse,
   type AllLocationSlugsResponse,
   type BookingProductsResponse,
+  type AllTestimonialsResponse,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/UI/Container";
 import {
@@ -109,9 +111,10 @@ type LocationPageProps = {
 export default async function LocationPage({ params }: LocationPageProps) {
   const { slug } = await params;
 
-  const [locationData, bookingData] = await Promise.all([
+  const [locationData, bookingData, testimonialsData] = await Promise.all([
     wpQuery<LocationBySlugResponse>(LOCATION_BY_SLUG_QUERY, { slug }, 300),
     wpQuery<BookingProductsResponse>(BOOKING_PRODUCTS_QUERY, {}, 300),
+    wpQuery<AllTestimonialsResponse>(ALL_TESTIMONIALS_QUERY, {}, 300),
   ]);
 
   if (!locationData?.location) {
@@ -157,6 +160,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
   const clinicalStaff = location.clinicalStaff?.nodes ?? [];
   const hours = location.hours ?? [];
   const servicesOffered = location.servicesOffered ?? [];
+  const testimonials = (testimonialsData?.testimonials?.nodes ?? []).filter(
+    (t) => t.locationId === location.databaseId
+  );
 
   const fullAddress = [
     location.streetAddress,
@@ -363,7 +369,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
         </section>
 
         {/* Testimonials Section */}
-        <Testimonials />
+        <Testimonials testimonials={testimonials} />
       </main>
     </Suspense>
   );
