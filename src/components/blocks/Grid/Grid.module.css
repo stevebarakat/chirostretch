@@ -1,0 +1,32 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols, 1), 1fr);
+
+  &[data-gap="xs"] {
+    gap: var(--spacing-xs, 0.25rem);
+  }
+
+  &[data-gap="sm"] {
+    gap: var(--spacing-sm, 0.5rem);
+  }
+
+  &[data-gap="md"] {
+    gap: var(--spacing-md, 1rem);
+  }
+
+  &[data-gap="lg"] {
+    gap: var(--spacing-lg, 1.5rem);
+  }
+
+  &[data-gap="xl"] {
+    gap: var(--spacing-xl, 2rem);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(var(--grid-cols-md, var(--grid-cols, 1)), 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(var(--grid-cols-lg, var(--grid-cols-md, var(--grid-cols, 1))), 1fr);
+  }
+}

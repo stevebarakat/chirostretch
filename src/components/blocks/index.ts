@@ -1,13 +1,11 @@
 export { default as BlockRenderer, type Block } from "./BlockRenderer";
-export { default as AccordionBlock } from "./AccordionBlock";
 export { default as ChartBlock } from "./ChartBlock";
 export { parseChartDataFromContent, type ChartData } from "./ChartBlock";
-export { default as ColumnsBlock, ColumnBlock } from "./ColumnsBlock";
-export { default as CoverBlock } from "./CoverBlock";
-export { default as FeatureBlock } from "./FeatureBlock";
 export { default as GravityFormBlock } from "./GravityFormBlock";
+export { default as Grid } from "./Grid";
 export { default as HeadingBlock } from "./HeadingBlock";
-export { default as IconListBlock } from "./IconListBlock";
 export { default as ImageBlock } from "./ImageBlock";
 export { default as ParagraphBlock } from "./ParagraphBlock";
+export { default as Row } from "./Row";
+export { default as Stack } from "./Stack";
 export { parseHtml } from "./parseHtml";

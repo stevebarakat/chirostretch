@@ -1,13 +1,12 @@
 import ParagraphBlock from "../ParagraphBlock";
 import HeadingBlock from "../HeadingBlock";
 import ImageBlock from "../ImageBlock";
-import CoverBlock from "../CoverBlock";
-import AccordionBlock from "../AccordionBlock";
-import ColumnsBlock, { ColumnBlock } from "../ColumnsBlock";
 import ChartBlock from "../ChartBlock";
-import FeatureBlock from "../FeatureBlock";
+import { normalizeChartBlock } from "../ChartBlock/parseChartData";
 import GravityFormBlock from "../GravityFormBlock";
-import IconListBlock from "../IconListBlock";
+import Stack from "../Stack";
+import Row from "../Row";
+import Grid from "../Grid";
 
 export type Block = {
   name: string;
@@ -146,76 +145,6 @@ export default function BlockRenderer({
               />
             );
 
-          case "core/cover":
-            const coverAttrs = block.attributes as {
-              url?: string;
-              id?: string | number;
-              alt?: string;
-              dimRatio?: number;
-              overlayColor?: string;
-              minHeight?: number;
-              contentPosition?: string;
-            };
-            const coverUrl = coverAttrs?.url || "";
-            if (coverUrl && coverUrl.startsWith("IMAGE:")) {
-              return (
-                <CoverBlock
-                  key={key}
-                  url=""
-                  alt={coverAttrs?.alt || ""}
-                  dimRatio={coverAttrs?.dimRatio || 0}
-                  overlayColor={coverAttrs?.overlayColor || "black"}
-                  minHeight={coverAttrs?.minHeight || 300}
-                  contentPosition={
-                    coverAttrs?.contentPosition || "center center"
-                  }
-                  innerBlocks={block.innerBlocks}
-                />
-              );
-            }
-            return (
-              <CoverBlock
-                key={key}
-                url={coverUrl}
-                alt={coverAttrs?.alt || ""}
-                dimRatio={coverAttrs?.dimRatio || 0}
-                overlayColor={coverAttrs?.overlayColor || "black"}
-                minHeight={coverAttrs?.minHeight || 300}
-                contentPosition={coverAttrs?.contentPosition || "center center"}
-                innerBlocks={block.innerBlocks}
-              />
-            );
-
-          case "stackable/accordion":
-          case "core/details":
-            return <AccordionBlock key={key} block={block} />;
-
-          case "core/columns":
-            // Check if first column starts with a chart - if so, reverse on mobile
-            const firstColFirstBlock =
-              block.innerBlocks?.[0]?.innerBlocks?.[0]?.name;
-            const reverseMobile = firstColFirstBlock === "b-chart/chart";
-
-            return (
-              <ColumnsBlock key={key} reverseMobile={reverseMobile}>
-                {block.innerBlocks?.map((col, colIndex) => {
-                  return (
-                    <ColumnBlock key={`col-${colIndex}`}>
-                      {col.innerBlocks && col.innerBlocks.length > 0 && (
-                        <BlockRenderer blocks={col.innerBlocks} />
-                      )}
-                    </ColumnBlock>
-                  );
-                })}
-              </ColumnsBlock>
-            );
-
-          case "core/column":
-            if (block.innerBlocks && block.innerBlocks.length > 0) {
-              return <BlockRenderer key={key} blocks={block.innerBlocks} />;
-            }
-            return null;
-
           case "core/group":
             if (block.innerBlocks && block.innerBlocks.length > 0) {
               return <BlockRenderer key={key} blocks={block.innerBlocks} />;
@@ -223,54 +152,60 @@ export default function BlockRenderer({
             return null;
 
           case "b-chart/chart":
-            const chartAttrs = block.attributes as {
-              cId: string;
-              type?: "line" | "bar" | "pie" | "doughnut";
-              data: {
-                labels: string[];
-                datasets: {
-                  label: string;
-                  data: number[];
-                  backgroundColor?: string[];
-                  borderColor?: string[];
-                }[];
-              };
-              title?: string;
-              titleColor?: string;
-              titleFontSize?: number;
-              isTitle?: boolean;
-              height?: string;
-              width?: string;
-              textColor?: string;
-              isXScale?: boolean;
-              isYScale?: boolean;
-              isXGridLine?: boolean;
-              isYGridLine?: boolean;
-              gridLineColor?: string;
-            };
-            if (!chartAttrs?.cId || !chartAttrs?.data) return null;
-            return <ChartBlock key={key} chartData={chartAttrs} />;
-
-          case "stackable/icon-list":
-            return (
-              <IconListBlock
-                key={key}
-                block={block}
-                renderedHtml={renderedContent}
-              />
-            );
-
-          case "stackable/feature":
-            return (
-              <FeatureBlock
-                key={key}
-                block={block}
-                renderedHtml={renderedContent}
-              />
-            );
+            if (!block.attributes) return null;
+            const chartData = normalizeChartBlock(block.attributes);
+            if (!chartData.labels.length) return null;
+            return <ChartBlock key={key} chartData={chartData} />;
 
           case "gravityforms/form":
             return <GravityFormBlock key={key} block={block} />;
+
+          case "acf/stack": {
+            const stackAttrs = block.attributes as { gap?: string };
+            return (
+              <Stack key={key} gap={(stackAttrs?.gap as "xs" | "sm" | "md" | "lg" | "xl") || "md"}>
+                {block.innerBlocks && <BlockRenderer blocks={block.innerBlocks} />}
+              </Stack>
+            );
+          }
+
+          case "acf/row": {
+            const rowAttrs = block.attributes as {
+              gap?: string;
+              align?: string;
+              wrap?: boolean;
+            };
+            return (
+              <Row
+                key={key}
+                gap={(rowAttrs?.gap as "xs" | "sm" | "md" | "lg" | "xl") || "md"}
+                align={(rowAttrs?.align as "start" | "center" | "end" | "between" | "around") || "start"}
+                wrap={rowAttrs?.wrap ?? false}
+              >
+                {block.innerBlocks && <BlockRenderer blocks={block.innerBlocks} />}
+              </Row>
+            );
+          }
+
+          case "acf/grid": {
+            const gridAttrs = block.attributes as {
+              columns?: number;
+              columns_md?: number;
+              columns_lg?: number;
+              gap?: string;
+            };
+            return (
+              <Grid
+                key={key}
+                columns={gridAttrs?.columns ?? 1}
+                columnsMd={gridAttrs?.columns_md}
+                columnsLg={gridAttrs?.columns_lg}
+                gap={(gridAttrs?.gap as "xs" | "sm" | "md" | "lg" | "xl") || "md"}
+              >
+                {block.innerBlocks && <BlockRenderer blocks={block.innerBlocks} />}
+              </Grid>
+            );
+          }
 
           default:
             if (block.innerHTML) {
