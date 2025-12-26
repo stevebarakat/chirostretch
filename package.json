@@ -16,7 +16,8 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "generate:demo": "npx tsx scripts/generate-demo-data/index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -52,6 +53,7 @@
     "@types/node": "^25.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/seedrandom": "^3.0.8",
     "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.22",
     "baseline-browser-mapping": "^2.8.32",
@@ -61,6 +63,7 @@
     "next-gravity-forms": "^2.1.12",
     "postcss": "^8.5.6",
     "postcss-preset-env": "^10.4.0",
+    "seedrandom": "^3.0.5",
     "stylelint": "^16.26.0",
     "stylelint-config-standard": "^39.0.1",
     "stylelint-order": "^7.0.0",

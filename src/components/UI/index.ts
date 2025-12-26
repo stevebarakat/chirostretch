@@ -1,4 +1,5 @@
 export { default as Button } from "./Button";
+export { BackToTop } from "./BackToTop";
 export { Container } from "./Container";
 export { FormField } from "./FormField";
 export { ImageWrapper } from "./ImageWrapper";

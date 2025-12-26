@@ -82,7 +82,6 @@
       "Bash(ln:*)",
       "Bash(wp core version:*)",
       "Bash(composer install:*)",
-      "mcp__wordpress__mcp-adapter-discover-abilities",
       "Bash(wp --info:*)",
       "Bash(\"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public user list --fields=ID,user_login,user_email)",
       "Bash(wp graphql:*)",
@@ -157,7 +156,13 @@
       "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public plugin list --status=active)",
       "Bash(git -C /Users/sb/Dev/chirostretch diff HEAD -- src/lib/graphql/queries/layout-query.ts src/lib/graphql/queries/footer-content.ts src/app/layout.tsx)",
       "Bash(git -C /Users/sb/Dev/chirostretch checkout HEAD -- src/lib/graphql/queries/layout-query.ts src/lib/graphql/queries/footer-content.ts src/app/layout.tsx src/styles/globals.css src/components/layout/Footer.module.css)",
-      "Bash(git -C /Users/sb/Dev/chirostretch checkout HEAD -- src/components/layout/Footer.tsx)"
+      "Bash(git -C /Users/sb/Dev/chirostretch checkout HEAD -- src/components/layout/Footer.tsx)",
+      "Bash(npx ts-node:*)",
+      "Bash(npx tsx:*)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public eval \"\nif \\(function_exists\\(''acf_get_field_groups''\\)\\) {\n  $groups = acf_get_field_groups\\([''post_type'' => ''location'']\\);\n  foreach \\($groups as $group\\) {\n    $fields = acf_get_fields\\($group[''key'']\\);\n    foreach \\($fields as $field\\) {\n      echo $field[''name''] . '' \\('' . $field[''type''] . ''\\)'' . PHP_EOL;\n    }\n  }\n}\n\")",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public role list --format=table)",
+      "Bash(npm run generate:demo:*)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public chirostretch import reset --yes)"
     ],
     "deny": [],
     "ask": []

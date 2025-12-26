@@ -60,6 +60,7 @@ type HeroProps = {
   };
   description?: string;
   maxHeight?: number;
+  title?: string;
 };
 
 function ButtonIcon({ icon }: { icon?: IconNode }) {
@@ -90,9 +91,10 @@ function Hero({
   heroUnit,
   description,
   maxHeight = 750,
+  title,
 }: HeroProps) {
   const img = featuredImage?.node;
-  const heading = img?.title;
+  const heading = img?.title || title;
   const subheading = img?.description || description;
 
   const style = {

@@ -1,0 +1,647 @@
+[
+  {
+    "_seed_id": "staff_01000",
+    "_location_seed_id": "loc_01000",
+    "name": "Dr. Raymond Rodriguez",
+    "email": "staff-01000@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Lead Chiropractor",
+    "credentials": "DC",
+    "specialties": [
+      "pediatric",
+      "wellness",
+      "posture_correction"
+    ],
+    "bio": "Dr. Raymond Rodriguez has been practicing chiropractic for 5 years. He specializes in helping patients achieve lasting relief through personalized treatment plans.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01001",
+    "_location_seed_id": "loc_01000",
+    "name": "Dr. Betty Clark",
+    "email": "staff-01001@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Senior Physical Therapist",
+    "credentials": "PT, DPT",
+    "specialties": [
+      "strength",
+      "flexibility"
+    ],
+    "bio": "Dr. Betty Clark joined ChiroStretch after 5 years in stretch therapy. Her focus on evidence-based techniques has helped countless patients return to the activities they love.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01002",
+    "_location_seed_id": "loc_01000",
+    "name": "Donna Sanders",
+    "email": "staff-01002@chirostretch.site",
+    "password": "password",
+    "staff_type": "massage_therapist",
+    "job_title": "Licensed Massage Therapist",
+    "credentials": "RMT",
+    "specialties": [
+      "myofascial",
+      "trigger_point",
+      "relaxation"
+    ],
+    "bio": "Donna Sanders joined ChiroStretch after 9 years in massage. Her focus on evidence-based techniques has helped countless patients return to the activities they love.",
+    "services_offered": [
+      "Massage"
+    ],
+    "headshot_slug": "massage-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01003",
+    "_location_seed_id": "loc_01001",
+    "name": "Dr. Heather Ortiz",
+    "email": "staff-01003@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Clinic Director",
+    "credentials": "DC, CCSP",
+    "specialties": [
+      "headaches",
+      "posture_correction"
+    ],
+    "bio": "With a background spanning 19 years in chiropractic, Dr. Heather Ortiz understands that every patient is unique. She tailors each treatment to individual needs and goals.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01004",
+    "_location_seed_id": "loc_01001",
+    "name": "Dr. Tyler Sanders",
+    "email": "staff-01004@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Physical Therapist",
+    "credentials": "DPT",
+    "specialties": [
+      "back_pain",
+      "sports_injuries",
+      "rehab"
+    ],
+    "bio": "A dedicated physical therapist with 14 years of experience, Dr. Tyler Sanders believes in treating the whole person, not just the symptoms. He takes pride in creating customized care plans.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01005",
+    "_location_seed_id": "loc_01001",
+    "name": "Benjamin Ramirez",
+    "email": "staff-01005@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Athletic Therapist",
+    "credentials": "ATC, PES",
+    "specialties": [
+      "wellness",
+      "rehab"
+    ],
+    "bio": "Benjamin Ramirez joined ChiroStretch after 9 years in sports medicine. His focus on evidence-based techniques has helped countless patients return to the activities they love.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01006",
+    "_location_seed_id": "loc_01002",
+    "name": "Dr. Cynthia Rodriguez",
+    "email": "staff-01006@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Lead Chiropractor",
+    "credentials": "DC, DABCO",
+    "specialties": [
+      "posture_correction",
+      "sports_injuries",
+      "headaches"
+    ],
+    "bio": "Dr. Cynthia Rodriguez has been practicing chiropractic for 4 years. She specializes in helping patients achieve lasting relief through personalized treatment plans.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01007",
+    "_location_seed_id": "loc_01002",
+    "name": "Dr. Mark Sanchez",
+    "email": "staff-01007@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Physical Therapist",
+    "credentials": "PT, DPT",
+    "specialties": [
+      "strength",
+      "sports_injuries"
+    ],
+    "bio": "With a background spanning 24 years in stretch therapy, Dr. Mark Sanchez understands that every patient is unique. He tailors each treatment to individual needs and goals.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01008",
+    "_location_seed_id": "loc_01002",
+    "name": "Peter Adams",
+    "email": "staff-01008@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Performance Specialist",
+    "credentials": "CSCS, ATC",
+    "specialties": [
+      "sports_injuries",
+      "rehab"
+    ],
+    "bio": "Peter Adams has been practicing sports medicine for 9 years. He specializes in helping patients achieve lasting relief through personalized treatment plans.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": false
+  },
+  {
+    "_seed_id": "staff_01009",
+    "_location_seed_id": "loc_01003",
+    "name": "Dr. Matthew Scott",
+    "email": "staff-01009@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Chiropractor",
+    "credentials": "DC, DACBSP",
+    "specialties": [
+      "wellness",
+      "headaches"
+    ],
+    "bio": "After 22 years in chiropractic, Dr. Matthew Scott remains committed to continuous learning and excellence. He enjoys building lasting relationships with patients.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01010",
+    "_location_seed_id": "loc_01003",
+    "name": "Dr. Melissa White",
+    "email": "staff-01010@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Mobility Specialist",
+    "credentials": "PT, CSCS",
+    "specialties": [
+      "balance",
+      "rehab"
+    ],
+    "bio": "Dr. Melissa White discovered Her passion for stretch therapy 10 years ago. Today, She combines advanced techniques with compassionate care to help patients thrive.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": false
+  },
+  {
+    "_seed_id": "staff_01011",
+    "_location_seed_id": "loc_01003",
+    "name": "Raymond Brooks",
+    "email": "staff-01011@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Athletic Therapist",
+    "credentials": "CSCS, ATC",
+    "specialties": [
+      "rehab",
+      "sports_injuries"
+    ],
+    "bio": "A dedicated athletic therapist with 6 years of experience, Raymond Brooks believes in treating the whole person, not just the symptoms. He takes pride in creating customized care plans.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01012",
+    "_location_seed_id": "loc_01004",
+    "name": "Dr. Cynthia Thomas",
+    "email": "staff-01012@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Clinic Director",
+    "credentials": "DC, DABCO",
+    "specialties": [
+      "sports_injuries",
+      "pediatric"
+    ],
+    "bio": "A dedicated chiropractor with 18 years of experience, Dr. Cynthia Thomas believes in treating the whole person, not just the symptoms. She takes pride in creating customized care plans.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01013",
+    "_location_seed_id": "loc_01004",
+    "name": "Dr. Alexander Cook",
+    "email": "staff-01013@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Senior Physical Therapist",
+    "credentials": "PT, CSCS",
+    "specialties": [
+      "flexibility",
+      "back_pain",
+      "sports_injuries"
+    ],
+    "bio": "After 20 years in stretch therapy, Dr. Alexander Cook remains committed to continuous learning and excellence. He enjoys building lasting relationships with patients.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01014",
+    "_location_seed_id": "loc_01004",
+    "name": "Laura White",
+    "email": "staff-01014@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Performance Specialist",
+    "credentials": "LAT",
+    "specialties": [
+      "sports_injuries",
+      "wellness"
+    ],
+    "bio": "Laura White discovered Her passion for sports medicine 18 years ago. Today, She combines advanced techniques with compassionate care to help patients thrive.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01015",
+    "_location_seed_id": "loc_01005",
+    "name": "Dr. Brian Cruz",
+    "email": "staff-01015@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Senior Chiropractor",
+    "credentials": "DC, DABCO",
+    "specialties": [
+      "posture_correction",
+      "headaches"
+    ],
+    "bio": "A dedicated chiropractor with 3 years of experience, Dr. Brian Cruz believes in treating the whole person, not just the symptoms. He takes pride in creating customized care plans.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01016",
+    "_location_seed_id": "loc_01005",
+    "name": "Dr. John Murphy",
+    "email": "staff-01016@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Stretch Specialist",
+    "credentials": "PT, CSCS",
+    "specialties": [
+      "balance",
+      "flexibility",
+      "sports_injuries"
+    ],
+    "bio": "After 10 years in stretch therapy, Dr. John Murphy remains committed to continuous learning and excellence. He enjoys building lasting relationships with patients.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01017",
+    "_location_seed_id": "loc_01005",
+    "name": "Karen Davis",
+    "email": "staff-01017@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Performance Specialist",
+    "credentials": "LAT",
+    "specialties": [
+      "injury_prevention",
+      "sports_injuries",
+      "rehab"
+    ],
+    "bio": "With 8 years of experience in sports medicine, Karen Davis brings a patient-centered approach to every session. She is passionate about helping clients move better and feel their best.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01018",
+    "_location_seed_id": "loc_01006",
+    "name": "Dr. Anthony White",
+    "email": "staff-01018@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Clinic Director",
+    "credentials": "DC, DABCO",
+    "specialties": [
+      "posture_correction",
+      "headaches"
+    ],
+    "bio": "With 14 years of experience in chiropractic, Dr. Anthony White brings a patient-centered approach to every session. He is passionate about helping clients move better and feel their best.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01019",
+    "_location_seed_id": "loc_01006",
+    "name": "Dr. Jacob Williams",
+    "email": "staff-01019@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Physical Therapist",
+    "credentials": "DPT",
+    "specialties": [
+      "rehab",
+      "balance",
+      "sports_injuries"
+    ],
+    "bio": "Dr. Jacob Williams brings 17 years of stretch therapy expertise to our team. His gentle approach and attention to detail make him a favorite among patients.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01020",
+    "_location_seed_id": "loc_01006",
+    "name": "Gregory Miller",
+    "email": "staff-01020@chirostretch.site",
+    "password": "password",
+    "staff_type": "massage_therapist",
+    "job_title": "Licensed Massage Therapist",
+    "credentials": "LMT, NCTMB",
+    "specialties": [
+      "relaxation",
+      "sports_massage",
+      "myofascial"
+    ],
+    "bio": "Gregory Miller brings 4 years of massage expertise to our team. His gentle approach and attention to detail make him a favorite among patients.",
+    "services_offered": [
+      "Massage"
+    ],
+    "headshot_slug": "massage-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01021",
+    "_location_seed_id": "loc_01007",
+    "name": "Dr. Joshua Gonzalez",
+    "email": "staff-01021@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Chiropractor",
+    "credentials": "DC, DACBSP",
+    "specialties": [
+      "prenatal",
+      "headaches",
+      "sports_injuries"
+    ],
+    "bio": "After 24 years in chiropractic, Dr. Joshua Gonzalez remains committed to continuous learning and excellence. He enjoys building lasting relationships with patients.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": false
+  },
+  {
+    "_seed_id": "staff_01022",
+    "_location_seed_id": "loc_01007",
+    "name": "Dr. Sarah Flores",
+    "email": "staff-01022@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Stretch Specialist",
+    "credentials": "PT, CSCS",
+    "specialties": [
+      "flexibility",
+      "sports_injuries",
+      "mobility"
+    ],
+    "bio": "Dr. Sarah Flores brings 9 years of stretch therapy expertise to our team. Her gentle approach and attention to detail make her a favorite among patients.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01023",
+    "_location_seed_id": "loc_01007",
+    "name": "Aaron Rivera",
+    "email": "staff-01023@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Sports Medicine Specialist",
+    "credentials": "ATC, PES",
+    "specialties": [
+      "flexibility",
+      "performance"
+    ],
+    "bio": "Aaron Rivera brings 17 years of sports medicine expertise to our team. His gentle approach and attention to detail make him a favorite among patients.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01024",
+    "_location_seed_id": "loc_01008",
+    "name": "Dr. John Reed",
+    "email": "staff-01024@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Senior Chiropractor",
+    "credentials": "DC, CCEP",
+    "specialties": [
+      "wellness",
+      "pediatric"
+    ],
+    "bio": "With 18 years of experience in chiropractic, Dr. John Reed brings a patient-centered approach to every session. He is passionate about helping clients move better and feel their best.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01025",
+    "_location_seed_id": "loc_01008",
+    "name": "Dr. Nathan Cox",
+    "email": "staff-01025@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Physical Therapist",
+    "credentials": "PT, CSCS",
+    "specialties": [
+      "mobility",
+      "back_pain",
+      "balance"
+    ],
+    "bio": "With a background spanning 13 years in stretch therapy, Dr. Nathan Cox understands that every patient is unique. He tailors each treatment to individual needs and goals.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01026",
+    "_location_seed_id": "loc_01008",
+    "name": "Patrick Walker",
+    "email": "staff-01026@chirostretch.site",
+    "password": "password",
+    "staff_type": "massage_therapist",
+    "job_title": "Bodywork Specialist",
+    "credentials": "LMT, CMT",
+    "specialties": [
+      "trigger_point",
+      "swedish"
+    ],
+    "bio": "With 9 years of experience in massage, Patrick Walker brings a patient-centered approach to every session. He is passionate about helping clients move better and feel their best.",
+    "services_offered": [
+      "Massage"
+    ],
+    "headshot_slug": "massage-therapist",
+    "is_public": true,
+    "accepting_patients": false
+  },
+  {
+    "_seed_id": "staff_01027",
+    "_location_seed_id": "loc_01009",
+    "name": "Dr. Barbara Rivera",
+    "email": "staff-01027@chirostretch.site",
+    "password": "password",
+    "staff_type": "chiropractor",
+    "job_title": "Chiropractor",
+    "credentials": "DC",
+    "specialties": [
+      "sports_injuries",
+      "prenatal",
+      "back_pain"
+    ],
+    "bio": "After 6 years in chiropractic, Dr. Barbara Rivera remains committed to continuous learning and excellence. She enjoys building lasting relationships with patients.",
+    "services_offered": [
+      "Chiropractic"
+    ],
+    "headshot_slug": "chiropractor",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01028",
+    "_location_seed_id": "loc_01009",
+    "name": "Dr. Kevin Hernandez",
+    "email": "staff-01028@chirostretch.site",
+    "password": "password",
+    "staff_type": "physical_therapist",
+    "job_title": "Stretch Specialist",
+    "credentials": "PT, CSCS",
+    "specialties": [
+      "flexibility",
+      "mobility",
+      "strength"
+    ],
+    "bio": "Dr. Kevin Hernandez joined ChiroStretch after 6 years in stretch therapy. His focus on evidence-based techniques has helped countless patients return to the activities they love.",
+    "services_offered": [
+      "Stretch Therapy"
+    ],
+    "headshot_slug": "physical-therapist",
+    "is_public": true,
+    "accepting_patients": true
+  },
+  {
+    "_seed_id": "staff_01029",
+    "_location_seed_id": "loc_01009",
+    "name": "Christine Morgan",
+    "email": "staff-01029@chirostretch.site",
+    "password": "password",
+    "staff_type": "athletic_therapist",
+    "job_title": "Athletic Trainer",
+    "credentials": "LAT",
+    "specialties": [
+      "wellness",
+      "flexibility",
+      "performance"
+    ],
+    "bio": "With 12 years of experience in sports medicine, Christine Morgan brings a patient-centered approach to every session. She is passionate about helping clients move better and feel their best.",
+    "services_offered": [
+      "Sports Medicine"
+    ],
+    "headshot_slug": "sports-medicine",
+    "is_public": true,
+    "accepting_patients": true
+  }
+]

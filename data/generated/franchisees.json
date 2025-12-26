@@ -1,0 +1,92 @@
+[
+  {
+    "_seed_id": "franchisee_01000",
+    "_location_seed_id": "loc_01000",
+    "email": "franchisee-01000@chirostretch.site",
+    "first_name": "Angela",
+    "last_name": "Parker",
+    "display_name": "Angela Parker",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01001",
+    "_location_seed_id": "loc_01001",
+    "email": "franchisee-01001@chirostretch.site",
+    "first_name": "Ryan",
+    "last_name": "Gutierrez",
+    "display_name": "Ryan Gutierrez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01002",
+    "_location_seed_id": "loc_01002",
+    "email": "franchisee-01002@chirostretch.site",
+    "first_name": "Douglas",
+    "last_name": "Gomez",
+    "display_name": "Douglas Gomez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01003",
+    "_location_seed_id": "loc_01003",
+    "email": "franchisee-01003@chirostretch.site",
+    "first_name": "Lisa",
+    "last_name": "Walker",
+    "display_name": "Lisa Walker",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01004",
+    "_location_seed_id": "loc_01004",
+    "email": "franchisee-01004@chirostretch.site",
+    "first_name": "Katherine",
+    "last_name": "Lewis",
+    "display_name": "Katherine Lewis",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01005",
+    "_location_seed_id": "loc_01005",
+    "email": "franchisee-01005@chirostretch.site",
+    "first_name": "Gregory",
+    "last_name": "Reed",
+    "display_name": "Gregory Reed",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01006",
+    "_location_seed_id": "loc_01006",
+    "email": "franchisee-01006@chirostretch.site",
+    "first_name": "Joshua",
+    "last_name": "Hughes",
+    "display_name": "Joshua Hughes",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01007",
+    "_location_seed_id": "loc_01007",
+    "email": "franchisee-01007@chirostretch.site",
+    "first_name": "Kyle",
+    "last_name": "Cox",
+    "display_name": "Kyle Cox",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01008",
+    "_location_seed_id": "loc_01008",
+    "email": "franchisee-01008@chirostretch.site",
+    "first_name": "Rachel",
+    "last_name": "Sullivan",
+    "display_name": "Rachel Sullivan",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01009",
+    "_location_seed_id": "loc_01009",
+    "email": "franchisee-01009@chirostretch.site",
+    "first_name": "Nicholas",
+    "last_name": "Harris",
+    "display_name": "Nicholas Harris",
+    "password": "password"
+  }
+]

@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
 import { ModalProvider } from "@/components/Modals";
+import { BackToTop } from "@/components/UI";
 import { getServerCart } from "@/lib/woocommerce/getServerCart";
 import { getGravityForm } from "next-gravity-forms/server";
 import { wpQuery } from "@app/_lib/wp/graphql";
@@ -141,6 +142,7 @@ export default async function RootLayout({
             <Header logo={logo} topMenuItems={topMenuItems} />
             {children}
             <Footer logo={logo} menuItems={footerMenuItems} />
+            <BackToTop />
           </ModalProvider>
         </CartProvider>
       </body>

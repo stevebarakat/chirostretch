@@ -182,6 +182,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
             featuredImage={location.featuredImage}
             description={location.shortDescription}
             heroUnit={location.heroUnit}
+            title={location.title}
           />
         )}
 

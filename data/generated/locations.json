@@ -1,0 +1,512 @@
+[
+  {
+    "_seed_id": "loc_01000",
+    "name": "ChiroStretch New York: School Parkway",
+    "street_address": "3337 School Parkway",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10062",
+    "phone": "(212) 555-6375",
+    "email": "new-york@chirostretch.site",
+    "short_description": "Your neighborhood wellness destination on School Parkway in New York. Meet our practitioners: Dr. Raymond Rodriguez, Dr. Betty Clark, and Donna Sanders—specializing in chiropractic adjustments and assisted stretching.",
+    "latitude": 40.646535,
+    "longitude": -73.956116,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "9:00 AM",
+        "close": "2:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "Closed",
+        "close": "Closed"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01001",
+    "name": "ChiroStretch New York: South Walnut Boulevard",
+    "street_address": "8452 South Walnut Boulevard",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10013",
+    "phone": "(212) 555-8215",
+    "email": "new-york-2@chirostretch.site",
+    "short_description": "At our South Walnut Boulevard studio in New York, Dr. Heather Ortiz, Dr. Tyler Sanders, and Benjamin Ramirez blend traditional chiropractic care with modern stretch therapy to optimize your movement and well-being.",
+    "latitude": 40.765404,
+    "longitude": -73.967734,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "7:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "8:00 AM",
+        "close": "4:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "10:00 AM",
+        "close": "2:00 PM"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01002",
+    "name": "ChiroStretch Los Angeles: Walnut Circle",
+    "street_address": "8733 Walnut Circle",
+    "city": "Los Angeles",
+    "state": "California",
+    "zip": "90003",
+    "phone": "(213) 555-8126",
+    "email": "los-angeles@chirostretch.site",
+    "short_description": "The Los Angeles community trusts Dr. Cynthia Rodriguez, Dr. Mark Sanchez, and Peter Adams at our Walnut Circle clinic for professional chiropractic services and holistic wellness programs.",
+    "latitude": 34.041681,
+    "longitude": -118.196389,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "7:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "8:00 AM",
+        "close": "4:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "10:00 AM",
+        "close": "2:00 PM"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01003",
+    "name": "ChiroStretch Chicago: Jackson Road",
+    "street_address": "534 Jackson Road",
+    "city": "Chicago",
+    "state": "Illinois",
+    "zip": "60615",
+    "phone": "(312) 555-1120",
+    "email": "chicago@chirostretch.site",
+    "short_description": "Welcome to ChiroStretch Chicago! Our Jackson Road team includes Dr. Matthew Scott, Dr. Melissa White, and Raymond Brooks, combining chiropractic expertise with innovative stretch therapy.",
+    "latitude": 41.828157,
+    "longitude": -87.641377,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "10:00 AM",
+        "close": "7:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "10:00 AM",
+        "close": "7:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "10:00 AM",
+        "close": "7:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "10:00 AM",
+        "close": "7:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "10:00 AM",
+        "close": "5:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "Closed",
+        "close": "Closed"
+      },
+      {
+        "day": "Sunday",
+        "open": "Closed",
+        "close": "Closed"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01004",
+    "name": "ChiroStretch Houston: Meadow Drive",
+    "street_address": "5657 Meadow Drive",
+    "city": "Houston",
+    "state": "Texas",
+    "zip": "77023",
+    "phone": "(713) 555-5436",
+    "email": "houston@chirostretch.site",
+    "short_description": "At our Meadow Drive studio in Houston, Dr. Cynthia Thomas, Dr. Alexander Cook, and Laura White blend traditional chiropractic care with modern stretch therapy to optimize your movement and well-being.",
+    "latitude": 29.709662,
+    "longitude": -95.437451,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "7:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "8:00 AM",
+        "close": "4:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "10:00 AM",
+        "close": "2:00 PM"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01005",
+    "name": "ChiroStretch Phoenix: Academy Lane",
+    "street_address": "3004 Academy Lane",
+    "city": "Phoenix",
+    "state": "Arizona",
+    "zip": "85092",
+    "phone": "(602) 555-9166",
+    "email": "phoenix@chirostretch.site",
+    "short_description": "Discover relief at our Academy Lane location in Phoenix. Our licensed practitioners—Dr. Brian Cruz, Dr. John Murphy, and Karen Davis—deliver personalized chiropractic care for lasting results.",
+    "latitude": 33.453725,
+    "longitude": -112.03261,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "7:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "8:00 AM",
+        "close": "4:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "10:00 AM",
+        "close": "2:00 PM"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01006",
+    "name": "ChiroStretch Philadelphia: Ridge Road",
+    "street_address": "9474 Ridge Road",
+    "city": "Philadelphia",
+    "state": "Pennsylvania",
+    "zip": "19170",
+    "phone": "(215) 555-5103",
+    "email": "philadelphia@chirostretch.site",
+    "short_description": "Welcome to ChiroStretch Philadelphia! Our Ridge Road team includes Dr. Anthony White, Dr. Jacob Williams, and Gregory Miller, combining chiropractic expertise with innovative stretch therapy.",
+    "latitude": 40.021303,
+    "longitude": -75.109601,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "7:00 AM",
+        "close": "8:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "7:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "8:00 AM",
+        "close": "4:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "10:00 AM",
+        "close": "2:00 PM"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01007",
+    "name": "ChiroStretch San Antonio: Ridge Court",
+    "street_address": "8639 Ridge Court",
+    "city": "San Antonio",
+    "state": "Texas",
+    "zip": "78263",
+    "phone": "(210) 555-6931",
+    "email": "san-antonio@chirostretch.site",
+    "short_description": "Welcome to ChiroStretch San Antonio! Our Ridge Court team includes Dr. Joshua Gonzalez, Dr. Sarah Flores, and Aaron Rivera, combining chiropractic expertise with innovative stretch therapy.",
+    "latitude": 29.436468,
+    "longitude": -98.528133,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "9:00 AM",
+        "close": "2:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "Closed",
+        "close": "Closed"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01008",
+    "name": "ChiroStretch San Diego: East Pine Circle",
+    "street_address": "4566 East Pine Circle",
+    "city": "San Diego",
+    "state": "California",
+    "zip": "92119",
+    "phone": "(619) 555-9034",
+    "email": "san-diego@chirostretch.site",
+    "short_description": "Discover relief at our East Pine Circle location in San Diego. Our licensed practitioners—Dr. John Reed, Dr. Nathan Cox, and Patrick Walker—deliver personalized chiropractic care for lasting results.",
+    "latitude": 32.753599,
+    "longitude": -117.222717,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "9:00 AM",
+        "close": "2:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "Closed",
+        "close": "Closed"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  },
+  {
+    "_seed_id": "loc_01009",
+    "name": "ChiroStretch Dallas: Church Trail",
+    "street_address": "4713 Church Trail",
+    "city": "Dallas",
+    "state": "Texas",
+    "zip": "75266",
+    "phone": "(214) 555-6590",
+    "email": "dallas@chirostretch.site",
+    "short_description": "Your neighborhood wellness destination on Church Trail in Dallas. Meet our practitioners: Dr. Barbara Rivera, Dr. Kevin Hernandez, and Christine Morgan—specializing in chiropractic adjustments and assisted stretching.",
+    "latitude": 32.723144,
+    "longitude": -96.79255,
+    "hours": [
+      {
+        "day": "Monday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Wednesday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Thursday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Friday",
+        "open": "9:00 AM",
+        "close": "6:00 PM"
+      },
+      {
+        "day": "Saturday",
+        "open": "9:00 AM",
+        "close": "2:00 PM"
+      },
+      {
+        "day": "Sunday",
+        "open": "Closed",
+        "close": "Closed"
+      }
+    ],
+    "featured_image_slug": "chirostretch-default"
+  }
+]
