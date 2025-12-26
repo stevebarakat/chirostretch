@@ -1,15 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { PageHeader } from "@/components/UI/PageHeader";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
+import { ProductCard } from "@/components/ProductCard";
 import { wpQuery } from "@/app/_lib/wp/graphql";
 import {
   ALL_PRODUCTS_QUERY,
   type AllProductsResponse,
 } from "@/lib/graphql/queries";
-import { formatPrice } from "@/lib/utils/formatPrice";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -32,60 +28,19 @@ export default async function ShopPage() {
             {products.map((product) => {
               if (!product.slug) return null;
 
-              const image = product.featuredImage?.node;
-              const imageWidth = image?.mediaDetails?.width || 400;
-              const imageHeight = image?.mediaDetails?.height || 400;
-              const isOnSale =
-                product.salePrice &&
-                product.regularPrice &&
-                product.salePrice !== product.regularPrice;
-              const displayPrice =
-                product.salePrice || product.price || product.regularPrice;
-
               return (
-                <Link
+                <ProductCard
                   key={product.id || product.slug}
-                  href={`/products/${product.slug}`}
-                  className={styles.card}
-                >
-                  {image?.sourceUrl ? (
-                    <ImageWrapper className={styles.imageWrapper}>
-                      <Image
-                        src={image.sourceUrl}
-                        alt={image.altText || product.name || "Product image"}
-                        width={imageWidth}
-                        height={imageHeight}
-                        className={styles.image}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                      {isOnSale && (
-                        <span className={styles.saleBadge}>Sale</span>
-                      )}
-                    </ImageWrapper>
-                  ) : (
-                    <ImageWrapper className={styles.imageWrapper}>
-                      <NoImage />
-                    </ImageWrapper>
-                  )}
-                  <div className={styles.content}>
-                    <h3 className={styles.title}>{product.name}</h3>
-                    <div className={styles.priceContainer}>
-                      {isOnSale && product.regularPrice && (
-                        <span className={styles.regularPrice}>
-                          {formatPrice(product.regularPrice)}
-                        </span>
-                      )}
-                      {displayPrice && (
-                        <span className={styles.price}>
-                          {formatPrice(displayPrice)}
-                        </span>
-                      )}
-                    </div>
-                    {product.stockStatus === "OUT_OF_STOCK" && (
-                      <span className={styles.outOfStock}>Out of Stock</span>
-                    )}
-                  </div>
-                </Link>
+                  id={product.id}
+                  databaseId={product.databaseId}
+                  name={product.name}
+                  slug={product.slug}
+                  price={product.price}
+                  regularPrice={product.regularPrice}
+                  salePrice={product.salePrice}
+                  featuredImage={product.featuredImage}
+                  stockStatus={product.stockStatus}
+                />
               );
             })}
           </div>

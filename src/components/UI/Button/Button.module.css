@@ -175,4 +175,5 @@ a.glass:hover {
 
 .icon svg {
   stroke: currentColor;
+  pointer-events: none;
 }

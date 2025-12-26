@@ -6,6 +6,7 @@ import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import styles from "./CartSummary.module.css";
+import clsx from "clsx";
 
 export default function CartSummary() {
   const itemsCount = useCartStore((s) => s.itemsCount);
@@ -19,7 +20,10 @@ export default function CartSummary() {
   const formattedPrice = formatPrice(totals?.total_items);
 
   return (
-    <Link href="/cart" className={styles.cartSummary}>
+    <Link
+      href="/cart"
+      className={clsx(styles.cartSummary, styles.featuredCartSummary)}
+    >
       <span className={styles.cartText}>
         {formattedPrice} {itemsCount} {itemsCount === 1 ? "item" : "items"}
       </span>

@@ -257,6 +257,51 @@ Editor → serialized HTML → parse → pray
 - Never query `innerHTML` — always query structured ACF data via GraphQL
 - Blocks are data schemas, not templates
 
+### Block Rendering Rules
+
+The BlockRenderer follows a strict separation:
+
+| Category | Blocks | Data Source | Renderer |
+|----------|--------|-------------|----------|
+| **Structured** | `core/image`, `core/columns`, `b-chart/chart`, `gravityforms/form` | `block.attributes` (JSON) | React component |
+| **Rich text** | `core/paragraph`, `core/heading` | `block.innerHTML` | `parseHtml()` → React |
+| **Fallback** | Unknown blocks | `block.innerHTML` | `dangerouslySetInnerHTML` |
+
+**The rules:**
+
+- Prose blocks (paragraph, heading) render from HTML via `parseHtml`
+- UI blocks render from structured attributes
+- Block HTML is never trusted as layout or behavior
+- `dangerouslySetInnerHTML` is a fallback, not a pattern
+- `parseHtml` converts links only — it is not an interpreter or mini-renderer
+
+**If you need more control, the answer is: "That needs a real block."**
+
+**Paragraph vs Stretchy (the key distinction):**
+
+| | Paragraph Block | Stretchy Block |
+|---|---|---|
+| **Purpose** | Prose / content | Controlled typography |
+| **Storage** | HTML | Structured attributes |
+| **Question it answers** | "What is being said?" | "How should this look?" |
+| **Rendering** | HTML → parseHtml → React | JSON → React |
+| **Ownership** | Author | Design system |
+
+**Use Paragraph** for body copy, blog prose, inline links/emphasis — when semantics are purely textual.
+
+**Use Stretchy** for hero titles, section headers, callouts, UI labels — when typography conveys meaning and consistency matters more than flexibility.
+
+The test: *"Can I point at this and say it's part of the UI, not just words?"* → Stretchy.
+
+**Paragraph blocks are for language. Stretchy blocks are for design.**
+
+**Red flags (architectural regressions):**
+
+- Parsing HTML from Columns or Groups
+- Rendering `block.innerHTML` for known UI blocks
+- Letting chart/form blocks output WordPress markup
+- Adding styling logic to `parseHtml`
+
 ### Options Pages
 
 Same pattern, one nuance.

@@ -12,7 +12,8 @@ export async function GET() {
       return createCartResponse(data, status, setCookieHeaders);
     }
 
-    const shippingRates = data.shipping_rates || [];
+    const cartData = data as { shipping_rates?: unknown[] };
+    const shippingRates = cartData.shipping_rates || [];
 
     if (shippingRates.length === 0) {
       console.warn("No shipping rates found in cart response.");

@@ -39,9 +39,11 @@ export const HOMEPAGE_QUERY = `
         reviewCount
         ... on SimpleProduct {
           price
+          stockStatus
         }
         ... on VariableProduct {
           price
+          stockStatus
         }
         ... on ExternalProduct {
           price

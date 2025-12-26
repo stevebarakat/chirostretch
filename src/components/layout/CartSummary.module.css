@@ -6,6 +6,7 @@
   text-decoration: none;
   color: var(--color-text-primary);
   transition: color var(--transition-base);
+  justify-self: flex-end;
 }
 
 .cartSummary:hover {
@@ -19,4 +20,12 @@
 .cartIcon {
   flex-shrink: 0;
   color: currentColor;
+}
+
+.featuredCartSummary {
+  color: var(--color-text-inverse) !important;
+}
+
+.featuredCartSummary:hover {
+  text-decoration: underline;
 }

@@ -69,11 +69,15 @@ function Button({
   const content = (
     <>
       {icon && iconPosition === "left" && (
-        <span className={styles.icon}>{icon}</span>
+        <span className={styles.icon} tabIndex={-1} aria-hidden="true">
+          {icon}
+        </span>
       )}
       {children}
       {icon && iconPosition === "right" && (
-        <span className={styles.icon}>{icon}</span>
+        <span className={styles.icon} tabIndex={-1} aria-hidden="true">
+          {icon}
+        </span>
       )}
     </>
   );

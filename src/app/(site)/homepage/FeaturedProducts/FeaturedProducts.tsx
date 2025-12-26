@@ -2,14 +2,10 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
-import { Button } from "@/components/UI/Button";
-import { StarRating } from "@/components/UI/StarRating";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
+import { ProductCard } from "@/components/ProductCard";
+import CartSummary from "@/components/Layout/CartSummary";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -25,6 +21,7 @@ type Product = {
   price?: string;
   averageRating?: number;
   reviewCount?: number;
+  stockStatus?: string;
   image?: {
     sourceUrl?: string;
     altText?: string;
@@ -67,6 +64,7 @@ type FeaturedProductsProps = {
       price?: string;
       averageRating?: number;
       reviewCount?: number;
+      stockStatus?: string;
       featuredImage?: {
         node?: {
           id?: string;
@@ -106,6 +104,7 @@ export default function FeaturedProducts({
           price: product.price,
           averageRating: product.averageRating,
           reviewCount: product.reviewCount,
+          stockStatus: product.stockStatus,
           featuredImage: product.featuredImage,
         });
       }
@@ -136,11 +135,18 @@ export default function FeaturedProducts({
   return (
     <section id="featured-products" className={styles.section}>
       <Container>
-        <SectionHeading
-          color="var(--color-text-inverse)"
-          heading={featuredProductsHeading}
-          subheading={featuredProductsSubheading}
-        />
+        <div className={styles.header}>
+          {/* empty spacer div to help center heading*/}
+          <div></div>
+          <SectionHeading
+            color="var(--color-text-inverse)"
+            heading={featuredProductsHeading}
+            subheading={featuredProductsSubheading}
+          />
+          <div className={styles.cartWrapper}>
+            <CartSummary />
+          </div>
+        </div>
         {products.length > 0 ? (
           <div className={styles.swiperWrapper}>
             <Swiper
@@ -163,109 +169,24 @@ export default function FeaturedProducts({
               }}
               className={styles.swiper}
             >
-              {products.map((product, index) => {
-                const productName = product.name || product.title || "Product";
-                const productSlug = product.slug;
-
-                const imageUrl = product.featuredImage?.node?.sourceUrl;
-                const imageAlt =
-                  product.featuredImage?.node?.altText || productName;
-                const imageSizes = product.featuredImage?.node?.sizes;
-
-                const rating = product.averageRating ?? 0;
-                const reviewCount = product.reviewCount ?? 0;
-
-                return (
-                  <SwiperSlide key={product.id} className={styles.slide}>
-                    <div className={styles.productCard}>
-                      {imageUrl ? (
-                        <ImageWrapper className={styles.imageWrapper}>
-                          <Image
-                            src={imageUrl}
-                            alt={imageAlt}
-                            fill
-                            quality={75}
-                            sizes={imageSizes}
-                            className={styles.image}
-                            priority={index === 0}
-                            fetchPriority={index === 0 ? "high" : "auto"}
-                          />
-                        </ImageWrapper>
-                      ) : (
-                        <ImageWrapper className={styles.imageWrapper}>
-                          <NoImage />
-                        </ImageWrapper>
-                      )}
-                      <div className={styles.overlay}>
-                        <div className={styles.overlayContent}>
-                          {(product.name || product.title) && (
-                            <h3 className={styles.name}>
-                              {productSlug ? (
-                                <Link href={`/products/${productSlug}`}>
-                                  {productName}
-                                </Link>
-                              ) : (
-                                productName
-                              )}
-                            </h3>
-                          )}
-                          <div className={styles.contentInner}>
-                            {(rating > 0 || reviewCount > 0) && (
-                              <div className={styles.rating}>
-                                <StarRating
-                                  rating={rating}
-                                  reviewCount={reviewCount}
-                                />
-                              </div>
-                            )}
-                            {product.price && (
-                              <div className={styles.price}>
-                                {product.price}
-                              </div>
-                            )}
-                            {productSlug && (
-                              <Button
-                                as="a"
-                                href={`/products/${productSlug}`}
-                                color="secondary"
-                                variant="inverse"
-                                className={styles.viewItemButton}
-                                aria-description={`View details for ${productName}`}
-                              >
-                                View Item
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.content}>
-                        {productName && (
-                          <h3 className={styles.name}>
-                            {productSlug ? (
-                              <Link href={`/products/${productSlug}`}>
-                                {productName}
-                              </Link>
-                            ) : (
-                              productName
-                            )}
-                          </h3>
-                        )}
-                        <div className={styles.ratingPriceRow}>
-                          <div className={styles.rating}>
-                            <StarRating
-                              rating={rating}
-                              reviewCount={reviewCount}
-                            />
-                          </div>
-                          {product.price && (
-                            <div className={styles.price}>{product.price}</div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
+              {products.map((product, index) => (
+                <SwiperSlide key={product.id} className={styles.slide}>
+                  <ProductCard
+                    id={product.id}
+                    databaseId={product.databaseId}
+                    name={product.name || product.title}
+                    slug={product.slug}
+                    price={product.price}
+                    featuredImage={product.featuredImage}
+                    averageRating={product.averageRating}
+                    reviewCount={product.reviewCount}
+                    stockStatus={product.stockStatus}
+                    variant="featured"
+                    priority={index === 0}
+                    className={styles.productCard}
+                  />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         ) : (
