@@ -4,9 +4,6 @@ import ImageBlock from "../ImageBlock";
 import ChartBlock from "../ChartBlock";
 import { normalizeChartBlock } from "../ChartBlock/parseChartData";
 import GravityFormBlock from "../GravityFormBlock";
-import Stack from "../Stack";
-import Row from "../Row";
-import Grid from "../Grid";
 
 export type Block = {
   name: string;
@@ -146,10 +143,24 @@ export default function BlockRenderer({
             );
 
           case "core/group":
+          case "core/column":
             if (block.innerBlocks && block.innerBlocks.length > 0) {
               return <BlockRenderer key={key} blocks={block.innerBlocks} />;
             }
             return null;
+
+          case "core/columns":
+            return (
+              <div key={key} style={{ display: "flex", gap: "1rem" }}>
+                {block.innerBlocks?.map((col, colIndex) => (
+                  <div key={`col-${colIndex}`} style={{ flex: 1 }}>
+                    {col.innerBlocks && col.innerBlocks.length > 0 && (
+                      <BlockRenderer blocks={col.innerBlocks} />
+                    )}
+                  </div>
+                ))}
+              </div>
+            );
 
           case "b-chart/chart":
             if (!block.attributes) return null;
@@ -159,53 +170,6 @@ export default function BlockRenderer({
 
           case "gravityforms/form":
             return <GravityFormBlock key={key} block={block} />;
-
-          case "acf/stack": {
-            const stackAttrs = block.attributes as { gap?: string };
-            return (
-              <Stack key={key} gap={(stackAttrs?.gap as "xs" | "sm" | "md" | "lg" | "xl") || "md"}>
-                {block.innerBlocks && <BlockRenderer blocks={block.innerBlocks} />}
-              </Stack>
-            );
-          }
-
-          case "acf/row": {
-            const rowAttrs = block.attributes as {
-              gap?: string;
-              align?: string;
-              wrap?: boolean;
-            };
-            return (
-              <Row
-                key={key}
-                gap={(rowAttrs?.gap as "xs" | "sm" | "md" | "lg" | "xl") || "md"}
-                align={(rowAttrs?.align as "start" | "center" | "end" | "between" | "around") || "start"}
-                wrap={rowAttrs?.wrap ?? false}
-              >
-                {block.innerBlocks && <BlockRenderer blocks={block.innerBlocks} />}
-              </Row>
-            );
-          }
-
-          case "acf/grid": {
-            const gridAttrs = block.attributes as {
-              columns?: number;
-              columns_md?: number;
-              columns_lg?: number;
-              gap?: string;
-            };
-            return (
-              <Grid
-                key={key}
-                columns={gridAttrs?.columns ?? 1}
-                columnsMd={gridAttrs?.columns_md}
-                columnsLg={gridAttrs?.columns_lg}
-                gap={(gridAttrs?.gap as "xs" | "sm" | "md" | "lg" | "xl") || "md"}
-              >
-                {block.innerBlocks && <BlockRenderer blocks={block.innerBlocks} />}
-              </Grid>
-            );
-          }
 
           default:
             if (block.innerHTML) {
