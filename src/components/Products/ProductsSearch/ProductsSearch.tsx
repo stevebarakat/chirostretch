@@ -1,0 +1,36 @@
+"use client";
+
+import { InstantSearch, Configure } from "react-instantsearch-hooks-web";
+import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
+import { algoliaConfig } from "@/config/algolia.config";
+import { PageHeader } from "@/components/UI/PageHeader";
+import { AlgoliaSearchBox } from "@/components/Search";
+import { InfiniteProductsHits } from "./InfiniteProductsHits";
+import styles from "./ProductsSearch.module.css";
+
+export function ProductsSearch() {
+  if (!isAlgoliaConfigured() || !searchClient) {
+    return (
+      <div className={styles.error}>
+        <p>Search is not configured. Please check your Algolia settings.</p>
+      </div>
+    );
+  }
+
+  return (
+    // @ts-expect-error - react-instantsearch-hooks-web types not compatible with React 19
+    <InstantSearch
+      searchClient={searchClient as any}
+      indexName={algoliaConfig.indices.products}
+    >
+      <Configure hitsPerPage={12} />
+      <PageHeader
+        title="Shop"
+        subtitle="Browse our collection"
+        showCart
+        searchSlot={<AlgoliaSearchBox placeholder="Search products..." />}
+      />
+      <InfiniteProductsHits />
+    </InstantSearch>
+  );
+}

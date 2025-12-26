@@ -98,7 +98,7 @@ function Hero({
   const subheading = img?.description || description;
 
   const style = {
-    "--max-height": `${maxHeight}px`,
+    maxHeight: `${maxHeight}px`,
   } as React.CSSProperties;
 
   const initialUrl = getSafeImageUrl(img?.sourceUrl || "", "hero");

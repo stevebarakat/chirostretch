@@ -30,11 +30,53 @@ function formatStaffList(names: string[]): string {
   return `${allButLast}, and ${names[names.length - 1]}`;
 }
 
-function parseArgs(): { count: number; seed: string; offset: number } {
+type ParsedArgs = {
+  count: number;
+  seed: string;
+  offset: number;
+  append: boolean;
+  reset: boolean;
+};
+
+function getNextOffsetFromExisting(): { offset: number; batchNum: number } {
+  const locationsPath = path.join(OUTPUT_DIR, "locations.json");
+
+  if (!fs.existsSync(locationsPath)) {
+    return { offset: 1000, batchNum: 1 };
+  }
+
+  try {
+    const existing = JSON.parse(fs.readFileSync(locationsPath, "utf-8"));
+    if (!Array.isArray(existing) || existing.length === 0) {
+      return { offset: 1000, batchNum: 1 };
+    }
+
+    // Find highest seed ID number
+    let maxId = 0;
+    for (const loc of existing) {
+      const match = loc._seed_id?.match(/loc_(\d+)/);
+      if (match) {
+        maxId = Math.max(maxId, parseInt(match[1], 10));
+      }
+    }
+
+    // Next offset starts after highest ID, rounded up to next 1000
+    const nextOffset = Math.ceil((maxId + 1) / 1000) * 1000;
+    const batchNum = Math.floor(nextOffset / 1000);
+
+    return { offset: nextOffset, batchNum };
+  } catch {
+    return { offset: 1000, batchNum: 1 };
+  }
+}
+
+function parseArgs(): ParsedArgs {
   const args = process.argv.slice(2);
   let count = 100;
   let seed = "demo-seed-42";
   let offset = 1000;
+  let append = false;
+  let reset = false;
 
   for (const arg of args) {
     if (arg.startsWith("--count=")) {
@@ -43,16 +85,52 @@ function parseArgs(): { count: number; seed: string; offset: number } {
       seed = arg.split("=")[1];
     } else if (arg.startsWith("--offset=")) {
       offset = parseInt(arg.split("=")[1], 10);
+    } else if (arg === "--append") {
+      append = true;
+    } else if (arg === "--reset") {
+      reset = true;
     }
   }
 
-  return { count, seed, offset };
+  // In append mode, auto-calculate offset and seed
+  if (append) {
+    const { offset: nextOffset, batchNum } = getNextOffsetFromExisting();
+    offset = nextOffset;
+    seed = `demo-seed-batch-${batchNum}`;
+  }
+
+  return { count, seed, offset, append, reset };
+}
+
+function loadExistingData<T>(filename: string): T[] {
+  const filepath = path.join(OUTPUT_DIR, filename);
+  if (!fs.existsSync(filepath)) return [];
+  try {
+    const data = JSON.parse(fs.readFileSync(filepath, "utf-8"));
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
 }
 
 function main() {
-  const { count, seed, offset } = parseArgs();
+  const { count, seed, offset, append, reset } = parseArgs();
 
-  console.log(`Generating ${count} locations with seed "${seed}" (offset: ${offset})`);
+  // Handle reset
+  if (reset) {
+    const files = ["locations.json", "staff.json", "franchisees.json"];
+    for (const file of files) {
+      const filepath = path.join(OUTPUT_DIR, file);
+      if (fs.existsSync(filepath)) {
+        fs.unlinkSync(filepath);
+      }
+    }
+    console.log("Reset: Cleared all generated data");
+    if (count === 0) return;
+  }
+
+  const mode = append ? "Appending" : "Generating";
+  console.log(`${mode} ${count} locations with seed "${seed}" (offset: ${offset})`);
 
   // Load source data
   const cities = loadJson<CityData[]>("us-cities.json");
@@ -115,13 +193,31 @@ function main() {
   const staffPath = path.join(OUTPUT_DIR, "staff.json");
   const franchiseesPath = path.join(OUTPUT_DIR, "franchisees.json");
 
-  fs.writeFileSync(locationsPath, JSON.stringify(locations, null, 2));
-  fs.writeFileSync(staffPath, JSON.stringify(staff, null, 2));
-  fs.writeFileSync(franchiseesPath, JSON.stringify(franchisees, null, 2));
+  // In append mode, merge with existing data
+  let finalLocations = locations;
+  let finalStaff = staff;
+  let finalFranchisees = franchisees;
 
-  console.log(`Generated ${locations.length} locations → ${locationsPath}`);
-  console.log(`Generated ${staff.length} staff → ${staffPath}`);
-  console.log(`Generated ${franchisees.length} franchisees → ${franchiseesPath}`);
+  if (append) {
+    const existingLocations = loadExistingData<typeof locations[0]>("locations.json");
+    const existingStaff = loadExistingData<typeof staff[0]>("staff.json");
+    const existingFranchisees = loadExistingData<typeof franchisees[0]>("franchisees.json");
+
+    finalLocations = [...existingLocations, ...locations];
+    finalStaff = [...existingStaff, ...staff];
+    finalFranchisees = [...existingFranchisees, ...franchisees];
+
+    console.log(`Existing: ${existingLocations.length} locations, ${existingStaff.length} staff, ${existingFranchisees.length} franchisees`);
+  }
+
+  fs.writeFileSync(locationsPath, JSON.stringify(finalLocations, null, 2));
+  fs.writeFileSync(staffPath, JSON.stringify(finalStaff, null, 2));
+  fs.writeFileSync(franchiseesPath, JSON.stringify(finalFranchisees, null, 2));
+
+  const verb = append ? "Total" : "Generated";
+  console.log(`${verb}: ${finalLocations.length} locations → ${locationsPath}`);
+  console.log(`${verb}: ${finalStaff.length} staff → ${staffPath}`);
+  console.log(`${verb}: ${finalFranchisees.length} franchisees → ${franchiseesPath}`);
   console.log("Done!");
 }
 

@@ -162,7 +162,10 @@
       "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public eval \"\nif \\(function_exists\\(''acf_get_field_groups''\\)\\) {\n  $groups = acf_get_field_groups\\([''post_type'' => ''location'']\\);\n  foreach \\($groups as $group\\) {\n    $fields = acf_get_fields\\($group[''key'']\\);\n    foreach \\($fields as $field\\) {\n      echo $field[''name''] . '' \\('' . $field[''type''] . ''\\)'' . PHP_EOL;\n    }\n  }\n}\n\")",
       "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public role list --format=table)",
       "Bash(npm run generate:demo:*)",
-      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public chirostretch import reset --yes)"
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public chirostretch import reset --yes)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "WebFetch(domain:www.algolia.com)"
     ],
     "deny": [],
     "ask": []

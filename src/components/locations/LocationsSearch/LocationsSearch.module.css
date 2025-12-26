@@ -1,0 +1,10 @@
+.error {
+  padding: var(--spacing-3xl);
+  text-align: center;
+}
+
+.error p {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-tertiary);
+}

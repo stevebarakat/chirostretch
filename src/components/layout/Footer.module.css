@@ -18,32 +18,6 @@
   gap: var(--spacing-md);
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-sm);
-  font-family: var(--font-secondary);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-}
-
-.logoImage {
-  width: auto;
-  height: auto;
-  max-height: 50px;
-  object-fit: contain;
-}
-
-.logoChiro {
-  color: var(--color-neutral-900);
-}
-
-.logoStretch {
-  color: hsl(270, 70%, 55%);
-}
-
 .description {
   margin-bottom: var(--spacing-sm);
   line-height: var(--line-height-relaxed);
