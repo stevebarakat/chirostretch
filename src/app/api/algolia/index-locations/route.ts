@@ -12,21 +12,22 @@ const SINGLE_LOCATION_QUERY = `
       slug
       title
       content
+      shortDescription
+      city
+      state
+      streetAddress
+      zip
+      phone
+      email
+      coordinates {
+        lat
+        lng
+      }
       featuredImage {
         node {
           sourceUrl
           altText
         }
-      }
-      locationDetails {
-        streetAddress
-        city
-        state
-        zip
-        phone
-        email
-        shortDescription
-        services
       }
     }
   }
@@ -38,26 +39,22 @@ type Location = {
   slug?: string;
   title?: string;
   content?: string;
+  shortDescription?: string;
+  city?: string;
+  state?: string;
+  streetAddress?: string;
+  zip?: string;
+  phone?: string;
+  email?: string;
+  coordinates?: {
+    lat?: number;
+    lng?: number;
+  };
   featuredImage?: {
     node?: {
       sourceUrl?: string;
       altText?: string;
     };
-  };
-  locationDetails?: {
-    city?: string;
-    email?: string;
-    hours?: Array<{
-      close?: string;
-      day?: string;
-      open?: string;
-    }>;
-    phone?: string;
-    services?: string[];
-    shortDescription?: string;
-    state?: string;
-    streetAddress?: string;
-    zip?: string;
   };
 };
 
@@ -76,21 +73,20 @@ function transformLocationToAlgolia(location: Location) {
     ? location.content.replace(/<[^>]*>/g, "").substring(0, 500)
     : "";
 
-  const details = location.locationDetails;
-
   return {
     objectID: location.id || location.databaseId?.toString() || "",
     title: location.title || "",
     slug: location.slug || "",
     content: contentText,
-    city: details?.city || "",
-    state: details?.state || "",
-    streetAddress: details?.streetAddress || "",
-    zip: details?.zip || "",
-    phone: details?.phone || "",
-    email: details?.email || "",
-    shortDescription: details?.shortDescription || "",
-    services: details?.services || [],
+    city: location.city || "",
+    state: location.state || "",
+    streetAddress: location.streetAddress || "",
+    zip: location.zip || "",
+    phone: location.phone || "",
+    email: location.email || "",
+    shortDescription: location.shortDescription || "",
+    latitude: location.coordinates?.lat || null,
+    longitude: location.coordinates?.lng || null,
     image: location.featuredImage?.node?.sourceUrl || "",
     imageAlt: location.featuredImage?.node?.altText || "",
     type: "location" as const,

@@ -40,7 +40,6 @@
   color: var(--color-text-primary);
   background: none;
   border: none;
-  cursor: pointer;
   transition: color var(--transition-base);
 }
 

@@ -33,9 +33,6 @@ type SelectProps = BaseInputProps &
 
 type InputComponentProps = InputProps | TextareaProps | SelectProps;
 
-function Input(props: InputProps): JSX.Element;
-function Input(props: TextareaProps): JSX.Element;
-function Input(props: SelectProps): JSX.Element;
 function Input({
   as,
   className,

@@ -14,8 +14,8 @@ const LocationMap = dynamic(
 type LocationMapWrapperProps = {
   title?: string;
   coordinates?: {
-    lat?: number;
-    lng?: number;
+    lat?: number | null;
+    lng?: number | null;
   };
   address?: string;
   mapEmbed?: string;

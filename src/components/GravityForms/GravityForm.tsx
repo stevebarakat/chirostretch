@@ -164,5 +164,6 @@ export function GravityForm({ form }: GravityFormProps) {
     }
   }, [form, processedForm]);
 
-  return <GravityFormForm data={processedForm} />;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return <GravityFormForm data={processedForm as any} />;
 }

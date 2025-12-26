@@ -1,46 +1,37 @@
-import Image from "next/image";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
+import { StreetViewEmbed } from "@/components/Locations/StreetViewEmbed";
 import LocationMapWrapper from "@/components/Locations/LocationMapWrapper";
 import styles from "./LocationCard.module.css";
 
 type LocationCardProps = {
   title: string;
-  image?: string;
-  imageAlt?: string;
   content?: string;
+  coordinates?: {
+    lat?: number | null;
+    lng?: number | null;
+  };
 };
 
 export function LocationCard({
   title,
-  image,
-  imageAlt,
   content,
+  coordinates,
 }: LocationCardProps) {
   return (
     <article className={styles.card}>
-      {image ? (
-        <ImageWrapper className={styles.imageWrapper}>
-          <Image
-            src={image}
-            alt={imageAlt || title || "Location image"}
-            fill
-            className={styles.image}
-            sizes="(max-width: 639px) 100vw, 320px"
-          />
-        </ImageWrapper>
-      ) : (
-        <ImageWrapper className={styles.imageWrapper}>
-          <NoImage />
-        </ImageWrapper>
-      )}
+      <div className={styles.streetViewWrapper}>
+        <StreetViewEmbed
+          lat={coordinates?.lat}
+          lng={coordinates?.lng}
+          title={title}
+        />
+      </div>
       <div className={styles.rightColumn}>
         <div className={styles.content}>
           <h3 className={styles.cardTitle}>{title}</h3>
           {content && <p className={styles.description}>{content}</p>}
         </div>
         <div className={styles.mapWrapper}>
-          <LocationMapWrapper title={title} />
+          <LocationMapWrapper title={title} coordinates={coordinates} />
         </div>
       </div>
     </article>

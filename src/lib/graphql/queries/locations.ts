@@ -7,6 +7,17 @@ export const ALL_LOCATIONS_QUERY = `
         slug
         title
         content
+        shortDescription
+        city
+        state
+        streetAddress
+        zip
+        phone
+        email
+        coordinates {
+          lat
+          lng
+        }
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {

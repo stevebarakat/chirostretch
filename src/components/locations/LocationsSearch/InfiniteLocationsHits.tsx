@@ -17,6 +17,8 @@ type LocationHit = {
   shortDescription?: string;
   image?: string;
   imageAlt?: string;
+  latitude?: number | null;
+  longitude?: number | null;
 };
 
 export function InfiniteLocationsHits() {
@@ -66,9 +68,11 @@ export function InfiniteLocationsHits() {
           <Link href={`/locations/${hit.slug}`} className={styles.cardLink}>
             <LocationCard
               title={hit.title}
-              image={hit.image}
-              imageAlt={hit.imageAlt}
               content={hit.shortDescription || hit.content}
+              coordinates={{
+                lat: hit.latitude,
+                lng: hit.longitude,
+              }}
             />
           </Link>
         </li>

@@ -1,35 +1,54 @@
-// Wildcard import needed for React namespace types (ComponentPropsWithoutRef, ReactNode, etc.)
-// Note: useEffect is NOT used in this file - this import is only for type definitions
-// eslint-disable-next-line no-restricted-imports
-import * as React from "react";
+import { type ReactNode, type HTMLAttributes, type Ref } from "react";
 
-type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
-type HeadingProps<T extends HeadingElement = "h1"> = Omit<
-  React.ComponentPropsWithoutRef<T>,
-  "children"
-> & {
-  as?: T;
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
-  children: React.ReactNode;
-  ref?: React.ComponentPropsWithRef<T>["ref"];
+type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
+  level?: HeadingLevel;
+  children: ReactNode;
+  ref?: Ref<HTMLHeadingElement>;
 };
 
-function Heading<T extends HeadingElement = "h1">({
-  as,
-  level = 1,
-  children,
-  ref,
-  ...props
-}: HeadingProps<T>) {
-  const Component = (as ?? (`h${level}` as HeadingElement)) as T;
+function Heading({ level = 1, children, ref, ...props }: HeadingProps) {
+  const Tag = `h${level}` as const;
 
-  return (
-    <Component ref={ref} {...props}>
-      {children}
-    </Component>
-  );
+  switch (Tag) {
+    case "h1":
+      return (
+        <h1 ref={ref} {...props}>
+          {children}
+        </h1>
+      );
+    case "h2":
+      return (
+        <h2 ref={ref} {...props}>
+          {children}
+        </h2>
+      );
+    case "h3":
+      return (
+        <h3 ref={ref} {...props}>
+          {children}
+        </h3>
+      );
+    case "h4":
+      return (
+        <h4 ref={ref} {...props}>
+          {children}
+        </h4>
+      );
+    case "h5":
+      return (
+        <h5 ref={ref} {...props}>
+          {children}
+        </h5>
+      );
+    case "h6":
+      return (
+        <h6 ref={ref} {...props}>
+          {children}
+        </h6>
+      );
+  }
 }
 
 export default Heading;
-

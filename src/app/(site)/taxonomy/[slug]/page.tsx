@@ -238,7 +238,7 @@ function renderArchive(
           <>
             <div className={styles.grid}>
               {posts.map((post) => {
-                if (!post.slug) return null;
+                if (!post?.slug) return null;
 
                 const image = post.featuredImage?.node;
                 const imageWidth = image?.mediaDetails?.width || 800;
@@ -370,7 +370,7 @@ function renderProductArchive(
           <>
             <div className={styles.grid}>
               {products.map((product) => {
-                if (!product.slug) return null;
+                if (!product?.slug) return null;
 
                 const image = product.featuredImage?.node;
                 const imageWidth = image?.mediaDetails?.width || 800;

@@ -1,4 +1,4 @@
-import type { FieldErrors, UseFormSetError } from "react-hook-form";
+import type { FieldErrors, UseFormSetError, Path } from "react-hook-form";
 
 /**
  * Gravity Forms API error response structure
@@ -39,7 +39,7 @@ export function mapGravityFormErrorsToRHF<T extends Record<string, unknown>>(
       errorResponse.validation_messages
     )) {
       if (typeof message === "string" && message.length > 0) {
-        setError(fieldId as keyof T, {
+        setError(fieldId as Path<T>, {
           type: "server",
           message,
         });
@@ -54,13 +54,13 @@ export function mapGravityFormErrorsToRHF<T extends Record<string, unknown>>(
         // Multiple errors for one field - take the first
         const message = errorValue.find((msg) => typeof msg === "string");
         if (message) {
-          setError(fieldId as keyof T, {
+          setError(fieldId as Path<T>, {
             type: "server",
             message,
           });
         }
       } else if (typeof errorValue === "string" && errorValue.length > 0) {
-        setError(fieldId as keyof T, {
+        setError(fieldId as Path<T>, {
           type: "server",
           message: errorValue,
         });
@@ -71,12 +71,12 @@ export function mapGravityFormErrorsToRHF<T extends Record<string, unknown>>(
   // Handle generic error message (fallback)
   if (errorResponse.error?.message && !errorResponse.validation_messages && !errorResponse.errors) {
     // If no field-specific errors, set a root-level error
-    setError("root" as keyof T, {
+    setError("root" as Path<T>, {
       type: "server",
       message: errorResponse.error.message,
     });
   } else if (errorResponse.message && !errorResponse.validation_messages && !errorResponse.errors) {
-    setError("root" as keyof T, {
+    setError("root" as Path<T>, {
       type: "server",
       message: errorResponse.message,
     });

@@ -49,7 +49,12 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
   // - This is a side effect that must run when formId dependency changes
   useEffect(() => {
     if (!formId) {
-      setState({ status: "error", form: null, error: "No form ID provided", submissionResponse: null });
+      setState({
+        status: "error",
+        form: null,
+        error: "No form ID provided",
+        submissionResponse: null,
+      });
       return;
     }
 
@@ -63,7 +68,12 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
         }
 
         const form = await response.json();
-        setState({ status: "ready", form, error: null, submissionResponse: null });
+        setState({
+          status: "ready",
+          form,
+          error: null,
+          submissionResponse: null,
+        });
       } catch (error) {
         setState({
           status: "error",
@@ -96,7 +106,8 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
 
   // Show confirmation screen after successful submission
   if (state.status === "submitted" && state.submissionResponse) {
-    const { confirmation_message, confirmation_type, confirmation_url } = state.submissionResponse;
+    const { confirmation_message, confirmation_type, confirmation_url } =
+      state.submissionResponse;
 
     // Handle redirect confirmation
     if (confirmation_type === "REDIRECT" && confirmation_url) {
@@ -113,7 +124,9 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
             dangerouslySetInnerHTML={{ __html: confirmation_message }}
           />
         ) : (
-          <p className={styles.confirmationContent}>Thank you for your submission!</p>
+          <p className={styles.confirmationContent}>
+            Thank you for your submission!
+          </p>
         )}
       </div>
     );
@@ -127,17 +140,18 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
     );
   }
 
-  const numericFormId = typeof formId === "string" ? parseInt(formId, 10) : formId;
+  const numericFormId =
+    typeof formId === "string" ? parseInt(formId, 10) : formId;
 
   // Form data might be nested under gfForm (GraphQL) or at top level (REST)
-  const formData = (state.form?.gfForm || state.form) as GravityFormData | undefined;
+  const formData = (state.form?.gfForm || state.form) as
+    | GravityFormData
+    | undefined;
   const formTitle = formData?.title;
 
   return (
     <div className={styles.formBlock}>
-      {formTitle && (
-        <h3 className={styles.formTitle}>{formTitle}</h3>
-      )}
+      {formTitle && <h3 className={styles.formTitle}>{formTitle}</h3>}
       <GravityFormEnhanced
         form={state.form}
         formId={numericFormId}

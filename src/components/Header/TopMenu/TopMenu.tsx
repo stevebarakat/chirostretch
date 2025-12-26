@@ -1,11 +1,14 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
-import { FaCaretDown } from "react-icons/fa";
+import { ChevronDown, CircleUser } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { AccountMenu } from "../AccountMenu";
+import { LocationSearchTrigger } from "../LocationSearchTrigger";
 import styles from "../Header.module.css";
+import { VisuallyHidden } from "@/components/UI/VisuallyHidden";
 
 type MenuItem = {
   id: string;
@@ -27,7 +30,7 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <li style={{ position: "relative" }} onMouseLeave={() => setIsActive(false)}>
+    <li onMouseLeave={() => setIsActive(false)}>
       {!isDropdownButton ? (
         <Link
           href={item.uri}
@@ -46,7 +49,11 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
           aria-haspopup="true"
         >
           {item.label}
-          <FaCaretDown aria-hidden="true" style={{ marginLeft: "0.25rem" }} />
+          <ChevronDown
+            size={16}
+            aria-hidden="true"
+            style={{ marginLeft: "0.25rem" }}
+          />
         </button>
       )}
 
@@ -76,6 +83,118 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
         </ul>
       )}
     </li>
+  );
+}
+
+function AuthMenuItem({ onNavigate }: { onNavigate?: () => void }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetch("/api/auth/status");
+        const data = await response.json();
+        setAuthenticated(data.authenticated ?? false);
+      } catch {
+        setAuthenticated(false);
+      }
+    }
+
+    checkAuth();
+
+    const handleFocus = () => checkAuth();
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) throw new Error("Logout failed");
+
+      router.push("/login");
+      router.refresh();
+    } catch {
+      router.push("/login");
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  if (authenticated === null) {
+    return null;
+  }
+
+  if (!authenticated) {
+    return (
+      <Link
+        href="/login"
+        className={styles.topBarAuthLink}
+        onClick={onNavigate}
+      >
+        Login
+      </Link>
+    );
+  }
+
+  return (
+    <div onMouseLeave={() => setIsOpen(false)}>
+      <button
+        type="button"
+        className={styles.topMenuBtnLink}
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        <VisuallyHidden as="span">My Account</VisuallyHidden>
+        <CircleUser aria-hidden="true" />
+      </button>
+      <ul
+        className={
+          isOpen
+            ? `${styles.topMenuDropdown} ${styles.topMenuDropdownOpen}`
+            : styles.topMenuDropdown
+        }
+      >
+        <li>
+          <Link
+            href="/dashboard"
+            className={styles.topMenuLink}
+            onClick={() => {
+              setIsOpen(false);
+              onNavigate?.();
+            }}
+          >
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <button
+            type="button"
+            className={styles.topMenuLink}
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            style={{
+              width: "100%",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {isLoggingOut ? "Logging out..." : "Log Out"}
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 }
 
@@ -119,7 +238,9 @@ export default function TopMenu({ menuItems, logo }: TopMenuProps) {
         aria-label="Top navigation"
         style={
           {
-            "--topNavToggle": mobileOpen ? "translateX(0)" : "translateX(-100%)",
+            "--topNavToggle": mobileOpen
+              ? "translateX(0)"
+              : "translateX(-100%)",
           } as React.CSSProperties
         }
       >
@@ -137,9 +258,10 @@ export default function TopMenu({ menuItems, logo }: TopMenuProps) {
             ))}
           </ul>
           <div className={styles.topBarMobileOnly}>
-            <AccountMenu />
+            <LocationSearchTrigger />
           </div>
         </div>
+        <AuthMenuItem onNavigate={() => setMobileOpen(false)} />
       </nav>
     </div>
   );

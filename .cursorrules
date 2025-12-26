@@ -47,7 +47,8 @@
     "Headless WordPress via WPGraphQL only",
     "Always use next/image with WordPress sourceUrl directly",
     "Avoid client components unless necessary",
-    "Avoid JS UI libraries that duplicate native HTML/CSS behavior"
+    "Avoid JS UI libraries that duplicate native HTML/CSS behavior",
+    "Do not add 'cursor: pointer' to button styles - it is already set globally in reset.css for all button elements"
   ],
 
   "codePrinciples": {

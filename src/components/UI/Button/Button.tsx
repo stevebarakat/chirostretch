@@ -33,8 +33,6 @@ type LinkButtonProps = BaseButtonProps &
     ref?: React.Ref<HTMLAnchorElement>;
   };
 
-function Button(props: ButtonProps): React.ReactElement;
-function Button(props: LinkButtonProps): React.ReactElement;
 function Button({
   as,
   color = "primary",

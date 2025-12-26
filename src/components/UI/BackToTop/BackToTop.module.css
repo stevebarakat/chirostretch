@@ -14,7 +14,6 @@
   border: none;
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-lg);
-  cursor: pointer;
   opacity: 0;
   transform: translateY(1rem);
   transition: opacity var(--transition-base), transform var(--transition-base),

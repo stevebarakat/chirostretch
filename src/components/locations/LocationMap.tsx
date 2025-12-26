@@ -6,8 +6,8 @@ import styles from "./LocationMap.module.css";
 type LocationMapProps = {
   address?: string;
   coordinates?: {
-    lat?: number;
-    lng?: number;
+    lat?: number | null;
+    lng?: number | null;
   };
   title?: string;
   mapEmbed?: string;

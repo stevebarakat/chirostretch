@@ -47,10 +47,11 @@ export function useGravityForm<T extends z.ZodObject<z.ZodRawShape>>({
   onError,
 }: UseGravityFormOptions<T>): UseGravityFormReturn<T> {
   // Generate schema if not provided
-  const formSchema = schema || (generateGravityFormSchema(fields) as T);
+  const formSchema = schema || (generateGravityFormSchema(fields) as unknown as T);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const form = useForm<z.infer<T>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as any,
     mode: "onBlur",
   });
 
@@ -129,7 +130,8 @@ export function useGravityForm<T extends z.ZodObject<z.ZodRawShape>>({
 
         setSubmitError(errorMessage);
         onError?.(errorMessage);
-        form.setError("root" as keyof z.infer<T>, {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        form.setError("root" as any, {
           type: "server",
           message: errorMessage,
         });

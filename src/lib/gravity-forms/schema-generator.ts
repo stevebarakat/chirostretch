@@ -62,7 +62,7 @@ export function generateGravityFormSchema(fields: GravityFormField[]) {
       field.inputs &&
       field.inputs.length > 0;
 
-    if (isComplexField) {
+    if (isComplexField && field.inputs) {
       const inputShape: Record<string, z.ZodTypeAny> = {};
 
       for (const input of field.inputs) {

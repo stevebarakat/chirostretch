@@ -17,6 +17,7 @@ import {
   StaffCard,
   ServicesTabs,
   ValuePropositions,
+  Testimonials,
 } from "@/components/Locations";
 import { BookingWidget } from "@/components/Bookings";
 import styles from "./page.module.css";
@@ -360,6 +361,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
             </div>
           </Container>
         </section>
+
+        {/* Testimonials Section */}
+        <Testimonials />
       </main>
     </Suspense>
   );

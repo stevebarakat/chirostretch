@@ -1,8 +1,4 @@
-// Wildcard import needed for React namespace types (ComponentPropsWithoutRef, ComponentPropsWithRef, etc.)
-// Note: useEffect is NOT used in this file - this import is only for type definitions
-// eslint-disable-next-line no-restricted-imports
-import * as React from "react";
-import { ReactNode } from "react";
+import { type ReactNode, type HTMLAttributes, type Ref } from "react";
 import { clsx } from "clsx";
 import styles from "./Text.module.css";
 
@@ -19,24 +15,18 @@ type TextElement =
   | "strong"
   | "em";
 
-type BaseTextProps = {
+type TextProps = HTMLAttributes<HTMLElement> & {
   as?: TextElement;
   children: ReactNode;
-  className?: string;
   size?: "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
   weight?: "normal" | "medium" | "semibold" | "bold";
   color?: "primary" | "secondary" | "inverse" | "muted";
   align?: "left" | "center" | "right";
+  ref?: Ref<HTMLElement>;
 };
 
-type TextProps<T extends TextElement = "p"> = BaseTextProps &
-  Omit<React.ComponentPropsWithoutRef<T>, keyof BaseTextProps> & {
-    as?: T;
-    ref?: React.ComponentPropsWithRef<T>["ref"];
-  };
-
-function Text<T extends TextElement = "p">({
-  as,
+function Text({
+  as = "p",
   children,
   className,
   size,
@@ -45,9 +35,7 @@ function Text<T extends TextElement = "p">({
   align,
   ref,
   ...props
-}: TextProps<T>) {
-  const Component = (as ?? "p") as T;
-
+}: TextProps) {
   const textClasses = clsx(
     styles.text,
     size && styles[`size-${size}`],
@@ -57,12 +45,32 @@ function Text<T extends TextElement = "p">({
     className
   );
 
-  return (
-    <Component ref={ref} className={textClasses} {...props}>
-      {children}
-    </Component>
-  );
+  const commonProps = { className: textClasses, ...props };
+
+  switch (as) {
+    case "span":
+      return <span ref={ref as Ref<HTMLSpanElement>} {...commonProps}>{children}</span>;
+    case "h1":
+      return <h1 ref={ref as Ref<HTMLHeadingElement>} {...commonProps}>{children}</h1>;
+    case "h2":
+      return <h2 ref={ref as Ref<HTMLHeadingElement>} {...commonProps}>{children}</h2>;
+    case "h3":
+      return <h3 ref={ref as Ref<HTMLHeadingElement>} {...commonProps}>{children}</h3>;
+    case "h4":
+      return <h4 ref={ref as Ref<HTMLHeadingElement>} {...commonProps}>{children}</h4>;
+    case "h5":
+      return <h5 ref={ref as Ref<HTMLHeadingElement>} {...commonProps}>{children}</h5>;
+    case "h6":
+      return <h6 ref={ref as Ref<HTMLHeadingElement>} {...commonProps}>{children}</h6>;
+    case "label":
+      return <label ref={ref as Ref<HTMLLabelElement>} {...commonProps}>{children}</label>;
+    case "strong":
+      return <strong ref={ref as Ref<HTMLElement>} {...commonProps}>{children}</strong>;
+    case "em":
+      return <em ref={ref as Ref<HTMLElement>} {...commonProps}>{children}</em>;
+    default:
+      return <p ref={ref as Ref<HTMLParagraphElement>} {...commonProps}>{children}</p>;
+  }
 }
 
 export default Text;
-
