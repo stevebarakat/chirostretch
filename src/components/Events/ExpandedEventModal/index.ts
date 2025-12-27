@@ -1,0 +1,2 @@
+export { ExpandedEventModal } from "./ExpandedEventModal";
+

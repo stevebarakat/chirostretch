@@ -1,37 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
+"use client";
+
 import { Container } from "@/components/UI/Container";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Button } from "@/components/UI/Button";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
+import { EventsGrid, ExpandedEventModal } from "@/components/Events";
+import type { Event } from "@/components/Events";
 import styles from "./UpcomingEvents.module.css";
-
-type Event = {
-  slug?: string;
-  title?: string;
-  id?: string;
-  databaseId?: number;
-  author?: {
-    node?: {
-      name?: string;
-    };
-  } | null;
-  content?: string;
-  featuredImage?: {
-    node?: {
-      id?: string;
-      sourceUrl?: string;
-      altText?: string;
-      srcSet?: string;
-      sizes?: string;
-      mediaDetails?: {
-        width?: number;
-        height?: number;
-      };
-    };
-  };
-};
 
 type UpcomingEventsProps = {
   eventsHeading?: string;
@@ -64,73 +38,10 @@ export default function UpcomingEvents({
       <Container>
         <SectionHeading heading={eventsHeading} subheading={eventsSubheading} />
         {displayEvents.length > 0 ? (
-          <div className={styles.grid}>
-            {displayEvents.map((event) => {
-              const imageUrl = event.featuredImage?.node?.sourceUrl;
-              const imageAlt =
-                event.featuredImage?.node?.altText ||
-                event.title ||
-                "Event image";
-
-              return (
-                <div
-                  key={event.id || event.databaseId}
-                  className={styles.eventCard}
-                >
-                  <ImageWrapper className={styles.imageWrapper}>
-                    {imageUrl ? (
-                      <Image
-                        src={imageUrl}
-                        alt={imageAlt}
-                        fill
-                        quality={75}
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className={styles.image}
-                      />
-                    ) : (
-                      <NoImage />
-                    )}
-                  </ImageWrapper>
-                  <div className={styles.content}>
-                    {event.title && (
-                      <h3 className={styles.title}>
-                        {event.slug ? (
-                          <Link href={`/events/${event.slug}`}>
-                            {event.title}
-                          </Link>
-                        ) : (
-                          event.title
-                        )}
-                      </h3>
-                    )}
-                    {event.author?.node?.name && (
-                      <div className={styles.date}>
-                        By {event.author.node.name}
-                      </div>
-                    )}
-                    {event.content && (
-                      <div
-                        className={styles.description}
-                        dangerouslySetInnerHTML={{
-                          __html: event.content.substring(0, 150) + "...",
-                        }}
-                      />
-                    )}
-                    {event.slug && (
-                      <Button
-                        as="a"
-                        href={`/events/${event.slug}`}
-                        color="neutral"
-                        aria-label={`Learn more about ${event.title}`}
-                      >
-                        Learn More
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <>
+            <EventsGrid events={displayEvents} basePath="" />
+            <ExpandedEventModal events={displayEvents} basePath="" />
+          </>
         ) : (
           <div style={{ textAlign: "center", padding: "var(--spacing-3xl) 0" }}>
             <p style={{ color: "var(--color-text-secondary)" }}>

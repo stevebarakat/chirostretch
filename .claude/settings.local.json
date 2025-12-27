@@ -166,7 +166,18 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "WebFetch(domain:www.algolia.com)",
-      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=testimonial --format=table)"
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=testimonial --format=table)",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff --stat HEAD -- scripts/generate-demo-data/ data/sources/testimonial-templates.json data/generated/testimonials.json)",
+      "Bash(scripts/generate-demo-data/generators/LocationGenerator.ts )",
+      "Bash(scripts/generate-demo-data/generators/TestimonialGenerator.ts )",
+      "Bash(scripts/generate-demo-data/index.ts )",
+      "Bash(scripts/generate-demo-data/types.ts )",
+      "Bash(data/sources/testimonial-templates.json )",
+      "Bash(data/generated/testimonials.json )",
+      "Bash(data/generated/locations.json)",
+      "Bash(git -C /Users/sb/Dev/chirostretch status:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp add mu-plugins/chirostretch-bulk-importer.php)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd testimonials import and fix location content\n\n- Add testimonials import command to bulk importer\n- Set post_content from short_description when importing locations\n- Include testimonials in import all and reset commands\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ],
     "deny": [],
     "ask": []

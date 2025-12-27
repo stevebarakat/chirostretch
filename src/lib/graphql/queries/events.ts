@@ -6,12 +6,24 @@ export const EVENTS_INDEX_QUERY = `
         title
         id
         databaseId
-        author {
-          node {
-            name
+        content
+        startDate
+        endDate
+        cost
+        venue {
+          title
+          address
+          city
+          state
+          phone
+        }
+        organizers {
+          nodes {
+            title
+            phone
+            email
           }
         }
-        content
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
@@ -101,12 +113,24 @@ type EventsIndexData = {
       title: string;
       id: string;
       databaseId: number;
-      author: {
-        node: {
-          name: string;
-        };
-      } | null;
       content: string;
+      startDate?: string;
+      endDate?: string;
+      cost?: string | null;
+      venue?: {
+        title?: string;
+        address?: string;
+        city?: string;
+        state?: string;
+        phone?: string;
+      } | null;
+      organizers?: {
+        nodes?: {
+          title?: string;
+          phone?: string;
+          email?: string;
+        }[];
+      } | null;
       featuredImage?: {
         node?: {
           id: string;

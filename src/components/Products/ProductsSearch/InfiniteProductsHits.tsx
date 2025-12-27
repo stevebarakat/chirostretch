@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
 import { ProductCard } from "@/components/ProductCard";
+import { FlipMotion, FlipMotionItem } from "@/components/UI";
 import styles from "./InfiniteProductsHits.module.css";
 
 type ProductHit = {
@@ -60,12 +61,12 @@ export function InfiniteProductsHits() {
   }
 
   return (
-    <ul className={styles.grid}>
+    <FlipMotion className={styles.grid} enableExit={false}>
       {hits.map((hit) => {
         const databaseId = parseInt(hit.objectID.replace("product_", ""), 10);
 
         return (
-          <li key={hit.objectID}>
+          <FlipMotionItem key={hit.objectID} itemId={hit.objectID}>
             <ProductCard
               id={hit.objectID}
               databaseId={isNaN(databaseId) ? undefined : databaseId}
@@ -86,10 +87,19 @@ export function InfiniteProductsHits() {
                   : undefined
               }
             />
-          </li>
+          </FlipMotionItem>
         );
       })}
-      <li ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
-    </ul>
+      <FlipMotionItem
+        ref={sentinelRef}
+        aria-hidden={true}
+        className={styles.sentinel}
+        itemId="sentinel"
+        initialOpacity={0}
+        animateOpacity={0}
+      >
+        {/* Sentinel element for infinite scroll */}
+      </FlipMotionItem>
+    </FlipMotion>
   );
 }
