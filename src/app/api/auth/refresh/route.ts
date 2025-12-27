@@ -8,7 +8,8 @@ import type { RefreshTokenResponse } from "@/lib/auth/types";
  * POST /api/auth/refresh
  * Refresh the auth token using the refresh token
  */
-export async function POST(request: NextRequest) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function POST(_request: NextRequest) {
   try {
     const refreshToken = await getRefreshToken();
 

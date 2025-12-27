@@ -64,7 +64,7 @@ type FranchiseSubmission = {
  * Send admin notification email about new franchise application
  */
 async function sendAdminNotification(submission: FranchiseSubmission) {
-  const { subject, html, text } = generateAdminNotificationEmail(submission);
+  const { subject } = generateAdminNotificationEmail(submission);
 
   console.log("📧 Admin notification generated:", {
     subject,
@@ -95,7 +95,7 @@ async function sendApplicantConfirmation(submission: FranchiseSubmission) {
     return;
   }
 
-  const { subject, html, text } =
+  const { subject } =
     generateApplicantConfirmationEmail(submission);
 
   console.log("📧 Applicant confirmation generated:", {

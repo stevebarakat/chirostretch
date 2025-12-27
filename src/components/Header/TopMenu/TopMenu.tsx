@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -93,6 +94,10 @@ function AuthMenuItem({ onNavigate }: { onNavigate?: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  // Reason this component must use useEffect:
+  // - Syncing with external API (auth status endpoint) on component mount
+  // - Server Components cannot handle client-side API calls
+  // - Also syncs on window focus to detect auth state changes in other tabs
   useEffect(() => {
     async function checkAuth() {
       try {

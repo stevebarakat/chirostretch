@@ -17,6 +17,11 @@ Next.js (App Router)
 └── Zustand for client state
 ```
 
+## Local Development
+
+- Next.js dev server: `https://localhost:3000` (HTTPS, not HTTP)
+- Always use `--insecure` flag with curl for local HTTPS
+
 ## Code Style
 
 ### TypeScript

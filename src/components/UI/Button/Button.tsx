@@ -87,6 +87,7 @@ function Button({
   );
 
   if (Component === "a") {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { as: _as, ...linkProps } = props as LinkButtonProps;
     return (
       <a
@@ -100,6 +101,7 @@ function Button({
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { as: _as, type, ...buttonProps } = props as ButtonProps;
   return (
     <button

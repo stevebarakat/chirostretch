@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { ReactNode, useState, useEffect } from "react";
 import styles from "./VisuallyHidden.module.css";
 

@@ -17,31 +17,31 @@
 }
 
 .card {
-  aspect-ratio: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: none;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--color-bg-tertiary);
   position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-family: inherit;
+  background-color: var(--color-bg-tertiary);
+  background-position: center;
+  background-size: cover;
+  border: 5px solid var(--color-border-focus);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  overflow: hidden;
   transition: box-shadow var(--transition-base), opacity 0.2s ease-out,
     transform 0.2s ease-out;
-  animation: fadeIn 0.25s ease-out;
-  border: 5px solid var(--color-border-focus);
+  animation: fade-in 0.25s ease-out;
+  aspect-ratio: 1;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -69,9 +69,9 @@
 }
 
 .compactContent {
+  display: flex;
   position: relative;
   z-index: 1;
-  display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-2xs);
@@ -94,11 +94,11 @@
 }
 
 .compactTitle {
+  display: -webkit-box;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
-  text-align: center;
   line-height: var(--line-height-tight);
-  display: -webkit-box;
+  text-align: center;
   overflow: hidden;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -108,7 +108,7 @@
 .compactCity {
   font-size: var(--font-size-2xs);
   font-weight: 600;
-  text-transform: uppercase;
   letter-spacing: -0.035em;
+  text-transform: uppercase;
   color: var(--color-transparent-white-800);
 }

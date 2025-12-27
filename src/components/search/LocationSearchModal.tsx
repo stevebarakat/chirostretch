@@ -145,9 +145,9 @@ export default function LocationSearchModal({
             <p>Search is not configured.</p>
           </div>
         ) : (
-          /* @ts-expect-error - react-instantsearch-hooks-web types not compatible with React 19 */
+          /* @ts-expect-error - react-instantsearch-hooks-web types not compatible with React 19 and algoliasearch v5 */
           <InstantSearch
-            searchClient={searchClient as any}
+            searchClient={searchClient as unknown as Parameters<typeof InstantSearch>[0]["searchClient"]}
             indexName={algoliaConfig.indices.locations}
           >
             <Configure hitsPerPage={10} />

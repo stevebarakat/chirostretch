@@ -1,8 +1,8 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
-import { LayoutGroup } from "motion/react";
 import { EventsGrid } from "../EventsGrid";
 import { ExpandedEventModal } from "../ExpandedEventModal";
 import type { Event } from "../types";
@@ -61,6 +61,10 @@ export function InfiniteEventsHits() {
   const { query } = useSearchBox();
   const sentinelRef = useRef<HTMLDivElement>(null);
 
+  // Reason this component must use useEffect:
+  // - Syncing with browser API (IntersectionObserver) for infinite scroll
+  // - IntersectionObserver is a browser API that requires DOM access
+  // - This is a side effect that sets up and cleans up an observer when dependencies change
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
@@ -99,12 +103,10 @@ export function InfiniteEventsHits() {
   const events = hits.map(mapHitToEvent);
 
   return (
-    <LayoutGroup>
-      <div className={styles.container}>
-        <EventsGrid events={events} basePath="/events" />
-        <ExpandedEventModal events={events} basePath="/events" />
-        <div ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
-      </div>
-    </LayoutGroup>
+    <div className={styles.container}>
+      <EventsGrid events={events} />
+      <ExpandedEventModal events={events} basePath="/events" />
+      <div ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
+    </div>
   );
 }

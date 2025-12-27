@@ -93,6 +93,7 @@ async function clearWooCommerceSessionCookies() {
  * JWT expires naturally - no server-side revocation needed.
  * The cart is preserved in user meta and restored on next login.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function POST(_request: NextRequest) {
   try {
     // Get auth token before clearing

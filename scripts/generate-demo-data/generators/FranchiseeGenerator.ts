@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+// Utility class for data generation - not UI code
 import { SeededRandom } from "../utils/seeded-random.js";
 import type { GeneratedLocation, GeneratedFranchisee, NamesData } from "../types.js";
 

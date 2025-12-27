@@ -9,6 +9,8 @@ import type {
 
 const TESTIMONIALS_PER_LOCATION = 2;
 
+/* eslint-disable no-restricted-syntax */
+// Utility class for data generation - not UI code
 export class TestimonialGenerator {
   private rng: SeededRandom;
   private names: NamesData;

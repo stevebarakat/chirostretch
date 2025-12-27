@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useMemo, useState, useCallback, useEffect, useRef, startTransition } from "react";
 import { Button } from "@/components/UI/Button";
 import { FormErrors } from "@/components/UI/FormErrors";
@@ -125,7 +126,6 @@ export function GravityFormEnhanced({
     handleSubmit,
     trigger,
     formState: { errors, isSubmitting },
-    submitError,
   } = useGravityForm({
     fields: allNonPageFields,
     onSubmit: async (data) => {
@@ -176,7 +176,7 @@ export function GravityFormEnhanced({
         onSubmitSuccess(response);
       }
     },
-    onError: (errorMessage) => {
+    onError: () => {
       setSuccessMessage(null);
       // Error navigation will be handled by the useEffect watching errors
     },
@@ -278,15 +278,6 @@ export function GravityFormEnhanced({
       e.preventDefault();
     }
   }, [isLastPage]);
-
-  // Wrap handleSubmit to prevent submission when not on last page
-  const handleFormSubmit = useCallback((e: React.FormEvent) => {
-    if (!isLastPage) {
-      e.preventDefault();
-      return;
-    }
-    handleSubmit(e);
-  }, [isLastPage, handleSubmit]);
 
   if (!extractedFormId) {
     return (

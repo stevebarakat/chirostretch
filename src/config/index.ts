@@ -1,6 +1,5 @@
 import { siteConfig } from "./site.config";
 import { wordpressConfig } from "./wordpress.config";
-import { algoliaConfig } from "./algolia.config";
 
 export { siteConfig } from "./site.config";
 export { wordpressConfig } from "./wordpress.config";

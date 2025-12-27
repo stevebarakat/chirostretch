@@ -87,9 +87,7 @@ async function sendLeadConfirmation(submission: LeadSubmission, coupon: CouponRe
     return;
   }
 
-  const firstName = submission.first_name || "there";
   const couponCode = coupon?.coupon_code || "NEWPATIENT29";
-  const expiryText = coupon?.expires ? `Valid until ${coupon.expires}` : "Limited time offer";
 
   console.log("📧 Lead confirmation generated:", {
     to: submission.email,

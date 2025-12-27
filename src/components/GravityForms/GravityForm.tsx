@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useEffect, useMemo } from "react";
 import GravityFormForm from "next-gravity-forms";
 
@@ -93,6 +94,7 @@ export function GravityForm({ form }: GravityFormProps) {
 
         // Remove inputs if it's null or an array with null names (for non-checkbox fields)
         if (inputs === null) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { inputs: _removed, ...fieldWithoutInputs } = field;
           return fieldWithoutInputs;
         }
@@ -105,6 +107,7 @@ export function GravityForm({ form }: GravityFormProps) {
           );
 
           if (hasNullName) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { inputs: _removed, ...fieldWithoutInputs } = field;
             return fieldWithoutInputs;
           }

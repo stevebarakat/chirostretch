@@ -13,7 +13,8 @@ export default function Pagination({
   hasNextPage,
   hasPreviousPage,
   endCursor,
-  startCursor,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  startCursor: _startCursor,
   currentPath,
 }: PaginationProps) {
   if (!hasNextPage && !hasPreviousPage) {

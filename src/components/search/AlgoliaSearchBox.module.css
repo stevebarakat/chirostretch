@@ -40,11 +40,11 @@
 }
 
 .clearButton {
+  display: flex;
   position: absolute;
   right: var(--spacing-sm);
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: var(--spacing-xs);
   color: var(--color-text-tertiary);
   background: none;

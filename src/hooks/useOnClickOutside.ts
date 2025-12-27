@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports
 import { useCallback, useEffect, type RefObject } from "react";
 
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(

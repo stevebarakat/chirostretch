@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import { clsx } from "clsx";
@@ -8,6 +9,10 @@ import styles from "./BackToTop.module.css";
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
+  // Reason this component must use useEffect:
+  // - Syncing with browser API (window scroll events) to show/hide button
+  // - Must subscribe/unsubscribe to scroll events for visibility detection
+  // - This is a side effect that manages external system (browser scroll API)
   useEffect(() => {
     const handleScroll = () => {
       const scrollThreshold = 400;

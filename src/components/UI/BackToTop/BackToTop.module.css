@@ -1,11 +1,11 @@
 .button {
+  display: flex;
   position: fixed;
   right: var(--spacing-xl);
   bottom: var(--spacing-xl);
   z-index: 100;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: var(--spacing-md);
   width: 3rem;
   height: 3rem;
@@ -15,9 +15,9 @@
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-lg);
   opacity: 0;
-  transform: translateY(1rem);
   transition: opacity var(--transition-base), transform var(--transition-base),
     background-color var(--transition-base);
+  transform: translateY(1rem);
   pointer-events: none;
 }
 

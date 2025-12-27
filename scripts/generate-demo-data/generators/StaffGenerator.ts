@@ -12,6 +12,8 @@ const STAFF_TYPES_PER_LOCATION: StaffType[][] = [
   ["chiropractor", "physical_therapist", "athletic_therapist"],
 ];
 
+/* eslint-disable no-restricted-syntax */
+// Utility class for data generation - not UI code
 export class StaffGenerator {
   private rng: SeededRandom;
   private names: NamesData;

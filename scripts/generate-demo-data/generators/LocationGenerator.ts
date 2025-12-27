@@ -18,6 +18,8 @@ const DESCRIPTION_TEMPLATES = [
   "At our {streetName} studio in {city}, {staff} blend traditional chiropractic care with modern stretch therapy to optimize your movement and well-being.",
 ];
 
+/* eslint-disable no-restricted-syntax */
+// Utility class for data generation - not UI code
 export class LocationGenerator {
   private rng: SeededRandom;
   private cities: CityData[];

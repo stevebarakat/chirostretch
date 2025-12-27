@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+// Utility class for data generation - not UI code
 import seedrandom from "seedrandom";
 
 export class SeededRandom {

@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -54,11 +55,8 @@ export default function CheckoutForm() {
     },
   });
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const sameAsBilling = watch("sameAsBilling");
-  // eslint-disable-next-line react-hooks/incompatible-library
   const billingData = watch("billing");
-  // eslint-disable-next-line react-hooks/incompatible-library
   const shippingData = watch("shipping");
   const [cardError, setCardError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -206,7 +204,20 @@ export default function CheckoutForm() {
         setLoadingShippingRates(false);
       }
     },
-    [selectedShippingRateId, setValue]
+    [
+      selectedShippingRateId,
+      setValue,
+      billingData.address_1,
+      billingData.address_2,
+      billingData.city,
+      billingData.country,
+      billingData.email,
+      billingData.first_name,
+      billingData.last_name,
+      billingData.phone,
+      billingData.postcode,
+      billingData.state,
+    ]
   );
 
   // Reason this component must use useEffect:

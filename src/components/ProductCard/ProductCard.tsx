@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+// eslint-disable-next-line no-restricted-imports
 import { useEffect } from "react";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import { NoImage } from "@/components/UI/NoImage";

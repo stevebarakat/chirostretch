@@ -44,12 +44,14 @@
 .topBar ul li {
   list-style: none;
   border-right: 1px solid var(--nav-border-color);
+
   &:first-of-type {
     border-left: 1px solid var(--nav-border-color);
   }
 
   @media (max-width: 910px) {
     border-right: none;
+
     &:first-of-type {
       border-left: none;
     }
@@ -91,16 +93,16 @@
   line-height: 1.5;
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
   color: white;
   background: none;
   cursor: pointer;
   transition: 0.25s ease;
-  white-space: nowrap;
 }
 
 .topBarAuthLink {
-  border-left: 1px solid var(--nav-border-color);
   border-right: 1px solid var(--nav-border-color);
+  border-left: 1px solid var(--nav-border-color);
 }
 
 .topBarAuthLink:hover,
@@ -222,6 +224,7 @@
   .topMenu {
     flex-direction: column;
     border-top: 1px solid white;
+
     button {
       border: none;
       border-bottom: 1px solid var(--nav-border-color);

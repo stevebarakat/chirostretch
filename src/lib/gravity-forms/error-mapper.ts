@@ -1,4 +1,4 @@
-import type { FieldErrors, UseFormSetError, Path } from "react-hook-form";
+import type { UseFormSetError, Path } from "react-hook-form";
 
 /**
  * Gravity Forms API error response structure

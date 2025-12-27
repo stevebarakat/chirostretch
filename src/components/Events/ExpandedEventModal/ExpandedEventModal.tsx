@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -67,6 +68,10 @@ export function ExpandedEventModal({
     });
   }, [searchParams, router]);
 
+  // Reason this component must use useEffect:
+  // - Syncing with browser API (document.body.style) to prevent scrolling when modal is open
+  // - This is a side effect that modifies global document state
+  // - Must clean up on unmount or when modal closes
   useEffect(() => {
     if (activeEvent) {
       document.body.style.overflow = "hidden";
@@ -79,6 +84,10 @@ export function ExpandedEventModal({
     };
   }, [activeEvent]);
 
+  // Reason this component must use useEffect:
+  // - Syncing with browser API (keyboard events and focus management)
+  // - This is a side effect that sets up event listeners and manages focus
+  // - Must clean up event listeners on unmount
   useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
       if (e.key === "Escape" && activeEvent) {

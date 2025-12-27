@@ -1,7 +1,7 @@
 .divider {
-  border: none;
   margin: 0;
   padding: 0;
+  border: none;
 }
 
 /* Horizontal (default) */
@@ -12,58 +12,40 @@
 
 /* Vertical */
 .vertical {
+  display: inline-block;
   width: 0;
   height: 100%;
-  display: inline-block;
   vertical-align: middle;
 }
 
 /* Thickness */
 .horizontal.thickness-thin {
-  border-top-width: 1px;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-width: 1px 0 0;
   border-style: solid;
 }
 
 .vertical.thickness-thin {
-  border-top-width: 0;
-  border-right-width: 1px;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-width: 0 1px 0 0;
   border-style: solid;
 }
 
 .horizontal.thickness-medium {
-  border-top-width: 2px;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-width: 2px 0 0;
   border-style: solid;
 }
 
 .vertical.thickness-medium {
-  border-top-width: 0;
-  border-right-width: 2px;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-width: 0 2px 0 0;
   border-style: solid;
 }
 
 .horizontal.thickness-thick {
-  border-top-width: 3px;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-width: 3px 0 0;
   border-style: solid;
 }
 
 .vertical.thickness-thick {
-  border-top-width: 0;
-  border-right-width: 3px;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-width: 0 3px 0 0;
   border-style: solid;
 }
 

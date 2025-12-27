@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { ReactNode, useRef, useEffect } from "react";
 import { X } from "lucide-react";
 import { clsx } from "clsx";

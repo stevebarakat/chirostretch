@@ -76,7 +76,7 @@ export async function fetchWP<T>({
   let json: { data?: T; errors?: unknown };
   try {
     json = (await res.json()) as { data?: T; errors?: unknown };
-  } catch (parseError) {
+  } catch {
     if (!res.ok) {
       throw new Error(
         `WPGraphQL fetch failed: ${res.status} ${res.statusText}. Could not parse response as JSON.`

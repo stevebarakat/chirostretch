@@ -19,7 +19,9 @@ type WPGraphQLFetchOptions<TVars = Record<string, unknown>> = {
 
 /**
  * Check if GraphQL error is an authentication error
+ * @internal - Reserved for future use
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function isAuthError(errors: Array<{ message: string }>): boolean {
   return errors.some(
     (error) =>
@@ -122,7 +124,7 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
       data?: TData;
       errors?: Array<{ message: string }>;
     };
-  } catch (parseError) {
+  } catch {
     // If we can't parse JSON and status is not OK, throw HTTP error
     if (!res.ok) {
       const errorMsg = `WPGraphQL fetch failed: ${res.status} ${res.statusText}`;

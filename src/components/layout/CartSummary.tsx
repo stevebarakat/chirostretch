@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useEffect } from "react";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";

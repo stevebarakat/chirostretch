@@ -51,7 +51,8 @@ export function FlipMotionItem({
   children,
   className,
   as = "li",
-  itemId,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  itemId: _itemId,
   initialOpacity = 0.5,
   animateOpacity = 1,
   exitOpacity = 0,

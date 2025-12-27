@@ -66,17 +66,23 @@ export const HOMEPAGE_QUERY = `
         title
         id
         databaseId
-        author {
-          node {
-            name
+        content
+        startDate
+        endDate
+        cost
+        venue {
+          title
+          city
+          state
+        }
+        organizers {
+          nodes {
+            title
           }
         }
-        content
-        ... on NodeWithFeaturedImage {
-          featuredImage {
-            node {
-              ...FeaturedImageFields
-            }
+        featuredImage {
+          node {
+            ...FeaturedImageFields
           }
         }
       }

@@ -17,8 +17,6 @@ type ImageMagnifierProps = {
   className?: string;
 };
 
-const ZOOM_SCALE = 1.5;
-
 export default function ImageMagnifier({
   src,
   alt,
