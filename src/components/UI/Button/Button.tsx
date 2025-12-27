@@ -3,6 +3,7 @@
 // eslint-disable-next-line no-restricted-imports
 import * as React from "react";
 import { ReactNode } from "react";
+import Link from "next/link";
 import { clsx } from "clsx";
 import styles from "./Button.module.css";
 
@@ -36,6 +37,15 @@ type LinkButtonProps = BaseButtonProps &
     ref?: React.Ref<HTMLAnchorElement>;
   };
 
+type NextLinkButtonProps = BaseButtonProps &
+  Omit<React.ComponentPropsWithoutRef<typeof Link>, keyof BaseButtonProps> & {
+    as: "Link";
+    href: string;
+    ref?: React.Ref<HTMLAnchorElement>;
+  };
+
+type ButtonComponentProps = ButtonProps | LinkButtonProps | NextLinkButtonProps;
+
 function Button({
   as,
   color = "primary",
@@ -50,7 +60,7 @@ function Button({
   className = "",
   ref,
   ...props
-}: ButtonProps | LinkButtonProps) {
+}: ButtonComponentProps) {
   const Component = as ?? "button";
 
   const buttonClasses = clsx(
@@ -85,6 +95,21 @@ function Button({
       )}
     </>
   );
+
+  if (Component === "Link") {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { as: _as, ...linkProps } = props as NextLinkButtonProps;
+    return (
+      <Link
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        className={buttonClasses}
+        style={glassStyles}
+        {...linkProps}
+      >
+        {content}
+      </Link>
+    );
+  }
 
   if (Component === "a") {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

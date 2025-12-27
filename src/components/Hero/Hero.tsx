@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname, useSearchParams } from "next/navigation";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
@@ -92,6 +93,8 @@ function Hero({
   maxHeight = 750,
   title,
 }: HeroProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const img = featuredImage?.node;
   const heading = img?.title || title;
   const subheading = img?.description || description;
@@ -122,6 +125,22 @@ function Hero({
     <ButtonIcon icon={icon2} />
   ) : undefined;
 
+  const getLinkUrl = (href: string): string => {
+    if (href.startsWith("?")) {
+      const params = new URLSearchParams(href.slice(1));
+      const newParams = new URLSearchParams(searchParams.toString());
+
+      params.forEach((value, key) => {
+        newParams.set(key, value);
+      });
+
+      return newParams.toString()
+        ? `${pathname}?${newParams.toString()}`
+        : pathname;
+    }
+    return href;
+  };
+
   return (
     <section className={styles.hero} style={style}>
       <ImageWrapper className={styles.imageWrapper}>
@@ -150,28 +169,58 @@ function Hero({
         <div className={styles.ctaWrapper}>
           {heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
             <>
-              <Button
-                as="a"
-                href={heroUnit.heroLink.url}
-                icon={icon1Element}
-                iconPosition="left"
-                shadow
-              >
-                {heroUnit.heroLink.title}
-              </Button>
-              {heroUnit.heroLink2?.url && heroUnit.heroLink2?.title && (
+              {heroUnit.heroLink.url.startsWith("?") ? (
                 <Button
-                  as="a"
-                  href={heroUnit.heroLink2.url}
-                  icon={icon2Element}
+                  // @ts-expect-error - TypeScript doesn't properly narrow the discriminated union for "Link"
+                  as="Link"
+                  href={getLinkUrl(heroUnit.heroLink.url)}
+                  scroll={false}
+                  icon={icon1Element}
                   iconPosition="left"
-                  color="glass"
-                  outline
                   shadow
                 >
-                  {heroUnit.heroLink2.title}
+                  {heroUnit.heroLink.title}
+                </Button>
+              ) : (
+                <Button
+                  as="a"
+                  href={heroUnit.heroLink.url}
+                  icon={icon1Element}
+                  iconPosition="left"
+                  shadow
+                >
+                  {heroUnit.heroLink.title}
                 </Button>
               )}
+              {heroUnit.heroLink2?.url &&
+                heroUnit.heroLink2?.title &&
+                (heroUnit.heroLink2.url.startsWith("?") ? (
+                  <Button
+                    // @ts-expect-error - TypeScript doesn't properly narrow the discriminated union for "Link"
+                    as="Link"
+                    href={getLinkUrl(heroUnit.heroLink2.url)}
+                    scroll={false}
+                    icon={icon2Element}
+                    iconPosition="left"
+                    color="glass"
+                    outline
+                    shadow
+                  >
+                    {heroUnit.heroLink2.title}
+                  </Button>
+                ) : (
+                  <Button
+                    as="a"
+                    href={heroUnit.heroLink2.url}
+                    icon={icon2Element}
+                    iconPosition="left"
+                    color="glass"
+                    outline
+                    shadow
+                  >
+                    {heroUnit.heroLink2.title}
+                  </Button>
+                ))}
             </>
           )}
         </div>
