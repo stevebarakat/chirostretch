@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
@@ -151,23 +150,27 @@ function Hero({
         <div className={styles.ctaWrapper}>
           {heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
             <>
-              <Link href={heroUnit.heroLink.url}>
-                <Button icon={icon1Element} iconPosition="left" shadow>
-                  {heroUnit.heroLink.title}
-                </Button>
-              </Link>
+              <Button
+                as="a"
+                href={heroUnit.heroLink.url}
+                icon={icon1Element}
+                iconPosition="left"
+                shadow
+              >
+                {heroUnit.heroLink.title}
+              </Button>
               {heroUnit.heroLink2?.url && heroUnit.heroLink2?.title && (
-                <Link href={heroUnit.heroLink2.url}>
-                  <Button
-                    icon={icon2Element}
-                    iconPosition="left"
-                    color="glass"
-                    outline
-                    shadow
-                  >
-                    {heroUnit.heroLink2.title}
-                  </Button>
-                </Link>
+                <Button
+                  as="a"
+                  href={heroUnit.heroLink2.url}
+                  icon={icon2Element}
+                  iconPosition="left"
+                  color="glass"
+                  outline
+                  shadow
+                >
+                  {heroUnit.heroLink2.title}
+                </Button>
               )}
             </>
           )}

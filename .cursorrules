@@ -48,7 +48,8 @@
     "Always use next/image with WordPress sourceUrl directly",
     "Avoid client components unless necessary",
     "Avoid JS UI libraries that duplicate native HTML/CSS behavior",
-    "Do not add 'cursor: pointer' to button styles - it is already set globally in reset.css for all button elements"
+    "Do not add 'cursor: pointer' to button styles - it is already set globally in reset.css for all button elements",
+    "Never wrap Button components in <Link> or <a> tags - this creates nested interactive elements and causes accessibility issues (double tab stops). Use the Button component's `as='a'` prop instead: <Button as='a' href='/path'>Text</Button>"
   ],
 
   "codePrinciples": {

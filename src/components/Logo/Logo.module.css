@@ -1,7 +1,7 @@
 .logo {
   display: flex;
-  align-items: flex-start;
-  height: 100%;
+  align-items: center;
+  height: fit-content;
   color: var(--color-text-inverse);
 
   div {

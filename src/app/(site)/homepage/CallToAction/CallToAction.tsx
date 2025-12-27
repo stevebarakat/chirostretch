@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./cta.module.css";
 import { Button } from "@/components/UI/Button";
 import { Promotion } from "@/components/Promotion";
@@ -105,28 +104,30 @@ const CallToAction = ({
           <div className={styles.ctaForm}>
             <div className={styles.buttonGroup}>
               {btn1Link?.url && btn1Link?.title && (
-                <Link href={btn1Link.url} target={btn1Link.target || undefined}>
-                  <Button
-                    variant="inverse"
-                    color="secondary"
-                    icon={icon1Element}
-                    iconPosition="left"
-                  >
-                    {btn1Link.title}
-                  </Button>
-                </Link>
+                <Button
+                  as="a"
+                  href={btn1Link.url}
+                  target={btn1Link.target || undefined}
+                  variant="inverse"
+                  color="secondary"
+                  icon={icon1Element}
+                  iconPosition="left"
+                >
+                  {btn1Link.title}
+                </Button>
               )}
               {btn2Link?.url && btn2Link?.title && (
-                <Link href={btn2Link.url} target={btn2Link.target || undefined}>
-                  <Button
-                    color="secondary"
-                    outline
-                    icon={icon2Element}
-                    iconPosition="left"
-                  >
-                    {btn2Link.title}
-                  </Button>
-                </Link>
+                <Button
+                  as="a"
+                  href={btn2Link.url}
+                  target={btn2Link.target || undefined}
+                  color="secondary"
+                  outline
+                  icon={icon2Element}
+                  iconPosition="left"
+                >
+                  {btn2Link.title}
+                </Button>
               )}
             </div>
           </div>

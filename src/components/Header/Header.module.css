@@ -24,6 +24,7 @@
   width: 100%;
   background: var(--color-secondary-600);
   border-bottom: 1px solid white;
+  user-select: none;
 }
 
 .topBarContainer {
@@ -99,6 +100,7 @@
 
 .topBarAuthLink {
   border-left: 1px solid var(--nav-border-color);
+  border-right: 1px solid var(--nav-border-color);
 }
 
 .topBarAuthLink:hover,

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Button } from "@/components/UI/Button";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import styles from "./ProductInfo.module.css";
@@ -199,9 +198,14 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 : "Out of Stock"}
             </Button>
 
-            <Link href="/cart" className={styles.viewCartButton}>
-              <Button color="secondary">View Cart</Button>
-            </Link>
+            <Button
+              as="a"
+              href="/cart"
+              className={styles.viewCartButton}
+              color="secondary"
+            >
+              View Cart
+            </Button>
           </>
         )}
       </div>

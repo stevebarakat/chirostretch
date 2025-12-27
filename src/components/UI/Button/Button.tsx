@@ -20,7 +20,10 @@ type BaseButtonProps = {
 };
 
 type ButtonProps = BaseButtonProps &
-  Omit<React.ComponentPropsWithoutRef<"button">, keyof BaseButtonProps | "type"> & {
+  Omit<
+    React.ComponentPropsWithoutRef<"button">,
+    keyof BaseButtonProps | "type"
+  > & {
     as?: "button";
     ref?: React.Ref<HTMLButtonElement>;
     type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];

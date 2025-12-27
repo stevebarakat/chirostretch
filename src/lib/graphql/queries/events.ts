@@ -76,6 +76,19 @@ export const ALL_EVENTS_QUERY = `
         slug
         title
         content
+        startDate
+        endDate
+        cost
+        venue {
+          title
+          city
+          state
+        }
+        organizers {
+          nodes {
+            title
+          }
+        }
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {

@@ -14,10 +14,16 @@ const SINGLE_EVENT_QUERY = `
       content
       startDate
       endDate
+      cost
       venue {
         title
         city
         state
+      }
+      organizers {
+        nodes {
+          title
+        }
       }
       featuredImage {
         node {
@@ -37,10 +43,16 @@ type Event = {
   content?: string;
   startDate?: string;
   endDate?: string;
+  cost?: string;
   venue?: {
     title?: string;
     city?: string;
     state?: string;
+  };
+  organizers?: {
+    nodes?: {
+      title?: string;
+    }[];
   };
   featuredImage?: {
     node?: {
@@ -68,9 +80,11 @@ function transformEventToAlgolia(event: Event) {
     content: event.content?.replace(/<[^>]*>/g, "").substring(0, 500) || "",
     startDate: event.startDate || "",
     endDate: event.endDate || "",
+    cost: event.cost || "",
     venue: event.venue?.title || "",
     venueCity: event.venue?.city || "",
     venueState: event.venue?.state || "",
+    organizer: event.organizers?.nodes?.[0]?.title || "",
     image: event.featuredImage?.node?.sourceUrl || "",
     imageAlt: event.featuredImage?.node?.altText || "",
     type: "event" as const,
@@ -185,6 +199,21 @@ async function handleBulkReindex(indexName: string) {
     await adminClient!.saveObjects({
       indexName,
       objects: algoliaObjects,
+    });
+
+    // Configure searchable attributes
+    await adminClient!.setSettings({
+      indexName,
+      indexSettings: {
+        searchableAttributes: [
+          "title",
+          "startDate",
+          "organizer",
+          "venue",
+          "venueCity",
+          "venueState",
+        ],
+      },
     });
 
     return NextResponse.json({
