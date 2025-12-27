@@ -89,3 +89,11 @@ export type GeneratedFranchisee = {
   display_name: string;
   password: string;
 };
+
+export type GeneratedTestimonial = {
+  _seed_id: string;
+  _location_seed_id: string;
+  customer_name: string;
+  rating: number;
+  review_text: string;
+};

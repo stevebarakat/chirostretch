@@ -166,8 +166,8 @@ export class LocationGenerator {
 
   private generateEmail(city: string, locationIndex: number): string {
     const citySlug = city.toLowerCase().replace(/\s+/g, "-");
-    const suffix = locationIndex > 0 ? `-${locationIndex + 1}` : "";
-    return `${citySlug}${suffix}@chirostretch.site`;
+    const suffix = locationIndex > 0 ? `-${String(locationIndex + 1).padStart(3, "0")}` : "";
+    return `support.${citySlug}${suffix}@chirostretch.site`;
   }
 
   private generateZip(baseZip: string): string {
