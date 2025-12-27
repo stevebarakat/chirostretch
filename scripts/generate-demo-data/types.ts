@@ -97,3 +97,44 @@ export type GeneratedTestimonial = {
   rating: number;
   review_text: string;
 };
+
+export type EventCategory =
+  | "athletic-recovery"
+  | "back-pain-relief"
+  | "certification-workshop"
+  | "chiropractic-education"
+  | "community-event"
+  | "corporate-wellness"
+  | "flexibility-clinic"
+  | "mobility-workshop"
+  | "posture-alignment"
+  | "spine-health"
+  | "stretch-training"
+  | "webinar";
+
+export type EventTemplate = {
+  slug: string;
+  title: string;
+  category: EventCategory;
+  duration_hours: number;
+  cost: string;
+  description: string;
+};
+
+export type GeneratedEvent = {
+  _seed_id: string;
+  _location_seed_id: string;
+  title: string;
+  slug: string;
+  content: string;
+  start_date: string;
+  end_date: string;
+  cost: string;
+  category: EventCategory;
+  featured_image_slug: string;
+  venue_name: string;
+  venue_address: string;
+  venue_city: string;
+  venue_state: string;
+  venue_zip: string;
+};

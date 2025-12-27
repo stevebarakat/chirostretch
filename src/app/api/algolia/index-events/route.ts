@@ -15,6 +15,12 @@ const SINGLE_EVENT_QUERY = `
       startDate
       endDate
       cost
+      eventsCategories {
+        nodes {
+          name
+          slug
+        }
+      }
       venue {
         title
         city
@@ -44,6 +50,12 @@ type Event = {
   startDate?: string;
   endDate?: string;
   cost?: string;
+  eventsCategories?: {
+    nodes?: {
+      name?: string;
+      slug?: string;
+    }[];
+  };
   venue?: {
     title?: string;
     city?: string;
@@ -72,7 +84,17 @@ type EventsResponse = {
   };
 };
 
+function formatMonth(dateStr?: string): { month: string; monthShort: string } {
+  if (!dateStr) return { month: "", monthShort: "" };
+  const date = new Date(dateStr);
+  return {
+    month: date.toLocaleDateString("en-US", { month: "long" }),
+    monthShort: date.toLocaleDateString("en-US", { month: "short" }),
+  };
+}
+
 function transformEventToAlgolia(event: Event) {
+  const { month, monthShort } = formatMonth(event.startDate);
   return {
     objectID: event.id || event.databaseId?.toString() || "",
     title: event.title || "",
@@ -80,6 +102,8 @@ function transformEventToAlgolia(event: Event) {
     content: event.content?.replace(/<[^>]*>/g, "").substring(0, 500) || "",
     startDate: event.startDate || "",
     endDate: event.endDate || "",
+    month,
+    monthShort,
     cost: event.cost || "",
     venue: event.venue?.title || "",
     venueCity: event.venue?.city || "",
@@ -201,17 +225,29 @@ async function handleBulkReindex(indexName: string) {
       objects: algoliaObjects,
     });
 
-    // Configure searchable attributes
+    // Configure searchable attributes and sorting
     await adminClient!.setSettings({
       indexName,
       indexSettings: {
         searchableAttributes: [
           "title",
-          "startDate",
+          "month",
+          "monthShort",
           "organizer",
           "venue",
           "venueCity",
           "venueState",
+        ],
+        ranking: [
+          "asc(startDate)",
+          "typo",
+          "geo",
+          "words",
+          "filters",
+          "proximity",
+          "attribute",
+          "exact",
+          "custom",
         ],
       },
     });

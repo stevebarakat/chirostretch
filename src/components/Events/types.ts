@@ -1,3 +1,8 @@
+export type EventCategory = {
+  name: string;
+  slug: string;
+};
+
 export type Event = {
   id?: string;
   databaseId?: number;
@@ -7,6 +12,9 @@ export type Event = {
   startDate?: string;
   endDate?: string;
   cost?: string | null;
+  eventsCategories?: {
+    nodes?: EventCategory[];
+  } | null;
   venue?: {
     title?: string;
     address?: string;

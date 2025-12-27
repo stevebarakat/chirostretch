@@ -1,13 +1,12 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion } from "motion/react";
 import type { Event } from "../types";
 import styles from "./EventsGrid.module.css";
+import { Divider } from "@/components/UI";
 
 type EventsGridProps = {
   events: Event[];
-  basePath?: string;
 };
 
 function formatCompactDate(startDate?: string): string {
@@ -16,14 +15,14 @@ function formatCompactDate(startDate?: string): string {
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
-export function EventsGrid({ events, basePath = "/events" }: EventsGridProps) {
+export function EventsGrid({ events }: EventsGridProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   function handleCardClick(slug: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("event", slug);
-    router.push(`${basePath}?${params.toString()}`, { scroll: false });
+    router.push(`?${params.toString()}`, { scroll: false });
   }
 
   return (
@@ -33,11 +32,11 @@ export function EventsGrid({ events, basePath = "/events" }: EventsGridProps) {
 
         const image = event.featuredImage?.node;
         const day = formatCompactDate(event.startDate);
+        const city = event.venue?.city;
 
         return (
-          <motion.button
+          <button
             key={event.slug}
-            layoutId={event.slug}
             type="button"
             className={styles.card}
             onClick={() => handleCardClick(event.slug!)}
@@ -50,8 +49,14 @@ export function EventsGrid({ events, basePath = "/events" }: EventsGridProps) {
             <div className={styles.compactContent}>
               <span className={styles.compactDay}>{day}</span>
               <span className={styles.compactTitle}>{event.title}</span>
+              <Divider
+                orientation="horizontal"
+                thickness="thin"
+                className={styles.divider}
+              />
+              {city && <span className={styles.compactCity}>{city}</span>}
             </div>
-          </motion.button>
+          </button>
         );
       })}
     </div>

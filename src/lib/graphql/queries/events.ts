@@ -10,6 +10,12 @@ export const EVENTS_INDEX_QUERY = `
         startDate
         endDate
         cost
+        eventsCategories {
+          nodes {
+            name
+            slug
+          }
+        }
         venue {
           title
           address
@@ -79,6 +85,12 @@ export const ALL_EVENTS_QUERY = `
         startDate
         endDate
         cost
+        eventsCategories {
+          nodes {
+            name
+            slug
+          }
+        }
         venue {
           title
           city
@@ -119,6 +131,11 @@ type EventData = {
   content: string;
 };
 
+type EventCategory = {
+  name: string;
+  slug: string;
+};
+
 type EventsIndexData = {
   events: {
     nodes: Array<{
@@ -130,6 +147,9 @@ type EventsIndexData = {
       startDate?: string;
       endDate?: string;
       cost?: string | null;
+      eventsCategories?: {
+        nodes?: EventCategory[];
+      } | null;
       venue?: {
         title?: string;
         address?: string;
@@ -191,4 +211,4 @@ type EventsResponse = {
   };
 };
 
-export type { EventData, EventsIndexData, Event, EventsResponse };
+export type { EventData, EventsIndexData, Event, EventsResponse, EventCategory };

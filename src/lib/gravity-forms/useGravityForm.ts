@@ -49,9 +49,9 @@ export function useGravityForm<T extends z.ZodObject<z.ZodRawShape>>({
   // Generate schema if not provided
   const formSchema = schema || (generateGravityFormSchema(fields) as unknown as T);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const form = useForm<z.infer<T>>({
-    resolver: zodResolver(formSchema) as any,
+    // @ts-expect-error - zodResolver type incompatibility with dynamic schema generation
+    resolver: zodResolver(formSchema as z.ZodType<z.infer<T>>),
     mode: "onBlur",
   });
 
@@ -130,8 +130,7 @@ export function useGravityForm<T extends z.ZodObject<z.ZodRawShape>>({
 
         setSubmitError(errorMessage);
         onError?.(errorMessage);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        form.setError("root" as any, {
+        form.setError("root", {
           type: "server",
           message: errorMessage,
         });
@@ -141,13 +140,15 @@ export function useGravityForm<T extends z.ZodObject<z.ZodRawShape>>({
   );
 
   // Use RHF's handleSubmit with our wrapped onSubmit
-  const handleSubmit = form.handleSubmit(wrappedOnSubmit);
+  const handleSubmit = form.handleSubmit(
+    wrappedOnSubmit as Parameters<typeof form.handleSubmit>[0]
+  );
 
   return {
     ...form,
     submitError,
     clearSubmitError,
     handleSubmit,
-  };
+  } as UseGravityFormReturn<T>;
 }
 

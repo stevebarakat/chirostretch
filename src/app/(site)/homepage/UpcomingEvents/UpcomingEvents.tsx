@@ -30,7 +30,7 @@ export default function UpcomingEvents({
 
   const eventsList = events?.nodes || [];
 
-  const limit = eventsLimit && eventsLimit >= 3 ? eventsLimit : 3;
+  const limit = eventsLimit && eventsLimit >= 3 ? eventsLimit : 14;
   const displayEvents = eventsList.slice(0, limit);
 
   return (
@@ -39,8 +39,8 @@ export default function UpcomingEvents({
         <SectionHeading heading={eventsHeading} subheading={eventsSubheading} />
         {displayEvents.length > 0 ? (
           <>
-            <EventsGrid events={displayEvents} basePath="" />
-            <ExpandedEventModal events={displayEvents} basePath="" />
+            <EventsGrid events={displayEvents} />
+            <ExpandedEventModal events={displayEvents} basePath="/events" />
           </>
         ) : (
           <div style={{ textAlign: "center", padding: "var(--spacing-3xl) 0" }}>

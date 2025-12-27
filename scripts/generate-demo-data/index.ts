@@ -6,12 +6,14 @@ import { LocationGenerator } from "./generators/LocationGenerator.js";
 import { StaffGenerator } from "./generators/StaffGenerator.js";
 import { FranchiseeGenerator } from "./generators/FranchiseeGenerator.js";
 import { TestimonialGenerator } from "./generators/TestimonialGenerator.js";
+import { EventGenerator } from "./generators/EventGenerator.js";
 import type {
   CityData,
   StreetComponents,
   NamesData,
   HoursTemplates,
   StaffConfigs,
+  EventTemplate,
 } from "./types.js";
 
 const DATA_DIR = path.join(__dirname, "../../data");
@@ -119,7 +121,7 @@ function main() {
 
   // Handle reset
   if (reset) {
-    const files = ["locations.json", "staff.json", "franchisees.json", "testimonials.json"];
+    const files = ["locations.json", "staff.json", "franchisees.json", "testimonials.json", "events.json"];
     for (const file of files) {
       const filepath = path.join(OUTPUT_DIR, file);
       if (fs.existsSync(filepath)) {
@@ -141,6 +143,7 @@ function main() {
   const staffConfigs = loadJson<StaffConfigs>("staff-configs.json");
   const bioTemplates = loadJson<string[]>("bio-templates.json");
   const testimonialTemplates = loadJson<string[]>("testimonial-templates.json");
+  const eventTemplates = loadJson<EventTemplate[]>("event-templates.json");
 
   // Generate locations
   const locationGenerator = new LocationGenerator(
@@ -180,6 +183,14 @@ function main() {
   );
   const testimonials = testimonialGenerator.generate(locations, staff);
 
+  // Generate events (1 per location)
+  const eventGenerator = new EventGenerator(
+    seed + "-event",
+    eventTemplates,
+    offset
+  );
+  const events = eventGenerator.generate(locations, staff);
+
   // Post-process: Add staff names to location descriptions
   for (const location of locations) {
     const locationStaff = staff.filter(
@@ -205,37 +216,43 @@ function main() {
   const staffPath = path.join(OUTPUT_DIR, "staff.json");
   const franchiseesPath = path.join(OUTPUT_DIR, "franchisees.json");
   const testimonialsPath = path.join(OUTPUT_DIR, "testimonials.json");
+  const eventsPath = path.join(OUTPUT_DIR, "events.json");
 
   // In append mode, merge with existing data
   let finalLocations = locations;
   let finalStaff = staff;
   let finalFranchisees = franchisees;
   let finalTestimonials = testimonials;
+  let finalEvents = events;
 
   if (append) {
     const existingLocations = loadExistingData<typeof locations[0]>("locations.json");
     const existingStaff = loadExistingData<typeof staff[0]>("staff.json");
     const existingFranchisees = loadExistingData<typeof franchisees[0]>("franchisees.json");
     const existingTestimonials = loadExistingData<typeof testimonials[0]>("testimonials.json");
+    const existingEvents = loadExistingData<typeof events[0]>("events.json");
 
     finalLocations = [...existingLocations, ...locations];
     finalStaff = [...existingStaff, ...staff];
     finalFranchisees = [...existingFranchisees, ...franchisees];
     finalTestimonials = [...existingTestimonials, ...testimonials];
+    finalEvents = [...existingEvents, ...events];
 
-    console.log(`Existing: ${existingLocations.length} locations, ${existingStaff.length} staff, ${existingFranchisees.length} franchisees, ${existingTestimonials.length} testimonials`);
+    console.log(`Existing: ${existingLocations.length} locations, ${existingStaff.length} staff, ${existingFranchisees.length} franchisees, ${existingTestimonials.length} testimonials, ${existingEvents.length} events`);
   }
 
   fs.writeFileSync(locationsPath, JSON.stringify(finalLocations, null, 2));
   fs.writeFileSync(staffPath, JSON.stringify(finalStaff, null, 2));
   fs.writeFileSync(franchiseesPath, JSON.stringify(finalFranchisees, null, 2));
   fs.writeFileSync(testimonialsPath, JSON.stringify(finalTestimonials, null, 2));
+  fs.writeFileSync(eventsPath, JSON.stringify(finalEvents, null, 2));
 
   const verb = append ? "Total" : "Generated";
   console.log(`${verb}: ${finalLocations.length} locations → ${locationsPath}`);
   console.log(`${verb}: ${finalStaff.length} staff → ${staffPath}`);
   console.log(`${verb}: ${finalFranchisees.length} franchisees → ${franchiseesPath}`);
   console.log(`${verb}: ${finalTestimonials.length} testimonials → ${testimonialsPath}`);
+  console.log(`${verb}: ${finalEvents.length} events → ${eventsPath}`);
   console.log("Done!");
 }
 

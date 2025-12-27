@@ -1,0 +1,123 @@
+.divider {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Horizontal (default) */
+.horizontal {
+  width: 100%;
+  height: 0;
+}
+
+/* Vertical */
+.vertical {
+  width: 0;
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Thickness */
+.horizontal.thickness-thin {
+  border-top-width: 1px;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: solid;
+}
+
+.vertical.thickness-thin {
+  border-top-width: 0;
+  border-right-width: 1px;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: solid;
+}
+
+.horizontal.thickness-medium {
+  border-top-width: 2px;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: solid;
+}
+
+.vertical.thickness-medium {
+  border-top-width: 0;
+  border-right-width: 2px;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: solid;
+}
+
+.horizontal.thickness-thick {
+  border-top-width: 3px;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: solid;
+}
+
+.vertical.thickness-thick {
+  border-top-width: 0;
+  border-right-width: 3px;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: solid;
+}
+
+/* Colors */
+.color-primary {
+  border-color: var(--color-primary-300);
+}
+
+.color-secondary {
+  border-color: var(--color-secondary-300);
+}
+
+.color-neutral {
+  border-color: var(--color-border-primary);
+}
+
+.color-muted {
+  border-color: var(--color-border-secondary);
+}
+
+/* Spacing */
+.spacing-none {
+  margin: 0;
+}
+
+.spacing-sm {
+  margin: var(--spacing-sm) 0;
+}
+
+.vertical.spacing-sm {
+  margin: 0 var(--spacing-sm);
+}
+
+.spacing-md {
+  margin: var(--spacing-md) 0;
+}
+
+.vertical.spacing-md {
+  margin: 0 var(--spacing-md);
+}
+
+.spacing-lg {
+  margin: var(--spacing-lg) 0;
+}
+
+.vertical.spacing-lg {
+  margin: 0 var(--spacing-lg);
+}
+
+.spacing-xl {
+  margin: var(--spacing-xl) 0;
+}
+
+.vertical.spacing-xl {
+  margin: 0 var(--spacing-xl);
+}
+

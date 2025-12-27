@@ -62,17 +62,10 @@ export function ExpandedEventModal({
     const params = new URLSearchParams(searchParams.toString());
     params.delete("event");
     const newSearch = params.toString();
-    const path = basePath
-      ? newSearch
-        ? `${basePath}?${newSearch}`
-        : basePath
-      : newSearch
-        ? `/?${newSearch}`
-        : "/";
-    router.push(path, {
+    router.push(newSearch ? `?${newSearch}` : window.location.pathname, {
       scroll: false,
     });
-  }, [searchParams, router, basePath]);
+  }, [searchParams, router]);
 
   useEffect(() => {
     if (activeEvent) {
@@ -137,7 +130,6 @@ export function ExpandedEventModal({
       >
         <motion.div
           ref={modalRef}
-          layoutId={activeEventSlug || undefined}
           className={styles.modal}
           onClick={(e) => e.stopPropagation()}
         >
@@ -170,6 +162,17 @@ export function ExpandedEventModal({
 
             <div className={styles.textContent}>
               <h2 className={styles.title}>{activeEvent.title}</h2>
+
+              {activeEvent.eventsCategories?.nodes &&
+                activeEvent.eventsCategories.nodes.length > 0 && (
+                  <div className={styles.categories}>
+                    {activeEvent.eventsCategories.nodes.map((category) => (
+                      <span key={category.slug} className={styles.category}>
+                        {category.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
               <div className={styles.meta}>
                 {activeEvent.startDate && (

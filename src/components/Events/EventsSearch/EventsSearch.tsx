@@ -23,7 +23,7 @@ export function EventsSearch() {
       searchClient={searchClient as any}
       indexName={algoliaConfig.indices.events}
     >
-      <Configure hitsPerPage={21} />
+      <Configure hitsPerPage={100} />
       <PageHeader
         title="Events"
         subtitle="Discover upcoming events and workshops"
