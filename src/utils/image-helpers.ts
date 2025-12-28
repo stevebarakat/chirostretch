@@ -90,3 +90,20 @@ export function useImageFallback(initialUrl: string, fallbackUrl: string) {
     hasError,
   };
 }
+
+const CMS_UPLOAD_PATTERN =
+  /^https:\/\/cms\.chirostretch\.site\/wp-content\/uploads\/(.+)$/;
+
+/**
+ * Proxies CMS upload URLs through Next.js to avoid CORS issues with mask-image.
+ * URLs like https://cms.chirostretch.site/wp-content/uploads/2025/12/icon.svg
+ * become /cms-assets/2025/12/icon.svg
+ */
+export function proxyCmsUrl(url: string | undefined | null): string {
+  if (!url) return "";
+  const match = url.match(CMS_UPLOAD_PATTERN);
+  if (match) {
+    return `/cms-assets/${match[1]}`;
+  }
+  return url;
+}

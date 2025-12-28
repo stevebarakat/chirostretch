@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
-import { Button } from "@/components/UI/Button";
+import { Button, ButtonIcon } from "@/components/UI/Button";
 import { ImageWrapper } from "@/components/UI/ImageWrapper";
 import {
   getSafeImageUrl,
@@ -17,7 +17,6 @@ import styles from "./Hero.module.css";
 type IconNode = {
   sourceUrl?: string;
   altText?: string;
-  slug?: string;
   mediaDetails?: {
     width?: number;
     height?: number;
@@ -62,29 +61,6 @@ type HeroProps = {
   maxHeight?: number;
   title?: string;
 };
-
-function ButtonIcon({ icon }: { icon?: IconNode }) {
-  if (!icon?.sourceUrl) return null;
-
-  return (
-    <span
-      className={styles.buttonIcon}
-      style={
-        {
-          "--icon-url": `url(${icon.sourceUrl})`,
-        } as React.CSSProperties
-      }
-    >
-      <Image
-        src={icon.sourceUrl}
-        alt={icon.altText || ""}
-        width={icon.mediaDetails?.width || 20}
-        height={icon.mediaDetails?.height || 20}
-        className={styles.buttonIconImage}
-      />
-    </span>
-  );
-}
 
 function Hero({
   featuredImage,

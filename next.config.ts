@@ -78,6 +78,15 @@ const nextConfig: NextConfig = {
     dangerouslyAllowLocalIP: true,
   },
 
+  async rewrites() {
+    return [
+      {
+        source: "/cms-assets/:path*",
+        destination: "https://cms.chirostretch.site/wp-content/uploads/:path*",
+      },
+    ];
+  },
+
   async headers() {
     // Only apply aggressive caching in production
     if (process.env.NODE_ENV !== "production") {

@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./cta.module.css";
-import { Button } from "@/components/UI/Button";
+import { Button, ButtonIcon } from "@/components/UI/Button";
 import { Promotion } from "@/components/Promotion";
 
 type IconNode = {
@@ -40,29 +39,6 @@ type CallToActionType = {
     subheading: string;
   };
 };
-
-function ButtonIcon({ icon }: { icon?: IconNode }) {
-  if (!icon?.sourceUrl) return null;
-
-  return (
-    <span
-      className={styles.buttonIcon}
-      style={
-        {
-          "--icon-url": `url(${icon.sourceUrl})`,
-        } as React.CSSProperties
-      }
-    >
-      <Image
-        src={icon.sourceUrl}
-        alt={icon.altText || ""}
-        width={icon.mediaDetails?.width || 20}
-        height={icon.mediaDetails?.height || 20}
-        className={styles.buttonIconImage}
-      />
-    </span>
-  );
-}
 
 const CallToAction = ({
   cta,

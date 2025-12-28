@@ -4,6 +4,7 @@ import {
   type ValuePropositionsSettingsResponse,
   type ValueProposition,
 } from "@/lib/graphql/queries";
+import { proxyCmsUrl } from "@/utils/image-helpers";
 import styles from "./ValuePropositions.module.css";
 
 const fallbackTitle = "The ChiroStretch Advantage";
@@ -78,7 +79,7 @@ export async function ValuePropositions() {
               style={
                 {
                   "--icon-color": prop.iconBackgroundColor || "hsl(210 100% 50%)",
-                  "--icon-url": prop.icon ? `url(${prop.icon.sourceUrl})` : undefined,
+                  "--icon-url": prop.icon ? `url(${proxyCmsUrl(prop.icon.sourceUrl)})` : undefined,
                 } as React.CSSProperties
               }
             >
