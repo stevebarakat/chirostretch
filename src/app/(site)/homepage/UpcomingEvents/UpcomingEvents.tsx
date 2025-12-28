@@ -30,8 +30,15 @@ export default function UpcomingEvents({
 
   const eventsList = events?.nodes || [];
 
+  // Sort by startDate chronologically
+  const sortedEvents = [...eventsList].sort((a, b) => {
+    const dateA = a.startDate ? new Date(a.startDate).getTime() : 0;
+    const dateB = b.startDate ? new Date(b.startDate).getTime() : 0;
+    return dateA - dateB;
+  });
+
   const limit = eventsLimit && eventsLimit >= 3 ? eventsLimit : 14;
-  const displayEvents = eventsList.slice(0, limit);
+  const displayEvents = sortedEvents.slice(0, limit);
 
   return (
     <section id="upcoming-events" className={styles.section}>

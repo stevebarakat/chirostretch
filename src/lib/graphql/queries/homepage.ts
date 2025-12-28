@@ -60,7 +60,7 @@ export const HOMEPAGE_QUERY = `
         }
       }
     }
-    upcomingEvents: events {
+    upcomingEvents: events(first: 20) {
       nodes {
         slug
         title
