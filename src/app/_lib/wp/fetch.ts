@@ -1,6 +1,4 @@
-const WP_GRAPHQL_ENDPOINT =
-  process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ??
-  "http://chirostretch-copy.local/graphql";
+const WP_GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 
 const FETCH_TIMEOUT = 30000; // 30 seconds (less than Next.js 60s build timeout)
 
@@ -22,7 +20,7 @@ export async function fetchWP<T>({
 
   let res: Response;
   try {
-    res = await fetch(WP_GRAPHQL_ENDPOINT, {
+    res = await fetch(WP_GRAPHQL_ENDPOINT!, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -30,17 +30,6 @@ const nextConfig: NextConfig = {
         pathname: "/wp-content/uploads/**",
       },
 
-      {
-        protocol: "https",
-        hostname: "cms.chirostretch.site",
-      },
-
-      {
-        protocol: "https",
-        hostname: "localhost",
-        pathname: "/wp-content/uploads/**",
-      },
-
       // Localhost
       {
         protocol: "http",
@@ -64,6 +53,12 @@ const nextConfig: NextConfig = {
         hostname: "127.0.0.1",
         pathname: "/wp-content/uploads/**",
       },
+
+      {
+        protocol: "https",
+        hostname: "cms.chirostretch.site",
+      },
+
       // Unsplash (placeholder images)
       {
         protocol: "https",

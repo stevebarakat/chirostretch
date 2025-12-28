@@ -4,8 +4,7 @@ import { wpGraphQLFetch } from "@/lib/wpgraphql";
 import { LOGIN_MUTATION } from "@/lib/auth/queries";
 import type { LoginResponse, LoginCredentials } from "@/lib/auth/types";
 
-const WP_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
 // Staff roles that should use the staff dashboard
 const STAFF_ROLES = [
@@ -75,7 +74,9 @@ async function restorePersistentCart(
     if (rawSetCookie) {
       // Split on comma followed by a cookie name pattern (handles multiple cookies)
       // WooCommerce cookies start with woocommerce_ or wp_woocommerce_
-      setCookieHeaders.push(...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/));
+      setCookieHeaders.push(
+        ...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/)
+      );
       console.log("Parsed Set-Cookie headers:", setCookieHeaders.length);
     }
 
@@ -230,7 +231,10 @@ export async function POST(request: NextRequest) {
     const errorMessage =
       error instanceof Error ? error.message : "Authentication failed";
 
-    if (errorMessage.includes("invalid") || errorMessage.includes("incorrect")) {
+    if (
+      errorMessage.includes("invalid") ||
+      errorMessage.includes("incorrect")
+    ) {
       return NextResponse.json(
         { error: "Invalid username or password" },
         { status: 401 }
@@ -241,7 +245,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error: "An error occurred during login",
-        details: process.env.NODE_ENV === "development" ? errorMessage : undefined
+        details:
+          process.env.NODE_ENV === "development" ? errorMessage : undefined,
       },
       { status: 500 }
     );

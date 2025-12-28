@@ -6,8 +6,7 @@ import type { RefreshTokenResponse } from "./auth/types";
 const WP_GRAPHQL_ENDPOINT =
   process.env.WORDPRESS_GRAPHQL_ENDPOINT ??
   process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ??
-  process.env.WP_GRAPHQL_ENDPOINT ??
-  "http://chirostretch-copy.local/graphql";
+  process.env.WP_GRAPHQL_ENDPOINT;
 
 type WPGraphQLFetchOptions<TVars = Record<string, unknown>> = {
   query: string;

@@ -195,12 +195,9 @@ export async function updateUserMeta(
   try {
     const token = await getValidAuthToken();
 
-    const WP_URL =
-      process.env.WORDPRESS_URL ||
-      process.env.NEXT_PUBLIC_WORDPRESS_URL ||
-      "http://chirostretch-copy.local";
+    const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
-    const endpoint = `${WP_URL.replace(
+    const endpoint = `${WP_URL!.replace(
       /\/$/,
       ""
     )}/wp-json/wp/v2/users/${userId}`;

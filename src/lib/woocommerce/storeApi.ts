@@ -1,8 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const WP_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
 type StoreApiOptions = {
   method: "GET" | "POST" | "PUT" | "DELETE";
@@ -57,7 +56,11 @@ export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
     data = JSON.parse(text);
   } catch {
     // Response wasn't JSON (could be HTML error page)
-    console.error("[storeApiFetch] Non-JSON response:", res.status, text.substring(0, 500));
+    console.error(
+      "[storeApiFetch] Non-JSON response:",
+      res.status,
+      text.substring(0, 500)
+    );
     data = { error: "Store API error", status: res.status };
   }
 
@@ -65,7 +68,9 @@ export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
   const setCookieHeaders: string[] = [];
   const rawSetCookie = res.headers.get("set-cookie");
   if (rawSetCookie) {
-    setCookieHeaders.push(...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/));
+    setCookieHeaders.push(
+      ...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/)
+    );
   }
 
   return {

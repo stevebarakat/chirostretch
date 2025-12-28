@@ -1,13 +1,10 @@
-const WP_GRAPHQL_ENDPOINT =
-  process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ??
-  process.env.WP_GRAPHQL_ENDPOINT ??
-  "http://chirostretch-copy.local/graphql";
+const WP_GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 
 export async function fetchGraphQL<T>(
   query: string,
   variables?: Record<string, unknown>
 ): Promise<T> {
-  const res = await fetch(WP_GRAPHQL_ENDPOINT, {
+  const res = await fetch(WP_GRAPHQL_ENDPOINT!, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

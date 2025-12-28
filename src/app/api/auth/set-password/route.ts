@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const WP_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
 type SetPasswordRequest = {
   key: string;

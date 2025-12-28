@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { clearAuthCookies, getAuthToken } from "@/lib/auth/cookies";
 
-const WP_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "http://chirostretch-copy.local";
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
 /**
  * Save the user's cart to persistent storage before logout

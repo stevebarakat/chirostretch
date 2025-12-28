@@ -35,30 +35,35 @@ type CouponResponse = {
   existing?: boolean;
 };
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://chirostretch-copy.local";
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
 
 /**
  * Generate a unique coupon code for the lead
  */
-async function generateCoupon(submission: LeadSubmission): Promise<CouponResponse | null> {
+async function generateCoupon(
+  submission: LeadSubmission
+): Promise<CouponResponse | null> {
   if (!submission.email) {
     console.warn("⚠️ No email address provided, skipping coupon generation");
     return null;
   }
 
   try {
-    const response = await fetch(`${WP_URL}/wp-json/chirostretch/v1/coupons/new-patient`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Internal-Secret": INTERNAL_SECRET,
-      },
-      body: JSON.stringify({
-        email: submission.email,
-        first_name: submission.first_name,
-      }),
-    });
+    const response = await fetch(
+      `${WP_URL}/wp-json/chirostretch/v1/coupons/new-patient`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Internal-Secret": INTERNAL_SECRET,
+        },
+        body: JSON.stringify({
+          email: submission.email,
+          first_name: submission.first_name,
+        }),
+      }
+    );
 
     if (!response.ok) {
       console.error("❌ Failed to generate coupon:", await response.text());
@@ -81,7 +86,10 @@ async function generateCoupon(submission: LeadSubmission): Promise<CouponRespons
 /**
  * Send confirmation email to the lead with coupon code
  */
-async function sendLeadConfirmation(submission: LeadSubmission, coupon: CouponResponse | null) {
+async function sendLeadConfirmation(
+  submission: LeadSubmission,
+  coupon: CouponResponse | null
+) {
   if (!submission.email) {
     console.warn("⚠️ No email address provided, skipping lead confirmation");
     return;
