@@ -94,7 +94,7 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
 
   let res: Response;
   try {
-    res = await fetch(WP_GRAPHQL_ENDPOINT, {
+    res = await fetch(WP_GRAPHQL_ENDPOINT!, {
       method: "POST",
       headers,
       body: JSON.stringify({ query, variables }),
