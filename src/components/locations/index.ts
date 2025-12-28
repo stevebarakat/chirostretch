@@ -1,6 +1,5 @@
 export { default as LocationMap } from "./LocationMap";
 export { default as LocationMapWrapper } from "./LocationMapWrapper";
-export { StreetViewEmbed } from "./StreetViewEmbed";
 export { StaffCard } from "./StaffCard";
 export { ServicesTabs } from "./ServicesTabs";
 export { ValuePropositions } from "./ValuePropositions";

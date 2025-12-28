@@ -16,18 +16,6 @@
   transform: translateY(-4px);
 }
 
-.streetViewWrapper {
-  flex-shrink: 0;
-  background-color: var(--color-bg-tertiary);
-  overflow: hidden;
-}
-
-.rightColumn {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
 .content {
   display: flex;
   flex: 1;
@@ -64,24 +52,4 @@
 .mapWrapper {
   width: 100%;
   border-top: 1px solid var(--color-border-primary);
-}
-
-@media (min-width: 640px) {
-  .card {
-    flex-direction: row;
-  }
-
-  .streetViewWrapper {
-    width: 280px;
-  }
-
-  .mapWrapper {
-    margin-top: 0;
-  }
-}
-
-@media (min-width: 1024px) {
-  .streetViewWrapper {
-    width: 320px;
-  }
 }
