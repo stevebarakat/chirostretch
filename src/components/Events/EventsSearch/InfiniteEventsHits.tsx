@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
-import { EventsGrid } from "../EventsGrid";
+import { EventsCalendar } from "../EventsCalendar";
 import { ExpandedEventModal } from "../ExpandedEventModal";
 import type { Event } from "../types";
 import styles from "./InfiniteEventsHits.module.css";
@@ -104,7 +104,7 @@ export function InfiniteEventsHits() {
 
   return (
     <div className={styles.container}>
-      <EventsGrid events={events} />
+      <EventsCalendar events={events} basePath="/events" />
       <ExpandedEventModal events={events} basePath="/events" />
       <div ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
     </div>
