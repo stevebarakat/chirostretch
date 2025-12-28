@@ -249,7 +249,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
                 <div className={styles.mapContainer}>
                   {location.coordinates?.lat && location.coordinates?.lng && (
                     <iframe
-                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${location.coordinates.lat},${location.coordinates.lng}&zoom=15`}
+                      src={`https://www.google.com/maps/embed/v1/place?key=${
+                        process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
+                      }&q=${location.coordinates.lat},${location.coordinates.lng}&zoom=15`}
                       className={styles.bookingMap}
                       allowFullScreen
                       loading="lazy"
