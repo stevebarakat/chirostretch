@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./cta.module.css";
 import { Button, ButtonIcon } from "@/components/UI/Button";
 import { Promotion } from "@/components/Promotion";
@@ -40,6 +41,10 @@ type CallToActionType = {
   };
 };
 
+function isModalLink(url: string): boolean {
+  return url.startsWith("?") || url === "/?modal=claim-offer";
+}
+
 const CallToAction = ({
   cta,
   promo,
@@ -52,6 +57,8 @@ const CallToAction = ({
     bottomLine: string;
   };
 }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { headline, subheading } = cta?.headings || {};
   const { btn1Link, btn1Icon } = cta?.button1 || {};
   const { btn2Link, btn2Icon } = cta?.button2 || {};
@@ -63,6 +70,20 @@ const CallToAction = ({
   const icon2Element = btn2Icon?.node?.sourceUrl ? (
     <ButtonIcon icon={btn2Icon.node} />
   ) : undefined;
+
+  const getLinkUrl = (href: string): string => {
+    const queryPart = href.startsWith("?") ? href.slice(1) : href.split("?")[1];
+    if (!queryPart) return href;
+
+    const params = new URLSearchParams(queryPart);
+    const newParams = new URLSearchParams(searchParams.toString());
+    params.forEach((value, key) => {
+      newParams.set(key, value);
+    });
+    return newParams.toString()
+      ? `${pathname}?${newParams.toString()}`
+      : pathname;
+  };
 
   return (
     <div className={styles.cta}>
@@ -79,32 +100,60 @@ const CallToAction = ({
           </div>
           <div className={styles.ctaForm}>
             <div className={styles.buttonGroup}>
-              {btn1Link?.url && btn1Link?.title && (
-                <Button
-                  as="a"
-                  href={btn1Link.url}
-                  target={btn1Link.target || undefined}
-                  variant="inverse"
-                  color="secondary"
-                  icon={icon1Element}
-                  iconPosition="left"
-                >
-                  {btn1Link.title}
-                </Button>
-              )}
-              {btn2Link?.url && btn2Link?.title && (
-                <Button
-                  as="a"
-                  href={btn2Link.url}
-                  target={btn2Link.target || undefined}
-                  color="secondary"
-                  outline
-                  icon={icon2Element}
-                  iconPosition="left"
-                >
-                  {btn2Link.title}
-                </Button>
-              )}
+              {btn1Link?.url &&
+                btn1Link?.title &&
+                (isModalLink(btn1Link.url) ? (
+                  <Button
+                    as="Link"
+                    href={getLinkUrl(btn1Link.url)}
+                    scroll={false}
+                    variant="inverse"
+                    color="secondary"
+                    icon={icon1Element}
+                    iconPosition="left"
+                  >
+                    {btn1Link.title}
+                  </Button>
+                ) : (
+                  <Button
+                    as="a"
+                    href={btn1Link.url}
+                    target={btn1Link.target || undefined}
+                    variant="inverse"
+                    color="secondary"
+                    icon={icon1Element}
+                    iconPosition="left"
+                  >
+                    {btn1Link.title}
+                  </Button>
+                ))}
+              {btn2Link?.url &&
+                btn2Link?.title &&
+                (isModalLink(btn2Link.url) ? (
+                  <Button
+                    as="Link"
+                    href={getLinkUrl(btn2Link.url)}
+                    scroll={false}
+                    color="secondary"
+                    outline
+                    icon={icon2Element}
+                    iconPosition="left"
+                  >
+                    {btn2Link.title}
+                  </Button>
+                ) : (
+                  <Button
+                    as="a"
+                    href={btn2Link.url}
+                    target={btn2Link.target || undefined}
+                    color="secondary"
+                    outline
+                    icon={icon2Element}
+                    iconPosition="left"
+                  >
+                    {btn2Link.title}
+                  </Button>
+                ))}
             </div>
           </div>
         </div>

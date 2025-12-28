@@ -25,17 +25,22 @@ type TopMenuItemProps = {
   onNavigate?: () => void;
 };
 
+function isModalLink(url: string): boolean {
+  return url.includes("?modal=") || url.startsWith("?");
+}
+
 function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
   const dropdownButton = item?.childItems?.nodes;
   const isDropdownButton = dropdownButton && dropdownButton.length > 0;
   const [isActive, setIsActive] = useState(false);
+  const isModal = isModalLink(item.uri);
 
   return (
     <li onMouseLeave={() => setIsActive(false)}>
       {!isDropdownButton ? (
         <Link
           href={item.uri}
-          passHref
+          scroll={isModal ? false : undefined}
           className={styles.topMenuLink}
           onClick={onNavigate}
         >
@@ -70,7 +75,7 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
             <li key={child.id}>
               <Link
                 href={child.uri}
-                passHref
+                scroll={isModalLink(child.uri) ? false : undefined}
                 className={styles.topMenuLink}
                 onClick={() => {
                   setIsActive(false);
