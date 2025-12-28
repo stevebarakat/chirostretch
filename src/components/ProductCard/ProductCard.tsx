@@ -92,7 +92,8 @@ export function ProductCard({
   const productId = id;
 
   const imageSource = image || featuredImage?.node;
-  const imageUrl = imageSource?.sourceUrl;
+  const imageUrl = imageSource?.sourceUrl || "";
+  const hasValidImage = imageUrl.length > 0;
   const imageAlt = imageSource?.altText || productName;
   const imageSizes = imageSource?.sizes;
   const imageWidth = imageSource?.mediaDetails?.width;
@@ -114,7 +115,7 @@ export function ProductCard({
 
   const cardContent = (
     <>
-      {imageUrl ? (
+      {hasValidImage ? (
         <ImageWrapper className={styles.imageWrapper}>
           <Image
             src={imageUrl}

@@ -35,14 +35,15 @@ export default function ProductGallery({
   }
 
   const selectedImage = allImages[selectedImageIndex];
-  const mainImageSrc = selectedImage?.sourceUrl || allImages[0]?.sourceUrl;
+  const mainImageSrc = selectedImage?.sourceUrl || allImages[0]?.sourceUrl || "";
+  const hasValidMainImage = mainImageSrc.length > 0;
   const mainImageAlt = selectedImage?.altText || allImages[0]?.altText || "";
   const mainImageWidth = selectedImage?.mediaDetails?.width || 800;
   const mainImageHeight = selectedImage?.mediaDetails?.height || 800;
 
   return (
     <div className={styles.gallery}>
-      {mainImageSrc && enableMagnifier ? (
+      {hasValidMainImage && enableMagnifier ? (
         <ImageMagnifier
           src={mainImageSrc}
           alt={mainImageAlt}
@@ -53,7 +54,7 @@ export default function ProductGallery({
           sizes="(max-width: 768px) 100vw, 50vw"
           className={styles.mainImage}
         />
-      ) : mainImageSrc ? (
+      ) : hasValidMainImage ? (
         <div className={styles.mainImage}>
           <Image
             src={mainImageSrc}
@@ -70,7 +71,7 @@ export default function ProductGallery({
       {allImages.length > 1 && (
         <div className={styles.thumbnails}>
           {allImages.map((image, index) => {
-            if (!image.sourceUrl) return null;
+            if (!image.sourceUrl || image.sourceUrl.length === 0) return null;
             return (
               <button
                 key={index}
