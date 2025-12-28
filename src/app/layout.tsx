@@ -141,7 +141,7 @@ export default async function RootLayout({
           <ModalProvider claimOfferForm={claimOfferForm}>
             <Header logo={logo} topMenuItems={topMenuItems} />
             {children}
-            <Footer logo={logo} menuItems={footerMenuItems} />
+            <Footer logo={logo} />
             <BackToTop />
           </ModalProvider>
         </CartProvider>

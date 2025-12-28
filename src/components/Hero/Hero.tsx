@@ -171,7 +171,6 @@ function Hero({
             <>
               {heroUnit.heroLink.url.startsWith("?") ? (
                 <Button
-                  // @ts-expect-error - TypeScript doesn't properly narrow the discriminated union for "Link"
                   as="Link"
                   href={getLinkUrl(heroUnit.heroLink.url)}
                   scroll={false}
@@ -196,7 +195,6 @@ function Hero({
                 heroUnit.heroLink2?.title &&
                 (heroUnit.heroLink2.url.startsWith("?") ? (
                   <Button
-                    // @ts-expect-error - TypeScript doesn't properly narrow the discriminated union for "Link"
                     as="Link"
                     href={getLinkUrl(heroUnit.heroLink2.url)}
                     scroll={false}

@@ -1,6 +1,6 @@
 .section {
   padding: var(--spacing-4xl) 0;
-  background-color: var(--color-bg-primary);
+  background-color: white;
 }
 
 .grid {

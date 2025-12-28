@@ -21,6 +21,12 @@ module.exports = {
         ignorePseudoClasses: ["global"],
       },
     ],
+    "property-no-unknown": [
+      true,
+      {
+        ignoreProperties: ["interpolate-size", "text-wrap"],
+      },
+    ],
     "declaration-empty-line-before": null,
     "order/properties-order": [
       [

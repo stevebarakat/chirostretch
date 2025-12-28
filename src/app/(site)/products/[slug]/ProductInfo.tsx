@@ -166,7 +166,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             href={product.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-                        className={styles.button}
+            className={styles.button}
           >
             {product.buttonText || "Buy Now"}
           </Button>
@@ -188,7 +188,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             </div>
 
             <Button
-                            className={styles.button}
+              className={styles.button}
               disabled={!isInStock || loading}
               onClick={handleAddToCart}
             >

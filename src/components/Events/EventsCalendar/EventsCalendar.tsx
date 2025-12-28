@@ -83,7 +83,7 @@ function formatCost(cost?: string | null): string {
   return cost.startsWith("$") ? cost : `$${cost}`;
 }
 
-type EventsCalendarProps = {
+export type EventsCalendarProps = {
   events: Event[];
   basePath?: string;
 };

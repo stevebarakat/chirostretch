@@ -6,7 +6,6 @@ html {
 ::before,
 ::after {
   box-sizing: border-box;
-  text-wrap: balance;
 }
 
 html,

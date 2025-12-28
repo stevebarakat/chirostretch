@@ -206,7 +206,18 @@
       "Bash(src/components/UI/Divider/ )",
       "Bash(src/components/UI/index.ts)",
       "Bash(git -C /Users/sb/Dev/chirostretch diff --cached --stat)",
-      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd venue creation and event categories to bulk importer\n\n- Create TEC venues when importing events\n- Link venues to events via _EventVenueID\n- Set venue meta \\(address, city, state, zip\\)\n- Assign event categories from generated data\n- Sync events to TEC custom tables for GraphQL\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd venue creation and event categories to bulk importer\n\n- Create TEC venues when importing events\n- Link venues to events via _EventVenueID\n- Set venue meta \\(address, city, state, zip\\)\n- Assign event categories from generated data\n- Sync events to TEC custom tables for GraphQL\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp diff mu-plugins/algolia-webhook-trigger.php)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd TEC event meta hook for Algolia auto-reindex\n\n- Refactor webhook logic into reusable chs_trigger_algolia_webhook\\(\\)\n- Add tribe_events_update_meta hook \\(fires after TEC saves venue,\n  organizer, dates, etc.\\)\n- Fixes issue where editing events in WP admin didn''t trigger reindex\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff src/app/\\\\\\(site\\\\\\)/homepage/UpcomingEvents/UpcomingEvents.tsx src/lib/graphql/queries/homepage.ts)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp branch --show-current)",
+      "Bash(git -C /Users/sb/Dev/chirostretch branch --show-current)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp push origin main)",
+      "Bash(git -C /Users/sb/Dev/chirostretch checkout:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch merge footer)",
+      "Bash(git -C /Users/sb/Dev/chirostretch push origin main)",
+      "mcp__ide__getDiagnostics",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff --stat src/components/Events/EventsSearch/InfiniteEventsHits.tsx src/components/Events/EventsCalendar/)"
     ],
     "deny": [],
     "ask": []

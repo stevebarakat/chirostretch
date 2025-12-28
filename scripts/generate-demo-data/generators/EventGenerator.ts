@@ -28,11 +28,15 @@ export class EventGenerator {
     this.baseDate.setHours(0, 0, 0, 0);
   }
 
+  private eventsPerDay: Map<string, number> = new Map();
+  private maxEventsPerDay = 3;
+
   generate(
     locations: GeneratedLocation[],
     staff: GeneratedStaff[]
   ): GeneratedEvent[] {
     const events: GeneratedEvent[] = [];
+    this.eventsPerDay.clear();
 
     for (let i = 0; i < locations.length; i++) {
       const location = locations[i];
@@ -43,12 +47,40 @@ export class EventGenerator {
       // Pick a random event template for this location
       const template = this.rng.pick(this.templates);
 
-      events.push(
-        this.generateEvent(location, locationStaff, template, i)
-      );
+      events.push(this.generateEvent(location, locationStaff, template, i));
     }
 
     return events;
+  }
+
+  private getDateKey(date: Date): string {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  }
+
+  private findAvailableDate(): Date {
+    const maxAttempts = 50;
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const daysFromNow = this.rng.int(14, 180);
+      const date = new Date(this.baseDate);
+      date.setDate(date.getDate() + daysFromNow);
+
+      const dateKey = this.getDateKey(date);
+      const eventsOnDay = this.eventsPerDay.get(dateKey) || 0;
+
+      if (eventsOnDay < this.maxEventsPerDay) {
+        this.eventsPerDay.set(dateKey, eventsOnDay + 1);
+        return date;
+      }
+    }
+
+    // Fallback: extend the date range if we can't find an available slot
+    const daysFromNow = this.rng.int(181, 270);
+    const date = new Date(this.baseDate);
+    date.setDate(date.getDate() + daysFromNow);
+    const dateKey = this.getDateKey(date);
+    this.eventsPerDay.set(dateKey, (this.eventsPerDay.get(dateKey) || 0) + 1);
+    return date;
   }
 
   private generateEvent(
@@ -62,10 +94,8 @@ export class EventGenerator {
     // Pick a staff member to feature
     const staffMember = this.rng.pick(locationStaff);
 
-    // Generate date 1-6 months in the future
-    const daysFromNow = this.rng.int(14, 180);
-    const startDate = new Date(this.baseDate);
-    startDate.setDate(startDate.getDate() + daysFromNow);
+    // Find a date with less than 3 events already scheduled
+    const startDate = this.findAvailableDate();
 
     // Pick a time slot weighted toward evenings/weekends
     const timeSlot = this.pickTimeSlot(startDate);

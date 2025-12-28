@@ -23,18 +23,18 @@
 }
 
 .monthYear {
+  margin: 0;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
-  margin: 0;
 }
 
 .navButton {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
   width: 36px;
   height: 36px;
-  padding: 0;
   font-family: inherit;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
@@ -63,8 +63,8 @@
   padding: var(--spacing-xs);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
   text-align: center;
+  color: var(--color-text-secondary);
 }
 
 /* Calendar grid */
@@ -85,8 +85,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2xs);
-  height: 120px;
   padding: var(--spacing-xs);
+  height: 120px;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -94,13 +94,13 @@
 }
 
 .dayCell.otherMonth {
-  opacity: 0.4;
   background: var(--color-bg-primary);
+  opacity: 0.4;
 }
 
 .dayCell.today {
-  border-color: var(--color-primary-500);
   border-width: 2px;
+  border-color: var(--color-primary-500);
 }
 
 .dayNumber {
@@ -111,8 +111,8 @@
 }
 
 .today .dayNumber {
-  color: var(--color-primary-500);
   font-weight: var(--font-weight-bold);
+  color: var(--color-primary-500);
 }
 
 /* Events container within day cell */
@@ -130,6 +130,8 @@
   align-items: center;
   gap: var(--spacing-2xs);
   padding: var(--spacing-2xs) var(--spacing-xs);
+  padding: var(--spacing-xs);
+  width: 100%;
   font-family: inherit;
   font-size: var(--font-size-xs);
   text-align: left;
@@ -138,8 +140,6 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background-color var(--transition-base);
-  width: 100%;
-  padding: var(--spacing-xs);
 }
 
 .eventItem:hover {
@@ -164,10 +164,10 @@
 }
 
 .eventTitle {
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--color-text-secondary);
+  overflow: hidden;
 }
 
 /* Mobile: List view styles */
@@ -184,10 +184,10 @@
 }
 
 .dateHeader {
+  margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  margin: 0;
   padding-block-end: var(--spacing-xs);
   border-block-end: 1px solid var(--color-border);
 }
@@ -199,9 +199,9 @@
 }
 
 .emptyMonth {
+  padding: var(--spacing-xl);
   text-align: center;
   color: var(--color-text-secondary);
-  padding: var(--spacing-xl);
 }
 
 /* Mobile event card */
@@ -215,12 +215,12 @@
 }
 
 .mobileCardThumb {
-  flex-shrink: 0;
   width: 100px;
   height: 100px;
+  background: var(--color-bg-tertiary);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: var(--color-bg-tertiary);
+  flex-shrink: 0;
 }
 
 .mobileCardImage {
@@ -237,36 +237,36 @@
 }
 
 .mobileCardTitle {
+  margin: 0;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  margin: 0;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .mobileCardMeta {
+  margin: 0;
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin: 0;
 }
 
 .mobileCardCost {
+  margin: 0;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-primary-500);
-  margin: 0;
 }
 
 .mobileCardLink {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2xs);
-  margin-block-start: auto;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-primary-600);
   text-decoration: none;
+  color: var(--color-primary-600);
+  margin-block-start: auto;
 }
 
 .mobileCardLink:hover {
