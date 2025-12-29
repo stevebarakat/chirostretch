@@ -125,7 +125,11 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${montserrat.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <head>
         <link rel="dns-prefetch" href={WORDPRESS_URL} />
         <link rel="preconnect" href={WORDPRESS_URL} crossOrigin="anonymous" />

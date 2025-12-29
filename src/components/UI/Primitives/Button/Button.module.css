@@ -3,13 +3,11 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-xl);
   width: fit-content;
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
   font-family: inherit;
-  font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
   text-align: center;
   text-decoration: none;
@@ -18,6 +16,24 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   transition: all var(--transition-base);
+}
+
+.button.sm {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  gap: var(--spacing-xs);
+}
+
+.button.md {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-base);
+  gap: var(--spacing-sm);
+}
+
+.button.lg {
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+  gap: var(--spacing-md);
 }
 
 .button:focus {
@@ -107,6 +123,100 @@
 .neutral.inverse:hover {
   color: var(--color-neutral-500);
   background-color: var(--color-neutral-200);
+}
+
+.primary.outline {
+  color: var(--color-primary-500);
+  background-color: transparent;
+  border-color: var(--color-primary-500);
+}
+
+.primary.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.secondary.outline {
+  color: var(--color-secondary-500);
+  background-color: transparent;
+  border-color: var(--color-secondary-500);
+}
+
+.secondary.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-secondary-500);
+  border-color: var(--color-secondary-500);
+}
+
+.neutral.outline {
+  color: var(--color-neutral-500);
+  background-color: transparent;
+  border-color: var(--color-neutral-500);
+}
+
+.neutral.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-neutral-500);
+  border-color: var(--color-neutral-500);
+}
+
+.glass.outline {
+  color: var(--color-text-inverse);
+  background-color: transparent;
+  border-color: var(--color-transparent-white-300);
+}
+
+.glass.outline:hover {
+  background-color: var(--color-transparent-white-250);
+  border-color: var(--color-transparent-white-400);
+}
+
+.primary.inverse.outline {
+  color: var(--color-primary-500);
+  background-color: transparent;
+  border-color: var(--color-primary-500);
+}
+
+.primary.inverse.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.secondary.inverse.outline {
+  color: var(--color-secondary-500);
+  background-color: transparent;
+  border-color: var(--color-secondary-500);
+}
+
+.secondary.inverse.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-secondary-500);
+  border-color: var(--color-secondary-500);
+}
+
+.neutral.inverse.outline {
+  color: var(--color-neutral-500);
+  background-color: transparent;
+  border-color: var(--color-neutral-500);
+}
+
+.neutral.inverse.outline:hover {
+  color: var(--color-text-inverse);
+  background-color: var(--color-neutral-500);
+  border-color: var(--color-neutral-500);
+}
+
+.glass.inverse.outline {
+  color: var(--color-text-inverse);
+  background-color: transparent;
+  border-color: var(--color-transparent-white-300);
+}
+
+.glass.inverse.outline:hover {
+  background-color: var(--color-transparent-white-250);
+  border-color: var(--color-transparent-white-400);
 }
 
 .outlineBorder {

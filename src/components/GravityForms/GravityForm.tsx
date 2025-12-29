@@ -1,7 +1,7 @@
 "use client";
 
 // eslint-disable-next-line no-restricted-imports
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import GravityFormForm from "next-gravity-forms";
 
 type GravityFormChoice = {
@@ -140,32 +140,6 @@ export function GravityForm({ form }: GravityFormProps) {
     };
   }, [form]);
 
-  // Reason this component must use useEffect:
-  // - Development-only logging for debugging form data structure
-  // - This is a side effect that should not run during render
-  // - Note: This could be removed in production builds
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("Form data:", form);
-      console.log("Processed form data:", processedForm);
-
-      // Debug: Log each field to find the problematic one
-      const formData = processedForm as GravityFormData;
-      const gfForm = formData?.gfForm;
-      if (gfForm?.formFields?.nodes) {
-        console.log("Field details:");
-        gfForm.formFields.nodes.forEach((field, index: number) => {
-          console.log(`Field ${index + 1}:`, {
-            id: field.id,
-            type: field.type || field.inputType,
-            label: field.label,
-            inputs: field.inputs,
-            choices: field.choices,
-          });
-        });
-      }
-    }
-  }, [form, processedForm]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <GravityFormForm data={processedForm as any} />;

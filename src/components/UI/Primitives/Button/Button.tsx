@@ -9,7 +9,8 @@ import styles from "./Button.module.css";
 
 type BaseButtonProps = {
   color?: "primary" | "secondary" | "neutral" | "glass";
-  variant?: "inverse" | "outline";
+  variant?: "inverse" | "outline" | "inverse outline" | "outline inverse";
+  size?: "sm" | "md" | "lg";
   outline?: boolean;
   fullWidth?: boolean;
   shadow?: boolean;
@@ -50,6 +51,7 @@ function Button({
   as,
   color = "primary",
   variant,
+  size = "md",
   outline = false,
   fullWidth = false,
   shadow = false,
@@ -63,10 +65,15 @@ function Button({
 }: ButtonComponentProps) {
   const Component = as ?? "button";
 
+  const variantClasses = variant
+    ? variant.split(" ").map((v) => styles[v.trim()]).filter(Boolean)
+    : [];
+
   const buttonClasses = clsx(
     styles.button,
     styles[color],
-    variant && styles[variant],
+    styles[size],
+    ...variantClasses,
     outline && styles.outlineBorder,
     fullWidth && styles.fullWidth,
     shadow && styles.shadow,

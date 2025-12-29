@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState } from "react";
-import { Button } from "@/components/UI";
+import { Button, Input } from "@/components/UI";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import styles from "./ProductInfo.module.css";
 
@@ -176,12 +176,13 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               <label htmlFor="quantity" className={styles.quantityLabel}>
                 Quantity
               </label>
-              <input
+              <Input
                 id="quantity"
                 type="number"
                 min="1"
                 value={quantity}
                 onChange={handleQuantityChange}
+                size="md"
                 className={styles.quantityInput}
                 disabled={!isInStock}
               />
@@ -285,6 +286,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </ul>
         </div>
       )}
+
+      <Button
+        as="a"
+        href="/shop"
+        className={styles.continueShoppingButton}
+        color="primary"
+        variant="inverse outline"
+      >
+        Continue Shopping
+      </Button>
     </div>
   );
 }

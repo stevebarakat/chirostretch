@@ -9,6 +9,7 @@ type InputElement = "input" | "textarea" | "select";
 
 type BaseInputProps = {
   as?: InputElement;
+  size?: "sm" | "md" | "lg";
   className?: string;
   error?: boolean;
 };
@@ -35,6 +36,7 @@ type InputComponentProps = InputProps | TextareaProps | SelectProps;
 
 function Input({
   as,
+  size = "md",
   className,
   error,
   ref,
@@ -46,6 +48,7 @@ function Input({
     styles.input,
     Component === "textarea" && styles.textarea,
     Component === "select" && styles.select,
+    Component !== "textarea" && styles[size],
     error && styles.error,
     className
   );

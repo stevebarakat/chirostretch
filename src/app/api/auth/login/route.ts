@@ -53,7 +53,6 @@ async function restorePersistentCart(
     // Forward existing session cookies so WordPress can access the guest cart
     if (existingCookies) {
       headers["Cookie"] = existingCookies;
-      console.log("Forwarding cookies to cart/restore:", existingCookies);
     }
 
     const res = await fetch(`${WP_URL}/wp-json/chirostretch/v1/cart/restore`, {
@@ -70,14 +69,12 @@ async function restorePersistentCart(
     // Collect all Set-Cookie headers
     const setCookieHeaders: string[] = [];
     const rawSetCookie = res.headers.get("set-cookie");
-    console.log("Raw Set-Cookie from cart/restore:", rawSetCookie);
     if (rawSetCookie) {
       // Split on comma followed by a cookie name pattern (handles multiple cookies)
       // WooCommerce cookies start with woocommerce_ or wp_woocommerce_
       setCookieHeaders.push(
         ...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/)
       );
-      console.log("Parsed Set-Cookie headers:", setCookieHeaders.length);
     }
 
     const data = (await res.json()) as CartRestoreResponse;

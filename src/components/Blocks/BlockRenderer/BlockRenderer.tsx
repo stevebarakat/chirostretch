@@ -108,20 +108,6 @@ export default function BlockRenderer({
                 | undefined) ||
               undefined;
 
-            if (process.env.NODE_ENV === "development") {
-              console.log("Image block attributes:", {
-                aspectRatio: aspectRatio || "NOT FOUND",
-                scale: scale || "NOT FOUND",
-                objectFit: objectFit || "NOT FOUND",
-                rawAspectRatio: imageAttrs?.aspectRatio,
-                rawScale: imageAttrs?.scale,
-                rawObjectFit: imageAttrs?.objectFit,
-                styleAspectRatio: imageAttrs?.style?.aspectRatio,
-                styleObjectFit: imageAttrs?.style?.objectFit,
-                allAttrsKeys: Object.keys(imageAttrs || {}),
-              });
-            }
-
             return (
               <ImageBlock
                 key={key}

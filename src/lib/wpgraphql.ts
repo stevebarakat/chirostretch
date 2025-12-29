@@ -78,13 +78,6 @@ async function wpGraphQLFetchInternal<TData, TVars = Record<string, unknown>>(
     const token = await getValidAuthToken();
     if (token) {
       headers.Authorization = `Bearer ${token}`;
-      // Debug logging
-      if (process.env.NODE_ENV === "development") {
-        console.log(
-          "[wpGraphQLFetch] Using auth token:",
-          token.substring(0, 30) + "..."
-        );
-      }
     } else {
       console.warn(
         "[wpGraphQLFetch] No auth token available for authenticated request"

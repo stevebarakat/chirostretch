@@ -51,8 +51,7 @@ function ModalContent({ claimOfferForm }: { claimOfferForm?: unknown }) {
                 form={claimOfferForm}
                 formId={17}
                 submitButtonText="Claim Your Offer"
-                onSubmitSuccess={(response) => {
-                  console.log("New Patient Offer submitted:", response);
+                onSubmitSuccess={() => {
                   // Close modal after successful submission
                   closeModal();
                 }}
