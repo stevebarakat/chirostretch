@@ -242,10 +242,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             {product.productTags.nodes.map((tag, index) => (
               <span key={tag.id || index}>
                 {index > 0 && ", "}
-                <a
-                  href={`/tag/${tag.slug}`}
-                  className={styles.metadataLink}
-                >
+                <a href={`/tag/${tag.slug}`} className={styles.metadataLink}>
                   {tag.name}
                 </a>
               </span>

@@ -3,9 +3,9 @@
 }
 
 .header {
-  margin-bottom: var(--spacing-lg, 1.5rem);
-  padding-bottom: var(--spacing-md, 1rem);
-  border-bottom: 1px solid var(--color-border, #e5e5e5);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
 .locationInfo {
@@ -14,21 +14,21 @@
 }
 
 .error {
-  margin-bottom: var(--spacing-lg, 1.5rem);
-  padding: var(--spacing-md, 1rem);
-  color: hsl(0 84% 32%);
-  background: hsl(0 84% 95%);
-  border-radius: var(--radius-sm, 4px);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-error-700);
+  background: var(--color-error-50);
+  border-radius: var(--radius-md);
 }
 
 .section {
-  margin-bottom: var(--spacing-xl, 2rem);
-  padding-bottom: var(--spacing-xl, 2rem);
-  border-bottom: 1px solid var(--color-border, #e5e5e5);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
 .section:last-of-type {
-  margin-bottom: var(--spacing-lg, 1.5rem);
+  margin-bottom: var(--spacing-md);
   padding-bottom: 0;
   border-bottom: none;
 }
@@ -80,19 +80,28 @@
 
 .input,
 .select {
-  padding: var(--spacing-sm, 0.75rem);
+  padding: var(--spacing-sm) var(--spacing-md);
   width: 100%;
-  font-size: var(--font-size-base, 1rem);
-  background: var(--color-surface, #fff);
-  border: 1px solid var(--color-border, #e5e5e5);
-  border-radius: var(--radius-sm, 4px);
-  transition: border-color var(--transition-base, 0.2s ease);
+  font-size: var(--font-size-base);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base),
+    background-color var(--transition-base);
 }
 
 .input:focus,
 .select:focus {
   outline: none;
-  border-color: var(--color-primary-500, #0070f3);
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-transparent-100);
+}
+
+.input:hover,
+.select:hover {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
 }
 
 .input:disabled,
@@ -102,19 +111,28 @@
 }
 
 .textarea {
-  padding: var(--spacing-sm, 0.75rem);
+  padding: var(--spacing-sm) var(--spacing-md);
   width: 100%;
   font-family: inherit;
-  font-size: var(--font-size-base, 1rem);
-  border: 1px solid var(--color-border, #e5e5e5);
-  border-radius: var(--radius-sm, 4px);
-  transition: border-color var(--transition-base, 0.2s ease);
+  font-size: var(--font-size-base);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base),
+    background-color var(--transition-base);
   resize: vertical;
 }
 
 .textarea:focus {
   outline: none;
-  border-color: var(--color-primary-500, #0070f3);
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-transparent-100);
+}
+
+.textarea:hover {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
 }
 
 .hint {
@@ -234,13 +252,13 @@
 }
 
 .cancelButton {
-  padding: var(--spacing-sm, 0.75rem) var(--spacing-xl, 2rem);
-  font-weight: var(--font-weight-medium, 500);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
-  color: var(--color-text-secondary, #666);
-  border: 1px solid var(--color-border, #e5e5e5);
-  border-radius: var(--radius-sm, 4px);
-  transition: all var(--transition-base, 0.2s ease);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
 }
 
 .cancelButton:hover {
@@ -249,14 +267,14 @@
 }
 
 .saveButton {
-  padding: var(--spacing-sm, 0.75rem) var(--spacing-xl, 2rem);
-  font-weight: var(--font-weight-medium, 500);
-  color: var(--color-text-inverse, #fff);
-  background: var(--color-primary-500, #0070f3);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+  background: var(--color-primary-500);
   border: none;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background var(--transition-base, 0.2s ease);
+  transition: background var(--transition-base);
 }
 
 .saveButton:hover:not(:disabled) {

@@ -7,9 +7,9 @@ import {
 } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/UI/Container";
-import ProductGallery from "./ProductGallery";
-import ProductInfo from "./ProductInfo";
-import RelatedProducts from "./RelatedProducts";
+import { ProductGallery } from "./ProductGallery";
+import { ProductInfo } from "./ProductInfo";
+import { RelatedProducts } from "./RelatedProducts";
 import styles from "./page.module.css";
 import CartSummary from "@/components/Layout/CartSummary";
 import SearchInput from "@/components/Layout/SearchInput";

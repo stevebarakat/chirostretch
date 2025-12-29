@@ -2,6 +2,7 @@ export { default as Button } from "./Button";
 export { BackToTop } from "./BackToTop";
 export { Container } from "./Container";
 export { Divider } from "./Divider";
+export { ErrorState } from "./ErrorState";
 export { FlipMotion, FlipMotionItem } from "./FlipMotion";
 export { FormField } from "./FormField";
 export { ImageWrapper } from "./ImageWrapper";

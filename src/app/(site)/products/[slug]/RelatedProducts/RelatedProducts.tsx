@@ -82,3 +82,4 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
     </section>
   );
 }
+

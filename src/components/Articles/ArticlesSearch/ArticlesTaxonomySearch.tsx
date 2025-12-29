@@ -4,9 +4,9 @@ import { InstantSearch, Configure } from "react-instantsearch-hooks-web";
 import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { PageHeader } from "@/components/UI/PageHeader";
+import { ErrorState } from "@/components/UI/ErrorState";
 import { AlgoliaSearchBox } from "@/components/Search";
 import { InfiniteArticlesHits } from "./InfiniteArticlesHits";
-import styles from "./ArticlesSearch.module.css";
 
 type ArticlesTaxonomySearchProps = {
   taxonomyType: "category" | "tag";
@@ -23,9 +23,9 @@ export function ArticlesTaxonomySearch({
 }: ArticlesTaxonomySearchProps) {
   if (!isAlgoliaConfigured() || !searchClient) {
     return (
-      <div className={styles.error}>
-        <p>Search is not configured. Please check your Algolia settings.</p>
-      </div>
+      <ErrorState>
+        Search is not configured. Please check your Algolia settings.
+      </ErrorState>
     );
   }
 
