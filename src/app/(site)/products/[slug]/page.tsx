@@ -12,6 +12,7 @@ import ProductInfo from "./ProductInfo";
 import RelatedProducts from "./RelatedProducts";
 import styles from "./page.module.css";
 import CartSummary from "@/components/Layout/CartSummary";
+import SearchInput from "@/components/Layout/SearchInput";
 
 export const revalidate = 300;
 
@@ -99,6 +100,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Container>
         <div className={styles.productPage}>
           <div className={styles.productSummary}>
+            <SearchInput />
             <CartSummary />
           </div>
           <div className={styles.productLayout}>

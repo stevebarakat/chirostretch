@@ -144,7 +144,7 @@ export default function FeaturedProducts({
             subheading={featuredProductsSubheading}
           />
           <div className={styles.cartWrapper}>
-            <CartSummary />
+            <CartSummary variant="featured" />
           </div>
         </div>
         {products.length > 0 ? (

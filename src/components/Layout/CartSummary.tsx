@@ -9,7 +9,11 @@ import { formatPrice } from "@/lib/utils/formatPrice";
 import styles from "./CartSummary.module.css";
 import clsx from "clsx";
 
-export default function CartSummary() {
+type CartSummaryProps = {
+  variant?: "default" | "featured";
+};
+
+export default function CartSummary({ variant = "default" }: CartSummaryProps) {
   const itemsCount = useCartStore((s) => s.itemsCount);
   const totals = useCartStore((s) => s.totals);
   const fetchCart = useCartStore((s) => s.fetchCart);
@@ -27,7 +31,10 @@ export default function CartSummary() {
   return (
     <Link
       href="/cart"
-      className={clsx(styles.cartSummary, styles.featuredCartSummary)}
+      className={clsx(
+        styles.cartSummary,
+        variant === "featured" && styles.featuredCartSummary
+      )}
     >
       <span className={styles.cartText}>
         {formattedPrice} {itemsCount} {itemsCount === 1 ? "item" : "items"}
