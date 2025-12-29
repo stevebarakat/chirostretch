@@ -157,7 +157,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
 
 export const ALL_PRODUCT_SLUGS_QUERY = `
   query AllProductSlugs {
-    products(first: 1000) {
+    products(first: 1000, where: { typeIn: [SIMPLE, VARIABLE, EXTERNAL, GROUPED] }) {
       nodes {
         id
         slug
