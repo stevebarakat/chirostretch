@@ -8,9 +8,9 @@ export const metadata = {
 };
 
 export default async function ProfilePage() {
-  const account = await getViewerAccount();
+  const data = await getViewerAccount();
 
-  if (!account) {
+  if (!data) {
     return (
       <div style={{ textAlign: "center", padding: "3rem 2rem" }}>
         <h2>Error Loading Account</h2>
@@ -19,29 +19,29 @@ export default async function ProfilePage() {
     );
   }
 
+  const { viewer, customer } = data;
+
   return (
     <>
       <h1 style={{ marginBottom: "1.5rem" }}>Profile</h1>
       <AccountDetailsFormWrapper
-        userId={account.databaseId}
+        userId={customer?.databaseId ?? 0}
         initialData={{
-          firstName: account.firstName,
-          lastName: account.lastName,
-          email: account.email,
-          nickname:
-            account.metaData?.find((m) => m?.key === "nickname")?.value ?? null,
-          description:
-            account.metaData?.find((m) => m?.key === "description")?.value ??
-            null,
-          url:
-            account.metaData?.find((m) => m?.key === "user_url")?.value ?? null,
+          firstName: customer?.firstName ?? viewer?.firstName,
+          lastName: customer?.lastName ?? viewer?.lastName,
+          email: customer?.email ?? viewer?.email,
+          nickname: viewer?.nickname ?? null,
+          description: viewer?.description ?? null,
+          url: viewer?.url ?? null,
           job_title:
-            account.metaData?.find((m) => m?.key === "job_title")?.value ??
+            customer?.metaData?.find((m) => m?.key === "job_title")?.value ??
             null,
-          avatarUrl: account.email
+          avatarUrl: (customer?.email ?? viewer?.email)
             ? `https://www.gravatar.com/avatar/${crypto
                 .createHash("md5")
-                .update(account.email.trim().toLowerCase())
+                .update(
+                  (customer?.email ?? viewer?.email ?? "").trim().toLowerCase()
+                )
                 .digest("hex")}?d=identicon&s=160`
             : null,
         }}

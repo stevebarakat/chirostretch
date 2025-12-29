@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { fetchGraphQL } from "@/lib/graphql/client";
+import { wpQuery } from "@/lib/wp/graphql";
 import { ALL_EVENTS_QUERY } from "@/lib/graphql/queries";
 
 const SINGLE_EVENT_QUERY = `
@@ -155,7 +155,7 @@ async function handleWebhook(
       return NextResponse.json({ deleted: true, objectID });
     }
 
-    const data = await fetchGraphQL<{ event: Event }>(
+    const data = await wpQuery<{ event: Event }>(
       SINGLE_EVENT_QUERY,
       { id: post_id }
     );
@@ -197,7 +197,7 @@ async function handleBulkReindex(indexName: string) {
         variables.after = cursor;
       }
 
-      const data = await fetchGraphQL<EventsResponse>(
+      const data = await wpQuery<EventsResponse>(
         ALL_EVENTS_QUERY,
         variables
       );

@@ -11,7 +11,7 @@ import { ModalProvider } from "@/components/Modals";
 import { BackToTop } from "@/components/UI";
 import { getServerCart } from "@/lib/woocommerce/getServerCart";
 import { getGravityForm } from "next-gravity-forms/server";
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,

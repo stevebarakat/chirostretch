@@ -64,6 +64,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+
+      // Gravatar (user avatars)
+      {
+        protocol: "https",
+        hostname: "www.gravatar.com",
+      },
     ],
 
     formats: ["image/avif", "image/webp"],

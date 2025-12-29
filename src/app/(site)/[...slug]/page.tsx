@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   PAGE_BY_URI_QUERY,
   ALL_PAGE_SLUGS_QUERY,

@@ -65,6 +65,9 @@ export const VIEWER_ACCOUNT_QUERY = `
       firstName
       lastName
       username
+      nickname
+      description
+      url
     }
     customer {
       id
@@ -227,7 +230,9 @@ export type ViewerAccount = {
     firstName?: string | null;
     lastName?: string | null;
     username: string;
-    metaData?: Array<{ key?: string | null; value?: string | null }> | null;
+    nickname?: string | null;
+    description?: string | null;
+    url?: string | null;
   } | null;
   customer: {
     id: string;

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense, cache } from "react";
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   HOMEPAGE_QUERY,
   type HomepageQueryResponse,

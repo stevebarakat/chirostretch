@@ -1,4 +1,4 @@
-import { fetchGraphQL } from "@/lib/graphql/client";
+import { wpQuery } from "@/lib/wp/graphql";
 import { EVENT_BY_SLUG_QUERY, type EventData } from "@/lib/graphql/queries";
 
 type EventPageProps = {
@@ -7,7 +7,7 @@ type EventPageProps = {
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const data = await fetchGraphQL<{ event: EventData | null }>(
+  const data = await wpQuery<{ event: EventData | null }>(
     EVENT_BY_SLUG_QUERY,
     {
       slug,

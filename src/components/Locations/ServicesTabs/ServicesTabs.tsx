@@ -1,4 +1,4 @@
-import { fetchGraphQL } from "@/lib/graphql/client";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   SERVICES_SETTINGS_QUERY,
   type ServicesSettingsResponse,
@@ -18,7 +18,7 @@ function slugify(str: string): string {
 }
 
 export async function ServicesTabs({ servicesOffered }: ServicesTabsProps) {
-  const data = await fetchGraphQL<ServicesSettingsResponse>(
+  const data = await wpQuery<ServicesSettingsResponse>(
     SERVICES_SETTINGS_QUERY
   );
   // Filter services based on what this location offers (slugified for flexibility)

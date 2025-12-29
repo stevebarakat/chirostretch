@@ -1,5 +1,10 @@
 import { fetchWP } from "./fetch";
 
+/**
+ * Simple GraphQL query function for public WordPress content
+ * For authenticated requests, use wpGraphQLFetch from @/lib/wpgraphql
+ */
+
 export async function wpQuery<T>(
   query: string,
   variables: Record<string, unknown> = {},

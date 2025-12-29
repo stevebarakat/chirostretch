@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getSiteConfig } from "@/config";
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 
 const SITEMAP_QUERY = `
   query SitemapData {

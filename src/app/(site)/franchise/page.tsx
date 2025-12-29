@@ -1,4 +1,4 @@
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   FRANCHISE_QUERY,
   type FranchiseOpportunitiesQueryResponse,

@@ -42,8 +42,10 @@
 }
 
 .topBar ul li {
+  position: relative;
   list-style: none;
   border-right: 1px solid var(--nav-border-color);
+  align-items: center;
 
   &:first-of-type {
     border-left: 1px solid var(--nav-border-color);
@@ -59,7 +61,6 @@
 .topNavContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
@@ -71,13 +72,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
 }
 
 .topBarAuthLink,
 .topMenuLink,
 .topMenuBtnLink {
-  display: flex;
   align-items: center;
+  display: flex;
   padding: 0.5rem 1rem;
   font-family: inherit;
   font-size: 0.875rem;
@@ -109,6 +111,7 @@
   position: absolute;
   top: 100%;
   z-index: 100;
+  margin-top: -1px;
   background: var(--color-secondary-600);
   border: 1px solid var(--nav-border-color);
 }
@@ -117,9 +120,14 @@
   display: block;
 }
 
-.topMenuDropdown .topMenuLink {
-  border-right: none;
-  border-bottom: 1px solid var(--nav-border-color) !important;
+.topMenuDropdown li,
+.topMenuDropdown li:first-of-type {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+.topMenuDropdown li + li {
+  border-top: 1px solid var(--nav-border-color);
 }
 
 .siteHeader ul {
@@ -271,7 +279,10 @@
 
   .topMenuDropdown .topMenuLink {
     padding-left: 2rem;
-    border-left: none;
+  }
+
+  .topMenuDropdown li:last-child .topMenuLink {
+    border-bottom: 1px solid var(--nav-border-color);
   }
 
   .topMenuDropdown li {

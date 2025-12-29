@@ -1,4 +1,4 @@
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   PRODUCT_BY_SLUG_QUERY,
   ALL_PRODUCT_SLUGS_QUERY,

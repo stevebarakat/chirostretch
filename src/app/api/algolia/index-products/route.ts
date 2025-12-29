@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { wpQuery } from "@app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import { ALL_PRODUCTS_QUERY } from "@/lib/graphql/queries";
 
 const SINGLE_PRODUCT_QUERY = `

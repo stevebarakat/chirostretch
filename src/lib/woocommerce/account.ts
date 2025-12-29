@@ -21,21 +21,30 @@ import {
   type CustomerAddress,
 } from "@/lib/graphql/queries/account";
 
+type ViewerAccountResult = {
+  viewer: ViewerAccount["viewer"];
+  customer: ViewerAccount["customer"];
+};
+
 /**
  * Get the current viewer's account details
  * Requires authentication (JWT/cookie-based)
  *
- * @returns Customer account object with user info and WooCommerce data, or null if not authenticated
+ * @returns Viewer and customer account data, or null if not authenticated
  */
-export async function getViewerAccount(): Promise<ViewerAccount["customer"]> {
+export async function getViewerAccount(): Promise<ViewerAccountResult | null> {
   try {
     const data = await wpGraphQLFetch<ViewerAccount>({
       query: VIEWER_ACCOUNT_QUERY,
       auth: true,
     });
 
-    // Return the customer data which includes billing and shipping
-    return data.customer;
+    if (!data.customer) return null;
+
+    return {
+      viewer: data.viewer,
+      customer: data.customer,
+    };
   } catch (error) {
     console.error("Failed to fetch viewer account:", error);
     return null;

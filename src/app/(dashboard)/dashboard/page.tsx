@@ -8,12 +8,13 @@ export const metadata = {
 };
 
 export default async function DashboardPage() {
-  const [account, userRole] = await Promise.all([
+  const [data, userRole] = await Promise.all([
     getViewerAccount(),
     getUserRole(),
   ]);
 
-  const firstName = account?.firstName || "there";
+  const firstName =
+    data?.customer?.firstName ?? data?.viewer?.firstName ?? "there";
 
   return (
     <>

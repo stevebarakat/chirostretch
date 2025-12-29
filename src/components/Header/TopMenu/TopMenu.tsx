@@ -36,7 +36,10 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
   const isModal = isModalLink(item.uri);
 
   return (
-    <li onMouseLeave={() => setIsActive(false)}>
+    <li
+      onMouseEnter={() => isDropdownButton && setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+    >
       {!isDropdownButton ? (
         <Link
           href={item.uri}
@@ -157,7 +160,11 @@ function AuthMenuItem({ onNavigate }: { onNavigate?: () => void }) {
   }
 
   return (
-    <div onMouseLeave={() => setIsOpen(false)}>
+    <div
+      style={{ display: "contents" }}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
       <button
         type="button"
         className={styles.topMenuBtnLink}

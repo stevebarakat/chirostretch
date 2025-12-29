@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminClient } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { fetchGraphQL } from "@/lib/graphql/client";
+import { wpQuery } from "@/lib/wp/graphql";
 import { ALL_LOCATIONS_QUERY } from "@/lib/graphql/queries";
 
 const SINGLE_LOCATION_QUERY = `
@@ -143,7 +143,7 @@ async function handleWebhook(
     }
 
     // Fetch single location from GraphQL
-    const data = await fetchGraphQL<{ location: Location }>(
+    const data = await wpQuery<{ location: Location }>(
       SINGLE_LOCATION_QUERY,
       { id: post_id }
     );
@@ -186,7 +186,7 @@ async function handleBulkReindex(indexName: string) {
         variables.after = cursor;
       }
 
-      const data = await fetchGraphQL<LocationsResponse>(
+      const data = await wpQuery<LocationsResponse>(
         ALL_LOCATIONS_QUERY,
         variables
       );

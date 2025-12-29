@@ -1,4 +1,4 @@
-import { fetchGraphQL } from "@/lib/graphql/client";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   VALUE_PROPOSITIONS_SETTINGS_QUERY,
   type ValuePropositionsSettingsResponse,
@@ -47,7 +47,7 @@ export async function ValuePropositions() {
   let propositions: ValueProposition[] = fallbackPropositions;
 
   try {
-    const data = await fetchGraphQL<ValuePropositionsSettingsResponse>(
+    const data = await wpQuery<ValuePropositionsSettingsResponse>(
       VALUE_PROPOSITIONS_SETTINGS_QUERY
     );
     if (data.chiroValuePropositionsSettings?.valuePropositions?.length) {

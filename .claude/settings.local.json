@@ -223,7 +223,11 @@
       "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nFix WooGraphQL booking product type registration\n\nRegister BOOKING in ProductTypesEnum so WooGraphQL products query\ndoesn''t error when encountering booking products. Without this,\nany query for products fails with \"booking product type not supported\".\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public post list --post_type=product --include=541,540,538,537,536,535,534,324,323,322,321,320,256,255,254,253 --fields=ID,post_title,post_status --format=table)",
       "Skill(algolia-index)",
-      "Skill(react-component)"
+      "Skill(react-component)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public graphql login admin --fields=jwt_auth_token --format=csv)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public graphql login admin)",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff src/components/Header/Header.module.css)",
+      "Bash(git -C /Users/sb/Dev/chirostretch diff src/components/Header/TopMenu/TopMenu.tsx)"
     ],
     "deny": [],
     "ask": []
