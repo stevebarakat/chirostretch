@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { wpQuery } from "@/app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   POST_BY_SLUG_QUERY,
   ALL_POST_SLUGS_QUERY,

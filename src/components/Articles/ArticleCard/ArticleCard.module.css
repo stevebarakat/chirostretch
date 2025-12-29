@@ -46,8 +46,8 @@
 }
 
 .titleLink {
-  color: var(--color-text-primary);
   text-decoration: none;
+  color: var(--color-text-primary);
 
   &:hover {
     text-decoration: underline;
@@ -63,9 +63,9 @@
 
 .readMore {
   margin-left: var(--spacing-xs);
-  color: var(--color-primary);
   text-decoration: none;
   white-space: nowrap;
+  color: var(--color-primary);
 
   &:hover {
     text-decoration: underline;
@@ -82,8 +82,8 @@
 .taxonomyRow {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-xs);
   align-items: baseline;
+  gap: var(--spacing-xs);
 }
 
 .taxonomyLabel {
@@ -102,8 +102,8 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
   text-decoration: none;
+  color: var(--color-text-secondary);
   background-color: var(--color-bg-secondary);
   border-radius: var(--radius-sm);
   transition: background-color var(--transition-fast),

@@ -135,8 +135,9 @@
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background-color var(--transition-base);
   margin: 0 var(--spacing-xs);
+  transition: background-color var(--transition-base);
+
   &:first-child {
     margin-top: var(--spacing-xs);
   }
@@ -162,6 +163,7 @@
   100% {
     box-shadow: 0 0 0 2px var(--color-primary-500);
   }
+
   50% {
     box-shadow: 0 0 0 4px var(--color-primary-300);
   }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { notFound } from "next/navigation";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { wpQuery } from "@/app/_lib/wp/graphql";
+import { wpQuery } from "@/lib/wp/graphql";
 import {
   LOCATION_BY_SLUG_QUERY,
   ALL_LOCATION_SLUGS_QUERY,
