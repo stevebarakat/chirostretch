@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import type { StripeCardElementChangeEvent } from "@stripe/stripe-js";
-import { Button } from "@/components/UI/Button";
+import { Button } from "@/components/UI";
 import { clsx } from "clsx";
 import styles from "./CheckoutForm.module.css";
 import { type CheckoutFormData, checkoutFormSchema } from "./checkoutSchema";

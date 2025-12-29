@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { LoginForm } from "@/components/Auth/LoginForm";
 import styles from "./page.module.css";
 

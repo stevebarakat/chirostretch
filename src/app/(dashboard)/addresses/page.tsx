@@ -1,4 +1,4 @@
-import { AddressFormWrapper } from "./AddressFormWrapper";
+import { AddressFormWrapper } from "@/components/Dashboard";
 import { getViewerAccount } from "@/lib/woocommerce/account";
 
 export const metadata = {

@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState } from "react";
-import { Button } from "@/components/UI/Button";
+import { Button } from "@/components/UI";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import styles from "./ProductInfo.module.css";
 

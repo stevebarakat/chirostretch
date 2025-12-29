@@ -1,4 +1,4 @@
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { EventsSearch } from "@/components/Events";
 import styles from "./page.module.css";
 

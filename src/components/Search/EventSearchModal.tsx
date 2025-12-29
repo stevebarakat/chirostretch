@@ -10,7 +10,7 @@ import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Image from "next/image";
 import { X, Calendar } from "lucide-react";
-import Modal from "@/components/UI/Modal/Modal";
+import { Modal } from "@/components/UI";
 import { useEventsContext } from "@/components/Events/EventsContext";
 import styles from "./SearchModal.module.css";
 

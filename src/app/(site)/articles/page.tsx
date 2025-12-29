@@ -1,4 +1,4 @@
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { ArticlesSearch } from "@/components/Articles";
 import styles from "./page.module.css";
 

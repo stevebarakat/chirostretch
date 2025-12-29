@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AccountDetailsForm } from "@/components/Account";
-import { updateAccountDetails } from "../actions";
+import { updateAccountDetails } from "@/app/(dashboard)/profile/actions";
 import { useState } from "react";
 import styles from "./AccountDetailsFormWrapper.module.css";
 

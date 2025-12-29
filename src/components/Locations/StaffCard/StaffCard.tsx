@@ -2,8 +2,8 @@ import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
 import type { ClinicalStaff } from "@/lib/graphql/queries/locations";
 import styles from "./StaffCard.module.css";
-import { Button } from "@/components/UI/Button";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { Button } from "@/components/UI";
+import { ImageWrapper } from "@/components/UI";
 
 type StaffCardProps = {
   staff: ClinicalStaff;

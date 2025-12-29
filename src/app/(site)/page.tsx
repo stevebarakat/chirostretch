@@ -7,7 +7,7 @@ import {
 } from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
-import { CallToAction } from "./homepage/CallToAction";
+import { CallToAction } from "@/components/Homepage";
 
 export const revalidate = 300;
 
@@ -17,19 +17,19 @@ const getHomepageData = cache(async () => {
 });
 
 // Below-the-fold sections (dynamically imported for code splitting)
-const Introduction = dynamic(() => import("./homepage/Introduction"), {
+const Introduction = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.Introduction })), {
   ssr: true,
 });
 
-const FeaturedProducts = dynamic(() => import("./homepage/FeaturedProducts"), {
+const FeaturedProducts = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.FeaturedProducts })), {
   ssr: true,
 });
 
-const UpcomingEvents = dynamic(() => import("./homepage/UpcomingEvents"), {
+const UpcomingEvents = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.UpcomingEvents })), {
   ssr: true,
 });
 
-const LatestInsights = dynamic(() => import("./homepage/LatestInsights"), {
+const LatestInsights = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.LatestInsights })), {
   ssr: true,
 });
 

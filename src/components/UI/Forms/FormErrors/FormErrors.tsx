@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert } from "@/components/UI/Alert";
+import { Alert } from "@/components/UI";
 import styles from "./FormErrors.module.css";
 
 type FieldError = {

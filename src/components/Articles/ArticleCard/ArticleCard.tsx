@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
+import { ImageWrapper } from "@/components/UI";
+import { NoImage } from "@/components/UI";
 import styles from "./ArticleCard.module.css";
 
 type TaxonomyItem = {

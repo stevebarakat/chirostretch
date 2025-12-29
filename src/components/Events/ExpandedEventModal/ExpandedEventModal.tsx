@@ -15,8 +15,8 @@ import {
   Users,
   ArrowRight,
 } from "lucide-react";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
+import { ImageWrapper } from "@/components/UI";
+import { NoImage } from "@/components/UI";
 import type { Event } from "../types";
 import styles from "./ExpandedEventModal.module.css";
 

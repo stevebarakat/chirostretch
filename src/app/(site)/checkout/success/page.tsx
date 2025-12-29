@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Container } from "@/components/UI/Container";
-import { Button } from "@/components/UI/Button";
+import { Container } from "@/components/UI";
+import { Button } from "@/components/UI";
 import styles from "./page.module.css";
 
 type SuccessPageProps = {

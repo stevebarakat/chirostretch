@@ -7,7 +7,7 @@ import {
   type PostBySlugResponse,
   type AllPostSlugsResponse,
 } from "@/lib/graphql/queries";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { BlockRenderer, type Block } from "@/components/Blocks";
 import styles from "./page.module.css";
 

@@ -2,8 +2,8 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import { Container } from "@/components/UI/Container";
-import { SectionHeading } from "@/components/UI/SectionHeading";
+import { Container } from "@/components/UI";
+import { SectionHeading } from "@/components/UI";
 import { ProductCard } from "@/components/ProductCard";
 import CartSummary from "@/components/Layout/CartSummary";
 import "swiper/css";

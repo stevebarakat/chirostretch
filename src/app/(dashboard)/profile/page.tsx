@@ -1,4 +1,4 @@
-import { AccountDetailsFormWrapper } from "./AccountDetailsFormWrapper";
+import { AccountDetailsFormWrapper } from "@/components/Dashboard";
 import { getViewerAccount } from "@/lib/woocommerce/account";
 import crypto from "crypto";
 

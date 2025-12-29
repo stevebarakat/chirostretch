@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./cta.module.css";
-import { Button, ButtonIcon } from "@/components/UI/Button";
+import { Button, ButtonIcon } from "@/components/UI";
 import { Promotion } from "@/components/Promotion";
 
 type IconNode = {

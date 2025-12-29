@@ -5,8 +5,8 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { blurOptions } from "@/utils/constants";
 import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
-import { Button, ButtonIcon } from "@/components/UI/Button";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { Button, ButtonIcon } from "@/components/UI";
+import { ImageWrapper } from "@/components/UI";
 import {
   getSafeImageUrl,
   useImageFallback,

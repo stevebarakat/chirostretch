@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { Logo } from "../Logo";
-import { Button } from "@/components/UI/Button";
+import { Button } from "@/components/UI";
 import {
   Instagram,
   Facebook,

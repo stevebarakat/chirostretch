@@ -3,8 +3,8 @@
 import { InstantSearch, Configure } from "react-instantsearch-hooks-web";
 import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { PageHeader } from "@/components/UI/PageHeader";
-import { ErrorState } from "@/components/UI/ErrorState";
+import { PageHeader } from "@/components/UI";
+import { ErrorState } from "@/components/UI";
 import { AlgoliaSearchBox } from "@/components/Search";
 import { InfiniteLocationsHits } from "./InfiniteLocationsHits";
 

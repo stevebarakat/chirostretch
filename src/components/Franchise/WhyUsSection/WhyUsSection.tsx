@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Container } from "@/components/UI/Container";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { Container } from "@/components/UI";
+import { ImageWrapper } from "@/components/UI";
 import styles from "./WhyUsSection.module.css";
 
 type DescriptionListItem = {

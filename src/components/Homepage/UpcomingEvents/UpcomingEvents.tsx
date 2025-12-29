@@ -1,8 +1,8 @@
 "use client";
 
-import { Container } from "@/components/UI/Container";
-import { SectionHeading } from "@/components/UI/SectionHeading";
-import { Button } from "@/components/UI/Button";
+import { Container } from "@/components/UI";
+import { SectionHeading } from "@/components/UI";
+import { Button } from "@/components/UI";
 import { EventsGrid, ExpandedEventModal } from "@/components/Events";
 import type { Event } from "@/components/Events";
 import styles from "./UpcomingEvents.module.css";

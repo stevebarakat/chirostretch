@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { clsx } from "clsx";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { ImageWrapper } from "@/components/UI";
 import styles from "./ImageBlock.module.css";
 
 type ImageBlockProps = {

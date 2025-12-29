@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Container } from "@/components/UI/Container";
-import { StarRating } from "@/components/UI/StarRating";
+import { Container } from "@/components/UI";
+import { StarRating } from "@/components/UI";
 import type { TestimonialNode } from "@/lib/graphql/queries/testimonials";
 import styles from "./Testimonials.module.css";
 

@@ -19,7 +19,7 @@ import {
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { NoImage } from "@/components/UI/NoImage";
+import { NoImage } from "@/components/UI";
 import type { Event } from "../types";
 import { useCalendarDates, WEEKDAYS } from "./useCalendarDates";
 import styles from "./EventsCalendar.module.css";

@@ -14,7 +14,7 @@ import {
   type BookingProductsResponse,
   type AllTestimonialsResponse,
 } from "@/lib/graphql/queries";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import {
   StaffCard,
   ServicesTabs,

@@ -7,7 +7,7 @@ import {
   type PageByUriResponse,
   type AllPageSlugsResponse,
 } from "@/lib/graphql/queries";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { BlockRenderer, type Block } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";

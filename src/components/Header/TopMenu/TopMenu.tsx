@@ -9,7 +9,7 @@ import { ChevronDown, CircleUser } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { LocationSearchTrigger } from "../LocationSearchTrigger";
 import styles from "../Header.module.css";
-import { VisuallyHidden } from "@/components/UI/VisuallyHidden";
+import { VisuallyHidden } from "@/components/UI";
 
 type MenuItem = {
   id: string;

@@ -2,8 +2,8 @@
 
 import { useController, Control, UseFormRegister } from "react-hook-form";
 import { type GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries";
-import { Input } from "@/components/UI/Input";
-import { FormField } from "@/components/UI/FormField";
+import { Input } from "@/components/UI";
+import { FormField } from "@/components/UI";
 import styles from "./GravityFormField.module.css";
 
 type GravityFormFieldProps = {

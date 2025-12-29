@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { SetPasswordForm } from "@/components/Auth/SetPasswordForm";
 import styles from "./page.module.css";
 

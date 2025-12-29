@@ -2,8 +2,8 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useMemo, useState, useCallback, useEffect, useRef, startTransition } from "react";
-import { Button } from "@/components/UI/Button";
-import { FormErrors } from "@/components/UI/FormErrors";
+import { Button } from "@/components/UI";
+import { FormErrors } from "@/components/UI";
 import { useGravityForm } from "@/lib/gravity-forms";
 import type { GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries/gravity-forms";
 import GravityFormFieldComponent from "./GravityFormField";

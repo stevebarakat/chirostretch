@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SectionHeading } from "@/components/UI/SectionHeading";
-import { Button } from "@/components/UI/Button";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { SectionHeading } from "@/components/UI";
+import { Button } from "@/components/UI";
+import { ImageWrapper } from "@/components/UI";
 import styles from "./LatestInsights.module.css";
 import { RawHtml } from "@/components/RawHtml";
 

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Container } from "@/components/UI/Container";
+import { Container } from "@/components/UI";
 import { OrderSummary } from "@/components/Checkout";
 import CheckoutFormWrapper from "@/components/Checkout/CheckoutFormWrapper";
 import { getServerCart } from "@/lib/woocommerce/getServerCart";

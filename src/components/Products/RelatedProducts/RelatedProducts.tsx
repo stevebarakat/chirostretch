@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
+import { ImageWrapper } from "@/components/UI";
 import styles from "./RelatedProducts.module.css";
 
 type RelatedProduct = {

@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 // eslint-disable-next-line no-restricted-imports
 import { useEffect } from "react";
-import { ImageWrapper } from "@/components/UI/ImageWrapper";
-import { NoImage } from "@/components/UI/NoImage";
-import { StarRating } from "@/components/UI/StarRating";
-import { Button } from "@/components/UI/Button";
+import { ImageWrapper } from "@/components/UI";
+import { NoImage } from "@/components/UI";
+import { StarRating } from "@/components/UI";
+import { Button } from "@/components/UI";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { useCartStore } from "@/lib/woocommerce/useCartStore";
 import styles from "./ProductCard.module.css";
