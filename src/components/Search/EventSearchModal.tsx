@@ -8,10 +8,10 @@ import {
 } from "react-instantsearch-hooks-web";
 import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import Link from "next/link";
 import Image from "next/image";
 import { X, Calendar } from "lucide-react";
 import Modal from "@/components/UI/Modal/Modal";
+import { useEventsContext } from "@/components/Events/EventsContext";
 import styles from "./SearchModal.module.css";
 
 type EventSearchModalProps = {
@@ -62,19 +62,19 @@ function formatDate(startDate?: string): string {
 
 type HitComponentProps = {
   hit: EventHit;
-  onHitClick: () => void;
+  onSelect: (slug: string) => void;
 };
 
-function EventHitComponent({ hit, onHitClick }: HitComponentProps) {
+function EventHitComponent({ hit, onSelect }: HitComponentProps) {
   const locationParts = [hit.venueCity, hit.venueState]
     .filter(Boolean)
     .join(", ");
 
   return (
-    <Link
-      href={`/events/${hit.slug}`}
+    <button
+      type="button"
       className={styles.hit}
-      onClick={onHitClick}
+      onClick={() => onSelect(hit.slug)}
     >
       <div className={styles.hitImage}>
         {hit.image ? (
@@ -99,15 +99,15 @@ function EventHitComponent({ hit, onHitClick }: HitComponentProps) {
         )}
         {locationParts && <p className={styles.hitExcerpt}>{locationParts}</p>}
       </div>
-    </Link>
+    </button>
   );
 }
 
 type SearchResultsProps = {
-  onHitClick: () => void;
+  onSelect: (slug: string) => void;
 };
 
-function SearchResults({ onHitClick }: SearchResultsProps) {
+function SearchResults({ onSelect }: SearchResultsProps) {
   const { hits } = useHits<EventHit>();
   const { query } = useSearchBox();
 
@@ -130,11 +130,7 @@ function SearchResults({ onHitClick }: SearchResultsProps) {
   return (
     <div className={styles.results}>
       {hits.map((hit) => (
-        <EventHitComponent
-          key={hit.objectID}
-          hit={hit}
-          onHitClick={onHitClick}
-        />
+        <EventHitComponent key={hit.objectID} hit={hit} onSelect={onSelect} />
       ))}
     </div>
   );
@@ -144,6 +140,13 @@ export default function EventSearchModal({
   isOpen,
   onClose,
 }: EventSearchModalProps) {
+  const eventsContext = useEventsContext();
+
+  function handleEventSelect(slug: string) {
+    eventsContext?.scrollToEvent(slug);
+    onClose();
+  }
+
   return (
     <Modal
       open={isOpen}
@@ -179,7 +182,7 @@ export default function EventSearchModal({
           >
             <Configure hitsPerPage={10} />
             <SearchBox />
-            <SearchResults onHitClick={onClose} />
+            <SearchResults onSelect={handleEventSelect} />
           </InstantSearch>
         )}
       </div>

@@ -9,8 +9,8 @@
   }
 
   img {
-    width: unset;
-    height: unset;
+    width: 200px;
+    height: auto;
   }
 }
 
@@ -19,13 +19,6 @@
 }
 
 @media (min-width: 910px) {
-  .logo {
-    img {
-      width: 200px;
-      height: auto;
-    }
-  }
-
   .mobile {
     position: absolute;
     width: 1px;

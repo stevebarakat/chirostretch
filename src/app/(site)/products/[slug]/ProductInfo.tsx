@@ -226,7 +226,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 <span key={category.id || index}>
                   {index > 0 && ", "}
                   <a
-                    href={`/taxonomy/${category.slug}`}
+                    href={`/category/${category.slug}`}
                     className={styles.metadataLink}
                   >
                     {category.name}
@@ -243,7 +243,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               <span key={tag.id || index}>
                 {index > 0 && ", "}
                 <a
-                  href={`/taxonomy/${tag.slug}`}
+                  href={`/tag/${tag.slug}`}
                   className={styles.metadataLink}
                 >
                   {tag.name}

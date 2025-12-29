@@ -84,9 +84,8 @@
 .dayCell {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xs);
   padding: var(--spacing-xs);
-  height: 120px;
+  height: 140px;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -128,10 +127,7 @@
 .eventItem {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2xs);
-  padding: var(--spacing-2xs) var(--spacing-xs);
   padding: var(--spacing-xs);
-  width: 100%;
   font-family: inherit;
   font-size: var(--font-size-xs);
   text-align: left;
@@ -140,6 +136,10 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background-color var(--transition-base);
+  margin: 0 var(--spacing-xs);
+  &:first-child {
+    margin-top: var(--spacing-xs);
+  }
 }
 
 .eventItem:hover {
@@ -151,15 +151,26 @@
   outline-offset: 1px;
 }
 
+.eventItem.highlighted {
+  background: var(--color-primary-100);
+  box-shadow: 0 0 0 2px var(--color-primary-500);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px var(--color-primary-500);
+  }
+  50% {
+    box-shadow: 0 0 0 4px var(--color-primary-300);
+  }
+}
+
 .eventCity {
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.eventSeparator {
-  color: var(--color-text-tertiary);
   flex-shrink: 0;
 }
 
@@ -214,6 +225,13 @@
   border-radius: var(--radius-md);
 }
 
+.mobileCard.highlighted {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 2px var(--color-primary-300);
+  animation: pulse 1s ease-in-out infinite;
+}
+
 .mobileCardThumb {
   width: 100px;
   height: 100px;
@@ -232,7 +250,6 @@
 .mobileCardContent {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xs);
   min-width: 0;
 }
 
@@ -261,7 +278,6 @@
 .mobileCardLink {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2xs);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
@@ -280,7 +296,7 @@
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .desktopView {
     display: none;
   }

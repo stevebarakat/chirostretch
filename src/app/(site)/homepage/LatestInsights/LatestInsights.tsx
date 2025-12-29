@@ -138,7 +138,7 @@ export default function LatestInsights({
                           {post.categories.nodes.map((category) => (
                             <Link
                               key={category.id}
-                              href={`/taxonomy/${category.slug}`}
+                              href={`/category/${category.slug}`}
                               className={styles.category}
                             >
                               {category.name}

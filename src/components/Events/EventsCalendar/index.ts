@@ -1,1 +1,1 @@
-export { EventsCalendar } from "./EventsCalendar";
+export { EventsCalendar, type EventsCalendarHandle } from "./EventsCalendar";

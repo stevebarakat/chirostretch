@@ -38,8 +38,11 @@ type ArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
 
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").trim();
+function cleanExcerpt(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\[&hellip;]|\[…]|&hellip;|…$/g, "")
+    .trim();
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
@@ -126,7 +129,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {post.excerpt && (
             <div className={styles.excerpt}>
-              <p>{stripHtml(post.excerpt)}</p>
+              <p>{cleanExcerpt(post.excerpt)}</p>
             </div>
           )}
 

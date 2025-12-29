@@ -3,8 +3,9 @@
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
-import { EventsCalendar } from "../EventsCalendar";
+import { EventsCalendar, type EventsCalendarHandle } from "../EventsCalendar";
 import { ExpandedEventModal } from "../ExpandedEventModal";
+import { useEventsContext } from "../EventsContext";
 import type { Event } from "../types";
 import styles from "./InfiniteEventsHits.module.css";
 
@@ -60,6 +61,16 @@ export function InfiniteEventsHits() {
   const { hits, isLastPage, showMore } = useInfiniteHits<EventHit>();
   const { query } = useSearchBox();
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const calendarRef = useRef<EventsCalendarHandle>(null);
+  const eventsContext = useEventsContext();
+
+  // Register scrollToEvent when calendar ref becomes available
+  // Reason: Syncing calendar's scrollToEvent function with context for cross-component access
+  useEffect(() => {
+    if (calendarRef.current && eventsContext) {
+      eventsContext.registerScrollToEvent(calendarRef.current.scrollToEvent);
+    }
+  }, [eventsContext, hits]);
 
   // Reason this component must use useEffect:
   // - Syncing with browser API (IntersectionObserver) for infinite scroll
@@ -104,7 +115,7 @@ export function InfiniteEventsHits() {
 
   return (
     <div className={styles.container}>
-      <EventsCalendar events={events} basePath="/events" />
+      <EventsCalendar ref={calendarRef} events={events} basePath="/events" />
       <ExpandedEventModal events={events} basePath="/events" />
       <div ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
     </div>

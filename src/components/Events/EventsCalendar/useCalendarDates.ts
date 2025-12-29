@@ -51,4 +51,4 @@ export function useCalendarDates(focusedMonth: Date): Date[][] {
   return weeks;
 }
 
-export const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"] as const;
+export const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;

@@ -4,6 +4,7 @@ import { InstantSearch, Configure } from "react-instantsearch-hooks-web";
 import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { PageHeader } from "@/components/UI/PageHeader";
+import { EventsProvider } from "../EventsContext";
 import { EventSearchTrigger } from "./EventSearchTrigger";
 import { InfiniteEventsHits } from "./InfiniteEventsHits";
 import styles from "./EventsSearch.module.css";
@@ -18,7 +19,7 @@ export function EventsSearch() {
   }
 
   return (
-    <>
+    <EventsProvider>
       <PageHeader
         title="Events"
         subtitle="Discover upcoming events and workshops"
@@ -36,6 +37,6 @@ export function EventsSearch() {
         <Configure hitsPerPage={100} />
         <InfiniteEventsHits />
       </InstantSearch>
-    </>
+    </EventsProvider>
   );
 }

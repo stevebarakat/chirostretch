@@ -1,25 +1,22 @@
 .card {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
   color: inherit;
   background-color: var(--color-bg-primary);
   border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform var(--transition-base),
-    box-shadow var(--transition-base);
 }
 
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+.imageLink {
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .imageWrapper {
   aspect-ratio: 16 / 9;
   background-color: var(--color-bg-tertiary);
-  flex-shrink: 0;
 }
 
 .image {
@@ -29,7 +26,7 @@
   transition: transform var(--transition-base);
 }
 
-.card:hover .image {
+.imageLink:hover .image {
   transform: scale(1.05);
 }
 
@@ -46,34 +43,76 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
+}
+
+.titleLink {
   color: var(--color-text-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .excerpt {
-  display: -webkit-box;
   margin: 0;
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 }
 
-.categories {
+.readMore {
+  margin-left: var(--spacing-xs);
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.taxonomies {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--spacing-xs);
   margin-top: var(--spacing-xs);
 }
 
+.taxonomyRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  align-items: baseline;
+}
+
+.taxonomyLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.taxonomyList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.tag,
 .category {
   padding: var(--spacing-xs) var(--spacing-sm);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
+  text-decoration: none;
   background-color: var(--color-bg-secondary);
   border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast),
+    color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-tertiary);
+  }
 }
 
 @media (min-width: 640px) {
@@ -81,14 +120,18 @@
     flex-direction: row;
   }
 
-  .imageWrapper {
+  .imageLink {
     width: 280px;
+  }
+
+  .imageWrapper {
     aspect-ratio: 4 / 3;
+    height: 100%;
   }
 }
 
 @media (min-width: 1024px) {
-  .imageWrapper {
+  .imageLink {
     width: 320px;
   }
 }

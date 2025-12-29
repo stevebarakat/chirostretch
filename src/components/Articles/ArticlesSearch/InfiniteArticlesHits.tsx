@@ -3,7 +3,6 @@
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
-import Link from "next/link";
 import { ArticleCard } from "../ArticleCard";
 import styles from "./InfiniteArticlesHits.module.css";
 
@@ -14,8 +13,20 @@ type ArticleHit = {
   excerpt?: string;
   image?: string;
   imageAlt?: string;
-  categories?: string;
+  categories?: string[];
+  categorySlugs?: string[];
+  tags?: string[];
+  tagSlugs?: string[];
 };
+
+function buildTaxonomyItems(
+  names: string[] = [],
+  slugs: string[] = []
+): { name: string; slug: string }[] {
+  return names
+    .map((name, i) => ({ name, slug: slugs[i] || "" }))
+    .filter((item) => item.slug);
+}
 
 export function InfiniteArticlesHits() {
   const { hits, isLastPage, showMore } = useInfiniteHits<ArticleHit>();
@@ -65,15 +76,15 @@ export function InfiniteArticlesHits() {
     <ul className={styles.grid}>
       {hits.map((hit) => (
         <li key={hit.objectID}>
-          <Link href={`/articles/${hit.slug}`} className={styles.cardLink}>
-            <ArticleCard
-              title={hit.title}
-              image={hit.image}
-              imageAlt={hit.imageAlt}
-              excerpt={hit.excerpt}
-              categories={hit.categories}
-            />
-          </Link>
+          <ArticleCard
+            title={hit.title}
+            slug={hit.slug}
+            image={hit.image}
+            imageAlt={hit.imageAlt}
+            excerpt={hit.excerpt}
+            tags={buildTaxonomyItems(hit.tags, hit.tagSlugs)}
+            categories={buildTaxonomyItems(hit.categories, hit.categorySlugs)}
+          />
         </li>
       ))}
       <li ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />

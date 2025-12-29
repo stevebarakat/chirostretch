@@ -35,6 +35,12 @@ const SINGLE_PRODUCT_QUERY = `
           slug
         }
       }
+      productTags {
+        nodes {
+          name
+          slug
+        }
+      }
       shortDescription
       description
     }
@@ -62,6 +68,12 @@ type Product = {
       slug?: string;
     }>;
   };
+  productTags?: {
+    nodes?: Array<{
+      name?: string;
+      slug?: string;
+    }>;
+  };
   shortDescription?: string;
   description?: string;
 };
@@ -77,6 +89,9 @@ type ProductsResponse = {
 };
 
 function transformProductToAlgolia(product: Product) {
+  const categoryNodes = product.productCategories?.nodes || [];
+  const tagNodes = product.productTags?.nodes || [];
+
   return {
     objectID: product.id || product.databaseId?.toString() || "",
     name: product.name || "",
@@ -87,10 +102,10 @@ function transformProductToAlgolia(product: Product) {
     stockStatus: product.stockStatus || "",
     image: product.featuredImage?.node?.sourceUrl || "",
     imageAlt: product.featuredImage?.node?.altText || "",
-    categories:
-      product.productCategories?.nodes
-        ?.map((cat) => cat.name || "")
-        .join(", ") || "",
+    categories: categoryNodes.map((cat) => cat.name || "").filter(Boolean),
+    categorySlugs: categoryNodes.map((cat) => cat.slug || "").filter(Boolean),
+    tags: tagNodes.map((tag) => tag.name || "").filter(Boolean),
+    tagSlugs: tagNodes.map((tag) => tag.slug || "").filter(Boolean),
     excerpt:
       product.shortDescription?.replace(/<[^>]*>/g, "").substring(0, 200) || "",
     type: "product" as const,

@@ -25,6 +25,12 @@ const SINGLE_POST_QUERY = `
           slug
         }
       }
+      tags {
+        nodes {
+          name
+          slug
+        }
+      }
     }
   }
 `;
@@ -43,6 +49,12 @@ type Post = {
     };
   };
   categories?: {
+    nodes?: Array<{
+      name?: string;
+      slug?: string;
+    }>;
+  };
+  tags?: {
     nodes?: Array<{
       name?: string;
       slug?: string;
@@ -67,6 +79,9 @@ function transformPostToAlgolia(post: Post) {
     ? post.content.replace(/<[^>]*>/g, "").substring(0, 200)
     : "";
 
+  const categoryNodes = post.categories?.nodes || [];
+  const tagNodes = post.tags?.nodes || [];
+
   return {
     objectID: post.id || post.databaseId?.toString() || "",
     title: post.title || "",
@@ -74,8 +89,10 @@ function transformPostToAlgolia(post: Post) {
     excerpt,
     image: post.featuredImage?.node?.sourceUrl || "",
     imageAlt: post.featuredImage?.node?.altText || "",
-    categories:
-      post.categories?.nodes?.map((cat) => cat.name || "").join(", ") || "",
+    categories: categoryNodes.map((cat) => cat.name || "").filter(Boolean),
+    categorySlugs: categoryNodes.map((cat) => cat.slug || "").filter(Boolean),
+    tags: tagNodes.map((tag) => tag.name || "").filter(Boolean),
+    tagSlugs: tagNodes.map((tag) => tag.slug || "").filter(Boolean),
     type: "article" as const,
   };
 }

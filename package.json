@@ -44,6 +44,7 @@
     "react-paginate": "^8.3.0",
     "recharts": "^3.6.0",
     "server-only": "^0.0.1",
+    "shippo": "^2.15.0",
     "swiper": "^12.0.3",
     "zod": "^4.1.12",
     "zustand": "^5.0.8"

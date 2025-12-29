@@ -219,6 +219,13 @@ export const ALL_PRODUCTS_QUERY = `
             slug
           }
         }
+        productTags {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
       }
       pageInfo {
         hasNextPage

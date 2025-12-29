@@ -1,6 +1,12 @@
 "use client";
 
-import { useReducer, useMemo } from "react";
+import {
+  useReducer,
+  useMemo,
+  useCallback,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   format,
@@ -25,7 +31,8 @@ type CalendarState = {
 type CalendarAction =
   | { type: "PREV_MONTH" }
   | { type: "NEXT_MONTH" }
-  | { type: "GO_TO_TODAY" };
+  | { type: "GO_TO_TODAY" }
+  | { type: "GO_TO_DATE"; date: Date };
 
 function calendarReducer(
   state: CalendarState,
@@ -38,10 +45,16 @@ function calendarReducer(
       return { focusedMonth: addMonths(state.focusedMonth, 1) };
     case "GO_TO_TODAY":
       return { focusedMonth: startOfMonth(new Date()) };
+    case "GO_TO_DATE":
+      return { focusedMonth: startOfMonth(action.date) };
     default:
       return state;
   }
 }
+
+export type EventsCalendarHandle = {
+  scrollToEvent: (slug: string) => void;
+};
 
 function groupEventsByDate(events: Event[]): Map<string, Event[]> {
   const map = new Map<string, Event[]>();
@@ -88,16 +101,41 @@ export type EventsCalendarProps = {
   basePath?: string;
 };
 
-export function EventsCalendar({ events, basePath = "/events" }: EventsCalendarProps) {
+export const EventsCalendar = forwardRef<
+  EventsCalendarHandle,
+  EventsCalendarProps
+>(function EventsCalendar({ events, basePath = "/events" }, ref) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const [state, dispatch] = useReducer(calendarReducer, {
     focusedMonth: startOfMonth(new Date()),
   });
 
   const weeks = useCalendarDates(state.focusedMonth);
   const eventsByDate = useMemo(() => groupEventsByDate(events), [events]);
+
+  const scrollToEvent = useCallback(
+    (slug: string) => {
+      const event = events.find((e) => e.slug === slug);
+      if (!event?.startDate) return;
+
+      const eventDate = new Date(event.startDate);
+      dispatch({ type: "GO_TO_DATE", date: eventDate });
+
+      setTimeout(() => {
+        const element = document.querySelector<HTMLElement>(
+          `[data-event-slug="${slug}"]`
+        );
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          element.focus();
+        }
+      }, 100);
+    },
+    [events]
+  );
+
+  useImperativeHandle(ref, () => ({ scrollToEvent }), [scrollToEvent]);
 
   function handleEventClick(slug: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -152,11 +190,15 @@ export function EventsCalendar({ events, basePath = "/events" }: EventsCalendarP
                 return (
                   <div
                     key={dayIndex}
-                    className={`${styles.dayCell} ${!isCurrentMonth ? styles.otherMonth : ""} ${isCurrentDay ? styles.today : ""}`}
+                    className={`${styles.dayCell} ${
+                      !isCurrentMonth ? styles.otherMonth : ""
+                    } ${isCurrentDay ? styles.today : ""}`}
                     role="gridcell"
                     aria-label={format(date, "EEEE, MMMM d, yyyy")}
                   >
-                    <span className={styles.dayNumber}>{format(date, "d")}</span>
+                    <span className={styles.dayNumber}>
+                      {format(date, "d")}
+                    </span>
                     <div className={styles.dayEvents}>
                       {dayEvents.map((event) => (
                         <EventCard
@@ -184,7 +226,7 @@ export function EventsCalendar({ events, basePath = "/events" }: EventsCalendarP
       </div>
     </div>
   );
-}
+});
 
 type EventCardProps = {
   event: Event;
@@ -196,9 +238,14 @@ function EventCard({ event, onClick }: EventCardProps) {
   const title = stripCitySuffix(event.title);
 
   return (
-    <button type="button" className={styles.eventItem} onClick={onClick}>
-      {city && <span className={styles.eventCity}>{city}</span>}
-      {city && <span className={styles.eventSeparator}>-</span>}
+    <button
+      type="button"
+      className={styles.eventItem}
+      onClick={onClick}
+      data-event-slug={event.slug}
+    >
+      <span className={styles.eventCity}>{city}</span>
+      <span>-</span>
       <span className={styles.eventTitle}>{title}</span>
     </button>
   );
@@ -269,7 +316,11 @@ function MobileEventCard({
   const venue = event.venue?.title;
 
   return (
-    <article className={styles.mobileCard}>
+    <article
+      className={styles.mobileCard}
+      data-event-slug={event.slug}
+      tabIndex={-1}
+    >
       <div className={styles.mobileCardThumb}>
         {image?.sourceUrl ? (
           <Image
