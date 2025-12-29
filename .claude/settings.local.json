@@ -218,7 +218,9 @@
       "Bash(git -C /Users/sb/Dev/chirostretch push origin main)",
       "mcp__ide__getDiagnostics",
       "Bash(git -C /Users/sb/Dev/chirostretch diff --stat src/components/Events/EventsSearch/InfiniteEventsHits.tsx src/components/Events/EventsCalendar/)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(vercel --version:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nFix WooGraphQL booking product type registration\n\nRegister BOOKING in ProductTypesEnum so WooGraphQL products query\ndoesn''t error when encountering booking products. Without this,\nany query for products fails with \"booking product type not supported\".\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ],
     "deny": [],
     "ask": []
