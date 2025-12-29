@@ -161,7 +161,7 @@ function AuthMenuItem({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div
-      style={{ display: "contents" }}
+      style={{ position: "relative" }}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >

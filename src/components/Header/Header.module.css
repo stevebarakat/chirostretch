@@ -78,8 +78,8 @@
 .topBarAuthLink,
 .topMenuLink,
 .topMenuBtnLink {
-  align-items: center;
   display: flex;
+  align-items: center;
   padding: 0.5rem 1rem;
   font-family: inherit;
   font-size: 0.875rem;
@@ -114,6 +114,7 @@
   margin-top: -1px;
   background: var(--color-secondary-600);
   border: 1px solid var(--nav-border-color);
+  left: -1px;
 }
 
 .topMenuDropdownOpen {
