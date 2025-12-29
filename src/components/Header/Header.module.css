@@ -216,6 +216,15 @@
     width: 100%;
   }
 
+  .topBar ul li {
+    border-right: none;
+    border-left: none;
+  }
+
+  .topBar ul li:first-of-type {
+    border-left: none;
+  }
+
   .topMenu {
     flex-direction: column;
     border-top: 1px solid white;
@@ -232,6 +241,19 @@
     width: 100%;
     font-size: 1rem;
     border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--nav-border-color);
+  }
+
+  .topBarAuthLink {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-right: none;
+    border-left: none;
     border-bottom: 1px solid var(--nav-border-color);
   }
 
@@ -249,5 +271,15 @@
 
   .topMenuDropdown .topMenuLink {
     padding-left: 2rem;
+    border-left: none;
+  }
+
+  .topMenuDropdown li {
+    border-left: none;
+    border-right: none;
+  }
+
+  .topMenuDropdown li:first-of-type {
+    border-left: none;
   }
 }
