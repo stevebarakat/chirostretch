@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  gap: var(--spacing-md, 1rem);
+  align-items: center;
+  margin-bottom: var(--spacing-md, 1rem);
+}
+
+.avatar {
+  border-radius: var(--radius-md, 8px);
+}
+
+.name {
+  margin: 0;
+}
+
+.nickname {
+  color: var(--color-text-secondary, #666);
+}
+
+.field {
+  margin-bottom: var(--spacing-sm, 0.5rem);
+}
+
+.bioField {
+  margin-bottom: var(--spacing-md, 1rem);
+}
+
+.editButton {
+  margin-right: var(--spacing-sm, 0.5rem);
+}
+

@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { AccountDetailsForm } from "@/components/Account";
-import { updateAccountDetails } from "./actions";
+import { updateAccountDetails } from "../actions";
 import { useState } from "react";
+import styles from "./AccountDetailsFormWrapper.module.css";
 
 type AccountDetailsFormWrapperProps = {
   userId: number;
@@ -91,38 +92,31 @@ export function AccountDetailsFormWrapper({
   if (!editing) {
     return (
       <div>
-        <div
-          style={{
-            display: "flex",
-            gap: 16,
-            alignItems: "center",
-            marginBottom: 16,
-          }}
-        >
+        <div className={styles.header}>
           {profile.avatarUrl && (
             <Image
               src={profile.avatarUrl}
               alt="Avatar"
               width={80}
               height={80}
-              style={{ borderRadius: 8 }}
+              className={styles.avatar}
             />
           )}
           <div>
-            <h2
-              style={{ margin: 0 }}
-            >{`${profile.firstName} ${profile.lastName}`}</h2>
-            <div style={{ color: "#666" }}>{profile.nickname || ""}</div>
+            <h2 className={styles.name}>
+              {`${profile.firstName} ${profile.lastName}`}
+            </h2>
+            <div className={styles.nickname}>{profile.nickname || ""}</div>
           </div>
         </div>
 
-        <div style={{ marginBottom: 8 }}>
+        <div className={styles.field}>
           <strong>Email:</strong> {profile.email}
         </div>
-        <div style={{ marginBottom: 8 }}>
+        <div className={styles.field}>
           <strong>Job Title:</strong> {profile.job_title}
         </div>
-        <div style={{ marginBottom: 8 }}>
+        <div className={styles.field}>
           <strong>Website:</strong>{" "}
           {profile.url ? (
             <a href={profile.url} target="_blank" rel="noreferrer">
@@ -132,7 +126,7 @@ export function AccountDetailsFormWrapper({
             "—"
           )}
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className={styles.bioField}>
           <strong>Bio:</strong>
           <div>{profile.description || "—"}</div>
         </div>
@@ -141,7 +135,7 @@ export function AccountDetailsFormWrapper({
           <button
             type="button"
             onClick={() => setEditing(true)}
-            style={{ marginRight: 8 }}
+            className={styles.editButton}
           >
             Edit
           </button>
@@ -152,3 +146,4 @@ export function AccountDetailsFormWrapper({
 
   return <AccountDetailsForm initialData={profile} onSubmit={handleSubmit} />;
 }
+

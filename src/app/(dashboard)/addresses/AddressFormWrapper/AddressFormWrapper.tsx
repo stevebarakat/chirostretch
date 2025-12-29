@@ -1,7 +1,7 @@
 "use client";
 
 import { AddressForm } from "@/components/Account";
-import { updateBillingAddress, updateShippingAddress } from "./actions";
+import { updateBillingAddress, updateShippingAddress } from "../actions";
 import type { CustomerAddress } from "@/lib/graphql/queries/account";
 import styles from "./AddressFormWrapper.module.css";
 
@@ -49,3 +49,4 @@ export function AddressFormWrapper({
     </div>
   );
 }
+
