@@ -103,6 +103,9 @@ export function LoginForm() {
             }
             disabled={isLoading}
           />
+          <Link href="/forgot-password" className={styles.forgotLink}>
+            Forgot password?
+          </Link>
         </div>
 
         <button
