@@ -278,6 +278,31 @@ CPTs: `events`, `registrations`, `locations`, `staff`
 - `registrations` — programmatic, tied to form logic
 - Any sync artifacts, logs, or computed records
 
+### ACF Field Naming
+
+Field names are part of the **API contract**, not internal CMS details.
+
+**Rules:**
+
+- Use `snake_case`
+- Describe **content**, not presentation
+- Use nouns, not verbs
+- No page names, layout names, or component names
+
+**Good:** `headline`, `subheadline`, `cta_label`, `cta_url`, `metrics`
+
+**Bad:** `hero_title`, `button_text`, `left_column_image`, `section_3_description`
+
+**Repeaters** — only when the concept is intrinsically plural:
+
+- Good: `metrics`, `benefits`, `testimonials`, `faq_items`
+- Bad: `buttons`, `columns`, `rows`, `sections`
+
+If a repeater exists to build layout, it's a smell.
+
+**Enforcement rule:** Any new ACF field must answer: *"Is this content, or is this UI?"*
+If the answer is UI, it belongs in Next.js.
+
 ### Custom Blocks
 
 Blocks follow the same separation, with stricter stakes.
