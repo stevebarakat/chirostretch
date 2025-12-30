@@ -2,6 +2,49 @@
 
 High-performance Headless WordPress → Next.js App Router build with WooCommerce integration, Algolia search, and Gravity Forms.
 
+## Directory Structure
+
+```
+src/
+├── app/                          # Next.js App Router pages and API routes
+│   ├── (dashboard)/             # Protected dashboard routes
+│   ├── (site)/                  # Public site routes
+│   │   ├── (marketing)/         # CMS-driven pages, promotional content
+│   │   ├── (commerce)/          # Shop, cart, checkout, products
+│   │   ├── (content)/           # Blog, articles, SEO content
+│   │   ├── login/               # Authentication
+│   │   ├── forgot-password/     # Password reset
+│   │   └── set-password/        # Set new password
+│   └── api/                     # API routes (algolia, auth, cart, checkout, etc.)
+│
+├── components/                  # React components
+│   ├── UI/                      # Design system (Primitives, Forms, Layout, Feedback, Media, Display, Utility)
+│   ├── CMS/                     # WordPress block renderers (adapters)
+│   └── [Domain]/                # Feature components (Account, Products, Events, Locations, etc.)
+│
+├── lib/                         # Library code (organized by responsibility, not vendor)
+│   ├── search/                  # Search integration (Algolia)
+│   ├── commerce/                # Commerce integration (WooCommerce)
+│   ├── forms/                   # Forms integration (Gravity Forms)
+│   ├── cms/                     # CMS integration (WordPress)
+│   ├── auth/                    # Authentication utilities
+│   ├── email/                   # Email integration (Resend)
+│   └── graphql/                 # GraphQL queries and client
+│
+├── stores/                      # Zustand state stores
+├── hooks/                       # Reusable React hooks
+├── config/                      # Configuration files
+├── styles/                      # Global styles and tokens
+├── utils/                       # Utility functions
+└── test/                        # Test utilities and setup
+```
+
+### Route Groups
+
+- **(marketing)**: CMS-driven pages, promotional content, flexible layouts
+- **(commerce)**: Shop, cart, checkout — performance-critical, stricter caching
+- **(content)**: Blog, articles — reading-optimized layouts, pagination
+
 ## Architecture
 
 ```
@@ -351,6 +394,7 @@ Same pattern, one nuance.
 - `postcss`, `autoprefixer`, `postcss-preset-env`
 - `stylelint`, `stylelint-order`
 - `lucide-react` for icons
+- `resend`, `@react-email/components` for transactional email
 
 **Avoid:**
 
