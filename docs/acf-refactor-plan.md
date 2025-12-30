@@ -248,5 +248,20 @@ When creating a new ACF group, ask:
 ## Document Status
 
 - **Created:** 2025-12-30
-- **Status:** Planning
-- **Next:** Review with team, begin Phase 1
+- **Status:** Phase 1 Complete
+- **Next:** Phase 2 — Consolidate page-specific content
+
+### Phase 1 Completed (2025-12-30)
+
+Renamed 6 ACF field groups (titles only, keys preserved):
+
+| Old Title | New Title | Key (unchanged) |
+|-----------|-----------|-----------------|
+| Hero Unit | Hero – Content | `group_693a68da804ba` |
+| Homepage - CTA | CTA – Primary | `group_66d1c39425156` |
+| Promo | Promotion – Highlight | `group_66d16c436373d` |
+| Stats | Metrics – Key Stats | `group_66d2bcf9c3b63` |
+| Component - Description List | Feature List | `group_693c5d767ee3a` |
+| Custom SEO Settings | SEO – Page Metadata | `group_669b00e640c90` |
+
+**Verified:** GraphQL queries unchanged (use keys, not titles). Homepage renders correctly.
