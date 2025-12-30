@@ -1,9 +1,9 @@
 export const VALUE_PROPOSITIONS_SETTINGS_QUERY = `
-  query ChiroValuePropositionsSettings {
-    chiroValuePropositionsSettings {
+  query ChiroFeatureSettings {
+    chiroFeatureSettings {
       title
       description
-      valuePropositions {
+      keyPoints {
         icon {
           sourceUrl
           altText
@@ -29,9 +29,9 @@ export type ValueProposition = {
 export type ValuePropositionsSettings = {
   title: string;
   description: string;
-  valuePropositions: ValueProposition[];
+  keyPoints: ValueProposition[];
 };
 
 export type ValuePropositionsSettingsResponse = {
-  chiroValuePropositionsSettings: ValuePropositionsSettings | null;
+  chiroFeatureSettings: ValuePropositionsSettings | null;
 };

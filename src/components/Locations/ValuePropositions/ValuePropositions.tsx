@@ -50,14 +50,14 @@ export async function ValuePropositions() {
     const data = await wpQuery<ValuePropositionsSettingsResponse>(
       VALUE_PROPOSITIONS_SETTINGS_QUERY
     );
-    if (data.chiroValuePropositionsSettings?.valuePropositions?.length) {
-      propositions = data.chiroValuePropositionsSettings.valuePropositions;
+    if (data.chiroFeatureSettings?.keyPoints?.length) {
+      propositions = data.chiroFeatureSettings.keyPoints;
     }
-    if (data.chiroValuePropositionsSettings?.title) {
-      title = data.chiroValuePropositionsSettings.title;
+    if (data.chiroFeatureSettings?.title) {
+      title = data.chiroFeatureSettings.title;
     }
-    if (data.chiroValuePropositionsSettings?.description) {
-      description = data.chiroValuePropositionsSettings.description;
+    if (data.chiroFeatureSettings?.description) {
+      description = data.chiroFeatureSettings.description;
     }
   } catch (error) {
     console.error("Failed to fetch value propositions settings:", error);
