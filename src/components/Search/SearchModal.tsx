@@ -6,7 +6,7 @@ import {
   useHits,
   Configure,
 } from "react-instantsearch-hooks-web";
-import { searchClient, isAlgoliaConfigured } from "@/lib/algolia/client";
+import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
 import Image from "next/image";

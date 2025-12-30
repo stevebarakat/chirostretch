@@ -1,5 +1,5 @@
 import { OrdersTable } from "@/components/Account";
-import { getViewerOrders } from "@/lib/woocommerce/account";
+import { getViewerOrders } from "@/lib/commerce/account";
 
 export const metadata = {
   title: "Orders - Dashboard - ChiroStretch",

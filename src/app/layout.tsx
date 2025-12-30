@@ -9,9 +9,9 @@ import { Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
 import { ModalProvider } from "@/components/Modals";
 import { BackToTop } from "@/components/UI";
-import { getServerCart } from "@/lib/woocommerce/getServerCart";
+import { getServerCart } from "@/lib/commerce/getServerCart";
 import { getGravityForm } from "next-gravity-forms/server";
-import { wpQuery } from "@/lib/wp/graphql";
+import { wpQuery } from "@/lib/cms/graphql";
 import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,

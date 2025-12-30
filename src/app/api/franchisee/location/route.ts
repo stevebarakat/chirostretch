@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 
 const UPDATE_LOCATION_MUTATION = `
   mutation UpdateFranchiseLocation($input: UpdateFranchiseLocationInput!) {

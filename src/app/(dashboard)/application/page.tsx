@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 import styles from "./page.module.css";
 
 export const metadata = {

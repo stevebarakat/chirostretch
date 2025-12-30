@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getUserRole } from "@/lib/auth";
-import { getViewerAccount } from "@/lib/woocommerce/account";
+import { getViewerAccount } from "@/lib/commerce/account";
 
 export const metadata = {
   title: "Dashboard - ChiroStretch",

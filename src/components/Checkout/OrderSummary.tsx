@@ -1,5 +1,5 @@
-import { getServerCart } from "@/lib/woocommerce/getServerCart";
-import type { StoreCartItem } from "@/lib/woocommerce/getServerCart";
+import { getServerCart } from "@/lib/commerce/getServerCart";
+import type { StoreCartItem } from "@/lib/commerce/getServerCart";
 import { formatPrice, parsePrice } from "@/lib/utils/formatPrice";
 import styles from "./OrderSummary.module.css";
 

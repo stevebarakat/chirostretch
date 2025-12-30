@@ -11,7 +11,7 @@ const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, moc
 }));
 
 // Mock Algolia client
-vi.mock("@/lib/algolia/client", () => ({
+vi.mock("@/lib/search/client", () => ({
   adminClient: {
     saveObject: mockSaveObject,
     deleteObject: mockDeleteObject,

@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { updateCustomerAddresses } from "@/lib/woocommerce/account";
+import { updateCustomerAddresses } from "@/lib/commerce/account";
 import type { CustomerAddress } from "@/lib/graphql/queries/account";
 
 /**

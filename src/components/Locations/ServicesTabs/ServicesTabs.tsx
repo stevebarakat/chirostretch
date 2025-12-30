@@ -1,4 +1,4 @@
-import { wpQuery } from "@/lib/wp/graphql";
+import { wpQuery } from "@/lib/cms/graphql";
 import {
   SERVICES_SETTINGS_QUERY,
   type ServicesSettingsResponse,

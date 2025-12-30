@@ -1,4 +1,4 @@
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 
 export const VIEWER_FRANCHISE_LOCATION_QUERY = `
   query ViewerFranchiseLocation {

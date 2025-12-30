@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { OrderDetails } from "@/components/Account";
-import { getOrderById } from "@/lib/woocommerce/account";
+import { getOrderById } from "@/lib/commerce/account";
 
 type OrderPageProps = {
   params: Promise<{ orderId: string }>;

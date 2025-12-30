@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { adminClient, isAlgoliaConfigured } from "@/lib/algolia/client";
+import { adminClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 
 export async function GET() {

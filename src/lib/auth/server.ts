@@ -1,4 +1,4 @@
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 import { getAuthToken, getRefreshToken, setAuthCookies } from "./cookies";
 import { REFRESH_TOKEN_MUTATION } from "./queries";
 import type { RefreshTokenResponse } from "./types";

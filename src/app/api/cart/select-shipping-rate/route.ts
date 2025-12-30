@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { storeApiFetch, createCartResponse } from "@/lib/woocommerce/storeApi";
+import { storeApiFetch, createCartResponse } from "@/lib/commerce/storeApi";
 
 export async function POST(request: NextRequest) {
   try {

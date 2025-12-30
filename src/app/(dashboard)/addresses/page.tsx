@@ -1,5 +1,5 @@
 import { AddressFormWrapper } from "@/components/Dashboard";
-import { getViewerAccount } from "@/lib/woocommerce/account";
+import { getViewerAccount } from "@/lib/commerce/account";
 
 export const metadata = {
   title: "Addresses - Dashboard - ChiroStretch",

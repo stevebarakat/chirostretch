@@ -1,5 +1,5 @@
 import { DownloadsList } from "@/components/Account";
-import { getViewerDownloads } from "@/lib/woocommerce/account";
+import { getViewerDownloads } from "@/lib/commerce/account";
 
 export const metadata = {
   title: "Downloads - Dashboard - ChiroStretch",

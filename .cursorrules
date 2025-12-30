@@ -166,6 +166,37 @@
 
   "polymorphismRule": {
     "description": "Polymorphism is for element identity (semantics), not behavior (attributes). The `as` prop answers 'What kind of element is this?' and must be constrained to a small, intentional set of semantically equivalent elements that share the same ARIA role, keyboard behavior, and ref type. Attributes like `type`, `variant`, or `size` answer 'How should this element behave?' and belong as props, not on the polymorphic axis. For example, `type='email'` and `type='password'` are both `<input>` elements with different behaviors—they are not different element types. Create polymorphic components only when multiple render targets are semantically equivalent and interchangeable (e.g., Button supports `button` and `a` because both represent actionable triggers). Do not create separate components for attribute variations (e.g., EmailInput, PasswordInput); instead, compose behavior via props on a single polymorphic component. Avoid unconstrained polymorphism (`as?: React.ElementType`). This keeps the component library smaller, more accessible, and easier to reason about."
+  },
+
+  "projectStructure": {
+    "description": "Project organization follows responsibility-based patterns. See README.md for detailed directory structure.",
+    "routeGroups": {
+      "site": {
+        "(marketing)": "CMS-driven pages, promotional content, flexible layouts (homepage, [...slug], franchise, locations, events)",
+        "(commerce)": "Shop, cart, checkout, products, categories - performance-critical routes",
+        "(content)": "Blog, articles, tags - SEO-heavy long-form content"
+      },
+      "principle": "Route groups enable scoped layouts, metadata strategies, and error boundaries without affecting URLs"
+    },
+    "libOrganization": {
+      "principle": "Organized by responsibility, not vendor",
+      "folders": {
+        "search/": "Search integration (Algolia implementation)",
+        "commerce/": "Commerce integration (WooCommerce implementation)",
+        "forms/": "Forms integration (Gravity Forms implementation)",
+        "cms/": "CMS integration (WordPress implementation - wpQuery, wpGraphQLFetch)",
+        "auth/": "Authentication utilities",
+        "graphql/": "GraphQL queries and client"
+      }
+    },
+    "componentOrganization": {
+      "UI/": "Design system organized by functionality (Primitives, Forms, Layout, Feedback, Media, Display, Utility)",
+      "CMS/": "WordPress block renderers (adapters, not UI components - was Blocks/)",
+      "domain/": "Feature/domain components (Account, Products, Events, Locations, Homepage, Dashboard)"
+    },
+    "stateManagement": {
+      "stores/": "Zustand stores for application state (cartStore.ts)"
+    }
   }
 
 }

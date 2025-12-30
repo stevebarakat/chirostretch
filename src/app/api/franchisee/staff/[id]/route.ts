@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 
 const DELETE_STAFF_MUTATION = `
   mutation DeleteStaff($input: DeleteStaffInput!) {

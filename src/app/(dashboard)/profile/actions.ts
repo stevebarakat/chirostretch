@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { updateUserAccount, updateUserMeta } from "@/lib/woocommerce/account";
+import { updateUserAccount, updateUserMeta } from "@/lib/commerce/account";
 
 type AccountDetailsUpdate = {
   firstName?: string;

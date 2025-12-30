@@ -1,5 +1,5 @@
 import { AccountDetailsFormWrapper } from "@/components/Dashboard";
-import { getViewerAccount } from "@/lib/woocommerce/account";
+import { getViewerAccount } from "@/lib/commerce/account";
 import crypto from "crypto";
 
 export const metadata = {

@@ -1,4 +1,4 @@
-import { storeApiFetch, createCartResponse } from "@/lib/woocommerce/storeApi";
+import { storeApiFetch, createCartResponse } from "@/lib/commerce/storeApi";
 
 export async function DELETE() {
   try {

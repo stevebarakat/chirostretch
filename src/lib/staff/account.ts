@@ -1,4 +1,4 @@
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 import {
   VIEWER_STAFF_PROFILE_QUERY,
   type StaffProfile,

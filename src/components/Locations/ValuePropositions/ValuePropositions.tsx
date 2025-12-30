@@ -1,4 +1,4 @@
-import { wpQuery } from "@/lib/wp/graphql";
+import { wpQuery } from "@/lib/cms/graphql";
 import {
   VALUE_PROPOSITIONS_SETTINGS_QUERY,
   type ValuePropositionsSettingsResponse,

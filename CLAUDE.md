@@ -485,7 +485,7 @@ const { mockSaveObject, mockDeleteObject, mockFetchGraphQL } = vi.hoisted(
   })
 );
 
-vi.mock("@/lib/algolia/client", () => ({
+vi.mock("@/lib/search/client", () => ({
   adminClient: {
     saveObject: mockSaveObject,
     deleteObject: mockDeleteObject,

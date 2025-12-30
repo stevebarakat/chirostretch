@@ -4,7 +4,7 @@
 import { useMemo, useState, useCallback, useEffect, useRef, startTransition } from "react";
 import { Button } from "@/components/UI";
 import { FormErrors } from "@/components/UI";
-import { useGravityForm } from "@/lib/gravity-forms";
+import { useGravityForm } from "@/lib/forms";
 import type { GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries/gravity-forms";
 import GravityFormFieldComponent from "./GravityFormField";
 import styles from "./GravityForm.module.css";

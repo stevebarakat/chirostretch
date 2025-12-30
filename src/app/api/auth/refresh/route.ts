@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRefreshToken, setAuthCookies } from "@/lib/auth/cookies";
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 import { REFRESH_TOKEN_MUTATION } from "@/lib/auth/queries";
 import type { RefreshTokenResponse } from "@/lib/auth/types";
 

@@ -1,36 +1,188 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ChiroStretch
 
-## Getting Started
+High-performance Headless WordPress → Next.js App Router build with WooCommerce integration, Algolia search, and Gravity Forms.
 
-First, run the development server:
+## Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+WordPress (Headless)
+├── WPGraphQL + Extensions (ACF, WooCommerce, Gravity Forms, JWT Auth)
+├── Content: Pages, Posts, Products, Events, Locations
+└── Webhooks → Next.js API routes → Algolia
+
+Next.js (App Router)
+├── Server Components (default)
+├── ISR with 300s revalidation
+├── CSS Modules (no Tailwind)
+└── Zustand for client state
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Directory Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                          # Next.js App Router pages and API routes
+│   ├── (dashboard)/             # Protected dashboard routes
+│   │   ├── addresses/           # Address management
+│   │   ├── dashboard/           # Dashboard home
+│   │   ├── downloads/           # Digital downloads
+│   │   ├── franchisee/          # Franchisee management
+│   │   ├── orders/              # Order history
+│   │   ├── payment-methods/     # Payment method management
+│   │   ├── profile/             # User profile
+│   │   └── staff/               # Staff management
+│   ├── (site)/                  # Public site routes
+│   │   ├── (marketing)/         # CMS-driven pages, promotional content
+│   │   │   ├── page.tsx         # Homepage
+│   │   │   ├── [...slug]/      # Dynamic CMS pages
+│   │   │   ├── franchise/      # Franchise page
+│   │   │   ├── locations/      # Location pages
+│   │   │   └── events/         # Events listing and detail
+│   │   ├── (commerce)/         # Shop, cart, checkout, products
+│   │   │   ├── shop/           # Shop/product listing
+│   │   │   ├── products/       # Product pages
+│   │   │   ├── cart/           # Shopping cart
+│   │   │   ├── checkout/       # Checkout flow
+│   │   │   └── category/       # Product categories
+│   │   ├── (content)/          # Blog, articles, SEO content
+│   │   │   ├── articles/       # Blog/articles
+│   │   │   └── tag/            # Article tags
+│   │   ├── login/              # Authentication (shared)
+│   │   ├── forgot-password/   # Password reset
+│   │   └── set-password/      # Set new password
+│   └── api/                     # API routes
+│       ├── algolia/             # Algolia indexing
+│       ├── auth/                # Authentication
+│       ├── bookings/            # Booking system
+│       ├── cart/                # Cart operations
+│       ├── checkout/            # Checkout processing
+│       ├── franchisee/         # Franchisee API
+│       ├── gravity-forms/      # Gravity Forms integration
+│       └── revalidate/          # Cache revalidation
+│
+├── components/                  # React components
+│   ├── UI/                      # Design system components
+│   │   ├── Primitives/          # Button, Input, Container, Text, Divider
+│   │   ├── Forms/               # FormField, FormErrors
+│   │   ├── Layout/              # PageHeader, SectionHeading
+│   │   ├── Feedback/             # Alert, ErrorState, Modal
+│   │   ├── Media/               # ImageWrapper, NoImage
+│   │   ├── Display/             # StarRating, Pagination
+│   │   └── Utility/              # VisuallyHidden, BackToTop, FlipMotion
+│   ├── Account/                 # Account management components
+│   ├── Articles/                # Article/blog components
+│   ├── Auth/                    # Authentication components
+│   ├── CMS/                     # WordPress block renderers (adapters)
+│   ├── Bookings/                # Booking system components
+│   ├── Cart/                    # Shopping cart components
+│   ├── Checkout/                # Checkout components
+│   ├── Dashboard/               # Dashboard components
+│   ├── Events/                  # Event components
+│   ├── Franchise/               # Franchise page components
+│   ├── GravityForms/            # Gravity Forms components
+│   ├── Header/                  # Header/navigation components
+│   ├── Homepage/                # Homepage sections
+│   ├── Layout/                  # Layout components (Footer, Menu, etc.)
+│   ├── Locations/                # Location components
+│   ├── Products/                # Product components
+│   └── Search/                  # Search components
+│
+├── lib/                         # Library code and utilities
+│   ├── auth/                    # Authentication utilities
+│   ├── commerce/                # Commerce integration (WooCommerce)
+│   ├── cms/                     # CMS integration (WordPress)
+│   │   ├── fetch.ts             # WordPress fetch with timeout
+│   │   ├── graphql.ts           # wpQuery helper
+│   │   └── wpgraphql.ts         # Authenticated GraphQL client
+│   ├── forms/                   # Forms integration (Gravity Forms)
+│   ├── graphql/                 # GraphQL queries and client
+│   │   ├── queries/             # All GraphQL queries organized by domain
+│   │   └── stripe/              # Stripe GraphQL client
+│   └── search/                  # Search integration (Algolia)
+│
+├── hooks/                       # Reusable React hooks
+│   ├── useOnClickOutside.ts     # Click outside detection
+│   └── useOnScreen.ts           # IntersectionObserver hook
+│
+├── stores/                      # Zustand state stores
+│   └── cartStore.ts             # Shopping cart state
+│
+├── config/                      # Configuration files
+│   ├── algolia.config.ts        # Algolia configuration
+│   ├── site.config.ts           # Site configuration
+│   └── wordpress.config.ts      # WordPress configuration
+│
+├── styles/                      # Global styles
+│   ├── globals.css              # Global styles
+│   ├── reset.css                # CSS reset
+│   ├── tokens.css               # Design tokens (CSS variables)
+│   └── forms.css                # Form styles
+│
+├── utils/                       # Utility functions
+│   ├── image-helpers.ts         # Image processing utilities
+│   └── constants.ts             # App constants
+│
+└── test/                        # Test utilities and setup
+    ├── helpers/                 # Test helpers
+    ├── mocks/                   # Mock data
+    └── setup.ts                 # Test configuration
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Component Organization
 
-## Learn More
+### UI Components (`src/components/UI/`)
 
-To learn more about Next.js, take a look at the following resources:
+Organized by functionality:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Primitives**: Basic building blocks (Button, Input, Container, Text, Divider)
+- **Forms**: Form-related components (FormField, FormErrors)
+- **Layout**: Layout components (PageHeader, SectionHeading)
+- **Feedback**: User feedback (Alert, ErrorState, Modal)
+- **Media**: Image/media handling (ImageWrapper, NoImage)
+- **Display**: Display components (StarRating, Pagination)
+- **Utility**: Helper components (VisuallyHidden, BackToTop, FlipMotion)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Domain Components (`src/components/`)
 
-## Deploy on Vercel
+Organized by feature/domain:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Each domain has its own folder with components, styles, and index.ts
+- Examples: `Account/`, `Products/`, `Events/`, `Locations/`, `Homepage/`, `Dashboard/`
+- **CMS/**: WordPress block renderers (adapters, not UI components)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Route Groups (`src/app/(site)/`)
+
+Organized by responsibility and layout needs:
+
+- **(marketing)**: CMS-driven pages, promotional content, flexible layouts
+  - Homepage, dynamic CMS pages (`[...slug]`), franchise, locations, events
+  - Editorial layouts, landing pages
+- **(commerce)**: Shop, cart, checkout, products
+  - Performance-critical routes, stricter caching rules
+  - Different layouts from marketing/content
+- **(content)**: Blog, articles, SEO-heavy long-form content
+  - Reading-optimized layouts, pagination, category/tag routes
+
+Route groups enable:
+
+- Scoped layouts per group
+- Scoped metadata strategies
+- Scoped loading states and error boundaries
+- Clear separation of concerns without URL changes
+
+### Library Organization (`src/lib/`)
+
+Organized by responsibility, not vendor:
+
+- **search/**: Search integration (Algolia implementation)
+- **commerce/**: Commerce integration (WooCommerce implementation)
+- **forms/**: Forms integration (Gravity Forms implementation)
+- **cms/**: CMS integration (WordPress implementation)
+- **auth/**: Authentication utilities
+- **graphql/**: GraphQL queries and client
+
+### State Management (`src/stores/`)
+
+Zustand stores for application state:
+
+- **cartStore.ts**: Shopping cart state management

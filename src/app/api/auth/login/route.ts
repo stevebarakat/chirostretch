@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { wpGraphQLFetch } from "@/lib/wpgraphql";
+import { wpGraphQLFetch } from "@/lib/cms/wpgraphql";
 import { LOGIN_MUTATION } from "@/lib/auth/queries";
 import type { LoginResponse, LoginCredentials } from "@/lib/auth/types";
 
