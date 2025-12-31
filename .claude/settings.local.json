@@ -251,7 +251,14 @@
       "Bash(git -C /Users/sb/Dev/chirostretch pull origin main)",
       "Bash(git -C /Users/sb/Dev/chirostretch merge new2)",
       "Bash(git -C /Users/sb/Dev/chirostretch branch -d new2)",
-      "Bash(git -C /Users/sb/Dev/chirostretch push origin --delete new2)"
+      "Bash(git -C /Users/sb/Dev/chirostretch push origin --delete new2)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT post_title, post_name FROM wp_posts WHERE post_type = ''acf-field-group'' AND post_status = ''publish'' ORDER BY post_title\" local)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT post_title, post_name, post_content FROM wp_posts WHERE post_type = ''acf-field-group'' AND post_title LIKE ''%Value%''\" local)",
+      "WebFetch(domain:wordpress.com)",
+      "WebFetch(domain:woographql.com)",
+      "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/php-8.2.27+0/bin/darwin-arm64/bin/php\" \"/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp\" --path=/Users/sb/Sites/chirostretch-copy/app/public plugin install wp-search-with-algolia --activate)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public option get algolia_application_id)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nDisable custom Algolia webhook trigger\n\nReplaced by WP Search with Algolia plugin which handles:\n- Auto-indexing on save/update/delete\n- Proper index management via WP-CLI\n- No localhost hardcoding issues\n\nOld file preserved as .disabled for reference.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ],
     "deny": [],
     "ask": []
