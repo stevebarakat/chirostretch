@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { Poppins, Montserrat } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/tokens.css";
+import "@/styles/forms.css";
 import "@/styles/globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Layout";
@@ -80,19 +81,19 @@ export default async function RootLayout({
 
     if (!data?.topMenu) {
       console.warn(
-        "Top menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress."
+        "Top menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress.",
       );
     }
 
     if (!data?.footerMenu) {
       console.warn(
-        "Footer menu not found. Expected menu slug: 'shop'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
+        "Footer menu not found. Expected menu slug: 'shop'. Make sure a menu with this slug exists in WordPress and is assigned to a location.",
       );
     } else if (!footerMenuItems || footerMenuItems.length === 0) {
       console.warn(
         `Footer menu found (${
           data.footerMenu.name || "unknown"
-        }) but has no menu items.`
+        }) but has no menu items.`,
       );
     }
   } catch (error) {
