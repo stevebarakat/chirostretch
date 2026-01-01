@@ -1,6 +1,6 @@
 ---
 name: wp-cpt
-description: Use when creating or modifying WordPress custom post types
+description: Use when creating or modifying WordPress custom post types. Covers MU-plugin registration, GraphQL exposure, ACF field integration, and Next.js routing.
 ---
 
 ## CPT Architecture

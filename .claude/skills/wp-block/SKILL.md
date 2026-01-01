@@ -1,6 +1,6 @@
 ---
 name: wp-block
-description: Use when creating or modifying WordPress blocks for headless rendering
+description: Use when creating or modifying WordPress blocks for headless rendering. Covers ACF block registration, Next.js component mapping, and the block whitelist pattern.
 ---
 
 ## Block Architecture (Headless)

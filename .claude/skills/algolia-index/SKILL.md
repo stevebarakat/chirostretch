@@ -1,6 +1,6 @@
 ---
 name: algolia-index
-description: Use when creating or modifying Algolia search indexing
+description: Use when creating or modifying Algolia search indexing for headless WordPress. Covers webhook handlers, record transformation, objectID stability, and WordPress hooks.
 ---
 
 ## Webhook Architecture

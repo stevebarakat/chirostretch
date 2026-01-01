@@ -1,6 +1,6 @@
 ---
 name: react-component
-description: Use when creating or modifying React components. Enforces modern patterns.
+description: Use when creating or modifying React components. Enforces modern patterns including CSS-first solutions, Server Component defaults, and proper useEffect usage.
 ---
 
 ## Before Writing Code
