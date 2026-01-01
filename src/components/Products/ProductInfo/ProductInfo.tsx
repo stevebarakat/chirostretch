@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState } from "react";
 import { Button, Input } from "@/components/UI";
-import { useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/useCartStore";
 import styles from "./ProductInfo.module.css";
 
 type ProductVariation = {

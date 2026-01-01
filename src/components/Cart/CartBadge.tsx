@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingCartIcon } from "lucide-react";
-import { useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/useCartStore";
 import styles from "./CartBadge.module.css";
 
 export default function CartBadge() {

@@ -12,7 +12,7 @@ import { ModalProvider } from "@/components/Modals";
 import { BackToTop } from "@/components/UI";
 import { getServerCart } from "@/lib/commerce/getServerCart";
 import { getGravityForm } from "next-gravity-forms/server";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,
@@ -74,7 +74,10 @@ export default async function RootLayout({
   let footerMenuItems: MenuItem[] | undefined;
 
   try {
-    const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, 3600);
+    const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, {
+      revalidate: 3600,
+      tags: [CACHE_TAGS.menus, CACHE_TAGS.options, CACHE_TAGS.layout],
+    });
     logo = data?.logo;
     topMenuItems = data?.topMenu?.menuItems?.nodes;
     footerMenuItems = data?.footerMenu?.menuItems?.nodes;

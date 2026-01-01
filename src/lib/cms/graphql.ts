@@ -1,14 +1,19 @@
-import { fetchWP } from "./fetch";
+import { fetchWP, CacheTag, CACHE_TAGS } from "./fetch";
 
-/**
- * GraphQL query function for WordPress content
- */
+export { CACHE_TAGS, type CacheTag };
+
+type QueryOptions = {
+  revalidate?: number;
+  tags?: CacheTag[];
+};
 
 export async function wpQuery<T>(
   query: string,
   variables: Record<string, unknown> = {},
-  revalidate: number = 300
+  options: QueryOptions = {}
 ) {
+  const { revalidate = 300, tags = [] } = options;
+
   const wpGraphqlUrl = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 
   if (!wpGraphqlUrl) {
@@ -18,7 +23,7 @@ export async function wpQuery<T>(
   }
 
   try {
-    return await fetchWP<T>({ query, variables, revalidate });
+    return await fetchWP<T>({ query, variables, revalidate, tags });
   } catch (error) {
     const cause =
       error instanceof Error && "cause" in error ? error.cause : null;

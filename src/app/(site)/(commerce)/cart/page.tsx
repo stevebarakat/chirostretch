@@ -7,7 +7,7 @@ import { RefreshCcw, Trash2 } from "lucide-react";
 import { Container } from "@/components/UI";
 import { Button } from "@/components/UI";
 import { VisuallyHidden } from "@/components/UI";
-import { useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/useCartStore";
 import type { StoreCartItem, StoreCartItemData } from "@/lib/commerce/getServerCart";
 import styles from "./page.module.css";
 

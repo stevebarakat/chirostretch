@@ -1,4 +1,4 @@
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import { EVENT_BY_SLUG_QUERY, type EventData } from "@/lib/graphql/queries";
 
 type EventPageProps = {
@@ -9,9 +9,8 @@ export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
   const data = await wpQuery<{ event: EventData | null }>(
     EVENT_BY_SLUG_QUERY,
-    {
-      slug,
-    }
+    { slug },
+    { tags: [CACHE_TAGS.events] }
   );
 
   const event = data.event;

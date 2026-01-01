@@ -261,9 +261,6 @@ export type WPLocation = {
   };
 };
 
-// Keep Location as an alias for backward compatibility, but prefer WPLocation
-export type Location = WPLocation;
-
 export type AllLocationsResponse = {
   locations?: {
     nodes?: WPLocation[];

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   PAGE_BY_URI_QUERY,
   ALL_PAGE_SLUGS_QUERY,
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
     const data = await wpQuery<AllPageSlugsResponse>(
       ALL_PAGE_SLUGS_QUERY,
       {},
-      300
+      { tags: [CACHE_TAGS.pages] }
     );
 
     const pages = data?.pages?.nodes || [];
@@ -92,7 +92,7 @@ export async function generateMetadata({
     const data = await wpQuery<PageByUriResponse>(
       PAGE_BY_URI_QUERY,
       { uri },
-      300
+      { tags: [CACHE_TAGS.pages] }
     );
 
     if (!data?.page) {
@@ -145,7 +145,7 @@ export default async function WordPressPage({ params }: PageProps) {
   const data = await wpQuery<PageByUriResponse>(
     PAGE_BY_URI_QUERY,
     { uri },
-    300
+    { tags: [CACHE_TAGS.pages] }
   );
 
   if (!data?.page) {

@@ -155,7 +155,7 @@ async function handleWebhook(
     const data = await wpQuery<{ product: Product }>(
       SINGLE_PRODUCT_QUERY,
       { id: post_id },
-      0
+      { revalidate: 0 }
     );
 
     if (!data?.product) {
@@ -198,7 +198,7 @@ async function handleBulkReindex(indexName: string) {
       const data = await wpQuery<ProductsResponse>(
         ALL_PRODUCTS_QUERY,
         variables,
-        0
+        { revalidate: 0 }
       );
 
       if (data?.products?.nodes) {

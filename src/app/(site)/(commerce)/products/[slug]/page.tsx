@@ -1,4 +1,4 @@
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   PRODUCT_BY_SLUG_QUERY,
   ALL_PRODUCT_SLUGS_QUERY,
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
     const data = await wpQuery<AllProductSlugsResponse>(
       ALL_PRODUCT_SLUGS_QUERY,
       {},
-      300
+      { tags: [CACHE_TAGS.products] }
     );
 
     const products = data?.products?.nodes || [];
@@ -79,7 +79,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const data = await wpQuery<ProductBySlugResponse>(
     PRODUCT_BY_SLUG_QUERY,
     { slug },
-    300
+    { tags: [CACHE_TAGS.products] }
   );
 
   if (!data?.product) {

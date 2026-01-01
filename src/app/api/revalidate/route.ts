@@ -2,7 +2,6 @@ import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  // Verify secret token to prevent unauthorized revalidation
   const secret = request.nextUrl.searchParams.get("secret");
 
   if (secret !== process.env.REVALIDATE_SECRET) {
@@ -10,19 +9,22 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    // Get optional tag from request body
     const body = await request.json().catch(() => ({}));
     const tag = body.tag || "wordpress-content";
+    const reason = body.reason || "manual";
 
-    // Revalidate the specified tag with 'max' profile for SWR behavior
-    revalidateTag(tag, "max");
+    revalidateTag(tag, "default");
+
+    console.log(`[revalidate] tag=${tag} reason=${reason}`);
 
     return NextResponse.json({
       revalidated: true,
       tag,
+      reason,
       now: Date.now(),
     });
   } catch (err) {
+    console.error("[revalidate] error:", err);
     return NextResponse.json(
       {
         message: "Error revalidating",

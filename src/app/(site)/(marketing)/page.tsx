@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense, cache } from "react";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   HOMEPAGE_QUERY,
   type HomepageQueryResponse,
@@ -13,7 +13,9 @@ export const revalidate = 300;
 
 // Cache the homepage query to deduplicate requests between generateMetadata() and the page component
 const getHomepageData = cache(async () => {
-  return await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, 300);
+  return await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, {
+    tags: [CACHE_TAGS.pages, CACHE_TAGS.products, CACHE_TAGS.events],
+  });
 });
 
 // Below-the-fold sections (dynamically imported for code splitting)

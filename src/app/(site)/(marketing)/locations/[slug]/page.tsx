@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { notFound } from "next/navigation";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   LOCATION_BY_SLUG_QUERY,
   ALL_LOCATION_SLUGS_QUERY,
@@ -88,7 +88,7 @@ export async function generateStaticParams() {
     const data = await wpQuery<AllLocationSlugsResponse>(
       ALL_LOCATION_SLUGS_QUERY,
       {},
-      300
+      { tags: [CACHE_TAGS.locations] }
     );
 
     const locations = data.locations?.nodes ?? [];
@@ -112,9 +112,15 @@ export default async function LocationPage({ params }: LocationPageProps) {
   const { slug } = await params;
 
   const [locationData, bookingData, testimonialsData] = await Promise.all([
-    wpQuery<LocationBySlugResponse>(LOCATION_BY_SLUG_QUERY, { slug }, 300),
-    wpQuery<BookingProductsResponse>(BOOKING_PRODUCTS_QUERY, {}, 300),
-    wpQuery<AllTestimonialsResponse>(ALL_TESTIMONIALS_QUERY, {}, 300),
+    wpQuery<LocationBySlugResponse>(LOCATION_BY_SLUG_QUERY, { slug }, {
+      tags: [CACHE_TAGS.locations, CACHE_TAGS.staff],
+    }),
+    wpQuery<BookingProductsResponse>(BOOKING_PRODUCTS_QUERY, {}, {
+      tags: [CACHE_TAGS.products],
+    }),
+    wpQuery<AllTestimonialsResponse>(ALL_TESTIMONIALS_QUERY, {}, {
+      tags: [CACHE_TAGS.testimonials],
+    }),
   ]);
 
   if (!locationData?.location) {

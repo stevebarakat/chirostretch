@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { ReactNode, useEffect } from "react";
-import { useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/useCartStore";
 import type { StoreCart } from "@/lib/commerce/getServerCart";
 
 type CartProviderProps = {

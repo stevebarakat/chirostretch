@@ -2,16 +2,39 @@ const WP_GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 
 const FETCH_TIMEOUT = 30000; // 30 seconds (less than Next.js 60s build timeout)
 
+/**
+ * Cache tags for WordPress content types.
+ * WordPress revalidation plugin sends these tags when content changes.
+ */
+export const CACHE_TAGS = {
+  locations: "locations",
+  events: "events",
+  staff: "staff",
+  products: "products",
+  posts: "posts",
+  pages: "pages",
+  testimonials: "testimonials",
+  services: "services",
+  menus: "menus",
+  options: "options",
+  layout: "layout",
+  media: "media",
+} as const;
+
+export type CacheTag = (typeof CACHE_TAGS)[keyof typeof CACHE_TAGS];
+
 type FetchWPOptions = {
   query: string;
   variables?: Record<string, unknown>;
   revalidate?: number;
+  tags?: CacheTag[];
 };
 
 export async function fetchWP<T>({
   query,
   variables,
   revalidate = 300,
+  tags = [],
 }: FetchWPOptions): Promise<T> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => {
@@ -31,7 +54,7 @@ export async function fetchWP<T>({
         : {
             next: {
               revalidate,
-              tags: ["wordpress-content"],
+              tags: tags.length > 0 ? tags : ["wordpress-content"],
             },
           }),
       body: JSON.stringify({ query, variables }),

@@ -9,7 +9,7 @@ import { NoImage } from "@/components/UI";
 import { StarRating } from "@/components/UI";
 import { Button } from "@/components/UI";
 import { formatPrice } from "@/lib/utils/formatPrice";
-import { useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/useCartStore";
 import styles from "./ProductCard.module.css";
 
 type ProductImage = {

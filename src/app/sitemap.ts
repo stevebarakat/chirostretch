@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getSiteConfig } from "@/config";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 
 const SITEMAP_QUERY = `
   query SitemapData {
@@ -97,7 +97,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const data = await wpQuery<SitemapResponse>(SITEMAP_QUERY, {}, 3600);
+    const data = await wpQuery<SitemapResponse>(SITEMAP_QUERY, {}, {
+      revalidate: 3600,
+      tags: [CACHE_TAGS.pages, CACHE_TAGS.posts, CACHE_TAGS.products, CACHE_TAGS.locations],
+    });
 
     const dynamicPages: MetadataRoute.Sitemap = [];
 

@@ -140,7 +140,7 @@ async function handleWebhook(
     const data = await wpQuery<{ post: Post }>(
       SINGLE_POST_QUERY,
       { id: post_id },
-      0
+      { revalidate: 0 }
     );
 
     if (!data?.post) {
@@ -180,7 +180,7 @@ async function handleBulkReindex(indexName: string) {
         variables.after = cursor;
       }
 
-      const data = await wpQuery<PostsResponse>(ALL_POSTS_QUERY, variables, 0);
+      const data = await wpQuery<PostsResponse>(ALL_POSTS_QUERY, variables, { revalidate: 0 });
 
       if (data?.posts?.nodes) {
         allPosts.push(...data.posts.nodes);

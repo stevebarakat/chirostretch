@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   POST_BY_SLUG_QUERY,
   ALL_POST_SLUGS_QUERY,
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
     const data = await wpQuery<AllPostSlugsResponse>(
       ALL_POST_SLUGS_QUERY,
       {},
-      300
+      { tags: [CACHE_TAGS.posts] }
     );
 
     const posts = data.posts?.nodes ?? [];
@@ -51,7 +51,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const data = await wpQuery<PostBySlugResponse>(
     POST_BY_SLUG_QUERY,
     { slug },
-    300
+    { tags: [CACHE_TAGS.posts] }
   );
 
   if (!data?.post) {

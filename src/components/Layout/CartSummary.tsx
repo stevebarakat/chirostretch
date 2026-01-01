@@ -4,7 +4,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
-import { useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/useCartStore";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import styles from "./CartSummary.module.css";
 import clsx from "clsx";

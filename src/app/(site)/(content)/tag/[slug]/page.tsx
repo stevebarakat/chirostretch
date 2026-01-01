@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import { Container } from "@/components/UI";
 import { ArticlesTaxonomySearch } from "@/components/Articles/ArticlesSearch";
 import { ProductsTaxonomySearch } from "@/components/Products/ProductsSearch";
@@ -62,7 +62,7 @@ export default async function TagPage({ params }: TagPageProps) {
   const postTagData = await wpQuery<TagResponse>(
     GET_POST_TAG_QUERY,
     { slug },
-    300
+    { tags: [CACHE_TAGS.posts] }
   );
 
   if (postTagData?.tag?.slug) {
@@ -84,7 +84,7 @@ export default async function TagPage({ params }: TagPageProps) {
   const productTagData = await wpQuery<ProductTagResponse>(
     GET_PRODUCT_TAG_QUERY,
     { slug },
-    300
+    { tags: [CACHE_TAGS.products] }
   );
 
   if (productTagData?.productTag?.slug) {

@@ -1,4 +1,4 @@
-import { wpQuery } from "@/lib/cms/graphql";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   FRANCHISE_QUERY,
   type FranchiseOpportunitiesQueryResponse,
@@ -20,7 +20,7 @@ export default async function FranchiseOpportunitiesPage() {
   const data = await wpQuery<FranchiseOpportunitiesQueryResponse>(
     FRANCHISE_QUERY,
     {},
-    300
+    { tags: [CACHE_TAGS.pages] }
   );
 
   if (!data?.page) {
