@@ -325,7 +325,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </p>
           </div>
         ) : (
-          /* @ts-expect-error - react-instantsearch-hooks-web types are not fully compatible with React 19 */
           <InstantSearch searchClient={searchClient} indexName={indexName}>
             <Configure hitsPerPage={10} />
             <SearchBox />

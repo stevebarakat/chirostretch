@@ -11,6 +11,8 @@ import { useCartStore } from "@/stores/cartStore";
 import type { StoreCartItem, StoreCartItemData } from "@/lib/commerce/getServerCart";
 import styles from "./page.module.css";
 
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "";
+
 export default function CartPage() {
   const {
     items,
@@ -293,11 +295,11 @@ export default function CartPage() {
             )}
 
             <div className={styles.checkoutActions}>
-              <Link href="/checkout" className={styles.checkoutLink}>
+              <a href={`${WP_URL}/checkout/`} className={styles.checkoutLink}>
                 <Button fullWidth>
                   Proceed to Checkout
                 </Button>
-              </Link>
+              </a>
               <Link href="/shop">
                 <Button color="secondary" fullWidth>
                   Continue Shopping

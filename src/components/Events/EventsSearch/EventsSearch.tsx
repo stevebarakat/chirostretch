@@ -23,7 +23,6 @@ export function EventsSearch() {
         subtitle="Discover upcoming events and workshops"
         searchSlot={<EventSearchTrigger />}
       />
-      {/* @ts-expect-error - react-instantsearch-hooks-web types not compatible with React 19 and algoliasearch v5 */}
       <InstantSearch
         searchClient={
           searchClient as unknown as Parameters<

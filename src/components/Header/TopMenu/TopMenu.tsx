@@ -1,8 +1,7 @@
 "use client";
 
 // eslint-disable-next-line no-restricted-imports
-import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
 import { ChevronDown, CircleUser } from "lucide-react";
@@ -10,6 +9,8 @@ import { Logo } from "@/components/Logo";
 import { LocationSearchTrigger } from "../LocationSearchTrigger";
 import styles from "../Header.module.css";
 import { VisuallyHidden } from "@/components/UI";
+
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "";
 
 type MenuItem = {
   id: string;
@@ -96,122 +97,15 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
 }
 
 function AuthMenuItem({ onNavigate }: { onNavigate?: () => void }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-
-  // Reason this component must use useEffect:
-  // - Syncing with external API (auth status endpoint) on component mount
-  // - Server Components cannot handle client-side API calls
-  // - Also syncs on window focus to detect auth state changes in other tabs
-  useEffect(() => {
-    async function checkAuth() {
-      try {
-        const response = await fetch("/api/auth/status");
-        const data = await response.json();
-        setAuthenticated(data.authenticated ?? false);
-      } catch {
-        setAuthenticated(false);
-      }
-    }
-
-    checkAuth();
-
-    const handleFocus = () => checkAuth();
-    window.addEventListener("focus", handleFocus);
-    return () => window.removeEventListener("focus", handleFocus);
-  }, [pathname]);
-
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    try {
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (!response.ok) throw new Error("Logout failed");
-
-      router.push("/login");
-      router.refresh();
-    } catch {
-      router.push("/login");
-    } finally {
-      setIsLoggingOut(false);
-    }
-  };
-
-  if (authenticated === null) {
-    return null;
-  }
-
-  if (!authenticated) {
-    return (
-      <Link
-        href="/login"
-        className={styles.topBarAuthLink}
-        onClick={onNavigate}
-      >
-        Login
-      </Link>
-    );
-  }
-
   return (
-    <div
-      style={{ position: "relative" }}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+    <a
+      href={`${WP_URL}/my-account/`}
+      className={styles.topBarAuthLink}
+      onClick={onNavigate}
     >
-      <button
-        type="button"
-        className={styles.topMenuBtnLink}
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-      >
-        <VisuallyHidden as="span">My Account</VisuallyHidden>
-        <CircleUser aria-hidden="true" />
-      </button>
-      <ul
-        className={
-          isOpen
-            ? `${styles.topMenuDropdown} ${styles.topMenuDropdownOpen}`
-            : styles.topMenuDropdown
-        }
-      >
-        <li>
-          <Link
-            href="/dashboard"
-            className={styles.topMenuLink}
-            onClick={() => {
-              setIsOpen(false);
-              onNavigate?.();
-            }}
-          >
-            Dashboard
-          </Link>
-        </li>
-        <li>
-          <button
-            type="button"
-            className={styles.topMenuLink}
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-            style={{
-              width: "100%",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            {isLoggingOut ? "Logging out..." : "Log Out"}
-          </button>
-        </li>
-      </ul>
-    </div>
+      <VisuallyHidden as="span">My Account</VisuallyHidden>
+      <CircleUser aria-hidden="true" />
+    </a>
   );
 }
 

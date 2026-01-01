@@ -88,12 +88,12 @@
 
   "allowedJavaScriptIntent": [
     "Data fetching and mutations (GraphQL, webhooks, revalidation)",
-    "Application state (auth, cart, session, optimistic updates)",
+    "Application state (cart presentation, optimistic updates)",
     "Form submission, validation, and async flows",
     "URL state (filters, pagination, tabs)",
     "Progressive enhancement of native HTML",
     "Non-visual business logic (pricing, permissions, feature flags)",
-    "Third-party integrations (analytics, payments, embeds)"
+    "Third-party integrations (analytics, embeds)"
   ],
 
   "htmlPrimitives": {
@@ -173,7 +173,7 @@
     "routeGroups": {
       "site": {
         "(marketing)": "CMS-driven pages, promotional content, flexible layouts (homepage, [...slug], franchise, locations, events)",
-        "(commerce)": "Shop, cart, checkout, products, categories - performance-critical routes",
+        "(commerce)": "Shop, cart, products, categories - browsing only, checkout redirects to WooCommerce",
         "(content)": "Blog, articles, tags - SEO-heavy long-form content"
       },
       "principle": "Route groups enable scoped layouts, metadata strategies, and error boundaries without affecting URLs"
@@ -182,20 +182,19 @@
       "principle": "Organized by responsibility, not vendor",
       "folders": {
         "search/": "Search integration (Algolia implementation)",
-        "commerce/": "Commerce integration (WooCommerce implementation)",
+        "commerce/": "Commerce integration (WooCommerce cart operations)",
         "forms/": "Forms integration (Gravity Forms implementation)",
-        "cms/": "CMS integration (WordPress implementation - wpQuery, wpGraphQLFetch)",
-        "auth/": "Authentication utilities",
+        "cms/": "CMS integration (WordPress implementation - wpQuery)",
         "graphql/": "GraphQL queries and client"
       }
     },
     "componentOrganization": {
       "UI/": "Design system organized by functionality (Primitives, Forms, Layout, Feedback, Media, Display, Utility)",
-      "CMS/": "WordPress block renderers (adapters, not UI components - was Blocks/)",
-      "domain/": "Feature/domain components (Account, Products, Events, Locations, Homepage, Dashboard)"
+      "CMS/": "WordPress block renderers (adapters, not UI components)",
+      "domain/": "Feature/domain components (Products, Events, Locations, Homepage)"
     },
     "stateManagement": {
-      "stores/": "Zustand stores for application state (cartStore.ts)"
+      "stores/": "Zustand stores for cart presentation state (cartStore.ts)"
     }
   }
 

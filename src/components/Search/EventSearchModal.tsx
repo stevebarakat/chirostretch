@@ -171,7 +171,6 @@ export default function EventSearchModal({
             <p>Search is not configured.</p>
           </div>
         ) : (
-          /* @ts-expect-error - react-instantsearch-hooks-web types not compatible with React 19 and algoliasearch v5 */
           <InstantSearch
             searchClient={
               searchClient as unknown as Parameters<

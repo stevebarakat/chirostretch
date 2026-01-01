@@ -1,8 +1,7 @@
 import { fetchWP } from "./fetch";
 
 /**
- * Simple GraphQL query function for public WordPress content
- * For authenticated requests, use wpGraphQLFetch from @/lib/cms/wpgraphql
+ * GraphQL query function for WordPress content
  */
 
 export async function wpQuery<T>(

@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line no-restricted-imports
 import { useMemo } from "react";
 import GravityFormForm from "next-gravity-forms";
 
@@ -77,7 +76,13 @@ export function GravityForm({ form }: GravityFormProps) {
         // For CHECKBOX fields, generate inputs from choices if inputs is null/undefined/empty
         if (fieldType === "CHECKBOX") {
           const choices = field.choices;
-          if ((inputs === null || inputs === undefined || (Array.isArray(inputs) && inputs.length === 0)) && choices && Array.isArray(choices)) {
+          if (
+            (inputs === null ||
+              inputs === undefined ||
+              (Array.isArray(inputs) && inputs.length === 0)) &&
+            choices &&
+            Array.isArray(choices)
+          ) {
             // Generate inputs from choices
             // Note: Input IDs must be integers for GraphQL API (1, 2, 3...)
             const generatedInputs = choices.map((choice, index: number) => ({
@@ -102,8 +107,7 @@ export function GravityForm({ form }: GravityFormProps) {
         if (inputs && Array.isArray(inputs)) {
           // Check if any input has a null name
           const hasNullName = inputs.some(
-            (input) =>
-              input.name === null || input.name === undefined
+            (input) => input.name === null || input.name === undefined
           );
 
           if (hasNullName) {
@@ -120,7 +124,10 @@ export function GravityForm({ form }: GravityFormProps) {
     const updatedSubmitButton = gfForm.submitButton
       ? {
           ...gfForm.submitButton,
-          text: gfForm.submitButton.text === "Submit" ? "Claim Your Offer" : gfForm.submitButton.text,
+          text:
+            gfForm.submitButton.text === "Submit"
+              ? "Claim Your Offer"
+              : gfForm.submitButton.text,
         }
       : {
           text: "Claim Your Offer",
@@ -139,7 +146,6 @@ export function GravityForm({ form }: GravityFormProps) {
       },
     };
   }, [form]);
-
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <GravityFormForm data={processedForm as any} />;

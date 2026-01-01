@@ -44,8 +44,8 @@
 .topBar ul li {
   position: relative;
   list-style: none;
-  border-right: 1px solid var(--nav-border-color);
   align-items: center;
+  border-right: 1px solid var(--nav-border-color);
 
   &:first-of-type {
     border-left: 1px solid var(--nav-border-color);
@@ -110,11 +110,11 @@
   display: none;
   position: absolute;
   top: 100%;
+  left: -1px;
   z-index: 100;
   margin-top: -1px;
   background: var(--color-secondary-600);
   border: 1px solid var(--nav-border-color);
-  left: -1px;
 }
 
 .topMenuDropdownOpen {

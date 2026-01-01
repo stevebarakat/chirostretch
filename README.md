@@ -97,7 +97,6 @@ src/
 │   ├── forms/                   # Forms integration (Gravity Forms)
 │   ├── graphql/                 # GraphQL queries and client
 │   │   ├── queries/             # All GraphQL queries organized by domain
-│   │   └── stripe/              # Stripe GraphQL client
 │   └── search/                  # Search integration (Algolia)
 │
 ├── hooks/                       # Reusable React hooks

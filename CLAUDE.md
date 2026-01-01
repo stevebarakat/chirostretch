@@ -2,36 +2,71 @@
 
 High-performance Headless WordPress → Next.js App Router build with WooCommerce integration, Algolia search, and Gravity Forms.
 
+## Hybrid Architecture (Critical)
+
+This project follows a **hybrid headless** pattern. Understand these boundaries before making changes.
+
+```
+WooCommerce → owns commerce (orders, billing, addresses, checkout, payments)
+WordPress   → owns operations (authentication, dashboards, internal workflows)
+Next.js     → owns public presentation only (marketing, browsing, content)
+```
+
+### System Boundaries
+
+| Concern | Owner | Next.js Role |
+|---------|-------|--------------|
+| Authentication | WordPress | None — links to WP login |
+| Checkout | WooCommerce | None — links to WC checkout |
+| Customer Account | WooCommerce | None — links to WC My Account |
+| Staff/Franchisee Dashboards | WordPress plugin | None |
+| Cart Browsing | Next.js | Full — presentation layer |
+| Product Browsing | Next.js | Full — presentation layer |
+| Content Pages | Next.js | Full — presentation layer |
+
+### What Next.js Does NOT Do
+
+- **No custom authentication** — users log in via WordPress/WooCommerce
+- **No checkout flow** — cart links to WooCommerce checkout
+- **No account management** — links to WooCommerce My Account
+- **No operational dashboards** — staff/franchisee tools live in WordPress
+
+### Why This Architecture
+
+Commerce and authentication are transactional, stateful, and security-sensitive systems — not presentation concerns. Attempting full headless auth/checkout would require permanently owning PCI compliance, payment gateway drift, order lifecycle correctness, and WooCommerce plugin compatibility.
+
+The hybrid model delegates those responsibilities to WordPress/WooCommerce where they are battle-tested.
+
+### Gravity Forms
+
+Gravity Forms creates and manages users in WordPress for franchise applicants, staff, and other custom user types. This is unchanged — it's WordPress-native functionality.
+
+---
+
 ## Directory Structure
 
 ```
 src/
 ├── app/                          # Next.js App Router pages and API routes
-│   ├── (dashboard)/             # Protected dashboard routes
 │   ├── (site)/                  # Public site routes
 │   │   ├── (marketing)/         # CMS-driven pages, promotional content
-│   │   ├── (commerce)/          # Shop, cart, checkout, products
-│   │   ├── (content)/           # Blog, articles, SEO content
-│   │   ├── login/               # Authentication
-│   │   ├── forgot-password/     # Password reset
-│   │   └── set-password/        # Set new password
-│   └── api/                     # API routes (algolia, auth, cart, checkout, etc.)
+│   │   ├── (commerce)/          # Shop, cart, products (NOT checkout)
+│   │   └── (content)/           # Blog, articles, SEO content
+│   └── api/                     # API routes (algolia, cart, bookings, etc.)
 │
 ├── components/                  # React components
 │   ├── UI/                      # Design system (Primitives, Forms, Layout, Feedback, Media, Display, Utility)
 │   ├── CMS/                     # WordPress block renderers (adapters)
-│   └── [Domain]/                # Feature components (Account, Products, Events, Locations, etc.)
+│   └── [Domain]/                # Feature components (Products, Events, Locations, etc.)
 │
 ├── lib/                         # Library code (organized by responsibility, not vendor)
 │   ├── search/                  # Search integration (Algolia)
-│   ├── commerce/                # Commerce integration (WooCommerce)
+│   ├── commerce/                # Commerce integration (WooCommerce cart operations)
 │   ├── forms/                   # Forms integration (Gravity Forms)
 │   ├── cms/                     # CMS integration (WordPress)
-│   ├── auth/                    # Authentication utilities
-│   ├── email/                   # Email integration (Resend)
 │   └── graphql/                 # GraphQL queries and client
 │
-├── stores/                      # Zustand state stores
+├── stores/                      # Zustand state stores (cart presentation state)
 ├── hooks/                       # Reusable React hooks
 ├── config/                      # Configuration files
 ├── styles/                      # Global styles and tokens
@@ -42,22 +77,25 @@ src/
 ### Route Groups
 
 - **(marketing)**: CMS-driven pages, promotional content, flexible layouts
-- **(commerce)**: Shop, cart, checkout — performance-critical, stricter caching
+- **(commerce)**: Shop, cart, products — browsing only, checkout redirects to WooCommerce
 - **(content)**: Blog, articles — reading-optimized layouts, pagination
 
 ## Architecture
 
 ```
 WordPress (Headless)
-├── WPGraphQL + Extensions (ACF, WooCommerce, Gravity Forms, JWT Auth)
+├── WPGraphQL + Extensions (ACF, WooCommerce, Gravity Forms)
 ├── Content: Pages, Posts, Products, Events, Locations
+├── Authentication & User Management
+├── Checkout, Payments, Orders
 └── Webhooks → Next.js API routes → Algolia
 
 Next.js (App Router)
 ├── Server Components (default)
 ├── ISR with 300s revalidation
 ├── CSS Modules (no Tailwind)
-└── Zustand for client state
+├── Zustand for cart presentation state
+└── Links to WP for auth/checkout/account
 ```
 
 ## Local Development
@@ -206,7 +244,7 @@ Allowed use cases:
 
 - **Application state**
 
-  - Auth state, cart state, user session
+  - Cart presentation state (not auth — that's WordPress)
   - Optimistic updates, async transitions
 
 - **Form handling**
@@ -419,13 +457,13 @@ Same pattern, one nuance.
 - `postcss`, `autoprefixer`, `postcss-preset-env`
 - `stylelint`, `stylelint-order`
 - `lucide-react` for icons
-- `resend`, `@react-email/components` for transactional email
 
 **Avoid:**
 
 - `tailwindcss`
 - JS-only UI libraries that duplicate native HTML/CSS behavior
 - Custom image URL normalizers
+- Custom authentication/checkout libraries (WooCommerce handles this)
 
 ## URL State
 
