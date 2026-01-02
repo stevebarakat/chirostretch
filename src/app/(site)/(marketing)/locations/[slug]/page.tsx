@@ -13,6 +13,8 @@ import {
   type AllLocationSlugsResponse,
   type BookingProductsResponse,
   type AllTestimonialsResponse,
+  type StaffMember,
+  type LocationHours,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/UI";
 import {
@@ -25,9 +27,7 @@ import { BookingWidget } from "@/components/Bookings";
 import styles from "./page.module.css";
 import { RawHtml } from "@/components/RawHtml";
 
-type HoursEntry = { day?: string; open?: string; close?: string };
-
-function formatCondensedHours(hours: HoursEntry[]): React.ReactNode {
+function formatCondensedHours(hours: LocationHours[]): React.ReactNode {
   const validHours = hours.filter(
     (h): h is { day: string; open: string; close: string } =>
       Boolean(h.day && h.open && h.close)
@@ -163,9 +163,13 @@ export default async function LocationPage({ params }: LocationPageProps) {
     };
   };
   const location = data.location as LocationWithHeroUnit;
-  const clinicalStaff = location.clinicalStaff?.nodes ?? [];
-  const hours = location.hours ?? [];
-  const servicesOffered = location.servicesOffered ?? [];
+  const clinicalStaff = (location.clinicalStaff?.nodes ?? []).filter(
+    Boolean
+  ) as StaffMember[];
+  const hours = (location.hours ?? []).filter(Boolean) as LocationHours[];
+  const servicesOffered = (location.servicesOffered ?? []).filter(
+    (s): s is string => Boolean(s)
+  );
   const testimonials = (testimonialsData?.testimonials?.nodes ?? []).filter(
     (t) => t.locationId === location.databaseId
   );
@@ -316,9 +320,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
                   <div className={styles.hoursList}>
                     {hours.map((hour, index) => (
                       <div key={index} className={styles.hoursRow}>
-                        <span className={styles.hoursDay}>{hour.day}</span>
+                        <span className={styles.hoursDay}>{hour?.day}</span>
                         <span className={styles.hoursTime}>
-                          {hour.open} - {hour.close}
+                          {hour?.open} - {hour?.close}
                         </span>
                       </div>
                     ))}

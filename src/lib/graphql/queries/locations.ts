@@ -1,3 +1,18 @@
+import type {
+  Location,
+  StaffMember,
+  LocationHours,
+  WpPageInfo,
+} from "../generated/graphql";
+
+// Re-export generated types for convenience
+export type { Location, StaffMember, LocationHours };
+
+// Alias for backward compatibility
+export type WPLocation = Location;
+export type ClinicalStaff = StaffMember;
+export type Chiropractor = StaffMember;
+
 export const ALL_LOCATIONS_QUERY = `
   query AllLocations($first: Int, $after: String) {
     locations(first: $first, after: $after) {
@@ -152,140 +167,21 @@ export const ALL_LOCATION_SLUGS_QUERY = `
   }
 `;
 
-type LocationImage = {
-  sourceUrl?: string;
-  altText?: string;
-  description?: string;
-  slug?: string;
-  title?: string;
-  mediaDetails?: {
-    width?: number;
-    height?: number;
-  };
-};
-
-export type Chiropractor = {
-  id?: string;
-  databaseId?: number;
-  title?: string;
-  jobTitle?: string;
-  credentials?: string;
-  specialties?: string[];
-  bio?: string;
-  acceptingPatients?: boolean;
-  headshot?: {
-    sourceUrl?: string;
-    altText?: string;
-  };
-  heroLink?: LocationHeroLink;
-};
-
-export type ClinicalStaff = {
-  id?: string;
-  databaseId?: number;
-  title?: string;
-  staffType?: string;
-  jobTitle?: string;
-  credentials?: string;
-  specialties?: string[];
-  servicesOffered?: string[];
-  bio?: string;
-  acceptingPatients?: boolean;
-  headshot?: {
-    sourceUrl?: string;
-    altText?: string;
-  };
-};
-
-type LocationHours = {
-  day?: string;
-  open?: string;
-  close?: string;
-};
-
-type LocationCoordinates = {
-  lat?: number;
-  lng?: number;
-};
-
-type LocationHeroUnit = {
-  heroLink?: LocationHeroLink;
-  heroLinkIcon?: LocationHeroLinkIcon;
-  heroLink2?: LocationHeroLink;
-  heroLinkIcon2?: LocationHeroLinkIcon;
-};
-
-type LocationHeroLink = {
-  target?: string;
-  title?: string;
-  url?: string;
-};
-
-type LocationHeroLinkIcon = {
-  node?: {
-    sourceUrl?: string;
-    altText?: string;
-    slug?: string;
-    mediaDetails?: {
-      width?: number;
-      height?: number;
-    };
-  };
-};
-
-export type WPLocation = {
-  id?: string;
-  databaseId?: number;
-  slug?: string;
-  title?: string;
-  content?: string;
-  streetAddress?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-  phone?: string;
-  email?: string;
-  shortDescription?: string;
-  servicesOffered?: string[];
-  coordinates?: LocationCoordinates;
-  hours?: LocationHours[];
-  heroUnit?: LocationHeroUnit;
-  featuredImage?: {
-    node?: LocationImage;
-  };
-  chiropractors?: {
-    nodes?: Chiropractor[];
-  };
-  clinicalStaff?: {
-    nodes?: ClinicalStaff[];
-  };
-};
-
+// Response types for queries
 export type AllLocationsResponse = {
   locations?: {
-    nodes?: WPLocation[];
-    pageInfo?: {
-      hasNextPage?: boolean;
-      endCursor?: string | null;
-      hasPreviousPage?: boolean;
-      startCursor?: string | null;
-    };
+    nodes?: Location[];
+    pageInfo?: WpPageInfo;
   };
 };
 
 export type LocationBySlugResponse = {
-  location?: WPLocation | null;
+  location?: Location | null;
 };
 
 export type AllLocationSlugsResponse = {
   locations?: {
-    nodes?: Array<{
-      id?: string;
-      slug?: string;
-    }>;
-    pageInfo?: {
-      hasNextPage?: boolean;
-      endCursor?: string;
-    };
+    nodes?: Array<{ id?: string; slug?: string }>;
+    pageInfo?: WpPageInfo;
   };
 };

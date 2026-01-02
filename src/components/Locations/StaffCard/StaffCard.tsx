@@ -80,11 +80,13 @@ export function StaffCard({ staff }: StaffCardProps) {
 
         {staff.specialties && staff.specialties.length > 0 && (
           <div className={styles.specialties}>
-            {staff.specialties.map((specialty) => (
-              <span key={specialty} className={styles.specialty}>
-                {specialtyLabels[specialty] || specialty}
-              </span>
-            ))}
+            {staff.specialties
+              .filter((s): s is string => Boolean(s))
+              .map((specialty) => (
+                <span key={specialty} className={styles.specialty}>
+                  {specialtyLabels[specialty] || specialty}
+                </span>
+              ))}
           </div>
         )}
 
