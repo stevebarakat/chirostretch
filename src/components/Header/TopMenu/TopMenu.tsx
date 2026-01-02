@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line no-restricted-imports
 import { useState } from "react";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
@@ -26,15 +25,10 @@ type TopMenuItemProps = {
   onNavigate?: () => void;
 };
 
-function isModalLink(url: string): boolean {
-  return url.includes("?modal=") || url.startsWith("?");
-}
-
 function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
   const dropdownButton = item?.childItems?.nodes;
   const isDropdownButton = dropdownButton && dropdownButton.length > 0;
   const [isActive, setIsActive] = useState(false);
-  const isModal = isModalLink(item.uri);
 
   return (
     <li
@@ -44,7 +38,6 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
       {!isDropdownButton ? (
         <Link
           href={item.uri}
-          scroll={isModal ? false : undefined}
           className={styles.topMenuLink}
           onClick={onNavigate}
         >
@@ -79,7 +72,6 @@ function TopMenuItem({ item, onNavigate }: TopMenuItemProps) {
             <li key={child.id}>
               <Link
                 href={child.uri}
-                scroll={isModalLink(child.uri) ? false : undefined}
                 className={styles.topMenuLink}
                 onClick={() => {
                   setIsActive(false);

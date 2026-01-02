@@ -6,6 +6,7 @@ description: Use when creating or modifying React components. Enforces modern pa
 ## Before Writing Code
 
 1. **Server or Client?**
+
    - Default to Server Component (no directive)
    - Only add `'use client'` if component needs: hooks, event handlers, browser APIs
    - If only children need interactivity, keep parent as Server Component
@@ -37,6 +38,38 @@ Before adding `useEffect`, ask:
 
 **useEffect is for synchronizing with external systems, not for UI logic.**
 
+## Cleanup Patterns (When Effects Are Needed)
+
+When `useEffect` is justified (external subscriptions, WebSockets, etc.):
+
+### Event listeners
+
+```js
+useEffect(() => {
+  const controller = new AbortController();
+  window.addEventListener("resize", handleResize, {
+    signal: controller.signal,
+  });
+  return () => controller.abort();
+}, []);
+```
+
+### Closures over large data
+
+Don't close over large objects—extract only the properties you need, so the original can be GC'd.
+
+### Module-level caches
+
+- Use `WeakMap` for object-keyed caches (auto-releases)
+- Use bounded LRU for string-keyed caches
+- Clear on route change if navigation-scoped
+
+### Store subscriptions
+
+- Always return unsubscribe: `return store.subscribe(...)`
+- Prefer `useSyncExternalStore` over manual subscriptions
+- Zustand/Redux hooks handle this—only manual `.subscribe()` leaks
+
 ## CSS Module Patterns
 
 ```css
@@ -45,15 +78,19 @@ margin-block: var(--spacing-md);
 padding-inline: var(--spacing-lg);
 
 /* Use container queries for responsive */
-@container (min-width: 400px) { }
+@container (min-width: 400px) {
+}
 
 /* Use :has() for parent-aware styling */
-.card:has(.image) { }
+.card:has(.image) {
+}
 
 /* Use native nesting */
 .component {
-  & .child { }
-  &:hover { }
+  & .child {
+  }
+  &:hover {
+  }
 }
 ```
 
@@ -65,3 +102,4 @@ padding-inline: var(--spacing-lg);
 - JS accordion/tabs → `<details>` or URL state
 - Manual focus trapping → `<dialog>`
 - Class toggling for themes → `light-dark()`
+- Manual `removeEventListener` cleanup → `{ signal }` option with AbortController
