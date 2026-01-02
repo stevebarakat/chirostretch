@@ -304,7 +304,15 @@
       "Bash(\"$WP_CLI\" --path=/Users/sb/Sites/chirostretch-copy/app/public help gf)",
       "Bash(/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp help:*)",
       "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nImplement Access & Identity Charter for franchise applications\n\nPer the charter: Applicants must NOT have WordPress user accounts.\n\nChanges:\n- Refactor franchise-application-cpt.php to use GF Advanced Post Creation\n- Remove gform_user_registered hook \\(no user at submission\\)\n- User created only when status changes to \"approved\"\n- Add WP-CLI scripts for feed setup\n\nScripts:\n- scripts/setup-franchise-apc-feed.php: Creates APC feed\n- scripts/disable-franchise-user-registration.php: Disables UR feed\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nRemove JWT secret reference from wp-config-sample\n\nwp-graphql-headless-login plugin is not used - hybrid architecture\ndelegates auth to WordPress. No JWT tokens needed on frontend.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch push origin HEAD)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp diff --cached --stat)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd tokenized applicant status flow\n\nPer Access & Identity Charter - applicants check status via secure\ntoken link without creating a WordPress account.\n\nToken flow:\n- 256-bit token generated on application submission\n- SHA-256 hash stored, raw token sent in email only\n- Timing-safe comparison via hash_equals\\(\\)\n- Token invalidated on approval/rejection/withdrawal\n\nNew files:\n- application-status.php: Status page controller with rewrite rules\n- templates/application-status-*.php: Status templates\n\nUpdates to franchise-application-cpt.php:\n- ACF fields for token storage \\(status_token_hash, status_token_valid\\)\n- gform_advancedpostcreation_post_after_creation hook for token gen\n- Custom merge tag {status_link} for GF notifications\n- Token invalidation on terminal status transitions\n\nAlso includes dashboard templates for role-based routing.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch push origin major-refactor2)",
+      "Bash(git -C /Users/sb/Dev/chirostretch merge major-refactor2)",
+      "Bash(git -C /Users/sb/Dev/chirostretch stash)",
+      "Bash(git -C /Users/sb/Dev/chirostretch stash pop:*)"
     ],
     "deny": [],
     "ask": []

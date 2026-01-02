@@ -98,6 +98,19 @@ it("handles missing optional fields", async () => {
 - GraphQL schema correctness
 - Exact payload schemas beyond your own fields
 
+## Content Composition (Explicitly Not Tested)
+
+Block-first vs schema-first behavior is enforced through CMS configuration,
+renderer contracts, and architectural rules — not runtime logic.
+
+We do NOT test:
+
+- Editorial layout freedom
+- Block ordering or composition
+- CMS-level constraints on page structure
+
+These are governance concerns, not behavioral contracts.
+
 ## Mock Pattern
 
 ```typescript
