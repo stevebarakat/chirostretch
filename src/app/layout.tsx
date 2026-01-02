@@ -20,7 +20,7 @@ import {
 } from "@/lib/graphql/queries";
 import { getSiteConfig } from "@/config";
 
-const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -74,29 +74,33 @@ export default async function RootLayout({
   let footerMenuItems: MenuItem[] | undefined;
 
   try {
-    const data = await wpQuery<LayoutQueryResponse>(LAYOUT_QUERY, {}, {
-      revalidate: 3600,
-      tags: [CACHE_TAGS.menus, CACHE_TAGS.options, CACHE_TAGS.layout],
-    });
+    const data = await wpQuery<LayoutQueryResponse>(
+      LAYOUT_QUERY,
+      {},
+      {
+        revalidate: 3600,
+        tags: [CACHE_TAGS.menus, CACHE_TAGS.options, CACHE_TAGS.layout],
+      }
+    );
     logo = data?.logo;
     topMenuItems = data?.topMenu?.menuItems?.nodes;
     footerMenuItems = data?.footerMenu?.menuItems?.nodes;
 
     if (!data?.topMenu) {
       console.warn(
-        "Top menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress.",
+        "Top menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress."
       );
     }
 
     if (!data?.footerMenu) {
       console.warn(
-        "Footer menu not found. Expected menu slug: 'shop'. Make sure a menu with this slug exists in WordPress and is assigned to a location.",
+        "Footer menu not found. Expected menu slug: 'shop'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
       );
     } else if (!footerMenuItems || footerMenuItems.length === 0) {
       console.warn(
         `Footer menu found (${
           data.footerMenu.name || "unknown"
-        }) but has no menu items.`,
+        }) but has no menu items.`
       );
     }
   } catch (error) {
@@ -135,8 +139,8 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
     >
       <head>
-        <link rel="dns-prefetch" href={WORDPRESS_URL} />
-        <link rel="preconnect" href={WORDPRESS_URL} crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href={WP_URL} />
+        <link rel="preconnect" href={WP_URL} crossOrigin="anonymous" />
         {/* Cloudinary for blur placeholders */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />

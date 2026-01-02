@@ -5,7 +5,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Container } from "@/components/UI";
 import { SectionHeading } from "@/components/UI";
 import { ProductCard } from "@/components/ProductCard";
-import CartSummary from "@/components/Layout/CartSummary";
+import { CartBadge } from "@/components/Cart";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -144,7 +144,7 @@ export default function FeaturedProducts({
             subheading={featuredProductsSubheading}
           />
           <div className={styles.cartWrapper}>
-            <CartSummary variant="featured" />
+            <CartBadge variant="inverse" />
           </div>
         </div>
         {products.length > 0 ? (

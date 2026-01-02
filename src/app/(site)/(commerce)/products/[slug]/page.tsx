@@ -8,9 +8,9 @@ import {
 import { notFound } from "next/navigation";
 import { Container } from "@/components/UI";
 import { ProductGallery, ProductInfo, RelatedProducts } from "@/components/Products";
-import styles from "./page.module.css";
-import CartSummary from "@/components/Layout/CartSummary";
+import { CartBadge } from "@/components/Cart";
 import SearchInput from "@/components/Layout/SearchInput";
+import styles from "./page.module.css";
 
 export const revalidate = 300;
 
@@ -99,7 +99,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className={styles.productPage}>
           <div className={styles.productSummary}>
             <SearchInput />
-            <CartSummary />
+            <CartBadge />
           </div>
           <div className={styles.productLayout}>
             <ProductGallery

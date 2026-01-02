@@ -8,10 +8,13 @@ import { Container } from "@/components/UI";
 import { Button } from "@/components/UI";
 import { VisuallyHidden } from "@/components/UI";
 import { useCartStore } from "@/stores/useCartStore";
-import type { StoreCartItem, StoreCartItemData } from "@/lib/commerce/getServerCart";
+import type {
+  StoreCartItem,
+  StoreCartItemData,
+} from "@/lib/commerce/getServerCart";
 import styles from "./page.module.css";
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "";
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 export default function CartPage() {
   const {
@@ -167,14 +170,14 @@ export default function CartPage() {
               const subtotal = itemPriceNum * item.quantity;
 
               // Check if this is a booking product
-              const isBooking = cartItem.type === 'booking';
+              const isBooking = cartItem.type === "booking";
 
               // Get booking date/time from item_data
               const bookingDate = cartItem.item_data?.find(
-                (d: StoreCartItemData) => d.name === 'Booking Date'
+                (d: StoreCartItemData) => d.name === "Booking Date"
               )?.value;
               const bookingTime = cartItem.item_data?.find(
-                (d: StoreCartItemData) => d.name === 'Booking Time'
+                (d: StoreCartItemData) => d.name === "Booking Time"
               )?.value;
 
               return (
@@ -296,9 +299,7 @@ export default function CartPage() {
 
             <div className={styles.checkoutActions}>
               <a href={`${WP_URL}/checkout/`} className={styles.checkoutLink}>
-                <Button fullWidth>
-                  Proceed to Checkout
-                </Button>
+                <Button fullWidth>Proceed to Checkout</Button>
               </a>
               <Link href="/shop">
                 <Button color="secondary" fullWidth>

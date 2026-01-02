@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import SearchInput from "@/components/Layout/SearchInput";
-import CartSummary from "@/components/Layout/CartSummary";
+import { CartBadge } from "@/components/Cart";
 import styles from "./PageHeader.module.css";
 
 type PageHeaderProps = {
@@ -28,7 +28,7 @@ export default function PageHeader({
         {searchSlot ?? <SearchInput />}
         {showCart && (
           <div className={styles.cartWrapper}>
-            <CartSummary />
+            <CartBadge />
           </div>
         )}
       </div>

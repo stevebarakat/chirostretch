@@ -19,7 +19,7 @@ export function getWordPressConfig() {
       process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT ||
       process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
       wordpressConfig.graphqlEndpoint,
-    siteUrl: process.env.NEXT_PUBLIC_WORDPRESS_URL || wordpressConfig.siteUrl,
+    siteUrl: process.env.NEXT_PUBLIC_BACKEND_URL || wordpressConfig.siteUrl,
   };
 }
 

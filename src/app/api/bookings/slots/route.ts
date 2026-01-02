@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

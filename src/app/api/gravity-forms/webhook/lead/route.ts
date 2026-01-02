@@ -35,7 +35,7 @@ type CouponResponse = {
   existing?: boolean;
 };
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
 
 /**
@@ -228,7 +228,7 @@ async function sendAdminNotification(submission: LeadSubmission) {
   //       <li><strong>Preferred Location:</strong> ${submission.preferred_location}</li>
   //       <li><strong>Lead Source:</strong> ${submission.lead_source}</li>
   //     </ul>
-  //     <p><a href="${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-admin/admin.php?page=gf_entries&view=entry&id=XX&lid=${submission.entry_id}">View Entry in WordPress</a></p>
+  //     <p><a href="${process.env.NEXT_PUBLIC_BACKEND_URL}/wp-admin/admin.php?page=gf_entries&view=entry&id=XX&lid=${submission.entry_id}">View Entry in WordPress</a></p>
   //   `,
   // });
 }

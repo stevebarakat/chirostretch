@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export type StoreCartItemData = {
   name?: string;

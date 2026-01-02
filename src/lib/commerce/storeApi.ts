@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 type StoreApiOptions = {
   method: "GET" | "POST" | "PUT" | "DELETE";

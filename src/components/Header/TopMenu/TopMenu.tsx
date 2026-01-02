@@ -10,7 +10,7 @@ import { LocationSearchTrigger } from "../LocationSearchTrigger";
 import styles from "../Header.module.css";
 import { VisuallyHidden } from "@/components/UI";
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "";
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 type MenuItem = {
   id: string;
