@@ -10,7 +10,7 @@ type StoreApiOptions = {
 };
 
 /**
- * Make a request to WooCommerce Store API with session cookie and JWT forwarding
+ * Make a request to WooCommerce Store API with session cookie forwarding
  */
 export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
   const cookieStore = await cookies();
@@ -27,20 +27,12 @@ export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
     .map((cookie) => `${cookie.name}=${cookie.value}`)
     .join("; ");
 
-  // Get auth token to forward (for real-time cart sync to user meta)
-  const authToken = cookieStore.get("wp-auth-token")?.value;
-
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
 
   if (wcCookies) {
     headers["cookie"] = wcCookies;
-  }
-
-  // Forward JWT so WordPress can identify user for persistent cart sync
-  if (authToken) {
-    headers["Authorization"] = `Bearer ${authToken}`;
   }
 
   const res = await fetch(`${WP_URL}/wp-json/wc/store/v1${path}`, {

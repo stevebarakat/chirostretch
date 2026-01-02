@@ -294,7 +294,17 @@
       "Bash(src/lib/utils/format.ts )",
       "Bash(src/lib/utils/formatDate.ts )",
       "Bash(src/lib/utils/slugify.ts )",
-      "Bash(src/proxy.ts)"
+      "Bash(src/proxy.ts)",
+      "Bash(git -C /Users/sb/Sites/chirostretch-copy status)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nAdd wp-config-sample.php reference for headless setup\n\nDocuments required wp-config.php constants:\n- WP_WEBHOOK_SECRET \\(Algolia sync\\)\n- GRAPHQL_LOGIN_JWT_SECRET_KEY \\(wp-graphql-headless-login\\)\n\nIncludes generation instructions for secrets.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nRemove lead-role.php, add GF coupon notification support\n\nRemoved:\n- lead-role.php \\(violated \"leads are not users\" rule\\)\n\nAdded to new-patient-coupon.php:\n- Store coupon code in GF entry meta for notifications\n- Custom merge tags: {coupon_code}, {coupon_expires}, {coupon_final_price}\n- Trigger \"Coupon Generated\" notification after storing meta\n\nCreate a GF notification named \"Coupon Generated\" to deliver\ncoupon codes via email. Merge tags available in notification body.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public plugin list --format=table)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public gf --help)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public help gf)",
+      "Bash(\"$WP_CLI\" --path=/Users/sb/Sites/chirostretch-copy/app/public help gf)",
+      "Bash(/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp help:*)",
+      "Bash(git -C /Users/sb/Dev/chirostretch-wp commit -m \"$\\(cat <<''EOF''\nImplement Access & Identity Charter for franchise applications\n\nPer the charter: Applicants must NOT have WordPress user accounts.\n\nChanges:\n- Refactor franchise-application-cpt.php to use GF Advanced Post Creation\n- Remove gform_user_registered hook \\(no user at submission\\)\n- User created only when status changes to \"approved\"\n- Add WP-CLI scripts for feed setup\n\nScripts:\n- scripts/setup-franchise-apc-feed.php: Creates APC feed\n- scripts/disable-franchise-user-registration.php: Disables UR feed\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []

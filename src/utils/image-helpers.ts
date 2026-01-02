@@ -15,16 +15,15 @@ export const FALLBACK_IMAGES = {
 /**
  * Checks if an image URL is from localhost (development)
  */
-export function isLocalhostUrl(url: string): boolean {
+function isLocalhostUrl(url: string): boolean {
   return url.includes("localhost:8080") || url.includes("127.0.0.1:8080");
 }
 
 /**
  * Replaces localhost URLs with production URLs
  */
-export function replaceLocalhostWithProduction(url: string): string {
+function replaceLocalhostWithProduction(url: string): string {
   if (isLocalhostUrl(url)) {
-    // Replace localhost:8080 with your production WordPress URL
     return url.replace(
       /http:\/\/localhost:8080/,
       "https://www.northfloridachiropracticphysicaltherapy.com"
@@ -48,25 +47,6 @@ export function getSafeImageUrl(
   const processedUrl = replaceLocalhostWithProduction(originalUrl);
 
   return processedUrl;
-}
-
-/**
- * Handles image loading errors with fallback
- */
-export function handleImageError(
-  event: React.SyntheticEvent<HTMLImageElement, Event>,
-  fallbackUrl: string
-): void {
-  const target = event.currentTarget;
-  console.error("Image failed to load:", target.src);
-
-  // Only fallback if we haven't already tried the fallback
-  if (target.src !== fallbackUrl) {
-    target.src = fallbackUrl;
-  } else {
-    // If fallback also fails, hide the image
-    target.style.display = "none";
-  }
 }
 
 /**

@@ -15,9 +15,7 @@ export function ServicesTabsClient({ services }: ServicesTabsClientProps) {
     return null;
   }
 
-  const defaultValue = services[0]?.tabLabel
-    .toLowerCase()
-    .replace(/\s+/g, "-");
+  const defaultValue = services[0]?.tabLabel.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <Tabs.Root className={styles.root} defaultValue={defaultValue}>
