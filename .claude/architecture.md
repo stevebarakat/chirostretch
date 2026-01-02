@@ -1,128 +1,103 @@
-# Hybrid Architecture
+# Hybrid System Architecture
 
-This project follows a **hybrid headless** pattern. Understand these boundaries before making changes.
+This document defines **system-level ownership boundaries**.
+Read this before making architectural changes.
+
+---
+
+## Ownership Model
 
 ```
 WooCommerce → owns commerce (orders, billing, addresses, checkout, payments)
-WordPress   → owns operations (authentication, dashboards, internal workflows)
+WordPress   → owns operations (authentication, dashboards, workflows)
 Next.js     → owns public presentation only (marketing, browsing, content)
 ```
+
+---
 
 ## System Boundaries
 
 | Concern | Owner | Next.js Role |
 |---------|-------|--------------|
-| Authentication | WordPress | None — links to WP login |
-| Checkout | WooCommerce | None — links to WC checkout |
-| Customer Account | WooCommerce | None — links to WC My Account |
-| Staff/Franchisee Dashboards | WordPress plugin | None |
-| Cart Browsing | Next.js | Full — presentation layer |
-| Product Browsing | Next.js | Full — presentation layer |
-| Content Pages | Next.js | Full — presentation layer |
+| Authentication | WordPress | None — link to WP login |
+| Checkout | WooCommerce | None — link to WC checkout |
+| Customer Account | WooCommerce | None — link to My Account |
+| Dashboards | WordPress plugins | None |
+| Cart Browsing | Next.js | Full presentation |
+| Product Browsing | Next.js | Full presentation |
+| Content Pages | Next.js | Full presentation |
+
+---
 
 ## What Next.js Does NOT Do
 
-- **No custom authentication** — users log in via WordPress/WooCommerce
-- **No checkout flow** — cart links to WooCommerce checkout
-- **No account management** — links to WooCommerce My Account
-- **No operational dashboards** — staff/franchisee tools live in WordPress
+- No authentication flows
+- No checkout logic
+- No account management
+- No operational dashboards
+- No payment callbacks
+- No role/capability enforcement
 
-## Why This Architecture
+If a feature requires security, money, or identity → it belongs in WordPress/WooCommerce.
 
-Commerce and authentication are transactional, stateful, and security-sensitive systems — not presentation concerns. Attempting full headless auth/checkout would require permanently owning PCI compliance, payment gateway drift, order lifecycle correctness, and WooCommerce plugin compatibility.
+---
 
-The hybrid model delegates those responsibilities to WordPress/WooCommerce where they are battle-tested.
+## Content Boundary (Important)
 
-## Gravity Forms
+Next.js owns all public rendering, but **not all content is equally flexible**.
 
-Gravity Forms creates and manages users in WordPress for franchise applicants, staff, and other custom user types. This is unchanged — it's WordPress-native functionality.
+Within the presentation layer:
 
-## Rendering Validation Checklist
+- Some pages are **schema-locked**
+- Some pages are **block-composed**
 
-Before implementing any feature, verify:
+This is intentional and enforced elsewhere.
+Do not attempt to "standardize" this.
 
-| Question | If YES | If NO |
-|----------|--------|-------|
-| Does this involve payment processing? | → WordPress | ✓ Next.js |
-| Does this create/modify orders? | → WordPress | ✓ Next.js |
-| Does this require user authentication state? | → WordPress | ✓ Next.js |
-| Does this access/modify account data? | → WordPress | ✓ Next.js |
-| Does this involve role/capability checks? | → WordPress | ✓ Next.js |
-| Is this an operational dashboard? | → WordPress | ✓ Next.js |
-| Is failure here financially consequential? | → WordPress | ✓ Next.js |
+---
 
-**Route ownership:**
+## Route Ownership
 
 ```
-Next.js renders:        WordPress renders:
-────────────────        ──────────────────
-/shop                   /checkout
-/products/*             /order-received
-/cart                   /my-account
-/locations              /dashboard/*
-/events                 /wp-admin
-/articles               Login/logout
-Marketing pages         Password reset
+Next.js renders:          WordPress renders:
+────────────────          ──────────────────
+/shop                     /checkout
+/products/*               /order-received
+/cart                     /my-account
+/locations                /dashboard/*
+/events                   /wp-admin
+/articles                 login/logout
+Marketing pages           password reset
 ```
 
-**Domain boundary (intentional):**
-
-```
-NEXT_PUBLIC_FRONTEND_URL  → Next.js (shop, cart, public UX)
-NEXT_PUBLIC_BACKEND_URL   → WordPress (checkout, account, dashboard)
-```
-
-**Guiding rule:** Next.js may initiate intent (browsing, cart). WordPress must finalize transactions (checkout, payment, orders, accounts).
-
-**Red flags (stop and reconsider):**
-
-- Building a login form in Next.js
-- Handling payment callbacks in Next.js API routes
-- Storing order state in Zustand
-- Proxying `/checkout` through Next.js
-- Building "My Orders" in Next.js
+---
 
 ## Lead Handling (Critical)
 
-**Leads are not users.** A lead is a person who has expressed interest (e.g., claimed "New Patient Special") but has not created an account, logged in, booked, or purchased.
+Leads are **not users**.
 
-### Rules (Non-Negotiable)
+Rules:
+- Do NOT create WP users for leads
+- Do NOT create WC customers for leads
+- Do NOT assign roles or credentials
 
-- Do NOT create WordPress users for leads
-- Do NOT create WooCommerce customer records for leads
-- Do NOT assign roles, capabilities, or credentials to leads
+Leads are stored as data only:
+- Gravity Forms entries
+- Coupon meta
 
-Leads must not appear in:
-- WordPress Users
-- WooCommerce Customers
-- `/my-account`
-- Authenticated dashboards
+A lead becomes a user **only** when:
+- They create an account
+- They book
+- They purchase
 
-### Storage Model
+User creation is event-driven, never speculative.
 
-Leads are stored as **data records**, not identities:
-- Gravity Forms entries (primary)
-- Coupon post meta (`_new_patient_email`)
+---
 
-Gravity Forms User Registration feeds must NOT be configured for lead forms.
+## Red Flags (Stop Immediately)
 
-### Lead → Customer Conversion
-
-A lead may only be promoted to a user when one of the following occurs:
-- They explicitly create an account
-- They book an appointment
-- They complete a purchase
-
-At that point:
-- Create a WordPress user
-- Create a WooCommerce customer (if applicable)
-- Associate historical lead data with the new user
-
-**User creation is event-driven, never speculative.**
-
-### Coupon Attribution
-
-Coupons and promotions:
-- Tied to the lead record (email), not a user
-- Associated with an order when redeemed
-- Do not require a user account to exist
+- Login forms in Next.js
+- Checkout logic in Next.js
+- Storing order state in Zustand
+- Proxying `/checkout`
+- "My Orders" in Next.js

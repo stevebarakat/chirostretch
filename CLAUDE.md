@@ -2,7 +2,7 @@
 
 High-performance Headless WordPress → Next.js App Router build with WooCommerce integration, Algolia search, and Gravity Forms.
 
-## Hybrid Architecture (Critical)
+## Ownership Model
 
 ```
 WooCommerce → owns commerce (orders, billing, checkout, payments)
@@ -11,8 +11,6 @@ Next.js     → owns public presentation only (marketing, browsing, content)
 ```
 
 **Guiding rule:** Next.js may initiate intent (browsing, cart). WordPress must finalize transactions (checkout, payment, orders, accounts).
-
-See [.claude/architecture.md](.claude/architecture.md) for full boundaries and validation checklist.
 
 ## Directory Structure
 
@@ -104,7 +102,9 @@ Use Zustand only for temporary UI state.
 
 ## Detailed Documentation
 
-- [Architecture & Rendering Boundaries](.claude/architecture.md)
-- [CSS & JavaScript Philosophy](.claude/css.md)
-- [WordPress Integration](.claude/wordpress.md)
-- [Testing Strategy](.claude/testing.md)
+- [Claude Guidance](.claude/CLAUDE.md) — How Claude should reason about this project
+- [Architecture & System Boundaries](.claude/architecture.md) — Ownership model, route boundaries
+- [WordPress Integration](.claude/wordpress.md) — CPTs, ACF, blocks, schema enforcement
+- [CSS & JavaScript Philosophy](.claude/css.md) — Modern CSS-first approach
+- [Testing Strategy](.claude/testing.md) — What to test and how
+- [Identity Charter](.claude/identity-charter.md) — Roles, leads, applicants
