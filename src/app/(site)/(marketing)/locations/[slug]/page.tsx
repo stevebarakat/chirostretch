@@ -26,45 +26,33 @@ import {
 import { BookingWidget } from "@/components/Bookings";
 import styles from "./page.module.css";
 import { RawHtml } from "@/components/RawHtml";
+import {
+  formatBusinessHours,
+  type HourEntry,
+} from "@/utils/formatBusinessHours";
 
-function formatCondensedHours(hours: LocationHours[]): React.ReactNode {
-  const validHours = hours.filter(
-    (h): h is { day: string; open: string; close: string } =>
-      Boolean(h.day && h.open && h.close)
-  );
-  const dayAbbrev: Record<string, string> = {
-    Sunday: "Sun",
-    Monday: "Mon",
-    Tuesday: "Tue",
-    Wednesday: "Wed",
-    Thursday: "Thu",
-    Friday: "Fri",
-    Saturday: "Sat",
+/**
+ * Convert GraphQL LocationHours to normalized HourEntry format
+ */
+function toHourEntries(hours: LocationHours[]): HourEntry[] {
+  const dayMap: Record<string, HourEntry["day"]> = {
+    Monday: "monday",
+    Tuesday: "tuesday",
+    Wednesday: "wednesday",
+    Thursday: "thursday",
+    Friday: "friday",
+    Saturday: "saturday",
+    Sunday: "sunday",
   };
 
-  const grouped: Record<string, string[]> = {};
-  validHours.forEach((h) => {
-    const timeRange = `${h.open} - ${h.close}`;
-    if (!grouped[timeRange]) grouped[timeRange] = [];
-    grouped[timeRange].push(dayAbbrev[h.day] || h.day);
-  });
-
-  const lines: string[] = [];
-  Object.entries(grouped).forEach(([time, days]) => {
-    if (days.length === 1) {
-      lines.push(`${days[0]}: ${time}`);
-    } else if (days.length === 2) {
-      lines.push(`${days[0]} & ${days[1]}: ${time}`);
-    } else {
-      lines.push(`${days[0]}-${days[days.length - 1]}: ${time}`);
-    }
-  });
-
-  return lines.map((line, i) => (
-    <span key={i} className={styles.hoursLine}>
-      {line}
-    </span>
-  ));
+  return hours
+    .filter((h): h is LocationHours & { day: string } => Boolean(h.day))
+    .map((h) => ({
+      day: dayMap[h.day] ?? "monday",
+      opens_at: h.open ?? "",
+      closes_at: h.close ?? "",
+      is_closed: !h.open || !h.close,
+    }));
 }
 
 function BookingWidgetSkeleton() {
@@ -284,9 +272,22 @@ export default async function LocationPage({ params }: LocationPageProps) {
                           {location.city}, {location.state} {location.zip}
                         </div>
                         {hours.length > 0 && (
-                          <div className={styles.mapInfoHours}>
-                            {formatCondensedHours(hours)}
-                          </div>
+                          <dl className={styles.mapInfoHours}>
+                            {formatBusinessHours(toHourEntries(hours)).map(
+                              (line, i) => (
+                                <div key={i} className={styles.hoursLine}>
+                                  <dt>{line.days}:</dt>
+                                  <dd>
+                                    {line.hours !== "Closed" ? (
+                                      <time>{line.hours}</time>
+                                    ) : (
+                                      line.hours
+                                    )}
+                                  </dd>
+                                </div>
+                              )
+                            )}
+                          </dl>
                         )}
                       </div>
                       {location.phone && (
@@ -317,16 +318,22 @@ export default async function LocationPage({ params }: LocationPageProps) {
                     <Clock className={styles.titleIcon} />
                     Hours
                   </h2>
-                  <div className={styles.hoursList}>
-                    {hours.map((hour, index) => (
-                      <div key={index} className={styles.hoursRow}>
-                        <span className={styles.hoursDay}>{hour?.day}</span>
-                        <span className={styles.hoursTime}>
-                          {hour?.open} - {hour?.close}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                  <dl className={styles.hoursList}>
+                    {formatBusinessHours(toHourEntries(hours)).map(
+                      (line, index) => (
+                        <div key={index} className={styles.hoursRow}>
+                          <dt className={styles.hoursDay}>{line.days}</dt>
+                          <dd className={styles.hoursTime}>
+                            {line.hours !== "Closed" ? (
+                              <time>{line.hours}</time>
+                            ) : (
+                              line.hours
+                            )}
+                          </dd>
+                        </div>
+                      )
+                    )}
+                  </dl>
                 </div>
               )}
 
