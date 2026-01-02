@@ -175,9 +175,12 @@ export const HOMEPAGE_QUERY = `
         }
         button1 {
           btn1Link {
-            url
-            title
-            target
+            nodes {
+              uri
+              ... on NodeWithTitle {
+                title
+              }
+            }
           }
           btn1Icon {
             node {
@@ -491,9 +494,10 @@ type HomepageQueryResponse = {
       };
       button1?: {
         btn1Link?: {
-          url?: string;
-          title?: string;
-          target?: string;
+          nodes?: Array<{
+            uri?: string;
+            title?: string;
+          }>;
         };
         btn1Icon?: {
           node?: {

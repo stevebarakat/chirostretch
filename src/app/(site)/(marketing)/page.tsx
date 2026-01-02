@@ -116,7 +116,12 @@ export default async function HomePage() {
               subheading: page.homepageCta.headings.subheading ?? "",
             },
             button1: {
-              btn1Link: page.homepageCta.button1?.btn1Link,
+              btn1Link: page.homepageCta.button1?.btn1Link?.nodes?.[0]
+                ? {
+                    url: page.homepageCta.button1.btn1Link.nodes[0].uri,
+                    title: page.homepageCta.button1.btn1Link.nodes[0].title,
+                  }
+                : undefined,
               btn1Icon: page.homepageCta.button1?.btn1Icon,
             },
             button2: page.homepageCta.button2,
