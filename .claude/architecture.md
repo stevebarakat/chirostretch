@@ -81,3 +81,48 @@ NEXT_PUBLIC_BACKEND_URL   → WordPress (checkout, account, dashboard)
 - Storing order state in Zustand
 - Proxying `/checkout` through Next.js
 - Building "My Orders" in Next.js
+
+## Lead Handling (Critical)
+
+**Leads are not users.** A lead is a person who has expressed interest (e.g., claimed "New Patient Special") but has not created an account, logged in, booked, or purchased.
+
+### Rules (Non-Negotiable)
+
+- Do NOT create WordPress users for leads
+- Do NOT create WooCommerce customer records for leads
+- Do NOT assign roles, capabilities, or credentials to leads
+
+Leads must not appear in:
+- WordPress Users
+- WooCommerce Customers
+- `/my-account`
+- Authenticated dashboards
+
+### Storage Model
+
+Leads are stored as **data records**, not identities:
+- Gravity Forms entries (primary)
+- Coupon post meta (`_new_patient_email`)
+
+Gravity Forms User Registration feeds must NOT be configured for lead forms.
+
+### Lead → Customer Conversion
+
+A lead may only be promoted to a user when one of the following occurs:
+- They explicitly create an account
+- They book an appointment
+- They complete a purchase
+
+At that point:
+- Create a WordPress user
+- Create a WooCommerce customer (if applicable)
+- Associate historical lead data with the new user
+
+**User creation is event-driven, never speculative.**
+
+### Coupon Attribution
+
+Coupons and promotions:
+- Tied to the lead record (email), not a user
+- Associated with an order when redeemed
+- Do not require a user account to exist

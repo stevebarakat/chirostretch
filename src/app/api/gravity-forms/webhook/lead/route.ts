@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
  * This endpoint receives form submissions from Gravity Forms via webhook
  * Configure in WordPress: Forms > Settings > Webhooks
  *
- * Webhook URL: https://yoursite.com/api/gravity-forms/webhook/lead
+ * Webhook URL: https://example.com/api/gravity-forms/webhook/lead
  * Request Format: JSON
  */
 
@@ -61,6 +61,7 @@ async function generateCoupon(
         body: JSON.stringify({
           email: submission.email,
           first_name: submission.first_name,
+          entry_id: submission.entry_id,
         }),
       }
     );
@@ -84,62 +85,22 @@ async function generateCoupon(
 }
 
 /**
- * Send confirmation email to the lead with coupon code
+ * Log coupon delivery details
+ *
+ * Email delivery is handled by Gravity Forms notifications in WordPress.
+ * This function just logs for debugging purposes.
  */
-async function sendLeadConfirmation(
+function logCouponDelivery(
   submission: LeadSubmission,
   coupon: CouponResponse | null
 ) {
-  if (!submission.email) {
-    console.warn("⚠️ No email address provided, skipping lead confirmation");
-    return;
-  }
-
-  const couponCode = coupon?.coupon_code || "NEWPATIENT29";
-
-  console.log("📧 Lead confirmation generated:", {
+  console.log("🎟️ Coupon delivery:", {
     to: submission.email,
     lead: `${submission.first_name} ${submission.last_name}`,
     entry_id: submission.entry_id,
-    coupon_code: couponCode,
+    coupon_code: coupon?.coupon_code || "N/A",
+    delivery: "Gravity Forms notification triggered in WordPress",
   });
-
-  // TODO: Uncomment to enable email sending via Resend
-  // const { Resend } = await import('resend');
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  //
-  // await resend.emails.send({
-  //   from: 'ChiroStretch <hello@chirostretch.com>',
-  //   to: submission.email,
-  //   subject: 'Your $29 New Patient Offer is Ready!',
-  //   html: `
-  //     <h1>Welcome to ChiroStretch, ${firstName}!</h1>
-  //     <p>Thank you for claiming your New Patient Offer.</p>
-  //
-  //     <div style="background: #f0f9ff; border: 2px dashed #0ea5e9; padding: 24px; margin: 24px 0; text-align: center; border-radius: 8px;">
-  //       <p style="margin: 0 0 8px; font-size: 14px; color: #666;">Your exclusive coupon code:</p>
-  //       <p style="margin: 0; font-size: 32px; font-weight: bold; color: #0369a1; letter-spacing: 2px;">${couponCode}</p>
-  //       <p style="margin: 8px 0 0; font-size: 14px; color: #666;">${expiryText}</p>
-  //     </div>
-  //
-  //     <h2>Your $29 New Patient Special Includes:</h2>
-  //     <ul>
-  //       <li>✓ Comprehensive Consultation</li>
-  //       <li>✓ Thorough Examination</li>
-  //       <li>✓ Your First Adjustment</li>
-  //     </ul>
-  //     <p><em>Regular value: $99 — You save $70!</em></p>
-  //
-  //     <h2>Next Steps:</h2>
-  //     <ol>
-  //       <li>Check your email for a link to set up your password</li>
-  //       <li><a href="https://chirostretch.com/book">Book your appointment online</a></li>
-  //       <li>Enter coupon code <strong>${couponCode}</strong> at checkout</li>
-  //     </ol>
-  //
-  //     <p>Questions? Reply to this email or call us at (XXX) XXX-XXXX</p>
-  //   `,
-  // });
 }
 
 /**
@@ -196,41 +157,6 @@ async function sendToCRM(submission: LeadSubmission) {
   } else {
     console.log("ℹ️ HubSpot API key not configured, skipping CRM sync");
   }
-}
-
-/**
- * Send admin notification about new lead
- */
-async function sendAdminNotification(submission: LeadSubmission) {
-  console.log("📧 Admin notification - New lead:", {
-    name: `${submission.first_name} ${submission.last_name}`,
-    email: submission.email,
-    phone: submission.phone,
-    location: submission.preferred_location,
-    source: submission.lead_source,
-    entry_id: submission.entry_id,
-  });
-
-  // TODO: Uncomment to enable email sending via Resend
-  // const { Resend } = await import('resend');
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  //
-  // await resend.emails.send({
-  //   from: 'ChiroStretch <notifications@chirostretch.com>',
-  //   to: process.env.ADMIN_EMAIL || 'leads@chirostretch.com',
-  //   subject: `New Patient Lead: ${submission.first_name} ${submission.last_name}`,
-  //   html: `
-  //     <h2>New Patient Offer Claimed</h2>
-  //     <ul>
-  //       <li><strong>Name:</strong> ${submission.first_name} ${submission.last_name}</li>
-  //       <li><strong>Email:</strong> ${submission.email}</li>
-  //       <li><strong>Phone:</strong> ${submission.phone}</li>
-  //       <li><strong>Preferred Location:</strong> ${submission.preferred_location}</li>
-  //       <li><strong>Lead Source:</strong> ${submission.lead_source}</li>
-  //     </ul>
-  //     <p><a href="${process.env.NEXT_PUBLIC_BACKEND_URL}/wp-admin/admin.php?page=gf_entries&view=entry&id=XX&lid=${submission.entry_id}">View Entry in WordPress</a></p>
-  //   `,
-  // });
 }
 
 /**
@@ -295,9 +221,10 @@ export async function POST(request: NextRequest) {
     const coupon = await generateCoupon(submission);
 
     // Process submission in parallel
+    // Note: Email delivery is handled by GF notifications in WordPress,
+    // triggered after coupon is stored in entry meta
     await Promise.allSettled([
-      sendLeadConfirmation(submission, coupon),
-      sendAdminNotification(submission),
+      logCouponDelivery(submission, coupon),
       sendToCRM(submission),
       logSubmissionMetrics(submission),
     ]);
