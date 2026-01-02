@@ -113,6 +113,151 @@ Application Submitted
 
 ---
 
+## Tokenized Applicant Status Flow
+
+### Purpose
+
+The tokenized status flow allows franchise applicants to view application status without creating a user account or authenticating.
+
+This is an optional, read-only convenience feature, not an identity system.
+
+### Core Rule (Non-Negotiable)
+
+**Applicants must not authenticate.**
+Tokenized access must never create or imply a user account.
+
+No login. No password. No session. No roles.
+
+### High-Level Flow
+
+```
+Franchise Application Submitted
+→ System generates secure token
+→ Token stored with application record
+→ Email sent with status link
+→ Applicant accesses status page via token
+→ Token expires or is invalidated on decision
+```
+
+### Token Generation
+
+- Generate a cryptographically secure random token
+- Token must be:
+  - Unpredictable
+  - Single-purpose
+  - Expirable
+
+Recommended properties:
+- Length: ≥ 32 bytes (base64 or hex)
+- Stored hashed (preferred) or tied to exactly one application
+
+### Storage
+
+Token is stored on the application record, not on a user.
+
+Acceptable locations:
+- Application CPT meta (e.g. `franchise_application`)
+- Gravity Forms entry meta
+
+Each token must be tied to:
+- Application ID
+- Email address (for validation)
+- Expiration timestamp
+- Status (active / expired / invalidated)
+
+### Email Delivery
+
+Email contains a link like:
+
+```
+https://cms.chirostretch.site/application-status?token=abc123
+```
+
+Rules:
+- Email delivery handled by WordPress / Gravity Forms
+- Token must never be logged or exposed elsewhere
+- Token is the only credential
+
+### Status Page Behavior
+
+The status page:
+- Is rendered by WordPress
+- Does not require authentication
+- Validates token before showing anything
+
+**If token is valid:**
+- Show:
+  - Application status (Pending / Under Review / Approved / Rejected)
+  - Submission date
+  - Next-steps message
+- Content is read-only
+
+**If token is invalid or expired:**
+- Show generic error message
+
+### Editing Rules
+
+**Default:**
+- No editing allowed after submission
+
+**Optional (advanced, tightly controlled):**
+- Allow limited updates only (e.g. contact info, missing uploads)
+- Never allow edits to:
+  - Financial data
+  - Scored fields
+  - Core application answers
+- All edits must be audited
+
+**Editing must not create a user account.**
+
+### Token Invalidation
+
+Token must be invalidated when:
+- Application is approved
+- Application is rejected
+- Token expires
+- Token is manually revoked
+
+After invalidation:
+- Link no longer works
+- Applicant must rely on email communication
+
+### Prohibited Patterns
+
+The following are explicitly forbidden:
+- Creating a "pending applicant" user
+- Allowing login "just to check status"
+- Using JWTs or sessions
+- Reusing WooCommerce customer auth
+- Turning the status page into a dashboard
+
+Any of these violate the Access & Identity Charter.
+
+### Security Posture
+
+This flow is:
+- Not authentication
+- Not authorization
+- Comparable to:
+  - Password reset links
+  - Email verification links
+  - Document signing links
+
+Single-purpose, temporary access only.
+
+### Guiding Principle
+
+**Status visibility ≠ system access.**
+**Tokens grant sight, not authority.**
+
+---
+
+*This tokenized status flow is optional.*
+*If it is not implemented, email-only status communication is still correct.*
+*If implemented, it must strictly follow the constraints above.*
+
+---
+
 ## 3. Users
 
 ### Definition
