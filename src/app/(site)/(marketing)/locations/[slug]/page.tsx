@@ -16,7 +16,7 @@ import {
   type StaffMember,
   type LocationHours,
 } from "@/lib/graphql/queries";
-import { Container } from "@/components/UI";
+import { Container, Breadcrumbs } from "@/components/UI";
 import {
   StaffCard,
   ServicesTabs,
@@ -178,9 +178,18 @@ export default async function LocationPage({ params }: LocationPageProps) {
           fullAddress
         )}`;
 
+  const breadcrumbs = [
+    { label: "Locations", href: "/locations" },
+    { label: location.title ?? "" },
+  ];
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <main className={styles.main}>
+        <Container>
+          <Breadcrumbs items={breadcrumbs} />
+        </Container>
+
         {/* Hero Section */}
         {location.featuredImage && (
           <Hero

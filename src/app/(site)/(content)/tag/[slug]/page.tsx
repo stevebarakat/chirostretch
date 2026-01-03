@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
-import { Container } from "@/components/UI";
+import { Container, Breadcrumbs } from "@/components/UI";
 import { ArticlesTaxonomySearch } from "@/components/Articles/ArticlesSearch";
 import { ProductsTaxonomySearch } from "@/components/Products/ProductsSearch";
 import styles from "@/app/(site)/archive.module.css";
@@ -66,9 +66,15 @@ export default async function TagPage({ params }: TagPageProps) {
   );
 
   if (postTagData?.tag?.slug) {
+    const breadcrumbs = [
+      { label: "Articles", href: "/articles" },
+      { label: postTagData.tag.name ?? "Tag" },
+    ];
+
     return (
       <main className={styles.main}>
         <Container>
+          <Breadcrumbs items={breadcrumbs} />
           <ArticlesTaxonomySearch
             taxonomyType="tag"
             slug={slug}
@@ -88,9 +94,15 @@ export default async function TagPage({ params }: TagPageProps) {
   );
 
   if (productTagData?.productTag?.slug) {
+    const breadcrumbs = [
+      { label: "Shop", href: "/shop" },
+      { label: productTagData.productTag.name ?? "Tag" },
+    ];
+
     return (
       <main className={styles.main}>
         <Container>
+          <Breadcrumbs items={breadcrumbs} />
           <ProductsTaxonomySearch
             taxonomyType="tag"
             slug={slug}

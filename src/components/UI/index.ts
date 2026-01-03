@@ -17,3 +17,4 @@ export { StarRating } from "./Display/StarRating";
 export { Text } from "./Primitives/Text";
 export { VisuallyHidden } from "./Utility/VisuallyHidden";
 export { Alert } from "./Feedback/Alert";
+export { Breadcrumbs, type BreadcrumbItem } from "./Navigation/Breadcrumbs";

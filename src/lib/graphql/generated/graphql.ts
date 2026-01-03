@@ -75,7 +75,7 @@ export type AcfLink = {
   url: Maybe<Scalars['String']['output']>;
 };
 
-/** Connection between the HomepageCtaButton1_Fields type and the MediaItem type */
+/** Connection between the HeroUnit_Fields type and the MediaItem type */
 export type AcfMediaItemConnectionEdge = Edge & MediaItemConnectionEdge & OneToOneConnection & {
   /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
   cursor: Maybe<Scalars['String']['output']>;
@@ -1188,7 +1188,7 @@ export type BookingProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable
   /** The name of the Content Type the node belongs to */
   contentTypeName: Scalars['String']['output'];
   /** Product database ID */
-  databaseId: Maybe<Scalars['Int']['output']>;
+  databaseId: Scalars['Int']['output'];
   /** Post publishing date. */
   date: Maybe<Scalars['String']['output']>;
   /** The publishing date set in GMT. */
@@ -1554,33 +1554,48 @@ export type BookingSlot = {
   time: Maybe<Scalars['String']['output']>;
 };
 
-export type BusinessInfo = AcfOptionsPage & Node & WithAcfBusinessInfo & {
-  /** Fields of the BusinessInfo ACF Field Group */
-  businessInfo: Maybe<BusinessInfo>;
-  /** The globally unique ID for the object */
-  id: Scalars['ID']['output'];
-  menuTitle: Maybe<Scalars['String']['output']>;
-  pageTitle: Maybe<Scalars['String']['output']>;
-  parentId: Maybe<Scalars['String']['output']>;
-};
-
-/** Interface representing fields of the ACF &quot;BusinessInfo&quot; Field Group */
-export type BusinessInfo_Fields = {
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInfo&quot; Field Group */
+/** The &quot;BusinessInformation&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type BusinessInformation = AcfFieldGroup & AcfFieldGroupFields & BusinessInformation_Fields & {
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
   businessCity: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInfo&quot; Field Group */
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
   businessCountry: Maybe<Scalars['String']['output']>;
   /** Main contact email address */
   businessEmail: Maybe<Scalars['String']['output']>;
-  /** Official business name (syncs with Yoast SEO if installed) */
+  /** Official business name */
   businessName: Maybe<Scalars['String']['output']>;
   /** Main contact phone number */
   businessPhone: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInfo&quot; Field Group */
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
   businessState: Maybe<Scalars['String']['output']>;
-  /** Street address line */
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
   businessStreet: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInfo&quot; Field Group */
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
+  businessZip: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;BusinessInformation&quot; Field Group */
+export type BusinessInformation_Fields = {
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
+  businessCity: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
+  businessCountry: Maybe<Scalars['String']['output']>;
+  /** Main contact email address */
+  businessEmail: Maybe<Scalars['String']['output']>;
+  /** Official business name */
+  businessName: Maybe<Scalars['String']['output']>;
+  /** Main contact phone number */
+  businessPhone: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
+  businessState: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
+  businessStreet: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
   businessZip: Maybe<Scalars['String']['output']>;
   /**
    * The name of the field group
@@ -2778,6 +2793,28 @@ export type ChiroServicesSettings = {
   services: Maybe<Array<Maybe<ChiroService>>>;
   /** Section title */
   title: Maybe<Scalars['String']['output']>;
+};
+
+/** Canonical corporate identity for ChiroStretch headquarters. */
+export type ChsBusinessInfo = {
+  /** Public-facing corporate name */
+  businessName: Maybe<Scalars['String']['output']>;
+  /** HQ city */
+  city: Maybe<Scalars['String']['output']>;
+  /** HQ country */
+  country: Maybe<Scalars['String']['output']>;
+  /** Legal entity name (LLC, Inc, etc.) */
+  legalBusinessName: Maybe<Scalars['String']['output']>;
+  /** HQ postal/ZIP code */
+  postalCode: Maybe<Scalars['String']['output']>;
+  /** Main corporate email */
+  primaryEmail: Maybe<Scalars['String']['output']>;
+  /** Main corporate phone (digits only) */
+  primaryPhone: Maybe<Scalars['String']['output']>;
+  /** HQ state/region */
+  state: Maybe<Scalars['String']['output']>;
+  /** HQ street address */
+  streetAddress: Maybe<Scalars['String']['output']>;
 };
 
 /** Input for the clearShippingZoneLocations mutation. */
@@ -26243,8 +26280,6 @@ export enum ProductTypesEnum {
   Grouped = 'GROUPED',
   /** A simple product */
   Simple = 'SIMPLE',
-  /** An unsupported product */
-  Unsupported = 'UNSUPPORTED',
   /** A variable product */
   Variable = 'VARIABLE',
   /** A product variation */
@@ -30806,20 +30841,17 @@ export type RootMutationWriteReviewArgs = {
 };
 
 /** The root entry point into the Graph */
-export type RootQuery = WithAcfOptionsPageBusinessInfo & WithAcfOptionsPageCurrentPromo & WithAcfOptionsPageCustomSeo & WithAcfOptionsPageFeatureSettings & WithAcfOptionsPageServicesSettings & {
+export type RootQuery = WithAcfOptionsPageCurrentPromo & WithAcfOptionsPageCustomSeo & WithAcfOptionsPageFeatureSettings & WithAcfOptionsPageServicesSettings & {
   /** Entry point to get all settings for the site */
   allSettings: Maybe<Settings>;
   /** Countries that the store sells to */
   allowedCountries: Maybe<Array<Maybe<CountriesEnum>>>;
   /** Get availability for a bookable product */
   bookingAvailability: Maybe<BookingAvailability>;
-  /** Get a single bookable product */
-  bookingProduct: Maybe<BookingProduct>;
   /** Get all bookable products */
   bookingProducts: Maybe<Array<Maybe<BookingProduct>>>;
   /** Get all booking resources */
   bookingResources: Maybe<Array<Maybe<BookingResource>>>;
-  businessInfo: Maybe<BusinessInfo>;
   /** The cart object */
   cart: Maybe<Cart>;
   /** The cart object */
@@ -30834,6 +30866,10 @@ export type RootQuery = WithAcfOptionsPageBusinessInfo & WithAcfOptionsPageCurre
   chiroFeatureSettings: Maybe<ChiroFeatureSettings>;
   /** Services section settings and list */
   chiroServicesSettings: Maybe<ChiroServicesSettings>;
+  /** Get a single bookable product */
+  chsBookingProduct: Maybe<BookingProduct>;
+  /** Corporate business information for ChiroStretch HQ */
+  chsBusinessInfo: Maybe<ChsBusinessInfo>;
   /** Statistics for a product taxonomy query */
   collectionStats: Maybe<CollectionStats>;
   /** Returns a Comment */
@@ -31082,11 +31118,6 @@ export type RootQuery = WithAcfOptionsPageBusinessInfo & WithAcfOptionsPageCurre
   theme: Maybe<Theme>;
   /** Connection between the RootQuery type and the Theme type */
   themes: Maybe<RootQueryToThemeConnection>;
-  /**
-   * A unsupported product object
-   * @deprecated Use &quot;product&quot; instead.
-   */
-  unsupportedProduct: Maybe<UnsupportedProduct>;
   /** Returns a user */
   user: Maybe<User>;
   /** Returns a user role */
@@ -31130,13 +31161,6 @@ export type RootQueryBookingAvailabilityArgs = {
 
 
 /** The root entry point into the Graph */
-export type RootQueryBookingProductArgs = {
-  id?: InputMaybe<Scalars['Int']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** The root entry point into the Graph */
 export type RootQueryBookingProductsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -31174,6 +31198,13 @@ export type RootQueryCategoriesArgs = {
 export type RootQueryCategoryArgs = {
   id: Scalars['ID']['input'];
   idType?: InputMaybe<CategoryIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryChsBookingProductArgs = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -31989,13 +32020,6 @@ export type RootQueryThemesArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryUnsupportedProductArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  idType?: InputMaybe<ProductIdTypeEnum>;
 };
 
 
@@ -39939,452 +39963,6 @@ export type UniformResourceIdentifiable = {
   uri: Maybe<Scalars['String']['output']>;
 };
 
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProduct = ContentNode & DatabaseIdentifier & DownloadableProduct & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithDimensions & ProductWithPricing & UniformResourceIdentifiable & {
-  /** Connection between the ProductWithAttributes type and the ProductAttribute type */
-  attributes: Maybe<ProductWithAttributesToProductAttributeConnection>;
-  /** Product average count */
-  averageRating: Maybe<Scalars['Float']['output']>;
-  /** Product backorders status */
-  backorders: Maybe<BackordersEnum>;
-  /** Can product be backordered? */
-  backordersAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** Returns all blocks as a JSON object */
-  blocks: Maybe<Scalars['JSON']['output']>;
-  /** Catalog visibility */
-  catalogVisibility: Maybe<CatalogVisibilityEnum>;
-  /** The number of comments. Even though WPGraphQL denotes this field as an integer, in WordPress this field should be saved as a numeric string for compatibility. */
-  commentCount: Maybe<Scalars['Int']['output']>;
-  /** Whether the comments are open or closed for this particular post. */
-  commentStatus: Maybe<Scalars['String']['output']>;
-  /** Connection between the Product type and the Comment type */
-  comments: Maybe<ProductToCommentsConnection>;
-  /** The content of the post. */
-  content: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the ContentType type */
-  contentType: Maybe<ContentNodeToContentTypeConnectionEdge>;
-  /** The name of the Content Type the node belongs to */
-  contentTypeName: Scalars['String']['output'];
-  /** Product or variation ID */
-  databaseId: Scalars['Int']['output'];
-  /** Post publishing date. */
-  date: Maybe<Scalars['String']['output']>;
-  /** The publishing date set in GMT. */
-  dateGmt: Maybe<Scalars['String']['output']>;
-  /** Date on sale from */
-  dateOnSaleFrom: Maybe<Scalars['String']['output']>;
-  /** Date on sale to */
-  dateOnSaleTo: Maybe<Scalars['String']['output']>;
-  /** Connection between the ProductWithAttributes type and the VariationAttribute type */
-  defaultAttributes: Maybe<ProductWithAttributesToVariationAttributeConnection>;
-  /** Product description */
-  description: Maybe<Scalars['String']['output']>;
-  /** The desired slug of the post */
-  desiredSlug: Maybe<Scalars['String']['output']>;
-  /** Download expiry */
-  downloadExpiry: Maybe<Scalars['Int']['output']>;
-  /** Download limit */
-  downloadLimit: Maybe<Scalars['Int']['output']>;
-  /** Is downloadable? */
-  downloadable: Maybe<Scalars['Boolean']['output']>;
-  /** Product downloads */
-  downloads: Maybe<Array<Maybe<ProductDownload>>>;
-  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
-  editingLockedBy: Maybe<ContentNodeToEditLockConnectionEdge>;
-  /** The RSS enclosure for the object */
-  enclosure: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the EnqueuedScript type */
-  enqueuedScripts: Maybe<ContentNodeToEnqueuedScriptConnection>;
-  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
-  enqueuedStylesheets: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
-  /** The excerpt of the post. */
-  excerpt: Maybe<Scalars['String']['output']>;
-  /** If the product is featured */
-  featured: Maybe<Scalars['Boolean']['output']>;
-  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
-  featuredImage: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
-  /** The database identifier for the featured image node assigned to the content node */
-  featuredImageDatabaseId: Maybe<Scalars['Int']['output']>;
-  /** Globally unique ID of the featured image assigned to the node */
-  featuredImageId: Maybe<Scalars['ID']['output']>;
-  /** Connection between the Product type and the MediaItem type */
-  galleryImages: Maybe<ProductToMediaItemConnection>;
-  /** Connection between the Product type and the GlobalProductAttribute type */
-  globalAttributes: Maybe<ProductToGlobalProductAttributeConnection>;
-  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
-  guid: Maybe<Scalars['String']['output']>;
-  /** Whether the product object is password protected. */
-  hasPassword: Maybe<Scalars['Boolean']['output']>;
-  /** Product&#039;s height */
-  height: Maybe<Scalars['String']['output']>;
-  /** Product or variation global ID */
-  id: Scalars['ID']['output'];
-  /** Main image */
-  image: Maybe<MediaItem>;
-  /** Whether the node is a Comment */
-  isComment: Scalars['Boolean']['output'];
-  /** Whether the node is a Content Node */
-  isContentNode: Scalars['Boolean']['output'];
-  /** Whether the node represents the front page. */
-  isFrontPage: Scalars['Boolean']['output'];
-  /** Whether  the node represents the blog page. */
-  isPostsPage: Scalars['Boolean']['output'];
-  /** Whether the object is a node in the preview state */
-  isPreview: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the object is restricted from the current viewer */
-  isRestricted: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the node is a Term */
-  isTermNode: Scalars['Boolean']['output'];
-  /** The user that most recently edited the node */
-  lastEditedBy: Maybe<ContentNodeToEditLastConnectionEdge>;
-  /** Product&#039;s length */
-  length: Maybe<Scalars['String']['output']>;
-  /** The permalink of the post */
-  link: Maybe<Scalars['String']['output']>;
-  /** Connection between the Product type and the LocalProductAttribute type */
-  localAttributes: Maybe<ProductToLocalProductAttributeConnection>;
-  /** Low stock amount */
-  lowStockAmount: Maybe<Scalars['Int']['output']>;
-  /** If product manage stock */
-  manageStock: Maybe<ManageStockEnum>;
-  /** Menu order */
-  menuOrder: Maybe<Scalars['Int']['output']>;
-  /** Object meta data */
-  metaData: Maybe<Array<Maybe<MetaData>>>;
-  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
-  modified: Maybe<Scalars['String']['output']>;
-  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
-  modifiedGmt: Maybe<Scalars['String']['output']>;
-  /** Product name */
-  name: Maybe<Scalars['String']['output']>;
-  /** Is product on sale? */
-  onSale: Maybe<Scalars['Boolean']['output']>;
-  /** The parent of the node. The parent object can be of various types */
-  parent: Maybe<ProductToProductConnectionEdge>;
-  /** The password for the product object. */
-  password: Maybe<Scalars['String']['output']>;
-  /** The database id of the preview node */
-  previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
-  /** Whether the object is a node in the preview state */
-  previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** Product&#039;s active price */
-  price: Maybe<Scalars['String']['output']>;
-  /** Connection between the Product type and the productCategory type */
-  productCategories: Maybe<ProductToProductCategoryConnection>;
-  /**
-   * The id field matches the WP_Post-&gt;ID field.
-   * @deprecated Deprecated in favor of the databaseId field
-   */
-  productId: Scalars['Int']['output'];
-  /** Connection between the Product type and the productTag type */
-  productTags: Maybe<ProductToProductTagConnection>;
-  /** Connection between the Product type and the productType type */
-  productTypes: Maybe<ProductToProductTypeConnection>;
-  /** Can product be purchased? */
-  purchasable: Maybe<Scalars['Boolean']['output']>;
-  /** Purchase note */
-  purchaseNote: Maybe<Scalars['String']['output']>;
-  /** Product&#039;s regular price */
-  regularPrice: Maybe<Scalars['String']['output']>;
-  /** Connection between the Product type and the ProductUnion type */
-  related: Maybe<ProductToProductUnionConnection>;
-  /** Product review count */
-  reviewCount: Maybe<Scalars['Int']['output']>;
-  /** Connection between the Product type and the Comment type */
-  reviews: Maybe<ProductToCommentConnection>;
-  /** If reviews are allowed */
-  reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** Product&#039;s sale price */
-  salePrice: Maybe<Scalars['String']['output']>;
-  /** The Yoast SEO data of the ContentNode */
-  seo: Maybe<PostTypeSeo>;
-  /** shipping class ID */
-  shippingClassId: Maybe<Scalars['Int']['output']>;
-  /** Connection between the Product type and the shippingClass type */
-  shippingClasses: Maybe<ProductToShippingClassConnection>;
-  /** Does product need to be shipped? */
-  shippingRequired: Maybe<Scalars['Boolean']['output']>;
-  /** Is product shipping taxable? */
-  shippingTaxable: Maybe<Scalars['Boolean']['output']>;
-  /** Product short description */
-  shortDescription: Maybe<Scalars['String']['output']>;
-  /** Product SKU */
-  sku: Maybe<Scalars['String']['output']>;
-  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
-  slug: Maybe<Scalars['String']['output']>;
-  /** If should be sold individually */
-  soldIndividually: Maybe<Scalars['Boolean']['output']>;
-  /** The current status of the object */
-  status: Maybe<Scalars['String']['output']>;
-  /** Number of items available for sale */
-  stockQuantity: Maybe<Scalars['Int']['output']>;
-  /** Product stock status */
-  stockStatus: Maybe<StockStatusEnum>;
-  /** Tax class */
-  taxClass: Maybe<TaxClassEnum>;
-  /** Tax status */
-  taxStatus: Maybe<TaxStatusEnum>;
-  /** The template assigned to the node */
-  template: Maybe<ContentTemplate>;
-  /** Connection between the Product type and the TermNode type */
-  terms: Maybe<ProductToTermNodeConnection>;
-  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
-  title: Maybe<Scalars['String']['output']>;
-  /** Number total of sales */
-  totalSales: Maybe<Scalars['Int']['output']>;
-  /** Product type */
-  type: Maybe<ProductTypesEnum>;
-  /** Connection between the Product type and the ProductUnion type */
-  upsell: Maybe<ProductToUpsellConnection>;
-  /** The unique resource identifier path */
-  uri: Maybe<Scalars['String']['output']>;
-  /** Is product virtual? */
-  virtual: Maybe<Scalars['Boolean']['output']>;
-  /** Connection between the Product type and the visibleProduct type */
-  visibleProducts: Maybe<ProductToVisibleProductConnection>;
-  /** Product&#039;s weight */
-  weight: Maybe<Scalars['String']['output']>;
-  /** Product&#039;s width */
-  width: Maybe<Scalars['String']['output']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductAttributesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductWithAttributesToProductAttributeConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductBlocksArgs = {
-  attributes?: InputMaybe<Scalars['Boolean']['input']>;
-  dynamicContent?: InputMaybe<Scalars['Boolean']['input']>;
-  htmlContent?: InputMaybe<Scalars['Boolean']['input']>;
-  originalContent?: InputMaybe<Scalars['Boolean']['input']>;
-  postTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductCommentsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToCommentsConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductContentArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductDefaultAttributesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductDescriptionArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductEnqueuedScriptsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductEnqueuedStylesheetsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductExcerptArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductGalleryImagesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToMediaItemConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductGlobalAttributesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductLocalAttributesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductMetaDataArgs = {
-  key?: InputMaybe<Scalars['String']['input']>;
-  keysIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  multiple?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductParentArgs = {
-  where?: InputMaybe<ProductToProductConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductPriceArgs = {
-  format?: InputMaybe<PricingFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductProductCategoriesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToProductCategoryConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductProductTagsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToProductTagConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductProductTypesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToProductTypeConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductRegularPriceArgs = {
-  format?: InputMaybe<PricingFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductRelatedArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToProductUnionConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductReviewsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToCommentConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductSalePriceArgs = {
-  format?: InputMaybe<PricingFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductShippingClassesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToShippingClassConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductShortDescriptionArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductTermsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToTermNodeConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductTitleArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductUpsellArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToUpsellConnectionWhereArgs>;
-};
-
-
-/** A product object for a product type that is unsupported by the current API. */
-export type UnsupportedProductVisibleProductsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProductToVisibleProductConnectionWhereArgs>;
-};
-
 /** Input for the updateCategory mutation. */
 export type UpdateCategoryInput = {
   /** The slug that the category will be an alias of */
@@ -44527,12 +44105,6 @@ export type WithAcfApplicationDetails = {
   applicationDetails: Maybe<ApplicationDetails>;
 };
 
-/** Provides access to fields of the &quot;BusinessInfo&quot; ACF Field Group via the &quot;businessInfo&quot; field */
-export type WithAcfBusinessInfo = {
-  /** Fields of the BusinessInfo ACF Field Group */
-  businessInfo: Maybe<BusinessInfo>;
-};
-
 /** Provides access to fields of the &quot;ComponentDescriptionList&quot; ACF Field Group via the &quot;componentDescriptionList&quot; field */
 export type WithAcfComponentDescriptionList = {
   /** Fields of the ComponentDescriptionList ACF Field Group */
@@ -44603,11 +44175,6 @@ export type WithAcfHomepageUpcomingEvents = {
 export type WithAcfLocationDetails = {
   /** Fields of the LocationDetails ACF Field Group */
   locationDetails: Maybe<LocationDetails>;
-};
-
-/** Access point for the &quot;BusinessInfo&quot; ACF Options Page */
-export type WithAcfOptionsPageBusinessInfo = {
-  businessInfo: Maybe<BusinessInfo>;
 };
 
 /** Access point for the &quot;CurrentPromo&quot; ACF Options Page */
