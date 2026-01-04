@@ -10,33 +10,11 @@ type StaffCardProps = {
 };
 
 export function StaffCard({ staff }: StaffCardProps) {
-  const specialtyLabels: Record<string, string> = {
-    sports_injuries: "Sports Injuries",
-    back_pain: "Back Pain",
-    neck_pain: "Neck Pain",
-    headaches: "Headaches & Migraines",
-    posture_correction: "Posture Correction",
-    prenatal: "Prenatal Care",
-    pediatric: "Pediatric",
-    wellness: "Wellness & Prevention",
-    deep_tissue: "Deep Tissue",
-    swedish: "Swedish Massage",
-    trigger_point: "Trigger Point Therapy",
-    myofascial: "Myofascial Release",
-    rehab: "Rehabilitation",
-    flexibility: "Flexibility Training",
-  };
+  // Get discipline label from taxonomy
+  const discipline = staff.disciplines?.nodes?.[0];
+  const disciplineLabel = discipline?.name || "Staff";
 
-  const staffTypeLabels: Record<string, string> = {
-    chiropractor: "Chiropractor",
-    massage_therapist: "Massage Therapist",
-    physical_therapist: "Physical Therapist",
-    stretch_therapist: "Stretch Therapist",
-    acupuncturist: "Acupuncturist",
-  };
-
-  const roleLabel =
-    staff.jobTitle || staffTypeLabels[staff.staffType || ""] || "Staff";
+  const roleLabel = staff.jobTitle || disciplineLabel;
 
   const nameParts = staff.title?.split(" ") ?? [];
   const prefixes = ["Dr.", "Dr", "Mr.", "Mr", "Ms.", "Ms", "Mrs.", "Mrs"];
@@ -78,15 +56,13 @@ export function StaffCard({ staff }: StaffCardProps) {
         <h3 className={styles.name}>{staff.title}</h3>
         <p className={styles.role}>{formattedRole}</p>
 
-        {staff.specialties && staff.specialties.length > 0 && (
+        {staff.specialties?.nodes && staff.specialties.nodes.length > 0 && (
           <div className={styles.specialties}>
-            {staff.specialties
-              .filter((s): s is string => Boolean(s))
-              .map((specialty) => (
-                <span key={specialty} className={styles.specialty}>
-                  {specialtyLabels[specialty] || specialty}
-                </span>
-              ))}
+            {staff.specialties.nodes.map((specialty) => (
+              <span key={specialty.slug} className={styles.specialty}>
+                {specialty.name}
+              </span>
+            ))}
           </div>
         )}
 

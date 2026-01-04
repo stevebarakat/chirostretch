@@ -34,10 +34,8 @@ export const STAFF_FIELDS = `
     id
     databaseId
     title
-    staffType
     jobTitle
     credentials
-    specialties
     bio
     acceptingPatients
     isPublic
@@ -52,6 +50,27 @@ export const STAFF_FIELDS = `
       databaseId
       title
       slug
+    }
+
+    disciplines {
+      nodes {
+        slug
+        name
+      }
+    }
+
+    services {
+      nodes {
+        slug
+        name
+      }
+    }
+
+    specialties {
+      nodes {
+        slug
+        name
+      }
     }
   }
 `;

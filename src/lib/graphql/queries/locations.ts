@@ -135,16 +135,31 @@ export const LOCATION_BY_SLUG_QUERY = `
           id
           databaseId
           title
-          staffType
           jobTitle
           credentials
-          specialties
-          servicesOffered
           bio
           acceptingPatients
           headshot {
             sourceUrl
             altText
+          }
+          disciplines {
+            nodes {
+              slug
+              name
+            }
+          }
+          services {
+            nodes {
+              slug
+              name
+            }
+          }
+          specialties {
+            nodes {
+              slug
+              name
+            }
           }
         }
       }

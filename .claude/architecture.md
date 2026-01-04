@@ -171,3 +171,73 @@ Before rendering breadcrumbs, ask:
 
 If yes -> breadcrumbs allowed
 If no -> breadcrumbs must not render
+
+---
+
+## Practitioner Capabilities & Expertise Rule
+
+Do NOT encode practitioner capabilities or expertise as user roles or checkbox fields.
+
+### User Roles (Permissions Only)
+
+All clinical providers use a single user role: `practitioner`
+
+User roles exist only to define system permissions.
+Occupations or disciplines must NOT be modeled as user roles.
+
+**Forbidden:**
+- `chiropractor` role
+- `massage_therapist` role
+- `physical_therapist` role
+- Any role that represents a profession or specialty
+
+### Discipline (What They Are)
+
+Practitioner profession is modeled as taxonomy: `discipline`
+
+- Single-select per practitioner
+- Values: chiropractor, physical_therapist, massage_therapist, athletic_therapist
+- Used for labeling, filtering, and SEO
+- Does NOT affect permissions
+
+### Services Offered (What They Can Provide)
+
+Services are modeled as taxonomy: `service`
+
+- Multi-select per practitioner
+- Values: chiropractic, massage, stretch_therapy, sports_medicine
+- Shared across practitioners and locations
+- May drive booking, pricing, or eligibility logic
+
+### Specialties (What They Focus On)
+
+Areas of focus are modeled as taxonomy: `specialty`
+
+- Multi-select per practitioner
+- Values: sports_injuries, back_pain, prenatal_care, posture_correction, etc.
+- Descriptive, not gating
+- Used for discovery and content grouping
+
+### Field Usage Rules
+
+**Taxonomies required when:**
+- Values are shared across records
+- Filtering or querying is expected
+- The concept is global and reusable
+
+**Fields allowed only for:**
+- Free-form content (biography)
+- Relationships (assigned location, user account)
+
+**Forbidden patterns:**
+- Checkbox fields for services or specialties
+- Occupation-based user roles
+- Duplicating service/specialty definitions per practitioner
+
+### Guiding Principle
+
+> Roles define what someone **may do** in the system.
+> Taxonomies define what someone **is** and what they **offer**.
+
+If a concept describes identity, capability, or expertise → taxonomy
+If a concept controls access → role
