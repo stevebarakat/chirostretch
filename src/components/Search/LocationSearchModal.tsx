@@ -152,6 +152,7 @@ export default function LocationSearchModal({
               >[0]["searchClient"]
             }
             indexName={algoliaConfig.indices.locations}
+            future={{ preserveSharedStateOnUnmount: true }}
           >
             <Configure hitsPerPage={10} />
             <SearchBox />

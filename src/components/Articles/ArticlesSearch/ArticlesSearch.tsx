@@ -19,6 +19,7 @@ export function ArticlesSearch() {
     <InstantSearch
       searchClient={searchClient as unknown as Parameters<typeof InstantSearch>[0]["searchClient"]}
       indexName={algoliaConfig.indices.articles}
+      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} />
       <PageHeader

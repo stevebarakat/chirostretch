@@ -25,6 +25,7 @@ export function ProductsSearch() {
         >[0]["searchClient"]
       }
       indexName={algoliaConfig.indices.products}
+      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} />
       <PageHeader

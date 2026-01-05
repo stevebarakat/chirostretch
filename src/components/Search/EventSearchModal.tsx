@@ -178,6 +178,7 @@ export default function EventSearchModal({
               >[0]["searchClient"]
             }
             indexName={algoliaConfig.indices.events}
+            future={{ preserveSharedStateOnUnmount: true }}
           >
             <Configure hitsPerPage={10} />
             <SearchBox />
