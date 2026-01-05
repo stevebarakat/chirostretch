@@ -36,7 +36,11 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
         {practitioner.headshot?.sourceUrl ? (
           <Image
             src={practitioner.headshot.sourceUrl}
-            alt={practitioner.headshot.altText || practitioner.title || "Practitioner photo"}
+            alt={
+              practitioner.headshot.altText ||
+              practitioner.title ||
+              "Practitioner photo"
+            }
             fill
             sizes="(max-width: 640px) 100vw, 400px"
             className={styles.image}
@@ -56,15 +60,16 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
         <h3 className={styles.name}>{practitioner.title}</h3>
         <p className={styles.role}>{formattedRole}</p>
 
-        {practitioner.specialties?.nodes && practitioner.specialties.nodes.length > 0 && (
-          <div className={styles.specialties}>
-            {practitioner.specialties.nodes.map((specialty) => (
-              <span key={specialty.slug} className={styles.specialty}>
-                {specialty.name}
-              </span>
-            ))}
-          </div>
-        )}
+        {practitioner.specialties?.nodes &&
+          practitioner.specialties.nodes.length > 0 && (
+            <div className={styles.specialties}>
+              {practitioner.specialties.nodes.map((specialty) => (
+                <span key={specialty.slug} className={styles.specialty}>
+                  {specialty.name}
+                </span>
+              ))}
+            </div>
+          )}
 
         {practitioner.bio && (
           <div
@@ -76,7 +81,7 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
         <div className={styles.actions}>
           <Button
             as="a"
-            href="#"
+            href="#book"
             icon={<ArrowRight size={18} />}
             variant="inverse"
             outline
