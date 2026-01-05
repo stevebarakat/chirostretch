@@ -18,8 +18,15 @@
             "pages": ["architecture/overview"]
           },
           {
+            "group": "Data Model",
+            "pages": ["data-model/overview"]
+          },
+          {
             "group": "Decisions",
-            "pages": ["decisions/zustand-over-xstate"]
+            "pages": [
+              "decisions/zustand-over-xstate",
+              "decisions/wpgraphql-over-rest"
+            ]
           },
           {
             "group": "Development",
