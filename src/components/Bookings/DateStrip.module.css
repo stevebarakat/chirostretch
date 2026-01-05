@@ -33,17 +33,13 @@
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  transition: background-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .navButton:hover:not(:disabled) {
   color: var(--color-text-primary);
   background: var(--color-bg-secondary);
-}
-
-.navButton:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 
 .dateButton {

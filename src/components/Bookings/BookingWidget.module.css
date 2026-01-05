@@ -57,8 +57,3 @@
 .confirmButton:hover:not(:disabled) {
   background: var(--color-primary-600);
 }
-
-.confirmButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
