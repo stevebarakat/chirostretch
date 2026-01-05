@@ -384,10 +384,5 @@
     ],
     "deny": [],
     "ask": []
-  },
-  "enabledMcpjsonServers": [
-    "fetch",
-    "wordpress",
-    "context7"
-  ]
+  }
 }
