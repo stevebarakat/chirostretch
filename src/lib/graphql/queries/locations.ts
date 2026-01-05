@@ -3,6 +3,7 @@ import type {
   StaffMember,
   LocationHours,
   WpPageInfo,
+  MediaItem,
 } from "../generated/graphql";
 
 // Re-export generated types for convenience
@@ -10,8 +11,29 @@ export type { Location, StaffMember, LocationHours };
 
 // Alias for backward compatibility
 export type WPLocation = Location;
-export type ClinicalStaff = StaffMember;
-export type Chiropractor = StaffMember;
+
+// Type for taxonomy term nodes as returned in queries
+type TaxonomyTermNode = {
+  slug?: string | null;
+  name?: string | null;
+};
+
+// Type for clinical staff as returned from LOCATION_BY_SLUG_QUERY
+export type ClinicalStaff = {
+  id?: string;
+  databaseId?: number;
+  title?: string | null;
+  jobTitle?: string | null;
+  credentials?: string | null;
+  bio?: string | null;
+  acceptingPatients?: boolean | null;
+  headshot?: Pick<MediaItem, "sourceUrl" | "altText"> | null;
+  disciplines?: { nodes?: TaxonomyTermNode[] | null } | null;
+  services?: { nodes?: TaxonomyTermNode[] | null } | null;
+  specialties?: { nodes?: TaxonomyTermNode[] | null } | null;
+};
+
+export type Chiropractor = ClinicalStaff;
 
 export const ALL_LOCATIONS_QUERY = `
   query AllLocations($first: Int, $after: String) {
