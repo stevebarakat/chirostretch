@@ -16,7 +16,7 @@ import type {
   EventTemplate,
 } from "./types.js";
 
-const DATA_DIR = path.join(__dirname, "../../data");
+const DATA_DIR = path.join(__dirname, "../../../data");
 const SOURCES_DIR = path.join(DATA_DIR, "sources");
 const OUTPUT_DIR = path.join(DATA_DIR, "generated");
 
