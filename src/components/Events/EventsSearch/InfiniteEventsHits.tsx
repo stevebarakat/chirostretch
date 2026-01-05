@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
+import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { EventsCalendar, type EventsCalendarHandle } from "../EventsCalendar";
 import { ExpandedEventModal } from "../ExpandedEventModal";
 import { useEventsContext } from "../EventsContext";

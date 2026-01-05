@@ -72,7 +72,7 @@ export default async function HomePage() {
   const { page } = data;
 
   const { rightSide, leftSide } = page.homepageIntroduction || {};
-  const stats = page.stats?.stats || [];
+  const stats = (page.stats?.stats || []).filter(Boolean);
   const promo = data.currentPromo?.promo;
 
   const intro =
@@ -89,14 +89,16 @@ export default async function HomePage() {
             headline: rightSide.headline,
             bulletPoints: rightSide.bulletPoints,
           },
-          stats: stats.map((s) => ({
-            stat: {
-              prefix: s.stat?.prefix || "",
-              number: s.stat?.number || 0,
-              suffix: s.stat?.suffix || "",
-              description: s.stat?.description || "",
-            },
-          })),
+          stats: stats
+            .filter((s) => s?.stat)
+            .map((s) => ({
+              stat: {
+                prefix: s.stat?.prefix || "",
+                number: s.stat?.number || 0,
+                suffix: s.stat?.suffix || "",
+                description: s.stat?.description || "",
+              },
+            })),
         }
       : null;
 

@@ -21,15 +21,29 @@ Next.js     → presentation only (marketing, browsing, content)
 - Leads are not users
 - Blocks are data schemas, not templates
 
+## Package Manager
+
+This repository uses **pnpm** exclusively.
+
+- pnpm is required
+- npm and yarn are not supported
+- `pnpm-lock.yaml` is authoritative
+- `package-lock.json` and `yarn.lock` must not exist
+
+All installs, scripts, and CI workflows must use pnpm.
+Do not assume a flat `node_modules` structure.
+
 ## Before You Write Code
 
 Read [agents/architecture.md](agents/architecture.md) for:
+
 - System boundaries and ownership
 - What Next.js does NOT do
 - Lead handling rules
 - Route ownership
 
 Read [agents/frontend.md](agents/frontend.md) for:
+
 - TypeScript and React patterns
 - Component rules and structure
 - useEffect guidelines
@@ -38,6 +52,7 @@ Read [agents/frontend.md](agents/frontend.md) for:
 ## Styling
 
 Read [agents/css.md](agents/css.md) for:
+
 - Modern CSS features to use by default
 - Native UI primitives (dialog, details, popover)
 - CSS-first decision checklist
@@ -46,6 +61,7 @@ Read [agents/css.md](agents/css.md) for:
 ## WordPress Integration
 
 Read [agents/wordpress.md](agents/wordpress.md) for:
+
 - CPT registration patterns
 - ACF field rules
 - Block rendering model
@@ -54,6 +70,7 @@ Read [agents/wordpress.md](agents/wordpress.md) for:
 ## Testing
 
 Read [agents/testing.md](agents/testing.md) for:
+
 - What to test (webhook intent, objectID stability)
 - What NOT to test
 - Mock patterns
@@ -62,6 +79,7 @@ Read [agents/testing.md](agents/testing.md) for:
 ## Identity & Access
 
 Read [agents/identity-charter.md](agents/identity-charter.md) for:
+
 - Lead vs Applicant vs User distinctions
 - When user accounts are created
 - Tokenized status flow rules
@@ -108,6 +126,7 @@ Do not attempt to "standardize" this. Different pages require different flexibil
 Entropy is allowed **only** in composition.
 
 Entropy is never allowed in:
+
 - Global chrome (header/footer)
 - Core layouts
 - Motion and interaction

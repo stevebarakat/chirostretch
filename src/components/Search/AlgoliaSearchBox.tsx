@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchBox } from "react-instantsearch-hooks-web";
+import { useSearchBox } from "react-instantsearch";
 import { Search, X } from "lucide-react";
 import styles from "./AlgoliaSearchBox.module.css";
 

@@ -127,3 +127,8 @@ button:disabled {
   top: -2.5em;
   padding: 4rem 0;
 }
+
+iframe[src*="https://www.google.com/maps/embed/v1/place?key="] div
+{
+  display: none !important;
+}

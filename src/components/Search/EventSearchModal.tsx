@@ -5,7 +5,7 @@ import {
   useSearchBox,
   useHits,
   Configure,
-} from "react-instantsearch-hooks-web";
+} from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Image from "next/image";
@@ -179,6 +179,7 @@ export default function EventSearchModal({
               >[0]["searchClient"]
             }
             indexName={algoliaConfig.indices.events}
+            future={{ preserveSharedStateOnUnmount: true }}
           >
             <Configure hitsPerPage={10} />
             <SearchBox />

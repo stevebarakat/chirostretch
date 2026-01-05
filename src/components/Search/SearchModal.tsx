@@ -5,7 +5,7 @@ import {
   useSearchBox,
   useHits,
   Configure,
-} from "react-instantsearch-hooks-web";
+} from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
@@ -326,7 +326,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           </div>
         ) : (
           // @ts-expect-error - react-instantsearch types incompatible with React 19
-          <InstantSearch searchClient={searchClient} indexName={indexName}>
+          <InstantSearch
+            searchClient={searchClient}
+            indexName={indexName}
+            future={{ preserveSharedStateOnUnmount: true }}
+          >
             <Configure hitsPerPage={10} />
             <SearchBox />
             <SearchResults onHitClick={onClose} />

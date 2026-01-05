@@ -2,10 +2,11 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
-import Link from "next/link";
+import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { LocationCard } from "../LocationCard";
+import Link from "next/link";
 import styles from "./InfiniteLocationsHits.module.css";
+import { FlipMotion, FlipMotionItem } from "@/components/UI";
 
 type LocationHit = {
   objectID: string;
@@ -67,22 +68,24 @@ export function InfiniteLocationsHits() {
   }
 
   return (
-    <ul className={styles.grid}>
-      {hits.map((hit) => (
-        <li key={hit.objectID}>
-          <Link href={`/locations/${hit.slug}`} className={styles.cardLink}>
-            <LocationCard
-              title={hit.title}
-              content={hit.shortDescription || hit.content}
-              coordinates={{
-                lat: hit.latitude,
-                lng: hit.longitude,
-              }}
-            />
-          </Link>
-        </li>
-      ))}
+    <>
+      <FlipMotion className={styles.grid}>
+        {hits.map((hit) => (
+          <FlipMotionItem key={hit.objectID} itemId={hit.objectID}>
+            <Link href={`/locations/${hit.slug}`} className={styles.cardLink}>
+              <LocationCard
+                title={hit.title}
+                content={hit.shortDescription || hit.content}
+                coordinates={{
+                  lat: hit.latitude,
+                  lng: hit.longitude,
+                }}
+              />
+            </Link>
+          </FlipMotionItem>
+        ))}
+      </FlipMotion>
       <li ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
-    </ul>
+    </>
   );
 }

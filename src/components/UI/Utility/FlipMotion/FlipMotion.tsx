@@ -43,7 +43,6 @@ type FlipMotionItemProps = {
   initialOpacity?: number;
   animateOpacity?: number;
   exitOpacity?: number;
-  ref?: React.Ref<HTMLLIElement>;
   "aria-hidden"?: boolean;
 };
 
@@ -56,14 +55,12 @@ export function FlipMotionItem({
   initialOpacity = 0.5,
   animateOpacity = 1,
   exitOpacity = 0,
-  ref,
   "aria-hidden": ariaHidden,
 }: FlipMotionItemProps) {
   const MotionItem = motion[as] as typeof motion.li;
 
   return (
     <MotionItem
-      ref={ref}
       className={clsx(styles.item, className)}
       layout
       initial={{ opacity: initialOpacity }}

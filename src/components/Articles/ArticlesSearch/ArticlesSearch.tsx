@@ -1,6 +1,6 @@
 "use client";
 
-import { InstantSearch, Configure } from "react-instantsearch-hooks-web";
+import { InstantSearch, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { PageHeader } from "@/components/UI";
@@ -18,7 +18,6 @@ export function ArticlesSearch() {
   }
 
   return (
-    // @ts-expect-error - react-instantsearch types incompatible with React 19
     <InstantSearch
       searchClient={
         searchClient as unknown as Parameters<
@@ -26,6 +25,7 @@ export function ArticlesSearch() {
         >[0]["searchClient"]
       }
       indexName={algoliaConfig.indices.articles}
+      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} />
       <PageHeader

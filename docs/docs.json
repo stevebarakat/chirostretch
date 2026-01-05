@@ -1,0 +1,32 @@
+{
+  "name": "ChiroStretch",
+  "theme": "mint",
+  "colors": {
+    "primary": "#22c55e"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Docs",
+        "pages": [
+          {
+            "group": "Overview",
+            "pages": ["index"]
+          },
+          {
+            "group": "Architecture",
+            "pages": ["architecture/overview"]
+          },
+          {
+            "group": "Decisions",
+            "pages": ["decisions/zustand-over-xstate"]
+          },
+          {
+            "group": "Development",
+            "pages": ["development"]
+          }
+        ]
+      }
+    ]
+  }
+}

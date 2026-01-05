@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import { useInfiniteHits, useSearchBox } from "react-instantsearch-hooks-web";
+import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { ProductCard } from "@/components/ProductCard";
 import { FlipMotion, FlipMotionItem } from "@/components/UI";
 import styles from "./InfiniteProductsHits.module.css";
@@ -66,45 +66,38 @@ export function InfiniteProductsHits() {
   }
 
   return (
-    <FlipMotion className={styles.grid} enableExit={false}>
-      {hits.map((hit) => {
-        const databaseId = parseInt(hit.objectID.replace("product_", ""), 10);
+    <>
+      <FlipMotion className={styles.grid} enableExit={false}>
+        {hits.map((hit) => {
+          const databaseId = parseInt(hit.objectID.replace("product_", ""), 10);
 
-        return (
-          <FlipMotionItem key={hit.objectID} itemId={hit.objectID}>
-            <ProductCard
-              id={hit.objectID}
-              databaseId={isNaN(databaseId) ? undefined : databaseId}
-              name={hit.name}
-              slug={hit.slug}
-              price={hit.price}
-              regularPrice={hit.regularPrice}
-              salePrice={hit.salePrice}
-              stockStatus={hit.stockStatus}
-              featuredImage={
-                hit.image
-                  ? {
-                      node: {
-                        sourceUrl: hit.image,
-                        altText: hit.imageAlt,
-                      },
-                    }
-                  : undefined
-              }
-            />
-          </FlipMotionItem>
-        );
-      })}
-      <FlipMotionItem
-        ref={sentinelRef}
-        aria-hidden={true}
-        className={styles.sentinel}
-        itemId="sentinel"
-        initialOpacity={0}
-        animateOpacity={0}
-      >
-        {/* Sentinel element for infinite scroll */}
-      </FlipMotionItem>
-    </FlipMotion>
+          return (
+            <FlipMotionItem key={hit.objectID} itemId={hit.objectID}>
+              <ProductCard
+                id={hit.objectID}
+                databaseId={isNaN(databaseId) ? undefined : databaseId}
+                name={hit.name}
+                slug={hit.slug}
+                price={hit.price}
+                regularPrice={hit.regularPrice}
+                salePrice={hit.salePrice}
+                stockStatus={hit.stockStatus}
+                featuredImage={
+                  hit.image
+                    ? {
+                        node: {
+                          sourceUrl: hit.image,
+                          altText: hit.imageAlt,
+                        },
+                      }
+                    : undefined
+                }
+              />
+            </FlipMotionItem>
+          );
+        })}
+      </FlipMotion>
+      <li ref={sentinelRef} aria-hidden="true" className={styles.sentinel} />
+    </>
   );
 }
