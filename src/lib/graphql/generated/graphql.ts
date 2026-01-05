@@ -933,7 +933,7 @@ export type ApplicationDetails = AcfFieldGroup & AcfFieldGroupFields & Applicati
   applicantPhone: Maybe<Scalars['String']['output']>;
   /** Field of the &quot;select&quot; Field Type added to the schema as part of the &quot;ApplicationDetails&quot; Field Group */
   applicationStatus: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;ApplicationDetails&quot; Field Group */
+  /** Select the location to assign to this franchisee when approved */
   assignedLocation: Maybe<AcfContentNodeConnection>;
   /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;ApplicationDetails&quot; Field Group */
   experience: Maybe<Scalars['String']['output']>;
@@ -981,7 +981,7 @@ export type ApplicationDetails_Fields = {
   applicantPhone: Maybe<Scalars['String']['output']>;
   /** Field of the &quot;select&quot; Field Type added to the schema as part of the &quot;ApplicationDetails&quot; Field Group */
   applicationStatus: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;ApplicationDetails&quot; Field Group */
+  /** Select the location to assign to this franchisee when approved */
   assignedLocation: Maybe<AcfContentNodeConnection>;
   /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;ApplicationDetails&quot; Field Group */
   experience: Maybe<Scalars['String']['output']>;
@@ -1576,56 +1576,6 @@ export type BookingSlot = {
   date: Maybe<Scalars['String']['output']>;
   /** Time (HH:MM) */
   time: Maybe<Scalars['String']['output']>;
-};
-
-/** The &quot;BusinessInformation&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type BusinessInformation = AcfFieldGroup & AcfFieldGroupFields & BusinessInformation_Fields & {
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessCity: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessCountry: Maybe<Scalars['String']['output']>;
-  /** Main contact email address */
-  businessEmail: Maybe<Scalars['String']['output']>;
-  /** Official business name */
-  businessName: Maybe<Scalars['String']['output']>;
-  /** Main contact phone number */
-  businessPhone: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessState: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessStreet: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessZip: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName: Maybe<Scalars['String']['output']>;
-};
-
-/** Interface representing fields of the ACF &quot;BusinessInformation&quot; Field Group */
-export type BusinessInformation_Fields = {
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessCity: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessCountry: Maybe<Scalars['String']['output']>;
-  /** Main contact email address */
-  businessEmail: Maybe<Scalars['String']['output']>;
-  /** Official business name */
-  businessName: Maybe<Scalars['String']['output']>;
-  /** Main contact phone number */
-  businessPhone: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessState: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessStreet: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;BusinessInformation&quot; Field Group */
-  businessZip: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName: Maybe<Scalars['String']['output']>;
 };
 
 /** A Gravity Forms captcha field. */
@@ -39630,7 +39580,7 @@ export type SpecialtyToTaxonomyConnectionEdge = Edge & OneToOneConnection & Taxo
 export type StaffDetails = AcfFieldGroup & AcfFieldGroupFields & StaffDetails_Fields & {
   /** Field of the &quot;true_false&quot; Field Type added to the schema as part of the &quot;StaffDetails&quot; Field Group */
   acceptingPatients: Maybe<Scalars['Boolean']['output']>;
-  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;StaffDetails&quot; Field Group */
+  /** Select the location to assign to this franchisee when approved */
   assignedLocation: Maybe<AcfContentNodeConnection>;
   /** Public biography displayed on the website */
   bio: Maybe<Scalars['String']['output']>;
@@ -39681,7 +39631,7 @@ export type StaffDetailsUserAccountArgs = {
 export type StaffDetails_Fields = {
   /** Field of the &quot;true_false&quot; Field Type added to the schema as part of the &quot;StaffDetails&quot; Field Group */
   acceptingPatients: Maybe<Scalars['Boolean']['output']>;
-  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;StaffDetails&quot; Field Group */
+  /** Select the location to assign to this franchisee when approved */
   assignedLocation: Maybe<AcfContentNodeConnection>;
   /** Public biography displayed on the website */
   bio: Maybe<Scalars['String']['output']>;
@@ -39752,28 +39702,6 @@ export type Stats = AcfFieldGroup & AcfFieldGroupFields & Stats_Fields & {
   stats: Maybe<Array<Maybe<StatsStats_Layout>>>;
 };
 
-/** The &quot;StatsStatsLayout&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type StatsStatsLayout = AcfFieldGroup & AcfFieldGroupFields & StatsStatsLayout_Fields & StatsStats_Layout & {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;group&quot; Field Type added to the schema as part of the &quot;StatsStatsLayout&quot; Field Group */
-  stat: Maybe<StatsStatsStat>;
-};
-
-/** Interface representing fields of the ACF &quot;StatsStatsLayout&quot; Field Group */
-export type StatsStatsLayout_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;group&quot; Field Type added to the schema as part of the &quot;StatsStatsLayout&quot; Field Group */
-  stat: Maybe<StatsStatsStat>;
-};
-
 /** The &quot;StatsStatsStat&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
 export type StatsStatsStat = AcfFieldGroup & AcfFieldGroupFields & StatsStatsStat_Fields & {
   /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;StatsStatsStat&quot; Field Group */
@@ -39789,6 +39717,28 @@ export type StatsStatsStat = AcfFieldGroup & AcfFieldGroupFields & StatsStatsSta
   prefix: Maybe<Scalars['String']['output']>;
   /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;StatsStatsStat&quot; Field Group */
   suffix: Maybe<Scalars['String']['output']>;
+};
+
+/** The &quot;StatsStatsStatLayout&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type StatsStatsStatLayout = AcfFieldGroup & AcfFieldGroupFields & StatsStatsStatLayout_Fields & StatsStats_Layout & {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;group&quot; Field Type added to the schema as part of the &quot;StatsStatsStatLayout&quot; Field Group */
+  stat: Maybe<StatsStatsStat>;
+};
+
+/** Interface representing fields of the ACF &quot;StatsStatsStatLayout&quot; Field Group */
+export type StatsStatsStatLayout_Fields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;group&quot; Field Type added to the schema as part of the &quot;StatsStatsStatLayout&quot; Field Group */
+  stat: Maybe<StatsStatsStat>;
 };
 
 /** Interface representing fields of the ACF &quot;StatsStatsStat&quot; Field Group */
@@ -44400,6 +44350,70 @@ export enum UsersConnectionSearchColumnEnum {
   /** The URL of the user's website. */
   Url = 'URL'
 }
+
+/** The &quot;ValuePropositions&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type ValuePropositions = AcfFieldGroup & AcfFieldGroupFields & ValuePropositions_Fields & {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;ValuePropositions&quot; Field Group */
+  valuePropositions: Maybe<Array<Maybe<ValuePropositionsValuePropositions>>>;
+  /** Subtitle text below the heading */
+  valuePropositionsDescription: Maybe<Scalars['String']['output']>;
+  /** Heading displayed above the value propositions */
+  valuePropositionsTitle: Maybe<Scalars['String']['output']>;
+};
+
+/** The &quot;ValuePropositionsValuePropositions&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type ValuePropositionsValuePropositions = AcfFieldGroup & AcfFieldGroupFields & ValuePropositionsValuePropositions_Fields & {
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;ValuePropositionsValuePropositions&quot; Field Group */
+  description: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+  /** Small icon image (recommended: 48x48px, PNG or SVG) */
+  icon: Maybe<AcfMediaItemConnectionEdge>;
+  /** Background color for the icon circle */
+  iconBackgroundColor: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;ValuePropositionsValuePropositions&quot; Field Group */
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;ValuePropositionsValuePropositions&quot; Field Group */
+export type ValuePropositionsValuePropositions_Fields = {
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;ValuePropositionsValuePropositions&quot; Field Group */
+  description: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+  /** Small icon image (recommended: 48x48px, PNG or SVG) */
+  icon: Maybe<AcfMediaItemConnectionEdge>;
+  /** Background color for the icon circle */
+  iconBackgroundColor: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;ValuePropositionsValuePropositions&quot; Field Group */
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;ValuePropositions&quot; Field Group */
+export type ValuePropositions_Fields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;ValuePropositions&quot; Field Group */
+  valuePropositions: Maybe<Array<Maybe<ValuePropositionsValuePropositions>>>;
+  /** Subtitle text below the heading */
+  valuePropositionsDescription: Maybe<Scalars['String']['output']>;
+  /** Heading displayed above the value propositions */
+  valuePropositionsTitle: Maybe<Scalars['String']['output']>;
+};
 
 /** A variable product object */
 export type VariableProduct = ContentNode & DatabaseIdentifier & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithDimensions & ProductWithPricing & ProductWithVariations & UniformResourceIdentifiable & {

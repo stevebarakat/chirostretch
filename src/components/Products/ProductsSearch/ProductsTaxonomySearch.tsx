@@ -34,6 +34,7 @@ export function ProductsTaxonomySearch({
   const filters = `${filterAttribute}:${slug}`;
 
   return (
+    // @ts-expect-error - react-instantsearch types incompatible with React 19
     <InstantSearch
       searchClient={
         searchClient as unknown as Parameters<
@@ -41,7 +42,6 @@ export function ProductsTaxonomySearch({
         >[0]["searchClient"]
       }
       indexName={algoliaConfig.indices.products}
-      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} filters={filters} />
       <PageHeader

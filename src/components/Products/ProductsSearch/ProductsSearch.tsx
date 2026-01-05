@@ -18,6 +18,7 @@ export function ProductsSearch() {
   }
 
   return (
+    // @ts-expect-error - react-instantsearch types incompatible with React 19
     <InstantSearch
       searchClient={
         searchClient as unknown as Parameters<
@@ -25,7 +26,6 @@ export function ProductsSearch() {
         >[0]["searchClient"]
       }
       indexName={algoliaConfig.indices.products}
-      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} />
       <PageHeader

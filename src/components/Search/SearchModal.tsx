@@ -325,7 +325,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </p>
           </div>
         ) : (
-          <InstantSearch searchClient={searchClient} indexName={indexName} future={{ preserveSharedStateOnUnmount: true }}>
+          // @ts-expect-error - react-instantsearch types incompatible with React 19
+          <InstantSearch searchClient={searchClient} indexName={indexName}>
             <Configure hitsPerPage={10} />
             <SearchBox />
             <SearchResults onHitClick={onClose} />
