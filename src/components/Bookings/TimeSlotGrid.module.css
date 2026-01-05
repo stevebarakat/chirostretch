@@ -99,8 +99,3 @@
   color: var(--color-text-primary);
   background: var(--color-bg-secondary);
 }
-
-.navigationButton:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}

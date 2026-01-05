@@ -100,6 +100,42 @@ CSS Modules, HSL colors, modern features by default. See [.claude/css.md](.claud
 Prefer URL search params for filters, sort, pagination, tabs.
 Use Zustand only for temporary UI state.
 
+## Mintlify Documentation
+
+When working on Mintlify docs:
+
+**Format:** MDX files with YAML frontmatter. Config in `docs.json`.
+
+**Frontmatter required:**
+```yaml
+---
+title: Clear, descriptive page title
+description: Concise summary for SEO/navigation
+---
+```
+
+**Content strategy:**
+- Document just enough for user success
+- Search for existing content before adding new — avoid duplication
+- Check existing patterns for consistency
+- Make smallest reasonable changes first
+- Include both basic and advanced use cases
+
+**Writing standards:**
+- Second-person voice ("you")
+- Prerequisites at start of procedural content
+- Test all code examples before publishing
+- Language tags on all code blocks
+- Alt text on all images
+- Relative paths for internal links
+
+**Do not:**
+- Skip frontmatter on any MDX file
+- Use absolute URLs for internal links
+- Include untested code examples
+- Make assumptions — ask for clarification
+- Use `--no-verify` when committing
+
 ## Detailed Documentation
 
 - [Claude Guidance](.claude/CLAUDE.md) — How Claude should reason about this project
