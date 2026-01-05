@@ -25,6 +25,7 @@ export function LocationsSearch() {
         >[0]["searchClient"]
       }
       indexName={algoliaConfig.indices.locations}
+      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} />
       <PageHeader

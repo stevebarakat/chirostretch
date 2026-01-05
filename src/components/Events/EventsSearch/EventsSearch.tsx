@@ -30,6 +30,7 @@ export function EventsSearch() {
           >[0]["searchClient"]
         }
         indexName={algoliaConfig.indices.events}
+        future={{ preserveSharedStateOnUnmount: true }}
       >
         <Configure hitsPerPage={100} />
         <InfiniteEventsHits />

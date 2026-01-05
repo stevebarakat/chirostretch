@@ -325,7 +325,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </p>
           </div>
         ) : (
-          <InstantSearch searchClient={searchClient} indexName={indexName}>
+          <InstantSearch searchClient={searchClient} indexName={indexName} future={{ preserveSharedStateOnUnmount: true }}>
             <Configure hitsPerPage={10} />
             <SearchBox />
             <SearchResults onHitClick={onClose} />
