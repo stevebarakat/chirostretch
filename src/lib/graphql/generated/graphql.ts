@@ -65,6 +65,8 @@ export type AcfContentNodeConnectionPageInfo = ContentNodeConnectionPageInfo & P
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -140,6 +142,8 @@ export type AcfUserConnectionPageInfo = PageInfo & UserConnectionPageInfo & WpPa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -1154,7 +1158,7 @@ export type BookingDateAvailability = {
 };
 
 /** A bookable product */
-export type BookingProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & Product & UniformResourceIdentifiable & {
+export type BookingProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & UniformResourceIdentifiable & {
   /** Product average count */
   averageRating: Maybe<Scalars['Float']['output']>;
   /** Returns all blocks as a JSON object */
@@ -1320,8 +1324,8 @@ export type BookingProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Short description */
@@ -1951,6 +1955,8 @@ export type CartItemConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -2145,6 +2151,8 @@ export type CartToCartItemConnectionPageInfo = CartItemConnectionPageInfo & Page
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -2164,7 +2172,7 @@ export enum CatalogVisibilityEnum {
 }
 
 /** A taxonomy term that classifies content. Categories support hierarchy and can be used to create a nested structure. */
-export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors: Maybe<CategoryToAncestorsCategoryConnection>;
   /**
@@ -2212,8 +2220,8 @@ export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermN
   parentId: Maybe<Scalars['ID']['output']>;
   /** Connection between the Category type and the post type */
   posts: Maybe<CategoryToPostConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathCategoryTermSeo>;
+  /** The Yoast SEO data of the Categories taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the Category type and the Taxonomy type */
@@ -2311,6 +2319,8 @@ export type CategoryConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -2328,26 +2338,6 @@ export enum CategoryIdType {
   /** The URI for the node */
   Uri = 'URI'
 }
-
-/** The RankMath SEO meta settings for Categories. */
-export type CategoryMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to include snippet data for this taxonomy. */
-  hasSnippetData: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
 
 /** Connection between the Category type and the category type */
 export type CategoryToAncestorsCategoryConnection = CategoryConnection & Connection & {
@@ -2375,6 +2365,8 @@ export type CategoryToAncestorsCategoryConnectionPageInfo = CategoryConnectionPa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -2405,6 +2397,8 @@ export type CategoryToCategoryConnectionPageInfo = CategoryConnectionPageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -2479,6 +2473,8 @@ export type CategoryToContentNodeConnectionPageInfo = ContentNodeConnectionPageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -2557,6 +2553,8 @@ export type CategoryToPostConnectionPageInfo = PageInfo & PostConnectionPageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3085,6 +3083,8 @@ export type CommentConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3135,6 +3135,8 @@ export type CommentToCommentConnectionPageInfo = CommentConnectionPageInfo & Pag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3557,8 +3559,8 @@ export type ContentNode = {
   previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathContentNodeSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -3623,6 +3625,8 @@ export type ContentNodeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3689,6 +3693,8 @@ export type ContentNodeToEnqueuedScriptConnectionPageInfo = EnqueuedScriptConnec
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3719,6 +3725,8 @@ export type ContentNodeToEnqueuedStylesheetConnectionPageInfo = EnqueuedStyleshe
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3730,7 +3738,7 @@ export type ContentTemplate = {
 };
 
 /** An Post Type object */
-export type ContentType = Node & NodeWithRankMathSeo & UniformResourceIdentifiable & {
+export type ContentType = Node & UniformResourceIdentifiable & {
   /** Whether this content type should can be exported. */
   canExport: Maybe<Scalars['Boolean']['output']>;
   /** Connection between the ContentType type and the Taxonomy type */
@@ -3783,8 +3791,6 @@ export type ContentType = Node & NodeWithRankMathSeo & UniformResourceIdentifiab
   restBase: Maybe<Scalars['String']['output']>;
   /** The REST Controller class assigned to handling this content type. */
   restControllerClass: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathSeo>;
   /** Makes this content type available via the admin bar. */
   showInAdminBar: Maybe<Scalars['Boolean']['output']>;
   /** Whether to add the content type to the GraphQL Schema. */
@@ -3846,6 +3852,8 @@ export type ContentTypeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3912,6 +3920,8 @@ export type ContentTypeToContentNodeConnectionPageInfo = ContentNodeConnectionPa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -3982,6 +3992,8 @@ export type ContentTypeToTaxonomyConnectionPageInfo = PageInfo & TaxonomyConnect
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4464,6 +4476,8 @@ export type CouponConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4532,6 +4546,8 @@ export type CouponLineConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4562,6 +4578,8 @@ export type CouponToCustomerConnectionPageInfo = CustomerConnectionPageInfo & Pa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4608,6 +4626,8 @@ export type CouponToExcludedProductCategoriesConnectionPageInfo = PageInfo & Pro
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4684,6 +4704,8 @@ export type CouponToExcludedProductsConnectionPageInfo = PageInfo & ProductUnion
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4796,6 +4818,8 @@ export type CouponToProductCategoryConnectionPageInfo = PageInfo & ProductCatego
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -4872,6 +4896,8 @@ export type CouponToProductUnionConnectionPageInfo = PageInfo & ProductUnionConn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -5440,6 +5466,38 @@ export type CreatePostPayload = {
   post: Maybe<Post>;
 };
 
+/** Input for the createPractitioner mutation. */
+export type CreatePractitionerInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the Practitioner and Disciplines */
+  disciplines?: InputMaybe<PractitionerDisciplinesInput>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the Practitioner and Services */
+  services?: InputMaybe<PractitionerServicesInput>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the Practitioner and Specialties */
+  specialties?: InputMaybe<PractitionerSpecialtiesInput>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createPractitioner mutation. */
+export type CreatePractitionerPayload = {
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  /** The Post object mutation type. */
+  practitioner: Maybe<Practitioner>;
+};
+
 /** Input for the createProductCategory mutation. */
 export type CreateProductCategoryInput = {
   /** The slug that the product_cat will be an alias of */
@@ -5679,43 +5737,11 @@ export type CreateStaffInput = {
   title: Scalars['String']['input'];
 };
 
-/** Input for the createStaffMember mutation. */
-export type CreateStaffMemberInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
-  date?: InputMaybe<Scalars['String']['input']>;
-  /** Set connections between the StaffMember and Disciplines */
-  disciplines?: InputMaybe<StaffMemberDisciplinesInput>;
-  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
-  menuOrder?: InputMaybe<Scalars['Int']['input']>;
-  /** The password used to protect the content of the object */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Set connections between the StaffMember and Services */
-  services?: InputMaybe<StaffMemberServicesInput>;
-  /** The slug of the object */
-  slug?: InputMaybe<Scalars['String']['input']>;
-  /** Set connections between the StaffMember and Specialties */
-  specialties?: InputMaybe<StaffMemberSpecialtiesInput>;
-  /** The status of the object */
-  status?: InputMaybe<PostStatusEnum>;
-  /** The title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The payload for the createStaffMember mutation. */
-export type CreateStaffMemberPayload = {
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId: Maybe<Scalars['String']['output']>;
-  /** The Post object mutation type. */
-  staffMember: Maybe<StaffMember>;
-};
-
 /** The payload for the createStaff mutation. */
 export type CreateStaffPayload = {
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId: Maybe<Scalars['String']['output']>;
-  staff: Maybe<StaffMember>;
+  practitioner: Maybe<Practitioner>;
   success: Maybe<Scalars['Boolean']['output']>;
 };
 
@@ -6507,6 +6533,8 @@ export type CustomerConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -6537,6 +6565,8 @@ export type CustomerToDownloadableItemConnectionPageInfo = DownloadableItemConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -6577,6 +6607,8 @@ export type CustomerToOrderConnectionPageInfo = OrderConnectionPageInfo & PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -6637,6 +6669,8 @@ export type CustomerToRefundConnectionPageInfo = PageInfo & RefundConnectionPage
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -7179,6 +7213,28 @@ export type DeletePostPayload = {
   post: Maybe<Post>;
 };
 
+/** Input for the deletePractitioner mutation. */
+export type DeletePractitionerInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The ID of the Practitioner to delete */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** The payload for the deletePractitioner mutation. */
+export type DeletePractitionerPayload = {
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  /** The ID of the deleted object */
+  deletedId: Maybe<Scalars['ID']['output']>;
+  /** The object before it was deleted */
+  practitioner: Maybe<Practitioner>;
+};
+
 /** Input for the deleteProductCategory mutation. */
 export type DeleteProductCategoryInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -7375,28 +7431,6 @@ export type DeleteStaffInput = {
   id: Scalars['ID']['input'];
 };
 
-/** Input for the deleteStaffMember mutation. */
-export type DeleteStaffMemberInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Whether the object should be force deleted instead of being moved to the trash */
-  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the StaffMember to delete */
-  id: Scalars['ID']['input'];
-  /** Override the edit lock when another user is editing the post */
-  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** The payload for the deleteStaffMember mutation. */
-export type DeleteStaffMemberPayload = {
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId: Maybe<Scalars['String']['output']>;
-  /** The ID of the deleted object */
-  deletedId: Maybe<Scalars['ID']['output']>;
-  /** The object before it was deleted */
-  staffMember: Maybe<StaffMember>;
-};
-
 /** The payload for the deleteStaff mutation. */
 export type DeleteStaffPayload = {
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -7536,7 +7570,7 @@ export type DeleteVisibleProductPayload = {
 };
 
 /** The Discipline type */
-export type Discipline = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type Discipline = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the Discipline type and the ContentNode type */
   contentNodes: Maybe<DisciplineToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -7572,12 +7606,12 @@ export type Discipline = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermN
   link: Maybe<Scalars['String']['output']>;
   /** The human friendly name of the object. */
   name: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathDisciplineTermSeo>;
+  /** Connection between the Discipline type and the Practitioner type */
+  practitioners: Maybe<DisciplineToPractitionerConnection>;
+  /** The Yoast SEO data of the Disciplines taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
-  /** Connection between the Discipline type and the StaffMember type */
-  staffMembers: Maybe<DisciplineToStaffMemberConnection>;
   /** Connection between the Discipline type and the Taxonomy type */
   taxonomy: Maybe<DisciplineToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
@@ -7620,12 +7654,12 @@ export type DisciplineEnqueuedStylesheetsArgs = {
 
 
 /** The Discipline type */
-export type DisciplineStaffMembersArgs = {
+export type DisciplinePractitionersArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<DisciplineToStaffMemberConnectionWhereArgs>;
+  where?: InputMaybe<DisciplineToPractitionerConnectionWhereArgs>;
 };
 
 /** A paginated collection of Discipline Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of Discipline Nodes */
@@ -7654,6 +7688,8 @@ export type DisciplineConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -7698,6 +7734,8 @@ export type DisciplineToContentNodeConnectionPageInfo = ContentNodeConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -7742,38 +7780,40 @@ export type DisciplineToContentNodeConnectionWhereArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Connection between the Discipline type and the StaffMember type */
-export type DisciplineToStaffMemberConnection = Connection & StaffMemberConnection & {
-  /** Edges for the DisciplineToStaffMemberConnection connection */
-  edges: Array<DisciplineToStaffMemberConnectionEdge>;
+/** Connection between the Discipline type and the Practitioner type */
+export type DisciplineToPractitionerConnection = Connection & PractitionerConnection & {
+  /** Edges for the DisciplineToPractitionerConnection connection */
+  edges: Array<DisciplineToPractitionerConnectionEdge>;
   /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
+  nodes: Array<Practitioner>;
   /** Information about pagination in a connection. */
-  pageInfo: DisciplineToStaffMemberConnectionPageInfo;
+  pageInfo: DisciplineToPractitionerConnectionPageInfo;
 };
 
 /** An edge in a connection */
-export type DisciplineToStaffMemberConnectionEdge = Edge & StaffMemberConnectionEdge & {
+export type DisciplineToPractitionerConnectionEdge = Edge & PractitionerConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
   /** The item at the end of the edge */
-  node: StaffMember;
+  node: Practitioner;
 };
 
-/** Pagination metadata specific to &quot;DisciplineToStaffMemberConnection&quot; collections. Provides cursors and flags for navigating through sets of DisciplineToStaffMemberConnection Nodes. */
-export type DisciplineToStaffMemberConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
+/** Pagination metadata specific to &quot;DisciplineToPractitionerConnection&quot; collections. Provides cursors and flags for navigating through sets of DisciplineToPractitionerConnection Nodes. */
+export type DisciplineToPractitionerConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
   /** When paginating forwards, the cursor to continue. */
   endCursor: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
-/** Arguments for filtering the DisciplineToStaffMemberConnection connection */
-export type DisciplineToStaffMemberConnectionWhereArgs = {
+/** Arguments for filtering the DisciplineToPractitionerConnection connection */
+export type DisciplineToPractitionerConnectionWhereArgs = {
   /** Filter the connection based on dates */
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -7884,6 +7924,8 @@ export type DownloadableItemConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -8023,8 +8065,8 @@ export type DownloadableProduct = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -8470,6 +8512,8 @@ export type EnqueuedScriptConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -8544,6 +8588,8 @@ export type EnqueuedStylesheetConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -8615,7 +8661,7 @@ export enum EntryTypeEnum {
 }
 
 /** The Event type */
-export type Event = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & {
+export type Event = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & {
   /** Does the event last all day? */
   allDay: Maybe<Scalars['Boolean']['output']>;
   /**
@@ -8741,8 +8787,8 @@ export type Event = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node &
   revisionOf: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Event type and the Event type */
   revisions: Maybe<EventToRevisionConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathEventObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Show event map? */
   showMap: Maybe<Scalars['Boolean']['output']>;
   /** Show event map link? */
@@ -8904,6 +8950,8 @@ export type EventConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -8952,44 +9000,6 @@ export type EventLinkedData = {
   startDate: Maybe<Scalars['String']['output']>;
   type: Maybe<Scalars['String']['output']>;
   url: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO meta settings for Events. */
-export type EventMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** List of custom fields name to include in the Page analysis */
-  analyzedFields: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Default article type when creating a new Events. */
-  articleType: Maybe<RankMathArticleTypeEnum>;
-  /** Default description for single Events pages. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether to list bulk editing columns to the post listing screen. */
-  hasBulkEditing: Maybe<RankMathBulkEditingTypeEnum>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether Link Suggestions meta box and the Pillar Content featured are enabled for this post type. */
-  hasLinkSuggestions: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Whether to use the Focus Keyword as the default text for the links instead of the post titles. */
-  shouldUseFocusKeyword: Maybe<Scalars['Boolean']['output']>;
-  /** Default rich snippet headline. */
-  snippetDescription: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet headline. */
-  snippetHeadline: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet select when creating a new Events. */
-  snippetType: Maybe<RankMathSnippetTypeEnum>;
-  /** Default title tag for single Events pages. */
-  title: Maybe<Scalars['String']['output']>;
 };
 
 /** Set relationships between the Event to tags */
@@ -9044,6 +9054,8 @@ export type EventToEventConnectionPageInfo = EventConnectionPageInfo & PageInfo 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9062,6 +9074,8 @@ export type EventToEventsCategoryConnection = Connection & EventsCategoryConnect
 export type EventToEventsCategoryConnectionEdge = Edge & EventsCategoryConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary tribe_events_cat */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: EventsCategory;
 };
@@ -9074,6 +9088,8 @@ export type EventToEventsCategoryConnectionPageInfo = EventsCategoryConnectionPa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9148,6 +9164,8 @@ export type EventToOrganizerConnectionPageInfo = OrganizerConnectionPageInfo & P
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9243,6 +9261,8 @@ export type EventToRevisionConnectionPageInfo = EventConnectionPageInfo & PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9319,6 +9339,8 @@ export type EventToTagConnection = Connection & TagConnection & {
 export type EventToTagConnectionEdge = Edge & TagConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary post_tag */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: Tag;
 };
@@ -9331,6 +9353,8 @@ export type EventToTagConnectionPageInfo = PageInfo & TagConnectionPageInfo & Wp
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9405,6 +9429,8 @@ export type EventToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9456,7 +9482,7 @@ export type EventToTermNodeConnectionWhereArgs = {
 };
 
 /** The EventsCategory type */
-export type EventsCategory = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type EventsCategory = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors: Maybe<EventsCategoryToAncestorsEventsCategoryConnection>;
   /** Connection between the EventsCategory type and its children EventsCategories. */
@@ -9504,8 +9530,8 @@ export type EventsCategory = DatabaseIdentifier & HierarchicalNode & Hierarchica
   parentDatabaseId: Maybe<Scalars['Int']['output']>;
   /** The globally unique identifier of the parent node. */
   parentId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathEventsCategoryTermSeo>;
+  /** The Yoast SEO data of the Event Categories taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the EventsCategory type and the Taxonomy type */
@@ -9603,6 +9629,8 @@ export type EventsCategoryConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9620,26 +9648,6 @@ export enum EventsCategoryIdType {
   /** The URI for the node */
   Uri = 'URI'
 }
-
-/** The RankMath SEO meta settings for Event Categories. */
-export type EventsCategoryMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to include snippet data for this taxonomy. */
-  hasSnippetData: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
 
 /** Connection between the EventsCategory type and the EventsCategory type */
 export type EventsCategoryToAncestorsEventsCategoryConnection = Connection & EventsCategoryConnection & {
@@ -9667,6 +9675,8 @@ export type EventsCategoryToAncestorsEventsCategoryConnectionPageInfo = EventsCa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9697,6 +9707,8 @@ export type EventsCategoryToContentNodeConnectionPageInfo = ContentNodeConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9767,6 +9779,8 @@ export type EventsCategoryToEventConnectionPageInfo = EventConnectionPageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9863,6 +9877,8 @@ export type EventsCategoryToEventsCategoryConnectionPageInfo = EventsCategoryCon
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -9928,7 +9944,7 @@ export type EventsCategoryToTaxonomyConnectionEdge = Edge & OneToOneConnection &
 };
 
 /** A external product object */
-export type ExternalProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithPricing & UniformResourceIdentifiable & {
+export type ExternalProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithPricing & UniformResourceIdentifiable & {
   /** Connection between the ProductWithAttributes type and the ProductAttribute type */
   attributes: Maybe<ProductWithAttributesToProductAttributeConnection>;
   /** Product average count */
@@ -10068,8 +10084,8 @@ export type ExternalProduct = ContentNode & DatabaseIdentifier & MenuItemLinkabl
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -10409,6 +10425,8 @@ export type FeeLineConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -10733,6 +10751,8 @@ export type FormFieldConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -11264,7 +11284,7 @@ export type FormsConnectionOrderbyInput = {
 };
 
 /** The franchiseApplication type */
-export type FranchiseApplication = ContentNode & DatabaseIdentifier & Node & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & WithAcfApplicationDetails & {
+export type FranchiseApplication = ContentNode & DatabaseIdentifier & Node & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & WithAcfApplicationDetails & {
   /**
    * The ancestors of the content node.
    * @deprecated This content type is not hierarchical and typically will not have ancestors
@@ -11349,8 +11369,8 @@ export type FranchiseApplication = ContentNode & DatabaseIdentifier & Node & Nod
   previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathFranchiseApplicationObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -11434,6 +11454,8 @@ export type FranchiseApplicationConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -11482,6 +11504,8 @@ export type FranchiseApplicationToFranchiseApplicationConnectionPageInfo = Franc
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -11828,6 +11852,8 @@ export type GfEntryConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -11858,6 +11884,8 @@ export type GfEntryToFormFieldConnectionPageInfo = FormFieldConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -12621,6 +12649,8 @@ export type GfFormConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -12651,6 +12681,8 @@ export type GfFormToFormFieldConnectionPageInfo = FormFieldConnectionPageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -12695,6 +12727,8 @@ export type GfFormToGfEntryConnectionPageInfo = GfEntryConnectionPageInfo & Page
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -12915,6 +12949,8 @@ export type GfSubmittedEntryConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -12981,6 +13017,8 @@ export type GlobalProductAttributeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -13011,6 +13049,8 @@ export type GlobalProductAttributeToTermNodeConnectionPageInfo = PageInfo & Term
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -13060,7 +13100,7 @@ export type GlobalProductAttributeToTermNodeConnectionWhereArgs = {
 };
 
 /** A group product object */
-export type GroupProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithPricing & UniformResourceIdentifiable & {
+export type GroupProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithPricing & UniformResourceIdentifiable & {
   /** Product&#039;s add to cart button text description */
   addToCartDescription: Maybe<Scalars['String']['output']>;
   /** Product&#039;s add to cart button text description */
@@ -13202,8 +13242,8 @@ export type GroupProduct = ContentNode & DatabaseIdentifier & MenuItemLinkable &
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -13513,6 +13553,8 @@ export type GroupProductToProductUnionConnectionPageInfo = PageInfo & ProductUni
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -13731,8 +13773,8 @@ export type HierarchicalContentNode = {
   previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathContentNodeSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -13817,6 +13859,8 @@ export type HierarchicalContentNodeToContentNodeAncestorsConnectionPageInfo = Co
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -13887,6 +13931,8 @@ export type HierarchicalContentNodeToContentNodeChildrenConnectionPageInfo = Con
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -13985,8 +14031,6 @@ export type HierarchicalTermNode = {
   parentDatabaseId: Maybe<Scalars['Int']['output']>;
   /** The globally unique identifier of the parent node. */
   parentId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathSeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** The name of the taxonomy that the object is associated with */
@@ -14654,8 +14698,8 @@ export type InventoriedProduct = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -14970,6 +15014,8 @@ export type LineItemConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -15224,12 +15270,16 @@ export type LocalProductAttributeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
 /** The Location type */
-export type Location = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfFranchiseManagement & WithAcfHeroUnit & WithAcfLocationDetails & {
+export type Location = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfFranchiseManagement & WithAcfHeroUnit & WithAcfLocationDetails & {
+  /** Connection between the Location type and the Practitioner type */
+  allPractitioners: Maybe<LocationToPractitionerConnection>;
   /**
    * The ancestors of the content node.
    * @deprecated This content type is not hierarchical and typically will not have ancestors
@@ -15237,12 +15287,8 @@ export type Location = ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
   ancestors: Maybe<LocationToLocationConnection>;
   /** Returns all blocks as a JSON object */
   blocks: Maybe<Scalars['JSON']['output']>;
-  /** Connection between the Location type and the StaffMember type */
-  chiropractors: Maybe<LocationToChiropractorsConnection>;
   /** City */
   city: Maybe<Scalars['String']['output']>;
-  /** Connection between the Location type and the StaffMember type */
-  clinicalStaff: Maybe<LocationToClinicalStaffConnection>;
   /** The content of the post. */
   content: Maybe<Scalars['String']['output']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -15327,22 +15373,22 @@ export type Location = ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
   password: Maybe<Scalars['String']['output']>;
   /** Phone number */
   phone: Maybe<Scalars['String']['output']>;
+  /** Connection between the Location type and the Practitioner type */
+  practitioners: Maybe<LocationToPractitionersConnection>;
   /** Connection between the Location type and the Location type */
   preview: Maybe<LocationToPreviewConnectionEdge>;
   /** The database id of the preview node */
   previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathLocationObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Services offered at this location (computed from staff) */
   servicesOffered: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** Short description for the location */
   shortDescription: Maybe<Scalars['String']['output']>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
-  /** Connection between the Location type and the StaffMember type */
-  staff: Maybe<LocationToStaffMemberConnection>;
   /** State */
   state: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -15357,6 +15403,15 @@ export type Location = ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
   uri: Maybe<Scalars['String']['output']>;
   /** Zip code */
   zip: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The Location type */
+export type LocationAllPractitionersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -15376,24 +15431,6 @@ export type LocationBlocksArgs = {
   htmlContent?: InputMaybe<Scalars['Boolean']['input']>;
   originalContent?: InputMaybe<Scalars['Boolean']['input']>;
   postTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** The Location type */
-export type LocationChiropractorsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The Location type */
-export type LocationClinicalStaffArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -15422,7 +15459,7 @@ export type LocationEnqueuedStylesheetsArgs = {
 
 
 /** The Location type */
-export type LocationStaffArgs = {
+export type LocationPractitionersArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -15461,6 +15498,8 @@ export type LocationConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -15660,104 +15699,6 @@ export enum LocationIdType {
   Uri = 'URI'
 }
 
-/** The RankMath SEO meta settings for Locations. */
-export type LocationMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** List of custom fields name to include in the Page analysis */
-  analyzedFields: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Default article type when creating a new Locations. */
-  articleType: Maybe<RankMathArticleTypeEnum>;
-  /** Default description for single Locations pages. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether to list bulk editing columns to the post listing screen. */
-  hasBulkEditing: Maybe<RankMathBulkEditingTypeEnum>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether Link Suggestions meta box and the Pillar Content featured are enabled for this post type. */
-  hasLinkSuggestions: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Whether to use the Focus Keyword as the default text for the links instead of the post titles. */
-  shouldUseFocusKeyword: Maybe<Scalars['Boolean']['output']>;
-  /** Default rich snippet headline. */
-  snippetDescription: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet headline. */
-  snippetHeadline: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet select when creating a new Locations. */
-  snippetType: Maybe<RankMathSnippetTypeEnum>;
-  /** Default title tag for single Locations pages. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** Connection between the Location type and the StaffMember type */
-export type LocationToChiropractorsConnection = Connection & StaffMemberConnection & {
-  /** Edges for the LocationToChiropractorsConnection connection */
-  edges: Array<LocationToChiropractorsConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
-  /** Information about pagination in a connection. */
-  pageInfo: LocationToChiropractorsConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type LocationToChiropractorsConnectionEdge = Edge & StaffMemberConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: StaffMember;
-};
-
-/** Pagination metadata specific to &quot;LocationToChiropractorsConnection&quot; collections. Provides cursors and flags for navigating through sets of LocationToChiropractorsConnection Nodes. */
-export type LocationToChiropractorsConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Connection between the Location type and the StaffMember type */
-export type LocationToClinicalStaffConnection = Connection & StaffMemberConnection & {
-  /** Edges for the LocationToClinicalStaffConnection connection */
-  edges: Array<LocationToClinicalStaffConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
-  /** Information about pagination in a connection. */
-  pageInfo: LocationToClinicalStaffConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type LocationToClinicalStaffConnectionEdge = Edge & StaffMemberConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: StaffMember;
-};
-
-/** Pagination metadata specific to &quot;LocationToClinicalStaffConnection&quot; collections. Provides cursors and flags for navigating through sets of LocationToClinicalStaffConnection Nodes. */
-export type LocationToClinicalStaffConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
 /** Connection between the Location type and the Location type */
 export type LocationToLocationConnection = Connection & LocationConnection & {
   /** Edges for the LocationToLocationConnection connection */
@@ -15790,6 +15731,8 @@ export type LocationToLocationConnectionPageInfo = LocationConnectionPageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -15805,42 +15748,76 @@ export type LocationToParentConnectionEdge = Edge & LocationConnectionEdge & One
   node: Location;
 };
 
-/** Connection between the Location type and the Location type */
-export type LocationToPreviewConnectionEdge = Edge & LocationConnectionEdge & OneToOneConnection & {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The node of the connection, without the edges */
-  node: Location;
-};
-
-/** Connection between the Location type and the StaffMember type */
-export type LocationToStaffMemberConnection = Connection & StaffMemberConnection & {
-  /** Edges for the LocationToStaffMemberConnection connection */
-  edges: Array<LocationToStaffMemberConnectionEdge>;
+/** Connection between the Location type and the Practitioner type */
+export type LocationToPractitionerConnection = Connection & PractitionerConnection & {
+  /** Edges for the LocationToPractitionerConnection connection */
+  edges: Array<LocationToPractitionerConnectionEdge>;
   /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
+  nodes: Array<Practitioner>;
   /** Information about pagination in a connection. */
-  pageInfo: LocationToStaffMemberConnectionPageInfo;
+  pageInfo: LocationToPractitionerConnectionPageInfo;
 };
 
 /** An edge in a connection */
-export type LocationToStaffMemberConnectionEdge = Edge & StaffMemberConnectionEdge & {
+export type LocationToPractitionerConnectionEdge = Edge & PractitionerConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
   /** The item at the end of the edge */
-  node: StaffMember;
+  node: Practitioner;
 };
 
-/** Pagination metadata specific to &quot;LocationToStaffMemberConnection&quot; collections. Provides cursors and flags for navigating through sets of LocationToStaffMemberConnection Nodes. */
-export type LocationToStaffMemberConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
+/** Pagination metadata specific to &quot;LocationToPractitionerConnection&quot; collections. Provides cursors and flags for navigating through sets of LocationToPractitionerConnection Nodes. */
+export type LocationToPractitionerConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
   /** When paginating forwards, the cursor to continue. */
   endCursor: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the Location type and the Practitioner type */
+export type LocationToPractitionersConnection = Connection & PractitionerConnection & {
+  /** Edges for the LocationToPractitionersConnection connection */
+  edges: Array<LocationToPractitionersConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Practitioner>;
+  /** Information about pagination in a connection. */
+  pageInfo: LocationToPractitionersConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type LocationToPractitionersConnectionEdge = Edge & PractitionerConnectionEdge & {
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Practitioner;
+};
+
+/** Pagination metadata specific to &quot;LocationToPractitionersConnection&quot; collections. Provides cursors and flags for navigating through sets of LocationToPractitionersConnection Nodes. */
+export type LocationToPractitionersConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the Location type and the Location type */
+export type LocationToPreviewConnectionEdge = Edge & LocationConnectionEdge & OneToOneConnection & {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Location;
 };
 
 /** Product manage stock enumeration */
@@ -15874,7 +15851,7 @@ export type MediaDetailsSizesArgs = {
 };
 
 /** Represents uploaded media, including images, videos, documents, and audio files. */
-export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & Node & NodeWithAuthor & NodeWithComments & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
+export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & Node & NodeWithAuthor & NodeWithComments & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   /** Alternative text to display when resource is not displayed */
   altText: Maybe<Scalars['String']['output']>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
@@ -15978,8 +15955,8 @@ export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNo
   previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathMediaItemObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The sizes attribute value for an image. */
   sizes: Maybe<Scalars['String']['output']>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
@@ -16136,6 +16113,8 @@ export type MediaItemConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -16248,6 +16227,8 @@ export type MediaItemToCommentConnectionPageInfo = CommentConnectionPageInfo & P
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -16395,6 +16376,8 @@ export type MenuConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -16487,6 +16470,8 @@ export type MenuItemConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -16528,7 +16513,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkable Interface */
-export type MenuItemObjectUnion = Category | Event | EventsCategory | Location | Page | Post | ProductCategory | ProductTag | StaffMember | Tag;
+export type MenuItemObjectUnion = Category | Event | EventsCategory | Location | Page | Post | Practitioner | ProductCategory | ProductTag | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = Edge & MenuConnectionEdge & OneToOneConnection & {
@@ -16564,6 +16549,8 @@ export type MenuItemToMenuItemConnectionPageInfo = MenuItemConnectionPageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -16638,6 +16625,8 @@ export type MenuToMenuItemConnectionPageInfo = MenuItemConnectionPageInfo & Page
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -17220,14 +17209,6 @@ export type NodeWithPageAttributes = {
   menuOrder: Maybe<Scalars['Int']['output']>;
 };
 
-/** A node with RankMath SEO data. */
-export type NodeWithRankMathSeo = {
-  /** The globally unique ID for the object */
-  id: Scalars['ID']['output'];
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathSeo>;
-};
-
 /** Content that maintains a history of changes. Provides access to previous versions of the content and the ability to restore earlier revisions. */
 export type NodeWithRevisions = {
   /** The globally unique ID for the object */
@@ -17258,6 +17239,8 @@ export type NodeWithTemplate = {
 export type NodeWithTitle = {
   /** The globally unique ID for the object */
   id: Scalars['ID']['output'];
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title: Maybe<Scalars['String']['output']>;
 };
@@ -17979,6 +17962,8 @@ export type OrderConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18063,6 +18048,8 @@ export type OrderToCommentConnectionPageInfo = CommentConnectionPageInfo & PageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18155,6 +18142,8 @@ export type OrderToCouponLineConnectionPageInfo = CouponLineConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18185,6 +18174,8 @@ export type OrderToDownloadableItemConnectionPageInfo = DownloadableItemConnecti
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18225,6 +18216,8 @@ export type OrderToFeeLineConnectionPageInfo = FeeLineConnectionPageInfo & PageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18255,6 +18248,8 @@ export type OrderToLineItemConnectionPageInfo = LineItemConnectionPageInfo & Pag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18285,6 +18280,8 @@ export type OrderToRefundConnectionPageInfo = PageInfo & RefundConnectionPageInf
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18339,6 +18336,8 @@ export type OrderToShippingLineConnectionPageInfo = PageInfo & ShippingLineConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18369,6 +18368,8 @@ export type OrderToTaxLineConnectionPageInfo = PageInfo & TaxLineConnectionPageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18412,7 +18413,7 @@ export type OrdersOrderbyInput = {
 };
 
 /** The Organizer type */
-export type Organizer = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
+export type Organizer = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   /**
    * The ancestors of the content node.
    * @deprecated This content type is not hierarchical and typically will not have ancestors
@@ -18517,8 +18518,8 @@ export type Organizer = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor
   revisionOf: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Organizer type and the Organizer type */
   revisions: Maybe<OrganizerToRevisionConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathOrganizerObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -18624,6 +18625,8 @@ export type OrganizerConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18683,6 +18686,8 @@ export type OrganizerToOrganizerConnectionPageInfo = OrganizerConnectionPageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18735,6 +18740,8 @@ export type OrganizerToRevisionConnectionPageInfo = OrganizerConnectionPageInfo 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -18786,7 +18793,7 @@ export type OrganizerToRevisionConnectionWhereArgs = {
 };
 
 /** A standalone content entry generally used for static, non-chronological content such as &quot;About Us&quot; or &quot;Contact&quot; pages. */
-export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithRankMathSeo & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfComponentDescriptionList & WithAcfFranchiseOpportunitiesAbout & WithAcfFranchiseOpportunitiesWhyUs & WithAcfHeroUnit & WithAcfHomepageCta & WithAcfHomepageFeaturedProducts & WithAcfHomepageIntroduction & WithAcfHomepageLatestInsights & WithAcfHomepageUpcomingEvents & WithAcfStats & {
+export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfComponentDescriptionList & WithAcfFranchiseOpportunitiesAbout & WithAcfFranchiseOpportunitiesWhyUs & WithAcfHeroUnit & WithAcfHomepageCta & WithAcfHomepageFeaturedProducts & WithAcfHomepageIntroduction & WithAcfHomepageLatestInsights & WithAcfHomepageUpcomingEvents & WithAcfStats & {
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors: Maybe<HierarchicalContentNodeToContentNodeAncestorsConnection>;
   /** Connection between the NodeWithAuthor type and the User type */
@@ -18908,8 +18915,8 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   revisionOf: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Page type and the page type */
   revisions: Maybe<PageToRevisionConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathPageObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** Fields of the Stats ACF Field Group */
@@ -19030,6 +19037,8 @@ export type PageConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -19086,42 +19095,6 @@ export type PageInfo = {
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
-/** The RankMath SEO meta settings for Pages. */
-export type PageMetaSettings = RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** List of custom fields name to include in the Page analysis */
-  analyzedFields: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Default article type when creating a new Pages. */
-  articleType: Maybe<RankMathArticleTypeEnum>;
-  /** Default description for single Pages pages. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether to list bulk editing columns to the post listing screen. */
-  hasBulkEditing: Maybe<RankMathBulkEditingTypeEnum>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether Link Suggestions meta box and the Pillar Content featured are enabled for this post type. */
-  hasLinkSuggestions: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Whether to use the Focus Keyword as the default text for the links instead of the post titles. */
-  shouldUseFocusKeyword: Maybe<Scalars['Boolean']['output']>;
-  /** Default rich snippet headline. */
-  snippetDescription: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet headline. */
-  snippetHeadline: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet select when creating a new Pages. */
-  snippetType: Maybe<RankMathSnippetTypeEnum>;
-  /** The default image to display when sharing this post type on social media */
-  socialImage: Maybe<MediaItem>;
-  /** Default title tag for single Pages pages. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
 /** Connection between the Page type and the Comment type */
 export type PageToCommentConnection = CommentConnection & Connection & {
   /** Edges for the PageToCommentConnection connection */
@@ -19148,6 +19121,8 @@ export type PageToCommentConnectionPageInfo = CommentConnectionPageInfo & PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -19248,6 +19223,8 @@ export type PageToRevisionConnectionPageInfo = PageConnectionPageInfo & PageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -19418,6 +19395,8 @@ export type PaymentGatewayConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -19592,6 +19571,8 @@ export type PluginConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -19615,7 +19596,7 @@ export enum PluginStatusEnum {
 }
 
 /** A chronological content entry typically used for blog posts, news articles, or similar date-based content. */
-export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & WithAcfHeroUnit & {
+export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & WithAcfHeroUnit & {
   /**
    * The ancestors of the content node.
    * @deprecated This content type is not hierarchical and typically will not have ancestors
@@ -19729,8 +19710,8 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   revisionOf: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Post type and the post type */
   revisions: Maybe<PostToRevisionConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathPostObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -20302,6 +20283,8 @@ export type PostConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -21563,7 +21546,7 @@ export type PostExcerptField = FormField & GfFieldWithAdminLabelSetting & GfFiel
 };
 
 /** A standardized classification system for content presentation styles. These formats can be used to display content differently based on type, such as &quot;standard&quot;, &quot;gallery&quot;, &quot;video&quot;, etc. */
-export type PostFormat = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type PostFormat = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the PostFormat type and the ContentNode type */
   contentNodes: Maybe<PostFormatToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -21601,8 +21584,8 @@ export type PostFormat = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermN
   postFormatId: Maybe<Scalars['Int']['output']>;
   /** Connection between the PostFormat type and the post type */
   posts: Maybe<PostFormatToPostConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathPostFormatTermSeo>;
+  /** The Yoast SEO data of the Formats taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the PostFormat type and the Taxonomy type */
@@ -21681,6 +21664,8 @@ export type PostFormatConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -21698,22 +21683,6 @@ export enum PostFormatIdType {
   /** The URI for the node */
   Uri = 'URI'
 }
-
-/** The RankMath SEO meta settings for Formats. */
-export type PostFormatMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
 
 /** Connection between the PostFormat type and the ContentNode type */
 export type PostFormatToContentNodeConnection = Connection & ContentNodeConnection & {
@@ -21741,6 +21710,8 @@ export type PostFormatToContentNodeConnectionPageInfo = ContentNodeConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -21811,6 +21782,8 @@ export type PostFormatToPostConnectionPageInfo = PageInfo & PostConnectionPageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -21965,42 +21938,6 @@ export type PostImageField = FormField & GfFieldWithAdminLabelSetting & GfFieldW
   value: Maybe<Scalars['String']['output']>;
   /** Field visibility. */
   visibility: Maybe<FormFieldVisibilityEnum>;
-};
-
-/** The RankMath SEO meta settings for Posts. */
-export type PostMetaSettings = RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** List of custom fields name to include in the Page analysis */
-  analyzedFields: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Default article type when creating a new Posts. */
-  articleType: Maybe<RankMathArticleTypeEnum>;
-  /** Default description for single Posts pages. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether to list bulk editing columns to the post listing screen. */
-  hasBulkEditing: Maybe<RankMathBulkEditingTypeEnum>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether Link Suggestions meta box and the Pillar Content featured are enabled for this post type. */
-  hasLinkSuggestions: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Whether to use the Focus Keyword as the default text for the links instead of the post titles. */
-  shouldUseFocusKeyword: Maybe<Scalars['Boolean']['output']>;
-  /** Default rich snippet headline. */
-  snippetDescription: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet headline. */
-  snippetHeadline: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet select when creating a new Posts. */
-  snippetType: Maybe<RankMathSnippetTypeEnum>;
-  /** The default image to display when sharing this post type on social media */
-  socialImage: Maybe<MediaItem>;
-  /** Default title tag for single Posts pages. */
-  title: Maybe<Scalars['String']['output']>;
 };
 
 /** Content field rendering options. Determines whether content fields are returned as raw data or with applied formatting and transformations. Default is RENDERED. */
@@ -22667,6 +22604,8 @@ export type PostToCategoryConnection = CategoryConnection & Connection & {
 export type PostToCategoryConnectionEdge = CategoryConnectionEdge & Edge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary category */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: Category;
 };
@@ -22679,6 +22618,8 @@ export type PostToCategoryConnectionPageInfo = CategoryConnectionPageInfo & Page
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -22753,6 +22694,8 @@ export type PostToCommentConnectionPageInfo = CommentConnectionPageInfo & PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -22862,6 +22805,8 @@ export type PostToPostConnectionPageInfo = PageInfo & PostConnectionPageInfo & W
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -22880,6 +22825,8 @@ export type PostToPostFormatConnection = Connection & PostFormatConnection & {
 export type PostToPostFormatConnectionEdge = Edge & PostFormatConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary post_format */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: PostFormat;
 };
@@ -22892,6 +22839,8 @@ export type PostToPostFormatConnectionPageInfo = PageInfo & PostFormatConnection
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -22974,6 +22923,8 @@ export type PostToRevisionConnectionPageInfo = PageInfo & PostConnectionPageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -23058,6 +23009,8 @@ export type PostToTagConnection = Connection & TagConnection & {
 export type PostToTagConnectionEdge = Edge & TagConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary post_tag */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: Tag;
 };
@@ -23070,6 +23023,8 @@ export type PostToTagConnectionPageInfo = PageInfo & TagConnectionPageInfo & WpP
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -23144,6 +23099,8 @@ export type PostToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPage
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -23272,6 +23229,711 @@ export enum PostTypeOrderByEnum {
 export type PostTypeOrderbyInput = {
   field: PostTypeOrderByEnum;
   order?: InputMaybe<OrderEnum>;
+};
+
+export type PostTypeSeo = {
+  breadcrumbs: Maybe<Array<Maybe<SeoPostTypeBreadcrumbs>>>;
+  canonical: Maybe<Scalars['String']['output']>;
+  cornerstone: Maybe<Scalars['Boolean']['output']>;
+  focuskw: Maybe<Scalars['String']['output']>;
+  fullHead: Maybe<Scalars['String']['output']>;
+  metaDesc: Maybe<Scalars['String']['output']>;
+  metaKeywords: Maybe<Scalars['String']['output']>;
+  metaRobotsNofollow: Maybe<Scalars['String']['output']>;
+  metaRobotsNoindex: Maybe<Scalars['String']['output']>;
+  opengraphAuthor: Maybe<Scalars['String']['output']>;
+  opengraphDescription: Maybe<Scalars['String']['output']>;
+  opengraphImage: Maybe<MediaItem>;
+  opengraphModifiedTime: Maybe<Scalars['String']['output']>;
+  opengraphPublishedTime: Maybe<Scalars['String']['output']>;
+  opengraphPublisher: Maybe<Scalars['String']['output']>;
+  opengraphSiteName: Maybe<Scalars['String']['output']>;
+  opengraphTitle: Maybe<Scalars['String']['output']>;
+  opengraphType: Maybe<Scalars['String']['output']>;
+  opengraphUrl: Maybe<Scalars['String']['output']>;
+  readingTime: Maybe<Scalars['Float']['output']>;
+  schema: Maybe<SeoPostTypeSchema>;
+  title: Maybe<Scalars['String']['output']>;
+  twitterDescription: Maybe<Scalars['String']['output']>;
+  twitterImage: Maybe<MediaItem>;
+  twitterTitle: Maybe<Scalars['String']['output']>;
+};
+
+/** The Practitioner type */
+export type Practitioner = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfStaffDetails & {
+  /** Whether accepting new patients */
+  acceptingPatients: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * The ancestors of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  ancestors: Maybe<PractitionerToPractitionerConnection>;
+  /** The location this staff member works at */
+  assignedLocation: Maybe<Location>;
+  /** Biography */
+  bio: Maybe<Scalars['String']['output']>;
+  /** Returns all blocks as a JSON object */
+  blocks: Maybe<Scalars['JSON']['output']>;
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String']['output'];
+  /** Professional credentials (DC, CCSP, etc.) */
+  credentials: Maybe<Scalars['String']['output']>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** Post publishing date. */
+  date: Maybe<Scalars['String']['output']>;
+  /** The publishing date set in GMT. */
+  dateGmt: Maybe<Scalars['String']['output']>;
+  /** The desired slug of the post */
+  desiredSlug: Maybe<Scalars['String']['output']>;
+  /** Connection between the Practitioner type and the Discipline type */
+  disciplines: Maybe<PractitionerToDisciplineConnection>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** Staff email address */
+  email: Maybe<Scalars['String']['output']>;
+  /** The RSS enclosure for the object */
+  enclosure: Maybe<Scalars['String']['output']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
+  featuredImage: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
+  /** The database identifier for the featured image node assigned to the content node */
+  featuredImageDatabaseId: Maybe<Scalars['Int']['output']>;
+  /** Globally unique ID of the featured image assigned to the node */
+  featuredImageId: Maybe<Scalars['ID']['output']>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid: Maybe<Scalars['String']['output']>;
+  /** Whether the staff object is password protected. */
+  hasPassword: Maybe<Scalars['Boolean']['output']>;
+  /** Headshot image */
+  headshot: Maybe<MediaItem>;
+  /** The globally unique identifier of the staff object. */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is a node in the preview state */
+  isPreview: Maybe<Scalars['Boolean']['output']>;
+  /** Whether displayed publicly on website */
+  isPublic: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** Job title */
+  jobTitle: Maybe<Scalars['String']['output']>;
+  /** The user that most recently edited the node */
+  lastEditedBy: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link: Maybe<Scalars['String']['output']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified: Maybe<Scalars['String']['output']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt: Maybe<Scalars['String']['output']>;
+  /**
+   * The parent of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  parent: Maybe<PractitionerToParentConnectionEdge>;
+  /** The password for the staff object. */
+  password: Maybe<Scalars['String']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  practitionerId: Scalars['Int']['output'];
+  /** Connection between the Practitioner type and the Practitioner type */
+  preview: Maybe<PractitionerToPreviewConnectionEdge>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId: Maybe<Scalars['ID']['output']>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
+  /** Connection between the Practitioner type and the Service type */
+  services: Maybe<PractitionerToServiceConnection>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug: Maybe<Scalars['String']['output']>;
+  /** Connection between the Practitioner type and the Specialty type */
+  specialties: Maybe<PractitionerToSpecialtyConnection>;
+  /** Fields of the StaffDetails ACF Field Group */
+  staffDetails: Maybe<StaffDetails>;
+  /** The current status of the object */
+  status: Maybe<Scalars['String']['output']>;
+  /** The template assigned to the node */
+  template: Maybe<ContentTemplate>;
+  /** Connection between the Practitioner type and the TermNode type */
+  terms: Maybe<PractitionerToTermNodeConnection>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title: Maybe<Scalars['String']['output']>;
+  /** The unique resource identifier path */
+  uri: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerAncestorsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerBlocksArgs = {
+  attributes?: InputMaybe<Scalars['Boolean']['input']>;
+  dynamicContent?: InputMaybe<Scalars['Boolean']['input']>;
+  htmlContent?: InputMaybe<Scalars['Boolean']['input']>;
+  originalContent?: InputMaybe<Scalars['Boolean']['input']>;
+  postTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerDisciplinesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PractitionerToDisciplineConnectionWhereArgs>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerServicesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PractitionerToServiceConnectionWhereArgs>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerSpecialtiesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PractitionerToSpecialtyConnectionWhereArgs>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerTermsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PractitionerToTermNodeConnectionWhereArgs>;
+};
+
+
+/** The Practitioner type */
+export type PractitionerTitleArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+/** A paginated collection of Practitioner Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of Practitioner Nodes */
+export type PractitionerConnection = {
+  /** A list of edges (relational context) between RootQuery and connected Practitioner Nodes */
+  edges: Array<PractitionerConnectionEdge>;
+  /** A list of connected Practitioner Nodes */
+  nodes: Array<Practitioner>;
+  /** Information about pagination in a connection. */
+  pageInfo: PractitionerConnectionPageInfo;
+};
+
+/** Represents a connection to a Practitioner. Contains both the Practitioner Node and metadata about the relationship. */
+export type PractitionerConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The connected Practitioner Node */
+  node: Practitioner;
+};
+
+/** Pagination metadata specific to &quot;PractitionerConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;PractitionerConnectionEdge&quot; Nodes. */
+export type PractitionerConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Set relationships between the Practitioner to Disciplines */
+export type PractitionerDisciplinesInput = {
+  /** If true, this will append the Discipline to existing related Disciplines. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<PractitionerDisciplinesNodeInput>>>;
+};
+
+/** List of Disciplines to connect the Practitioner to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type PractitionerDisciplinesNodeInput = {
+  /** The description of the Discipline. This field is used to set a description of the Discipline if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the Discipline. If present, this will be used to connect to the Practitioner. If no existing Discipline exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the Discipline. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the Discipline. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Identifier types for retrieving a specific Practitioner. Specifies which unique attribute is used to find an exact Practitioner. */
+export enum PractitionerIdType {
+  /** Identify a resource by the Database ID. */
+  DatabaseId = 'DATABASE_ID',
+  /** Identify a resource by the (hashed) Global ID. */
+  Id = 'ID',
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  Slug = 'SLUG',
+  /** Identify a resource by the URI. */
+  Uri = 'URI'
+}
+
+/** Set relationships between the Practitioner to Services */
+export type PractitionerServicesInput = {
+  /** If true, this will append the Service to existing related Services. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<PractitionerServicesNodeInput>>>;
+};
+
+/** List of Services to connect the Practitioner to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type PractitionerServicesNodeInput = {
+  /** The description of the Service. This field is used to set a description of the Service if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the Service. If present, this will be used to connect to the Practitioner. If no existing Service exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the Service. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the Service. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Set relationships between the Practitioner to Specialties */
+export type PractitionerSpecialtiesInput = {
+  /** If true, this will append the Specialty to existing related Specialties. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<PractitionerSpecialtiesNodeInput>>>;
+};
+
+/** List of Specialties to connect the Practitioner to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type PractitionerSpecialtiesNodeInput = {
+  /** The description of the Specialty. This field is used to set a description of the Specialty if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the Specialty. If present, this will be used to connect to the Practitioner. If no existing Specialty exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the Specialty. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the Specialty. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Practitioner type and the Discipline type */
+export type PractitionerToDisciplineConnection = Connection & DisciplineConnection & {
+  /** Edges for the PractitionerToDisciplineConnection connection */
+  edges: Array<PractitionerToDisciplineConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Discipline>;
+  /** Information about pagination in a connection. */
+  pageInfo: PractitionerToDisciplineConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PractitionerToDisciplineConnectionEdge = DisciplineConnectionEdge & Edge & {
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary discipline */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Discipline;
+};
+
+/** Pagination metadata specific to &quot;PractitionerToDisciplineConnection&quot; collections. Provides cursors and flags for navigating through sets of PractitionerToDisciplineConnection Nodes. */
+export type PractitionerToDisciplineConnectionPageInfo = DisciplineConnectionPageInfo & PageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PractitionerToDisciplineConnection connection */
+export type PractitionerToDisciplineConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the Practitioner type and the Practitioner type */
+export type PractitionerToParentConnectionEdge = Edge & OneToOneConnection & PractitionerConnectionEdge & {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /**
+   * The node of the connection, without the edges
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  node: Practitioner;
+};
+
+/** Connection between the Practitioner type and the Practitioner type */
+export type PractitionerToPractitionerConnection = Connection & PractitionerConnection & {
+  /** Edges for the PractitionerToPractitionerConnection connection */
+  edges: Array<PractitionerToPractitionerConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Practitioner>;
+  /** Information about pagination in a connection. */
+  pageInfo: PractitionerToPractitionerConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PractitionerToPractitionerConnectionEdge = Edge & PractitionerConnectionEdge & {
+  /**
+   * A cursor for use in pagination
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  cursor: Maybe<Scalars['String']['output']>;
+  /**
+   * The item at the end of the edge
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  node: Practitioner;
+};
+
+/** Pagination metadata specific to &quot;PractitionerToPractitionerConnection&quot; collections. Provides cursors and flags for navigating through sets of PractitionerToPractitionerConnection Nodes. */
+export type PractitionerToPractitionerConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the Practitioner type and the Practitioner type */
+export type PractitionerToPreviewConnectionEdge = Edge & OneToOneConnection & PractitionerConnectionEdge & {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Practitioner;
+};
+
+/** Connection between the Practitioner type and the Service type */
+export type PractitionerToServiceConnection = Connection & ServiceConnection & {
+  /** Edges for the PractitionerToServiceConnection connection */
+  edges: Array<PractitionerToServiceConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Service>;
+  /** Information about pagination in a connection. */
+  pageInfo: PractitionerToServiceConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PractitionerToServiceConnectionEdge = Edge & ServiceConnectionEdge & {
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary service */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Service;
+};
+
+/** Pagination metadata specific to &quot;PractitionerToServiceConnection&quot; collections. Provides cursors and flags for navigating through sets of PractitionerToServiceConnection Nodes. */
+export type PractitionerToServiceConnectionPageInfo = PageInfo & ServiceConnectionPageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PractitionerToServiceConnection connection */
+export type PractitionerToServiceConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the Practitioner type and the Specialty type */
+export type PractitionerToSpecialtyConnection = Connection & SpecialtyConnection & {
+  /** Edges for the PractitionerToSpecialtyConnection connection */
+  edges: Array<PractitionerToSpecialtyConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Specialty>;
+  /** Information about pagination in a connection. */
+  pageInfo: PractitionerToSpecialtyConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PractitionerToSpecialtyConnectionEdge = Edge & SpecialtyConnectionEdge & {
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary specialty */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Specialty;
+};
+
+/** Pagination metadata specific to &quot;PractitionerToSpecialtyConnection&quot; collections. Provides cursors and flags for navigating through sets of PractitionerToSpecialtyConnection Nodes. */
+export type PractitionerToSpecialtyConnectionPageInfo = PageInfo & SpecialtyConnectionPageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PractitionerToSpecialtyConnection connection */
+export type PractitionerToSpecialtyConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the Practitioner type and the TermNode type */
+export type PractitionerToTermNodeConnection = Connection & TermNodeConnection & {
+  /** Edges for the PractitionerToTermNodeConnection connection */
+  edges: Array<PractitionerToTermNodeConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<TermNode>;
+  /** Information about pagination in a connection. */
+  pageInfo: PractitionerToTermNodeConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PractitionerToTermNodeConnectionEdge = Edge & TermNodeConnectionEdge & {
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: TermNode;
+};
+
+/** Pagination metadata specific to &quot;PractitionerToTermNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of PractitionerToTermNodeConnection Nodes. */
+export type PractitionerToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PractitionerToTermNodeConnection connection */
+export type PractitionerToTermNodeConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** The Taxonomy to filter terms by */
+  taxonomies?: InputMaybe<Array<InputMaybe<TaxonomyEnum>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Content that supports a draft preview mode. Allows viewing unpublished changes before they are made publicly available. Previewing unpublished changes requires appropriate permissions. */
@@ -23437,8 +24099,8 @@ export type Product = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -23717,6 +24379,8 @@ export type ProductAttributeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -23847,7 +24511,7 @@ export type ProductCalculationField = FormField & GfFieldWithAdminLabelSetting &
 };
 
 /** The productCategory type */
-export type ProductCategory = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type ProductCategory = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors: Maybe<ProductCategoryToAncestorsProductCategoryConnection>;
   /** Connection between the productCategory type and its children productCategories. */
@@ -23901,8 +24565,8 @@ export type ProductCategory = DatabaseIdentifier & HierarchicalNode & Hierarchic
   productCategoryId: Maybe<Scalars['Int']['output']>;
   /** Connection between the ProductCategory type and the Product type */
   products: Maybe<ProductCategoryToProductConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductCategoryTermSeo>;
+  /** The Yoast SEO data of the Product categories taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the ProductCategory type and the Taxonomy type */
@@ -24000,6 +24664,8 @@ export type ProductCategoryConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -24030,26 +24696,6 @@ export enum ProductCategoryIdType {
   Uri = 'URI'
 }
 
-/** The RankMath SEO meta settings for Product categories. */
-export type ProductCategoryMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to include snippet data for this taxonomy. */
-  hasSnippetData: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
-
 /** Connection between the ProductCategory type and the productCategory type */
 export type ProductCategoryToAncestorsProductCategoryConnection = Connection & ProductCategoryConnection & {
   /** Edges for the ProductCategoryToAncestorsProductCategoryConnection connection */
@@ -24076,6 +24722,8 @@ export type ProductCategoryToAncestorsProductCategoryConnectionPageInfo = PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -24106,6 +24754,8 @@ export type ProductCategoryToContentNodeConnectionPageInfo = ContentNodeConnecti
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -24184,6 +24834,8 @@ export type ProductCategoryToProductCategoryConnectionPageInfo = PageInfo & Prod
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -24258,6 +24910,8 @@ export type ProductCategoryToProductConnectionPageInfo = PageInfo & ProductConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -24378,6 +25032,8 @@ export type ProductConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -24523,40 +25179,6 @@ export enum ProductIdTypeEnum {
   /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
   Slug = 'SLUG'
 }
-
-/** The RankMath SEO meta settings for Products. */
-export type ProductMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** List of custom fields name to include in the Page analysis */
-  analyzedFields: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Default article type when creating a new Products. */
-  articleType: Maybe<RankMathArticleTypeEnum>;
-  /** Default description for single Products pages. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether to list bulk editing columns to the post listing screen. */
-  hasBulkEditing: Maybe<RankMathBulkEditingTypeEnum>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether Link Suggestions meta box and the Pillar Content featured are enabled for this post type. */
-  hasLinkSuggestions: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Whether to use the Focus Keyword as the default text for the links instead of the post titles. */
-  shouldUseFocusKeyword: Maybe<Scalars['Boolean']['output']>;
-  /** Default rich snippet select when creating a new Products. */
-  snippetType: Maybe<RankMathSnippetTypeEnum>;
-  /** Default title tag for single Products pages. */
-  title: Maybe<Scalars['String']['output']>;
-};
 
 /** A Gravity Forms price product field. */
 export type ProductPriceField = FormField & GfFieldWithAdminLabelSetting & GfFieldWithConditionalLogicSetting & GfFieldWithCssClassSetting & GfFieldWithDescriptionSetting & GfFieldWithDuplicatesSetting & GfFieldWithErrorMessageSetting & GfFieldWithLabelPlacementSetting & GfFieldWithLabelSetting & GfFieldWithPersonalData & GfFieldWithPlaceholderSetting & GfFieldWithPrepopulateFieldSetting & GfFieldWithRulesSetting & GfFieldWithSizeSetting & Node & ProductField & {
@@ -24925,7 +25547,7 @@ export type ProductSingleInputProperty = GfFieldInput & GfFieldInputWithSinglePr
 };
 
 /** The productTag type */
-export type ProductTag = DatabaseIdentifier & MenuItemLinkable & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type ProductTag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the ProductTag type and the ContentNode type */
   contentNodes: Maybe<ProductTagToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -24963,8 +25585,8 @@ export type ProductTag = DatabaseIdentifier & MenuItemLinkable & Node & NodeWith
   productTagId: Maybe<Scalars['Int']['output']>;
   /** Connection between the ProductTag type and the Product type */
   products: Maybe<ProductTagToProductConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductTagTermSeo>;
+  /** The Yoast SEO data of the Product tags taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the ProductTag type and the Taxonomy type */
@@ -25043,6 +25665,8 @@ export type ProductTagConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25060,26 +25684,6 @@ export enum ProductTagIdType {
   /** The URI for the node */
   Uri = 'URI'
 }
-
-/** The RankMath SEO meta settings for Product tags. */
-export type ProductTagMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to include snippet data for this taxonomy. */
-  hasSnippetData: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
 
 /** Connection between the ProductTag type and the ContentNode type */
 export type ProductTagToContentNodeConnection = Connection & ContentNodeConnection & {
@@ -25107,6 +25711,8 @@ export type ProductTagToContentNodeConnectionPageInfo = ContentNodeConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25177,6 +25783,8 @@ export type ProductTagToProductConnectionPageInfo = PageInfo & ProductConnection
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25330,6 +25938,8 @@ export type ProductToCommentConnectionPageInfo = CommentConnectionPageInfo & Pag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25422,6 +26032,8 @@ export type ProductToCommentsConnectionPageInfo = CommentConnectionPageInfo & Pa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25514,6 +26126,8 @@ export type ProductToGlobalProductAttributeConnectionPageInfo = GlobalProductAtt
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25544,6 +26158,8 @@ export type ProductToLocalProductAttributeConnectionPageInfo = LocalProductAttri
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25574,6 +26190,8 @@ export type ProductToMediaItemConnectionPageInfo = MediaItemConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25638,6 +26256,8 @@ export type ProductToProductCategoryConnection = Connection & ProductCategoryCon
 export type ProductToProductCategoryConnectionEdge = Edge & ProductCategoryConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary product_cat */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: ProductCategory;
 };
@@ -25650,6 +26270,8 @@ export type ProductToProductCategoryConnectionPageInfo = PageInfo & ProductCateg
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25802,6 +26424,8 @@ export type ProductToProductTagConnection = Connection & ProductTagConnection & 
 export type ProductToProductTagConnectionEdge = Edge & ProductTagConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary product_tag */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: ProductTag;
 };
@@ -25814,6 +26438,8 @@ export type ProductToProductTagConnectionPageInfo = PageInfo & ProductTagConnect
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25876,6 +26502,8 @@ export type ProductToProductTypeConnection = Connection & ProductTypeConnection 
 export type ProductToProductTypeConnectionEdge = Edge & ProductTypeConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary product_type */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: ProductType;
 };
@@ -25888,6 +26516,8 @@ export type ProductToProductTypeConnectionPageInfo = PageInfo & ProductTypeConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -25964,6 +26594,8 @@ export type ProductToProductUnionConnectionPageInfo = PageInfo & ProductUnionCon
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26066,6 +26698,8 @@ export type ProductToShippingClassConnection = Connection & ShippingClassConnect
 export type ProductToShippingClassConnectionEdge = Edge & ShippingClassConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary product_shipping_class */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: ShippingClass;
 };
@@ -26078,6 +26712,8 @@ export type ProductToShippingClassConnectionPageInfo = PageInfo & ShippingClassC
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26152,6 +26788,8 @@ export type ProductToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionP
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26230,6 +26868,8 @@ export type ProductToUpsellConnectionPageInfo = PageInfo & ProductUnionConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26330,6 +26970,8 @@ export type ProductToVisibleProductConnection = Connection & VisibleProductConne
 export type ProductToVisibleProductConnectionEdge = Edge & VisibleProductConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary product_visibility */
+  isPrimary: Maybe<Scalars['Boolean']['output']>;
   /** The item at the end of the edge */
   node: VisibleProduct;
 };
@@ -26342,6 +26984,8 @@ export type ProductToVisibleProductConnectionPageInfo = PageInfo & VisibleProduc
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26391,7 +27035,7 @@ export type ProductToVisibleProductConnectionWhereArgs = {
 };
 
 /** The productType type */
-export type ProductType = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type ProductType = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the ProductType type and the ContentNode type */
   contentNodes: Maybe<ProductTypeToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -26429,8 +27073,8 @@ export type ProductType = DatabaseIdentifier & Node & NodeWithRankMathSeo & Term
   productTypeId: Maybe<Scalars['Int']['output']>;
   /** Connection between the ProductType type and the Product type */
   products: Maybe<ProductTypeToProductConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductTypeTermSeo>;
+  /** The Yoast SEO data of the Product type taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the ProductType type and the Taxonomy type */
@@ -26509,6 +27153,8 @@ export type ProductTypeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26553,6 +27199,8 @@ export type ProductTypeToContentNodeConnectionPageInfo = ContentNodeConnectionPa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26623,6 +27271,8 @@ export type ProductTypeToProductConnectionPageInfo = PageInfo & ProductConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -26858,8 +27508,8 @@ export type ProductUnion = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -27116,6 +27766,8 @@ export type ProductUnionConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -27282,8 +27934,8 @@ export type ProductVariation = {
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Product variation shipping class */
   shippingClass: Maybe<Scalars['String']['output']>;
   /** shipping class ID */
@@ -27589,6 +28241,8 @@ export type ProductVariationConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -27647,6 +28301,8 @@ export type ProductVariationToVariationAttributeConnectionPageInfo = PageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -27822,8 +28478,8 @@ export type ProductWithAttributes = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -28099,6 +28755,8 @@ export type ProductWithAttributesToProductAttributeConnectionPageInfo = PageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -28135,6 +28793,8 @@ export type ProductWithAttributesToVariationAttributeConnectionPageInfo = PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -28270,8 +28930,8 @@ export type ProductWithDimensions = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** shipping class ID */
   shippingClassId: Maybe<Scalars['Int']['output']>;
   /** Connection between the Product type and the shippingClass type */
@@ -28645,8 +29305,8 @@ export type ProductWithPricing = {
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -29030,8 +29690,8 @@ export type ProductWithVariations = {
   reviews: Maybe<ProductToCommentConnection>;
   /** If reviews are allowed */
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Connection between the Product type and the shippingClass type */
   shippingClasses: Maybe<ProductToShippingClassConnection>;
   /** Product short description */
@@ -29319,6 +29979,8 @@ export type ProductWithVariationsToProductVariationConnectionPageInfo = PageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -29846,2128 +30508,6 @@ export type RadioFieldChoice = GfFieldChoice & GfFieldChoiceWithChoicesSetting &
   value: Maybe<Scalars['String']['output']>;
 };
 
-/** The config for an advanced robots meta values. */
-export type RankMathAdvancedRobotsMeta = {
-  /** Whether to specify a maximum size of image preview to be shown for images on the page. */
-  hasImagePreview: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to specify a maximum text length of a snippet of your page */
-  hasSnippet: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to specify a maximum duration of an animated video preview. */
-  hasVideoPreview: Maybe<Scalars['Boolean']['output']>;
-  /** The maximum size of image preview to be shown for images. */
-  imagePreviewSize: Maybe<RankMathImagePreviewSize>;
-  /** The maximum text length (in characters) of the snippet. -1 for no limit. */
-  snippetLength: Maybe<Scalars['Int']['output']>;
-  /** The maximum duration (seconds characters) of the snippet. -1 for no limit. */
-  videoDuration: Maybe<Scalars['Int']['output']>;
-};
-
-/** The SEO Article Type */
-export enum RankMathArticleTypeEnum {
-  /** Article. */
-  Article = 'ARTICLE',
-  /** Blog post. */
-  BlogPost = 'BLOG_POST',
-  /** News article. */
-  NewsArticle = 'NEWS_ARTICLE'
-}
-
-/** The RankMath SEO Author Archive meta settings. */
-export type RankMathAuthorArchiveMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Change the `/author/` part in author archive URLs. */
-  baseSlug: Maybe<Scalars['String']['output']>;
-  /** Whether author archives are enabled. */
-  hasArchives: Maybe<Scalars['Boolean']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
-
-/** The Breadcrumb trail. */
-export type RankMathBreadcrumbs = {
-  /** Whether the given breadcrumb is hidden from the schema */
-  isHidden: Maybe<Scalars['Boolean']['output']>;
-  /** The text for the given breadcrumb */
-  text: Maybe<Scalars['String']['output']>;
-  /** The url for the given breadcrumb */
-  url: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO breadcrumbs settings. */
-export type RankMathBreadcrumbsConfig = {
-  /** Format the label used for archive pages. */
-  archiveFormat: Maybe<Scalars['String']['output']>;
-  /** Whether to show all ancestor categories, if a category is a child category. */
-  hasAncestorCategories: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the Blog page is visible in the breadcrumbs. Only relevant if you have a Posts page set. */
-  hasBlogPage: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to display the homepage breadcrumb in trail. */
-  hasHome: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the post title is visible in the breadcrumbs. */
-  hasPostTitle: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the taxonomy name is visible in the breadcrumbs. */
-  hasTaxonomyName: Maybe<Scalars['Boolean']['output']>;
-  /** Label used for homepage link (first item) in breadcrumbs. */
-  homeLabel: Maybe<Scalars['String']['output']>;
-  /** Link to use for homepage (first item) in breadcrumbs. */
-  homeUrl: Maybe<Scalars['String']['output']>;
-  /** Label used for 404 error item in breadcrumbs. */
-  notFoundLabel: Maybe<Scalars['String']['output']>;
-  /** Prefix for the breadcrumb path. */
-  prefix: Maybe<Scalars['String']['output']>;
-  /** Format the label used for search results pages. */
-  searchFormat: Maybe<Scalars['String']['output']>;
-  /** Separator character or string that appears between breadcrumb items. */
-  separator: Maybe<Scalars['String']['output']>;
-};
-
-/** The setting chosen for the RankMath Bulk Editing feature */
-export enum RankMathBulkEditingTypeEnum {
-  /** Disabled. */
-  Disabled = 'DISABLED',
-  /** Enabled. */
-  Enabled = 'ENABLED',
-  /** Read only. */
-  ReadOnly = 'READ_ONLY'
-}
-
-/** The category term object SEO data */
-export type RankMathCategoryTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The seo data for Post Objects */
-export type RankMathContentNodeSeo = {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO Post Type settings. */
-export type RankMathContentTypeMetaSettings = {
-  /** The RankMath SEO meta settings for Events. */
-  event: Maybe<EventMetaSettings>;
-  /** The RankMath SEO meta settings for Locations. */
-  location: Maybe<LocationMetaSettings>;
-  /** The RankMath SEO meta settings for Pages. */
-  page: Maybe<PageMetaSettings>;
-  /** The RankMath SEO meta settings for Posts. */
-  post: Maybe<PostMetaSettings>;
-  /** The RankMath SEO meta settings for Products. */
-  product: Maybe<ProductMetaSettings>;
-  /** The RankMath SEO meta settings for Staff. */
-  staffMember: Maybe<StaffMemberMetaSettings>;
-};
-
-/** The RankMath SEO DateArchive meta settings. */
-export type RankMathDateArchiveMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether archives are enabled. */
-  hasArchives: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
-
-/** The discipline term object SEO data */
-export type RankMathDisciplineTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_events post object SEO data */
-export type RankMathEventObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_events post type object SEO data */
-export type RankMathEventTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_events_cat term object SEO data */
-export type RankMathEventsCategoryTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The franchise_app post object SEO data */
-export type RankMathFranchiseApplicationObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The franchise_app post type object SEO data */
-export type RankMathFranchiseApplicationTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** RankMath Frontend SEO Score settings. */
-export type RankMathFrontendSeoScore = {
-  /** The list of post types which should display the calculated SEO score. */
-  enabledPostTypes: Maybe<Array<Maybe<ContentTypeEnum>>>;
-  /** Whether to insert a backlink to RankMath.com to show your support, if you are showing the SEO scores on the front end. */
-  hasRankMathBacklink: Maybe<Scalars['Boolean']['output']>;
-  /** Where the SEO score badges should be displayed automatically, or if the `[rank_math_seo_score]` shortcode is used instead. */
-  position: Maybe<RankMathSeoScorePositionEnum>;
-  /** The list of post types which should display the calculated SEO score. */
-  template: Maybe<RankMathSeoScoreTemplateTypeEnum>;
-};
-
-/** The RankMath SEO general site settings */
-export type RankMathGeneral = {
-  /** Breadcrumbs settings. */
-  breadcrumbs: Maybe<RankMathBreadcrumbsConfig>;
-  /** Frontend SEO score settings. */
-  frontendSeoScore: Maybe<RankMathFrontendSeoScore>;
-  /** Whether RankMath breadcrumbs are enabled. */
-  hasBreadcrumbs: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to display the calculated SEO Score as a badge on the frontend. It can be disabled for specific posts in the post editor. */
-  hasFrontendSeoScore: Maybe<Scalars['Boolean']['output']>;
-  /** Link settings. */
-  links: Maybe<RankMathLinks>;
-  /** The content to add after each post in your site feeds */
-  rssAfterContent: Maybe<Scalars['String']['output']>;
-  /** The content to add before each post in your site feeds */
-  rssBeforeContent: Maybe<Scalars['String']['output']>;
-  /** Webmaster Tools settings. */
-  webmaster: Maybe<RankMathWebmaster>;
-};
-
-/** The RankMath SEO Global settings. */
-export type RankMathGlobalMetaSettings = RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. */
-  openGraphImage: Maybe<MediaItem>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** The separator character used in titles. */
-  separator: Maybe<Scalars['String']['output']>;
-  /** Whether to automatically capitalize the first character of each word in the titles. */
-  shouldCapitalizeTitles: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to index enpty Taxonomy archives */
-  shouldIndexEmptyTaxonomies: Maybe<Scalars['Boolean']['output']>;
-  /** Card type selected when creating a new post. This will also be applied for posts without a card type selected. */
-  twitterCardType: Maybe<RankMathTwitterCardTypeEnum>;
-};
-
-/** The RankMath SEO Homepage settings. Only used when the Settings &gt; Reading &gt; Your homepage displays is set to `Your latest posts`. */
-export type RankMathHomepageMetaSettings = RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Description when shared on Facebook, Twitter and other social networks. */
-  socialDescription: Maybe<Scalars['String']['output']>;
-  /** Image displayed when your homepage is shared on Facebook and other social networks. */
-  socialImage: Maybe<MediaItem>;
-  /** Title when shared on Facebook, Twitter and other social networks. */
-  socialTitle: Maybe<Scalars['String']['output']>;
-  /** Title tag. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** Robots meta image preview size. */
-export enum RankMathImagePreviewSize {
-  /** Large */
-  Large = 'LARGE',
-  /** Prevents search engines from following links on the pages */
-  None = 'NONE',
-  /** Standard. */
-  Standard = 'STANDARD'
-}
-
-/** The JSON+LD information. */
-export type RankMathJsonLd = {
-  /** The raw JSON+LD output */
-  raw: Maybe<Scalars['String']['output']>;
-};
-
-/** The knowledge graph type */
-export enum RankMathKnowledgeGraphTypeEnum {
-  /** Company. */
-  Company = 'COMPANY',
-  /** Person. */
-  Person = 'PERSON'
-}
-
-/** The RankMath SEO links settings. */
-export type RankMathLinks = {
-  /** The default redirection url for attachments without a parent post */
-  defaultAttachmentRedirectUrl: Maybe<Scalars['String']['output']>;
-  /** Whether  /category/ should be included in category archive URLs. */
-  hasCategoryBase: Maybe<Scalars['Boolean']['output']>;
-  /** Only add `nofollow` attributes to links with the following target domains. If null, `nofollow` will be applied to &lt;em&gt;all&lt;/em&gt; external domains. */
-  nofollowDomains: Maybe<Scalars['String']['output']>;
-  /** `nofollow` attributes will &lt;em&gt;not&lt;/em&gt; be added to links with the following target domains. */
-  nofollowExcludedDomains: Maybe<Scalars['String']['output']>;
-  /** Whether to automatically add the `rel=&quot;nofollow&quot; attribute to links pointing to external image files. */
-  shouldNofollowImageLinks: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to automatically add the `rel=&quot;nofollow&quot; attribute to external links appearing in your posts, pages, and other post types. */
-  shouldNofollowLinks: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to automatically add `target=&quot;_blank&quot;` attribute for external links appearing in your posts, pages, and other post types to make them open in a new browser tab or window. */
-  shouldOpenInNewWindow: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to redirect all attachment page URLs to the post they appear in. */
-  shouldRedirectAttachments: Maybe<Scalars['Boolean']['output']>;
-};
-
-/** The RankMath SEO Local settings. */
-export type RankMathLocalMetaSettings = {
-  /** The logo to be used in the Google&#039;s Knowledge Graph. */
-  logo: Maybe<MediaItem>;
-  /** Your name or company name to be used in Google&#039;s Knowledge Graph */
-  name: Maybe<Scalars['String']['output']>;
-  /** Whether the site represents a person or an organization. */
-  type: Maybe<RankMathKnowledgeGraphTypeEnum>;
-  /** URL of the item. */
-  url: Maybe<Scalars['String']['output']>;
-};
-
-/** The location post object SEO data */
-export type RankMathLocationObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The location post type object SEO data */
-export type RankMathLocationTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The attachment post object SEO data */
-export type RankMathMediaItemObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The attachment post type object SEO data */
-export type RankMathMediaItemTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO titles and meta site settings */
-export type RankMathMeta = {
-  /** Author Archive settings. */
-  authorArchives: Maybe<RankMathAuthorArchiveMetaSettings>;
-  /** Content type settings. */
-  contentTypes: Maybe<RankMathContentTypeMetaSettings>;
-  /** Date Archive settings. */
-  dateArchives: Maybe<RankMathDateArchiveMetaSettings>;
-  /** Global settings. */
-  global: Maybe<RankMathGlobalMetaSettings>;
-  /** Homepage settings. Only used is the Homepage is set to display a list of posts. */
-  homepage: Maybe<RankMathHomepageMetaSettings>;
-  /** Local settings. */
-  local: Maybe<RankMathLocalMetaSettings>;
-  /** Title tag on 404 Not Found error page. */
-  notFoundTitle: Maybe<Scalars['String']['output']>;
-  /** Title tag on search results page. */
-  searchTitle: Maybe<Scalars['String']['output']>;
-  /** Whether to index paginated archive pages from getting. */
-  shouldIndexArchiveSubpages: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to index /page/2 and further of any archive. */
-  shouldIndexPaginatedPages: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to index password protected pages and posts. */
-  shouldIndexPasswordProtected: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to index search result pages. */
-  shouldIndexSearch: Maybe<Scalars['Boolean']['output']>;
-  /** Social settings. */
-  social: Maybe<RankMathSocialMetaSettings>;
-  /** Taxonomy settings. */
-  taxonomies: Maybe<RankMathTaxonomyMetaSettings>;
-};
-
-/** Meta Settings with archive fields. */
-export type RankMathMetaSettingWithArchive = {
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-};
-
-/** Meta settings with robots fields. */
-export type RankMathMetaSettingWithRobots = {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
-
-/** The OpenGraph Article meta. */
-export type RankMathOpenGraphArticle = {
-  /** The author. */
-  author: Maybe<Scalars['String']['output']>;
-  /** The date modified. */
-  modifiedTime: Maybe<Scalars['String']['output']>;
-  /** The date published. */
-  publishedTime: Maybe<Scalars['String']['output']>;
-  /** The publisher */
-  publisher: Maybe<Scalars['String']['output']>;
-  /** The article category. */
-  section: Maybe<Scalars['String']['output']>;
-  /** The article tags. */
-  tags: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-};
-
-/** The OpenGraph Facebook meta. */
-export type RankMathOpenGraphFacebook = {
-  /** The Facebook admins associated with this resource */
-  admins: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The Facebook app ID associated with this resource */
-  appId: Maybe<Scalars['ID']['output']>;
-};
-
-/** The OpenGraph Image meta. */
-export type RankMathOpenGraphImage = {
-  /** Height of image in pixels.  */
-  height: Maybe<Scalars['Float']['output']>;
-  /** The https:// URL for the image. */
-  secureUrl: Maybe<Scalars['String']['output']>;
-  /** MIME type of the image.  */
-  type: Maybe<Scalars['String']['output']>;
-  /** URL for the image. */
-  url: Maybe<Scalars['String']['output']>;
-  /** Width of image in pixels. */
-  width: Maybe<Scalars['Float']['output']>;
-};
-
-/** The Facebook OpenGraph Locale. */
-export enum RankMathOpenGraphLocaleEnum {
-  /** af_ZA. */
-  AfZa = 'AF_ZA',
-  /** ak_GH. */
-  AkGh = 'AK_GH',
-  /** am_ET. */
-  AmEt = 'AM_ET',
-  /** ar_AR. */
-  ArAr = 'AR_AR',
-  /** as_IN. */
-  AsIn = 'AS_IN',
-  /** ay_BO. */
-  AyBo = 'AY_BO',
-  /** az_AZ. */
-  AzAz = 'AZ_AZ',
-  /** be_BY. */
-  BeBy = 'BE_BY',
-  /** bg_BG. */
-  BgBg = 'BG_BG',
-  /** bn_IN. */
-  BnIn = 'BN_IN',
-  /** bp_IN. */
-  BpIn = 'BP_IN',
-  /** br_FR. */
-  BrFr = 'BR_FR',
-  /** bs_BA. */
-  BsBa = 'BS_BA',
-  /** ca_ES. */
-  CaEs = 'CA_ES',
-  /** cb_IQ. */
-  CbIq = 'CB_IQ',
-  /** ck_US. */
-  CkUs = 'CK_US',
-  /** co_FR. */
-  CoFr = 'CO_FR',
-  /** cs_CZ. */
-  CsCz = 'CS_CZ',
-  /** cx_PH. */
-  CxPh = 'CX_PH',
-  /** cy_GB. */
-  CyGb = 'CY_GB',
-  /** da_DK. */
-  DaDk = 'DA_DK',
-  /** de_DE. */
-  DeDe = 'DE_DE',
-  /** el_GR. */
-  ElGr = 'EL_GR',
-  /** em_ZM. */
-  EmZm = 'EM_ZM',
-  /** en_GB. */
-  EnGb = 'EN_GB',
-  /** en_PI. */
-  EnPi = 'EN_PI',
-  /** en_UD. */
-  EnUd = 'EN_UD',
-  /** en_US. */
-  EnUs = 'EN_US',
-  /** eo_EO. */
-  EoEo = 'EO_EO',
-  /** es_ES. */
-  EsEs = 'ES_ES',
-  /** es_LA. */
-  EsLa = 'ES_LA',
-  /** es_MX. */
-  EsMx = 'ES_MX',
-  /** et_EE. */
-  EtEe = 'ET_EE',
-  /** eu_ES. */
-  EuEs = 'EU_ES',
-  /** fa_IR. */
-  FaIr = 'FA_IR',
-  /** fb_LT. */
-  FbLt = 'FB_LT',
-  /** ff_NG. */
-  FfNg = 'FF_NG',
-  /** fi_FI. */
-  FiFi = 'FI_FI',
-  /** fo_FO. */
-  FoFo = 'FO_FO',
-  /** fr_CA. */
-  FrCa = 'FR_CA',
-  /** fr_FR. */
-  FrFr = 'FR_FR',
-  /** fy_NL. */
-  FyNl = 'FY_NL',
-  /** ga_IE. */
-  GaIe = 'GA_IE',
-  /** gl_ES. */
-  GlEs = 'GL_ES',
-  /** gn_PY. */
-  GnPy = 'GN_PY',
-  /** gu_IN. */
-  GuIn = 'GU_IN',
-  /** gx_GR. */
-  GxGr = 'GX_GR',
-  /** ha_NG. */
-  HaNg = 'HA_NG',
-  /** he_IL. */
-  HeIl = 'HE_IL',
-  /** hi_IN. */
-  HiIn = 'HI_IN',
-  /** hr_HR. */
-  HrHr = 'HR_HR',
-  /** ht_HT. */
-  HtHt = 'HT_HT',
-  /** hu_HU. */
-  HuHu = 'HU_HU',
-  /** hy_AM. */
-  HyAm = 'HY_AM',
-  /** id_ID. */
-  IdId = 'ID_ID',
-  /** ig_NG. */
-  IgNg = 'IG_NG',
-  /** ik_US. */
-  IkUs = 'IK_US',
-  /** is_IS. */
-  IsIs = 'IS_IS',
-  /** it_IT. */
-  ItIt = 'IT_IT',
-  /** iu_CA. */
-  IuCa = 'IU_CA',
-  /** ja_JP. */
-  JaJp = 'JA_JP',
-  /** ja_KS. */
-  JaKs = 'JA_KS',
-  /** jv_ID. */
-  JvId = 'JV_ID',
-  /** ka_GE. */
-  KaGe = 'KA_GE',
-  /** kk_KZ. */
-  KkKz = 'KK_KZ',
-  /** km_KH. */
-  KmKh = 'KM_KH',
-  /** kn_IN. */
-  KnIn = 'KN_IN',
-  /** ko_KR. */
-  KoKr = 'KO_KR',
-  /** ks_IN. */
-  KsIn = 'KS_IN',
-  /** ku_TR. */
-  KuTr = 'KU_TR',
-  /** ky_KG. */
-  KyKg = 'KY_KG',
-  /** la_VA. */
-  LaVa = 'LA_VA',
-  /** lg_UG. */
-  LgUg = 'LG_UG',
-  /** li_NL. */
-  LiNl = 'LI_NL',
-  /** ln_CD. */
-  LnCd = 'LN_CD',
-  /** lo_LA. */
-  LoLa = 'LO_LA',
-  /** lt_LT. */
-  LtLt = 'LT_LT',
-  /** lv_LV. */
-  LvLv = 'LV_LV',
-  /** mg_MG. */
-  MgMg = 'MG_MG',
-  /** mi_NZ. */
-  MiNz = 'MI_NZ',
-  /** mk_MK. */
-  MkMk = 'MK_MK',
-  /** ml_IN. */
-  MlIn = 'ML_IN',
-  /** mn_MN. */
-  MnMn = 'MN_MN',
-  /** mr_IN. */
-  MrIn = 'MR_IN',
-  /** ms_MY. */
-  MsMy = 'MS_MY',
-  /** mt_MT. */
-  MtMt = 'MT_MT',
-  /** my_MM. */
-  MyMm = 'MY_MM',
-  /** nb_NO. */
-  NbNo = 'NB_NO',
-  /** nd_ZW. */
-  NdZw = 'ND_ZW',
-  /** ne_NP. */
-  NeNp = 'NE_NP',
-  /** nl_BE. */
-  NlBe = 'NL_BE',
-  /** nl_NL. */
-  NlNl = 'NL_NL',
-  /** nn_NO. */
-  NnNo = 'NN_NO',
-  /** nr_ZA. */
-  NrZa = 'NR_ZA',
-  /** ns_ZA. */
-  NsZa = 'NS_ZA',
-  /** ny_MW. */
-  NyMw = 'NY_MW',
-  /** om_ET. */
-  OmEt = 'OM_ET',
-  /** or_IN. */
-  OrIn = 'OR_IN',
-  /** pa_IN. */
-  PaIn = 'PA_IN',
-  /** pl_PL. */
-  PlPl = 'PL_PL',
-  /** ps_AF. */
-  PsAf = 'PS_AF',
-  /** pt_BR. */
-  PtBr = 'PT_BR',
-  /** pt_PT. */
-  PtPt = 'PT_PT',
-  /** qc_GT. */
-  QcGt = 'QC_GT',
-  /** qr_GR. */
-  QrGr = 'QR_GR',
-  /** qu_PE. */
-  QuPe = 'QU_PE',
-  /** qz_MM. */
-  QzMm = 'QZ_MM',
-  /** rm_CH. */
-  RmCh = 'RM_CH',
-  /** ro_RO. */
-  RoRo = 'RO_RO',
-  /** ru_RU. */
-  RuRu = 'RU_RU',
-  /** rw_RW. */
-  RwRw = 'RW_RW',
-  /** sa_IN. */
-  SaIn = 'SA_IN',
-  /** sc_IT. */
-  ScIt = 'SC_IT',
-  /** se_NO. */
-  SeNo = 'SE_NO',
-  /** si_LK. */
-  SiLk = 'SI_LK',
-  /** sk_SK. */
-  SkSk = 'SK_SK',
-  /** sl_SI. */
-  SlSi = 'SL_SI',
-  /** sn_ZW. */
-  SnZw = 'SN_ZW',
-  /** so_SO. */
-  SoSo = 'SO_SO',
-  /** sq_AL. */
-  SqAl = 'SQ_AL',
-  /** sr_RS. */
-  SrRs = 'SR_RS',
-  /** ss_SZ. */
-  SsSz = 'SS_SZ',
-  /** st_ZA. */
-  StZa = 'ST_ZA',
-  /** su_ID. */
-  SuId = 'SU_ID',
-  /** sv_SE. */
-  SvSe = 'SV_SE',
-  /** sw_KE. */
-  SwKe = 'SW_KE',
-  /** sy_SY. */
-  SySy = 'SY_SY',
-  /** sz_PL. */
-  SzPl = 'SZ_PL',
-  /** ta_IN. */
-  TaIn = 'TA_IN',
-  /** te_IN. */
-  TeIn = 'TE_IN',
-  /** tg_TJ. */
-  TgTj = 'TG_TJ',
-  /** th_TH. */
-  ThTh = 'TH_TH',
-  /** tk_TM. */
-  TkTm = 'TK_TM',
-  /** tl_PH. */
-  TlPh = 'TL_PH',
-  /** tl_ST. */
-  TlSt = 'TL_ST',
-  /** tn_BW. */
-  TnBw = 'TN_BW',
-  /** tr_TR. */
-  TrTr = 'TR_TR',
-  /** ts_ZA. */
-  TsZa = 'TS_ZA',
-  /** tt_RU. */
-  TtRu = 'TT_RU',
-  /** tz_MA. */
-  TzMa = 'TZ_MA',
-  /** uk_UA. */
-  UkUa = 'UK_UA',
-  /** ur_PK. */
-  UrPk = 'UR_PK',
-  /** uz_UZ. */
-  UzUz = 'UZ_UZ',
-  /** ve_ZA. */
-  VeZa = 'VE_ZA',
-  /** vi_VN. */
-  ViVn = 'VI_VN',
-  /** wo_SN. */
-  WoSn = 'WO_SN',
-  /** xh_ZA. */
-  XhZa = 'XH_ZA',
-  /** yi_DE. */
-  YiDe = 'YI_DE',
-  /** yo_NG. */
-  YoNg = 'YO_NG',
-  /** zh_CN. */
-  ZhCn = 'ZH_CN',
-  /** zh_HK. */
-  ZhHk = 'ZH_HK',
-  /** zh_TW. */
-  ZhTw = 'ZH_TW',
-  /** zu_ZA. */
-  ZuZa = 'ZU_ZA',
-  /** zz_TR. */
-  ZzTr = 'ZZ_TR'
-}
-
-/** The OpenGraph meta. */
-export type RankMathOpenGraphMeta = {
-  /** A list of other locales this page is available in */
-  alternateLocales: Maybe<Array<Maybe<RankMathOpenGraphLocaleEnum>>>;
-  /** The OpenGraph Article meta. */
-  articleMeta: Maybe<RankMathOpenGraphArticle>;
-  /** A brief description of the content, usually between 2 and 4 sentences.  */
-  description: Maybe<Scalars['String']['output']>;
-  /** The Facebook OpenGraph meta values. */
-  facebookMeta: Maybe<RankMathOpenGraphFacebook>;
-  /** The OpenGraph image meta */
-  image: Maybe<RankMathOpenGraphImage>;
-  /** The locale of the resource. */
-  locale: Maybe<RankMathOpenGraphLocaleEnum>;
-  /** The Facebook OpenGraph meta values. */
-  productMeta: Maybe<RankMathProduct>;
-  /** The name of the site this resource is associated with. */
-  siteName: Maybe<Scalars['String']['output']>;
-  /** The Slack Enhanced Data meta values. */
-  slackEnhancedData: Maybe<Array<Maybe<RankMathOpenGraphSlackEnhancedData>>>;
-  /** The title of your object as it should appear within the graph. */
-  title: Maybe<Scalars['String']['output']>;
-  /** The Twitter OpenGraph meta values. */
-  twitterMeta: Maybe<RankMathOpenGraphTwitter>;
-  /** The OpenGraph object type. */
-  type: Maybe<Scalars['String']['output']>;
-  /** The updated time */
-  updatedTime: Maybe<Scalars['String']['output']>;
-  /** The canonical URL of your object that will be used as its permanent ID in the graph. */
-  url: Maybe<Scalars['String']['output']>;
-  /** The Twitter OpenGraph meta values. */
-  videoMeta: Maybe<RankMathOpenGraphVideo>;
-};
-
-/** The OpenGraph Product availibility */
-export enum RankMathOpenGraphProductAvailabilityEnum {
-  /** The product is in stock */
-  InStock = 'IN_STOCK',
-  /** The product is out of stock */
-  OutOfStock = 'OUT_OF_STOCK'
-}
-
-/** The Enhanced Data Tags for Slack Sharing. */
-export type RankMathOpenGraphSlackEnhancedData = {
-  /** The Enhanced Data */
-  data: Maybe<Scalars['String']['output']>;
-  /** The Enhanced Data label */
-  label: Maybe<Scalars['String']['output']>;
-};
-
-/** The OpenGraph Twitter meta. */
-export type RankMathOpenGraphTwitter = {
-  /** The app country. */
-  appCountry: Maybe<Scalars['String']['output']>;
-  /** The Twitter card type */
-  card: Maybe<RankMathTwitterCardTypeEnum>;
-  /** @username of content creator */
-  creator: Maybe<Scalars['String']['output']>;
-  /** Description of content (maximum 200 characters) */
-  description: Maybe<Scalars['String']['output']>;
-  /** The Twitter Google Play app meta */
-  googleplayApp: Maybe<RankMathOpenGraphTwitterApp>;
-  /** URL of image to use in the card. */
-  image: Maybe<Scalars['String']['output']>;
-  /** The Twitter iPad app meta */
-  ipadApp: Maybe<RankMathOpenGraphTwitterApp>;
-  /** The Twitter iPhone app meta */
-  iphoneApp: Maybe<RankMathOpenGraphTwitterApp>;
-  /** URL to raw video or audio stream */
-  playerStream: Maybe<Scalars['String']['output']>;
-  /** The content type of the stream */
-  playerStreamContentType: Maybe<Scalars['String']['output']>;
-  /** URL of the twitter player. */
-  playerUrl: Maybe<Scalars['Int']['output']>;
-  /** @username of website */
-  site: Maybe<Scalars['String']['output']>;
-  /** Title of content */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The OpenGraph Twitter App meta. */
-export type RankMathOpenGraphTwitterApp = {
-  /** The App ID . */
-  id: Maybe<Scalars['ID']['output']>;
-  /** The name of the Twitter app. */
-  name: Maybe<Scalars['String']['output']>;
-  /** Your app\’s custom URL scheme. */
-  url: Maybe<Scalars['String']['output']>;
-};
-
-/** The OpenGraph Video meta. */
-export type RankMathOpenGraphVideo = {
-  /** The duration of the video. */
-  duration: Maybe<Scalars['String']['output']>;
-  /** The URL of the video. */
-  url: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_organizer post object SEO data */
-export type RankMathOrganizerObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_organizer post type object SEO data */
-export type RankMathOrganizerTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The page post object SEO data */
-export type RankMathPageObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The page post type object SEO data */
-export type RankMathPageTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The post_format term object SEO data */
-export type RankMathPostFormatTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The post post object SEO data */
-export type RankMathPostObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The post post type object SEO data */
-export type RankMathPostTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The OpenGraph Product meta. */
-export type RankMathProduct = {
-  /** The currency of the object price. */
-  availability: Maybe<RankMathOpenGraphProductAvailabilityEnum>;
-  /** The brand of the product. */
-  brand: Maybe<Scalars['String']['output']>;
-  /** The currency of the object price. */
-  currency: Maybe<Scalars['String']['output']>;
-  /** The price of the object */
-  price: Maybe<Scalars['Float']['output']>;
-};
-
-/** The product_cat term object SEO data */
-export type RankMathProductCategoryTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product post object SEO data */
-export type RankMathProductObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product_tag term object SEO data */
-export type RankMathProductTagTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product post type object SEO data */
-export type RankMathProductTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product_type term object SEO data */
-export type RankMathProductTypeTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product_variation post object SEO data */
-export type RankMathProductVariationObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product_variation post type object SEO data */
-export type RankMathProductVariationTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** Robot meta value tag. */
-export enum RankMathRobotsMetaValueEnum {
-  /** IndexInstructs search engines to index and show these pages in the search results. */
-  Index = 'INDEX',
-  /** No ArchivePrevents search engines from showing Cached links for pages */
-  Noarchive = 'NOARCHIVE',
-  /** No FollowPrevents search engines from following links on the pages */
-  Nofollow = 'NOFOLLOW',
-  /** No Image IndexPrevents images on a page from being indexed by Google and other search engines */
-  Noimageindex = 'NOIMAGEINDEX',
-  /** No IndexPrevents pages from being indexed and displayed in search engine result pages */
-  Noindex = 'NOINDEX',
-  /** No SnippetPrevents a snippet from being shown in the search results */
-  Nosnippet = 'NOSNIPPET'
-}
-
-/** Base SEO fields shared across WP types. */
-export type RankMathSeo = {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The SEO rating */
-export enum RankMathSeoRatingEnum {
-  /** Bad ( < 50 ) score */
-  Bad = 'BAD',
-  /** Good (50-79) score */
-  Good = 'GOOD',
-  /** Great ( > 80 ) score */
-  Great = 'GREAT',
-  /** Unknown score. */
-  Unknown = 'UNKNOWN'
-}
-
-/** The Seo score information. */
-export type RankMathSeoScore = {
-  /** The html output for the Frontend SEO badge */
-  badgeHtml: Maybe<Scalars['String']['output']>;
-  /** Whether the SEO score should be displayed on the frontend */
-  hasFrontendScore: Maybe<Scalars['Boolean']['output']>;
-  /** The SEO score */
-  rating: Maybe<RankMathSeoRatingEnum>;
-  /** The SEO score */
-  score: Maybe<Scalars['Int']['output']>;
-};
-
-/** The frontend SEO Score position */
-export enum RankMathSeoScorePositionEnum {
-  /** Above & below content */
-  Both = 'BOTH',
-  /** Below content */
-  Bottom = 'BOTTOM',
-  /** Custom (use shortcode) */
-  Custom = 'CUSTOM',
-  /** Above content */
-  Top = 'TOP'
-}
-
-/** The frontend SEO Score template type */
-export enum RankMathSeoScoreTemplateTypeEnum {
-  /** Circle template */
-  Circle = 'CIRCLE',
-  /** Square template */
-  Square = 'SQUARE'
-}
-
-/** The service term object SEO data */
-export type RankMathServiceTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO site settings */
-export type RankMathSettings = {
-  /** General settings. */
-  general: Maybe<RankMathGeneral>;
-  /** Meta settings. */
-  meta: Maybe<RankMathMeta>;
-  /** Sitemap settings. */
-  sitemap: Maybe<RankMathSitemap>;
-};
-
-/** The product_shipping_class term object SEO data */
-export type RankMathShippingClassTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO titles and meta site settings */
-export type RankMathSitemap = {
-  /** Author sitemap settings. Null if authors are not indexable. */
-  author: Maybe<RankMathSitemapAuthorSettings>;
-  /** Content types included in the sitemap. */
-  contentTypes: Maybe<Array<Maybe<RankMathSitemapContentTypeSettings>>>;
-  /** Sitemap general settings. */
-  general: Maybe<RankMathSitemapGeneralSettings>;
-  /** The URL to the sitemap index. */
-  sitemapIndexUrl: Maybe<Scalars['String']['output']>;
-  /** Content types included in the sitemap. */
-  taxonomies: Maybe<Array<Maybe<RankMathSitemapTaxonomySettings>>>;
-};
-
-
-/** The RankMath SEO titles and meta site settings */
-export type RankMathSitemapContentTypesArgs = {
-  include?: InputMaybe<Array<InputMaybe<ContentTypeEnum>>>;
-};
-
-
-/** The RankMath SEO titles and meta site settings */
-export type RankMathSitemapTaxonomiesArgs = {
-  include?: InputMaybe<Array<InputMaybe<TaxonomyEnum>>>;
-};
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapAuthorSettings = {
-  /** The connected authors whose URLs are included in the sitemap */
-  connectedAuthors: Maybe<RankMathSitemapAuthorSettingsToUserConnection>;
-  /** List of user roles excluded from the sitemap. */
-  excludedRoles: Maybe<Array<Maybe<UserRoleEnum>>>;
-  /** List of user IDs excluded from the sitemap. */
-  excludedUserDatabaseIds: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
-  /** The sitemap URL. */
-  sitemapUrl: Maybe<Scalars['String']['output']>;
-};
-
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapAuthorSettingsConnectedAuthorsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Connection between the RankMathSitemapAuthorSettings type and the User type */
-export type RankMathSitemapAuthorSettingsToUserConnection = Connection & UserConnection & {
-  /** Edges for the RankMathSitemapAuthorSettingsToUserConnection connection */
-  edges: Array<RankMathSitemapAuthorSettingsToUserConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<User>;
-  /** Information about pagination in a connection. */
-  pageInfo: RankMathSitemapAuthorSettingsToUserConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type RankMathSitemapAuthorSettingsToUserConnectionEdge = Edge & UserConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: User;
-};
-
-/** Pagination metadata specific to &quot;RankMathSitemapAuthorSettingsToUserConnection&quot; collections. Provides cursors and flags for navigating through sets of RankMathSitemapAuthorSettingsToUserConnection Nodes. */
-export type RankMathSitemapAuthorSettingsToUserConnectionPageInfo = PageInfo & UserConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapContentTypeSettings = {
-  /** The connected content nodes whose URLs are included in the sitemap */
-  connectedContentNodes: Maybe<RankMathSitemapContentTypeSettingsToContentNodeConnection>;
-  /** List of custom field (post meta) names which contain image URLs to include them in the sitemaps. */
-  customImageMetaKeys: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Whether the content type is included in the sitemap. */
-  isInSitemap: Maybe<Scalars['Boolean']['output']>;
-  /** The sitemap URL. */
-  sitemapUrl: Maybe<Scalars['String']['output']>;
-  /** The content type. */
-  type: Maybe<ContentTypeEnum>;
-};
-
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapContentTypeSettingsConnectedContentNodesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Connection between the RankMathSitemapContentTypeSettings type and the ContentNode type */
-export type RankMathSitemapContentTypeSettingsToContentNodeConnection = Connection & ContentNodeConnection & {
-  /** Edges for the RankMathSitemapContentTypeSettingsToContentNodeConnection connection */
-  edges: Array<RankMathSitemapContentTypeSettingsToContentNodeConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<ContentNode>;
-  /** Information about pagination in a connection. */
-  pageInfo: RankMathSitemapContentTypeSettingsToContentNodeConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type RankMathSitemapContentTypeSettingsToContentNodeConnectionEdge = ContentNodeConnectionEdge & Edge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: ContentNode;
-};
-
-/** Pagination metadata specific to &quot;RankMathSitemapContentTypeSettingsToContentNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of RankMathSitemapContentTypeSettingsToContentNodeConnection Nodes. */
-export type RankMathSitemapContentTypeSettingsToContentNodeConnectionPageInfo = ContentNodeConnectionPageInfo & PageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapGeneralSettings = {
-  /**
-   * Whether to notify search engines when the sitemap is updated.
-   * @deprecated This feature is no longer supported by Google, and has been removed from RankMath v1.0.211+.
-   */
-  canPingSearchEngines: Maybe<Scalars['Boolean']['output']>;
-  /** A list of post IDs excluded from the sitemap. This option **applies** to all posts types including posts, pages, and custom post types. */
-  excludedPostDatabaseIds: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
-  /** A list of term IDs excluded from the sitemap. This option **applies** to all taxonomies. */
-  excludedTermDatabaseIds: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
-  /** Whether the Featured Image is included in sitemaps too, even if it does not appear directly in the post content. */
-  hasFeaturedImage: Maybe<Scalars['Boolean']['output']>;
-  /** Whether reference to images from the post content is included in sitemaps. */
-  hasImages: Maybe<Scalars['Boolean']['output']>;
-  /** Max number of links on each sitemap page. */
-  linksPerSitemap: Maybe<Scalars['Int']['output']>;
-};
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapTaxonomySettings = {
-  /** The connected terms whose URLs are included in the sitemap */
-  connectedTerms: Maybe<RankMathSitemapTaxonomySettingsToTermNodeConnection>;
-  /** Whether to archive pages of terms that have no posts associated. */
-  hasEmptyTerms: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the content type is included in the sitemap. */
-  isInSitemap: Maybe<Scalars['Boolean']['output']>;
-  /** The sitemap URL. */
-  sitemapUrl: Maybe<Scalars['String']['output']>;
-  /** The taxonomy type. */
-  type: Maybe<TaxonomyEnum>;
-};
-
-
-/** The RankMath SEO Sitemap general settings. */
-export type RankMathSitemapTaxonomySettingsConnectedTermsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Connection between the RankMathSitemapTaxonomySettings type and the TermNode type */
-export type RankMathSitemapTaxonomySettingsToTermNodeConnection = Connection & TermNodeConnection & {
-  /** Edges for the RankMathSitemapTaxonomySettingsToTermNodeConnection connection */
-  edges: Array<RankMathSitemapTaxonomySettingsToTermNodeConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<TermNode>;
-  /** Information about pagination in a connection. */
-  pageInfo: RankMathSitemapTaxonomySettingsToTermNodeConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type RankMathSitemapTaxonomySettingsToTermNodeConnectionEdge = Edge & TermNodeConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: TermNode;
-};
-
-/** Pagination metadata specific to &quot;RankMathSitemapTaxonomySettingsToTermNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of RankMathSitemapTaxonomySettingsToTermNodeConnection Nodes. */
-export type RankMathSitemapTaxonomySettingsToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** The rich snippet type. */
-export enum RankMathSnippetTypeEnum {
-  /** Article */
-  Article = 'ARTICLE',
-  /** Book */
-  Book = 'BOOK',
-  /** Course */
-  Course = 'COURSE',
-  /** Event */
-  Event = 'EVENT',
-  /** Job Posting */
-  Jobposting = 'JOBPOSTING',
-  /** Local Business */
-  LocalBusiness = 'LOCAL_BUSINESS',
-  /** Music */
-  Music = 'MUSIC',
-  /** None. */
-  Off = 'OFF',
-  /** Person */
-  Person = 'PERSON',
-  /** Product. */
-  Product = 'PRODUCT',
-  /** Recipe */
-  Recipe = 'RECIPE',
-  /** Restaurant */
-  Restaurant = 'RESTAURANT',
-  /** Service */
-  Service = 'SERVICE',
-  /** Software Application */
-  Software = 'SOFTWARE',
-  /** Video */
-  Video = 'VIDEO'
-}
-
-/** The RankMath SEO Social settings. */
-export type RankMathSocialMetaSettings = {
-  /** Additional social profile URLs to add to the sameAs property for the Organization Schema. */
-  additionalProfiles: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** A list of numeric Facebook admin User Ids. */
-  facebookAdminId: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
-  /** The facebook Facebook app ID. */
-  facebookAppId: Maybe<Scalars['Int']['output']>;
-  /** The personal Facebook profile URL used to show authorship when articles are shared on Facebook. */
-  facebookAuthorUrl: Maybe<Scalars['String']['output']>;
-  /** The complete Facebook page URL. */
-  facebookPageUrl: Maybe<Scalars['String']['output']>;
-  /** Twitter Username of the auther used in the `twitter:creater` tag. */
-  twitterAuthorName: Maybe<Scalars['String']['output']>;
-};
-
-/** The specialty term object SEO data */
-export type RankMathSpecialtyTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The staff post object SEO data */
-export type RankMathStaffMemberObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The staff post type object SEO data */
-export type RankMathStaffMemberTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The post_tag term object SEO data */
-export type RankMathTagTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO Taxonomy meta settings. */
-export type RankMathTaxonomyMetaSettings = {
-  /** The RankMath SEO meta settings for Categories. */
-  category: Maybe<CategoryMetaSettings>;
-  /** The RankMath SEO meta settings for Event Categories. */
-  eventsCategory: Maybe<EventsCategoryMetaSettings>;
-  /** The RankMath SEO meta settings for Formats. */
-  postFormat: Maybe<PostFormatMetaSettings>;
-  /** The RankMath SEO meta settings for Product categories. */
-  productCategory: Maybe<ProductCategoryMetaSettings>;
-  /** The RankMath SEO meta settings for Product tags. */
-  productTag: Maybe<ProductTagMetaSettings>;
-  /** The RankMath SEO meta settings for Product shipping classes. */
-  shippingClass: Maybe<ShippingClassMetaSettings>;
-  /** The RankMath SEO meta settings for Tags. */
-  tag: Maybe<TagMetaSettings>;
-};
-
-/** The testimonial post object SEO data */
-export type RankMathTestimonialObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The testimonial post type object SEO data */
-export type RankMathTestimonialTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The Twitter Card Type Enum */
-export enum RankMathTwitterCardTypeEnum {
-  /** The twitter App card */
-  App = 'APP',
-  /** The twitter Player card */
-  Player = 'PLAYER',
-  /** Summary Card. */
-  Summary = 'SUMMARY',
-  /** Summary Card with Large Image. */
-  SummaryLargeImage = 'SUMMARY_LARGE_IMAGE'
-}
-
-/** The user object SEO data */
-export type RankMathUserSeo = RankMathSeo & {
-  /** Additional social profile URLs to add to the sameAs property. */
-  additionalProfiles: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The complete Facebook profile URL. */
-  facebookProfileUrl: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-  /** Twitter Username of the user. */
-  twitterUserName: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_venue post object SEO data */
-export type RankMathVenueObjectSeo = RankMathContentNodeSeo & RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** Whether the item is considered pillar (cornerstone) content */
-  isPillarContent: Maybe<Scalars['Boolean']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The SEO score */
-  seoScore: Maybe<RankMathSeoScore>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The tribe_venue post type object SEO data */
-export type RankMathVenueTypeSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The product_visibility term object SEO data */
-export type RankMathVisibleProductTermSeo = RankMathSeo & {
-  /** The title to use in the breadcrumbs for this post */
-  breadcrumbTitle: Maybe<Scalars['String']['output']>;
-  /** The breadcrumbs trail for the given object */
-  breadcrumbs: Maybe<Array<Maybe<RankMathBreadcrumbs>>>;
-  /** The canonical url. */
-  canonicalUrl: Maybe<Scalars['String']['output']>;
-  /** The meta description. */
-  description: Maybe<Scalars['String']['output']>;
-  /** The focus keywords you want to rank for */
-  focusKeywords: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The fully-rendered `head` tag for the given item */
-  fullHead: Maybe<Scalars['String']['output']>;
-  /** The JSON+LD data */
-  jsonLd: Maybe<RankMathJsonLd>;
-  /** The open graph meta properties. */
-  openGraph: Maybe<RankMathOpenGraphMeta>;
-  /** A list of the robots meta properties to output. */
-  robots: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** The title. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** The RankMath SEO Webmaster Tools settings */
-export type RankMathWebmaster = {
-  /** The Baidu Webmaster Tools verification HTML code or ID. */
-  baidu: Maybe<Scalars['String']['output']>;
-  /** The Bing Webmaster Tools verification HTML code or ID. */
-  bing: Maybe<Scalars['String']['output']>;
-  /** The Google Search Console verification HTML code or ID. */
-  google: Maybe<Scalars['String']['output']>;
-  /** The Norton Safe Web verification HTML code or ID. */
-  norton: Maybe<Scalars['String']['output']>;
-  /** The Pinterest verification HTML code or ID. */
-  pinterest: Maybe<Scalars['String']['output']>;
-  /** The Yandex verification HTML code or ID. */
-  yandex: Maybe<Scalars['String']['output']>;
-};
-
 /** Single rating count */
 export type RatingCount = {
   /** Number of products */
@@ -32052,6 +30592,8 @@ export type RefundConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -32417,6 +30959,8 @@ export type RootMutation = {
   createPost: Maybe<CreatePostPayload>;
   /** The createPostFormat mutation */
   createPostFormat: Maybe<CreatePostFormatPayload>;
+  /** The createPractitioner mutation */
+  createPractitioner: Maybe<CreatePractitionerPayload>;
   /** The createProduct mutation */
   createProduct: Maybe<CreateProductPayload>;
   /** The createProductCategory mutation */
@@ -32437,8 +30981,6 @@ export type RootMutation = {
   createSpecialty: Maybe<CreateSpecialtyPayload>;
   /** The createStaff mutation */
   createStaff: Maybe<CreateStaffPayload>;
-  /** The createStaffMember mutation */
-  createStaffMember: Maybe<CreateStaffMemberPayload>;
   /** The createTag mutation */
   createTag: Maybe<CreateTagPayload>;
   /** The createTaxClass mutation */
@@ -32489,6 +31031,8 @@ export type RootMutation = {
   deletePost: Maybe<DeletePostPayload>;
   /** The deletePostFormat mutation */
   deletePostFormat: Maybe<DeletePostFormatPayload>;
+  /** The deletePractitioner mutation */
+  deletePractitioner: Maybe<DeletePractitionerPayload>;
   /** The deleteProduct mutation */
   deleteProduct: Maybe<DeleteProductPayload>;
   /** The deleteProductCategory mutation */
@@ -32511,8 +31055,6 @@ export type RootMutation = {
   deleteSpecialty: Maybe<DeleteSpecialtyPayload>;
   /** The deleteStaff mutation */
   deleteStaff: Maybe<DeleteStaffPayload>;
-  /** The deleteStaffMember mutation */
-  deleteStaffMember: Maybe<DeleteStaffMemberPayload>;
   /** The deleteTag mutation */
   deleteTag: Maybe<DeleteTagPayload>;
   /** The deleteTaxClass mutation */
@@ -32601,6 +31143,8 @@ export type RootMutation = {
   updatePost: Maybe<UpdatePostPayload>;
   /** The updatePostFormat mutation */
   updatePostFormat: Maybe<UpdatePostFormatPayload>;
+  /** The updatePractitioner mutation */
+  updatePractitioner: Maybe<UpdatePractitionerPayload>;
   /** The updateProduct mutation */
   updateProduct: Maybe<UpdateProductPayload>;
   /** The updateProductCategory mutation */
@@ -32631,8 +31175,6 @@ export type RootMutation = {
   updateSpecialty: Maybe<UpdateSpecialtyPayload>;
   /** The updateStaff mutation */
   updateStaff: Maybe<UpdateStaffPayload>;
-  /** The updateStaffMember mutation */
-  updateStaffMember: Maybe<UpdateStaffMemberPayload>;
   /** The updateTag mutation */
   updateTag: Maybe<UpdateTagPayload>;
   /** The updateTaxRate mutation */
@@ -32777,6 +31319,12 @@ export type RootMutationCreatePostFormatArgs = {
 
 
 /** The root mutation */
+export type RootMutationCreatePractitionerArgs = {
+  input: CreatePractitionerInput;
+};
+
+
+/** The root mutation */
 export type RootMutationCreateProductArgs = {
   input: CreateProductInput;
 };
@@ -32833,12 +31381,6 @@ export type RootMutationCreateSpecialtyArgs = {
 /** The root mutation */
 export type RootMutationCreateStaffArgs = {
   input: CreateStaffInput;
-};
-
-
-/** The root mutation */
-export type RootMutationCreateStaffMemberArgs = {
-  input: CreateStaffMemberInput;
 };
 
 
@@ -32993,6 +31535,12 @@ export type RootMutationDeletePostFormatArgs = {
 
 
 /** The root mutation */
+export type RootMutationDeletePractitionerArgs = {
+  input: DeletePractitionerInput;
+};
+
+
+/** The root mutation */
 export type RootMutationDeleteProductArgs = {
   input: DeleteProductInput;
 };
@@ -33055,12 +31603,6 @@ export type RootMutationDeleteSpecialtyArgs = {
 /** The root mutation */
 export type RootMutationDeleteStaffArgs = {
   input: DeleteStaffInput;
-};
-
-
-/** The root mutation */
-export type RootMutationDeleteStaffMemberArgs = {
-  input: DeleteStaffMemberInput;
 };
 
 
@@ -33329,6 +31871,12 @@ export type RootMutationUpdatePostFormatArgs = {
 
 
 /** The root mutation */
+export type RootMutationUpdatePractitionerArgs = {
+  input: UpdatePractitionerInput;
+};
+
+
+/** The root mutation */
 export type RootMutationUpdateProductArgs = {
   input: UpdateProductInput;
 };
@@ -33415,12 +31963,6 @@ export type RootMutationUpdateSpecialtyArgs = {
 /** The root mutation */
 export type RootMutationUpdateStaffArgs = {
   input: UpdateStaffInput;
-};
-
-
-/** The root mutation */
-export type RootMutationUpdateStaffMemberArgs = {
-  input: UpdateStaffMemberInput;
 };
 
 
@@ -33655,6 +32197,15 @@ export type RootQuery = WithAcfOptionsPageCurrentPromo & WithAcfOptionsPageCusto
   postFormats: Maybe<RootQueryToPostFormatConnection>;
   /** Connection between the RootQuery type and the post type */
   posts: Maybe<RootQueryToPostConnection>;
+  /** An object of the Practitioner Type.  */
+  practitioner: Maybe<Practitioner>;
+  /**
+   * A Practitioner object
+   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
+   */
+  practitionerBy: Maybe<Practitioner>;
+  /** Connection between the RootQuery type and the Practitioner type */
+  practitioners: Maybe<RootQueryToPractitionerConnection>;
   /** A product object */
   product: Maybe<Product>;
   /** Connection between the RootQuery type and the productCategory type */
@@ -33673,8 +32224,6 @@ export type RootQuery = WithAcfOptionsPageCurrentPromo & WithAcfOptionsPageCusto
   productVariation: Maybe<ProductVariation>;
   /** Connection between the RootQuery type and the ProductUnion type */
   products: Maybe<RootQueryToProductUnionConnection>;
-  /** RankMath SEO site settings */
-  rankMathSettings: Maybe<RankMathSettings>;
   /** Fields of the &#039;ReadingSettings&#039; settings group */
   readingSettings: Maybe<ReadingSettings>;
   /** A refund object */
@@ -33687,6 +32236,8 @@ export type RootQuery = WithAcfOptionsPageCurrentPromo & WithAcfOptionsPageCusto
   registeredStylesheets: Maybe<RootQueryToEnqueuedStylesheetConnection>;
   /** Connection between the RootQuery type and the ContentNode type */
   revisions: Maybe<RootQueryToRevisionsConnection>;
+  /** Returns seo site data */
+  seo: Maybe<SeoConfig>;
   /** A 0bject */
   service: Maybe<Service>;
   /** Connection between the RootQuery type and the Service type */
@@ -33715,15 +32266,6 @@ export type RootQuery = WithAcfOptionsPageCurrentPromo & WithAcfOptionsPageCusto
   specialties: Maybe<RootQueryToSpecialtyConnection>;
   /** A 0bject */
   specialty: Maybe<Specialty>;
-  /** An object of the StaffMember Type.  */
-  staffMember: Maybe<StaffMember>;
-  /**
-   * A StaffMember object
-   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
-   */
-  staffMemberBy: Maybe<StaffMember>;
-  /** Connection between the RootQuery type and the StaffMember type */
-  staffMembers: Maybe<RootQueryToStaffMemberConnection>;
   /** A 0bject */
   tag: Maybe<Tag>;
   /** Connection between the RootQuery type and the tag type */
@@ -34356,6 +32898,33 @@ export type RootQueryPostsArgs = {
 
 
 /** The root entry point into the Graph */
+export type RootQueryPractitionerArgs = {
+  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<PractitionerIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPractitionerByArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  practitionerId?: InputMaybe<Scalars['Int']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  uri?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPractitionersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToPractitionerConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
 export type RootQueryProductArgs = {
   id: Scalars['ID']['input'];
   idType?: InputMaybe<ProductIdTypeEnum>;
@@ -34562,33 +33131,6 @@ export type RootQuerySpecialtiesArgs = {
 export type RootQuerySpecialtyArgs = {
   id: Scalars['ID']['input'];
   idType?: InputMaybe<SpecialtyIdType>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryStaffMemberArgs = {
-  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
-  id: Scalars['ID']['input'];
-  idType?: InputMaybe<StaffMemberIdType>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryStaffMemberByArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  staffMemberId?: InputMaybe<Scalars['Int']['input']>;
-  uri?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryStaffMembersArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<RootQueryToStaffMemberConnectionWhereArgs>;
 };
 
 
@@ -34819,6 +33361,8 @@ export type RootQueryToCategoryConnectionPageInfo = CategoryConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -34893,6 +33437,8 @@ export type RootQueryToCommentConnectionPageInfo = CommentConnectionPageInfo & P
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -34985,6 +33531,8 @@ export type RootQueryToContentNodeConnectionPageInfo = ContentNodeConnectionPage
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35055,6 +33603,8 @@ export type RootQueryToContentTypeConnectionPageInfo = ContentTypeConnectionPage
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35085,6 +33635,8 @@ export type RootQueryToCouponConnectionPageInfo = CouponConnectionPageInfo & Pag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35137,6 +33689,8 @@ export type RootQueryToCustomerConnectionPageInfo = CustomerConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35183,6 +33737,8 @@ export type RootQueryToDisciplineConnectionPageInfo = DisciplineConnectionPageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35257,6 +33813,8 @@ export type RootQueryToEnqueuedScriptConnectionPageInfo = EnqueuedScriptConnecti
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35287,6 +33845,8 @@ export type RootQueryToEnqueuedStylesheetConnectionPageInfo = EnqueuedStylesheet
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35317,6 +33877,8 @@ export type RootQueryToEventConnectionPageInfo = EventConnectionPageInfo & PageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35413,6 +33975,8 @@ export type RootQueryToEventsCategoryConnectionPageInfo = EventsCategoryConnecti
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35487,6 +34051,8 @@ export type RootQueryToFranchiseApplicationConnectionPageInfo = FranchiseApplica
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35555,6 +34121,8 @@ export type RootQueryToGfEntryConnectionPageInfo = GfEntryConnectionPageInfo & P
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35603,6 +34171,8 @@ export type RootQueryToGfFormConnectionPageInfo = GfFormConnectionPageInfo & Pag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35643,6 +34213,8 @@ export type RootQueryToGfSubmittedEntryConnectionPageInfo = GfSubmittedEntryConn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35689,6 +34261,8 @@ export type RootQueryToLocationConnectionPageInfo = LocationConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35757,6 +34331,8 @@ export type RootQueryToMediaItemConnectionPageInfo = MediaItemConnectionPageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35833,6 +34409,8 @@ export type RootQueryToMenuConnectionPageInfo = MenuConnectionPageInfo & PageInf
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35873,6 +34451,8 @@ export type RootQueryToMenuItemConnectionPageInfo = MenuItemConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35915,6 +34495,8 @@ export type RootQueryToOrderConnectionPageInfo = OrderConnectionPageInfo & PageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -35975,6 +34557,8 @@ export type RootQueryToOrganizerConnectionPageInfo = OrganizerConnectionPageInfo
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36051,6 +34635,8 @@ export type RootQueryToPageConnectionPageInfo = PageConnectionPageInfo & PageInf
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36127,6 +34713,8 @@ export type RootQueryToPaymentGatewayConnectionPageInfo = PageInfo & PaymentGate
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36163,6 +34751,8 @@ export type RootQueryToPluginConnectionPageInfo = PageInfo & PluginConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36203,6 +34793,8 @@ export type RootQueryToPostConnectionPageInfo = PageInfo & PostConnectionPageInf
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36299,6 +34891,8 @@ export type RootQueryToPostFormatConnectionPageInfo = PageInfo & PostFormatConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36347,6 +34941,76 @@ export type RootQueryToPostFormatConnectionWhereArgs = {
   updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** Connection between the RootQuery type and the Practitioner type */
+export type RootQueryToPractitionerConnection = Connection & PractitionerConnection & {
+  /** Edges for the RootQueryToPractitionerConnection connection */
+  edges: Array<RootQueryToPractitionerConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Practitioner>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToPractitionerConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToPractitionerConnectionEdge = Edge & PractitionerConnectionEdge & {
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Practitioner;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToPractitionerConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToPractitionerConnection Nodes. */
+export type RootQueryToPractitionerConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToPractitionerConnection connection */
+export type RootQueryToPractitionerConnectionWhereArgs = {
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** Connection between the RootQuery type and the productCategory type */
 export type RootQueryToProductCategoryConnection = Connection & ProductCategoryConnection & {
   /** Edges for the RootQueryToProductCategoryConnection connection */
@@ -36373,6 +35037,8 @@ export type RootQueryToProductCategoryConnectionPageInfo = PageInfo & ProductCat
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36447,6 +35113,8 @@ export type RootQueryToProductTagConnectionPageInfo = PageInfo & ProductTagConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36521,6 +35189,8 @@ export type RootQueryToProductTypeConnectionPageInfo = PageInfo & ProductTypeCon
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36597,6 +35267,8 @@ export type RootQueryToProductUnionConnectionPageInfo = PageInfo & ProductUnionC
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36709,6 +35381,8 @@ export type RootQueryToRefundConnectionPageInfo = PageInfo & RefundConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36763,6 +35437,8 @@ export type RootQueryToRevisionsConnectionPageInfo = ContentNodeConnectionPageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36833,6 +35509,8 @@ export type RootQueryToServiceConnectionPageInfo = PageInfo & ServiceConnectionP
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36907,6 +35585,8 @@ export type RootQueryToShippingClassConnectionPageInfo = PageInfo & ShippingClas
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -36981,6 +35661,8 @@ export type RootQueryToShippingMethodConnectionPageInfo = PageInfo & ShippingMet
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37011,6 +35693,8 @@ export type RootQueryToShippingZoneConnectionPageInfo = PageInfo & ShippingZoneC
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37041,6 +35725,8 @@ export type RootQueryToSpecialtyConnectionPageInfo = PageInfo & SpecialtyConnect
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37089,74 +35775,6 @@ export type RootQueryToSpecialtyConnectionWhereArgs = {
   updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-/** Connection between the RootQuery type and the StaffMember type */
-export type RootQueryToStaffMemberConnection = Connection & StaffMemberConnection & {
-  /** Edges for the RootQueryToStaffMemberConnection connection */
-  edges: Array<RootQueryToStaffMemberConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
-  /** Information about pagination in a connection. */
-  pageInfo: RootQueryToStaffMemberConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type RootQueryToStaffMemberConnectionEdge = Edge & StaffMemberConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: StaffMember;
-};
-
-/** Pagination metadata specific to &quot;RootQueryToStaffMemberConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToStaffMemberConnection Nodes. */
-export type RootQueryToStaffMemberConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Arguments for filtering the RootQueryToStaffMemberConnection connection */
-export type RootQueryToStaffMemberConnectionWhereArgs = {
-  /** Filter the connection based on dates */
-  dateQuery?: InputMaybe<DateQueryInput>;
-  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
-  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Specific database ID of the object */
-  id?: InputMaybe<Scalars['Int']['input']>;
-  /** Array of IDs for the objects to retrieve */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Get objects with a specific mimeType property */
-  mimeType?: InputMaybe<MimeTypeEnum>;
-  /** Slug / post_name of the object */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** Specify objects to retrieve. Use slugs */
-  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** What parameter to use to order the objects by. */
-  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
-  /** Use ID to return only children. Use 0 to return only top-level items */
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  /** Specify objects whose parent is in an array */
-  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Specify posts whose parent is not in an array */
-  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Show posts with a specific password. */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Show Posts based on a keyword search */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Retrieve posts where post status is in an array. */
-  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
-  /** Show posts with a specific status. */
-  status?: InputMaybe<PostStatusEnum>;
-  /** Title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
 /** Connection between the RootQuery type and the tag type */
 export type RootQueryToTagConnection = Connection & TagConnection & {
   /** Edges for the RootQueryToTagConnection connection */
@@ -37183,6 +35801,8 @@ export type RootQueryToTagConnectionPageInfo = PageInfo & TagConnectionPageInfo 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37257,6 +35877,8 @@ export type RootQueryToTaxClassConnectionPageInfo = PageInfo & TaxClassConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37287,6 +35909,8 @@ export type RootQueryToTaxRateConnectionPageInfo = PageInfo & TaxRateConnectionP
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37329,6 +35953,8 @@ export type RootQueryToTaxonomyConnectionPageInfo = PageInfo & TaxonomyConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37359,6 +35985,8 @@ export type RootQueryToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37435,6 +36063,8 @@ export type RootQueryToTestimonialConnectionPageInfo = PageInfo & TestimonialCon
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37503,6 +36133,8 @@ export type RootQueryToThemeConnectionPageInfo = PageInfo & ThemeConnectionPageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37533,6 +36165,8 @@ export type RootQueryToUserConnectionPageInfo = PageInfo & UserConnectionPageInf
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37597,6 +36231,8 @@ export type RootQueryToUserRoleConnectionPageInfo = PageInfo & UserRoleConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37627,6 +36263,8 @@ export type RootQueryToVenueConnectionPageInfo = PageInfo & VenueConnectionPageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37703,6 +36341,8 @@ export type RootQueryToVisibleProductConnectionPageInfo = PageInfo & VisibleProd
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -37749,6 +36389,302 @@ export type RootQueryToVisibleProductConnectionWhereArgs = {
   termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** The Yoast SEO breadcrumb config */
+export type SeoBreadcrumbs = {
+  archivePrefix: Maybe<Scalars['String']['output']>;
+  boldLast: Maybe<Scalars['Boolean']['output']>;
+  enabled: Maybe<Scalars['Boolean']['output']>;
+  homeText: Maybe<Scalars['String']['output']>;
+  notFoundText: Maybe<Scalars['String']['output']>;
+  prefix: Maybe<Scalars['String']['output']>;
+  searchPrefix: Maybe<Scalars['String']['output']>;
+  separator: Maybe<Scalars['String']['output']>;
+  showBlogPage: Maybe<Scalars['Boolean']['output']>;
+};
+
+/** Types of cards */
+export enum SeoCardType {
+  Summary = 'summary',
+  SummaryLargeImage = 'summary_large_image'
+}
+
+/** The Yoast SEO site level configuration data */
+export type SeoConfig = {
+  breadcrumbs: Maybe<SeoBreadcrumbs>;
+  contentTypes: Maybe<SeoContentTypes>;
+  meta: Maybe<SeoGlobalMeta>;
+  openGraph: Maybe<SeoOpenGraph>;
+  redirects: Maybe<Array<Maybe<SeoRedirect>>>;
+  schema: Maybe<SeoSchema>;
+  social: Maybe<SeoSocial>;
+  taxonomyArchives: Maybe<SeoTaxonomyTypes>;
+  webmaster: Maybe<SeoWebmaster>;
+};
+
+/** The Yoast SEO search appearance content types fields */
+export type SeoContentType = {
+  archive: Maybe<SeoContentTypeArchive>;
+  metaDesc: Maybe<Scalars['String']['output']>;
+  metaRobotsNoindex: Maybe<Scalars['Boolean']['output']>;
+  schema: Maybe<SeoPageInfoSchema>;
+  schemaType: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO search appearance content types fields */
+export type SeoContentTypeArchive = {
+  archiveLink: Maybe<Scalars['String']['output']>;
+  breadcrumbTitle: Maybe<Scalars['String']['output']>;
+  fullHead: Maybe<Scalars['String']['output']>;
+  hasArchive: Maybe<Scalars['Boolean']['output']>;
+  metaDesc: Maybe<Scalars['String']['output']>;
+  metaRobotsFollow: Maybe<Scalars['String']['output']>;
+  metaRobotsIndex: Maybe<Scalars['String']['output']>;
+  metaRobotsNofollow: Maybe<Scalars['Boolean']['output']>;
+  metaRobotsNoindex: Maybe<Scalars['Boolean']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO search appearance content types */
+export type SeoContentTypes = {
+  event: Maybe<SeoContentType>;
+  franchiseApplication: Maybe<SeoContentType>;
+  location: Maybe<SeoContentType>;
+  mediaItem: Maybe<SeoContentType>;
+  organizer: Maybe<SeoContentType>;
+  page: Maybe<SeoContentType>;
+  post: Maybe<SeoContentType>;
+  practitioner: Maybe<SeoContentType>;
+  product: Maybe<SeoContentType>;
+  productVariation: Maybe<SeoContentType>;
+  testimonial: Maybe<SeoContentType>;
+  venue: Maybe<SeoContentType>;
+};
+
+/** The Yoast SEO meta data */
+export type SeoGlobalMeta = {
+  author: Maybe<SeoGlobalMetaAuthor>;
+  config: Maybe<SeoGlobalMetaConfig>;
+  date: Maybe<SeoGlobalMetaDate>;
+  homepage: Maybe<SeoGlobalMetaHome>;
+  notFound: Maybe<SeoGlobalMeta404>;
+};
+
+/** The Yoast SEO meta 404 data */
+export type SeoGlobalMeta404 = {
+  breadcrumb: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO Author data */
+export type SeoGlobalMetaAuthor = {
+  description: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO meta config data */
+export type SeoGlobalMetaConfig = {
+  separator: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO Date data */
+export type SeoGlobalMetaDate = {
+  description: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO homepage data */
+export type SeoGlobalMetaHome = {
+  description: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Open Graph data */
+export type SeoOpenGraph = {
+  defaultImage: Maybe<MediaItem>;
+  frontPage: Maybe<SeoOpenGraphFrontPage>;
+};
+
+/** The Open Graph Front page data */
+export type SeoOpenGraphFrontPage = {
+  description: Maybe<Scalars['String']['output']>;
+  image: Maybe<MediaItem>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Schema for post type */
+export type SeoPageInfoSchema = {
+  raw: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoPostTypeBreadcrumbs = {
+  text: Maybe<Scalars['String']['output']>;
+  url: Maybe<Scalars['String']['output']>;
+};
+
+/** The page info SEO details */
+export type SeoPostTypePageInfo = {
+  schema: Maybe<SeoPageInfoSchema>;
+};
+
+/** The Schema types */
+export type SeoPostTypeSchema = {
+  articleType: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  pageType: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  raw: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast redirect data  (Yoast Premium only) */
+export type SeoRedirect = {
+  format: Maybe<Scalars['String']['output']>;
+  origin: Maybe<Scalars['String']['output']>;
+  target: Maybe<Scalars['String']['output']>;
+  type: Maybe<Scalars['Int']['output']>;
+};
+
+/** The Yoast SEO schema data */
+export type SeoSchema = {
+  companyLogo: Maybe<MediaItem>;
+  companyName: Maybe<Scalars['String']['output']>;
+  companyOrPerson: Maybe<Scalars['String']['output']>;
+  homeUrl: Maybe<Scalars['String']['output']>;
+  inLanguage: Maybe<Scalars['String']['output']>;
+  logo: Maybe<MediaItem>;
+  personLogo: Maybe<MediaItem>;
+  personName: Maybe<Scalars['String']['output']>;
+  siteName: Maybe<Scalars['String']['output']>;
+  siteUrl: Maybe<Scalars['String']['output']>;
+  wordpressSiteName: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO Social media links */
+export type SeoSocial = {
+  facebook: Maybe<SeoSocialFacebook>;
+  instagram: Maybe<SeoSocialInstagram>;
+  linkedIn: Maybe<SeoSocialLinkedIn>;
+  mySpace: Maybe<SeoSocialMySpace>;
+  otherSocials: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  pinterest: Maybe<SeoSocialPinterest>;
+  twitter: Maybe<SeoSocialTwitter>;
+  wikipedia: Maybe<SeoSocialWikipedia>;
+  youTube: Maybe<SeoSocialYoutube>;
+};
+
+export type SeoSocialFacebook = {
+  defaultImage: Maybe<MediaItem>;
+  url: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialInstagram = {
+  url: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialLinkedIn = {
+  url: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialMySpace = {
+  url: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialPinterest = {
+  metaTag: Maybe<Scalars['String']['output']>;
+  url: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialTwitter = {
+  cardType: Maybe<SeoCardType>;
+  username: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialWikipedia = {
+  url: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoSocialYoutube = {
+  url: Maybe<Scalars['String']['output']>;
+};
+
+/** The Schema types for Taxonomy */
+export type SeoTaxonomySchema = {
+  raw: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO search appearance Taxonomy types fields */
+export type SeoTaxonomyType = {
+  archive: Maybe<SeoTaxonomyTypeArchive>;
+};
+
+/** The Yoast SEO search appearance Taxonomy types fields */
+export type SeoTaxonomyTypeArchive = {
+  metaDesc: Maybe<Scalars['String']['output']>;
+  metaRobotsNoindex: Maybe<Scalars['Boolean']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO archive configuration data for taxonomies */
+export type SeoTaxonomyTypes = {
+  category: Maybe<SeoTaxonomyType>;
+  discipline: Maybe<SeoTaxonomyType>;
+  eventsCategory: Maybe<SeoTaxonomyType>;
+  postFormat: Maybe<SeoTaxonomyType>;
+  productCategory: Maybe<SeoTaxonomyType>;
+  productTag: Maybe<SeoTaxonomyType>;
+  productType: Maybe<SeoTaxonomyType>;
+  service: Maybe<SeoTaxonomyType>;
+  shippingClass: Maybe<SeoTaxonomyType>;
+  specialty: Maybe<SeoTaxonomyType>;
+  tag: Maybe<SeoTaxonomyType>;
+  visibleProduct: Maybe<SeoTaxonomyType>;
+};
+
+export type SeoUser = {
+  breadcrumbTitle: Maybe<Scalars['String']['output']>;
+  canonical: Maybe<Scalars['String']['output']>;
+  fullHead: Maybe<Scalars['String']['output']>;
+  language: Maybe<Scalars['String']['output']>;
+  metaDesc: Maybe<Scalars['String']['output']>;
+  metaRobotsNofollow: Maybe<Scalars['String']['output']>;
+  metaRobotsNoindex: Maybe<Scalars['String']['output']>;
+  opengraphDescription: Maybe<Scalars['String']['output']>;
+  opengraphImage: Maybe<MediaItem>;
+  opengraphTitle: Maybe<Scalars['String']['output']>;
+  region: Maybe<Scalars['String']['output']>;
+  schema: Maybe<SeoUserSchema>;
+  social: Maybe<SeoUserSocial>;
+  title: Maybe<Scalars['String']['output']>;
+  twitterDescription: Maybe<Scalars['String']['output']>;
+  twitterImage: Maybe<MediaItem>;
+  twitterTitle: Maybe<Scalars['String']['output']>;
+};
+
+/** The Schema types for User */
+export type SeoUserSchema = {
+  articleType: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  pageType: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  raw: Maybe<Scalars['String']['output']>;
+};
+
+export type SeoUserSocial = {
+  facebook: Maybe<Scalars['String']['output']>;
+  instagram: Maybe<Scalars['String']['output']>;
+  linkedIn: Maybe<Scalars['String']['output']>;
+  mySpace: Maybe<Scalars['String']['output']>;
+  pinterest: Maybe<Scalars['String']['output']>;
+  soundCloud: Maybe<Scalars['String']['output']>;
+  twitter: Maybe<Scalars['String']['output']>;
+  wikipedia: Maybe<Scalars['String']['output']>;
+  youTube: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO  webmaster fields */
+export type SeoWebmaster = {
+  baiduVerify: Maybe<Scalars['String']['output']>;
+  googleVerify: Maybe<Scalars['String']['output']>;
+  msVerify: Maybe<Scalars['String']['output']>;
+  yandexVerify: Maybe<Scalars['String']['output']>;
 };
 
 /** Script insertion positions in the document structure. Determines whether scripts are placed in the document head or before the closing body tag. */
@@ -37897,7 +36833,7 @@ export type SendPasswordResetEmailPayload = {
 };
 
 /** The Service type */
-export type Service = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type Service = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the Service type and the ContentNode type */
   contentNodes: Maybe<ServiceToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -37928,8 +36864,10 @@ export type Service = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode
   link: Maybe<Scalars['String']['output']>;
   /** The human friendly name of the object. */
   name: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathServiceTermSeo>;
+  /** Connection between the Service type and the Practitioner type */
+  practitioners: Maybe<ServiceToPractitionerConnection>;
+  /** The Yoast SEO data of the Services taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /**
    * The id field matches the WP_Post-&gt;ID field.
    * @deprecated Deprecated in favor of databaseId
@@ -37937,8 +36875,6 @@ export type Service = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode
   serviceId: Maybe<Scalars['Int']['output']>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
-  /** Connection between the Service type and the StaffMember type */
-  staffMembers: Maybe<ServiceToStaffMemberConnection>;
   /** Connection between the Service type and the Taxonomy type */
   taxonomy: Maybe<ServiceToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
@@ -37981,12 +36917,12 @@ export type ServiceEnqueuedStylesheetsArgs = {
 
 
 /** The Service type */
-export type ServiceStaffMembersArgs = {
+export type ServicePractitionersArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ServiceToStaffMemberConnectionWhereArgs>;
+  where?: InputMaybe<ServiceToPractitionerConnectionWhereArgs>;
 };
 
 /** A paginated collection of Service Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of Service Nodes */
@@ -38015,6 +36951,8 @@ export type ServiceConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38059,6 +36997,8 @@ export type ServiceToContentNodeConnectionPageInfo = ContentNodeConnectionPageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38103,38 +37043,40 @@ export type ServiceToContentNodeConnectionWhereArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Connection between the Service type and the StaffMember type */
-export type ServiceToStaffMemberConnection = Connection & StaffMemberConnection & {
-  /** Edges for the ServiceToStaffMemberConnection connection */
-  edges: Array<ServiceToStaffMemberConnectionEdge>;
+/** Connection between the Service type and the Practitioner type */
+export type ServiceToPractitionerConnection = Connection & PractitionerConnection & {
+  /** Edges for the ServiceToPractitionerConnection connection */
+  edges: Array<ServiceToPractitionerConnectionEdge>;
   /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
+  nodes: Array<Practitioner>;
   /** Information about pagination in a connection. */
-  pageInfo: ServiceToStaffMemberConnectionPageInfo;
+  pageInfo: ServiceToPractitionerConnectionPageInfo;
 };
 
 /** An edge in a connection */
-export type ServiceToStaffMemberConnectionEdge = Edge & StaffMemberConnectionEdge & {
+export type ServiceToPractitionerConnectionEdge = Edge & PractitionerConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
   /** The item at the end of the edge */
-  node: StaffMember;
+  node: Practitioner;
 };
 
-/** Pagination metadata specific to &quot;ServiceToStaffMemberConnection&quot; collections. Provides cursors and flags for navigating through sets of ServiceToStaffMemberConnection Nodes. */
-export type ServiceToStaffMemberConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
+/** Pagination metadata specific to &quot;ServiceToPractitionerConnection&quot; collections. Provides cursors and flags for navigating through sets of ServiceToPractitionerConnection Nodes. */
+export type ServiceToPractitionerConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
   /** When paginating forwards, the cursor to continue. */
   endCursor: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
-/** Arguments for filtering the ServiceToStaffMemberConnection connection */
-export type ServiceToStaffMemberConnectionWhereArgs = {
+/** Arguments for filtering the ServiceToPractitionerConnection connection */
+export type ServiceToPractitionerConnectionWhereArgs = {
   /** Filter the connection based on dates */
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -38348,7 +37290,7 @@ export type Settings = {
 };
 
 /** The shippingClass type */
-export type ShippingClass = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type ShippingClass = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the ShippingClass type and the ContentNode type */
   contentNodes: Maybe<ShippingClassToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -38383,8 +37325,8 @@ export type ShippingClass = DatabaseIdentifier & Node & NodeWithRankMathSeo & Te
   productVariations: Maybe<ShippingClassToProductVariationConnection>;
   /** Connection between the ShippingClass type and the Product type */
   products: Maybe<ShippingClassToProductConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathShippingClassTermSeo>;
+  /** The Yoast SEO data of the Product shipping classes taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /**
    * The id field matches the WP_Post-&gt;ID field.
    * @deprecated Deprecated in favor of databaseId
@@ -38478,6 +37420,8 @@ export type ShippingClassConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38495,26 +37439,6 @@ export enum ShippingClassIdType {
   /** The URI for the node */
   Uri = 'URI'
 }
-
-/** The RankMath SEO meta settings for Product shipping classes. */
-export type ShippingClassMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to include snippet data for this taxonomy. */
-  hasSnippetData: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
 
 /** Connection between the ShippingClass type and the ContentNode type */
 export type ShippingClassToContentNodeConnection = Connection & ContentNodeConnection & {
@@ -38542,6 +37466,8 @@ export type ShippingClassToContentNodeConnectionPageInfo = ContentNodeConnection
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38612,6 +37538,8 @@ export type ShippingClassToProductConnectionPageInfo = PageInfo & ProductConnect
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38724,6 +37652,8 @@ export type ShippingClassToProductVariationConnectionPageInfo = PageInfo & Produ
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38876,6 +37806,8 @@ export type ShippingLineConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -38958,6 +37890,8 @@ export type ShippingMethodConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -39249,6 +38183,8 @@ export type ShippingZoneConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -39297,6 +38233,8 @@ export type ShippingZoneToShippingMethodConnectionPageInfo = PageInfo & Shipping
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -39373,7 +38311,7 @@ export type SimpleCartItemTotalArgs = {
 };
 
 /** A simple product object */
-export type SimpleProduct = ContentNode & DatabaseIdentifier & DownloadableProduct & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithDimensions & ProductWithPricing & UniformResourceIdentifiable & {
+export type SimpleProduct = ContentNode & DatabaseIdentifier & DownloadableProduct & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithDimensions & ProductWithPricing & UniformResourceIdentifiable & {
   /** Connection between the ProductWithAttributes type and the ProductAttribute type */
   attributes: Maybe<ProductWithAttributesToProductAttributeConnection>;
   /** Product average count */
@@ -39531,8 +38469,8 @@ export type SimpleProduct = ContentNode & DatabaseIdentifier & DownloadableProdu
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** shipping class ID */
   shippingClassId: Maybe<Scalars['Int']['output']>;
   /** Connection between the Product type and the shippingClass type */
@@ -39858,6 +38796,8 @@ export type SimpleProductToProductUnionConnectionPageInfo = PageInfo & ProductUn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -39945,7 +38885,7 @@ export type SimpleProductToProductUnionConnectionWhereArgs = {
 };
 
 /** A product variation */
-export type SimpleProductVariation = ContentNode & DatabaseIdentifier & DownloadableProduct & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductVariation & ProductWithDimensions & ProductWithPricing & UniformResourceIdentifiable & {
+export type SimpleProductVariation = ContentNode & DatabaseIdentifier & DownloadableProduct & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductVariation & ProductWithDimensions & ProductWithPricing & UniformResourceIdentifiable & {
   /** Connection between the ProductVariation type and the VariationAttribute type */
   attributes: Maybe<ProductVariationToVariationAttributeConnection>;
   /** Product average count */
@@ -40106,8 +39046,8 @@ export type SimpleProductVariation = ContentNode & DatabaseIdentifier & Download
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Product variation shipping class */
   shippingClass: Maybe<Scalars['String']['output']>;
   /** shipping class ID */
@@ -40398,7 +39338,7 @@ export type SingleAttributeCount = {
 };
 
 /** The Specialty type */
-export type Specialty = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type Specialty = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the Specialty type and the ContentNode type */
   contentNodes: Maybe<SpecialtyToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -40429,8 +39369,10 @@ export type Specialty = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNo
   link: Maybe<Scalars['String']['output']>;
   /** The human friendly name of the object. */
   name: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathSpecialtyTermSeo>;
+  /** Connection between the Specialty type and the Practitioner type */
+  practitioners: Maybe<SpecialtyToPractitionerConnection>;
+  /** The Yoast SEO data of the Specialties taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /**
@@ -40438,8 +39380,6 @@ export type Specialty = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNo
    * @deprecated Deprecated in favor of databaseId
    */
   specialtyId: Maybe<Scalars['Int']['output']>;
-  /** Connection between the Specialty type and the StaffMember type */
-  staffMembers: Maybe<SpecialtyToStaffMemberConnection>;
   /** Connection between the Specialty type and the Taxonomy type */
   taxonomy: Maybe<SpecialtyToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
@@ -40482,12 +39422,12 @@ export type SpecialtyEnqueuedStylesheetsArgs = {
 
 
 /** The Specialty type */
-export type SpecialtyStaffMembersArgs = {
+export type SpecialtyPractitionersArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<SpecialtyToStaffMemberConnectionWhereArgs>;
+  where?: InputMaybe<SpecialtyToPractitionerConnectionWhereArgs>;
 };
 
 /** A paginated collection of Specialty Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of Specialty Nodes */
@@ -40516,6 +39456,8 @@ export type SpecialtyConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -40560,6 +39502,8 @@ export type SpecialtyToContentNodeConnectionPageInfo = ContentNodeConnectionPage
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -40604,38 +39548,40 @@ export type SpecialtyToContentNodeConnectionWhereArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Connection between the Specialty type and the StaffMember type */
-export type SpecialtyToStaffMemberConnection = Connection & StaffMemberConnection & {
-  /** Edges for the SpecialtyToStaffMemberConnection connection */
-  edges: Array<SpecialtyToStaffMemberConnectionEdge>;
+/** Connection between the Specialty type and the Practitioner type */
+export type SpecialtyToPractitionerConnection = Connection & PractitionerConnection & {
+  /** Edges for the SpecialtyToPractitionerConnection connection */
+  edges: Array<SpecialtyToPractitionerConnectionEdge>;
   /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
+  nodes: Array<Practitioner>;
   /** Information about pagination in a connection. */
-  pageInfo: SpecialtyToStaffMemberConnectionPageInfo;
+  pageInfo: SpecialtyToPractitionerConnectionPageInfo;
 };
 
 /** An edge in a connection */
-export type SpecialtyToStaffMemberConnectionEdge = Edge & StaffMemberConnectionEdge & {
+export type SpecialtyToPractitionerConnectionEdge = Edge & PractitionerConnectionEdge & {
   /** A cursor for use in pagination */
   cursor: Maybe<Scalars['String']['output']>;
   /** The item at the end of the edge */
-  node: StaffMember;
+  node: Practitioner;
 };
 
-/** Pagination metadata specific to &quot;SpecialtyToStaffMemberConnection&quot; collections. Provides cursors and flags for navigating through sets of SpecialtyToStaffMemberConnection Nodes. */
-export type SpecialtyToStaffMemberConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
+/** Pagination metadata specific to &quot;SpecialtyToPractitionerConnection&quot; collections. Provides cursors and flags for navigating through sets of SpecialtyToPractitionerConnection Nodes. */
+export type SpecialtyToPractitionerConnectionPageInfo = PageInfo & PractitionerConnectionPageInfo & WpPageInfo & {
   /** When paginating forwards, the cursor to continue. */
   endCursor: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
-/** Arguments for filtering the SpecialtyToStaffMemberConnection connection */
-export type SpecialtyToStaffMemberConnectionWhereArgs = {
+/** Arguments for filtering the SpecialtyToPractitionerConnection connection */
+export type SpecialtyToPractitionerConnectionWhereArgs = {
   /** Filter the connection based on dates */
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -40780,701 +39726,6 @@ export type StaffDetails_FieldsUserAccountArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** The StaffMember type */
-export type StaffMember = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfStaffDetails & {
-  /** Whether accepting new patients */
-  acceptingPatients: Maybe<Scalars['Boolean']['output']>;
-  /**
-   * The ancestors of the content node.
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  ancestors: Maybe<StaffMemberToStaffMemberConnection>;
-  /** The location this staff member works at */
-  assignedLocation: Maybe<Location>;
-  /** Biography */
-  bio: Maybe<Scalars['String']['output']>;
-  /** Returns all blocks as a JSON object */
-  blocks: Maybe<Scalars['JSON']['output']>;
-  /** Connection between the ContentNode type and the ContentType type */
-  contentType: Maybe<ContentNodeToContentTypeConnectionEdge>;
-  /** The name of the Content Type the node belongs to */
-  contentTypeName: Scalars['String']['output'];
-  /** Professional credentials (DC, CCSP, etc.) */
-  credentials: Maybe<Scalars['String']['output']>;
-  /** The unique identifier stored in the database */
-  databaseId: Scalars['Int']['output'];
-  /** Post publishing date. */
-  date: Maybe<Scalars['String']['output']>;
-  /** The publishing date set in GMT. */
-  dateGmt: Maybe<Scalars['String']['output']>;
-  /** The desired slug of the post */
-  desiredSlug: Maybe<Scalars['String']['output']>;
-  /** Connection between the StaffMember type and the Discipline type */
-  disciplines: Maybe<StaffMemberToDisciplineConnection>;
-  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
-  editingLockedBy: Maybe<ContentNodeToEditLockConnectionEdge>;
-  /** Staff email address */
-  email: Maybe<Scalars['String']['output']>;
-  /** The RSS enclosure for the object */
-  enclosure: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the EnqueuedScript type */
-  enqueuedScripts: Maybe<ContentNodeToEnqueuedScriptConnection>;
-  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
-  enqueuedStylesheets: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
-  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
-  featuredImage: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
-  /** The database identifier for the featured image node assigned to the content node */
-  featuredImageDatabaseId: Maybe<Scalars['Int']['output']>;
-  /** Globally unique ID of the featured image assigned to the node */
-  featuredImageId: Maybe<Scalars['ID']['output']>;
-  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
-  guid: Maybe<Scalars['String']['output']>;
-  /** Whether the staff object is password protected. */
-  hasPassword: Maybe<Scalars['Boolean']['output']>;
-  /** Headshot image */
-  headshot: Maybe<MediaItem>;
-  /** The globally unique identifier of the staff object. */
-  id: Scalars['ID']['output'];
-  /** Whether the node is a Comment */
-  isComment: Scalars['Boolean']['output'];
-  /** Whether the node is a Content Node */
-  isContentNode: Scalars['Boolean']['output'];
-  /** Whether the node represents the front page. */
-  isFrontPage: Scalars['Boolean']['output'];
-  /** Whether  the node represents the blog page. */
-  isPostsPage: Scalars['Boolean']['output'];
-  /** Whether the object is a node in the preview state */
-  isPreview: Maybe<Scalars['Boolean']['output']>;
-  /** Whether displayed publicly on website */
-  isPublic: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the object is restricted from the current viewer */
-  isRestricted: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the node is a Term */
-  isTermNode: Scalars['Boolean']['output'];
-  /** Job title */
-  jobTitle: Maybe<Scalars['String']['output']>;
-  /** The user that most recently edited the node */
-  lastEditedBy: Maybe<ContentNodeToEditLastConnectionEdge>;
-  /** The permalink of the post */
-  link: Maybe<Scalars['String']['output']>;
-  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
-  modified: Maybe<Scalars['String']['output']>;
-  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
-  modifiedGmt: Maybe<Scalars['String']['output']>;
-  /**
-   * The parent of the content node.
-   * @deprecated This content type is not hierarchical and typically will not have a parent
-   */
-  parent: Maybe<StaffMemberToParentConnectionEdge>;
-  /** The password for the staff object. */
-  password: Maybe<Scalars['String']['output']>;
-  /** Connection between the StaffMember type and the StaffMember type */
-  preview: Maybe<StaffMemberToPreviewConnectionEdge>;
-  /** The database id of the preview node */
-  previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
-  /** Whether the object is a node in the preview state */
-  previewRevisionId: Maybe<Scalars['ID']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathStaffMemberObjectSeo>;
-  /** Connection between the StaffMember type and the Service type */
-  services: Maybe<StaffMemberToServiceConnection>;
-  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
-  slug: Maybe<Scalars['String']['output']>;
-  /** Connection between the StaffMember type and the Specialty type */
-  specialties: Maybe<StaffMemberToSpecialtyConnection>;
-  /** Fields of the StaffDetails ACF Field Group */
-  staffDetails: Maybe<StaffDetails>;
-  /**
-   * The id field matches the WP_Post-&gt;ID field.
-   * @deprecated Deprecated in favor of the databaseId field
-   */
-  staffMemberId: Scalars['Int']['output'];
-  /** The current status of the object */
-  status: Maybe<Scalars['String']['output']>;
-  /** The template assigned to the node */
-  template: Maybe<ContentTemplate>;
-  /** Connection between the StaffMember type and the TermNode type */
-  terms: Maybe<StaffMemberToTermNodeConnection>;
-  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
-  title: Maybe<Scalars['String']['output']>;
-  /** The unique resource identifier path */
-  uri: Maybe<Scalars['String']['output']>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberAncestorsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberBlocksArgs = {
-  attributes?: InputMaybe<Scalars['Boolean']['input']>;
-  dynamicContent?: InputMaybe<Scalars['Boolean']['input']>;
-  htmlContent?: InputMaybe<Scalars['Boolean']['input']>;
-  originalContent?: InputMaybe<Scalars['Boolean']['input']>;
-  postTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberDisciplinesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<StaffMemberToDisciplineConnectionWhereArgs>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberEnqueuedScriptsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberEnqueuedStylesheetsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberServicesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<StaffMemberToServiceConnectionWhereArgs>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberSpecialtiesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<StaffMemberToSpecialtyConnectionWhereArgs>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberTermsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<StaffMemberToTermNodeConnectionWhereArgs>;
-};
-
-
-/** The StaffMember type */
-export type StaffMemberTitleArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-/** A paginated collection of StaffMember Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of StaffMember Nodes */
-export type StaffMemberConnection = {
-  /** A list of edges (relational context) between RootQuery and connected StaffMember Nodes */
-  edges: Array<StaffMemberConnectionEdge>;
-  /** A list of connected StaffMember Nodes */
-  nodes: Array<StaffMember>;
-  /** Information about pagination in a connection. */
-  pageInfo: StaffMemberConnectionPageInfo;
-};
-
-/** Represents a connection to a StaffMember. Contains both the StaffMember Node and metadata about the relationship. */
-export type StaffMemberConnectionEdge = {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The connected StaffMember Node */
-  node: StaffMember;
-};
-
-/** Pagination metadata specific to &quot;StaffMemberConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;StaffMemberConnectionEdge&quot; Nodes. */
-export type StaffMemberConnectionPageInfo = {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Set relationships between the StaffMember to Disciplines */
-export type StaffMemberDisciplinesInput = {
-  /** If true, this will append the Discipline to existing related Disciplines. If false, this will replace existing relationships. Default true. */
-  append?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The input list of items to set. */
-  nodes?: InputMaybe<Array<InputMaybe<StaffMemberDisciplinesNodeInput>>>;
-};
-
-/** List of Disciplines to connect the StaffMember to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
-export type StaffMemberDisciplinesNodeInput = {
-  /** The description of the Discipline. This field is used to set a description of the Discipline if a new one is created during the mutation. */
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the Discipline. If present, this will be used to connect to the StaffMember. If no existing Discipline exists with this ID, no connection will be made. */
-  id?: InputMaybe<Scalars['ID']['input']>;
-  /** The name of the Discipline. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the Discipline. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Identifier types for retrieving a specific StaffMember. Specifies which unique attribute is used to find an exact StaffMember. */
-export enum StaffMemberIdType {
-  /** Identify a resource by the Database ID. */
-  DatabaseId = 'DATABASE_ID',
-  /** Identify a resource by the (hashed) Global ID. */
-  Id = 'ID',
-  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
-  Slug = 'SLUG',
-  /** Identify a resource by the URI. */
-  Uri = 'URI'
-}
-
-/** The RankMath SEO meta settings for Staff. */
-export type StaffMemberMetaSettings = RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** List of custom fields name to include in the Page analysis */
-  analyzedFields: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Default article type when creating a new Staff. */
-  articleType: Maybe<RankMathArticleTypeEnum>;
-  /** Default description for single Staff pages. */
-  description: Maybe<Scalars['String']['output']>;
-  /** Whether to list bulk editing columns to the post listing screen. */
-  hasBulkEditing: Maybe<RankMathBulkEditingTypeEnum>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether Link Suggestions meta box and the Pillar Content featured are enabled for this post type. */
-  hasLinkSuggestions: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-  /** Whether to use the Focus Keyword as the default text for the links instead of the post titles. */
-  shouldUseFocusKeyword: Maybe<Scalars['Boolean']['output']>;
-  /** Default rich snippet headline. */
-  snippetDescription: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet headline. */
-  snippetHeadline: Maybe<Scalars['String']['output']>;
-  /** Default rich snippet select when creating a new Staff. */
-  snippetType: Maybe<RankMathSnippetTypeEnum>;
-  /** The default image to display when sharing this post type on social media */
-  socialImage: Maybe<MediaItem>;
-  /** Default title tag for single Staff pages. */
-  title: Maybe<Scalars['String']['output']>;
-};
-
-/** Set relationships between the StaffMember to Services */
-export type StaffMemberServicesInput = {
-  /** If true, this will append the Service to existing related Services. If false, this will replace existing relationships. Default true. */
-  append?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The input list of items to set. */
-  nodes?: InputMaybe<Array<InputMaybe<StaffMemberServicesNodeInput>>>;
-};
-
-/** List of Services to connect the StaffMember to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
-export type StaffMemberServicesNodeInput = {
-  /** The description of the Service. This field is used to set a description of the Service if a new one is created during the mutation. */
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the Service. If present, this will be used to connect to the StaffMember. If no existing Service exists with this ID, no connection will be made. */
-  id?: InputMaybe<Scalars['ID']['input']>;
-  /** The name of the Service. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the Service. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Set relationships between the StaffMember to Specialties */
-export type StaffMemberSpecialtiesInput = {
-  /** If true, this will append the Specialty to existing related Specialties. If false, this will replace existing relationships. Default true. */
-  append?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The input list of items to set. */
-  nodes?: InputMaybe<Array<InputMaybe<StaffMemberSpecialtiesNodeInput>>>;
-};
-
-/** List of Specialties to connect the StaffMember to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
-export type StaffMemberSpecialtiesNodeInput = {
-  /** The description of the Specialty. This field is used to set a description of the Specialty if a new one is created during the mutation. */
-  description?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the Specialty. If present, this will be used to connect to the StaffMember. If no existing Specialty exists with this ID, no connection will be made. */
-  id?: InputMaybe<Scalars['ID']['input']>;
-  /** The name of the Specialty. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the Specialty. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Connection between the StaffMember type and the Discipline type */
-export type StaffMemberToDisciplineConnection = Connection & DisciplineConnection & {
-  /** Edges for the StaffMemberToDisciplineConnection connection */
-  edges: Array<StaffMemberToDisciplineConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<Discipline>;
-  /** Information about pagination in a connection. */
-  pageInfo: StaffMemberToDisciplineConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type StaffMemberToDisciplineConnectionEdge = DisciplineConnectionEdge & Edge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: Discipline;
-};
-
-/** Pagination metadata specific to &quot;StaffMemberToDisciplineConnection&quot; collections. Provides cursors and flags for navigating through sets of StaffMemberToDisciplineConnection Nodes. */
-export type StaffMemberToDisciplineConnectionPageInfo = DisciplineConnectionPageInfo & PageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Arguments for filtering the StaffMemberToDisciplineConnection connection */
-export type StaffMemberToDisciplineConnectionWhereArgs = {
-  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
-  cacheDomain?: InputMaybe<Scalars['String']['input']>;
-  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
-  childOf?: InputMaybe<Scalars['Int']['input']>;
-  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
-  childless?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Retrieve terms where the description is LIKE the input value. Default empty. */
-  descriptionLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
-  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
-  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
-  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
-  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Array of term ids to include. Default empty array. */
-  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of names to return term(s) for. Default empty. */
-  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Retrieve terms where the name is LIKE the input value. Default empty. */
-  nameLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of object IDs. Results will be limited to terms associated with these objects. */
-  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Direction the connection should be ordered in */
-  order?: InputMaybe<OrderEnum>;
-  /** Field(s) to order terms by. Defaults to 'name'. */
-  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
-  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
-  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Parent term ID to retrieve direct-child terms of. Default empty. */
-  parent?: InputMaybe<Scalars['Int']['input']>;
-  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Array of slugs to return term(s) for. Default empty. */
-  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Array of term taxonomy IDs, to match when querying terms. */
-  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to prime meta caches for matched terms. Default true. */
-  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Connection between the StaffMember type and the StaffMember type */
-export type StaffMemberToParentConnectionEdge = Edge & OneToOneConnection & StaffMemberConnectionEdge & {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor: Maybe<Scalars['String']['output']>;
-  /**
-   * The node of the connection, without the edges
-   * @deprecated This content type is not hierarchical and typically will not have a parent
-   */
-  node: StaffMember;
-};
-
-/** Connection between the StaffMember type and the StaffMember type */
-export type StaffMemberToPreviewConnectionEdge = Edge & OneToOneConnection & StaffMemberConnectionEdge & {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The node of the connection, without the edges */
-  node: StaffMember;
-};
-
-/** Connection between the StaffMember type and the Service type */
-export type StaffMemberToServiceConnection = Connection & ServiceConnection & {
-  /** Edges for the StaffMemberToServiceConnection connection */
-  edges: Array<StaffMemberToServiceConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<Service>;
-  /** Information about pagination in a connection. */
-  pageInfo: StaffMemberToServiceConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type StaffMemberToServiceConnectionEdge = Edge & ServiceConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: Service;
-};
-
-/** Pagination metadata specific to &quot;StaffMemberToServiceConnection&quot; collections. Provides cursors and flags for navigating through sets of StaffMemberToServiceConnection Nodes. */
-export type StaffMemberToServiceConnectionPageInfo = PageInfo & ServiceConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Arguments for filtering the StaffMemberToServiceConnection connection */
-export type StaffMemberToServiceConnectionWhereArgs = {
-  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
-  cacheDomain?: InputMaybe<Scalars['String']['input']>;
-  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
-  childOf?: InputMaybe<Scalars['Int']['input']>;
-  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
-  childless?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Retrieve terms where the description is LIKE the input value. Default empty. */
-  descriptionLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
-  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
-  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
-  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
-  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Array of term ids to include. Default empty array. */
-  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of names to return term(s) for. Default empty. */
-  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Retrieve terms where the name is LIKE the input value. Default empty. */
-  nameLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of object IDs. Results will be limited to terms associated with these objects. */
-  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Direction the connection should be ordered in */
-  order?: InputMaybe<OrderEnum>;
-  /** Field(s) to order terms by. Defaults to 'name'. */
-  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
-  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
-  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Parent term ID to retrieve direct-child terms of. Default empty. */
-  parent?: InputMaybe<Scalars['Int']['input']>;
-  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Array of slugs to return term(s) for. Default empty. */
-  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Array of term taxonomy IDs, to match when querying terms. */
-  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to prime meta caches for matched terms. Default true. */
-  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Connection between the StaffMember type and the Specialty type */
-export type StaffMemberToSpecialtyConnection = Connection & SpecialtyConnection & {
-  /** Edges for the StaffMemberToSpecialtyConnection connection */
-  edges: Array<StaffMemberToSpecialtyConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<Specialty>;
-  /** Information about pagination in a connection. */
-  pageInfo: StaffMemberToSpecialtyConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type StaffMemberToSpecialtyConnectionEdge = Edge & SpecialtyConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: Specialty;
-};
-
-/** Pagination metadata specific to &quot;StaffMemberToSpecialtyConnection&quot; collections. Provides cursors and flags for navigating through sets of StaffMemberToSpecialtyConnection Nodes. */
-export type StaffMemberToSpecialtyConnectionPageInfo = PageInfo & SpecialtyConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Arguments for filtering the StaffMemberToSpecialtyConnection connection */
-export type StaffMemberToSpecialtyConnectionWhereArgs = {
-  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
-  cacheDomain?: InputMaybe<Scalars['String']['input']>;
-  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
-  childOf?: InputMaybe<Scalars['Int']['input']>;
-  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
-  childless?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Retrieve terms where the description is LIKE the input value. Default empty. */
-  descriptionLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
-  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
-  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
-  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
-  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Array of term ids to include. Default empty array. */
-  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of names to return term(s) for. Default empty. */
-  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Retrieve terms where the name is LIKE the input value. Default empty. */
-  nameLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of object IDs. Results will be limited to terms associated with these objects. */
-  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Direction the connection should be ordered in */
-  order?: InputMaybe<OrderEnum>;
-  /** Field(s) to order terms by. Defaults to 'name'. */
-  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
-  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
-  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Parent term ID to retrieve direct-child terms of. Default empty. */
-  parent?: InputMaybe<Scalars['Int']['input']>;
-  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Array of slugs to return term(s) for. Default empty. */
-  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Array of term taxonomy IDs, to match when querying terms. */
-  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to prime meta caches for matched terms. Default true. */
-  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Connection between the StaffMember type and the StaffMember type */
-export type StaffMemberToStaffMemberConnection = Connection & StaffMemberConnection & {
-  /** Edges for the StaffMemberToStaffMemberConnection connection */
-  edges: Array<StaffMemberToStaffMemberConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<StaffMember>;
-  /** Information about pagination in a connection. */
-  pageInfo: StaffMemberToStaffMemberConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type StaffMemberToStaffMemberConnectionEdge = Edge & StaffMemberConnectionEdge & {
-  /**
-   * A cursor for use in pagination
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  cursor: Maybe<Scalars['String']['output']>;
-  /**
-   * The item at the end of the edge
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  node: StaffMember;
-};
-
-/** Pagination metadata specific to &quot;StaffMemberToStaffMemberConnection&quot; collections. Provides cursors and flags for navigating through sets of StaffMemberToStaffMemberConnection Nodes. */
-export type StaffMemberToStaffMemberConnectionPageInfo = PageInfo & StaffMemberConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Connection between the StaffMember type and the TermNode type */
-export type StaffMemberToTermNodeConnection = Connection & TermNodeConnection & {
-  /** Edges for the StaffMemberToTermNodeConnection connection */
-  edges: Array<StaffMemberToTermNodeConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<TermNode>;
-  /** Information about pagination in a connection. */
-  pageInfo: StaffMemberToTermNodeConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type StaffMemberToTermNodeConnectionEdge = Edge & TermNodeConnectionEdge & {
-  /** A cursor for use in pagination */
-  cursor: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: TermNode;
-};
-
-/** Pagination metadata specific to &quot;StaffMemberToTermNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of StaffMemberToTermNodeConnection Nodes. */
-export type StaffMemberToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPageInfo & WpPageInfo & {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']['output']>;
-};
-
-/** Arguments for filtering the StaffMemberToTermNodeConnection connection */
-export type StaffMemberToTermNodeConnectionWhereArgs = {
-  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
-  cacheDomain?: InputMaybe<Scalars['String']['input']>;
-  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
-  childOf?: InputMaybe<Scalars['Int']['input']>;
-  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
-  childless?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Retrieve terms where the description is LIKE the input value. Default empty. */
-  descriptionLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
-  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
-  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
-  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
-  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Array of term ids to include. Default empty array. */
-  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Array of names to return term(s) for. Default empty. */
-  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Retrieve terms where the name is LIKE the input value. Default empty. */
-  nameLike?: InputMaybe<Scalars['String']['input']>;
-  /** Array of object IDs. Results will be limited to terms associated with these objects. */
-  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Direction the connection should be ordered in */
-  order?: InputMaybe<OrderEnum>;
-  /** Field(s) to order terms by. Defaults to 'name'. */
-  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
-  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
-  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Parent term ID to retrieve direct-child terms of. Default empty. */
-  parent?: InputMaybe<Scalars['Int']['input']>;
-  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Array of slugs to return term(s) for. Default empty. */
-  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** The Taxonomy to filter terms by */
-  taxonomies?: InputMaybe<Array<InputMaybe<TaxonomyEnum>>>;
-  /** Array of term taxonomy IDs, to match when querying terms. */
-  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Whether to prime meta caches for matched terms. Default true. */
-  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** The &quot;Stats&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
@@ -41741,6 +39992,8 @@ export type SubmitGfFormPayloadToFormFieldConnectionPageInfo = FormFieldConnecti
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -41754,7 +40007,7 @@ export enum SubmittedEntryIdTypeEnum {
 }
 
 /** A taxonomy term used to organize and classify content. Tags do not have a hierarchy and are generally used for more specific classifications. */
-export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the Tag type and the ContentNode type */
   contentNodes: Maybe<TagToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -41789,8 +40042,8 @@ export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & NodeWithRankMat
   name: Maybe<Scalars['String']['output']>;
   /** Connection between the Tag type and the post type */
   posts: Maybe<TagToPostConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathTagTermSeo>;
+  /** The Yoast SEO data of the Tags taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /**
@@ -41884,6 +40137,8 @@ export type TagConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -41901,26 +40156,6 @@ export enum TagIdType {
   /** The URI for the node */
   Uri = 'URI'
 }
-
-/** The RankMath SEO meta settings for Tags. */
-export type TagMetaSettings = RankMathMetaSettingWithArchive & RankMathMetaSettingWithRobots & {
-  /** Advanced robots meta tag settings. */
-  advancedRobotsMeta: Maybe<RankMathAdvancedRobotsMeta>;
-  /** Description for archive pages. */
-  archiveDescription: Maybe<Scalars['String']['output']>;
-  /** Default title tag for archive page. */
-  archiveTitle: Maybe<Scalars['String']['output']>;
-  /** Whether custom robots meta for author page are set. Otherwise the default meta will be used, as set in the Global Meta tab. */
-  hasCustomRobotsMeta: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the SEO Controls meta box for user profile pages is enabled. */
-  hasSeoControls: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to show additional information (name &amp; total number of posts) when an author archive is shared on Slack. */
-  hasSlackEnhancedSharing: Maybe<Scalars['Boolean']['output']>;
-  /** Whether to include snippet data for this taxonomy. */
-  hasSnippetData: Maybe<Scalars['Boolean']['output']>;
-  /** Custom values for robots meta tag. */
-  robotsMeta: Maybe<Array<Maybe<RankMathRobotsMetaValueEnum>>>;
-};
 
 /** Connection between the Tag type and the ContentNode type */
 export type TagToContentNodeConnection = Connection & ContentNodeConnection & {
@@ -41948,6 +40183,8 @@ export type TagToContentNodeConnectionPageInfo = ContentNodeConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42018,6 +40255,8 @@ export type TagToEventConnectionPageInfo = EventConnectionPageInfo & PageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42114,6 +40353,8 @@ export type TagToPostConnectionPageInfo = PageInfo & PostConnectionPageInfo & Wp
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42228,6 +40469,8 @@ export type TaxClassConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42300,6 +40543,8 @@ export type TaxLineConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42382,6 +40627,8 @@ export type TaxRateConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42491,6 +40738,8 @@ export type TaxonomyConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42540,6 +40789,33 @@ export enum TaxonomyOperatorEnum {
   NotIn = 'NOT_IN'
 }
 
+export type TaxonomySeo = {
+  breadcrumbs: Maybe<Array<Maybe<SeoPostTypeBreadcrumbs>>>;
+  canonical: Maybe<Scalars['String']['output']>;
+  cornerstone: Maybe<Scalars['Boolean']['output']>;
+  focuskw: Maybe<Scalars['String']['output']>;
+  fullHead: Maybe<Scalars['String']['output']>;
+  metaDesc: Maybe<Scalars['String']['output']>;
+  metaKeywords: Maybe<Scalars['String']['output']>;
+  metaRobotsNofollow: Maybe<Scalars['String']['output']>;
+  metaRobotsNoindex: Maybe<Scalars['String']['output']>;
+  opengraphAuthor: Maybe<Scalars['String']['output']>;
+  opengraphDescription: Maybe<Scalars['String']['output']>;
+  opengraphImage: Maybe<MediaItem>;
+  opengraphModifiedTime: Maybe<Scalars['String']['output']>;
+  opengraphPublishedTime: Maybe<Scalars['String']['output']>;
+  opengraphPublisher: Maybe<Scalars['String']['output']>;
+  opengraphSiteName: Maybe<Scalars['String']['output']>;
+  opengraphTitle: Maybe<Scalars['String']['output']>;
+  opengraphType: Maybe<Scalars['String']['output']>;
+  opengraphUrl: Maybe<Scalars['String']['output']>;
+  schema: Maybe<SeoTaxonomySchema>;
+  title: Maybe<Scalars['String']['output']>;
+  twitterDescription: Maybe<Scalars['String']['output']>;
+  twitterImage: Maybe<MediaItem>;
+  twitterTitle: Maybe<Scalars['String']['output']>;
+};
+
 /** Connection between the Taxonomy type and the ContentType type */
 export type TaxonomyToContentTypeConnection = Connection & ContentTypeConnection & {
   /** Edges for the TaxonomyToContentTypeConnection connection */
@@ -42566,6 +40842,8 @@ export type TaxonomyToContentTypeConnectionPageInfo = ContentTypeConnectionPageI
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42596,6 +40874,8 @@ export type TaxonomyToTermNodeConnectionPageInfo = PageInfo & TermNodeConnection
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42642,8 +40922,6 @@ export type TermNode = {
   link: Maybe<Scalars['String']['output']>;
   /** The human friendly name of the object. */
   name: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathSeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** The name of the taxonomy that the object is associated with */
@@ -42700,6 +40978,8 @@ export type TermNodeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42744,6 +41024,8 @@ export type TermNodeToEnqueuedScriptConnectionPageInfo = EnqueuedScriptConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42774,6 +41056,8 @@ export type TermNodeToEnqueuedStylesheetConnectionPageInfo = EnqueuedStylesheetC
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -42797,7 +41081,7 @@ export enum TermObjectsConnectionOrderbyEnum {
 }
 
 /** The Testimonial type */
-export type Testimonial = ContentNode & DatabaseIdentifier & Node & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & WithAcfTestimonialDetails & {
+export type Testimonial = ContentNode & DatabaseIdentifier & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & WithAcfTestimonialDetails & {
   /**
    * The ancestors of the content node.
    * @deprecated This content type is not hierarchical and typically will not have ancestors
@@ -42881,8 +41165,8 @@ export type Testimonial = ContentNode & DatabaseIdentifier & Node & NodeWithFeat
   rating: Maybe<Scalars['Int']['output']>;
   /** The testimonial review text */
   reviewText: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathTestimonialObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug: Maybe<Scalars['String']['output']>;
   /** The current status of the object */
@@ -42971,6 +41255,8 @@ export type TestimonialConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -43089,6 +41375,8 @@ export type TestimonialToTestimonialConnectionPageInfo = PageInfo & TestimonialC
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -43273,6 +41561,8 @@ export type ThemeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -44177,6 +42467,42 @@ export type UpdatePostPayload = {
   post: Maybe<Post>;
 };
 
+/** Input for the updatePractitioner mutation. */
+export type UpdatePractitionerInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the Practitioner and Disciplines */
+  disciplines?: InputMaybe<PractitionerDisciplinesInput>;
+  /** The ID of the Practitioner object */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the Practitioner and Services */
+  services?: InputMaybe<PractitionerServicesInput>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the Practitioner and Specialties */
+  specialties?: InputMaybe<PractitionerSpecialtiesInput>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updatePractitioner mutation. */
+export type UpdatePractitionerPayload = {
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  /** The Post object mutation type. */
+  practitioner: Maybe<Practitioner>;
+};
+
 /** Input for the updateProductCategory mutation. */
 export type UpdateProductCategoryInput = {
   /** The slug that the product_cat will be an alias of */
@@ -44580,47 +42906,11 @@ export type UpdateStaffInput = {
   specialties?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-/** Input for the updateStaffMember mutation. */
-export type UpdateStaffMemberInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
-  date?: InputMaybe<Scalars['String']['input']>;
-  /** Set connections between the StaffMember and Disciplines */
-  disciplines?: InputMaybe<StaffMemberDisciplinesInput>;
-  /** The ID of the StaffMember object */
-  id: Scalars['ID']['input'];
-  /** Override the edit lock when another user is editing the post */
-  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
-  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
-  menuOrder?: InputMaybe<Scalars['Int']['input']>;
-  /** The password used to protect the content of the object */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Set connections between the StaffMember and Services */
-  services?: InputMaybe<StaffMemberServicesInput>;
-  /** The slug of the object */
-  slug?: InputMaybe<Scalars['String']['input']>;
-  /** Set connections between the StaffMember and Specialties */
-  specialties?: InputMaybe<StaffMemberSpecialtiesInput>;
-  /** The status of the object */
-  status?: InputMaybe<PostStatusEnum>;
-  /** The title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The payload for the updateStaffMember mutation. */
-export type UpdateStaffMemberPayload = {
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId: Maybe<Scalars['String']['output']>;
-  /** The Post object mutation type. */
-  staffMember: Maybe<StaffMember>;
-};
-
 /** The payload for the updateStaff mutation. */
 export type UpdateStaffPayload = {
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId: Maybe<Scalars['String']['output']>;
-  staff: Maybe<StaffMember>;
+  practitioner: Maybe<Practitioner>;
   success: Maybe<Scalars['Boolean']['output']>;
 };
 
@@ -44824,7 +43114,7 @@ export type UpdateVisibleProductPayload = {
 };
 
 /** A registered user account. Users can be assigned roles, author content, and have various capabilities within the site. */
-export type User = Commenter & DatabaseIdentifier & Node & NodeWithRankMathSeo & UniformResourceIdentifiable & {
+export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdentifiable & {
   /** Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument. */
   avatar: Maybe<Avatar>;
   /** User metadata option name. Usually it will be &quot;wp_capabilities&quot;. */
@@ -44885,20 +43175,20 @@ export type User = Commenter & DatabaseIdentifier & Node & NodeWithRankMathSeo &
   pages: Maybe<UserToPageConnection>;
   /** Connection between the User type and the post type */
   posts: Maybe<UserToPostConnection>;
+  /** Staff profile linked to this user account */
+  practitionerProfile: Maybe<Practitioner>;
   /** The date the user registered or was created. The field follows a full ISO8601 date string format. */
   registeredDate: Maybe<Scalars['String']['output']>;
   /** Connection between the User and Revisions authored by the user */
   revisions: Maybe<UserToRevisionsConnection>;
   /** Connection between the User type and the UserRole type */
   roles: Maybe<UserToUserRoleConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathUserSeo>;
+  /** The Yoast SEO data of a user */
+  seo: Maybe<SeoUser>;
   /** Whether the Toolbar should be displayed when the user is viewing the site. */
   shouldShowAdminToolbar: Maybe<Scalars['Boolean']['output']>;
   /** The slug for the user. This field is equivalent to WP_User-&gt;user_nicename */
   slug: Maybe<Scalars['String']['output']>;
-  /** Staff profile linked to this user account */
-  staffProfile: Maybe<StaffMember>;
   /** The unique resource identifier path */
   uri: Maybe<Scalars['String']['output']>;
   /** A website url that is associated with the user. */
@@ -45067,6 +43357,8 @@ export type UserConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45127,6 +43419,8 @@ export type UserRoleConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45148,7 +43442,11 @@ export enum UserRoleEnum {
   /** User role with specific capabilities */
   LocationManager = 'LOCATION_MANAGER',
   /** User role with specific capabilities */
-  Practitioner = 'PRACTITIONER'
+  Practitioner = 'PRACTITIONER',
+  /** User role with specific capabilities */
+  SeoEditor = 'SEO_EDITOR',
+  /** User role with specific capabilities */
+  SeoManager = 'SEO_MANAGER'
 }
 
 /** Connection between the User type and the Comment type */
@@ -45177,6 +43475,8 @@ export type UserToCommentConnectionPageInfo = CommentConnectionPageInfo & PageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45269,6 +43569,8 @@ export type UserToEnqueuedScriptConnectionPageInfo = EnqueuedScriptConnectionPag
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45299,6 +43601,8 @@ export type UserToEnqueuedStylesheetConnectionPageInfo = EnqueuedStylesheetConne
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45329,6 +43633,8 @@ export type UserToEventConnectionPageInfo = EventConnectionPageInfo & PageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45425,6 +43731,8 @@ export type UserToFranchiseApplicationConnectionPageInfo = FranchiseApplicationC
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45495,6 +43803,8 @@ export type UserToMediaItemConnectionPageInfo = MediaItemConnectionPageInfo & Pa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45571,6 +43881,8 @@ export type UserToOrganizerConnectionPageInfo = OrganizerConnectionPageInfo & Pa
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45647,6 +43959,8 @@ export type UserToPageConnectionPageInfo = PageConnectionPageInfo & PageInfo & W
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45723,6 +44037,8 @@ export type UserToPostConnectionPageInfo = PageInfo & PostConnectionPageInfo & W
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45819,6 +44135,8 @@ export type UserToRevisionsConnectionPageInfo = ContentNodeConnectionPageInfo & 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45889,6 +44207,8 @@ export type UserToUserRoleConnectionPageInfo = PageInfo & UserRoleConnectionPage
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -45919,6 +44239,8 @@ export type UserToVenueConnectionPageInfo = PageInfo & VenueConnectionPageInfo &
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -46080,7 +44402,7 @@ export enum UsersConnectionSearchColumnEnum {
 }
 
 /** A variable product object */
-export type VariableProduct = ContentNode & DatabaseIdentifier & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithDimensions & ProductWithPricing & ProductWithVariations & UniformResourceIdentifiable & {
+export type VariableProduct = ContentNode & DatabaseIdentifier & InventoriedProduct & MenuItemLinkable & Node & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & Product & ProductUnion & ProductWithAttributes & ProductWithDimensions & ProductWithPricing & ProductWithVariations & UniformResourceIdentifiable & {
   /** Connection between the ProductWithAttributes type and the ProductAttribute type */
   attributes: Maybe<ProductWithAttributesToProductAttributeConnection>;
   /** Product average count */
@@ -46230,8 +44552,8 @@ export type VariableProduct = ContentNode & DatabaseIdentifier & InventoriedProd
   reviewsAllowed: Maybe<Scalars['Boolean']['output']>;
   /** Product&#039;s sale price */
   salePrice: Maybe<Scalars['String']['output']>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathProductObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** shipping class ID */
   shippingClassId: Maybe<Scalars['Int']['output']>;
   /** Connection between the Product type and the shippingClass type */
@@ -46569,6 +44891,8 @@ export type VariableProductToProductUnionConnectionPageInfo = PageInfo & Product
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -46695,12 +45019,14 @@ export type VariationAttributeConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
 /** The Venue type */
-export type Venue = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRankMathSeo & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
+export type Venue = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   /** Venue address */
   address: Maybe<Scalars['String']['output']>;
   /**
@@ -46806,8 +45132,8 @@ export type Venue = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor & N
   revisionOf: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Venue type and the Venue type */
   revisions: Maybe<VenueToRevisionConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathVenueObjectSeo>;
+  /** The Yoast SEO data of the ContentNode */
+  seo: Maybe<PostTypeSeo>;
   /** Show venue map? */
   showMap: Maybe<Scalars['Boolean']['output']>;
   /** Show venue map link? */
@@ -46928,6 +45254,8 @@ export type VenueConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -47003,6 +45331,8 @@ export type VenueToRevisionConnectionPageInfo = PageInfo & VenueConnectionPageIn
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -47085,12 +45415,14 @@ export type VenueToVenueConnectionPageInfo = PageInfo & VenueConnectionPageInfo 
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
 /** The visibleProduct type */
-export type VisibleProduct = DatabaseIdentifier & Node & NodeWithRankMathSeo & TermNode & UniformResourceIdentifiable & {
+export type VisibleProduct = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   /** Connection between the VisibleProduct type and the ContentNode type */
   contentNodes: Maybe<VisibleProductToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -47125,8 +45457,8 @@ export type VisibleProduct = DatabaseIdentifier & Node & NodeWithRankMathSeo & T
   productVariations: Maybe<VisibleProductToProductVariationConnection>;
   /** Connection between the VisibleProduct type and the Product type */
   products: Maybe<VisibleProductToProductConnection>;
-  /** The RankMath SEO data for the node. */
-  seo: Maybe<RankMathVisibleProductTermSeo>;
+  /** The Yoast SEO data of the Product visibility taxonomy. */
+  seo: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug: Maybe<Scalars['String']['output']>;
   /** Connection between the VisibleProduct type and the Taxonomy type */
@@ -47220,6 +45552,8 @@ export type VisibleProductConnectionPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -47264,6 +45598,8 @@ export type VisibleProductToContentNodeConnectionPageInfo = ContentNodeConnectio
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -47334,6 +45670,8 @@ export type VisibleProductToProductConnectionPageInfo = PageInfo & ProductConnec
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -47446,6 +45784,8 @@ export type VisibleProductToProductVariationConnectionPageInfo = PageInfo & Prod
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };
@@ -47547,6 +45887,8 @@ export type WpPageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor: Maybe<Scalars['String']['output']>;
 };

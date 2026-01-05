@@ -1,42 +1,42 @@
 import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
-import type { ClinicalStaff } from "@/lib/graphql/queries/locations";
-import styles from "./StaffCard.module.css";
+import type { Practitioner } from "@/lib/graphql/queries/locations";
+import styles from "./PractitionerCard.module.css";
 import { Button } from "@/components/UI";
 import { ImageWrapper } from "@/components/UI";
 
-type StaffCardProps = {
-  staff: ClinicalStaff;
+type PractitionerCardProps = {
+  practitioner: Practitioner;
 };
 
-export function StaffCard({ staff }: StaffCardProps) {
+export function PractitionerCard({ practitioner }: PractitionerCardProps) {
   // Get discipline label from taxonomy
-  const discipline = staff.disciplines?.nodes?.[0];
-  const disciplineLabel = discipline?.name || "Staff";
+  const discipline = practitioner.disciplines?.nodes?.[0];
+  const disciplineLabel = discipline?.name || "Practitioner";
 
-  const roleLabel = staff.jobTitle || disciplineLabel;
+  const roleLabel = practitioner.jobTitle || disciplineLabel;
 
-  const nameParts = staff.title?.split(" ") ?? [];
+  const nameParts = practitioner.title?.split(" ") ?? [];
   const prefixes = ["Dr.", "Dr", "Mr.", "Mr", "Ms.", "Ms", "Mrs.", "Mrs"];
   const firstName = prefixes.includes(nameParts[0])
     ? nameParts[1]
     : nameParts[0];
 
-  const staffCta = firstName
+  const bookCta = firstName
     ? `Book with ${firstName}`
-    : "Book with this therapist";
+    : "Book with this practitioner";
 
-  const formattedRole = staff.credentials
-    ? `${staff.credentials} • ${roleLabel.toUpperCase()}`
+  const formattedRole = practitioner.credentials
+    ? `${practitioner.credentials} • ${roleLabel.toUpperCase()}`
     : roleLabel.toUpperCase();
 
   return (
     <div className={styles.card}>
       <ImageWrapper className={styles.imageWrapper}>
-        {staff.headshot?.sourceUrl ? (
+        {practitioner.headshot?.sourceUrl ? (
           <Image
-            src={staff.headshot.sourceUrl}
-            alt={staff.headshot.altText || staff.title || "Staff photo"}
+            src={practitioner.headshot.sourceUrl}
+            alt={practitioner.headshot.altText || practitioner.title || "Practitioner photo"}
             fill
             sizes="(max-width: 640px) 100vw, 400px"
             className={styles.image}
@@ -47,18 +47,18 @@ export function StaffCard({ staff }: StaffCardProps) {
             <span className={styles.placeholderText}>No image</span>
           </div>
         )}
-        {staff.acceptingPatients && (
+        {practitioner.acceptingPatients && (
           <span className={styles.badge}>Accepting Patients</span>
         )}
       </ImageWrapper>
 
       <div className={styles.content}>
-        <h3 className={styles.name}>{staff.title}</h3>
+        <h3 className={styles.name}>{practitioner.title}</h3>
         <p className={styles.role}>{formattedRole}</p>
 
-        {staff.specialties?.nodes && staff.specialties.nodes.length > 0 && (
+        {practitioner.specialties?.nodes && practitioner.specialties.nodes.length > 0 && (
           <div className={styles.specialties}>
-            {staff.specialties.nodes.map((specialty) => (
+            {practitioner.specialties.nodes.map((specialty) => (
               <span key={specialty.slug} className={styles.specialty}>
                 {specialty.name}
               </span>
@@ -66,10 +66,10 @@ export function StaffCard({ staff }: StaffCardProps) {
           </div>
         )}
 
-        {staff.bio && (
+        {practitioner.bio && (
           <div
             className={styles.bio}
-            dangerouslySetInnerHTML={{ __html: staff.bio }}
+            dangerouslySetInnerHTML={{ __html: practitioner.bio }}
           />
         )}
 
@@ -83,7 +83,7 @@ export function StaffCard({ staff }: StaffCardProps) {
             fullWidth
             iconPosition="right"
           >
-            {staffCta}
+            {bookCta}
           </Button>
         </div>
       </div>

@@ -29,8 +29,8 @@ export const LOCATION_FIELDS = `
   }
 `;
 
-export const STAFF_FIELDS = `
-  fragment StaffFields on StaffMember {
+export const PRACTITIONER_FIELDS = `
+  fragment PractitionerFields on Practitioner {
     id
     databaseId
     title
@@ -98,10 +98,10 @@ export const EVENT_FIELDS = `
       ...LocationFields
     }
 
-    staffPresenters {
-      ...StaffFields
+    presenters {
+      ...PractitionerFields
     }
   }
   ${LOCATION_FIELDS}
-  ${STAFF_FIELDS}
+  ${PRACTITIONER_FIELDS}
 `;

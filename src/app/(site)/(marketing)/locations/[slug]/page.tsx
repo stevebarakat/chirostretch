@@ -13,12 +13,12 @@ import {
   type AllLocationSlugsResponse,
   type BookingProductsResponse,
   type AllTestimonialsResponse,
-  type StaffMember,
+  type Practitioner,
   type LocationHours,
 } from "@/lib/graphql/queries";
 import { Container, Breadcrumbs } from "@/components/UI";
 import {
-  StaffCard,
+  PractitionerCard,
   ServicesTabs,
   ValuePropositions,
   Testimonials,
@@ -126,7 +126,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
     price: product.price ? `$${product.price}` : undefined,
   }));
 
-  // Type assertion to include heroUnit property
+  // Type assertion to include heroUnit and practitioners properties
   // Note: Browser's global Location interface conflicts with our Location type name
   type LocationWithHeroUnit = typeof data.location & {
     heroUnit?: {
@@ -149,11 +149,14 @@ export default async function LocationPage({ params }: LocationPageProps) {
         };
       };
     };
+    practitioners?: {
+      nodes?: Practitioner[];
+    };
   };
   const location = data.location as LocationWithHeroUnit;
-  const clinicalStaff = (location.clinicalStaff?.nodes ?? []).filter(
+  const practitioners = (location.practitioners?.nodes ?? []).filter(
     Boolean
-  ) as StaffMember[];
+  ) as Practitioner[];
   const hours = (location.hours ?? []).filter(Boolean) as LocationHours[];
   const servicesOffered = (location.servicesOffered ?? []).filter(
     (s): s is string => Boolean(s)
@@ -217,7 +220,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
         )}
 
         {/* Team Section */}
-        {clinicalStaff.length > 0 && (
+        {practitioners.length > 0 && (
           <section id="team" className={styles.teamSection}>
             <Container>
               <h2 className={styles.sectionTitle}>Meet Our Team</h2>
@@ -226,8 +229,8 @@ export default async function LocationPage({ params }: LocationPageProps) {
                 you achieve optimal wellness through personalized care.
               </p>
               <div className={styles.teamGrid}>
-                {clinicalStaff.map((staff) => (
-                  <StaffCard key={staff.id} staff={staff} />
+                {practitioners.map((practitioner) => (
+                  <PractitionerCard key={practitioner.id} practitioner={practitioner} />
                 ))}
               </div>
             </Container>

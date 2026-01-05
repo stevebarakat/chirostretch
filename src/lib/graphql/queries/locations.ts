@@ -1,13 +1,14 @@
 import type {
   Location,
-  StaffMember,
+  Practitioner as GeneratedPractitioner,
   LocationHours,
   WpPageInfo,
   MediaItem,
 } from "../generated/graphql";
 
 // Re-export generated types for convenience
-export type { Location, StaffMember, LocationHours };
+export type { Location, LocationHours };
+export type { GeneratedPractitioner };
 
 // Alias for backward compatibility
 export type WPLocation = Location;
@@ -18,8 +19,8 @@ type TaxonomyTermNode = {
   name?: string | null;
 };
 
-// Type for clinical staff as returned from LOCATION_BY_SLUG_QUERY
-export type ClinicalStaff = {
+// Type for practitioner as returned from LOCATION_BY_SLUG_QUERY
+export type Practitioner = {
   id?: string;
   databaseId?: number;
   title?: string | null;
@@ -32,8 +33,6 @@ export type ClinicalStaff = {
   services?: { nodes?: TaxonomyTermNode[] | null } | null;
   specialties?: { nodes?: TaxonomyTermNode[] | null } | null;
 };
-
-export type Chiropractor = ClinicalStaff;
 
 export const ALL_LOCATIONS_QUERY = `
   query AllLocations($first: Int, $after: String) {
@@ -152,7 +151,7 @@ export const LOCATION_BY_SLUG_QUERY = `
           }
         }
       }
-      clinicalStaff {
+      practitioners {
         nodes {
           id
           databaseId
