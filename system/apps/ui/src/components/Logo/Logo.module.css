@@ -1,0 +1,43 @@
+.logo {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  color: var(--color-text-inverse);
+
+  div {
+    padding-left: var(--spacing-md);
+  }
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+}
+
+.mobile {
+  padding-right: 25%;
+}
+
+@media (min-width: 910px) {
+  .mobile {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    white-space: nowrap;
+    visibility: hidden;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+.logoChiro {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.1em;
+}
+
+.logoStretch {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.1em;
+}

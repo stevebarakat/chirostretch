@@ -1,0 +1,183 @@
+{
+    "key": "group_value_propositions",
+    "title": "Feature",
+    "fields": [
+        {
+            "key": "field_vp_title",
+            "label": "Section Title",
+            "name": "value_propositions_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading displayed above the value propositions",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "The ChiroStretch Advantage",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_vp_description",
+            "label": "Section Description",
+            "name": "value_propositions_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Subtitle text below the heading",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_vp_items",
+            "label": "Key Points",
+            "name": "key_points",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add Key Point",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_vp_icon",
+                    "label": "Icon",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Small icon image (recommended: 48x48px, PNG or SVG)",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "png,svg",
+                    "parent_repeater": "field_vp_items",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0
+                },
+                {
+                    "key": "field_vp_icon_bg_color",
+                    "label": "Icon Background Color",
+                    "name": "icon_background_color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "Background color for the icon circle",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#E8F4FD",
+                    "parent_repeater": "field_vp_items",
+                    "enable_opacity": false,
+                    "custom_palette_source": "",
+                    "palette_colors": "",
+                    "show_color_wheel": true,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_vp_item_title",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "parent_repeater": "field_vp_items",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_vp_item_description",
+                    "label": "Description",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "parent_repeater": "field_vp_items",
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "feature-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "show_in_graphql": 0,
+    "graphql_field_name": "valuePropositionsSettings",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1766077033
+}

@@ -1,0 +1,34 @@
+/* [project]/src/components/Layout/SearchInput.module.css [app-client] (css) */
+.SearchInput-module__iD9bUq__search {
+  flex: none;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  position: relative;
+}
+
+.SearchInput-module__iD9bUq__searchIcon {
+  left: var(--spacing-md);
+  z-index: 1;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+  position: absolute;
+}
+
+.SearchInput-module__iD9bUq__searchInput {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 2.75rem;
+  width: 100%;
+}
+
+.SearchInput-module__iD9bUq__searchInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.SearchInput-module__iD9bUq__searchInput:focus {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
+  outline: none;
+}
+
+/*# sourceMappingURL=src_components_Layout_SearchInput_module_css_bad6b30c._.single.css.map*/

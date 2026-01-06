@@ -1,0 +1,118 @@
+import { notFound } from "next/navigation";
+import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
+import { Container, Breadcrumbs } from "@/components/UI";
+import { ArticlesTaxonomySearch } from "@/components/Articles/ArticlesSearch";
+import { ProductsTaxonomySearch } from "@/components/Products/ProductsSearch";
+import styles from "@/app/(site)/archive.module.css";
+
+export const revalidate = 300;
+
+type CategoryPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+const GET_POST_CATEGORY_QUERY = `
+  query GetPostCategory($slug: ID!) {
+    category(id: $slug, idType: SLUG) {
+      id
+      name
+      slug
+      description
+    }
+  }
+`;
+
+const GET_PRODUCT_CATEGORY_QUERY = `
+  query GetProductCategory($slug: ID!) {
+    productCategory(id: $slug, idType: SLUG) {
+      id
+      name
+      slug
+      description
+    }
+  }
+`;
+
+type CategoryResponse = {
+  category?: {
+    id?: string;
+    name?: string;
+    slug?: string;
+    description?: string;
+  } | null;
+};
+
+type ProductCategoryResponse = {
+  productCategory?: {
+    id?: string;
+    name?: string;
+    slug?: string;
+    description?: string;
+  } | null;
+};
+
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { slug } = await params;
+
+  if (!slug) {
+    notFound();
+  }
+
+  // Try post category first
+  const postCategoryData = await wpQuery<CategoryResponse>(
+    GET_POST_CATEGORY_QUERY,
+    { slug },
+    { tags: [CACHE_TAGS.posts] }
+  );
+
+  if (postCategoryData?.category?.slug) {
+    const breadcrumbs = [
+      { label: "Articles", href: "/articles" },
+      { label: postCategoryData.category.name ?? "Category" },
+    ];
+
+    return (
+      <main className={styles.main}>
+        <Container>
+          <Breadcrumbs items={breadcrumbs} />
+          <ArticlesTaxonomySearch
+            taxonomyType="category"
+            slug={slug}
+            title={postCategoryData.category.name || "Category"}
+            subtitle={postCategoryData.category.description}
+          />
+        </Container>
+      </main>
+    );
+  }
+
+  // Try product category
+  const productCategoryData = await wpQuery<ProductCategoryResponse>(
+    GET_PRODUCT_CATEGORY_QUERY,
+    { slug },
+    { tags: [CACHE_TAGS.products] }
+  );
+
+  if (productCategoryData?.productCategory?.slug) {
+    const breadcrumbs = [
+      { label: "Shop", href: "/shop" },
+      { label: productCategoryData.productCategory.name ?? "Category" },
+    ];
+
+    return (
+      <main className={styles.main}>
+        <Container>
+          <Breadcrumbs items={breadcrumbs} />
+          <ProductsTaxonomySearch
+            taxonomyType="category"
+            slug={slug}
+            title={productCategoryData.productCategory.name || "Category"}
+            subtitle={productCategoryData.productCategory.description}
+          />
+        </Container>
+      </main>
+    );
+  }
+
+  notFound();
+}

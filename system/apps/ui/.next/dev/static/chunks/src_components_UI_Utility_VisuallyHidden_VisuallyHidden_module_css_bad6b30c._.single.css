@@ -1,0 +1,11 @@
+/* [project]/src/components/UI/Utility/VisuallyHidden/VisuallyHidden.module.css [app-client] (css) */
+.VisuallyHidden-module__2TbryW__visuallyHidden:not(:focus, :active) {
+  white-space: nowrap;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=src_components_UI_Utility_VisuallyHidden_VisuallyHidden_module_css_bad6b30c._.single.css.map*/

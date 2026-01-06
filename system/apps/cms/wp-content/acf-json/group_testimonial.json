@@ -1,0 +1,104 @@
+{
+    "key": "group_testimonial",
+    "title": "Testimonial Details",
+    "fields": [
+        {
+            "key": "field_testimonial_rating",
+            "label": "Rating",
+            "name": "rating",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "Star rating from 1-5",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 5,
+            "min": 1,
+            "max": 5,
+            "allow_in_bindings": 1,
+            "step": "0.5",
+            "prepend": "",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "rating",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_testimonial_location",
+            "label": "Location",
+            "name": "location",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Associate with a specific location, or leave empty for global testimonials",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "location"
+            ],
+            "allow_null": 1,
+            "return_format": "id",
+            "show_in_graphql": 1,
+            "graphql_field_name": "location",
+            "taxonomy": [],
+            "multiple": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_testimonial_review_text",
+            "label": "Review Text",
+            "name": "review_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "The testimonial content",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "",
+            "show_in_graphql": 1,
+            "graphql_field_name": "reviewText",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "testimonial"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "testimonialDetails",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1767181784
+}

@@ -1,0 +1,96 @@
+.modal {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  background: transparent;
+  border: none;
+  overflow: visible;
+  inset: 0;
+}
+
+.modal::backdrop {
+  background: hsla(0, 0%, 0%, 0.5);
+  backdrop-filter: blur(4px);
+  animation: fade-in var(--transition-base);
+}
+
+.modal[open] {
+  animation: fade-in var(--transition-base);
+}
+
+.modal[open] .content {
+  animation: slide-up var(--transition-base);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content {
+  position: relative;
+  margin: auto;
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  box-sizing: border-box;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+}
+
+.closeButton {
+  display: flex;
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+}
+
+.closeButton:hover {
+  background: var(--color-neutral-100);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.closeButton svg {
+  stroke: currentColor;
+}
+

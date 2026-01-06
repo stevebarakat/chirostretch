@@ -1,0 +1,49 @@
+/* [project]/src/components/Cart/CartBadge.module.css [app-client] (css) */
+.CartBadge-module__EYWIuG__badgeWrapper {
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
+  text-decoration: none;
+  display: flex;
+  position: relative;
+}
+
+.CartBadge-module__EYWIuG__badgeWrapper:hover {
+  color: var(--color-primary-600);
+}
+
+.CartBadge-module__EYWIuG__price {
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.CartBadge-module__EYWIuG__icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  position: relative;
+}
+
+.CartBadge-module__EYWIuG__count {
+  color: #fff;
+  background: #e61a1a;
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: .7rem;
+  font-weight: bold;
+  line-height: 1;
+  position: absolute;
+  top: -4px;
+  right: -8px;
+}
+
+.CartBadge-module__EYWIuG__inverse {
+  color: var(--color-text-inverse);
+}
+
+.CartBadge-module__EYWIuG__inverse:hover {
+  opacity: .8;
+}
+
+/*# sourceMappingURL=src_components_Cart_CartBadge_module_css_bad6b30c._.single.css.map*/

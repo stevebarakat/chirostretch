@@ -1,0 +1,101 @@
+/* [project]/src/components/Homepage/UpcomingEvents/UpcomingEvents.module.css [app-client] (css) */
+.UpcomingEvents-module__nVgbOq__section {
+  padding: var(--spacing-4xl) 0;
+  background-color: #fff;
+}
+
+.UpcomingEvents-module__nVgbOq__grid {
+  grid-gap: var(--spacing-xl);
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-3xl);
+  grid-template-columns: 1fr;
+  display: grid;
+}
+
+.UpcomingEvents-module__nVgbOq__eventCard {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  flex-direction: column;
+  display: flex;
+  overflow: hidden;
+}
+
+.UpcomingEvents-module__nVgbOq__eventCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.UpcomingEvents-module__nVgbOq__imageWrapper {
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+}
+
+.UpcomingEvents-module__nVgbOq__image {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.UpcomingEvents-module__nVgbOq__content {
+  padding: var(--spacing-lg);
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+}
+
+.UpcomingEvents-module__nVgbOq__title {
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+.UpcomingEvents-module__nVgbOq__description {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.UpcomingEvents-module__nVgbOq__date {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.UpcomingEvents-module__nVgbOq__actions {
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.UpcomingEvents-module__nVgbOq__cta {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .UpcomingEvents-module__nVgbOq__eventCard {
+    flex-direction: row;
+  }
+
+  .UpcomingEvents-module__nVgbOq__imageWrapper {
+    aspect-ratio: auto;
+    width: 40%;
+    height: 100%;
+    min-height: 200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .UpcomingEvents-module__nVgbOq__imageWrapper {
+    width: 35%;
+    min-height: 250px;
+  }
+}
+
+/*# sourceMappingURL=src_components_Homepage_UpcomingEvents_UpcomingEvents_module_css_bad6b30c._.single.css.map*/

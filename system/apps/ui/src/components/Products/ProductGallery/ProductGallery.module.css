@@ -1,0 +1,73 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.mainImage {
+  display: flex;
+  position: relative;
+  left: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  width: 100%;
+  width: calc(100% - 0.75rem);
+  background-color: var(--color-bg-primary);
+  overflow: hidden;
+  outline: 1px solid var(--color-border-primary);
+  outline-offset: 0.75rem;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.thumbnail {
+  position: relative;
+  left: 0.4rem;
+  margin-top: 0.4rem;
+  padding: 0;
+  width: 100%;
+  width: calc(100% - 0.4rem);
+  font-family: inherit;
+  font-size: inherit;
+  background-color: var(--color-bg-secondary);
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+  aspect-ratio: 1;
+  outline: 1px solid var(--color-border-primary);
+  outline-offset: 0.4rem;
+}
+
+.thumbnail:hover {
+  opacity: 0.8;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  outline-color: var(--color-primary-500);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .thumbnails {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+

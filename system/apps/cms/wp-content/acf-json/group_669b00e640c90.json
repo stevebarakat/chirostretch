@@ -1,0 +1,179 @@
+{
+    "key": "group_669b00e640c90",
+    "title": "SEO – Page Metadata",
+    "fields": [
+        {
+            "key": "field_66a2930ff4367",
+            "label": "Canonical URL",
+            "name": "canonical",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "canonical",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_66d2d7bb48799",
+            "label": "Google Verify",
+            "name": "google_verify",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "googleVerify",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_66d2d8114879a",
+            "label": "Bing Verify",
+            "name": "bing_verify",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "bingVerify",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_669b5955e56ae",
+            "label": "Google Analytics ID",
+            "name": "google_analytics_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Please provide the 10 character slug of your Google Analytics ID (10 uppercase letters and numbers after the \"G-\"). So if the id is: G-12345ABCDE, provide 12345ABCDE.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 10,
+            "placeholder": "XXXXXXXXXX",
+            "prepend": "G-",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "googleAnalyticsId",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_669b5a792ff6b",
+            "label": "Crazy Egg Code",
+            "name": "crazy_egg_code",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Please provide just the src of the  Crazy Egg code. (ie: \/\/script.crazyegg.com\/pages\/scripts\/XXXX\/XXXX.js)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "\/\/script.crazyegg.com\/pages\/scripts\/XXXX\/XXXX.js",
+            "prepend": "",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "crazyEggCode",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_66e2169898cfc",
+            "label": "Schema",
+            "name": "schema",
+            "aria-label": "",
+            "type": "acfe_code_editor",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "mode": "application\/x-json",
+            "lines": 1,
+            "indent_unit": 4,
+            "maxlength": "",
+            "rows": 4,
+            "max_rows": "",
+            "return_format": [],
+            "allow_in_bindings": 0,
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "schema",
+            "graphql_non_null": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "custom-seo"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "field",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "customSeoSettings",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1767414971
+}

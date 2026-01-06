@@ -1,0 +1,99 @@
+/* [project]/src/components/UI/Feedback/Modal/Modal.module.css [app-client] (css) */
+.Modal-module__B6uYjW__modal {
+  background: none;
+  border: none;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  inset: 0;
+  overflow: visible;
+}
+
+.Modal-module__B6uYjW__modal::backdrop {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: Modal-module__B6uYjW__fade-in var(--transition-base);
+  background: #00000080;
+}
+
+.Modal-module__B6uYjW__modal[open] {
+  animation: Modal-module__B6uYjW__fade-in var(--transition-base);
+}
+
+.Modal-module__B6uYjW__modal[open] .Modal-module__B6uYjW__content {
+  animation: Modal-module__B6uYjW__slide-up var(--transition-base);
+}
+
+@keyframes Modal-module__B6uYjW__fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes Modal-module__B6uYjW__slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Modal-module__B6uYjW__content {
+  padding: var(--spacing-xl);
+  box-sizing: border-box;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  box-shadow: var(--shadow-lg);
+  margin: auto;
+  position: relative;
+  overflow-y: auto;
+}
+
+.Modal-module__B6uYjW__closeButton {
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 1;
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  position: absolute;
+}
+
+.Modal-module__B6uYjW__closeButton:hover {
+  background: var(--color-neutral-100);
+}
+
+.Modal-module__B6uYjW__closeButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.Modal-module__B6uYjW__closeButton svg {
+  stroke: currentColor;
+}
+
+/*# sourceMappingURL=src_components_UI_Feedback_Modal_Modal_module_css_bad6b30c._.single.css.map*/

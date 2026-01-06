@@ -1,0 +1,38 @@
+.modalContent {
+  padding: 1rem;
+  max-width: 32rem;
+}
+
+.modalTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.modalDescription {
+  margin-bottom: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+/* Form input, textarea, select, and submit button styles now come from shared forms.css */
+
+/* The .formWrapper scope ensures Gravity Forms inherit the global form styles */
+
+/* Add spacing between Gravity Forms fields */
+.formWrapper form > div:not(:last-child),
+.formWrapper form > fieldset:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Target field containers more specifically */
+.formWrapper form [class*="field"]:not(:last-child),
+.formWrapper form [class*="Field"]:not(:last-child) {
+  margin-bottom: var(--spacing-lg);
+}
+
+.error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-error, hsl(0, 70%, 50%));
+}

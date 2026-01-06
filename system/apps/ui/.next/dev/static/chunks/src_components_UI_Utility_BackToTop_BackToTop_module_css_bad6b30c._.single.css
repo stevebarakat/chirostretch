@@ -1,0 +1,60 @@
+/* [project]/src/components/UI/Utility/BackToTop/BackToTop.module.css [app-client] (css) */
+.BackToTop-module__AaPYYa__button {
+  right: var(--spacing-xl);
+  bottom: var(--spacing-xl);
+  z-index: 100;
+  padding: var(--spacing-md);
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-500);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transition: opacity var(--transition-base), transform var(--transition-base), background-color var(--transition-base);
+  pointer-events: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  transform: translateY(1rem);
+}
+
+.BackToTop-module__AaPYYa__button:is(:hover, :focus-visible) {
+  background-color: var(--color-primary-600);
+  outline: none;
+}
+
+.BackToTop-module__AaPYYa__button:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.BackToTop-module__AaPYYa__button.BackToTop-module__AaPYYa__visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.BackToTop-module__AaPYYa__icon {
+  stroke: currentColor;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .BackToTop-module__AaPYYa__button {
+    right: var(--spacing-md);
+    bottom: var(--spacing-md);
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .BackToTop-module__AaPYYa__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/*# sourceMappingURL=src_components_UI_Utility_BackToTop_BackToTop_module_css_bad6b30c._.single.css.map*/

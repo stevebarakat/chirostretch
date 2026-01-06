@@ -1,0 +1,26 @@
+/* [project]/src/components/UI/Media/NoImage/NoImage.module.css [app-client] (css) */
+.NoImage-module__IW3IdW__noImage {
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  height: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  background-color: var(--color-bg-tertiary);
+  flex-direction: column;
+  display: flex;
+}
+
+.NoImage-module__IW3IdW__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-text-tertiary);
+  opacity: .5;
+}
+
+.NoImage-module__IW3IdW__text {
+  font-style: italic;
+}
+
+/*# sourceMappingURL=src_components_UI_Media_NoImage_NoImage_module_css_bad6b30c._.single.css.map*/

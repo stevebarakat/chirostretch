@@ -1,0 +1,304 @@
+/* [project]/src/components/Events/EventsCalendar/EventsCalendar.module.css [app-client] (css) */
+.EventsCalendar-module__R4ZGHa__calendar {
+  gap: var(--spacing-md);
+  flex-direction: column;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__desktopView {
+  display: contents;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileView {
+  display: none;
+}
+
+.EventsCalendar-module__R4ZGHa__header {
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-block: var(--spacing-sm);
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__monthYear {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.EventsCalendar-module__R4ZGHa__navButton {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  transition: background-color var(--transition-base);
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-family: inherit;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__navButton:hover {
+  background: var(--color-bg-tertiary);
+}
+
+.EventsCalendar-module__R4ZGHa__navButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.EventsCalendar-module__R4ZGHa__weekdayHeader {
+  grid-gap: var(--spacing-xs);
+  gap: var(--spacing-xs);
+  grid-template-columns: repeat(7, 1fr);
+  display: grid;
+}
+
+.EventsCalendar-module__R4ZGHa__weekday {
+  padding: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.EventsCalendar-module__R4ZGHa__grid {
+  gap: var(--spacing-xs);
+  flex-direction: column;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__week {
+  grid-gap: var(--spacing-xs);
+  gap: var(--spacing-xs);
+  grid-template-columns: repeat(7, 1fr);
+  display: grid;
+}
+
+.EventsCalendar-module__R4ZGHa__dayCell {
+  padding: var(--spacing-xs);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  flex-direction: column;
+  height: 140px;
+  display: flex;
+  overflow: hidden;
+}
+
+.EventsCalendar-module__R4ZGHa__dayCell.EventsCalendar-module__R4ZGHa__otherMonth {
+  background: var(--color-bg-primary);
+  opacity: .4;
+}
+
+.EventsCalendar-module__R4ZGHa__dayCell.EventsCalendar-module__R4ZGHa__today {
+  border-width: 2px;
+  border-color: var(--color-primary-500);
+}
+
+.EventsCalendar-module__R4ZGHa__dayNumber {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.EventsCalendar-module__R4ZGHa__today .EventsCalendar-module__R4ZGHa__dayNumber {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-500);
+}
+
+.EventsCalendar-module__R4ZGHa__dayEvents {
+  gap: var(--spacing-xs);
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+}
+
+.EventsCalendar-module__R4ZGHa__eventItem {
+  margin: 0 var(--spacing-xs);
+  padding: var(--spacing-xs);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  text-align: left;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  border: none;
+  align-items: center;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__eventItem:first-child {
+  margin-top: var(--spacing-xs);
+}
+
+.EventsCalendar-module__R4ZGHa__eventItem:hover {
+  background: var(--color-bg-hover);
+}
+
+.EventsCalendar-module__R4ZGHa__eventItem:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 1px;
+}
+
+.EventsCalendar-module__R4ZGHa__eventItem.EventsCalendar-module__R4ZGHa__highlighted {
+  background: var(--color-primary-100);
+  box-shadow: 0 0 0 2px var(--color-primary-500);
+  animation: 1s ease-in-out infinite EventsCalendar-module__R4ZGHa__pulse;
+}
+
+@keyframes EventsCalendar-module__R4ZGHa__pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 2px var(--color-primary-500);
+  }
+
+  50% {
+    box-shadow: 0 0 0 4px var(--color-primary-300);
+  }
+}
+
+.EventsCalendar-module__R4ZGHa__eventCity {
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.EventsCalendar-module__R4ZGHa__eventTitle {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+}
+
+.EventsCalendar-module__R4ZGHa__listView {
+  gap: var(--spacing-lg);
+  flex-direction: column;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__dateGroup {
+  gap: var(--spacing-sm);
+  flex-direction: column;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__dateHeader {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  border-block-end: 1px solid var(--color-border);
+  margin: 0;
+  padding-block-end: var(--spacing-xs);
+}
+
+.EventsCalendar-module__R4ZGHa__dateEvents {
+  gap: var(--spacing-xs);
+  flex-direction: column;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__emptyMonth {
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCard {
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCard.EventsCalendar-module__R4ZGHa__highlighted {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 2px var(--color-primary-300);
+  animation: 1s ease-in-out infinite EventsCalendar-module__R4ZGHa__pulse;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardThumb {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardImage {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardContent {
+  flex-direction: column;
+  min-width: 0;
+  display: flex;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  overflow: hidden;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardMeta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardCost {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-500);
+  margin: 0;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardLink {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-600);
+  align-items: center;
+  margin-block-start: auto;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardLink:hover {
+  text-decoration: underline;
+}
+
+.EventsCalendar-module__R4ZGHa__mobileCardLink:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 935px) {
+  .EventsCalendar-module__R4ZGHa__desktopView {
+    display: none;
+  }
+
+  .EventsCalendar-module__R4ZGHa__mobileView {
+    display: block;
+  }
+}
+
+/*# sourceMappingURL=src_components_Events_EventsCalendar_EventsCalendar_module_css_bad6b30c._.single.css.map*/

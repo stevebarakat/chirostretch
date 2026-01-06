@@ -1,0 +1,67 @@
+/* [project]/src/components/Homepage/FeaturedProducts/FeaturedProducts.module.css [app-client] (css) */
+.FeaturedProducts-module__5k7frq__section {
+  padding: var(--spacing-4xl) 0;
+  background-color: var(--color-primary-500);
+}
+
+.FeaturedProducts-module__5k7frq__header {
+  grid-template-columns: 25% 50% 25%;
+  width: 100%;
+  display: grid;
+  position: relative;
+}
+
+.FeaturedProducts-module__5k7frq__cartWrapper {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .FeaturedProducts-module__5k7frq__header {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+  }
+
+  .FeaturedProducts-module__5k7frq__cartWrapper {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+  }
+}
+
+.FeaturedProducts-module__5k7frq__swiperWrapper {
+  margin-top: var(--spacing-3xl);
+}
+
+.FeaturedProducts-module__5k7frq__swiper {
+  padding-bottom: var(--spacing-2xl);
+}
+
+.FeaturedProducts-module__5k7frq__slide {
+  height: auto;
+  display: flex;
+}
+
+.FeaturedProducts-module__5k7frq__productCard {
+  width: 100%;
+  min-height: 100%;
+}
+
+:is(.FeaturedProducts-module__5k7frq__swiper .swiper-button-next, .FeaturedProducts-module__5k7frq__swiper .swiper-button-prev) {
+  color: var(--color-text-inverse);
+}
+
+:is(.FeaturedProducts-module__5k7frq__swiper .swiper-button-next:after, .FeaturedProducts-module__5k7frq__swiper .swiper-button-prev:after) {
+  font-size: var(--font-size-xl);
+}
+
+.FeaturedProducts-module__5k7frq__swiper .swiper-pagination-bullet {
+  background-color: var(--color-text-inverse);
+  opacity: .5;
+}
+
+.FeaturedProducts-module__5k7frq__swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=src_components_Homepage_FeaturedProducts_FeaturedProducts_module_css_bad6b30c._.single.css.map*/

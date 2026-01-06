@@ -1,0 +1,78 @@
+/* [project]/src/components/CMS/GravityFormBlock/GravityFormBlock.module.css [app-client] (css) */
+.GravityFormBlock-module__1DbFFa__formBlock {
+  margin-block: var(--spacing-xl);
+}
+
+.GravityFormBlock-module__1DbFFa__formTitle {
+  margin: 0 0 var(--spacing-lg);
+  font-size: 1.5rem;
+  font-size: var(--font-size-xl, 1.5rem);
+  color: var(--color-text-primary);
+}
+
+.GravityFormBlock-module__1DbFFa__loading {
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-2xl);
+  color: var(--color-text-secondary);
+  flex-direction: column;
+  display: flex;
+}
+
+.GravityFormBlock-module__1DbFFa__spinner {
+  border: 3px solid #e6e6e6;
+  border: 3px solid var(--color-border, #e6e6e6);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: .8s linear infinite GravityFormBlock-module__1DbFFa__spin;
+}
+
+@keyframes GravityFormBlock-module__1DbFFa__spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.GravityFormBlock-module__1DbFFa__error {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: center;
+  color: var(--color-error-700);
+  background-color: var(--color-error-50);
+  border: 1px solid var(--color-error-100);
+  border-radius: var(--radius-md);
+}
+
+.GravityFormBlock-module__1DbFFa__error p {
+  margin: 0;
+}
+
+.GravityFormBlock-module__1DbFFa__confirmation {
+  padding: var(--spacing-2xl);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.GravityFormBlock-module__1DbFFa__confirmationIcon {
+  margin: 0 auto var(--spacing-lg);
+  color: #fff;
+  background-color: #1cca5b;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.GravityFormBlock-module__1DbFFa__confirmationContent {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/*# sourceMappingURL=src_components_CMS_GravityFormBlock_GravityFormBlock_module_css_bad6b30c._.single.css.map*/

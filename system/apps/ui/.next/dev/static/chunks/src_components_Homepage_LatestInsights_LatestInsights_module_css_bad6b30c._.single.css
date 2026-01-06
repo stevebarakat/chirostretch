@@ -1,0 +1,162 @@
+/* [project]/src/components/Homepage/LatestInsights/LatestInsights.module.css [app-client] (css) */
+.LatestInsights-module__rpZKNG__section {
+  padding: var(--spacing-4xl) 0;
+}
+
+.LatestInsights-module__rpZKNG__posts {
+  margin-top: var(--spacing-3xl);
+  flex-direction: column;
+  display: flex;
+}
+
+.LatestInsights-module__rpZKNG__postCard {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  flex-direction: column;
+  display: flex;
+  overflow: hidden;
+}
+
+.LatestInsights-module__rpZKNG__postCard:first-child {
+  color: var(--color-text-inverse);
+  background: var(--color-secondary-transparent-700);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.LatestInsights-module__rpZKNG__postCard:first-child .LatestInsights-module__rpZKNG__image {
+  -o-object-position: top center;
+  object-position: top center;
+}
+
+.LatestInsights-module__rpZKNG__postCard:nth-child(2) {
+  color: var(--color-text-inverse);
+  background: var(--color-primary-transparent-900);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  flex-direction: row-reverse;
+}
+
+.LatestInsights-module__rpZKNG__imageWrapper {
+  background-color: var(--color-bg-tertiary);
+  max-height: 500px;
+}
+
+.LatestInsights-module__rpZKNG__image {
+  -o-object-fit: cover;
+  object-fit: cover;
+  background-position: top;
+  width: 100%;
+  height: 100%;
+}
+
+.LatestInsights-module__rpZKNG__content {
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  flex-direction: column;
+  display: flex;
+}
+
+.LatestInsights-module__rpZKNG__titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.LatestInsights-module__rpZKNG__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-inverse);
+  transition: color var(--transition-base);
+  margin: 0;
+}
+
+.LatestInsights-module__rpZKNG__titleLink:hover .LatestInsights-module__rpZKNG__title {
+  color: var(--color-text-link);
+}
+
+.LatestInsights-module__rpZKNG__meta {
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.LatestInsights-module__rpZKNG__author {
+  font-weight: var(--font-weight-medium);
+}
+
+.LatestInsights-module__rpZKNG__date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
+}
+
+.LatestInsights-module__rpZKNG__excerpt {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-inverse);
+  margin: 0;
+}
+
+.LatestInsights-module__rpZKNG__categories {
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.LatestInsights-module__rpZKNG__category {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-text-inverse);
+  border-radius: var(--radius-sm);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.LatestInsights-module__rpZKNG__readMore {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-inverse);
+  transition: color var(--transition-base);
+  text-decoration: none;
+}
+
+.LatestInsights-module__rpZKNG__readMore:hover {
+  color: var(--color-text-inverse);
+}
+
+.LatestInsights-module__rpZKNG__empty {
+  margin-top: var(--spacing-3xl);
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-inverse);
+}
+
+.LatestInsights-module__rpZKNG__cta {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .LatestInsights-module__rpZKNG__postCard {
+    flex-direction: row;
+  }
+
+  .LatestInsights-module__rpZKNG__imageWrapper {
+    aspect-ratio: 4 / 3;
+    width: 50%;
+  }
+
+  .LatestInsights-module__rpZKNG__content {
+    padding: var(--spacing-xl);
+    justify-content: center;
+    width: 25%;
+    min-width: 650px;
+  }
+}
+
+/*# sourceMappingURL=src_components_Homepage_LatestInsights_LatestInsights_module_css_bad6b30c._.single.css.map*/

@@ -1,0 +1,159 @@
+/* [project]/src/components/GravityForms/GravityForm.module.css [app-client] (css) */
+.GravityForm-module__Ud8bwq__form {
+  gap: var(--spacing-md);
+  flex-direction: column;
+  display: flex;
+}
+
+.GravityForm-module__Ud8bwq__actions {
+  margin-top: 1rem;
+  margin-top: var(--spacing-md, 1rem);
+}
+
+.GravityForm-module__Ud8bwq__submitButton {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-500);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  border: none;
+}
+
+.GravityForm-module__Ud8bwq__submitButton:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+}
+
+.GravityForm-module__Ud8bwq__submitButton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.GravityForm-module__Ud8bwq__description {
+  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md, 1rem);
+  font-size: .875rem;
+  font-size: var(--font-size-sm, .875rem);
+  color: #666;
+  line-height: 1.5;
+}
+
+.GravityForm-module__Ud8bwq__error {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-error-700);
+  background-color: var(--color-error-50);
+  border: 1px solid var(--color-error-100);
+  border-radius: var(--radius-md);
+}
+
+.GravityForm-module__Ud8bwq__submitError {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-error-700);
+  background-color: var(--color-error-50);
+  border: 1px solid var(--color-error-100);
+  border-radius: var(--radius-md);
+}
+
+.GravityForm-module__Ud8bwq__submitError strong {
+  margin-bottom: .5rem;
+  margin-bottom: var(--spacing-sm, .5rem);
+  display: block;
+}
+
+.GravityForm-module__Ud8bwq__errorList {
+  padding-left: 1rem;
+  padding-left: var(--spacing-md, 1rem);
+  margin: 0;
+  list-style: none;
+}
+
+.GravityForm-module__Ud8bwq__errorList li {
+  margin-bottom: .25rem;
+  margin-bottom: var(--spacing-xs, .25rem);
+}
+
+.GravityForm-module__Ud8bwq__errorList li:before {
+  content: "•";
+  margin-right: .25rem;
+  margin-right: var(--spacing-xs, .25rem);
+}
+
+.GravityForm-module__Ud8bwq__errorLink {
+  font-size: inherit;
+  text-align: left;
+  color: #ad1f1f;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.GravityForm-module__Ud8bwq__errorLink:hover {
+  color: #821717;
+}
+
+.GravityForm-module__Ud8bwq__successMessage {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-success-700);
+  background-color: var(--color-success-50);
+  border: 1px solid var(--color-success-200);
+  border-radius: var(--radius-md);
+}
+
+.GravityForm-module__Ud8bwq__progressContainer {
+  gap: .5rem;
+  gap: var(--spacing-sm, .5rem);
+  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl, 2rem);
+  flex-direction: column;
+  display: flex;
+}
+
+.GravityForm-module__Ud8bwq__progressBar {
+  background-color: #e6e6e6;
+  border-radius: 4px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.GravityForm-module__Ud8bwq__progressFill {
+  background-color: #0d59f2;
+  background-color: var(--color-primary, #0d59f2);
+  border-radius: 4px;
+  height: 100%;
+  transition: width .3s;
+}
+
+.GravityForm-module__Ud8bwq__progressText {
+  font-size: .875rem;
+  font-size: var(--font-size-sm, .875rem);
+  text-align: center;
+  color: gray;
+}
+
+.GravityForm-module__Ud8bwq__fieldsContainer {
+  gap: var(--spacing-md);
+  flex-direction: column;
+  display: flex;
+}
+
+.GravityForm-module__Ud8bwq__navigationButtons {
+  justify-content: space-between;
+  gap: 1rem;
+  gap: var(--spacing-md, 1rem);
+  margin-top: 2rem;
+  margin-top: var(--spacing-xl, 2rem);
+  display: flex;
+}
+
+.GravityForm-module__Ud8bwq__navigationButtons > :only-child {
+  margin-left: auto;
+}
+
+/*# sourceMappingURL=src_components_GravityForms_GravityForm_module_css_bad6b30c._.single.css.map*/

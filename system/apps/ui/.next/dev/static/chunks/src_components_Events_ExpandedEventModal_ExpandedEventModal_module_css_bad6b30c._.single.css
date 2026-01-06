@@ -1,0 +1,215 @@
+/* [project]/src/components/Events/ExpandedEventModal/ExpandedEventModal.module.css [app-client] (css) */
+.ExpandedEventModal-module__M-EGIq__overlay {
+  z-index: 1000;
+  padding: var(--spacing-lg);
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.ExpandedEventModal-module__M-EGIq__modal {
+  margin: auto var(--spacing-lg);
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden auto;
+}
+
+.ExpandedEventModal-module__M-EGIq__closeButton {
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 10;
+  padding: var(--spacing-sm);
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: absolute;
+}
+
+.ExpandedEventModal-module__M-EGIq__closeButton:hover {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-secondary);
+}
+
+.ExpandedEventModal-module__M-EGIq__closeButton:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.ExpandedEventModal-module__M-EGIq__closeButton svg {
+  stroke: currentColor;
+}
+
+.ExpandedEventModal-module__M-EGIq__content {
+  flex-direction: column;
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .ExpandedEventModal-module__M-EGIq__content {
+    flex-direction: row;
+  }
+}
+
+.ExpandedEventModal-module__M-EGIq__imageWrapper {
+  aspect-ratio: 16 / 9;
+  background-color: var(--color-bg-tertiary);
+  flex-shrink: 0;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .ExpandedEventModal-module__M-EGIq__imageWrapper {
+    width: 50%;
+  }
+}
+
+.ExpandedEventModal-module__M-EGIq__image {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.ExpandedEventModal-module__M-EGIq__textContent {
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+  flex-direction: column;
+  display: flex;
+}
+
+.ExpandedEventModal-module__M-EGIq__title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.ExpandedEventModal-module__M-EGIq__categories {
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.ExpandedEventModal-module__M-EGIq__category {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-700);
+  background-color: var(--color-primary-100);
+  border-radius: var(--radius-full);
+}
+
+.ExpandedEventModal-module__M-EGIq__meta {
+  gap: var(--spacing-sm) var(--spacing-lg);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.ExpandedEventModal-module__M-EGIq__metaItem {
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  display: flex;
+}
+
+.ExpandedEventModal-module__M-EGIq__metaItem svg {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.ExpandedEventModal-module__M-EGIq__excerpt {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.ExpandedEventModal-module__M-EGIq__viewLink {
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.ExpandedEventModal-module__M-EGIq__viewLink:hover {
+  text-decoration: underline;
+}
+
+.ExpandedEventModal-module__M-EGIq__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.ExpandedEventModal-module__M-EGIq__description p {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.ExpandedEventModal-module__M-EGIq__description p:last-child {
+  margin-bottom: 0;
+}
+
+:is(.ExpandedEventModal-module__M-EGIq__description h1, .ExpandedEventModal-module__M-EGIq__description h2, .ExpandedEventModal-module__M-EGIq__description h3, .ExpandedEventModal-module__M-EGIq__description h4, .ExpandedEventModal-module__M-EGIq__description h5, .ExpandedEventModal-module__M-EGIq__description h6) {
+  margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+:is(.ExpandedEventModal-module__M-EGIq__description h1:first-child, .ExpandedEventModal-module__M-EGIq__description h2:first-child, .ExpandedEventModal-module__M-EGIq__description h3:first-child, .ExpandedEventModal-module__M-EGIq__description h4:first-child, .ExpandedEventModal-module__M-EGIq__description h5:first-child, .ExpandedEventModal-module__M-EGIq__description h6:first-child) {
+  margin-top: 0;
+}
+
+:is(.ExpandedEventModal-module__M-EGIq__description ul, .ExpandedEventModal-module__M-EGIq__description ol) {
+  margin: 0 0 var(--spacing-md) 0;
+  padding-left: var(--spacing-xl);
+}
+
+.ExpandedEventModal-module__M-EGIq__description li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.ExpandedEventModal-module__M-EGIq__description a {
+  color: var(--color-primary-500);
+  text-decoration: underline;
+}
+
+.ExpandedEventModal-module__M-EGIq__description a:hover {
+  color: var(--color-primary-600);
+}
+
+@media (max-width: 768px) {
+  .ExpandedEventModal-module__M-EGIq__overlay {
+    padding: 0;
+  }
+
+  .ExpandedEventModal-module__M-EGIq__textContent {
+    padding: var(--spacing-lg);
+  }
+
+  .ExpandedEventModal-module__M-EGIq__title {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/*# sourceMappingURL=src_components_Events_ExpandedEventModal_ExpandedEventModal_module_css_bad6b30c._.single.css.map*/

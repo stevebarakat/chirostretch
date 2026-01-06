@@ -1,0 +1,30 @@
+{
+  "firstNames": {
+    "male": [
+      "James", "John", "Robert", "Michael", "David", "William", "Richard", "Joseph", "Thomas", "Christopher",
+      "Daniel", "Matthew", "Anthony", "Mark", "Steven", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian",
+      "Timothy", "Ronald", "Jason", "Jeffrey", "Ryan", "Jacob", "Nicholas", "Eric", "Jonathan", "Stephen",
+      "Brandon", "Benjamin", "Samuel", "Gregory", "Patrick", "Alexander", "Raymond", "Jack", "Dennis", "Jerry",
+      "Tyler", "Aaron", "Jose", "Adam", "Nathan", "Zachary", "Henry", "Douglas", "Peter", "Kyle"
+    ],
+    "female": [
+      "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen",
+      "Lisa", "Nancy", "Betty", "Margaret", "Sandra", "Ashley", "Kimberly", "Emily", "Donna", "Michelle",
+      "Dorothy", "Carol", "Amanda", "Melissa", "Deborah", "Stephanie", "Rebecca", "Sharon", "Laura", "Cynthia",
+      "Kathleen", "Amy", "Angela", "Shirley", "Anna", "Brenda", "Pamela", "Emma", "Nicole", "Helen",
+      "Samantha", "Katherine", "Christine", "Debra", "Rachel", "Carolyn", "Janet", "Catherine", "Maria", "Heather"
+    ]
+  },
+  "lastNames": [
+    "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+    "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",
+    "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson",
+    "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores",
+    "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts",
+    "Turner", "Phillips", "Evans", "Parker", "Edwards", "Collins", "Stewart", "Morris", "Murphy", "Cook",
+    "Rogers", "Morgan", "Peterson", "Cooper", "Reed", "Bailey", "Bell", "Gomez", "Kelly", "Howard",
+    "Ward", "Cox", "Diaz", "Richardson", "Wood", "Watson", "Brooks", "Bennett", "Gray", "James",
+    "Reyes", "Cruz", "Hughes", "Price", "Myers", "Long", "Foster", "Sanders", "Ross", "Morales",
+    "Powell", "Sullivan", "Russell", "Ortiz", "Jenkins", "Gutierrez", "Perry", "Butler", "Barnes", "Fisher"
+  ]
+}

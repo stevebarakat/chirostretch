@@ -1,0 +1,33 @@
+/* [project]/src/components/Locations/LocationsSearch/InfiniteLocationsHits.module.css [app-client] (css) */
+.InfiniteLocationsHits-module__gP-HJG__grid {
+  grid-gap: var(--spacing-xl);
+  gap: var(--spacing-xl);
+  grid-template-columns: 1fr;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.InfiniteLocationsHits-module__gP-HJG__cardLink {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.InfiniteLocationsHits-module__gP-HJG__empty {
+  padding: var(--spacing-3xl);
+  text-align: center;
+}
+
+.InfiniteLocationsHits-module__gP-HJG__empty p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.InfiniteLocationsHits-module__gP-HJG__sentinel {
+  height: 100px;
+}
+
+/*# sourceMappingURL=b1a17_components_Locations_LocationsSearch_InfiniteLocationsHits_module_css_bad6b30c._.single.css.map*/

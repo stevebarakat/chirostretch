@@ -1,0 +1,289 @@
+/**
+ * ChiroStretch Dashboard Styles
+ *
+ * Minimal styles for operational dashboards.
+ * These pages are functional, not marketing - keep them clean.
+ */
+
+:root {
+    --chs-primary: hsl(198, 70%, 45%);
+    --chs-primary-dark: hsl(198, 70%, 35%);
+    --chs-gray-50: hsl(0, 0%, 98%);
+    --chs-gray-100: hsl(0, 0%, 96%);
+    --chs-gray-200: hsl(0, 0%, 90%);
+    --chs-gray-300: hsl(0, 0%, 80%);
+    --chs-gray-600: hsl(0, 0%, 40%);
+    --chs-gray-700: hsl(0, 0%, 30%);
+    --chs-gray-900: hsl(0, 0%, 10%);
+    --chs-success: hsl(142, 70%, 40%);
+    --chs-warning: hsl(38, 90%, 50%);
+    --chs-error: hsl(0, 70%, 50%);
+    --chs-radius: 0.5rem;
+    --chs-shadow: 0 1px 3px hsl(0 0% 0% / 0.1);
+}
+
+/* Layout */
+.chs-dashboard {
+    min-height: 100vh;
+    background: var(--chs-gray-50);
+    padding: 2rem 1rem;
+}
+
+.chs-dashboard__container {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+.chs-dashboard__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--chs-gray-900);
+    margin-block-end: 1.5rem;
+}
+
+.chs-dashboard__content {
+    background: white;
+    border-radius: var(--chs-radius);
+    box-shadow: var(--chs-shadow);
+    padding: 1.5rem;
+    margin-block-end: 1.5rem;
+}
+
+.chs-dashboard__content p {
+    margin-block-end: 1rem;
+    color: var(--chs-gray-700);
+    line-height: 1.6;
+}
+
+.chs-dashboard__content p:last-child {
+    margin-block-end: 0;
+}
+
+/* Cards */
+.chs-dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.chs-dashboard__card {
+    background: white;
+    border-radius: var(--chs-radius);
+    box-shadow: var(--chs-shadow);
+    padding: 1.5rem;
+}
+
+.chs-dashboard__card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--chs-gray-900);
+    margin-block-end: 0.75rem;
+}
+
+.chs-dashboard__card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--chs-primary);
+}
+
+/* Actions */
+.chs-dashboard__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.chs-dashboard__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--chs-gray-700);
+    background: white;
+    border: 1px solid var(--chs-gray-200);
+    border-radius: var(--chs-radius);
+    text-decoration: none;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.chs-dashboard__link:hover {
+    background: var(--chs-gray-50);
+    border-color: var(--chs-gray-300);
+}
+
+.chs-dashboard__button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+    background: var(--chs-primary);
+    border: none;
+    border-radius: var(--chs-radius);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.chs-dashboard__button:hover {
+    background: var(--chs-primary-dark);
+}
+
+/* Tables */
+.chs-dashboard__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.chs-dashboard__table th,
+.chs-dashboard__table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--chs-gray-200);
+}
+
+.chs-dashboard__table th {
+    font-weight: 600;
+    color: var(--chs-gray-600);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.chs-dashboard__table td {
+    color: var(--chs-gray-700);
+}
+
+.chs-dashboard__table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Staff List */
+.chs-dashboard__staff-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.chs-dashboard__staff-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--chs-gray-50);
+    border-radius: var(--chs-radius);
+}
+
+.chs-dashboard__staff-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--chs-gray-200);
+}
+
+.chs-dashboard__staff-name {
+    font-weight: 500;
+    color: var(--chs-gray-900);
+}
+
+.chs-dashboard__staff-role {
+    font-size: 0.875rem;
+    color: var(--chs-gray-600);
+}
+
+/* Status Badges */
+.chs-dashboard__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+}
+
+.chs-dashboard__badge--success {
+    background: hsl(142, 70%, 90%);
+    color: hsl(142, 70%, 25%);
+}
+
+.chs-dashboard__badge--warning {
+    background: hsl(38, 90%, 90%);
+    color: hsl(38, 90%, 25%);
+}
+
+.chs-dashboard__badge--pending {
+    background: var(--chs-gray-100);
+    color: var(--chs-gray-600);
+}
+
+/* Forms */
+.chs-dashboard__form-group {
+    margin-block-end: 1.25rem;
+}
+
+.chs-dashboard__label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--chs-gray-700);
+    margin-block-end: 0.375rem;
+}
+
+.chs-dashboard__input {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--chs-gray-200);
+    border-radius: var(--chs-radius);
+    transition: border-color 0.15s;
+}
+
+.chs-dashboard__input:focus {
+    outline: none;
+    border-color: var(--chs-primary);
+    box-shadow: 0 0 0 3px hsl(198, 70%, 45%, 0.1);
+}
+
+/* Sidebar Layout (for larger screens) */
+@media (min-width: 768px) {
+    .chs-dashboard--with-sidebar {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 2rem;
+    }
+
+    .chs-dashboard__sidebar {
+        background: white;
+        border-radius: var(--chs-radius);
+        box-shadow: var(--chs-shadow);
+        padding: 1rem;
+        height: fit-content;
+        position: sticky;
+        top: 2rem;
+    }
+
+    .chs-dashboard__nav-item {
+        display: block;
+        padding: 0.625rem 0.75rem;
+        color: var(--chs-gray-700);
+        text-decoration: none;
+        border-radius: calc(var(--chs-radius) / 2);
+        transition: background-color 0.15s;
+    }
+
+    .chs-dashboard__nav-item:hover {
+        background: var(--chs-gray-50);
+    }
+
+    .chs-dashboard__nav-item--active {
+        background: var(--chs-primary);
+        color: white;
+    }
+
+    .chs-dashboard__nav-item--active:hover {
+        background: var(--chs-primary-dark);
+    }
+}

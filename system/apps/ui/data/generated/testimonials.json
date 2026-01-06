@@ -1,0 +1,1402 @@
+[
+  {
+    "_seed_id": "testimonial_01000",
+    "_location_seed_id": "loc_01000",
+    "customer_name": "Nathan G.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Rachel Carter at ChiroStretch New York helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01001",
+    "_location_seed_id": "loc_01000",
+    "customer_name": "Stephen D.",
+    "rating": 5,
+    "review_text": "The chiropractic I received from Dr. Christopher Cox was exceptional. The ChiroStretch New York location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01002",
+    "_location_seed_id": "loc_01001",
+    "customer_name": "Jonathan R.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch New York because Dr. Tyler Walker is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01003",
+    "_location_seed_id": "loc_01001",
+    "customer_name": "Jacob B.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch New York is amazing. Dr. Tyler Walker helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01004",
+    "_location_seed_id": "loc_01002",
+    "customer_name": "Jerry W.",
+    "rating": 5,
+    "review_text": "ChiroStretch New York has become part of my wellness routine. Dr. Jose James always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01005",
+    "_location_seed_id": "loc_01002",
+    "customer_name": "Richard H.",
+    "rating": 3,
+    "review_text": "I was skeptical about chiropractic at first, but Dr. Jose James at ChiroStretch New York proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01006",
+    "_location_seed_id": "loc_01003",
+    "customer_name": "Kathleen T.",
+    "rating": 5,
+    "review_text": "ChiroStretch New York has become part of my wellness routine. Rebecca Parker always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01007",
+    "_location_seed_id": "loc_01003",
+    "customer_name": "Patricia W.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch New York to everyone I know. Dr. Alexander Stewart helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01008",
+    "_location_seed_id": "loc_01004",
+    "customer_name": "Samuel M.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Dr. Stephanie Moore at ChiroStretch New York actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01009",
+    "_location_seed_id": "loc_01004",
+    "customer_name": "Joshua L.",
+    "rating": 5,
+    "review_text": "Best massage experience I've ever had. Rachel Allen is incredibly knowledgeable and the whole team at ChiroStretch New York makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01010",
+    "_location_seed_id": "loc_01005",
+    "customer_name": "Nathan H.",
+    "rating": 5,
+    "review_text": "I was skeptical about massage at first, but Mary Peterson at ChiroStretch New York proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01011",
+    "_location_seed_id": "loc_01005",
+    "customer_name": "Raymond W.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Anna Price at ChiroStretch New York helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01012",
+    "_location_seed_id": "loc_01006",
+    "customer_name": "Kevin B.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch New York because Joseph Hughes is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01013",
+    "_location_seed_id": "loc_01006",
+    "customer_name": "Jason F.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Brenda Edwards at ChiroStretch New York helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01014",
+    "_location_seed_id": "loc_01007",
+    "customer_name": "Tyler F.",
+    "rating": 5,
+    "review_text": "The whole experience at ChiroStretch New York is top-notch. Dr. Aaron Sanders is patient, thorough, and genuinely cares about getting results."
+  },
+  {
+    "_seed_id": "testimonial_01015",
+    "_location_seed_id": "loc_01007",
+    "customer_name": "Rachel G.",
+    "rating": 3,
+    "review_text": "I recommend ChiroStretch New York to everyone I know. Dr. Emma Scott helped me avoid surgery with her personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01016",
+    "_location_seed_id": "loc_01008",
+    "customer_name": "Kyle B.",
+    "rating": 4,
+    "review_text": "Finally found a place that listens! Dr. Douglas Hall at ChiroStretch New York actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01017",
+    "_location_seed_id": "loc_01008",
+    "customer_name": "Kathleen G.",
+    "rating": 4,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Karen Wood at ChiroStretch New York. she really knows her stuff."
+  },
+  {
+    "_seed_id": "testimonial_01018",
+    "_location_seed_id": "loc_01009",
+    "customer_name": "Linda M.",
+    "rating": 4,
+    "review_text": "ChiroStretch New York has become part of my wellness routine. Dr. Donna Carter always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01019",
+    "_location_seed_id": "loc_01009",
+    "customer_name": "Jeffrey J.",
+    "rating": 4,
+    "review_text": "I was skeptical about massage at first, but Sandra Allen at ChiroStretch New York proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01020",
+    "_location_seed_id": "loc_01010",
+    "customer_name": "Carol B.",
+    "rating": 3,
+    "review_text": "I was skeptical about massage at first, but Rebecca Wright at ChiroStretch New York proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01021",
+    "_location_seed_id": "loc_01010",
+    "customer_name": "Peter A.",
+    "rating": 5,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch New York. Dr. Alexander Reed took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01022",
+    "_location_seed_id": "loc_01011",
+    "customer_name": "Eric B.",
+    "rating": 3,
+    "review_text": "Best massage experience I've ever had. Debra Carter is incredibly knowledgeable and the whole team at ChiroStretch New York makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01023",
+    "_location_seed_id": "loc_01011",
+    "customer_name": "Donna P.",
+    "rating": 3,
+    "review_text": "Never thought I'd be a regular at a chiropractic clinic, but Dr. Thomas Carter at ChiroStretch New York changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01024",
+    "_location_seed_id": "loc_01012",
+    "customer_name": "Steven H.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a stretch therapy clinic, but Dr. Rebecca Collins at ChiroStretch New York changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01025",
+    "_location_seed_id": "loc_01012",
+    "customer_name": "Karen J.",
+    "rating": 5,
+    "review_text": "Best massage experience I've ever had. Katherine Gomez is incredibly knowledgeable and the whole team at ChiroStretch New York makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01026",
+    "_location_seed_id": "loc_01013",
+    "customer_name": "Nancy W.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch New York for six months now and Jennifer Bennett has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01027",
+    "_location_seed_id": "loc_01013",
+    "customer_name": "Andrew P.",
+    "rating": 4,
+    "review_text": "The team at ChiroStretch New York is amazing. Dr. Stephanie Gutierrez helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01028",
+    "_location_seed_id": "loc_01014",
+    "customer_name": "Emily M.",
+    "rating": 4,
+    "review_text": "The chiropractic I received from Dr. Jose Hall was exceptional. The ChiroStretch New York location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01029",
+    "_location_seed_id": "loc_01014",
+    "customer_name": "Zachary W.",
+    "rating": 4,
+    "review_text": "As someone who works at a desk all day, the stretch therapy sessions with Dr. Amanda Rivera at ChiroStretch New York have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01030",
+    "_location_seed_id": "loc_01015",
+    "customer_name": "Dorothy M.",
+    "rating": 3,
+    "review_text": "After a car accident left me with constant pain, Dr. Eric Rogers at ChiroStretch New York helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01031",
+    "_location_seed_id": "loc_01015",
+    "customer_name": "Pamela B.",
+    "rating": 5,
+    "review_text": "ChiroStretch New York has become part of my wellness routine. Brian Jones always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01032",
+    "_location_seed_id": "loc_01016",
+    "customer_name": "Ashley W.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch New York is amazing. Sharon Gutierrez helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01033",
+    "_location_seed_id": "loc_01016",
+    "customer_name": "Michelle R.",
+    "rating": 4,
+    "review_text": "I've been going to ChiroStretch New York for six months now and Sharon Gutierrez has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01034",
+    "_location_seed_id": "loc_01017",
+    "customer_name": "Thomas S.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Los Angeles because Dr. Barbara Garcia is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01035",
+    "_location_seed_id": "loc_01017",
+    "customer_name": "Jennifer C.",
+    "rating": 5,
+    "review_text": "The chiropractic I received from Dr. Tyler Wright was exceptional. The ChiroStretch Los Angeles location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01036",
+    "_location_seed_id": "loc_01018",
+    "customer_name": "Elizabeth W.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Los Angeles is amazing. Dr. Heather Cox helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01037",
+    "_location_seed_id": "loc_01018",
+    "customer_name": "Sandra H.",
+    "rating": 4,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Los Angeles because Stephen Murphy is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01038",
+    "_location_seed_id": "loc_01019",
+    "customer_name": "James R.",
+    "rating": 3,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Los Angeles. Kyle Mitchell took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01039",
+    "_location_seed_id": "loc_01019",
+    "customer_name": "Jerry C.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Timothy Richardson at ChiroStretch Los Angeles. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01040",
+    "_location_seed_id": "loc_01020",
+    "customer_name": "Ryan G.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Los Angeles for six months now and Dr. Angela Miller has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01041",
+    "_location_seed_id": "loc_01020",
+    "customer_name": "Benjamin C.",
+    "rating": 4,
+    "review_text": "After a car accident left me with constant pain, Dr. Angela Miller at ChiroStretch Los Angeles helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01042",
+    "_location_seed_id": "loc_01021",
+    "customer_name": "Michelle W.",
+    "rating": 4,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Gregory Campbell at ChiroStretch Los Angeles had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01043",
+    "_location_seed_id": "loc_01021",
+    "customer_name": "Rachel P.",
+    "rating": 5,
+    "review_text": "As someone who works at a desk all day, the chiropractic sessions with Dr. Gregory Campbell at ChiroStretch Los Angeles have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01044",
+    "_location_seed_id": "loc_01022",
+    "customer_name": "Rebecca P.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a stretch therapy clinic, but Dr. Debra Howard at ChiroStretch Los Angeles changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01045",
+    "_location_seed_id": "loc_01022",
+    "customer_name": "Lisa B.",
+    "rating": 5,
+    "review_text": "The stretch therapy I received from Dr. Debra Howard was exceptional. The ChiroStretch Los Angeles location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01046",
+    "_location_seed_id": "loc_01023",
+    "customer_name": "William A.",
+    "rating": 4,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Los Angeles because Dr. Barbara Ward is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01047",
+    "_location_seed_id": "loc_01023",
+    "customer_name": "Debra D.",
+    "rating": 4,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Timothy Davis at ChiroStretch Los Angeles. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01048",
+    "_location_seed_id": "loc_01024",
+    "customer_name": "Michelle T.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Los Angeles for six months now and Carol Garcia has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01049",
+    "_location_seed_id": "loc_01024",
+    "customer_name": "Katherine W.",
+    "rating": 4,
+    "review_text": "Never thought I'd be a regular at a stretch therapy clinic, but Dr. Katherine Cox at ChiroStretch Los Angeles changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01050",
+    "_location_seed_id": "loc_01025",
+    "customer_name": "Deborah F.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Los Angeles is amazing. Dr. Carol Lopez helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01051",
+    "_location_seed_id": "loc_01025",
+    "customer_name": "Anthony P.",
+    "rating": 4,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Los Angeles. Stephanie Price took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01052",
+    "_location_seed_id": "loc_01026",
+    "customer_name": "Ryan M.",
+    "rating": 4,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Chicago because Dr. Angela Perez is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01053",
+    "_location_seed_id": "loc_01026",
+    "customer_name": "Kenneth H.",
+    "rating": 5,
+    "review_text": "The stretch therapy I received from Dr. Angela Perez was exceptional. The ChiroStretch Chicago location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01054",
+    "_location_seed_id": "loc_01027",
+    "customer_name": "Laura A.",
+    "rating": 5,
+    "review_text": "ChiroStretch Chicago has become part of my wellness routine. Dr. Debra Martin always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01055",
+    "_location_seed_id": "loc_01027",
+    "customer_name": "Douglas A.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Chicago for six months now and Samuel Martinez has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01056",
+    "_location_seed_id": "loc_01028",
+    "customer_name": "Amy T.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Chicago because Heather Ward is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01057",
+    "_location_seed_id": "loc_01028",
+    "customer_name": "Jeffrey D.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Heather Ward at ChiroStretch Chicago helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01058",
+    "_location_seed_id": "loc_01029",
+    "customer_name": "Elizabeth C.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Chicago is amazing. Karen Hill helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01059",
+    "_location_seed_id": "loc_01029",
+    "customer_name": "Daniel W.",
+    "rating": 4,
+    "review_text": "The massage I received from Karen Hill was exceptional. The ChiroStretch Chicago location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01060",
+    "_location_seed_id": "loc_01030",
+    "customer_name": "Henry H.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Chicago for six months now and Dorothy Parker has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01061",
+    "_location_seed_id": "loc_01030",
+    "customer_name": "Christine R.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Chicago to everyone I know. Dr. Jonathan Gutierrez helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01062",
+    "_location_seed_id": "loc_01031",
+    "customer_name": "Donna H.",
+    "rating": 4,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Douglas Bell at ChiroStretch Houston. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01063",
+    "_location_seed_id": "loc_01031",
+    "customer_name": "Christine P.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Dr. Douglas Bell at ChiroStretch Houston actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01064",
+    "_location_seed_id": "loc_01032",
+    "customer_name": "Jessica N.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Timothy Baker at ChiroStretch Houston. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01065",
+    "_location_seed_id": "loc_01032",
+    "customer_name": "Daniel W.",
+    "rating": 5,
+    "review_text": "ChiroStretch Houston has become part of my wellness routine. Dr. Timothy Baker always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01066",
+    "_location_seed_id": "loc_01033",
+    "customer_name": "Ashley E.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Stephanie Watson at ChiroStretch Houston helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01067",
+    "_location_seed_id": "loc_01033",
+    "customer_name": "Rachel B.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Stephanie Watson at ChiroStretch Houston helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01068",
+    "_location_seed_id": "loc_01034",
+    "customer_name": "Robert J.",
+    "rating": 4,
+    "review_text": "As someone who works at a desk all day, the chiropractic sessions with Dr. Daniel Gray at ChiroStretch Houston have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01069",
+    "_location_seed_id": "loc_01034",
+    "customer_name": "Mark F.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Dr. Daniel Gray at ChiroStretch Houston actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01070",
+    "_location_seed_id": "loc_01035",
+    "customer_name": "Nicole L.",
+    "rating": 5,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Henry Rogers at ChiroStretch Houston had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01071",
+    "_location_seed_id": "loc_01035",
+    "customer_name": "Michelle H.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Janet Young at ChiroStretch Houston helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01072",
+    "_location_seed_id": "loc_01036",
+    "customer_name": "Adam M.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a massage clinic, but Nancy Allen at ChiroStretch Phoenix changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01073",
+    "_location_seed_id": "loc_01036",
+    "customer_name": "Lisa J.",
+    "rating": 4,
+    "review_text": "The stretch therapy I received from Dr. Helen Evans was exceptional. The ChiroStretch Phoenix location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01074",
+    "_location_seed_id": "loc_01037",
+    "customer_name": "Emma M.",
+    "rating": 4,
+    "review_text": "The team at ChiroStretch Phoenix is amazing. Dr. Rachel Long helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01075",
+    "_location_seed_id": "loc_01037",
+    "customer_name": "Sarah M.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Zachary Brooks at ChiroStretch Phoenix actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01076",
+    "_location_seed_id": "loc_01038",
+    "customer_name": "Emma B.",
+    "rating": 5,
+    "review_text": "The massage I received from Brenda Hernandez was exceptional. The ChiroStretch Phoenix location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01077",
+    "_location_seed_id": "loc_01038",
+    "customer_name": "Jerry C.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Dr. Christine Cruz at ChiroStretch Phoenix actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01078",
+    "_location_seed_id": "loc_01039",
+    "customer_name": "Tyler H.",
+    "rating": 4,
+    "review_text": "The team at ChiroStretch Philadelphia is amazing. Ryan Cruz helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01079",
+    "_location_seed_id": "loc_01039",
+    "customer_name": "Adam A.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Philadelphia to everyone I know. Ryan Cruz helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01080",
+    "_location_seed_id": "loc_01040",
+    "customer_name": "Timothy R.",
+    "rating": 5,
+    "review_text": "The whole experience at ChiroStretch Philadelphia is top-notch. Dr. Joshua Lopez is patient, thorough, and genuinely cares about getting results."
+  },
+  {
+    "_seed_id": "testimonial_01081",
+    "_location_seed_id": "loc_01040",
+    "customer_name": "Elizabeth H.",
+    "rating": 5,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Philadelphia. Dr. Janet Bennett took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01082",
+    "_location_seed_id": "loc_01041",
+    "customer_name": "Amanda W.",
+    "rating": 3,
+    "review_text": "After a car accident left me with constant pain, Samuel Davis at ChiroStretch Philadelphia helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01083",
+    "_location_seed_id": "loc_01041",
+    "customer_name": "Jonathan P.",
+    "rating": 3,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Philadelphia. Dr. Mark Diaz took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01084",
+    "_location_seed_id": "loc_01042",
+    "customer_name": "Michael H.",
+    "rating": 4,
+    "review_text": "I was skeptical about massage at first, but Nancy Cox at ChiroStretch San Antonio proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01085",
+    "_location_seed_id": "loc_01042",
+    "customer_name": "Ryan M.",
+    "rating": 4,
+    "review_text": "I was skeptical about massage at first, but Nancy Cox at ChiroStretch San Antonio proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01086",
+    "_location_seed_id": "loc_01043",
+    "customer_name": "Christine L.",
+    "rating": 4,
+    "review_text": "I recommend ChiroStretch San Antonio to everyone I know. Dr. Janet Brown helped me avoid surgery with her personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01087",
+    "_location_seed_id": "loc_01043",
+    "customer_name": "Aaron S.",
+    "rating": 5,
+    "review_text": "As someone who works at a desk all day, the chiropractic sessions with Dr. Jack Miller at ChiroStretch San Antonio have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01088",
+    "_location_seed_id": "loc_01044",
+    "customer_name": "Benjamin J.",
+    "rating": 3,
+    "review_text": "I drive 30 minutes to come to ChiroStretch San Antonio because Tyler Hernandez is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01089",
+    "_location_seed_id": "loc_01044",
+    "customer_name": "Maria S.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch San Antonio to everyone I know. Dr. Christopher Jackson helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01090",
+    "_location_seed_id": "loc_01045",
+    "customer_name": "Melissa H.",
+    "rating": 5,
+    "review_text": "The whole experience at ChiroStretch San Diego is top-notch. Christine Johnson is patient, thorough, and genuinely cares about getting results."
+  },
+  {
+    "_seed_id": "testimonial_01091",
+    "_location_seed_id": "loc_01045",
+    "customer_name": "Samantha M.",
+    "rating": 4,
+    "review_text": "After a car accident left me with constant pain, Dr. Mary Brooks at ChiroStretch San Diego helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01092",
+    "_location_seed_id": "loc_01046",
+    "customer_name": "Tyler H.",
+    "rating": 5,
+    "review_text": "ChiroStretch San Diego has become part of my wellness routine. Dr. Melissa Reyes always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01093",
+    "_location_seed_id": "loc_01046",
+    "customer_name": "Dorothy J.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Kyle Gray at ChiroStretch San Diego helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01094",
+    "_location_seed_id": "loc_01047",
+    "customer_name": "Gregory H.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a chiropractic clinic, but Dr. Raymond Williams at ChiroStretch San Diego changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01095",
+    "_location_seed_id": "loc_01047",
+    "customer_name": "Michael B.",
+    "rating": 5,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Janet Gray at ChiroStretch San Diego had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01096",
+    "_location_seed_id": "loc_01048",
+    "customer_name": "Robert R.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Dallas for six months now and Dr. Samuel Perry has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01097",
+    "_location_seed_id": "loc_01048",
+    "customer_name": "Heather D.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a stretch therapy clinic, but Dr. Nancy Peterson at ChiroStretch Dallas changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01098",
+    "_location_seed_id": "loc_01049",
+    "customer_name": "Margaret G.",
+    "rating": 5,
+    "review_text": "The whole experience at ChiroStretch Dallas is top-notch. Dr. Carolyn Rogers is patient, thorough, and genuinely cares about getting results."
+  },
+  {
+    "_seed_id": "testimonial_01099",
+    "_location_seed_id": "loc_01049",
+    "customer_name": "Dennis L.",
+    "rating": 5,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Dallas. Dr. Carolyn Rogers took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01100",
+    "_location_seed_id": "loc_01050",
+    "customer_name": "Tyler H.",
+    "rating": 4,
+    "review_text": "The team at ChiroStretch Dallas is amazing. Dr. Patricia Ramirez helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01101",
+    "_location_seed_id": "loc_01050",
+    "customer_name": "Emily R.",
+    "rating": 4,
+    "review_text": "After a car accident left me with constant pain, Dr. Patrick Ramirez at ChiroStretch Dallas helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01102",
+    "_location_seed_id": "loc_01051",
+    "customer_name": "Mark W.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Richard Parker at ChiroStretch San Jose. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01103",
+    "_location_seed_id": "loc_01051",
+    "customer_name": "John Y.",
+    "rating": 4,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Stephanie Ortiz at ChiroStretch San Jose. she really knows her stuff."
+  },
+  {
+    "_seed_id": "testimonial_01104",
+    "_location_seed_id": "loc_01052",
+    "customer_name": "Kevin B.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch San Jose for six months now and Dr. Shirley Gutierrez has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01105",
+    "_location_seed_id": "loc_01052",
+    "customer_name": "Jose M.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Henry Walker at ChiroStretch San Jose. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01106",
+    "_location_seed_id": "loc_01053",
+    "customer_name": "Henry G.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Austin to everyone I know. Dr. Aaron Perez helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01107",
+    "_location_seed_id": "loc_01053",
+    "customer_name": "Anna S.",
+    "rating": 5,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Austin. Dr. Aaron Perez took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01108",
+    "_location_seed_id": "loc_01054",
+    "customer_name": "Ronald K.",
+    "rating": 4,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Austin. Dr. Nancy Long took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01109",
+    "_location_seed_id": "loc_01054",
+    "customer_name": "Raymond G.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Austin to everyone I know. Dr. Jonathan Ramirez helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01110",
+    "_location_seed_id": "loc_01055",
+    "customer_name": "Dennis G.",
+    "rating": 4,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Betty Thompson at ChiroStretch Jacksonville had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01111",
+    "_location_seed_id": "loc_01055",
+    "customer_name": "Richard O.",
+    "rating": 5,
+    "review_text": "I was skeptical about stretch therapy at first, but Dr. Betty Thompson at ChiroStretch Jacksonville proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01112",
+    "_location_seed_id": "loc_01056",
+    "customer_name": "Samantha F.",
+    "rating": 5,
+    "review_text": "Best stretch therapy experience I've ever had. Dr. Karen Wood is incredibly knowledgeable and the whole team at ChiroStretch Jacksonville makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01113",
+    "_location_seed_id": "loc_01056",
+    "customer_name": "Patricia C.",
+    "rating": 4,
+    "review_text": "After a car accident left me with constant pain, James Garcia at ChiroStretch Jacksonville helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01114",
+    "_location_seed_id": "loc_01057",
+    "customer_name": "Patricia W.",
+    "rating": 5,
+    "review_text": "The stretch therapy I received from Dr. Carol Gutierrez was exceptional. The ChiroStretch Fort Worth location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01115",
+    "_location_seed_id": "loc_01057",
+    "customer_name": "Pamela F.",
+    "rating": 5,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Brandon Sullivan at ChiroStretch Fort Worth had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01116",
+    "_location_seed_id": "loc_01058",
+    "customer_name": "Karen K.",
+    "rating": 5,
+    "review_text": "The massage I received from Carolyn Richardson was exceptional. The ChiroStretch Fort Worth location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01117",
+    "_location_seed_id": "loc_01058",
+    "customer_name": "Michelle T.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Fort Worth for six months now and Dr. Jennifer Sullivan has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01118",
+    "_location_seed_id": "loc_01059",
+    "customer_name": "Lisa P.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a stretch therapy clinic, but Dr. Nancy Jackson at ChiroStretch Columbus changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01119",
+    "_location_seed_id": "loc_01059",
+    "customer_name": "Christopher C.",
+    "rating": 4,
+    "review_text": "ChiroStretch Columbus has become part of my wellness routine. Dr. Nancy Jackson always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01120",
+    "_location_seed_id": "loc_01060",
+    "customer_name": "Gregory A.",
+    "rating": 5,
+    "review_text": "The massage I received from Betty Gray was exceptional. The ChiroStretch Columbus location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01121",
+    "_location_seed_id": "loc_01060",
+    "customer_name": "Daniel T.",
+    "rating": 5,
+    "review_text": "Best chiropractic experience I've ever had. Dr. Matthew Ward is incredibly knowledgeable and the whole team at ChiroStretch Columbus makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01122",
+    "_location_seed_id": "loc_01061",
+    "customer_name": "Samuel G.",
+    "rating": 5,
+    "review_text": "As someone who works at a desk all day, the chiropractic sessions with Dr. Ronald Ortiz at ChiroStretch Charlotte have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01123",
+    "_location_seed_id": "loc_01061",
+    "customer_name": "Michael W.",
+    "rating": 4,
+    "review_text": "The chiropractic I received from Dr. Ronald Ortiz was exceptional. The ChiroStretch Charlotte location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01124",
+    "_location_seed_id": "loc_01062",
+    "customer_name": "Linda F.",
+    "rating": 5,
+    "review_text": "I was skeptical about stretch therapy at first, but Dr. Nancy James at ChiroStretch Charlotte proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01125",
+    "_location_seed_id": "loc_01062",
+    "customer_name": "Patrick P.",
+    "rating": 5,
+    "review_text": "The stretch therapy I received from Dr. Nancy James was exceptional. The ChiroStretch Charlotte location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01126",
+    "_location_seed_id": "loc_01063",
+    "customer_name": "Jacob W.",
+    "rating": 5,
+    "review_text": "I was skeptical about chiropractic at first, but Dr. John Perez at ChiroStretch San Francisco proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01127",
+    "_location_seed_id": "loc_01063",
+    "customer_name": "Stephen C.",
+    "rating": 5,
+    "review_text": "ChiroStretch San Francisco has become part of my wellness routine. Dr. John Perez always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01128",
+    "_location_seed_id": "loc_01064",
+    "customer_name": "Anthony R.",
+    "rating": 4,
+    "review_text": "I was skeptical about stretch therapy at first, but Dr. Brenda Allen at ChiroStretch San Francisco proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01129",
+    "_location_seed_id": "loc_01064",
+    "customer_name": "Barbara W.",
+    "rating": 5,
+    "review_text": "Best stretch therapy experience I've ever had. Dr. Brenda Allen is incredibly knowledgeable and the whole team at ChiroStretch San Francisco makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01130",
+    "_location_seed_id": "loc_01065",
+    "customer_name": "Stephanie R.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Stephanie Parker at ChiroStretch Indianapolis helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01131",
+    "_location_seed_id": "loc_01065",
+    "customer_name": "Brian H.",
+    "rating": 5,
+    "review_text": "As someone who works at a desk all day, the massage sessions with Susan Mitchell at ChiroStretch Indianapolis have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01132",
+    "_location_seed_id": "loc_01066",
+    "customer_name": "Peter M.",
+    "rating": 3,
+    "review_text": "Came in with lower back pain that had plagued me for years. Mark Foster at ChiroStretch Indianapolis had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01133",
+    "_location_seed_id": "loc_01066",
+    "customer_name": "Thomas G.",
+    "rating": 4,
+    "review_text": "The chiropractic I received from Dr. Daniel Lopez was exceptional. The ChiroStretch Indianapolis location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01134",
+    "_location_seed_id": "loc_01067",
+    "customer_name": "Betty D.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Seattle because Jonathan Parker is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01135",
+    "_location_seed_id": "loc_01067",
+    "customer_name": "Adam G.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a chiropractic clinic, but Dr. Jack Jones at ChiroStretch Seattle changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01136",
+    "_location_seed_id": "loc_01068",
+    "customer_name": "Alexander G.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Denver to everyone I know. Dr. Kyle Robinson helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01137",
+    "_location_seed_id": "loc_01068",
+    "customer_name": "Kathleen L.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Anthony Ortiz at ChiroStretch Denver actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01138",
+    "_location_seed_id": "loc_01069",
+    "customer_name": "Eric S.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Dr. Amanda Martinez at ChiroStretch Washington actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01139",
+    "_location_seed_id": "loc_01069",
+    "customer_name": "Pamela W.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Washington to everyone I know. Dr. Douglas Ward helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01140",
+    "_location_seed_id": "loc_01070",
+    "customer_name": "Lisa A.",
+    "rating": 4,
+    "review_text": "Finally found a place that listens! Anthony Adams at ChiroStretch Boston actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01141",
+    "_location_seed_id": "loc_01070",
+    "customer_name": "Amy R.",
+    "rating": 5,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Heather Garcia at ChiroStretch Boston had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01142",
+    "_location_seed_id": "loc_01071",
+    "customer_name": "Emily B.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Anna Cox at ChiroStretch Nashville. she really knows her stuff."
+  },
+  {
+    "_seed_id": "testimonial_01143",
+    "_location_seed_id": "loc_01071",
+    "customer_name": "Emma S.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Nashville because Dr. Aaron Rivera is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01144",
+    "_location_seed_id": "loc_01072",
+    "customer_name": "Raymond R.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch El Paso to everyone I know. Dr. Brian Davis helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01145",
+    "_location_seed_id": "loc_01072",
+    "customer_name": "Maria B.",
+    "rating": 4,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch El Paso. Kenneth Parker took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01146",
+    "_location_seed_id": "loc_01073",
+    "customer_name": "Rebecca T.",
+    "rating": 5,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Detroit. Dr. Joseph Green took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01147",
+    "_location_seed_id": "loc_01073",
+    "customer_name": "Pamela W.",
+    "rating": 4,
+    "review_text": "After a car accident left me with constant pain, Dr. Sandra Hall at ChiroStretch Detroit helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01148",
+    "_location_seed_id": "loc_01074",
+    "customer_name": "Jerry P.",
+    "rating": 4,
+    "review_text": "I've been going to ChiroStretch Portland for six months now and Dr. Sandra Cox has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01149",
+    "_location_seed_id": "loc_01074",
+    "customer_name": "Eric R.",
+    "rating": 5,
+    "review_text": "The chiropractic I received from Dr. Jason Sanchez was exceptional. The ChiroStretch Portland location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01150",
+    "_location_seed_id": "loc_01075",
+    "customer_name": "Emily R.",
+    "rating": 5,
+    "review_text": "Finally found a place that listens! Dr. Jose Baker at ChiroStretch Memphis actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01151",
+    "_location_seed_id": "loc_01075",
+    "customer_name": "Cynthia N.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Kathleen Bailey at ChiroStretch Memphis helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01152",
+    "_location_seed_id": "loc_01076",
+    "customer_name": "Pamela C.",
+    "rating": 3,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Oklahoma City. Dr. Christopher Murphy took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01153",
+    "_location_seed_id": "loc_01076",
+    "customer_name": "Mary B.",
+    "rating": 5,
+    "review_text": "After a car accident left me with constant pain, Dr. Christopher Murphy at ChiroStretch Oklahoma City helped me regain my quality of life. Forever grateful."
+  },
+  {
+    "_seed_id": "testimonial_01154",
+    "_location_seed_id": "loc_01077",
+    "customer_name": "Dennis M.",
+    "rating": 4,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Nicholas Carter at ChiroStretch Las Vegas. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01155",
+    "_location_seed_id": "loc_01077",
+    "customer_name": "Barbara G.",
+    "rating": 5,
+    "review_text": "ChiroStretch Las Vegas has become part of my wellness routine. Dr. Stephanie Foster always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01156",
+    "_location_seed_id": "loc_01078",
+    "customer_name": "Brenda F.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Rebecca Hernandez at ChiroStretch Louisville. she really knows her stuff."
+  },
+  {
+    "_seed_id": "testimonial_01157",
+    "_location_seed_id": "loc_01078",
+    "customer_name": "Jose J.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Louisville to everyone I know. Dr. Michael Edwards helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01158",
+    "_location_seed_id": "loc_01079",
+    "customer_name": "Samantha R.",
+    "rating": 5,
+    "review_text": "The massage I received from Lisa Robinson was exceptional. The ChiroStretch Baltimore location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01159",
+    "_location_seed_id": "loc_01079",
+    "customer_name": "Rebecca H.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Baltimore to everyone I know. Lisa Robinson helped me avoid surgery with her personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01160",
+    "_location_seed_id": "loc_01080",
+    "customer_name": "Shirley H.",
+    "rating": 5,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Milwaukee. Dr. Karen Wright took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01161",
+    "_location_seed_id": "loc_01080",
+    "customer_name": "Samuel B.",
+    "rating": 4,
+    "review_text": "My sciatica was unbearable until I started seeing Dr. Karen Wright at ChiroStretch Milwaukee. she really knows her stuff."
+  },
+  {
+    "_seed_id": "testimonial_01162",
+    "_location_seed_id": "loc_01081",
+    "customer_name": "Jacob M.",
+    "rating": 5,
+    "review_text": "ChiroStretch Albuquerque has become part of my wellness routine. Dr. Amanda Taylor always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01163",
+    "_location_seed_id": "loc_01081",
+    "customer_name": "Catherine W.",
+    "rating": 3,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Albuquerque. Dr. Kenneth Edwards took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01164",
+    "_location_seed_id": "loc_01082",
+    "customer_name": "Betty H.",
+    "rating": 5,
+    "review_text": "My sciatica was unbearable until I started seeing Dennis Johnson at ChiroStretch Tucson. he really knows his stuff."
+  },
+  {
+    "_seed_id": "testimonial_01165",
+    "_location_seed_id": "loc_01082",
+    "customer_name": "Rachel G.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a sports medicine clinic, but Dennis Johnson at ChiroStretch Tucson changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01166",
+    "_location_seed_id": "loc_01083",
+    "customer_name": "Nicholas R.",
+    "rating": 5,
+    "review_text": "As someone who works at a desk all day, the stretch therapy sessions with Dr. Betty Morales at ChiroStretch Fresno have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01167",
+    "_location_seed_id": "loc_01083",
+    "customer_name": "Debra S.",
+    "rating": 4,
+    "review_text": "I was skeptical about chiropractic at first, but Dr. William Ward at ChiroStretch Fresno proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01168",
+    "_location_seed_id": "loc_01084",
+    "customer_name": "Richard H.",
+    "rating": 4,
+    "review_text": "I recommend ChiroStretch Mesa to everyone I know. Dr. William Cruz helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01169",
+    "_location_seed_id": "loc_01084",
+    "customer_name": "Eric M.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Mesa for six months now and Dr. William Cruz has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01170",
+    "_location_seed_id": "loc_01085",
+    "customer_name": "Sandra C.",
+    "rating": 4,
+    "review_text": "I recommend ChiroStretch Sacramento to everyone I know. Dr. Amanda Bell helped me avoid surgery with her personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01171",
+    "_location_seed_id": "loc_01085",
+    "customer_name": "Christopher L.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Sacramento is amazing. Dr. Eric Gutierrez helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01172",
+    "_location_seed_id": "loc_01086",
+    "customer_name": "Kimberly S.",
+    "rating": 4,
+    "review_text": "I was skeptical about chiropractic at first, but Dr. Matthew Butler at ChiroStretch Atlanta proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01173",
+    "_location_seed_id": "loc_01086",
+    "customer_name": "Kyle P.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Atlanta to everyone I know. Dr. Matthew Butler helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01174",
+    "_location_seed_id": "loc_01087",
+    "customer_name": "Tyler J.",
+    "rating": 4,
+    "review_text": "I was skeptical about stretch therapy at first, but Dr. Catherine Richardson at ChiroStretch Kansas City proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01175",
+    "_location_seed_id": "loc_01087",
+    "customer_name": "Patrick B.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Kansas City for six months now and Dr. Catherine Richardson has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01176",
+    "_location_seed_id": "loc_01088",
+    "customer_name": "Rebecca M.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Colorado Springs is amazing. Dr. Deborah Ward helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01177",
+    "_location_seed_id": "loc_01088",
+    "customer_name": "Barbara R.",
+    "rating": 5,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Deborah Ward at ChiroStretch Colorado Springs had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01178",
+    "_location_seed_id": "loc_01089",
+    "customer_name": "Matthew T.",
+    "rating": 5,
+    "review_text": "The sports medicine I received from Raymond Adams was exceptional. The ChiroStretch Omaha location is clean, professional, and everyone is so friendly."
+  },
+  {
+    "_seed_id": "testimonial_01179",
+    "_location_seed_id": "loc_01089",
+    "customer_name": "Tyler F.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Omaha is amazing. Dr. Raymond Sullivan helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01180",
+    "_location_seed_id": "loc_01090",
+    "customer_name": "Margaret J.",
+    "rating": 4,
+    "review_text": "I was skeptical about sports medicine at first, but Mark Richardson at ChiroStretch Raleigh proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01181",
+    "_location_seed_id": "loc_01090",
+    "customer_name": "Sarah F.",
+    "rating": 4,
+    "review_text": "Finally found a place that listens! Dr. Dorothy Mitchell at ChiroStretch Raleigh actually takes time to explain what's happening and why. My neck pain is almost gone."
+  },
+  {
+    "_seed_id": "testimonial_01182",
+    "_location_seed_id": "loc_01091",
+    "customer_name": "William C.",
+    "rating": 5,
+    "review_text": "I've been going to ChiroStretch Miami for six months now and Dr. Maria Perry has completely changed my life. My chronic back pain is finally manageable!"
+  },
+  {
+    "_seed_id": "testimonial_01183",
+    "_location_seed_id": "loc_01091",
+    "customer_name": "Aaron T.",
+    "rating": 5,
+    "review_text": "Best chiropractic experience I've ever had. Dr. Ronald Morris is incredibly knowledgeable and the whole team at ChiroStretch Miami makes you feel welcome."
+  },
+  {
+    "_seed_id": "testimonial_01184",
+    "_location_seed_id": "loc_01092",
+    "customer_name": "Richard C.",
+    "rating": 5,
+    "review_text": "The whole experience at ChiroStretch Long Beach is top-notch. Eric Green is patient, thorough, and genuinely cares about getting results."
+  },
+  {
+    "_seed_id": "testimonial_01185",
+    "_location_seed_id": "loc_01092",
+    "customer_name": "Katherine H.",
+    "rating": 4,
+    "review_text": "As someone who works at a desk all day, the stretch therapy sessions with Dr. Ashley Flores at ChiroStretch Long Beach have been a game-changer for my posture."
+  },
+  {
+    "_seed_id": "testimonial_01186",
+    "_location_seed_id": "loc_01093",
+    "customer_name": "Timothy W.",
+    "rating": 5,
+    "review_text": "ChiroStretch Virginia Beach has become part of my wellness routine. Dorothy Young always knows exactly what I need. Five stars isn't enough!"
+  },
+  {
+    "_seed_id": "testimonial_01187",
+    "_location_seed_id": "loc_01093",
+    "customer_name": "Samuel F.",
+    "rating": 5,
+    "review_text": "The team at ChiroStretch Virginia Beach is amazing. Dr. Brenda King helped me recover from a sports injury faster than I thought possible. Highly recommend!"
+  },
+  {
+    "_seed_id": "testimonial_01188",
+    "_location_seed_id": "loc_01094",
+    "customer_name": "Jonathan H.",
+    "rating": 5,
+    "review_text": "I was skeptical about sports medicine at first, but James Roberts at ChiroStretch Oakland proved me wrong. Three sessions in and my mobility has improved dramatically."
+  },
+  {
+    "_seed_id": "testimonial_01189",
+    "_location_seed_id": "loc_01094",
+    "customer_name": "Ronald B.",
+    "rating": 5,
+    "review_text": "Came in with lower back pain that had plagued me for years. Dr. Christine Nguyen at ChiroStretch Oakland had me feeling better after just a few visits."
+  },
+  {
+    "_seed_id": "testimonial_01190",
+    "_location_seed_id": "loc_01095",
+    "customer_name": "Nicole T.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a chiropractic clinic, but Dr. Benjamin Ortiz at ChiroStretch Minneapolis changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01191",
+    "_location_seed_id": "loc_01095",
+    "customer_name": "William M.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a chiropractic clinic, but Dr. Benjamin Ortiz at ChiroStretch Minneapolis changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01192",
+    "_location_seed_id": "loc_01096",
+    "customer_name": "Carolyn G.",
+    "rating": 4,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Tulsa. Dr. Adam White took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01193",
+    "_location_seed_id": "loc_01096",
+    "customer_name": "Dennis W.",
+    "rating": 5,
+    "review_text": "Never thought I'd be a regular at a stretch therapy clinic, but Dr. Cynthia Powell at ChiroStretch Tulsa changed that. I actually look forward to my appointments!"
+  },
+  {
+    "_seed_id": "testimonial_01194",
+    "_location_seed_id": "loc_01097",
+    "customer_name": "Shirley R.",
+    "rating": 5,
+    "review_text": "I recommend ChiroStretch Tampa to everyone I know. Dr. Thomas Torres helped me avoid surgery with his personalized treatment approach."
+  },
+  {
+    "_seed_id": "testimonial_01195",
+    "_location_seed_id": "loc_01097",
+    "customer_name": "Emma A.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Tampa because Sharon Turner is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01196",
+    "_location_seed_id": "loc_01098",
+    "customer_name": "Laura B.",
+    "rating": 5,
+    "review_text": "I drive 30 minutes to come to ChiroStretch Arlington because Kathleen Cooper is just that good. Worth every mile for the level of care I receive."
+  },
+  {
+    "_seed_id": "testimonial_01197",
+    "_location_seed_id": "loc_01098",
+    "customer_name": "Katherine M.",
+    "rating": 4,
+    "review_text": "After years of headaches, I finally found relief at ChiroStretch Arlington. Dr. Jason Roberts took the time to understand my issues and created a treatment plan that actually works."
+  },
+  {
+    "_seed_id": "testimonial_01198",
+    "_location_seed_id": "loc_01099",
+    "customer_name": "David C.",
+    "rating": 4,
+    "review_text": "The whole experience at ChiroStretch New Orleans is top-notch. Dr. Janet Rivera is patient, thorough, and genuinely cares about getting results."
+  },
+  {
+    "_seed_id": "testimonial_01199",
+    "_location_seed_id": "loc_01099",
+    "customer_name": "Linda B.",
+    "rating": 5,
+    "review_text": "I was skeptical about massage at first, but Sandra Diaz at ChiroStretch New Orleans proved me wrong. Three sessions in and my mobility has improved dramatically."
+  }
+]

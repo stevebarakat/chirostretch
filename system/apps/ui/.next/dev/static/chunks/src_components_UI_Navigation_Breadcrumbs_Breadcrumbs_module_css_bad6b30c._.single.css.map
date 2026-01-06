@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/UI/Navigation/Breadcrumbs/Breadcrumbs.module.css"],"sourcesContent":[".nav {\n  margin-block-end: var(--space-4);\n}\n\n.list {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--space-2);\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  font-size: var(--font-size-sm);\n  color: var(--color-text-muted);\n}\n\n.item:not(:last-child)::after {\n  content: \"/\";\n  margin-inline-start: var(--space-2);\n  color: var(--color-border);\n}\n\n.item a {\n  text-decoration: none;\n  color: inherit;\n}\n\n.item a:hover {\n  text-decoration: underline;\n}\n"],"names":[],"mappings":"AAAA;;;;AAIA;;;;;;;;;;;AAWA;;;;;;AAMA;;;;;AAKA"}}]
+}

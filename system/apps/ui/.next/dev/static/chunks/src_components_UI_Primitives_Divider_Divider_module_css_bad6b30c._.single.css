@@ -1,0 +1,102 @@
+/* [project]/src/components/UI/Primitives/Divider/Divider.module.css [app-client] (css) */
+.Divider-module__SHX7Wa__divider {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Divider-module__SHX7Wa__horizontal {
+  width: 100%;
+  height: 0;
+}
+
+.Divider-module__SHX7Wa__vertical {
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+  display: inline-block;
+}
+
+.Divider-module__SHX7Wa__horizontal.Divider-module__SHX7Wa__thickness-thin {
+  border-style: solid;
+  border-width: 1px 0 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__thickness-thin {
+  border-style: solid;
+  border-width: 0 1px 0 0;
+}
+
+.Divider-module__SHX7Wa__horizontal.Divider-module__SHX7Wa__thickness-medium {
+  border-style: solid;
+  border-width: 2px 0 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__thickness-medium {
+  border-style: solid;
+  border-width: 0 2px 0 0;
+}
+
+.Divider-module__SHX7Wa__horizontal.Divider-module__SHX7Wa__thickness-thick {
+  border-style: solid;
+  border-width: 3px 0 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__thickness-thick {
+  border-style: solid;
+  border-width: 0 3px 0 0;
+}
+
+.Divider-module__SHX7Wa__color-primary {
+  border-color: var(--color-primary-300);
+}
+
+.Divider-module__SHX7Wa__color-secondary {
+  border-color: var(--color-secondary-300);
+}
+
+.Divider-module__SHX7Wa__color-neutral {
+  border-color: var(--color-border-primary);
+}
+
+.Divider-module__SHX7Wa__color-muted {
+  border-color: var(--color-border-secondary);
+}
+
+.Divider-module__SHX7Wa__spacing-none {
+  margin: 0;
+}
+
+.Divider-module__SHX7Wa__spacing-sm {
+  margin: var(--spacing-sm) 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__spacing-sm {
+  margin: 0 var(--spacing-sm);
+}
+
+.Divider-module__SHX7Wa__spacing-md {
+  margin: var(--spacing-md) 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__spacing-md {
+  margin: 0 var(--spacing-md);
+}
+
+.Divider-module__SHX7Wa__spacing-lg {
+  margin: var(--spacing-lg) 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__spacing-lg {
+  margin: 0 var(--spacing-lg);
+}
+
+.Divider-module__SHX7Wa__spacing-xl {
+  margin: var(--spacing-xl) 0;
+}
+
+.Divider-module__SHX7Wa__vertical.Divider-module__SHX7Wa__spacing-xl {
+  margin: 0 var(--spacing-xl);
+}
+
+/*# sourceMappingURL=src_components_UI_Primitives_Divider_Divider_module_css_bad6b30c._.single.css.map*/

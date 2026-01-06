@@ -1,0 +1,3 @@
+{
+  "/api/algolia/index-articles/route": "app/api/algolia/index-articles/route.js"
+}

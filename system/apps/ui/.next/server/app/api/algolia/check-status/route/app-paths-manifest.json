@@ -1,0 +1,3 @@
+{
+  "/api/algolia/check-status/route": "app/api/algolia/check-status/route.js"
+}

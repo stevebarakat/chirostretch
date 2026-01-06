@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/Logo/Logo.module.css"],"sourcesContent":[".logo {\n  display: flex;\n  align-items: center;\n  height: -moz-fit-content;\n  height: fit-content;\n  color: var(--color-text-inverse);\n\n  div {\n    padding-left: var(--spacing-md);\n  }\n\n  img {\n    width: 200px;\n    height: auto;\n  }\n}\n\n.mobile {\n  padding-right: 25%;\n}\n\n@media (min-width: 910px) {\n  .mobile {\n    position: absolute;\n    width: 1px;\n    height: 1px;\n    white-space: nowrap;\n    visibility: hidden;\n    overflow: hidden;\n    clip-path: inset(50%);\n  }\n}\n\n.logoChiro {\n  font-size: var(--font-size-5xl);\n  font-weight: var(--font-weight-semibold);\n  letter-spacing: -0.1em;\n}\n\n.logoStretch {\n  font-size: var(--font-size-5xl);\n  font-weight: var(--font-weight-light);\n  letter-spacing: -0.1em;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;AAOE;;;;AAIA;;;;;AAMF;;;;AAIA;EACE;;;;;;;;;;;AAWF;;;;;;AAMA"}}]
+}

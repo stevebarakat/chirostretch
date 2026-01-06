@@ -1,0 +1,33 @@
+/* [project]/src/components/UI/Layout/SectionHeading/SectionHeading.module.css [app-client] (css) */
+.SectionHeading-module__6CZdJW__wrapper {
+  margin-bottom: var(--spacing-3xl);
+  text-align: center;
+}
+
+.SectionHeading-module__6CZdJW__heading {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+.SectionHeading-module__6CZdJW__subheading {
+  max-width: 600px;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .SectionHeading-module__6CZdJW__heading {
+    font-size: var(--font-size-4xl);
+  }
+
+  .SectionHeading-module__6CZdJW__subheading {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/*# sourceMappingURL=src_components_UI_Layout_SectionHeading_SectionHeading_module_css_bad6b30c._.single.css.map*/

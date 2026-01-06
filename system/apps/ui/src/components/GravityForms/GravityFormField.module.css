@@ -1,0 +1,112 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.25rem);
+}
+
+.label {
+  margin-bottom: var(--spacing-xs, 0.25rem);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: 600;
+  color: var(--color-text-primary, hsl(0, 0%, 10%));
+}
+
+.required {
+  margin-left: var(--spacing-xs, 0.25rem);
+  color: hsl(0, 70%, 50%);
+}
+
+.description {
+  margin-bottom: var(--spacing-xs, 0.25rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-secondary, hsl(0, 0%, 40%));
+}
+
+.input,
+.textarea,
+.select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base),
+    background-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-transparent-100);
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-focus);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.select {
+  cursor: pointer;
+}
+
+.nameInputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.nameInput {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 0.25rem);
+}
+
+.radioGroup,
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.5rem);
+}
+
+.radioLabel,
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 0.5rem);
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text-primary, hsl(0, 0%, 10%));
+  cursor: pointer;
+}
+
+.radio,
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: hsl(220, 90%, 50%);
+}
+
+.fileInput {
+  padding: var(--spacing-sm, 0.5rem);
+  font-size: var(--font-size-base, 1rem);
+  cursor: pointer;
+}
+
+.error {
+  margin-top: var(--spacing-xs, 0.25rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  color: hsl(0, 70%, 50%);
+}

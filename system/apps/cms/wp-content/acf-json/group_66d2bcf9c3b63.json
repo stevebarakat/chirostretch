@@ -1,0 +1,209 @@
+{
+    "key": "group_66d2bcf9c3b63",
+    "title": "Metrics – Key Stats",
+    "fields": [
+        {
+            "key": "field_66d2bcfa2107b",
+            "label": "",
+            "name": "stats",
+            "aria-label": "",
+            "type": "flexible_content",
+            "instructions": "<span style=\"background: yellow; padding: 1rem 2rem; color: black\">Short, scannable numbers only!\r\n\r\nGood\r\n\r\n• 50+ Locations\r\n• 10k Members\r\n• 24\/7 Access\r\nBad:\r\n\r\n• Full sentences\r\n• Punctuation\r\n• Descriptive copy<\/span>",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_66d2bd0816d97": {
+                    "key": "layout_66d2bd0816d97",
+                    "name": "",
+                    "label": "",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_66d2bd1e2107c",
+                            "label": "Stat",
+                            "name": "stat",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "show_in_graphql": 1,
+                            "graphql_description": "",
+                            "graphql_field_name": "stat",
+                            "graphql_non_null": 0,
+                            "sub_fields": [
+                                {
+                                    "key": "field_66d2bd722107d",
+                                    "label": "Prefix",
+                                    "name": "prefix",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "13",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "$",
+                                    "maxlength": 2,
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "show_in_graphql": 1,
+                                    "graphql_description": "",
+                                    "graphql_field_name": "prefix",
+                                    "graphql_non_null": 0
+                                },
+                                {
+                                    "key": "field_66d2bda82107e",
+                                    "label": "Number",
+                                    "name": "number",
+                                    "aria-label": "",
+                                    "type": "number",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "13",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": 15,
+                                    "min": "",
+                                    "max": "",
+                                    "allow_in_bindings": 1,
+                                    "placeholder": "",
+                                    "step": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "show_in_graphql": 1,
+                                    "graphql_description": "",
+                                    "graphql_field_name": "number",
+                                    "graphql_non_null": 0
+                                },
+                                {
+                                    "key": "field_66d2bdc62107f",
+                                    "label": "Suffix",
+                                    "name": "suffix",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "12",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "M",
+                                    "maxlength": 2,
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "show_in_graphql": 1,
+                                    "graphql_description": "",
+                                    "graphql_field_name": "suffix",
+                                    "graphql_non_null": 0
+                                },
+                                {
+                                    "key": "field_66d2bddf21080",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "30",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "Settlement Claims",
+                                    "maxlength": 22,
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "show_in_graphql": 1,
+                                    "graphql_description": "",
+                                    "graphql_field_name": "description",
+                                    "graphql_non_null": 0
+                                },
+                                {
+                                    "key": "field_69549d5af2f27",
+                                    "label": "Content Guide",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "message",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "32",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "graphql_field_name": "",
+                                    "message": "<strong><u>Primitive<\/u> - Metric: Key Stats<\/strong>\r\nShould we add a description or rules for editors?",
+                                    "new_lines": "wpautop",
+                                    "esc_html": 0
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "min": "",
+            "max": "",
+            "button_label": "Add Stat",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "stats",
+            "graphql_non_null": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "2877"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "stats",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1767163977
+}

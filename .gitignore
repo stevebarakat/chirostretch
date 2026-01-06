@@ -3,7 +3,7 @@
 # --------------------------------------------------
 # DEPENDENCIES
 # --------------------------------------------------
-/node_modules
+**/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -11,6 +11,11 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+
+# --------------------------------------------------
+# PNPM
+# --------------------------------------------------
+**/.pnpm/
 
 # --------------------------------------------------
 # TESTING
@@ -74,3 +79,11 @@ backups/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# --------------------------------------------------
+# WORDPRESS RUNTIME (DO NOT COMMIT)
+# --------------------------------------------------
+system/apps/cms/wp-content/uploads/
+system/apps/cms/wp-content/plugins/
+system/apps/cms/wp-config.php
+system/apps/cms/wp-config-*.php

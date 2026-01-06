@@ -1,0 +1,2 @@
+"use strict";var e=require("./index-DGQVciAu.js"),r=require("./query.js");require("node:http"),require("node:https"),require("node:zlib"),require("node:stream"),require("node:buffer"),require("node:util"),require("node:url"),require("node:net"),require("node:fs"),require("node:path"),exports.getGravityForm=e.getGravityForm,exports.gravityFormQuery=r.gravityFormQuery,exports.submitMutationQuery=r.submitMutationQuery;
+//# sourceMappingURL=index.js.map

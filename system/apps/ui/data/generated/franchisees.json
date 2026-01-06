@@ -1,0 +1,902 @@
+[
+  {
+    "_seed_id": "franchisee_01000",
+    "_location_seed_id": "loc_01000",
+    "email": "franchisee-01000@chirostretch.site",
+    "first_name": "Carolyn",
+    "last_name": "Rivera",
+    "display_name": "Carolyn Rivera",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01001",
+    "_location_seed_id": "loc_01001",
+    "email": "franchisee-01001@chirostretch.site",
+    "first_name": "Brian",
+    "last_name": "Gonzalez",
+    "display_name": "Brian Gonzalez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01002",
+    "_location_seed_id": "loc_01002",
+    "email": "franchisee-01002@chirostretch.site",
+    "first_name": "Brian",
+    "last_name": "Carter",
+    "display_name": "Brian Carter",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01003",
+    "_location_seed_id": "loc_01003",
+    "email": "franchisee-01003@chirostretch.site",
+    "first_name": "Catherine",
+    "last_name": "Sanders",
+    "display_name": "Catherine Sanders",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01004",
+    "_location_seed_id": "loc_01004",
+    "email": "franchisee-01004@chirostretch.site",
+    "first_name": "Donna",
+    "last_name": "Lee",
+    "display_name": "Donna Lee",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01005",
+    "_location_seed_id": "loc_01005",
+    "email": "franchisee-01005@chirostretch.site",
+    "first_name": "Rebecca",
+    "last_name": "Reed",
+    "display_name": "Rebecca Reed",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01006",
+    "_location_seed_id": "loc_01006",
+    "email": "franchisee-01006@chirostretch.site",
+    "first_name": "Margaret",
+    "last_name": "Cook",
+    "display_name": "Margaret Cook",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01007",
+    "_location_seed_id": "loc_01007",
+    "email": "franchisee-01007@chirostretch.site",
+    "first_name": "Samantha",
+    "last_name": "Wood",
+    "display_name": "Samantha Wood",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01008",
+    "_location_seed_id": "loc_01008",
+    "email": "franchisee-01008@chirostretch.site",
+    "first_name": "Gregory",
+    "last_name": "Bell",
+    "display_name": "Gregory Bell",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01009",
+    "_location_seed_id": "loc_01009",
+    "email": "franchisee-01009@chirostretch.site",
+    "first_name": "Laura",
+    "last_name": "Nguyen",
+    "display_name": "Laura Nguyen",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01010",
+    "_location_seed_id": "loc_01010",
+    "email": "franchisee-01010@chirostretch.site",
+    "first_name": "Amy",
+    "last_name": "Sanchez",
+    "display_name": "Amy Sanchez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01011",
+    "_location_seed_id": "loc_01011",
+    "email": "franchisee-01011@chirostretch.site",
+    "first_name": "Emma",
+    "last_name": "James",
+    "display_name": "Emma James",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01012",
+    "_location_seed_id": "loc_01012",
+    "email": "franchisee-01012@chirostretch.site",
+    "first_name": "Melissa",
+    "last_name": "Thompson",
+    "display_name": "Melissa Thompson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01013",
+    "_location_seed_id": "loc_01013",
+    "email": "franchisee-01013@chirostretch.site",
+    "first_name": "Mark",
+    "last_name": "Reed",
+    "display_name": "Mark Reed",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01014",
+    "_location_seed_id": "loc_01014",
+    "email": "franchisee-01014@chirostretch.site",
+    "first_name": "Betty",
+    "last_name": "Garcia",
+    "display_name": "Betty Garcia",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01015",
+    "_location_seed_id": "loc_01015",
+    "email": "franchisee-01015@chirostretch.site",
+    "first_name": "Emily",
+    "last_name": "Hernandez",
+    "display_name": "Emily Hernandez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01016",
+    "_location_seed_id": "loc_01016",
+    "email": "franchisee-01016@chirostretch.site",
+    "first_name": "Robert",
+    "last_name": "Perez",
+    "display_name": "Robert Perez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01017",
+    "_location_seed_id": "loc_01017",
+    "email": "franchisee-01017@chirostretch.site",
+    "first_name": "Tyler",
+    "last_name": "Sullivan",
+    "display_name": "Tyler Sullivan",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01018",
+    "_location_seed_id": "loc_01018",
+    "email": "franchisee-01018@chirostretch.site",
+    "first_name": "Susan",
+    "last_name": "Gomez",
+    "display_name": "Susan Gomez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01019",
+    "_location_seed_id": "loc_01019",
+    "email": "franchisee-01019@chirostretch.site",
+    "first_name": "Jose",
+    "last_name": "Johnson",
+    "display_name": "Jose Johnson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01020",
+    "_location_seed_id": "loc_01020",
+    "email": "franchisee-01020@chirostretch.site",
+    "first_name": "Brenda",
+    "last_name": "Ward",
+    "display_name": "Brenda Ward",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01021",
+    "_location_seed_id": "loc_01021",
+    "email": "franchisee-01021@chirostretch.site",
+    "first_name": "Heather",
+    "last_name": "Cruz",
+    "display_name": "Heather Cruz",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01022",
+    "_location_seed_id": "loc_01022",
+    "email": "franchisee-01022@chirostretch.site",
+    "first_name": "Amy",
+    "last_name": "Collins",
+    "display_name": "Amy Collins",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01023",
+    "_location_seed_id": "loc_01023",
+    "email": "franchisee-01023@chirostretch.site",
+    "first_name": "Daniel",
+    "last_name": "Nelson",
+    "display_name": "Daniel Nelson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01024",
+    "_location_seed_id": "loc_01024",
+    "email": "franchisee-01024@chirostretch.site",
+    "first_name": "Patrick",
+    "last_name": "Morales",
+    "display_name": "Patrick Morales",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01025",
+    "_location_seed_id": "loc_01025",
+    "email": "franchisee-01025@chirostretch.site",
+    "first_name": "Linda",
+    "last_name": "Morgan",
+    "display_name": "Linda Morgan",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01026",
+    "_location_seed_id": "loc_01026",
+    "email": "franchisee-01026@chirostretch.site",
+    "first_name": "Aaron",
+    "last_name": "Mitchell",
+    "display_name": "Aaron Mitchell",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01027",
+    "_location_seed_id": "loc_01027",
+    "email": "franchisee-01027@chirostretch.site",
+    "first_name": "Daniel",
+    "last_name": "Cook",
+    "display_name": "Daniel Cook",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01028",
+    "_location_seed_id": "loc_01028",
+    "email": "franchisee-01028@chirostretch.site",
+    "first_name": "Tyler",
+    "last_name": "Lee",
+    "display_name": "Tyler Lee",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01029",
+    "_location_seed_id": "loc_01029",
+    "email": "franchisee-01029@chirostretch.site",
+    "first_name": "Jonathan",
+    "last_name": "Gray",
+    "display_name": "Jonathan Gray",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01030",
+    "_location_seed_id": "loc_01030",
+    "email": "franchisee-01030@chirostretch.site",
+    "first_name": "Joseph",
+    "last_name": "Collins",
+    "display_name": "Joseph Collins",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01031",
+    "_location_seed_id": "loc_01031",
+    "email": "franchisee-01031@chirostretch.site",
+    "first_name": "Joshua",
+    "last_name": "Anderson",
+    "display_name": "Joshua Anderson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01032",
+    "_location_seed_id": "loc_01032",
+    "email": "franchisee-01032@chirostretch.site",
+    "first_name": "Janet",
+    "last_name": "Barnes",
+    "display_name": "Janet Barnes",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01033",
+    "_location_seed_id": "loc_01033",
+    "email": "franchisee-01033@chirostretch.site",
+    "first_name": "Christine",
+    "last_name": "Moore",
+    "display_name": "Christine Moore",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01034",
+    "_location_seed_id": "loc_01034",
+    "email": "franchisee-01034@chirostretch.site",
+    "first_name": "Anna",
+    "last_name": "Hall",
+    "display_name": "Anna Hall",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01035",
+    "_location_seed_id": "loc_01035",
+    "email": "franchisee-01035@chirostretch.site",
+    "first_name": "Susan",
+    "last_name": "Rodriguez",
+    "display_name": "Susan Rodriguez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01036",
+    "_location_seed_id": "loc_01036",
+    "email": "franchisee-01036@chirostretch.site",
+    "first_name": "Richard",
+    "last_name": "Reed",
+    "display_name": "Richard Reed",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01037",
+    "_location_seed_id": "loc_01037",
+    "email": "franchisee-01037@chirostretch.site",
+    "first_name": "Rebecca",
+    "last_name": "Lee",
+    "display_name": "Rebecca Lee",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01038",
+    "_location_seed_id": "loc_01038",
+    "email": "franchisee-01038@chirostretch.site",
+    "first_name": "Tyler",
+    "last_name": "Cook",
+    "display_name": "Tyler Cook",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01039",
+    "_location_seed_id": "loc_01039",
+    "email": "franchisee-01039@chirostretch.site",
+    "first_name": "Stephanie",
+    "last_name": "Collins",
+    "display_name": "Stephanie Collins",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01040",
+    "_location_seed_id": "loc_01040",
+    "email": "franchisee-01040@chirostretch.site",
+    "first_name": "Alexander",
+    "last_name": "Myers",
+    "display_name": "Alexander Myers",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01041",
+    "_location_seed_id": "loc_01041",
+    "email": "franchisee-01041@chirostretch.site",
+    "first_name": "Catherine",
+    "last_name": "Nguyen",
+    "display_name": "Catherine Nguyen",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01042",
+    "_location_seed_id": "loc_01042",
+    "email": "franchisee-01042@chirostretch.site",
+    "first_name": "Peter",
+    "last_name": "Brown",
+    "display_name": "Peter Brown",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01043",
+    "_location_seed_id": "loc_01043",
+    "email": "franchisee-01043@chirostretch.site",
+    "first_name": "Rachel",
+    "last_name": "Lewis",
+    "display_name": "Rachel Lewis",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01044",
+    "_location_seed_id": "loc_01044",
+    "email": "franchisee-01044@chirostretch.site",
+    "first_name": "William",
+    "last_name": "Lee",
+    "display_name": "William Lee",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01045",
+    "_location_seed_id": "loc_01045",
+    "email": "franchisee-01045@chirostretch.site",
+    "first_name": "Patrick",
+    "last_name": "Cruz",
+    "display_name": "Patrick Cruz",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01046",
+    "_location_seed_id": "loc_01046",
+    "email": "franchisee-01046@chirostretch.site",
+    "first_name": "Brenda",
+    "last_name": "Jenkins",
+    "display_name": "Brenda Jenkins",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01047",
+    "_location_seed_id": "loc_01047",
+    "email": "franchisee-01047@chirostretch.site",
+    "first_name": "Douglas",
+    "last_name": "Thomas",
+    "display_name": "Douglas Thomas",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01048",
+    "_location_seed_id": "loc_01048",
+    "email": "franchisee-01048@chirostretch.site",
+    "first_name": "Kevin",
+    "last_name": "Walker",
+    "display_name": "Kevin Walker",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01049",
+    "_location_seed_id": "loc_01049",
+    "email": "franchisee-01049@chirostretch.site",
+    "first_name": "Rachel",
+    "last_name": "Wilson",
+    "display_name": "Rachel Wilson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01050",
+    "_location_seed_id": "loc_01050",
+    "email": "franchisee-01050@chirostretch.site",
+    "first_name": "Linda",
+    "last_name": "Price",
+    "display_name": "Linda Price",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01051",
+    "_location_seed_id": "loc_01051",
+    "email": "franchisee-01051@chirostretch.site",
+    "first_name": "Karen",
+    "last_name": "Lewis",
+    "display_name": "Karen Lewis",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01052",
+    "_location_seed_id": "loc_01052",
+    "email": "franchisee-01052@chirostretch.site",
+    "first_name": "Shirley",
+    "last_name": "Gomez",
+    "display_name": "Shirley Gomez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01053",
+    "_location_seed_id": "loc_01053",
+    "email": "franchisee-01053@chirostretch.site",
+    "first_name": "Jose",
+    "last_name": "Hill",
+    "display_name": "Jose Hill",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01054",
+    "_location_seed_id": "loc_01054",
+    "email": "franchisee-01054@chirostretch.site",
+    "first_name": "Andrew",
+    "last_name": "Davis",
+    "display_name": "Andrew Davis",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01055",
+    "_location_seed_id": "loc_01055",
+    "email": "franchisee-01055@chirostretch.site",
+    "first_name": "Elizabeth",
+    "last_name": "Lopez",
+    "display_name": "Elizabeth Lopez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01056",
+    "_location_seed_id": "loc_01056",
+    "email": "franchisee-01056@chirostretch.site",
+    "first_name": "Kenneth",
+    "last_name": "Howard",
+    "display_name": "Kenneth Howard",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01057",
+    "_location_seed_id": "loc_01057",
+    "email": "franchisee-01057@chirostretch.site",
+    "first_name": "Stephen",
+    "last_name": "Allen",
+    "display_name": "Stephen Allen",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01058",
+    "_location_seed_id": "loc_01058",
+    "email": "franchisee-01058@chirostretch.site",
+    "first_name": "Jacob",
+    "last_name": "Anderson",
+    "display_name": "Jacob Anderson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01059",
+    "_location_seed_id": "loc_01059",
+    "email": "franchisee-01059@chirostretch.site",
+    "first_name": "Heather",
+    "last_name": "Foster",
+    "display_name": "Heather Foster",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01060",
+    "_location_seed_id": "loc_01060",
+    "email": "franchisee-01060@chirostretch.site",
+    "first_name": "Sarah",
+    "last_name": "Morris",
+    "display_name": "Sarah Morris",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01061",
+    "_location_seed_id": "loc_01061",
+    "email": "franchisee-01061@chirostretch.site",
+    "first_name": "Donna",
+    "last_name": "Stewart",
+    "display_name": "Donna Stewart",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01062",
+    "_location_seed_id": "loc_01062",
+    "email": "franchisee-01062@chirostretch.site",
+    "first_name": "Jessica",
+    "last_name": "Edwards",
+    "display_name": "Jessica Edwards",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01063",
+    "_location_seed_id": "loc_01063",
+    "email": "franchisee-01063@chirostretch.site",
+    "first_name": "Kevin",
+    "last_name": "Bailey",
+    "display_name": "Kevin Bailey",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01064",
+    "_location_seed_id": "loc_01064",
+    "email": "franchisee-01064@chirostretch.site",
+    "first_name": "Melissa",
+    "last_name": "Rodriguez",
+    "display_name": "Melissa Rodriguez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01065",
+    "_location_seed_id": "loc_01065",
+    "email": "franchisee-01065@chirostretch.site",
+    "first_name": "Helen",
+    "last_name": "Rivera",
+    "display_name": "Helen Rivera",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01066",
+    "_location_seed_id": "loc_01066",
+    "email": "franchisee-01066@chirostretch.site",
+    "first_name": "Maria",
+    "last_name": "Moore",
+    "display_name": "Maria Moore",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01067",
+    "_location_seed_id": "loc_01067",
+    "email": "franchisee-01067@chirostretch.site",
+    "first_name": "Ashley",
+    "last_name": "Taylor",
+    "display_name": "Ashley Taylor",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01068",
+    "_location_seed_id": "loc_01068",
+    "email": "franchisee-01068@chirostretch.site",
+    "first_name": "Tyler",
+    "last_name": "Gutierrez",
+    "display_name": "Tyler Gutierrez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01069",
+    "_location_seed_id": "loc_01069",
+    "email": "franchisee-01069@chirostretch.site",
+    "first_name": "Sarah",
+    "last_name": "Bell",
+    "display_name": "Sarah Bell",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01070",
+    "_location_seed_id": "loc_01070",
+    "email": "franchisee-01070@chirostretch.site",
+    "first_name": "Douglas",
+    "last_name": "Robinson",
+    "display_name": "Douglas Robinson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01071",
+    "_location_seed_id": "loc_01071",
+    "email": "franchisee-01071@chirostretch.site",
+    "first_name": "Benjamin",
+    "last_name": "Ramirez",
+    "display_name": "Benjamin Ramirez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01072",
+    "_location_seed_id": "loc_01072",
+    "email": "franchisee-01072@chirostretch.site",
+    "first_name": "Jessica",
+    "last_name": "Rivera",
+    "display_name": "Jessica Rivera",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01073",
+    "_location_seed_id": "loc_01073",
+    "email": "franchisee-01073@chirostretch.site",
+    "first_name": "Jonathan",
+    "last_name": "James",
+    "display_name": "Jonathan James",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01074",
+    "_location_seed_id": "loc_01074",
+    "email": "franchisee-01074@chirostretch.site",
+    "first_name": "Maria",
+    "last_name": "Davis",
+    "display_name": "Maria Davis",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01075",
+    "_location_seed_id": "loc_01075",
+    "email": "franchisee-01075@chirostretch.site",
+    "first_name": "Sarah",
+    "last_name": "Reed",
+    "display_name": "Sarah Reed",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01076",
+    "_location_seed_id": "loc_01076",
+    "email": "franchisee-01076@chirostretch.site",
+    "first_name": "Barbara",
+    "last_name": "Young",
+    "display_name": "Barbara Young",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01077",
+    "_location_seed_id": "loc_01077",
+    "email": "franchisee-01077@chirostretch.site",
+    "first_name": "Maria",
+    "last_name": "Anderson",
+    "display_name": "Maria Anderson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01078",
+    "_location_seed_id": "loc_01078",
+    "email": "franchisee-01078@chirostretch.site",
+    "first_name": "Steven",
+    "last_name": "Sanders",
+    "display_name": "Steven Sanders",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01079",
+    "_location_seed_id": "loc_01079",
+    "email": "franchisee-01079@chirostretch.site",
+    "first_name": "Nicholas",
+    "last_name": "Watson",
+    "display_name": "Nicholas Watson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01080",
+    "_location_seed_id": "loc_01080",
+    "email": "franchisee-01080@chirostretch.site",
+    "first_name": "Patricia",
+    "last_name": "Collins",
+    "display_name": "Patricia Collins",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01081",
+    "_location_seed_id": "loc_01081",
+    "email": "franchisee-01081@chirostretch.site",
+    "first_name": "Jeffrey",
+    "last_name": "Thompson",
+    "display_name": "Jeffrey Thompson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01082",
+    "_location_seed_id": "loc_01082",
+    "email": "franchisee-01082@chirostretch.site",
+    "first_name": "Nancy",
+    "last_name": "Rodriguez",
+    "display_name": "Nancy Rodriguez",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01083",
+    "_location_seed_id": "loc_01083",
+    "email": "franchisee-01083@chirostretch.site",
+    "first_name": "Lisa",
+    "last_name": "Wright",
+    "display_name": "Lisa Wright",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01084",
+    "_location_seed_id": "loc_01084",
+    "email": "franchisee-01084@chirostretch.site",
+    "first_name": "Jeffrey",
+    "last_name": "Morris",
+    "display_name": "Jeffrey Morris",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01085",
+    "_location_seed_id": "loc_01085",
+    "email": "franchisee-01085@chirostretch.site",
+    "first_name": "Janet",
+    "last_name": "Howard",
+    "display_name": "Janet Howard",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01086",
+    "_location_seed_id": "loc_01086",
+    "email": "franchisee-01086@chirostretch.site",
+    "first_name": "Kimberly",
+    "last_name": "Taylor",
+    "display_name": "Kimberly Taylor",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01087",
+    "_location_seed_id": "loc_01087",
+    "email": "franchisee-01087@chirostretch.site",
+    "first_name": "Kenneth",
+    "last_name": "Edwards",
+    "display_name": "Kenneth Edwards",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01088",
+    "_location_seed_id": "loc_01088",
+    "email": "franchisee-01088@chirostretch.site",
+    "first_name": "Barbara",
+    "last_name": "Roberts",
+    "display_name": "Barbara Roberts",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01089",
+    "_location_seed_id": "loc_01089",
+    "email": "franchisee-01089@chirostretch.site",
+    "first_name": "Robert",
+    "last_name": "Butler",
+    "display_name": "Robert Butler",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01090",
+    "_location_seed_id": "loc_01090",
+    "email": "franchisee-01090@chirostretch.site",
+    "first_name": "Sandra",
+    "last_name": "Stewart",
+    "display_name": "Sandra Stewart",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01091",
+    "_location_seed_id": "loc_01091",
+    "email": "franchisee-01091@chirostretch.site",
+    "first_name": "Jennifer",
+    "last_name": "Jenkins",
+    "display_name": "Jennifer Jenkins",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01092",
+    "_location_seed_id": "loc_01092",
+    "email": "franchisee-01092@chirostretch.site",
+    "first_name": "Anna",
+    "last_name": "Smith",
+    "display_name": "Anna Smith",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01093",
+    "_location_seed_id": "loc_01093",
+    "email": "franchisee-01093@chirostretch.site",
+    "first_name": "Debra",
+    "last_name": "Butler",
+    "display_name": "Debra Butler",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01094",
+    "_location_seed_id": "loc_01094",
+    "email": "franchisee-01094@chirostretch.site",
+    "first_name": "Anthony",
+    "last_name": "Kelly",
+    "display_name": "Anthony Kelly",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01095",
+    "_location_seed_id": "loc_01095",
+    "email": "franchisee-01095@chirostretch.site",
+    "first_name": "Raymond",
+    "last_name": "Anderson",
+    "display_name": "Raymond Anderson",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01096",
+    "_location_seed_id": "loc_01096",
+    "email": "franchisee-01096@chirostretch.site",
+    "first_name": "Kathleen",
+    "last_name": "Price",
+    "display_name": "Kathleen Price",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01097",
+    "_location_seed_id": "loc_01097",
+    "email": "franchisee-01097@chirostretch.site",
+    "first_name": "Patrick",
+    "last_name": "Cruz",
+    "display_name": "Patrick Cruz",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01098",
+    "_location_seed_id": "loc_01098",
+    "email": "franchisee-01098@chirostretch.site",
+    "first_name": "Richard",
+    "last_name": "Young",
+    "display_name": "Richard Young",
+    "password": "password"
+  },
+  {
+    "_seed_id": "franchisee_01099",
+    "_location_seed_id": "loc_01099",
+    "email": "franchisee-01099@chirostretch.site",
+    "first_name": "Andrew",
+    "last_name": "Hall",
+    "display_name": "Andrew Hall",
+    "password": "password"
+  }
+]

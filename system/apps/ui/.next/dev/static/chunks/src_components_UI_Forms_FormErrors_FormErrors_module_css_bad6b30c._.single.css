@@ -1,0 +1,54 @@
+/* [project]/src/components/UI/Forms/FormErrors/FormErrors.module.css [app-client] (css) */
+.FormErrors-module__20_niq__message {
+  margin: 0 0 .5rem;
+  margin: 0 0 var(--spacing-sm, .5rem);
+  font-weight: 500;
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.FormErrors-module__20_niq__message:last-child {
+  margin-bottom: 0;
+}
+
+.FormErrors-module__20_niq__errorList {
+  padding-left: 1.5rem;
+  padding-left: var(--spacing-lg, 1.5rem);
+  margin: 0;
+  list-style: outside;
+}
+
+.FormErrors-module__20_niq__errorList li {
+  margin-bottom: .25rem;
+  margin-bottom: var(--spacing-xs, .25rem);
+}
+
+.FormErrors-module__20_niq__errorList li:last-child {
+  margin-bottom: 0;
+}
+
+.FormErrors-module__20_niq__errorLink {
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.FormErrors-module__20_niq__errorLink:hover, .FormErrors-module__20_niq__errorLink:focus {
+  color: #6e1212;
+}
+
+.FormErrors-module__20_niq__pageNumber {
+  font-size: .75rem;
+  font-size: var(--font-size-xs, .75rem);
+  opacity: .8;
+}
+
+.FormErrors-module__20_niq__fieldMessage {
+  font-weight: normal;
+}
+
+/*# sourceMappingURL=src_components_UI_Forms_FormErrors_FormErrors_module_css_bad6b30c._.single.css.map*/

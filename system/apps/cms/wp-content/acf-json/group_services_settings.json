@@ -1,0 +1,279 @@
+{
+    "key": "group_services_settings",
+    "title": "Services",
+    "fields": [
+        {
+            "key": "field_services_title",
+            "label": "Section Title",
+            "name": "services_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading displayed above the services tabs",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Our Core Therapies",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_services_description",
+            "label": "Section Description",
+            "name": "services_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Subtitle text below the heading",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "We combine modern chiropractic adjustments with assisted stretching to treat the root cause of your discomfort.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_services",
+            "label": "Service",
+            "name": "service",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Service",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "service",
+            "graphql_non_null": 0,
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_service_tab_label",
+                    "label": "Tab Label",
+                    "name": "tab_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Short label for the tab (e.g., \"Chiropractic\")",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_services"
+                },
+                {
+                    "key": "field_service_tab_icon",
+                    "label": "Tab Icon",
+                    "name": "tab_icon",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Small icon for the service tab (recommended: 48x48px, PNG or SVG)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "png,svg",
+                    "parent_repeater": "field_services"
+                },
+                {
+                    "key": "field_service_title",
+                    "label": "Service Title",
+                    "name": "service_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Full title displayed in content area",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_services"
+                },
+                {
+                    "key": "field_service_description",
+                    "label": "Service Description",
+                    "name": "service_description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Main description of the service",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 4,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_services"
+                },
+                {
+                    "key": "field_service_bullets",
+                    "label": "Bullet Points",
+                    "name": "bullet_points",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "button_label": "Add Bullet",
+                    "min": 0,
+                    "max": 0,
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "parent_repeater": "field_services",
+                    "sub_fields": [
+                        {
+                            "key": "field_bullet_text",
+                            "label": "Bullet Text",
+                            "name": "bullet_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_service_bullets"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_service_info_box",
+                    "label": "Info Box",
+                    "name": "info_box",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Optional tip or info displayed in a highlighted box",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_services"
+                },
+                {
+                    "key": "field_service_image",
+                    "label": "Service Image",
+                    "name": "service_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Image displayed alongside the service content",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_services"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "services-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "services",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1766076457
+}

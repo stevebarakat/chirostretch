@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/Layout/SearchInput.module.css"],"sourcesContent":[".search {\n  display: flex;\n  position: relative;\n  flex: 0 0 auto;\n  align-items: center;\n  width: 100%;\n  max-width: 300px;\n}\n\n.searchIcon {\n  position: absolute;\n  left: var(--spacing-md);\n  z-index: 1;\n  color: var(--color-text-tertiary);\n  pointer-events: none;\n}\n\n.searchInput {\n  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 2.75rem;\n  width: 100%;\n}\n\n.searchInput::-moz-placeholder {\n  color: var(--color-text-tertiary);\n}\n\n.searchInput::placeholder {\n  color: var(--color-text-tertiary);\n}\n\n.searchInput:focus {\n  background-color: var(--color-bg-primary);\n  border-color: var(--color-border-focus);\n  outline: none;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;AASA;;;;;;;;AAQA;;;;;AAKA;;;;AAQA"}}]
+}

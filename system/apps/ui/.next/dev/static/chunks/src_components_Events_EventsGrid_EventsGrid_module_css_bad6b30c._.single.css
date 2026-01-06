@@ -1,0 +1,114 @@
+/* [project]/src/components/Events/EventsGrid/EventsGrid.module.css [app-client] (css) */
+.EventsGrid-module__xtoRdG__grid {
+  grid-gap: var(--spacing-md);
+  gap: var(--spacing-md);
+  text-wrap: balance;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+
+@media (min-width: 640px) {
+  .EventsGrid-module__xtoRdG__grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .EventsGrid-module__xtoRdG__grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+.EventsGrid-module__xtoRdG__card {
+  background-color: var(--color-bg-tertiary);
+  border: 5px solid var(--color-border-focus);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: box-shadow var(--transition-base), opacity .2s ease-out, transform .2s ease-out;
+  aspect-ratio: 1;
+  background-position: center;
+  background-size: cover;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  animation: .25s ease-out EventsGrid-module__xtoRdG__fade-in;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes EventsGrid-module__xtoRdG__fade-in {
+  from {
+    opacity: 0;
+    transform: scale(.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.EventsGrid-module__xtoRdG__card:before {
+  content: "";
+  background: linear-gradient(#0000004d, #0009);
+  position: absolute;
+  inset: 0;
+}
+
+.EventsGrid-module__xtoRdG__card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.EventsGrid-module__xtoRdG__card:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.EventsGrid-module__xtoRdG__compactContent {
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 1px 3px #00000080;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.EventsGrid-module__xtoRdG__category {
+  padding: 0 var(--spacing-xs);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background-color: #fff3;
+}
+
+.EventsGrid-module__xtoRdG__compactDay {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.EventsGrid-module__xtoRdG__compactTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  text-align: center;
+  -webkit-line-clamp: 2;
+  padding-inline: var(--spacing-xs);
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.EventsGrid-module__xtoRdG__compactCity {
+  font-size: var(--font-size-2xs);
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  color: var(--color-transparent-white-800);
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=src_components_Events_EventsGrid_EventsGrid_module_css_bad6b30c._.single.css.map*/

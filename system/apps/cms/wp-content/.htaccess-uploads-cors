@@ -1,0 +1,10 @@
+# Add to wp-content/uploads/.htaccess on production server
+# Enables CORS for SVG files used as mask-image in CSS
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(svg|woff|woff2|ttf|eot)$">
+        Header set Access-Control-Allow-Origin "https://www.chirostretch.site"
+        Header set Access-Control-Allow-Methods "GET, OPTIONS"
+        Header set Access-Control-Allow-Headers "Origin, Content-Type"
+    </FilesMatch>
+</IfModule>

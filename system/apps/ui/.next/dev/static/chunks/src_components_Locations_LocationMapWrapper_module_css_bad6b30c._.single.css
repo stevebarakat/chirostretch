@@ -1,0 +1,19 @@
+/* [project]/src/components/Locations/LocationMapWrapper.module.css [app-client] (css) */
+.LocationMapWrapper-module__G3pDaW__placeholder {
+  width: 100%;
+  height: 200px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  background-color: var(--color-bg-tertiary);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+@media (min-width: 640px) {
+  .LocationMapWrapper-module__G3pDaW__placeholder {
+    height: 250px;
+  }
+}
+
+/*# sourceMappingURL=src_components_Locations_LocationMapWrapper_module_css_bad6b30c._.single.css.map*/

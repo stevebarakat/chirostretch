@@ -1,0 +1,239 @@
+{
+    "key": "group_staff_details",
+    "title": "Staff Details",
+    "fields": [
+        {
+            "key": "field_staff_email",
+            "label": "Email Address",
+            "name": "staff_email",
+            "type": "email",
+            "required": 1,
+            "instructions": "Staff member email - used for login and notifications",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "staffEmail"
+        },
+        {
+            "key": "field_staff_type",
+            "label": "Staff Type",
+            "name": "staff_type",
+            "type": "select",
+            "choices": {
+                "chiropractor": "Chiropractor",
+                "physical_therapist": "Physical Therapist",
+                "massage_therapist": "Massage Therapist",
+                "athletic_therapist": "Athletic Therapist"
+            },
+            "default_value": "chiropractor",
+            "required": 1,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "staffType"
+        },
+        {
+            "key": "field_assigned_location",
+            "label": "Assigned Location",
+            "name": "assigned_location",
+            "type": "post_object",
+            "post_type": ["location"],
+            "return_format": "id",
+            "required": 1,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "assignedLocation"
+        },
+        {
+            "key": "field_staff_services_offered",
+            "label": "Services Offered",
+            "name": "services_offered",
+            "type": "checkbox",
+            "choices": {
+                "Chiropractic": "Chiropractic",
+                "Stretch Therapy": "Stretch Therapy",
+                "Massage": "Massage",
+                "Sports Medicine": "Sports Medicine"
+            },
+            "layout": "vertical",
+            "return_format": "value",
+            "instructions": "Services this staff member can provide",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "servicesOffered"
+        },
+        {
+            "key": "field_user_account",
+            "label": "User Account",
+            "name": "user_account",
+            "type": "user",
+            "role": ["location_manager", "administrator"],
+            "return_format": "id",
+            "instructions": "Link to WordPress user account for login access (auto-created on publish)",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "userAccount"
+        },
+        {
+            "key": "field_job_title",
+            "label": "Job Title",
+            "name": "job_title",
+            "type": "text",
+            "instructions": "e.g., \"Lead Chiropractor\", \"Office Manager\"",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "jobTitle"
+        },
+        {
+            "key": "field_credentials",
+            "label": "Credentials",
+            "name": "credentials",
+            "type": "text",
+            "instructions": "e.g., \"DC, CCSP\" for chiropractors, \"LMT\" for massage therapists",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "credentials"
+        },
+        {
+            "key": "field_specialties",
+            "label": "Specialties",
+            "name": "specialties",
+            "type": "checkbox",
+            "choices": {
+                "sports_injuries": "Sports Injuries",
+                "back_pain": "Back Pain",
+                "neck_pain": "Neck Pain",
+                "headaches": "Headaches & Migraines",
+                "posture_correction": "Posture Correction",
+                "prenatal": "Prenatal Care",
+                "pediatric": "Pediatric",
+                "wellness": "Wellness & Prevention",
+                "deep_tissue": "Deep Tissue",
+                "swedish": "Swedish Massage",
+                "trigger_point": "Trigger Point Therapy",
+                "myofascial": "Myofascial Release",
+                "rehab": "Rehabilitation",
+                "flexibility": "Flexibility Training"
+            },
+            "layout": "vertical",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "specialties"
+        },
+        {
+            "key": "field_bio",
+            "label": "Biography",
+            "name": "bio",
+            "type": "wysiwyg",
+            "tabs": "basic",
+            "media_upload": 0,
+            "instructions": "Public biography displayed on the website",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "bio"
+        },
+        {
+            "key": "field_headshot",
+            "label": "Headshot",
+            "name": "headshot",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "instructions": "Professional photo for website display",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "headshot"
+        },
+        {
+            "key": "field_accepting_patients",
+            "label": "Accepting New Patients/Clients",
+            "name": "accepting_patients",
+            "type": "true_false",
+            "default_value": 1,
+            "ui": 1,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "acceptingPatients"
+        },
+        {
+            "key": "field_is_public",
+            "label": "Show on Website",
+            "name": "is_public",
+            "type": "true_false",
+            "default_value": 1,
+            "ui": 1,
+            "instructions": "Display this staff member on the public website",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "show_in_graphql": 1,
+            "graphql_field_name": "isPublic"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "staff"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "staffDetails",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": ""
+}

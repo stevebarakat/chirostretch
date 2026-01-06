@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/UI/Feedback/Alert/Alert.module.css"],"sourcesContent":[".alert {\n  padding: 1rem;\n  padding: var(--spacing-md, 1rem);\n  font-size: 0.875rem;\n  font-size: var(--font-size-sm, 0.875rem);\n  line-height: 1.5;\n  border-radius: 0.5rem;\n  border-radius: var(--border-radius-md, 0.5rem);\n}\n\n.error {\n  color: hsl(0 72% 35%);\n  background-color: hsl(0 86% 97%);\n  border: 1px solid hsl(0 72% 85%);\n}\n\n.success {\n  color: hsl(142 72% 25%);\n  background-color: hsl(142 76% 97%);\n  border: 1px solid hsl(142 76% 75%);\n}\n\n.warning {\n  color: hsl(45 80% 25%);\n  background-color: hsl(45 93% 97%);\n  border: 1px solid hsl(45 93% 70%);\n}\n\n.info {\n  color: hsl(210 80% 30%);\n  background-color: hsl(210 100% 97%);\n  border: 1px solid hsl(210 100% 80%);\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;;AAUA;;;;;;AAMA;;;;;;AAMA;;;;;;AAMA"}}]
+}

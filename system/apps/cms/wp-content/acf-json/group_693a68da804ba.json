@@ -1,0 +1,153 @@
+{
+    "key": "group_693a68da804ba",
+    "title": "Hero – Content",
+    "fields": [
+        {
+            "key": "field_693a69b5f4e79",
+            "label": "Hero Link",
+            "name": "hero_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "allow_in_bindings": 0,
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "heroLink",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_693a7aba35658",
+            "label": "Hero Link Icon",
+            "name": "hero_link_icon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg",
+            "allow_in_bindings": 0,
+            "preview_size": "medium",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "heroLinkIcon"
+        },
+        {
+            "key": "field_6943eff70ebf1",
+            "label": "Hero Link 2",
+            "name": "hero_link_2",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "allow_in_bindings": 0,
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "heroLink2",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_6943effa0ebf2",
+            "label": "Hero Link Icon 2",
+            "name": "hero_link_icon_2",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg",
+            "allow_in_bindings": 0,
+            "preview_size": "medium",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "heroLinkIcon2"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "default"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "location"
+            }
+        ]
+    ],
+    "menu_order": -100,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "discussion",
+        "comments",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "show_in_graphql": 1,
+    "graphql_field_name": "heroUnit",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": [
+        "Location",
+        "Page",
+        "Post"
+    ],
+    "modified": 1767408509
+}

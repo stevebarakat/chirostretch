@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/Header/LocationSearchTrigger/LocationSearchTrigger.module.css"],"sourcesContent":[".trigger {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 1rem;\n  font-family: inherit;\n  font-size: inherit;\n  font-weight: 600;\n  text-align: left;\n  color: white;\n  background: none;\n  border: none;\n  cursor: pointer;\n  transition: background-color 0.25s ease;\n}\n\n.trigger:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n\n@media (max-width: 700px) {\n  .trigger {\n    width: 100%;\n    border-bottom: 1px solid var(--nav-border-color);\n  }\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;AAgBA;;;;AAIA;EACE"}}]
+}
