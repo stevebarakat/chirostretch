@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/UI/Utility/FlipMotion/FlipMotion.module.css"],"sourcesContent":[".list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n.item {\n  /* Layout animations handled by Motion */\n}\n\n"],"names":[],"mappings":"AAAA"}}]
-}

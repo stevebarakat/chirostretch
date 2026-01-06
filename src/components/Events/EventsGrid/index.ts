@@ -1,2 +1,0 @@
-export { EventsGrid } from "./EventsGrid";
-

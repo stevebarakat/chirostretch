@@ -1,8 +1,0 @@
-[00:00:01.208] Server  ERROR   (node:23474) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
-(Use `node --trace-warnings ...` to show where the warning was created)
-[00:00:01.226] Server  LOG     ✓ Ready in 957ms
-[00:00:07.366] Browser WARN    [InstantSearch] We've detected you are using Next.js with the App Router.
-We released a package called "react-instantsearch-nextjs" that makes SSR work with the App Router.
-Please check its usage instructions: https://www.algolia.com/doc/guides/building-search-ui/going-further/server-side-rendering/react/#with-nextjs-app-router
-
-This warning will not be outputted in production builds.

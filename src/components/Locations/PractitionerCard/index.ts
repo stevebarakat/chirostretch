@@ -1,1 +1,0 @@
-export { PractitionerCard } from "./PractitionerCard";

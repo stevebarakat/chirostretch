@@ -1,1 +1,0 @@
-export { ServicesTabs } from "./ServicesTabs";

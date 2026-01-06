@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/UI/Forms/FormErrors/FormErrors.module.css"],"sourcesContent":[".message {\n  margin: 0 0 0.5rem;\n  margin: 0 0 var(--spacing-sm, 0.5rem);\n  font-weight: 500;\n  font-weight: var(--font-weight-medium, 500);\n}\n\n.message:last-child {\n  margin-bottom: 0;\n}\n\n.errorList {\n  margin: 0;\n  padding-left: 1.5rem;\n  padding-left: var(--spacing-lg, 1.5rem);\n  list-style: disc;\n}\n\n.errorList li {\n  margin-bottom: 0.25rem;\n  margin-bottom: var(--spacing-xs, 0.25rem);\n}\n\n.errorList li:last-child {\n  margin-bottom: 0;\n}\n\n.errorLink {\n  padding: 0;\n  font: inherit;\n  text-align: left;\n  text-decoration: underline;\n  color: inherit;\n  background: none;\n  border: none;\n  cursor: pointer;\n}\n\n.errorLink:hover,\n.errorLink:focus {\n  color: hsl(0 72% 25%);\n}\n\n.pageNumber {\n  font-size: 0.75rem;\n  font-size: var(--font-size-xs, 0.75rem);\n  opacity: 0.8;\n}\n\n.fieldMessage {\n  font-weight: normal;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;AAOA;;;;AAIA;;;;;;;AAOA;;;;;AAKA;;;;AAIA;;;;;;;;;;;AAWA;;;;AAKA;;;;;;AAMA"}}]
-}

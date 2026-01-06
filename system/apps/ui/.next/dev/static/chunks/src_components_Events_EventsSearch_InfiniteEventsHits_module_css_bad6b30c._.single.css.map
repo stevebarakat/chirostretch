@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/Events/EventsSearch/InfiniteEventsHits.module.css"],"sourcesContent":[".container {\n  display: flex;\n  flex-direction: column;\n}\n\n.empty {\n  padding: var(--spacing-3xl);\n  text-align: center;\n}\n\n.empty p {\n  margin: 0;\n  font-size: var(--font-size-lg);\n  color: var(--color-text-secondary);\n}\n\n.sentinel {\n  height: 100px;\n}\n"],"names":[],"mappings":"AAAA;;;;;AAKA;;;;;AAKA;;;;;;AAMA"}}]
-}

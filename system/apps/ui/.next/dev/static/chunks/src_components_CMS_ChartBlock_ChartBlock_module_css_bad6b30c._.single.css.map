@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/CMS/ChartBlock/ChartBlock.module.css"],"sourcesContent":[".chartContainer {\n  margin-block: 2rem;\n  padding: 1.5rem;\n  background: white;\n  border-radius: 0.5rem;\n  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.1);\n}\n\n.title {\n  font-weight: 600;\n  text-align: center;\n  margin-block-end: 1.5rem;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;AAQA"}}]
-}

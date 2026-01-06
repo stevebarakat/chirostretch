@@ -117,6 +117,20 @@ src/
 └── hooks/
 ```
 
+## Proxy (Next.js 16+)
+
+`src/proxy.ts` is Next.js 16's replacement for middleware.
+
+**Key points:**
+- Automatically detected at `src/proxy.ts` (or project root)
+- Export function named `proxy` (not `middleware`)
+- Sets `x-pathname` header for Server Components
+- Used in `app/layout.tsx` for conditional cart fetching
+
+Do not delete this file — it's required infrastructure, not dead code.
+
+See: [Next.js Proxy docs](https://nextjs.org/docs/app/getting-started/proxy)
+
 ## Route Groups
 
 - **(marketing):** CMS-driven pages, flexible layouts
