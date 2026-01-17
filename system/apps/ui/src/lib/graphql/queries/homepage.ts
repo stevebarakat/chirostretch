@@ -277,7 +277,7 @@ export const HOMEPAGE_QUERY = `
       }
       stats {
         stats {
-          ... on StatsStats_Layout {
+          ... on StatsStatsLayout {
             stat {
               description
               number
