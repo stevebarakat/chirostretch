@@ -41,7 +41,10 @@ add_filter('woocommerce_cookie_samesite', function () {
  * CORS headers for REST API requests
  */
 add_action('rest_api_init', function () {
-    header("Access-Control-Allow-Origin: https://chirostretch-copy.local");
+    // Get the frontend URL from environment or use default
+    $frontend_url = getenv('NEXTJS_URL') ?: 'https://localhost:3000';
+
+    header("Access-Control-Allow-Origin: {$frontend_url}");
     header("Access-Control-Allow-Credentials: true");
     header("Access-Control-Allow-Headers: Authorization, Content-Type, X-WP-Nonce, X-WC-Store-API-Nonce");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
@@ -53,11 +56,83 @@ add_action('rest_api_init', function () {
 add_filter('woocommerce_store_api_disable_nonce_check', '__return_true');
 add_filter('woocommerce_store_api_require_nonce', '__return_false');
 
+/**
+ * Force WooCommerce session initialization for Store API requests
+ *
+ * The Store API doesn't automatically create sessions for guest users.
+ * This ensures a session is initialized before any Store API request is processed.
+ */
+add_action('woocommerce_store_api_before_callbacks', function () {
+    error_log('[WC Session] Store API before_callbacks hook fired');
+
+    if (!WC()->session) {
+        error_log('[WC Session] No session exists, initializing...');
+        WC()->initialize_session();
+    } else {
+        error_log('[WC Session] Session already exists');
+    }
+
+    // Ensure session cookie is set
+    if (WC()->session && !WC()->session->get_customer_id()) {
+        error_log('[WC Session] No customer ID, setting session cookie...');
+        WC()->session->set_customer_session_cookie(true);
+        $customer_id = WC()->session->get_customer_id();
+        error_log("[WC Session] Customer ID after set: {$customer_id}");
+    } else if (WC()->session) {
+        $customer_id = WC()->session->get_customer_id();
+        error_log("[WC Session] Customer ID already set: {$customer_id}");
+    }
+}, 1);
+
+/**
+ * Force session cookies to be sent in Store API responses
+ *
+ * Even if WooCommerce initializes the session, it may not send the cookie
+ * header in REST API responses. This hook ensures cookies are always sent
+ * using WooCommerce's own session cookie method.
+ */
+add_filter('rest_post_dispatch', function ($response, $server, $request) {
+    // Only apply to Store API endpoints
+    if (strpos($request->get_route(), '/wc/store') === false) {
+        return $response;
+    }
+
+    error_log('[WC Session] rest_post_dispatch hook fired for Store API');
+
+    if (!WC()->session) {
+        error_log('[WC Session] No session in rest_post_dispatch');
+        return $response;
+    }
+
+    // Use WooCommerce's own method to set the session cookie
+    // This ensures proper hash calculation and cookie attributes
+    if (WC()->session->get_customer_id()) {
+        error_log('[WC Session] Setting session cookie via WooCommerce method');
+        WC()->session->set_customer_session_cookie(true);
+
+        $customer_id = WC()->session->get_customer_id();
+        error_log("[WC Session] Session cookie set for customer: {$customer_id}");
+    } else {
+        error_log('[WC Session] No customer ID to set in cookie');
+    }
+
+    return $response;
+}, 10, 3);
+
 add_filter('woocommerce_store_api_cors_allowed_origins', function ($origins) {
+    // Allow Next.js frontend origin
+    $frontend_url = getenv('NEXTJS_URL') ?: 'https://localhost:3000';
+
+    if (!in_array($frontend_url, $origins, true)) {
+        $origins[] = $frontend_url;
+    }
+
+    // Also allow current origin for dynamic requests
     $origin = get_http_origin();
     if ($origin && !in_array($origin, $origins, true)) {
         $origins[] = $origin;
     }
+
     return $origins;
 });
 
@@ -100,60 +175,68 @@ add_action('gform_user_registered', function ($user_id, $feed, $entry, $user_pas
 
 
 /**
- * Step 2: Force WooCommerce session initialization for ALL logged-in users
+ * Step 2: Force WooCommerce session initialization for ALL users (logged-in and guests)
  *
  * WooCommerce only auto-initializes sessions for users with the 'customer' role.
- * This ensures ANY logged-in WordPress user gets a valid WooCommerce session.
+ * This ensures ANY user (guest or logged-in) gets a valid WooCommerce session.
  *
  * Runs on 'wp_loaded' which is after 'init' but before any template rendering.
  * This timing ensures WooCommerce is fully loaded.
  */
 add_action('wp_loaded', function () {
+    error_log('[WC Session] wp_loaded hook fired');
+
     // Skip admin context
     if (is_admin()) {
+        error_log('[WC Session] Skipping - is_admin()');
         return;
     }
 
     // Skip if WooCommerce is not active
     if (!function_exists('WC')) {
+        error_log('[WC Session] Skipping - WC not available');
         return;
     }
 
-    // Skip if user is not logged in
-    if (!is_user_logged_in()) {
-        return;
-    }
+    error_log('[WC Session] Initializing session for front-end request');
 
-    $user_id = get_current_user_id();
-
-    // Ensure WooCommerce session exists
+    // Ensure WooCommerce session exists for ALL users (guests and logged-in)
     if (!WC()->session) {
+        error_log('[WC Session] No session, calling initialize_session()');
         WC()->initialize_session();
+    } else {
+        $customer_id = WC()->session->get_customer_id();
+        error_log("[WC Session] Session already exists: {$customer_id}");
     }
 
-    // Associate session with user
-    if (WC()->session) {
-        // Set the customer ID on the session (critical for non-guest treatment)
-        $session_customer_id = WC()->session->get_customer_id();
+    // For logged-in users, associate session with user
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
 
-        // If session has an anonymous/guest customer ID, associate with logged-in user
-        if (!$session_customer_id || $session_customer_id !== $user_id) {
-            // This handles cart merging: anonymous cart -> user logs in -> cart merges
-            WC()->session->set_customer_session_cookie(true);
+        // Associate session with user
+        if (WC()->session) {
+            // Set the customer ID on the session (critical for non-guest treatment)
+            $session_customer_id = WC()->session->get_customer_id();
+
+            // If session has an anonymous/guest customer ID, associate with logged-in user
+            if (!$session_customer_id || $session_customer_id !== $user_id) {
+                // This handles cart merging: anonymous cart -> user logs in -> cart merges
+                WC()->session->set_customer_session_cookie(true);
+            }
+        }
+
+        // Ensure customer object is initialized and linked to user
+        if (!WC()->customer) {
+            WC()->customer = new WC_Customer($user_id, true);
+        } elseif (WC()->customer->get_id() !== $user_id) {
+            // Customer object exists but is for wrong user - reinitialize
+            WC()->customer = new WC_Customer($user_id, true);
         }
     }
 
-    // Ensure cart is initialized
+    // Ensure cart is initialized for ALL users
     if (!WC()->cart) {
         WC()->cart = new WC_Cart();
-    }
-
-    // Ensure customer object is initialized and linked to user
-    if (!WC()->customer) {
-        WC()->customer = new WC_Customer($user_id, true);
-    } elseif (WC()->customer->get_id() !== $user_id) {
-        // Customer object exists but is for wrong user - reinitialize
-        WC()->customer = new WC_Customer($user_id, true);
     }
 }, 10);
 

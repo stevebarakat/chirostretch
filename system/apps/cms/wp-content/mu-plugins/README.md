@@ -66,6 +66,7 @@ const CHS_NON_PRODUCTION_PLUGINS = [
 - **wpgraphql-woocommerce-bookings.php** - GraphQL integration for bookings
 - **woocommerce-session-for-all-users.php** - Session management for all users
 - **woocommerce-account-settings.php** - Account page customizations
+- **woocommerce-auto-customer-accounts.php** - Automatically creates customer accounts on first purchase
 - **persistent-cart-restore.php** - Cart restoration for headless architecture
 - **new-patient-coupon.php** - New patient coupon generation from Gravity Forms
 
@@ -86,6 +87,7 @@ const CHS_NON_PRODUCTION_PLUGINS = [
 ### WordPress Admin
 
 - **acf-admin-styles.php** - ACF field layout improvements
+- **admin-cleanup.php** - Removes unnecessary admin UI elements (Yoast SEO from customers)
 - **block-whitelist.php** - Restricts Gutenberg to approved blocks
 - **chirostretch-dashboards.php** - Role-based dashboard routing
 - **application-status.php** - Franchise application status page

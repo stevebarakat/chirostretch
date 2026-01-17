@@ -34,10 +34,71 @@ function chs_get_headless_checkout_url() {
 }
 
 /**
+ * Hide "guest order" warning notice on payment page
+ *
+ * For headless checkout, all orders are created as guest orders via REST API.
+ * The warning appears when:
+ * - User is logged in (e.g., admin testing)
+ * - Order has no customer_id (guest order)
+ * - Billing email doesn't match logged-in user
+ *
+ * The warning is confusing for our headless flow since users just filled out checkout.
+ * Customer accounts are created after payment via woocommerce-auto-customer-accounts.php
+ */
+add_action('wp_footer', function() {
+    if (is_checkout() && is_wc_endpoint_url('order-pay')) {
+        ?>
+        <script>
+        (function() {
+            // Remove the guest order warning notice
+            const notices = document.querySelectorAll('.woocommerce-error, .woocommerce-message');
+            notices.forEach(function(notice) {
+                if (notice.textContent.includes('You are paying for a guest order')) {
+                    notice.style.display = 'none';
+                }
+            });
+        })();
+        </script>
+        <?php
+    }
+});
+
+/**
+ * Override WooCommerce payment complete redirect
+ *
+ * WooCommerce redirects to different places after payment:
+ * - wp-admin if user is logged in
+ * - order-received page if guest
+ *
+ * We want all payments to redirect to Next.js success page.
+ */
+add_filter('woocommerce_payment_successful_result', function($result, $order_id) {
+    $order = wc_get_order($order_id);
+    if (!$order) {
+        return $result;
+    }
+
+    $frontend_url = chs_get_headless_checkout_url();
+    $success_url = add_query_arg([
+        'order_id' => $order_id,
+        'order_key' => $order->get_order_key(),
+        'status' => $order->get_status(),
+    ], "{$frontend_url}/checkout/success");
+
+    error_log("[Headless Checkout] Payment complete, redirecting to Next.js: {$success_url}");
+
+    return [
+        'result' => 'success',
+        'redirect' => $success_url,
+    ];
+}, 10, 2);
+
+/**
  * Redirect WooCommerce "Order Received" page to Next.js success page
  *
  * After payment is completed in WordPress, users are normally shown
  * WP's order-received page. This redirects them to Next.js instead.
+ * This is a backup in case the payment redirect filter doesn't catch it.
  */
 add_action('template_redirect', function() {
     // Only proceed if this is an order-received page

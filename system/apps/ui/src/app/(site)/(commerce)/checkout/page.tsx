@@ -19,7 +19,7 @@ type BillingInfo = {
 };
 
 export default function CheckoutPage() {
-  const { items, totals, isHydrated } = useCartStore();
+  const { items, totals, isHydrated, clearCart } = useCartStore();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -124,6 +124,11 @@ export default function CheckoutPage() {
       }
 
       const data = await response.json();
+
+      // Clear cart immediately after order creation
+      // Cart items are now captured in the WooCommerce order
+      console.log(`[Checkout] Order ${data.order_id} created, clearing cart`);
+      clearCart();
 
       // Redirect to WordPress payment URL
       console.log(`[Checkout] Redirecting to payment URL: ${data.payment_url}`);
