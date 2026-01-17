@@ -86,6 +86,65 @@ Check if native HTML can solve it before writing JS:
 - Non-visual business logic (pricing, permissions)
 - Third-party integrations (isolated, lazy-loaded)
 
+## Form Handling Patterns
+
+**Checkout/Account Forms:**
+- Use controlled components with local state
+- Validate on submit, not on change (better UX)
+- Clear error messages with specific field context
+- Loading states during async operations
+- Success states with auto-redirect
+
+**Example: Checkout Form**
+```typescript
+const [billing, setBilling] = useState<BillingInfo>({ /* ... */ });
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState<string | null>(null);
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
+
+  try {
+    // Submit to API
+    const response = await fetch('/api/checkout/create-order', {
+      method: 'POST',
+      body: JSON.stringify({ billing, line_items }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to create order');
+    }
+
+    const data = await response.json();
+
+    // Clear cart immediately after order creation
+    clearCart();
+
+    // Redirect to WordPress for payment
+    window.location.href = data.payment_url;
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'An error occurred');
+    setLoading(false);
+  }
+};
+```
+
+**Key Patterns:**
+- Collect data → Submit to API → Clear local state → Redirect
+- Error handling with user-friendly messages
+- Loading states prevent double-submission
+- Success actions (clear cart, redirect) happen immediately
+
+**Form Libraries:**
+- Simple forms: Controlled components with `useState`
+- Complex forms: `react-hook-form` with `zod` validation
+- Avoid: Form libraries that manage server state (use Server Actions or API routes)
+
+See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md#2-checkout-form-nextjs) for complete implementation.
+
 ## Polymorphism Rule
 
 The `as` prop answers "What kind of element is this?" — not "How should it behave?"

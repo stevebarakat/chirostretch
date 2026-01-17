@@ -83,19 +83,69 @@ Allows applicants to view status without creating a user account.
 - Do NOT use authentication as a status-checking mechanism
 
 User account created only when:
-- Applicant is approved
+- Applicant is approved (explicit decision)
+- Customer makes a purchase (explicit transaction) ← **Auto-created**
 - Customer explicitly creates account
 - Staff/franchisee is onboarded
-- Purchase/booking requires ongoing access
+- Booking requires ongoing access
+
+**Customer Auto-Creation Pattern:**
+- Trigger: `woocommerce_payment_complete` hook (after successful payment)
+- Check: If user with billing email exists, link order to existing user
+- Create: If new email, create WordPress user with `customer` role
+- Notify: Send welcome email with password reset link
+- Implementation: `woocommerce-auto-customer-accounts.php` mu-plugin
+
+This follows the core principle: **Identity is earned, not assumed.**
+A purchase is an explicit, real event that earns identity.
 
 ## Promotion Rules
 
 ```
 Lead → (conversion event) → User
 Applicant → (explicit approval) → User
+Customer (Guest) → (purchase) → User
 ```
 
 Promotion must be explicit, auditable, and one-way.
+
+## Customer Account Auto-Creation (Purchase Event)
+
+Customers are automatically promoted from guest to user upon first purchase.
+
+**Event:** `woocommerce_payment_complete` (payment succeeds)
+
+**Process:**
+1. Check if order has `customer_id` → if yes, skip
+2. Check if user with `billing_email` exists → if yes, link order
+3. If new email:
+   - Create WordPress user (`customer` role)
+   - Generate username from `firstname.lastname` pattern
+   - Create secure random password (24 chars)
+   - Link order to new user
+   - Send welcome email with password reset link
+
+**Password Reset Flow:**
+- WordPress generates secure reset key (24-hour expiry)
+- Email contains link: `https://frontend.com/account/set-password?key=X&login=Y`
+- Next.js validates key via WordPress REST API
+- User sets password → WordPress updates user
+- User can now log in to My Account
+
+**Why This Works:**
+- Purchase = explicit event (not speculative)
+- No account required for checkout (frictionless)
+- Automatic onboarding (better UX)
+- Follows "identity is earned" principle
+
+**Files:**
+- `woocommerce-auto-customer-accounts.php` — Account creation logic
+- `headless-password-reset.php` — WordPress REST endpoints
+- `/account/set-password/page.tsx` — Next.js password reset UI
+- `/api/auth/validate-reset-key/route.ts` — Key validation proxy
+- `/api/auth/reset-password/route.ts` — Password reset proxy
+
+See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md#6-password-reset-flow-hybrid) for implementation details.
 
 ## Prohibited Patterns
 

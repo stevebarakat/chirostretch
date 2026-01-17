@@ -92,3 +92,38 @@ No HTML. No editable guides. No message fields for documentation.
 
 - Route: `/api/preview`
 - Supports drafts and revisions
+
+## MU-Plugin Patterns
+
+Must-Use Plugins (mu-plugins) load before regular plugins and cannot be deactivated.
+
+**When to Use MU-Plugins:**
+- Core functionality required for site operation
+- WooCommerce/WordPress behavior modifications
+- Custom REST API endpoints
+- System-level integrations (Algolia, headless auth)
+- Auto-loading utilities
+
+**Naming Convention:**
+- Descriptive, kebab-case: `woocommerce-auto-customer-accounts.php`
+- Group by domain: `woocommerce-*`, `headless-*`, `algolia-*`
+
+**Common Patterns:**
+- Hook-based behavior modifications (e.g., `woocommerce_payment_complete`)
+- REST API endpoint registration
+- GraphQL schema extensions
+- Session/cookie management
+- Redirect logic for headless architecture
+
+**Documentation:**
+- Maintain `mu-plugins/README.md` with plugin inventory
+- Document hook priorities and dependencies
+- Specify environment requirements (local vs production)
+
+**Key Files:**
+- `woocommerce-auto-customer-accounts.php` — Auto account creation
+- `woocommerce-headless-checkout-redirect.php` — Payment redirects
+- `headless-password-reset.php` — Password reset REST API
+- `admin-cleanup.php` — UI cleanup (hide Yoast from customers)
+
+See [agents/woocommerce.md](woocommerce.md#mu-plugin-patterns) for detailed WooCommerce-specific patterns.

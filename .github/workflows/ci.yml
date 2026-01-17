@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "pnpm"
+          cache-dependency-path: system/pnpm-lock.yaml
 
       - name: Enable pnpm (Corepack)
         run: corepack enable
