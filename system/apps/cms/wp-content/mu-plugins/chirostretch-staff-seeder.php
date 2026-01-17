@@ -224,7 +224,7 @@ class ChiroStretch_Staff_Command
                 $staff_data = $this->generate_staff_data($staff_type, $gender, $photo_index);
 
                 $post_id = wp_insert_post([
-                    'post_type'   => 'staff',
+                    'post_type'   => 'practitioner',
                     'post_title'  => $staff_data['name'],
                     'post_status' => 'publish',
                 ]);
@@ -286,7 +286,7 @@ class ChiroStretch_Staff_Command
         WP_CLI::log('Deleting all staff members...');
 
         $query = new WP_Query([
-            'post_type'      => 'staff',
+            'post_type'      => 'practitioner',
             'post_status'    => 'any',
             'posts_per_page' => -1,
             'fields'         => 'ids',

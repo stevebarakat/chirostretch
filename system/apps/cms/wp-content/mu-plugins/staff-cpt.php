@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Staff Custom Post Type
- * Description: Registers the 'staff' custom post type for location staff (chiropractors, office managers, etc.)
+ * Plugin Name: Practitioner Custom Post Type
+ * Description: Registers the 'practitioner' custom post type for clinical practitioners (chiropractors, physical therapists, massage therapists, etc.)
  * Author: ChiroStretch Dev
  */
 
@@ -16,8 +16,8 @@ add_filter('graphql_data_is_private', function ($is_private, $model_name, $data,
         return $is_private;
     }
 
-    // Only apply to staff post type
-    if (!isset($data->post_type) || 'staff' !== $data->post_type) {
+    // Only apply to practitioner post type
+    if (!isset($data->post_type) || 'practitioner' !== $data->post_type) {
         return $is_private;
     }
 
@@ -43,23 +43,23 @@ add_action('init', function () {
     }
 });
 
-// Register Staff CPT
+// Register Practitioner CPT
 add_action('init', function () {
     $labels = [
-        'name'               => 'Staff',
-        'singular_name'      => 'Staff Member',
-        'menu_name'          => 'Staff',
+        'name'               => 'Practitioners',
+        'singular_name'      => 'Practitioner',
+        'menu_name'          => 'Practitioners',
         'add_new'            => 'Add New',
-        'add_new_item'       => 'Add New Staff Member',
-        'edit_item'          => 'Edit Staff Member',
-        'new_item'           => 'New Staff Member',
-        'view_item'          => 'View Staff Member',
-        'search_items'       => 'Search Staff',
-        'not_found'          => 'No staff found',
-        'not_found_in_trash' => 'No staff found in trash',
+        'add_new_item'       => 'Add New Practitioner',
+        'edit_item'          => 'Edit Practitioner',
+        'new_item'           => 'New Practitioner',
+        'view_item'          => 'View Practitioner',
+        'search_items'       => 'Search Practitioners',
+        'not_found'          => 'No practitioners found',
+        'not_found_in_trash' => 'No practitioners found in trash',
     ];
 
-    register_post_type('staff', [
+    register_post_type('practitioner', [
         'labels'              => $labels,
         'public'              => true,
         'publicly_queryable'  => false, // No frontend single pages
@@ -169,7 +169,7 @@ add_action('graphql_register_types', function () {
         'toType'        => 'Practitioner',
         'fromFieldName' => 'allPractitioners',
         'resolve'       => function ($location, $args, $context, $info) {
-            $resolver = new \WPGraphQL\Data\Connection\PostObjectConnectionResolver($location, $args, $context, $info, 'staff');
+            $resolver = new \WPGraphQL\Data\Connection\PostObjectConnectionResolver($location, $args, $context, $info, 'practitioner');
             $resolver->set_query_arg('post_status', 'publish');
             $resolver->set_query_arg('meta_query', [
                 [
@@ -188,7 +188,7 @@ add_action('graphql_register_types', function () {
         'toType'        => 'Practitioner',
         'fromFieldName' => 'practitioners',
         'resolve'       => function ($location, $args, $context, $info) {
-            $resolver = new \WPGraphQL\Data\Connection\PostObjectConnectionResolver($location, $args, $context, $info, 'staff');
+            $resolver = new \WPGraphQL\Data\Connection\PostObjectConnectionResolver($location, $args, $context, $info, 'practitioner');
             $resolver->set_query_arg('post_status', 'publish');
             $resolver->set_query_arg('meta_query', [
                 'relation' => 'AND',
@@ -212,10 +212,10 @@ add_action('graphql_register_types', function () {
 add_action('graphql_register_types', function () {
     register_graphql_field('User', 'practitionerProfile', [
         'type'        => 'Practitioner',
-        'description' => 'Staff profile linked to this user account',
+        'description' => 'Practitioner profile linked to this user account',
         'resolve'     => function ($user, $args, $context) {
             $staff_posts = get_posts([
-                'post_type'      => 'staff',
+                'post_type'      => 'practitioner',
                 'posts_per_page' => 1,
                 'post_status'    => 'publish',
                 'meta_query'     => [
@@ -239,9 +239,9 @@ add_action('show_user_profile', 'display_staff_info_on_profile');
 add_action('edit_user_profile', 'display_staff_info_on_profile');
 
 function display_staff_info_on_profile($user) {
-    // Find the user's staff profile
+    // Find the user's practitioner profile
     $staff_posts = get_posts([
-        'post_type'      => 'staff',
+        'post_type'      => 'practitioner',
         'posts_per_page' => 1,
         'post_status'    => 'publish',
         'meta_query'     => [
@@ -258,7 +258,8 @@ function display_staff_info_on_profile($user) {
     }
 
     $staff = $staff_posts[0];
-    $staff_type = get_field('staff_type', $staff->ID);
+    $disciplines = wp_get_object_terms($staff->ID, 'discipline');
+    $staff_type = !empty($disciplines) ? $disciplines[0]->slug : '';
     $location_id = get_field('assigned_location', $staff->ID);
     $location = $location_id ? get_post($location_id) : null;
     $job_title = get_field('job_title', $staff->ID);
@@ -306,8 +307,8 @@ function display_staff_info_on_profile($user) {
 add_action('acf/save_post', 'chirostretch_auto_create_staff_user', 20);
 
 function chirostretch_auto_create_staff_user($post_id) {
-    // Only for staff post type
-    if (get_post_type($post_id) !== 'staff') {
+    // Only for practitioner post type
+    if (get_post_type($post_id) !== 'practitioner') {
         return;
     }
 
@@ -369,13 +370,26 @@ function chirostretch_auto_create_staff_user($post_id) {
     wp_new_user_notification($user_id, null, 'user');
 }
 
-// Expose practitioner email via GraphQL
+// Expose practitioner email and user account via GraphQL
 add_action('graphql_register_types', function () {
     register_graphql_field('Practitioner', 'email', [
         'type'        => 'String',
         'description' => 'Staff email address',
         'resolve'     => function ($post) {
             return get_field('staff_email', $post->databaseId) ?: '';
+        },
+    ]);
+
+    // User Account
+    register_graphql_field('Practitioner', 'userAccount', [
+        'type'        => 'User',
+        'description' => 'WordPress user account linked to this practitioner',
+        'resolve'     => function ($post, $args, $context) {
+            $user_id = get_field('user_account', $post->databaseId);
+            if (!$user_id) {
+                return null;
+            }
+            return $context->get_loader('user')->load_deferred($user_id);
         },
     ]);
 });

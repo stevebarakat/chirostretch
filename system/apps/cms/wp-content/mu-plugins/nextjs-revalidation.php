@@ -6,7 +6,7 @@
  * Author: ChiroStretch
  *
  * Sends granular cache tags to Next.js for targeted invalidation:
- * - Post types: locations, events, staff, products, posts, pages
+ * - Post types: locations, events, practitioners, products, posts, pages
  * - Global: menus, options, media
  */
 
@@ -25,7 +25,7 @@ class NextJS_Revalidation {
     const POST_TYPE_TAGS = [
         'location'      => 'locations',
         'tribe_events'  => 'events',
-        'staff'         => 'staff',
+        'practitioner'  => 'practitioners',
         'product'       => 'products',
         'post'          => 'posts',
         'page'          => 'pages',

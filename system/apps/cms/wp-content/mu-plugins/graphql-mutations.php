@@ -241,7 +241,7 @@ add_action('graphql_register_types', function () {
 
       // Create post
       $staff_id = wp_insert_post([
-        'post_type'   => 'staff',
+        'post_type'   => 'practitioner',
         'post_title'  => sanitize_text_field($input['title']),
         'post_status' => 'publish',
       ]);

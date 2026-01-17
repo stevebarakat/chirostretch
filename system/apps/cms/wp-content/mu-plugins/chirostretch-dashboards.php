@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: ChiroStretch Dashboards
- * Description: Operational dashboards for staff and franchisees. Capability-gated frontend pages.
+ * Description: Operational dashboards for practitioners and franchisees. Capability-gated frontend pages.
  * Version: 1.0.0
  * Author: ChiroStretch
  *
  * Architecture:
  * - WooCommerce /my-account handles customer commerce (orders, billing, addresses)
- * - This plugin handles operational dashboards (staff, franchisee management)
+ * - This plugin handles operational dashboards (practitioner, franchisee management)
  * - Next.js handles public presentation only
  */
 
@@ -18,20 +18,20 @@ if (!defined('ABSPATH')) {
 /**
  * Dashboard Routes and Capabilities
  *
- * /dashboard              - Main dashboard (redirects based on role)
- * /dashboard/staff        - Practitioner dashboard (requires practitioner role)
- * /dashboard/franchisee   - Franchisee dashboard (requires franchisee role)
+ * /dashboard                - Main dashboard (redirects based on role)
+ * /dashboard/practitioner   - Practitioner dashboard (requires practitioner role)
+ * /dashboard/franchisee     - Franchisee dashboard (requires franchisee role)
  */
 class ChiroStretch_Dashboards {
 
     const SLUG_MAIN = 'dashboard';
-    const SLUG_STAFF = 'dashboard/staff';
+    const SLUG_PRACTITIONER = 'dashboard/practitioner';
     const SLUG_FRANCHISEE = 'dashboard/franchisee';
 
     /**
      * Roles that can access the practitioner dashboard
      */
-    const STAFF_ROLES = [
+    const PRACTITIONER_ROLES = [
         'practitioner',
     ];
 
@@ -54,8 +54,8 @@ class ChiroStretch_Dashboards {
      */
     public function register_rewrite_rules() {
         add_rewrite_rule(
-            '^dashboard/staff/?$',
-            'index.php?chs_dashboard=staff',
+            '^dashboard/practitioner/?$',
+            'index.php?chs_dashboard=practitioner',
             'top'
         );
 
@@ -103,8 +103,8 @@ class ChiroStretch_Dashboards {
                 $this->handle_main_dashboard($user);
                 break;
 
-            case 'staff':
-                $this->handle_staff_dashboard($user);
+            case 'practitioner':
+                $this->handle_practitioner_dashboard($user);
                 break;
 
             case 'franchisee':
@@ -128,8 +128,8 @@ class ChiroStretch_Dashboards {
             exit;
         }
 
-        if ($this->user_has_any_role($user, self::STAFF_ROLES)) {
-            wp_redirect(home_url('/dashboard/staff/'));
+        if ($this->user_has_any_role($user, self::PRACTITIONER_ROLES)) {
+            wp_redirect(home_url('/dashboard/practitioner/'));
             exit;
         }
 
@@ -145,17 +145,17 @@ class ChiroStretch_Dashboards {
     }
 
     /**
-     * Staff dashboard
+     * Practitioner dashboard
      */
-    private function handle_staff_dashboard($user) {
-        if (!$this->user_has_any_role($user, self::STAFF_ROLES)) {
+    private function handle_practitioner_dashboard($user) {
+        if (!$this->user_has_any_role($user, self::PRACTITIONER_ROLES)) {
             wp_redirect(home_url('/dashboard/'));
             exit;
         }
 
-        $this->render_template('staff', [
+        $this->render_template('practitioner', [
             'user' => $user,
-            'staff_profile' => $this->get_staff_profile($user->ID),
+            'practitioner_profile' => $this->get_practitioner_profile($user->ID),
         ]);
     }
 
@@ -171,7 +171,7 @@ class ChiroStretch_Dashboards {
         $this->render_template('franchisee', [
             'user' => $user,
             'location' => $this->get_franchisee_location($user->ID),
-            'staff' => $this->get_location_staff($user->ID),
+            'practitioners' => $this->get_location_practitioners($user->ID),
         ]);
     }
 
@@ -185,7 +185,7 @@ class ChiroStretch_Dashboards {
         // Set page title
         add_filter('document_title_parts', function($title) use ($template) {
             $titles = [
-                'staff' => 'Staff Dashboard',
+                'practitioner' => 'Practitioner Dashboard',
                 'franchisee' => 'Franchisee Dashboard',
                 'applicant' => 'Application Status',
             ];
@@ -222,8 +222,8 @@ class ChiroStretch_Dashboards {
                 <h1 class="chs-dashboard__title">
                     <?php
                     switch ($template) {
-                        case 'staff':
-                            echo 'Staff Dashboard';
+                        case 'practitioner':
+                            echo 'Practitioner Dashboard';
                             break;
                         case 'franchisee':
                             echo 'Franchisee Dashboard';
@@ -238,9 +238,9 @@ class ChiroStretch_Dashboards {
                 </h1>
 
                 <div class="chs-dashboard__content">
-                    <?php if ($template === 'staff'): ?>
+                    <?php if ($template === 'practitioner'): ?>
                         <p>Welcome, <?php echo esc_html($data['user']->display_name); ?>!</p>
-                        <p>Your staff dashboard is being set up. Check back soon.</p>
+                        <p>Your practitioner dashboard is being set up. Check back soon.</p>
 
                     <?php elseif ($template === 'franchisee'): ?>
                         <p>Welcome, <?php echo esc_html($data['user']->display_name); ?>!</p>
@@ -296,31 +296,31 @@ class ChiroStretch_Dashboards {
     }
 
     /**
-     * Get staff profile for a user
+     * Get practitioner profile for a user
      */
-    private function get_staff_profile($user_id) {
-        // Find staff post linked to this user
-        $staff_posts = get_posts([
-            'post_type' => 'staff',
+    private function get_practitioner_profile($user_id) {
+        // Find practitioner post linked to this user
+        $practitioner_posts = get_posts([
+            'post_type' => 'practitioner',
             'meta_key' => 'user_account',
             'meta_value' => $user_id,
             'posts_per_page' => 1,
         ]);
 
-        if (empty($staff_posts)) {
+        if (empty($practitioner_posts)) {
             return null;
         }
 
-        $staff = $staff_posts[0];
+        $practitioner = $practitioner_posts[0];
 
         return [
-            'id' => $staff->ID,
-            'title' => $staff->post_title,
-            'location' => get_field('location', $staff->ID),
-            'staff_type' => get_field('staff_type', $staff->ID),
-            'services' => get_field('services_offered', $staff->ID),
-            'bio' => get_field('bio', $staff->ID),
-            'photo' => get_field('photo', $staff->ID),
+            'id' => $practitioner->ID,
+            'title' => $practitioner->post_title,
+            'location' => get_field('location', $practitioner->ID),
+            'discipline' => wp_get_object_terms($practitioner->ID, 'discipline', ['fields' => 'slugs'])[0] ?? '',
+            'services' => wp_get_object_terms($practitioner->ID, 'service', ['fields' => 'slugs']) ?: [],
+            'bio' => get_field('bio', $practitioner->ID),
+            'photo' => get_field('photo', $practitioner->ID),
         ];
     }
 
@@ -354,30 +354,31 @@ class ChiroStretch_Dashboards {
     }
 
     /**
-     * Get staff for a franchisee's location
+     * Get practitioners for a franchisee's location
      */
-    private function get_location_staff($user_id) {
+    private function get_location_practitioners($user_id) {
         $location = $this->get_franchisee_location($user_id);
 
         if (!$location) {
             return [];
         }
 
-        $staff = get_posts([
-            'post_type' => 'staff',
+        $practitioners = get_posts([
+            'post_type' => 'practitioner',
             'meta_key' => 'location',
             'meta_value' => $location['id'],
             'posts_per_page' => -1,
         ]);
 
-        return array_map(function($s) {
+        return array_map(function($p) {
+            $discipline = wp_get_object_terms($p->ID, 'discipline', ['fields' => 'names'])[0] ?? '';
             return [
-                'id' => $s->ID,
-                'title' => $s->post_title,
-                'staff_type' => get_field('staff_type', $s->ID),
-                'photo' => get_field('photo', $s->ID),
+                'id' => $p->ID,
+                'title' => $p->post_title,
+                'discipline' => $discipline,
+                'photo' => get_field('photo', $p->ID),
             ];
-        }, $staff);
+        }, $practitioners);
     }
 
     /**
@@ -416,9 +417,9 @@ class ChiroStretch_Dashboards {
             return home_url('/dashboard/franchisee/');
         }
 
-        // Staff go to staff dashboard
-        if ($this->user_has_any_role($current_user, self::STAFF_ROLES)) {
-            return home_url('/dashboard/staff/');
+        // Practitioners go to practitioner dashboard
+        if ($this->user_has_any_role($current_user, self::PRACTITIONER_ROLES)) {
+            return home_url('/dashboard/practitioner/');
         }
 
         // Franchise applicants go to main dashboard (shows status)

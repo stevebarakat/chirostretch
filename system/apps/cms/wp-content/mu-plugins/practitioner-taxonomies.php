@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Practitioner Taxonomies
- * Description: Registers discipline, service, and specialty taxonomies for staff CPT.
+ * Description: Registers discipline, service, and specialty taxonomies for practitioner CPT.
  *              Replaces ACF fields with proper taxonomies for filtering and GraphQL.
  * Version: 1.0.0
  */
@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
  */
 add_action('init', function () {
     // Discipline - What they are (single-select)
-    register_taxonomy('discipline', ['staff'], [
+    register_taxonomy('discipline', ['practitioner'], [
         'labels' => [
             'name'          => 'Disciplines',
             'singular_name' => 'Discipline',
@@ -37,7 +37,7 @@ add_action('init', function () {
     ]);
 
     // Service - What they can provide (multi-select)
-    register_taxonomy('service', ['staff'], [
+    register_taxonomy('service', ['practitioner'], [
         'labels' => [
             'name'          => 'Services',
             'singular_name' => 'Service',
@@ -61,7 +61,7 @@ add_action('init', function () {
     ]);
 
     // Specialty - What they focus on (multi-select)
-    register_taxonomy('specialty', ['staff'], [
+    register_taxonomy('specialty', ['practitioner'], [
         'labels' => [
             'name'          => 'Specialties',
             'singular_name' => 'Specialty',
@@ -147,9 +147,22 @@ add_action('init', function () {
 
     update_option('chs_practitioner_taxonomies_seeded', true);
 }, 20); // After taxonomy registration
-
 /**
  * WP-CLI command for migrating ACF fields to taxonomies
+ *
+ * MIGRATION COMPLETED: 2026-01-17
+ *
+ * Successfully migrated 351 staff posts from ACF fields to taxonomies:
+ * - staff_type → discipline taxonomy
+ * - services_offered → service taxonomy
+ * - specialties → specialty taxonomy
+ *
+ * ACF field definitions removed from group_staff_details.json
+ * Database cleaned: 12 ACF field metadata rows deleted
+ * All code updated to read from taxonomies
+ *
+ * This command is kept for reference and can be used to re-migrate
+ * if needed during development, but should not be needed in production.
  */
 if (defined('WP_CLI') && WP_CLI) {
     WP_CLI::add_command('chirostretch staff migrate-taxonomies', function ($args, $assoc_args) {
@@ -177,7 +190,7 @@ if (defined('WP_CLI') && WP_CLI) {
 
         // Get all staff posts
         $staff = get_posts([
-            'post_type'      => 'staff',
+            'post_type'      => 'practitioner',
             'post_status'    => 'any',
             'posts_per_page' => -1,
         ]);

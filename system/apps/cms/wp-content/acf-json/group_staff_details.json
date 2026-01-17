@@ -1,6 +1,6 @@
 {
     "key": "group_staff_details",
-    "title": "Staff Details",
+    "title": "Practitioner Details",
     "fields": [
         {
             "key": "field_staff_email",
@@ -16,27 +16,6 @@
             },
             "show_in_graphql": 1,
             "graphql_field_name": "staffEmail"
-        },
-        {
-            "key": "field_staff_type",
-            "label": "Staff Type",
-            "name": "staff_type",
-            "type": "select",
-            "choices": {
-                "chiropractor": "Chiropractor",
-                "physical_therapist": "Physical Therapist",
-                "massage_therapist": "Massage Therapist",
-                "athletic_therapist": "Athletic Therapist"
-            },
-            "default_value": "chiropractor",
-            "required": 1,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "graphql_field_name": "staffType"
         },
         {
             "key": "field_assigned_location",
@@ -55,33 +34,11 @@
             "graphql_field_name": "assignedLocation"
         },
         {
-            "key": "field_staff_services_offered",
-            "label": "Services Offered",
-            "name": "services_offered",
-            "type": "checkbox",
-            "choices": {
-                "Chiropractic": "Chiropractic",
-                "Stretch Therapy": "Stretch Therapy",
-                "Massage": "Massage",
-                "Sports Medicine": "Sports Medicine"
-            },
-            "layout": "vertical",
-            "return_format": "value",
-            "instructions": "Services this staff member can provide",
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "graphql_field_name": "servicesOffered"
-        },
-        {
             "key": "field_user_account",
             "label": "User Account",
             "name": "user_account",
             "type": "user",
-            "role": ["location_manager", "administrator"],
+            "role": ["practitioner", "administrator"],
             "return_format": "id",
             "instructions": "Link to WordPress user account for login access (auto-created on publish)",
             "wrapper": {
@@ -119,36 +76,6 @@
             },
             "show_in_graphql": 1,
             "graphql_field_name": "credentials"
-        },
-        {
-            "key": "field_specialties",
-            "label": "Specialties",
-            "name": "specialties",
-            "type": "checkbox",
-            "choices": {
-                "sports_injuries": "Sports Injuries",
-                "back_pain": "Back Pain",
-                "neck_pain": "Neck Pain",
-                "headaches": "Headaches & Migraines",
-                "posture_correction": "Posture Correction",
-                "prenatal": "Prenatal Care",
-                "pediatric": "Pediatric",
-                "wellness": "Wellness & Prevention",
-                "deep_tissue": "Deep Tissue",
-                "swedish": "Swedish Massage",
-                "trigger_point": "Trigger Point Therapy",
-                "myofascial": "Myofascial Release",
-                "rehab": "Rehabilitation",
-                "flexibility": "Flexibility Training"
-            },
-            "layout": "vertical",
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "graphql_field_name": "specialties"
         },
         {
             "key": "field_bio",
@@ -219,7 +146,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "staff"
+                "value": "practitioner"
             }
         ]
     ],

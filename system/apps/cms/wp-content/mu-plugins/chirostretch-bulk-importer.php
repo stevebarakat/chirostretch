@@ -239,7 +239,7 @@ class ChiroStretch_Bulk_Import_Command
             }
 
             // Check if already exists
-            if ($this->find_post_by_seed_id('staff', $seed_id)) {
+            if ($this->find_post_by_seed_id('practitioner', $seed_id)) {
                 $skipped++;
                 continue;
             }
@@ -268,7 +268,7 @@ class ChiroStretch_Bulk_Import_Command
             }
 
             $post_id = wp_insert_post([
-                'post_type' => 'staff',
+                'post_type' => 'practitioner',
                 'post_title' => $staff['name'],
                 'post_status' => 'publish',
                 'post_author' => $user_id,
@@ -282,15 +282,31 @@ class ChiroStretch_Bulk_Import_Command
             // Store seed_id for deduplication
             update_post_meta($post_id, '_seed_id', $seed_id);
 
-            // Update ACF fields
+            // Set taxonomies
+            wp_set_object_terms($post_id, $staff['staff_type'] ?? '', 'discipline');
+
+            $service_mapping = [
+                'Chiropractic'    => 'chiropractic',
+                'Stretch Therapy' => 'stretch_therapy',
+                'Massage'         => 'massage',
+                'Sports Medicine' => 'sports_medicine',
+            ];
+            $services = $staff['services_offered'] ?? [];
+            $service_slugs = array_map(function($s) use ($service_mapping) {
+                return $service_mapping[$s] ?? sanitize_title($s);
+            }, $services);
+            wp_set_object_terms($post_id, $service_slugs, 'service');
+
+            wp_set_object_terms($post_id, $staff['specialties'] ?? [], 'specialty');
+
+            // Update ACF fields (non-taxonomy fields only)
             if (function_exists('update_field')) {
-                update_field('staff_type', $staff['staff_type'] ?? '', $post_id);
                 update_field('assigned_location', $location_post_id, $post_id);
+                update_field('staff_email', $staff['email'], $post_id);
+                update_field('user_account', $user_id, $post_id);
                 update_field('job_title', $staff['job_title'] ?? '', $post_id);
                 update_field('credentials', $staff['credentials'] ?? '', $post_id);
                 update_field('bio', $staff['bio'] ?? '', $post_id);
-                update_field('specialties', $staff['specialties'] ?? [], $post_id);
-                update_field('services_offered', $staff['services_offered'] ?? [], $post_id);
                 update_field('is_public', $staff['is_public'] ?? true, $post_id);
                 update_field('accepting_patients', $staff['accepting_patients'] ?? true, $post_id);
 
@@ -772,9 +788,9 @@ class ChiroStretch_Bulk_Import_Command
         $testimonials_deleted = $this->delete_posts_with_seed_id('testimonial');
         WP_CLI::log(sprintf('Deleted %d testimonials', $testimonials_deleted));
 
-        // Delete staff posts with _seed_id
-        $staff_deleted = $this->delete_posts_with_seed_id('staff');
-        WP_CLI::log(sprintf('Deleted %d staff posts', $staff_deleted));
+        // Delete practitioner posts with _seed_id
+        $staff_deleted = $this->delete_posts_with_seed_id('practitioner');
+        WP_CLI::log(sprintf('Deleted %d practitioner posts', $staff_deleted));
 
         // Delete location posts with _seed_id
         $locations_deleted = $this->delete_posts_with_seed_id('location');
@@ -843,6 +859,7 @@ class ChiroStretch_Bulk_Import_Command
     {
         // Try multiple possible locations
         $paths = [
+            '/Users/sb/Dev/chirostretch/system/apps/ui/data/generated/' . $filename,
             ABSPATH . '../../data/generated/' . $filename,
             ABSPATH . '../../../chirostretch/data/generated/' . $filename,
             '/Users/sb/Dev/chirostretch/data/generated/' . $filename,

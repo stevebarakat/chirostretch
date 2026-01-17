@@ -252,7 +252,7 @@ add_action('graphql_register_types', function () {
       ];
 
       $staff = get_posts([
-        'post_type'      => 'staff',
+        'post_type'      => 'practitioner',
         'posts_per_page' => -1,
         'post_status'    => 'publish',
         'meta_query'     => [[
@@ -263,9 +263,9 @@ add_action('graphql_register_types', function () {
 
       $services = [];
       foreach ($staff as $member) {
-        $member_services = get_field('services_offered', $member->ID);
-        if (is_array($member_services)) {
-          $services = array_merge($services, $member_services);
+        $service_terms = wp_get_object_terms($member->ID, 'service', ['fields' => 'names']);
+        if (!empty($service_terms) && !is_wp_error($service_terms)) {
+          $services = array_merge($services, $service_terms);
         }
       }
 
