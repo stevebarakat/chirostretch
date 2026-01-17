@@ -3,23 +3,22 @@
 // eslint-disable-next-line no-restricted-imports
 import { ReactNode, useEffect } from "react";
 import { useCartStore } from "@/stores/useCartStore";
-import type { StoreCart } from "@/lib/commerce/getServerCart";
 
 type CartProviderProps = {
-  initialCart: StoreCart | null;
   children: ReactNode;
 };
 
-export function CartProvider({ initialCart, children }: CartProviderProps) {
-  const hydrateFromServer = useCartStore((state) => state.hydrateFromServer);
+export function CartProvider({ children }: CartProviderProps) {
+  const hydrateFromLocalStorage = useCartStore(
+    (state) => state.hydrateFromLocalStorage
+  );
 
   // Reason this component must use useEffect:
-  // - Syncing external server data (initialCart) with client state store
-  // - Server Components cannot directly update client state
-  // - This is a one-time hydration that must run after mount
+  // - Syncing localStorage data with client state store
+  // - This is a one-time hydration that must run after mount to avoid hydration mismatch
   useEffect(() => {
-    hydrateFromServer(initialCart);
-  }, [hydrateFromServer, initialCart]);
+    hydrateFromLocalStorage();
+  }, [hydrateFromLocalStorage]);
 
   return <>{children}</>;
 }

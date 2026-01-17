@@ -19,8 +19,8 @@ export default function CartBadge({ variant = "default" }: CartBadgeProps) {
       href="/cart"
       className={`${styles.badgeWrapper} ${variant === "inverse" ? styles.inverse : ""}`}
     >
-      {totals?.total_items && (
-        <span className={styles.price}>{formatPrice(totals.total_items)}</span>
+      {totals?.total_price && (
+        <span className={styles.price}>{formatPrice(totals.total_price)}</span>
       )}
       <div className={styles.icon}>
         <ShoppingCartIcon className="w-6 h-6" />

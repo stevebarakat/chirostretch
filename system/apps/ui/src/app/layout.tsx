@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Poppins, Montserrat } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/tokens.css";
@@ -10,7 +9,6 @@ import { Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
 import { ModalProvider } from "@/components/Modals";
 import { BackToTop } from "@/components/UI";
-import { getServerCart } from "@/lib/commerce/getServerCart";
 import { getGravityForm } from "next-gravity-forms/server";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
@@ -110,18 +108,6 @@ export default async function RootLayout({
     footerMenuItems = undefined;
   }
 
-  // Only fetch cart on shop-related pages where it's displayed or needed
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") || "";
-  const path = pathname.toLowerCase();
-  const isShopPage =
-    path.startsWith("/shop") ||
-    path.startsWith("/cart") ||
-    path.startsWith("/checkout") ||
-    path.startsWith("/products");
-
-  const cart = isShopPage ? await getServerCart() : null;
-
   // Fetch the New Patient Offer form for the global modal
   // Form ID 17 = New Patient Offer form (configure in WordPress)
   const NEW_PATIENT_OFFER_FORM_ID = 17;
@@ -149,7 +135,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://algolia.net" />
       </head>
       <body>
-        <CartProvider initialCart={cart}>
+        <CartProvider>
           <ModalProvider claimOfferForm={claimOfferForm}>
             <Header logo={logo} topMenuItems={topMenuItems} />
             {children}

@@ -57,12 +57,26 @@ export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
   }
 
   // Collect Set-Cookie headers to forward
+  // Note: res.headers.get("set-cookie") only returns the FIRST cookie header
+  // We need to use getSetCookie() to get all of them
   const setCookieHeaders: string[] = [];
-  const rawSetCookie = res.headers.get("set-cookie");
-  if (rawSetCookie) {
-    setCookieHeaders.push(
-      ...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/)
-    );
+
+  if (typeof res.headers.getSetCookie === "function") {
+    // Modern approach: getSetCookie() returns array of all Set-Cookie headers
+    setCookieHeaders.push(...res.headers.getSetCookie());
+  } else {
+    // Fallback for older Node versions
+    const rawSetCookie = res.headers.get("set-cookie");
+    if (rawSetCookie) {
+      setCookieHeaders.push(
+        ...rawSetCookie.split(/,(?=\s*(?:woocommerce_|wp_woocommerce_))/)
+      );
+    }
+  }
+
+  // Debug logging to help troubleshoot cookie issues
+  if (setCookieHeaders.length > 0) {
+    console.log(`[storeApi] Forwarding ${setCookieHeaders.length} Set-Cookie headers from WordPress`);
   }
 
   return {
@@ -85,6 +99,13 @@ export function createCartResponse(
   // Forward WooCommerce session cookies
   for (const cookieHeader of setCookieHeaders) {
     response.headers.append("Set-Cookie", cookieHeader);
+  }
+
+  // Debug logging
+  if (setCookieHeaders.length > 0) {
+    console.log(`[createCartResponse] Set ${setCookieHeaders.length} cookies in response`);
+  } else {
+    console.warn("[createCartResponse] No cookies to set - this may cause session issues");
   }
 
   return response;

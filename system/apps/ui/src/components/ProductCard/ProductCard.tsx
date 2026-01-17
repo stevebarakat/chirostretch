@@ -82,7 +82,15 @@ export function ProductCard({
     }
 
     try {
-      await addToCart(databaseId, 1);
+      // Pass product data to cart store so it has name and price
+      await addToCart(databaseId, 1, {
+        name: name || "Product",
+        prices: {
+          price: displayPrice || "0",
+          regular_price: regularPrice,
+          sale_price: salePrice,
+        },
+      });
     } catch (error) {
       console.error("Failed to add product to cart:", error);
     }

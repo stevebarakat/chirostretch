@@ -110,7 +110,15 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     }
 
     try {
-      await addToCart(product.databaseId, quantity);
+      // Pass product data to cart store so it has name and price
+      await addToCart(product.databaseId, quantity, {
+        name: product.name || "Product",
+        prices: {
+          price: displayPrice || "0",
+          regular_price: product.regularPrice,
+          sale_price: product.salePrice,
+        },
+      });
     } catch (error) {
       console.error("Failed to add product to cart:", error);
     }

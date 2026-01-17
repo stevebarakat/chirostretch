@@ -6,15 +6,12 @@ import Link from "next/link";
 import { RefreshCcw, Trash2 } from "lucide-react";
 import { Container } from "@/components/UI";
 import { Button } from "@/components/UI";
-import { VisuallyHidden } from "@/components/UI";
 import { useCartStore } from "@/stores/useCartStore";
 import type {
   StoreCartItem,
   StoreCartItemData,
 } from "@/lib/commerce/getServerCart";
 import styles from "./page.module.css";
-
-const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 export default function CartPage() {
   const {
@@ -102,12 +99,8 @@ export default function CartPage() {
     if (!price) return "$0.00";
     const priceStr = typeof price === "string" ? price : price.toString();
     const cleaned = priceStr.replace(/[^0-9.]/g, "");
-    let numPrice = parseFloat(cleaned);
+    const numPrice = parseFloat(cleaned);
     if (isNaN(numPrice)) return "$0.00";
-
-    if (!cleaned.includes(".") && numPrice >= 100) {
-      numPrice = numPrice / 100;
-    }
 
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -157,16 +150,8 @@ export default function CartPage() {
               const cartItem = item as StoreCartItem;
               const itemPrice: string =
                 cartItem.prices?.price || cartItem.totals?.line_subtotal || "0";
-              const priceStr = itemPrice;
-              const cleaned = priceStr.replace(/[^0-9.]/g, "");
-              let itemPriceNum = parseFloat(cleaned);
-
-              if (isNaN(itemPriceNum)) itemPriceNum = 0;
-
-              if (!cleaned.includes(".") && itemPriceNum >= 100) {
-                itemPriceNum = itemPriceNum / 100;
-              }
-
+              const cleaned = itemPrice.replace(/[^0-9.]/g, "");
+              const itemPriceNum = parseFloat(cleaned) || 0;
               const subtotal = itemPriceNum * item.quantity;
 
               // Check if this is a booking product
@@ -228,12 +213,9 @@ export default function CartPage() {
                           onClick={() => handleUpdateItem(item.key)}
                           disabled={loading || !hasQuantityChanged(item.key)}
                           className={styles.updateButton}
-                          aria-label="Update quantity"
                         >
                           <RefreshCcw size={18} />
-                          <VisuallyHidden>
-                            {loading ? "Updating..." : "Update"}
-                          </VisuallyHidden>
+                          <span className={styles.buttonLabel}>Update</span>
                         </Button>
                       </>
                     )}
@@ -243,10 +225,9 @@ export default function CartPage() {
                       onClick={() => handleRemoveItem(item.key)}
                       disabled={loading}
                       className={styles.removeButton}
-                      aria-label="Remove item"
                     >
                       <Trash2 size={18} />
-                      <VisuallyHidden>Remove</VisuallyHidden>
+                      <span className={styles.buttonLabel}>Remove</span>
                     </Button>
                   </div>
                 </div>
@@ -261,7 +242,7 @@ export default function CartPage() {
               <div className={styles.totals}>
                 <div className={styles.totalRow}>
                   <span>Subtotal</span>
-                  <span>{formatPrice(totals.total_items)}</span>
+                  <span>{formatPrice(totals.total_price)}</span>
                 </div>
                 {totals.total_discount &&
                   parseFloat(totals.total_discount.replace(/[^0-9.]/g, "")) >
@@ -298,9 +279,9 @@ export default function CartPage() {
             )}
 
             <div className={styles.checkoutActions}>
-              <a href={`${WP_URL}/checkout/`} className={styles.checkoutLink}>
+              <Link href="/checkout">
                 <Button fullWidth>Proceed to Checkout</Button>
-              </a>
+              </Link>
               <Link href="/shop">
                 <Button color="secondary" fullWidth>
                   Continue Shopping
