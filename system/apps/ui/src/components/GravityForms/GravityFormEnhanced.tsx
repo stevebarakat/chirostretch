@@ -7,6 +7,7 @@ import { FormErrors } from "@/components/UI";
 import { useGravityForm } from "@/lib/forms";
 import type { GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries/gravity-forms";
 import GravityFormFieldComponent from "./GravityFormField";
+import { NewPatientConfirmation, type NewPatientLeadData } from "./NewPatientConfirmation";
 import styles from "./GravityForm.module.css";
 
 type GravityFormEnhancedProps = {
@@ -53,6 +54,7 @@ export function GravityFormEnhanced({
 }: GravityFormEnhancedProps) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [leadData, setLeadData] = useState<NewPatientLeadData | null>(null);
 
   const formData = useMemo(() => {
     const data = form as Record<string, unknown>;
@@ -165,10 +167,16 @@ export function GravityFormEnhanced({
     },
     onSuccess: (response) => {
       if (response && typeof response === "object") {
-        if ("confirmation_message" in response && response.confirmation_message) {
-          setSuccessMessage(response.confirmation_message as string);
-        } else if ("message" in response && response.message) {
-          setSuccessMessage(response.message as string);
+        const res = response as Record<string, unknown>;
+
+        // Handle new patient special confirmation with structured data
+        if (res.confirmation_type === "new_patient_special" && res.lead) {
+          setLeadData(res.lead as NewPatientLeadData);
+          setSuccessMessage(null);
+        } else if ("confirmation_message" in res && res.confirmation_message) {
+          setSuccessMessage(res.confirmation_message as string);
+        } else if ("message" in res && res.message) {
+          setSuccessMessage(res.message as string);
         }
       }
 
@@ -296,6 +304,19 @@ export function GravityFormEnhanced({
   }
 
   const buttonText = submitButtonText || (formData?.submitButton as { text?: string })?.text || "Submit";
+  const isSubmitted = Boolean(leadData || successMessage);
+
+  // Show confirmation instead of form after successful submission
+  if (isSubmitted) {
+    if (leadData) {
+      return <NewPatientConfirmation lead={leadData} />;
+    }
+    return (
+      <div className={styles.successMessage} role="alert">
+        {successMessage}
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className={styles.form}>
@@ -339,12 +360,6 @@ export function GravityFormEnhanced({
           );
         })}
       </div>
-
-      {successMessage && (
-        <div className={styles.successMessage} role="alert">
-          {successMessage}
-        </div>
-      )}
 
       {(() => {
         const hasRootError = Boolean(errors.root?.message);

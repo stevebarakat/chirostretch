@@ -26,7 +26,7 @@ const eslintConfig = defineConfig([
       "no-use-effect/no-empty-effect": "warn",
 
       /* ---------------------------------
-        Native UI First Enforcement
+        Native UI First Enforcement & Patterns
       --------------------------------- */
 
       // Discourage JS-only UI glue
@@ -44,13 +44,18 @@ const eslintConfig = defineConfig([
         },
       ],
 
-      // Discourage Radix-by-default behavior
+      // Discourage Radix-by-default behavior AND Class components
       "no-restricted-syntax": [
         "warn",
         {
           selector: "ImportDeclaration[source.value=/@radix-ui/] Literal",
           message:
             "Radix is an escape hatch. Confirm that native HTML (<dialog>, <details>, Popover API) is insufficient before using Radix components.",
+        },
+        {
+          selector: "ClassDeclaration",
+          message:
+            "Prefer functional components and pure functions. Avoid class-based UI patterns.",
         },
       ],
 
@@ -60,15 +65,6 @@ const eslintConfig = defineConfig([
 
       "no-implied-eval": "error",
       "no-new-func": "error",
-
-      "no-restricted-syntax": [
-        "error",
-        {
-          selector: "ClassDeclaration",
-          message:
-            "Prefer functional components and pure functions. Avoid class-based UI patterns.",
-        },
-      ],
     },
   },
 

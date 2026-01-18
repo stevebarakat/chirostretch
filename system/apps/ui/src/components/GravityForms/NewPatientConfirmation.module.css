@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.heading {
+  margin: 0 0 var(--spacing-md);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-700);
+}
+
+.subtext {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+.couponCode {
+  margin: 0 0 var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  color: var(--color-primary-700);
+  background-color: var(--color-primary-50);
+  border-radius: var(--radius-lg);
+}
+
+.emailNotice {
+  margin: 0 0 var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.nextStep {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.expiry {
+  margin: var(--spacing-lg) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}

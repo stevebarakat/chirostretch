@@ -90,17 +90,7 @@ export default async function RootLayout({
       );
     }
 
-    if (!data?.footerMenu) {
-      console.warn(
-        "Footer menu not found. Expected menu slug: 'shop'. Make sure a menu with this slug exists in WordPress and is assigned to a location."
-      );
-    } else if (!footerMenuItems || footerMenuItems.length === 0) {
-      console.warn(
-        `Footer menu found (${
-          data.footerMenu.name || "unknown"
-        }) but has no menu items.`
-      );
-    }
+
   } catch (error) {
     console.error("Failed to fetch layout data from WordPress:", error);
     logo = undefined;

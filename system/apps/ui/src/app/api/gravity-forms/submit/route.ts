@@ -5,12 +5,37 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
+const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
+
+// Form 17 is the New Patient Special form
+const NEW_PATIENT_FORM_ID = "17";
 
 // Field types that need special value mapping
 const EMAIL_FIELD_TYPES = ["EMAIL"];
 const CONSENT_FIELD_TYPES = ["CONSENT"];
 const CHECKBOX_FIELD_TYPES = ["CHECKBOX"];
 const NAME_FIELD_TYPES = ["NAME"];
+const PHONE_FIELD_TYPES = ["PHONE"];
+
+// Normalize phone number to US format (###) ###-####
+function normalizePhone(phone: string): string {
+  // Strip everything except digits
+  const digits = phone.replace(/\D/g, "");
+
+  // Remove leading 1 if present (US country code)
+  const normalized = digits.startsWith("1") && digits.length === 11
+    ? digits.slice(1)
+    : digits;
+
+  // Format as (###) ###-#### if we have 10 digits
+  if (normalized.length === 10) {
+    return `(${normalized.slice(0, 3)}) ${normalized.slice(3, 6)}-${normalized.slice(6)}`;
+  }
+
+  // Return cleaned digits if not 10 digits (let GF validate)
+  return normalized;
+}
 
 type NameValues = {
   first?: string;
@@ -123,6 +148,14 @@ function transformFormDataToFieldValues(
         } as FieldValueInput;
       }
 
+      // Handle phone fields - normalize to US format
+      if (fieldType && PHONE_FIELD_TYPES.includes(fieldType)) {
+        return {
+          id: fieldId,
+          value: normalizePhone(String(value || "")),
+        } as FieldValueInput;
+      }
+
       // Handle arrays (multi-select, etc.)
       if (Array.isArray(value)) {
         return {
@@ -146,12 +179,184 @@ export async function GET() {
   });
 }
 
+// Types for new patient lead processing
+type NewPatientLeadData = {
+  entry_id: string;
+  email: string;
+  first_name: string;
+};
+
+type CouponResponse = {
+  success: boolean;
+  coupon_code: string;
+  discount_amount: number;
+  final_price: number;
+  expires?: string;
+  existing?: boolean;
+};
+
+type UserRegistrationResponse = {
+  success: boolean;
+  user_id: number;
+  username: string;
+  email: string;
+  display_name?: string;
+  existing?: boolean;
+  message: string;
+};
+
+/**
+ * Process User Registration feed for new patient leads
+ * Creates a WordPress user account from the Gravity Forms entry
+ */
+async function processUserRegistration(
+  entryId: string,
+  formId: string
+): Promise<UserRegistrationResponse | null> {
+  if (!WP_URL) {
+    console.error("[Lead] WP_URL not configured for user registration");
+    return null;
+  }
+
+  try {
+    const response = await fetch(
+      `${WP_URL}/wp-json/chirostretch/v1/user-registration/process`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Internal-Secret": INTERNAL_SECRET,
+        },
+        body: JSON.stringify({
+          entry_id: parseInt(entryId, 10),
+          form_id: parseInt(formId, 10),
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("[Lead] Failed to process user registration:", errorData);
+      return null;
+    }
+
+    const userData = (await response.json()) as UserRegistrationResponse;
+    console.log("[Lead] User registration processed:", {
+      user_id: userData.user_id,
+      existing: userData.existing,
+    });
+
+    return userData;
+  } catch (error) {
+    console.error("[Lead] Error processing user registration:", error);
+    return null;
+  }
+}
+
+/**
+ * Generate a coupon for new patient leads via WP REST API
+ */
+async function generateCoupon(
+  data: NewPatientLeadData
+): Promise<CouponResponse | null> {
+  if (!data.email) {
+    console.warn("[Lead] No email address provided, skipping coupon generation");
+    return null;
+  }
+
+  if (!WP_URL) {
+    console.error("[Lead] WP_URL not configured");
+    return null;
+  }
+
+  try {
+    const response = await fetch(
+      `${WP_URL}/wp-json/chirostretch/v1/coupons/new-patient`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Internal-Secret": INTERNAL_SECRET,
+        },
+        body: JSON.stringify({
+          email: data.email,
+          first_name: data.first_name,
+          entry_id: data.entry_id,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[Lead] Failed to generate coupon:", errorText);
+      return null;
+    }
+
+    const couponData = (await response.json()) as CouponResponse;
+    console.log("[Lead] Coupon generated:", {
+      code: couponData.coupon_code,
+      existing: couponData.existing,
+    });
+
+    return couponData;
+  } catch (error) {
+    console.error("[Lead] Error generating coupon:", error);
+    return null;
+  }
+}
+
+type LeadProcessingResult = {
+  user?: UserRegistrationResponse | null;
+  coupon?: CouponResponse | null;
+};
+
+/**
+ * Process new patient lead - create user account and generate coupon
+ */
+async function processNewPatientLead(data: NewPatientLeadData & { form_id: string }): Promise<LeadProcessingResult> {
+  console.log("[Lead] Processing new patient lead:", {
+    entry_id: data.entry_id,
+    email: data.email,
+    first_name: data.first_name,
+  });
+
+  // First, create the user account via User Registration feed
+  const user = await processUserRegistration(data.entry_id, data.form_id);
+
+  if (user) {
+    console.log("[Lead] User account created/found:", {
+      user_id: user.user_id,
+      existing: user.existing,
+    });
+  } else {
+    console.warn("[Lead] User registration failed or skipped");
+  }
+
+  // Then generate the coupon
+  const coupon = await generateCoupon(data);
+
+  if (coupon) {
+    console.log("[Lead] Lead processing complete:", {
+      entry_id: data.entry_id,
+      coupon_code: coupon.coupon_code,
+      user_id: user?.user_id,
+    });
+  } else {
+    console.warn("[Lead] Lead processed but coupon generation failed");
+  }
+
+  return { user, coupon };
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { formId, formData, fieldTypes } = body;
 
+    console.log("[GF Submit] Received:", { formId, formData, fieldTypes });
+
     if (!formId || !formData) {
+      console.log("[GF Submit] Missing formId or formData");
       return NextResponse.json(
         { message: "Form ID and form data are required." },
         { status: 400 }
@@ -208,7 +413,7 @@ export async function POST(request: NextRequest) {
 
     // Check for GraphQL errors
     if (result.errors && result.errors.length > 0) {
-      console.error("GraphQL errors:", result.errors);
+      console.error("[GF Submit] GraphQL errors:", result.errors);
       return NextResponse.json(
         {
           is_valid: false,
@@ -222,6 +427,7 @@ export async function POST(request: NextRequest) {
     // Check for form validation errors
     const submitResult = result.data?.submitGfForm;
     if (submitResult?.errors && submitResult.errors.length > 0) {
+      console.log("[GF Submit] Validation errors:", submitResult.errors);
       // Transform GF GraphQL errors to the format expected by error mapper
       const validationMessages: Record<string, string> = {};
       for (const error of submitResult.errors) {
@@ -240,15 +446,48 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Success
+    // Success - process special form handlers
+    const entryId = submitResult?.entry?.databaseId;
     const confirmation = submitResult?.confirmation;
+
+    // For form 17 (New Patient Special), process lead and return custom confirmation
+    if (String(formId) === NEW_PATIENT_FORM_ID && entryId) {
+      const email = String(formData["3"] || "");
+      const firstName = String(formData["1"] || "");
+
+      // Process synchronously so we can include coupon in response
+      const leadResult = await processNewPatientLead({
+        entry_id: String(entryId),
+        form_id: String(formId),
+        email,
+        first_name: firstName,
+      });
+
+      const couponCode = leadResult.coupon?.coupon_code;
+      const couponExpires = leadResult.coupon?.expires;
+
+      // Return structured data - frontend renders with proper components
+      return NextResponse.json({
+        success: true,
+        confirmation_type: "new_patient_special",
+        entry_id: entryId,
+        lead: {
+          first_name: firstName,
+          email,
+          coupon_code: couponCode,
+          coupon_expires: couponExpires,
+        },
+      });
+    }
+
+    // Default response for other forms
     return NextResponse.json({
       success: true,
       message: "Form submitted successfully.",
       confirmation_message: confirmation?.message || "Thank you for your submission!",
       confirmation_type: confirmation?.type,
       confirmation_url: confirmation?.url,
-      entry_id: submitResult?.entry?.databaseId,
+      entry_id: entryId,
     });
   } catch (error) {
     console.error("Form submission error:", error);

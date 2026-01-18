@@ -1,87 +1,93 @@
-:root {
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env.local
+dotenv.config({ path: '.env.local' });
+
+// Parse HSL from env var format "200,70,52" -> {h: 200, s: 70, l: 52}
+function parseHSL(envValue: string): { h: number; s: number; l: number } {
+  const [h, s, l] = envValue.split(',').map(Number);
+  return { h, s, l };
+}
+
+// Generate color scale (50-950) from base HSL
+function generateColorScale(base: { h: number; s: number; l: number }, name: string) {
+  const scale = {
+    50: { ...base, s: Math.min(100, base.s + 30), l: 98 },
+    100: { ...base, s: Math.min(100, base.s + 25), l: 95 },
+    200: { ...base, s: Math.min(100, base.s + 20), l: 88 },
+    300: { ...base, s: Math.min(100, base.s + 15), l: 78 },
+    400: { ...base, s: Math.min(100, base.s + 5), l: 65 },
+    500: { ...base }, // Base color
+    600: { ...base, s: Math.max(0, base.s - 5), l: base.l - 7 },
+    700: { ...base, s: Math.max(0, base.s - 10), l: base.l - 14 },
+    800: { ...base, s: Math.max(0, base.s - 15), l: base.l - 22 },
+    900: { ...base, s: Math.max(0, base.s - 20), l: base.l - 30 },
+    950: { ...base, s: Math.max(0, base.s - 25), l: base.l - 37 },
+  };
+
+  return Object.entries(scale)
+    .map(([weight, color]) =>
+      `  --color-${name}-${weight}: hsl(${color.h}, ${color.s}%, ${color.l}%);`
+    )
+    .join('\n');
+}
+
+// Generate transparent variations
+function generateTransparentScale(base: { h: number; s: number; l: number }, name: string) {
+  const alphas = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+  return alphas
+    .map(
+      (alpha) =>
+        `  --color-${name}-transparent-${alpha}: hsla(${base.h}, ${base.s}%, ${base.l}%, ${alpha / 1000});`
+    )
+    .join('\n');
+}
+
+// Generate gradient for primary and secondary colors
+function generateGradient(base: { h: number; s: number; l: number }, name: string) {
+  return `  --color-${name}-gradient: linear-gradient(
+    to bottom,
+    hsl(${base.h} ${base.s}% ${base.l}%) 0%,
+    hsl(${base.h} ${Math.max(0, base.s - 5)}% ${base.l - 7}%) 50%,
+    hsl(${base.h} ${base.s}% ${base.l}%) 100%
+  );`;
+}
+
+// Main generation function
+function generateTokens() {
+  const primary = parseHSL(process.env.DESIGN_TOKEN_PRIMARY || '200,70,52');
+  const secondary = parseHSL(process.env.DESIGN_TOKEN_SECONDARY || '324,80,44');
+  const neutral = parseHSL(process.env.DESIGN_TOKEN_NEUTRAL || '0,0,45');
+  const success = parseHSL(process.env.DESIGN_TOKEN_SUCCESS || '142,71,45');
+  const warning = parseHSL(process.env.DESIGN_TOKEN_WARNING || '38,92,50');
+  const error = parseHSL(process.env.DESIGN_TOKEN_ERROR || '0,86,53');
+
+  const css = `:root {
   --font-primary: var(--font-poppins);
   --font-secondary: var(--font-montserrat);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  /* Primary Color Scale (Generated from env: 200,70,52) */
+  /* Primary Color Scale (Generated from env: ${process.env.DESIGN_TOKEN_PRIMARY}) */
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  --color-primary-50: hsl(200, 100%, 98%);
-  --color-primary-100: hsl(200, 95%, 95%);
-  --color-primary-200: hsl(200, 90%, 88%);
-  --color-primary-300: hsl(200, 85%, 78%);
-  --color-primary-400: hsl(200, 75%, 65%);
-  --color-primary-500: hsl(200, 70%, 52%);
-  --color-primary-600: hsl(200, 65%, 45%);
-  --color-primary-700: hsl(200, 60%, 38%);
-  --color-primary-800: hsl(200, 55%, 30%);
-  --color-primary-900: hsl(200, 50%, 22%);
-  --color-primary-950: hsl(200, 45%, 15%);
-  --color-primary-gradient: linear-gradient(
-    to bottom,
-    hsl(200 70% 52%) 0%,
-    hsl(200 65% 45%) 50%,
-    hsl(200 70% 52%) 100%
-  );
+${generateColorScale(primary, 'primary')}
+${generateGradient(primary, 'primary')}
 
-  --color-primary-transparent-50: hsla(200, 70%, 52%, 0.05);
-  --color-primary-transparent-100: hsla(200, 70%, 52%, 0.1);
-  --color-primary-transparent-200: hsla(200, 70%, 52%, 0.2);
-  --color-primary-transparent-300: hsla(200, 70%, 52%, 0.3);
-  --color-primary-transparent-400: hsla(200, 70%, 52%, 0.4);
-  --color-primary-transparent-500: hsla(200, 70%, 52%, 0.5);
-  --color-primary-transparent-600: hsla(200, 70%, 52%, 0.6);
-  --color-primary-transparent-700: hsla(200, 70%, 52%, 0.7);
-  --color-primary-transparent-800: hsla(200, 70%, 52%, 0.8);
-  --color-primary-transparent-900: hsla(200, 70%, 52%, 0.9);
-  --color-primary-transparent-950: hsla(200, 70%, 52%, 0.95);
+${generateTransparentScale(primary, 'primary')}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  /* Secondary Color Scale (Generated from env: 324,80,44) */
+  /* Secondary Color Scale (Generated from env: ${process.env.DESIGN_TOKEN_SECONDARY}) */
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  --color-secondary-50: hsl(324, 100%, 98%);
-  --color-secondary-100: hsl(324, 100%, 95%);
-  --color-secondary-200: hsl(324, 100%, 88%);
-  --color-secondary-300: hsl(324, 95%, 78%);
-  --color-secondary-400: hsl(324, 85%, 65%);
-  --color-secondary-500: hsl(324, 80%, 44%);
-  --color-secondary-600: hsl(324, 75%, 37%);
-  --color-secondary-700: hsl(324, 70%, 30%);
-  --color-secondary-800: hsl(324, 65%, 22%);
-  --color-secondary-900: hsl(324, 60%, 14%);
-  --color-secondary-950: hsl(324, 55%, 7%);
-  --color-secondary-gradient: linear-gradient(
-    to bottom,
-    hsl(324 80% 44%) 0%,
-    hsl(324 75% 37%) 50%,
-    hsl(324 80% 44%) 100%
-  );
+${generateColorScale(secondary, 'secondary')}
+${generateGradient(secondary, 'secondary')}
 
-  --color-secondary-transparent-50: hsla(324, 80%, 44%, 0.05);
-  --color-secondary-transparent-100: hsla(324, 80%, 44%, 0.1);
-  --color-secondary-transparent-200: hsla(324, 80%, 44%, 0.2);
-  --color-secondary-transparent-300: hsla(324, 80%, 44%, 0.3);
-  --color-secondary-transparent-400: hsla(324, 80%, 44%, 0.4);
-  --color-secondary-transparent-500: hsla(324, 80%, 44%, 0.5);
-  --color-secondary-transparent-600: hsla(324, 80%, 44%, 0.6);
-  --color-secondary-transparent-700: hsla(324, 80%, 44%, 0.7);
-  --color-secondary-transparent-800: hsla(324, 80%, 44%, 0.8);
-  --color-secondary-transparent-900: hsla(324, 80%, 44%, 0.9);
-  --color-secondary-transparent-950: hsla(324, 80%, 44%, 0.95);
+${generateTransparentScale(secondary, 'secondary')}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   /* Neutral Scale (Grayscale) */
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  --color-neutral-50: hsl(0, 30%, 98%);
-  --color-neutral-100: hsl(0, 25%, 95%);
-  --color-neutral-200: hsl(0, 20%, 88%);
-  --color-neutral-300: hsl(0, 15%, 78%);
-  --color-neutral-400: hsl(0, 5%, 65%);
-  --color-neutral-500: hsl(0, 0%, 45%);
-  --color-neutral-600: hsl(0, 0%, 38%);
-  --color-neutral-700: hsl(0, 0%, 31%);
-  --color-neutral-800: hsl(0, 0%, 23%);
-  --color-neutral-900: hsl(0, 0%, 15%);
-  --color-neutral-950: hsl(0, 0%, 8%);
+${generateColorScale(neutral, 'neutral')}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   /* Transparent Overlays */
@@ -117,27 +123,27 @@
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   /* Semantic Colors */
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  --color-success-500: hsl(142, 71%, 45%);
-  --color-success-600: hsl(142, 72%, 38%);
-  --color-success-700: hsl(142, 73%, 32%);
-  --color-success-800: hsl(142, 73%, 27%);
-  --color-success-50: hsl(142, 76%, 96%);
-  --color-success-100: hsl(142, 70%, 90%);
-  --color-success-200: hsl(142, 70%, 80%);
-  --color-success-300: hsl(142, 70%, 70%);
-  --color-success-400: hsl(142, 70%, 60%);
+  --color-success-500: hsl(${success.h}, ${success.s}%, ${success.l}%);
+  --color-success-600: hsl(${success.h}, ${success.s + 1}%, ${success.l - 7}%);
+  --color-success-700: hsl(${success.h}, ${success.s + 2}%, ${success.l - 13}%);
+  --color-success-800: hsl(${success.h}, ${success.s + 2}%, ${success.l - 18}%);
+  --color-success-50: hsl(${success.h}, ${success.s + 5}%, 96%);
+  --color-success-100: hsl(${success.h}, ${success.s - 1}%, 90%);
+  --color-success-200: hsl(${success.h}, ${success.s - 1}%, 80%);
+  --color-success-300: hsl(${success.h}, ${success.s - 1}%, 70%);
+  --color-success-400: hsl(${success.h}, ${success.s - 1}%, 60%);
 
-  --color-warning-500: hsl(38, 92%, 50%);
-  --color-warning-600: hsl(38, 94%, 43%);
-  --color-warning-700: hsl(38, 96%, 36%);
-  --color-warning-50: hsl(38, 92%, 96%);
-  --color-warning-100: hsl(38, 88%, 90%);
+  --color-warning-500: hsl(${warning.h}, ${warning.s}%, ${warning.l}%);
+  --color-warning-600: hsl(${warning.h}, ${warning.s + 2}%, ${warning.l - 7}%);
+  --color-warning-700: hsl(${warning.h}, ${warning.s + 4}%, ${warning.l - 14}%);
+  --color-warning-50: hsl(${warning.h}, ${warning.s}%, 96%);
+  --color-warning-100: hsl(${warning.h}, ${warning.s - 4}%, 90%);
 
-  --color-error-500: hsl(0, 84%, 60%);
-  --color-error-600: hsl(0, 86%, 53%);
-  --color-error-700: hsl(0, 88%, 46%);
-  --color-error-50: hsl(0, 93%, 96%);
-  --color-error-100: hsl(0, 90%, 90%);
+  --color-error-500: hsl(${error.h}, ${error.s - 2}%, 60%);
+  --color-error-600: hsl(${error.h}, ${error.s}%, ${error.l}%);
+  --color-error-700: hsl(${error.h}, ${error.s + 2}%, ${error.l - 7}%);
+  --color-error-50: hsl(${error.h}, ${error.s + 7}%, 96%);
+  --color-error-100: hsl(${error.h}, ${error.s + 4}%, 90%);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   /* Semantic Token Aliases */
@@ -236,3 +242,22 @@
   --header-height: 60px;
   --header-width: 1400px;
 }
+`;
+
+  // Write to Next.js location
+  const nextjsPath = path.join(__dirname, '../src/styles/tokens.css');
+  fs.mkdirSync(path.dirname(nextjsPath), { recursive: true });
+  fs.writeFileSync(nextjsPath, css);
+  console.log('✅ Generated tokens.css for Next.js');
+
+  // Copy to WordPress theme
+  const wpPath = path.join(
+    __dirname,
+    '../../cms/wp-content/themes/chirostretch-theme/css/tokens.css'
+  );
+  fs.mkdirSync(path.dirname(wpPath), { recursive: true });
+  fs.writeFileSync(wpPath, css);
+  console.log('✅ Copied tokens.css to WordPress theme');
+}
+
+generateTokens();

@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import type { Block } from "../BlockRenderer";
 import { GravityFormEnhanced } from "@/components/GravityForms/GravityFormEnhanced";
+import { NewPatientConfirmation, type NewPatientLeadData } from "@/components/GravityForms/NewPatientConfirmation";
 import styles from "./GravityFormBlock.module.css";
 
 type GravityFormBlockProps = {
@@ -30,9 +31,10 @@ type FormState = {
 type SubmissionResponse = {
   success?: boolean;
   confirmation_message?: string;
-  confirmation_type?: "MESSAGE" | "PAGE" | "REDIRECT";
+  confirmation_type?: "MESSAGE" | "PAGE" | "REDIRECT" | "new_patient_special";
   confirmation_url?: string;
   entry_id?: number;
+  lead?: NewPatientLeadData;
 };
 
 export default function GravityFormBlock({ block }: GravityFormBlockProps) {
@@ -107,13 +109,18 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
 
   // Show confirmation screen after successful submission
   if (state.status === "submitted" && state.submissionResponse) {
-    const { confirmation_message, confirmation_type, confirmation_url } =
+    const { confirmation_message, confirmation_type, confirmation_url, lead } =
       state.submissionResponse;
 
     // Handle redirect confirmation
     if (confirmation_type === "REDIRECT" && confirmation_url) {
       window.location.href = confirmation_url;
       return null;
+    }
+
+    // Handle new patient special confirmation with custom component
+    if (confirmation_type === "new_patient_special" && lead) {
+      return <NewPatientConfirmation lead={lead} />;
     }
 
     return (

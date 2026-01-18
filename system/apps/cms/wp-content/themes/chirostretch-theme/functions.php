@@ -51,6 +51,7 @@ function chirostretch_setup()
   register_nav_menus(
     array(
       'menu-1' => esc_html__('Primary', 'chirostretch'),
+      'customer-menu' => esc_html__('Customer Menu', 'chirostretch'),
     )
   );
 
@@ -142,8 +143,58 @@ add_action('widgets_init', 'chirostretch_widgets_init');
  */
 function chirostretch_scripts()
 {
-  wp_enqueue_style('chirostretch-style', get_stylesheet_uri(), array(), _S_VERSION);
+  // Enqueue CSS reset (must be first for baseline styles)
+  wp_enqueue_style(
+    'chirostretch-reset',
+    get_template_directory_uri() . '/css/reset.css',
+    array(),
+    _S_VERSION
+  );
+
+  // Enqueue Google Fonts
+  wp_enqueue_style(
+    'chirostretch-fonts',
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap',
+    array('chirostretch-reset'),
+    null
+  );
+
+  // Enqueue design tokens
+  wp_enqueue_style(
+    'chirostretch-tokens',
+    get_template_directory_uri() . '/css/tokens.css',
+    array('chirostretch-fonts'),
+    _S_VERSION
+  );
+
+  // Enqueue header styles
+  wp_enqueue_style(
+    'chirostretch-header',
+    get_template_directory_uri() . '/css/header.css',
+    array('chirostretch-tokens'),
+    _S_VERSION
+  );
+
+  // Enqueue footer styles
+  wp_enqueue_style(
+    'chirostretch-footer',
+    get_template_directory_uri() . '/css/footer.css',
+    array('chirostretch-tokens'),
+    _S_VERSION
+  );
+
+  // Enqueue main stylesheet with all dependencies
+  wp_enqueue_style('chirostretch-style', get_stylesheet_uri(), array('chirostretch-tokens', 'chirostretch-header', 'chirostretch-footer'), _S_VERSION);
   wp_style_add_data('chirostretch-style', 'rtl', 'replace');
+
+  // Enqueue header JavaScript for navigation
+  wp_enqueue_script(
+    'chirostretch-header',
+    get_template_directory_uri() . '/js/header.js',
+    array(),
+    _S_VERSION,
+    true
+  );
 
   wp_enqueue_script('chirostretch-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
@@ -199,6 +250,16 @@ function chirostretch_register_menus()
 }
 add_action('after_setup_theme', 'chirostretch_register_menus');
 
+/**
+ * Register "Lead" role for new patient form submissions.
+ * This role is used by the User Registration add-on for Gravity Forms
+ * to create user accounts when patients submit the new patient form.
+ */
+add_action('after_setup_theme', function () {
+  add_role('lead', 'Lead', array(
+    'read' => true,  // Minimal capabilities - just enough to log in
+  ));
+});
 
 /**
  * Filter specific post types to be excluded from custom admin styles (optional)
