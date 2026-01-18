@@ -95,10 +95,10 @@ export default function CheckoutPage() {
         };
 
         // Include booking metadata if this is a booking product
-        if (item.type === "booking" && item.item_data) {
-          lineItem.meta_data = item.item_data.map((data: any) => ({
-            key: data.name || data.key,
-            value: data.value || data.display,
+        if (item.type === "booking" && Array.isArray(item.item_data)) {
+          lineItem.meta_data = item.item_data.map((data: Record<string, unknown>) => ({
+            key: String(data.name || data.key || ""),
+            value: String(data.value || data.display || ""),
           }));
         }
 
