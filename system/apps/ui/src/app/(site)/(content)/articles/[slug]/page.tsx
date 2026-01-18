@@ -7,7 +7,7 @@ import {
   type PostBySlugResponse,
   type AllPostSlugsResponse,
 } from "@/lib/graphql/queries";
-import { Container, Breadcrumbs } from "@/components/UI";
+import { Container } from "@/components/UI";
 import { BlockRenderer, type Block } from "@/components/CMS";
 import styles from "./page.module.css";
 
@@ -63,19 +63,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const imageWidth = image?.mediaDetails?.width || 1200;
   const imageHeight = image?.mediaDetails?.height || 800;
 
-  const firstCategory = post.categories?.nodes?.[0];
-  const breadcrumbs = [
-    { label: "Articles", href: "/articles" },
-    ...(firstCategory
-      ? [{ label: firstCategory.name ?? "", href: `/category/${firstCategory.slug}` }]
-      : []),
-    { label: post.title ?? "" },
-  ];
-
   return (
     <main className={styles.main}>
       <Container>
-        <Breadcrumbs items={breadcrumbs} />
         <article className={styles.article}>
           {image?.sourceUrl && (
             <div className={styles.featuredImage}>

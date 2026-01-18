@@ -6,7 +6,7 @@ import {
   type AllProductSlugsResponse,
 } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
-import { Container, Breadcrumbs } from "@/components/UI";
+import { Container } from "@/components/UI";
 import { ProductGallery, ProductInfo, RelatedProducts } from "@/components/Products";
 import { CartBadge } from "@/components/Cart";
 import SearchInput from "@/components/Layout/SearchInput";
@@ -89,15 +89,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = data.product;
   const structuredData = generateProductStructuredData(product);
 
-  const firstCategory = product.productCategories?.nodes?.[0];
-  const breadcrumbs = [
-    { label: "Shop", href: "/shop" },
-    ...(firstCategory
-      ? [{ label: firstCategory.name ?? "", href: `/category/${firstCategory.slug}` }]
-      : []),
-    { label: product.name ?? "" },
-  ];
-
   return (
     <>
       <script
@@ -105,7 +96,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <Container>
-        <Breadcrumbs items={breadcrumbs} />
         <div className={styles.productPage}>
           <div className={styles.productSummary}>
             <SearchInput />

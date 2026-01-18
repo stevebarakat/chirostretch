@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
-import { Container, Breadcrumbs } from "@/components/UI";
+import { Container } from "@/components/UI";
 import { ArticlesTaxonomySearch } from "@/components/Articles/ArticlesSearch";
 import { ProductsTaxonomySearch } from "@/components/Products/ProductsSearch";
 import styles from "@/app/(site)/archive.module.css";
@@ -66,15 +66,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   );
 
   if (postCategoryData?.category?.slug) {
-    const breadcrumbs = [
-      { label: "Articles", href: "/articles" },
-      { label: postCategoryData.category.name ?? "Category" },
-    ];
-
     return (
       <main className={styles.main}>
         <Container>
-          <Breadcrumbs items={breadcrumbs} />
           <ArticlesTaxonomySearch
             taxonomyType="category"
             slug={slug}
@@ -94,15 +88,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   );
 
   if (productCategoryData?.productCategory?.slug) {
-    const breadcrumbs = [
-      { label: "Shop", href: "/shop" },
-      { label: productCategoryData.productCategory.name ?? "Category" },
-    ];
-
     return (
       <main className={styles.main}>
         <Container>
-          <Breadcrumbs items={breadcrumbs} />
           <ProductsTaxonomySearch
             taxonomyType="category"
             slug={slug}
