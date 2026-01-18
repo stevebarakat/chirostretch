@@ -12,10 +12,10 @@ const WC_SECRET = process.env.WC_CONSUMER_SECRET;
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const orderId = params.id;
+    const { id: orderId } = await params;
     const searchParams = request.nextUrl.searchParams;
     const orderKey = searchParams.get("order_key");
 
