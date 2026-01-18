@@ -325,7 +325,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </p>
           </div>
         ) : (
-          // @ts-expect-error - react-instantsearch types incompatible with React 19
           <InstantSearch
             searchClient={searchClient}
             indexName={indexName}

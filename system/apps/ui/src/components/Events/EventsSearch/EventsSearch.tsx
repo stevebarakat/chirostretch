@@ -20,7 +20,6 @@ export function EventsSearch() {
 
   return (
     <EventsProvider>
-      {/* @ts-expect-error - react-instantsearch types incompatible with React 19 */}
       <InstantSearch
         searchClient={
           searchClient as unknown as Parameters<

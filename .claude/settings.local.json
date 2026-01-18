@@ -435,7 +435,14 @@
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT k.key_id, k.description, k.permissions, k.truncated_key, u.user_login FROM wp_woocommerce_api_keys k LEFT JOIN wp_users u ON k.user_id = u.ID WHERE k.key_id = 3\" local)",
       "Bash(\"/Users/sb/Library/Application Support/Local/lightning-services/mysql-8.0.35+4/bin/darwin-arm64/bin/mysql\" -S \"/Users/sb/Library/Application Support/Local/run/Csc61-zFM/mysql/mysqld.sock\" -u root -proot -e \"SELECT p.ID, p.post_title, pm.meta_value as product_type FROM wp_posts p LEFT JOIN wp_postmeta pm ON p.ID = pm.post_id AND pm.meta_key = ''_product_type'' WHERE p.post_type = ''product'' AND pm.meta_value = ''booking'' LIMIT 5\" local)",
       "Bash(git -C /Users/sb/Dev/chirostretch diff system/apps/cms/wp-content/mu-plugins/woocommerce-session-for-all-users.php)",
-      "Bash(git -C /Users/sb/Dev/chirostretch diff .github/workflows/ci.yml)"
+      "Bash(git -C /Users/sb/Dev/chirostretch diff .github/workflows/ci.yml)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm tokens:generate:*)",
+      "Bash(pnpm list:*)",
+      "Bash(pnpm dev)",
+      "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-copy/app/public menu list --format=table)",
+      "Bash(git merge:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []

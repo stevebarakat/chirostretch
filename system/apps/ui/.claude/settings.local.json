@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run tokens:generate:*)",
+      "Bash(pnpm add:*)",
+      "Bash(find:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(wp gf --help:*)",
+      "Bash(wp --path=. gf --help)",
+      "WebSearch",
+      "Bash(wp eval-file:*)",
+      "Bash(wp eval:*)",
+      "Bash(wp role:*)",
+      "Bash(curl:*)",
+      "Bash(node --check:*)",
+      "Bash(lsof:*)",
+      "Bash(ls:*)",
+      "Bash(wp option:*)",
+      "Bash(wp plugin deactivate:*)",
+      "Bash(wp plugin list:*)",
+      "Bash(wp db query:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(pnpm build:*)"
+    ]
+  }
+}

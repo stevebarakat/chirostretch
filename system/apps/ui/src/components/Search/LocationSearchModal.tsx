@@ -145,7 +145,6 @@ export default function LocationSearchModal({
             <p>Search is not configured.</p>
           </div>
         ) : (
-          // @ts-expect-error - react-instantsearch types incompatible with React 19
           <InstantSearch
             searchClient={
               searchClient as unknown as Parameters<
