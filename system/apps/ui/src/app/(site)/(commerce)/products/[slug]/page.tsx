@@ -14,23 +14,9 @@ import styles from "./page.module.css";
 
 export const revalidate = 300;
 
+// Skip static generation - pages are built on-demand with ISR
 export async function generateStaticParams() {
-  try {
-    const data = await wpQuery<AllProductSlugsResponse>(
-      ALL_PRODUCT_SLUGS_QUERY,
-      {},
-      { tags: [CACHE_TAGS.products] }
-    );
-
-    const products = data?.products?.nodes || [];
-
-    return products.map((product) => ({
-      slug: product.slug || "",
-    }));
-  } catch (error) {
-    console.error("Failed to generate static params for products:", error);
-    return [];
-  }
+  return [];
 }
 
 function generateProductStructuredData(

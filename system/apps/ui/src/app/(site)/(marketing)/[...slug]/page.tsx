@@ -27,41 +27,9 @@ const EXCLUDED_SLUGS = [
   "locations",
 ];
 
+// Skip static generation - pages are built on-demand with ISR
 export async function generateStaticParams() {
-  try {
-    const data = await wpQuery<AllPageSlugsResponse>(
-      ALL_PAGE_SLUGS_QUERY,
-      {},
-      { tags: [CACHE_TAGS.pages] }
-    );
-
-    const pages = data?.pages?.nodes || [];
-
-    return pages
-      .filter((page) => {
-        if (!page.slug) return false;
-        if (EXCLUDED_SLUGS.includes(page.slug)) return false;
-        if (page.uri === "/" || page.uri === "/homepage/") return false;
-        return true;
-      })
-      .map((page) => {
-        if (!page.uri) return null;
-        const uri = page.uri;
-        const slugPath = uri
-          .replace(/^\//, "")
-          .replace(/\/$/, "")
-          .split("/")
-          .filter(Boolean);
-
-        return {
-          slug: slugPath,
-        };
-      })
-      .filter((param): param is { slug: string[] } => param !== null);
-  } catch (error) {
-    console.error("Failed to generate static params for pages:", error);
-    return [];
-  }
+  return [];
 }
 
 type PageProps = {

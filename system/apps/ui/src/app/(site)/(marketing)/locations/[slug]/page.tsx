@@ -71,25 +71,9 @@ function BookingWidgetSkeleton() {
 
 export const revalidate = 300;
 
+// Skip static generation - pages are built on-demand with ISR
 export async function generateStaticParams() {
-  try {
-    const data = await wpQuery<AllLocationSlugsResponse>(
-      ALL_LOCATION_SLUGS_QUERY,
-      {},
-      { tags: [CACHE_TAGS.locations] }
-    );
-
-    const locations = data.locations?.nodes ?? [];
-
-    return locations
-      .filter((location) => location.slug)
-      .map((location) => ({
-        slug: location.slug!,
-      }));
-  } catch (error) {
-    console.error("Error generating static params for locations:", error);
-    return [];
-  }
+  return [];
 }
 
 type LocationPageProps = {

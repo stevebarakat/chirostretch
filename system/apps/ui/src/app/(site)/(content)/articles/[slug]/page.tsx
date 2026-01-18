@@ -13,25 +13,9 @@ import styles from "./page.module.css";
 
 export const revalidate = 300;
 
+// Skip static generation - pages are built on-demand with ISR
 export async function generateStaticParams() {
-  try {
-    const data = await wpQuery<AllPostSlugsResponse>(
-      ALL_POST_SLUGS_QUERY,
-      {},
-      { tags: [CACHE_TAGS.posts] }
-    );
-
-    const posts = data.posts?.nodes ?? [];
-
-    return posts
-      .filter((post) => post.slug)
-      .map((post) => ({
-        slug: post.slug!,
-      }));
-  } catch (error) {
-    console.error("Error generating static params for articles:", error);
-    return [];
-  }
+  return [];
 }
 
 type ArticlePageProps = {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useCartStore } from "@/stores/useCartStore";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./checkout.module.css";
@@ -19,6 +19,14 @@ type BillingInfo = {
 };
 
 export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<div className={styles.container}>Loading...</div>}>
+      <CheckoutContent />
+    </Suspense>
+  );
+}
+
+function CheckoutContent() {
   const { items, totals, isHydrated, clearCart } = useCartStore();
   const router = useRouter();
   const searchParams = useSearchParams();

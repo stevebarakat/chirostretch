@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { blurOptions } from "@/utils/constants";
@@ -62,7 +63,28 @@ type HeroProps = {
   title?: string;
 };
 
-function Hero({
+function Hero(props: HeroProps) {
+  return (
+    <Suspense fallback={<HeroFallback {...props} />}>
+      <HeroContent {...props} />
+    </Suspense>
+  );
+}
+
+function HeroFallback({ featuredImage, maxHeight = 750 }: HeroProps) {
+  const img = featuredImage?.node;
+  const style = { maxHeight: `${maxHeight}px` } as React.CSSProperties;
+
+  if (!img?.sourceUrl) return null;
+
+  return (
+    <section className={styles.hero} style={style}>
+      <div className={styles.imageWrapper} />
+    </section>
+  );
+}
+
+function HeroContent({
   featuredImage,
   heroUnit,
   description,
