@@ -63,12 +63,44 @@ export const EVENT_BY_SLUG_QUERY = `
       title
       id
       databaseId
-      author {
-        node {
+      content
+      startDate
+      endDate
+      cost
+      eventsCategories {
+        nodes {
           name
+          slug
         }
       }
-      content
+      venue {
+        title
+        address
+        city
+        state
+        phone
+      }
+      organizers {
+        nodes {
+          title
+          phone
+          email
+        }
+      }
+      ... on NodeWithFeaturedImage {
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+            title
+            description
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -123,12 +155,39 @@ type EventData = {
   title: string;
   id: string;
   databaseId: number;
-  author: {
-    node: {
-      name: string;
+  content: string;
+  startDate?: string;
+  endDate?: string;
+  cost?: string | null;
+  eventsCategories?: {
+    nodes?: EventCategory[];
+  } | null;
+  venue?: {
+    title?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    phone?: string;
+  } | null;
+  organizers?: {
+    nodes?: {
+      title?: string;
+      phone?: string;
+      email?: string;
+    }[];
+  } | null;
+  featuredImage?: {
+    node?: {
+      sourceUrl?: string;
+      altText?: string;
+      title?: string;
+      description?: string;
+      mediaDetails?: {
+        width?: number;
+        height?: number;
+      };
     };
   } | null;
-  content: string;
 };
 
 type EventCategory = {
