@@ -3,8 +3,6 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
-import { blurOptions } from "@/utils/constants";
-import { buildUrl } from "cloudinary-build-url";
 import RawHtml from "../RawHtml/RawHtml";
 import { Button, ButtonIcon } from "@/components/UI";
 import { ImageWrapper } from "@/components/UI";
@@ -14,6 +12,10 @@ import {
   FALLBACK_IMAGES,
 } from "@/utils/image-helpers";
 import styles from "./Hero.module.css";
+
+// Static 1x1 pixel blur placeholder to avoid Cloudinary network request
+const STATIC_BLUR_PLACEHOLDER =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWESEyIxQf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AmACV/9k=";
 
 type IconNode = {
   sourceUrl?: string;
@@ -64,53 +66,20 @@ type HeroProps = {
 };
 
 function Hero(props: HeroProps) {
-  return (
-    <Suspense fallback={<HeroFallback {...props} />}>
-      <HeroContent {...props} />
-    </Suspense>
-  );
-}
-
-function HeroFallback({ featuredImage, maxHeight = 750 }: HeroProps) {
+  const { featuredImage, maxHeight = 750 } = props;
   const img = featuredImage?.node;
-  const style = { maxHeight: `${maxHeight}px` } as React.CSSProperties;
-
-  if (!img?.sourceUrl) return null;
-
-  return (
-    <section className={styles.hero} style={style}>
-      <div className={styles.imageWrapper} />
-    </section>
-  );
-}
-
-function HeroContent({
-  featuredImage,
-  heroUnit,
-  description,
-  maxHeight = 750,
-  title,
-}: HeroProps) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const img = featuredImage?.node;
-  const heading = img?.title || title;
-  const subheading = img?.description || description;
-
-  const style = {
-    maxHeight: `${maxHeight}px`,
-  } as React.CSSProperties;
-
-  const initialUrl = getSafeImageUrl(img?.sourceUrl || "", "hero");
-  const { currentUrl, handleError } = useImageFallback(
-    initialUrl,
-    FALLBACK_IMAGES.hero
-  );
-  const blurDataURL = buildUrl(img?.slug || "", blurOptions);
 
   if (!img?.sourceUrl) {
     return null;
   }
+
+  return <HeroContent {...props} />;
+}
+
+// Separate component for CTA buttons that need useSearchParams
+function HeroCtaButtons({ heroUnit }: { heroUnit?: HeroUnit }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const icon1 = heroUnit?.heroLinkIcon?.node;
   const icon2 = heroUnit?.heroLinkIcon2?.node;
@@ -139,6 +108,136 @@ function HeroContent({
     return href;
   };
 
+  if (!heroUnit?.heroLink?.url || !heroUnit?.heroLink?.title) {
+    return null;
+  }
+
+  return (
+    <>
+      {heroUnit.heroLink.url.startsWith("?") ? (
+        <Button
+          as="Link"
+          href={getLinkUrl(heroUnit.heroLink.url)}
+          scroll={false}
+          icon={icon1Element}
+          iconPosition="left"
+          shadow
+        >
+          {heroUnit.heroLink.title}
+        </Button>
+      ) : (
+        <Button
+          as="a"
+          href={heroUnit.heroLink.url}
+          icon={icon1Element}
+          iconPosition="left"
+          shadow
+        >
+          {heroUnit.heroLink.title}
+        </Button>
+      )}
+      {heroUnit.heroLink2?.url &&
+        heroUnit.heroLink2?.title &&
+        (heroUnit.heroLink2.url.startsWith("?") ? (
+          <Button
+            as="Link"
+            href={getLinkUrl(heroUnit.heroLink2.url)}
+            scroll={false}
+            icon={icon2Element}
+            iconPosition="left"
+            color="glass"
+            outline
+            shadow
+          >
+            {heroUnit.heroLink2.title}
+          </Button>
+        ) : (
+          <Button
+            as="a"
+            href={heroUnit.heroLink2.url}
+            icon={icon2Element}
+            iconPosition="left"
+            color="glass"
+            outline
+            shadow
+          >
+            {heroUnit.heroLink2.title}
+          </Button>
+        ))}
+    </>
+  );
+}
+
+// Fallback buttons for Suspense (static links without search params)
+function HeroCtaFallback({ heroUnit }: { heroUnit?: HeroUnit }) {
+  const icon1 = heroUnit?.heroLinkIcon?.node;
+  const icon2 = heroUnit?.heroLinkIcon2?.node;
+
+  const icon1Element = icon1?.sourceUrl ? (
+    <ButtonIcon icon={icon1} />
+  ) : undefined;
+
+  const icon2Element = icon2?.sourceUrl ? (
+    <ButtonIcon icon={icon2} />
+  ) : undefined;
+
+  if (!heroUnit?.heroLink?.url || !heroUnit?.heroLink?.title) {
+    return null;
+  }
+
+  return (
+    <>
+      <Button
+        as="a"
+        href={heroUnit.heroLink.url}
+        icon={icon1Element}
+        iconPosition="left"
+        shadow
+      >
+        {heroUnit.heroLink.title}
+      </Button>
+      {heroUnit.heroLink2?.url && heroUnit.heroLink2?.title && (
+        <Button
+          as="a"
+          href={heroUnit.heroLink2.url}
+          icon={icon2Element}
+          iconPosition="left"
+          color="glass"
+          outline
+          shadow
+        >
+          {heroUnit.heroLink2.title}
+        </Button>
+      )}
+    </>
+  );
+}
+
+function HeroContent({
+  featuredImage,
+  heroUnit,
+  description,
+  maxHeight = 750,
+  title,
+}: HeroProps) {
+  const img = featuredImage?.node;
+  const heading = img?.title || title;
+  const subheading = img?.description || description;
+
+  const style = {
+    maxHeight: `${maxHeight}px`,
+  } as React.CSSProperties;
+
+  const initialUrl = getSafeImageUrl(img?.sourceUrl || "", "hero");
+  const { currentUrl, handleError } = useImageFallback(
+    initialUrl,
+    FALLBACK_IMAGES.hero
+  );
+
+  if (!img?.sourceUrl) {
+    return null;
+  }
+
   return (
     <section className={styles.hero} style={style}>
       <ImageWrapper className={styles.imageWrapper}>
@@ -147,11 +246,11 @@ function HeroContent({
           fetchPriority="high"
           fill
           placeholder="blur"
-          blurDataURL={blurDataURL}
+          blurDataURL={STATIC_BLUR_PLACEHOLDER}
           src={currentUrl}
           alt={img?.altText || "Hero image"}
           onError={handleError}
-          sizes="100vw"
+          sizes="(max-width: 1200px) 100vw, 1200px"
           style={{
             objectFit: "cover",
             objectPosition: "center",
@@ -165,60 +264,9 @@ function HeroContent({
           <RawHtml className={styles.description}>{subheading}</RawHtml>
         )}
         <div className={styles.ctaWrapper}>
-          {heroUnit?.heroLink?.url && heroUnit?.heroLink?.title && (
-            <>
-              {heroUnit.heroLink.url.startsWith("?") ? (
-                <Button
-                  as="Link"
-                  href={getLinkUrl(heroUnit.heroLink.url)}
-                  scroll={false}
-                  icon={icon1Element}
-                  iconPosition="left"
-                  shadow
-                >
-                  {heroUnit.heroLink.title}
-                </Button>
-              ) : (
-                <Button
-                  as="a"
-                  href={heroUnit.heroLink.url}
-                  icon={icon1Element}
-                  iconPosition="left"
-                  shadow
-                >
-                  {heroUnit.heroLink.title}
-                </Button>
-              )}
-              {heroUnit.heroLink2?.url &&
-                heroUnit.heroLink2?.title &&
-                (heroUnit.heroLink2.url.startsWith("?") ? (
-                  <Button
-                    as="Link"
-                    href={getLinkUrl(heroUnit.heroLink2.url)}
-                    scroll={false}
-                    icon={icon2Element}
-                    iconPosition="left"
-                    color="glass"
-                    outline
-                    shadow
-                  >
-                    {heroUnit.heroLink2.title}
-                  </Button>
-                ) : (
-                  <Button
-                    as="a"
-                    href={heroUnit.heroLink2.url}
-                    icon={icon2Element}
-                    iconPosition="left"
-                    color="glass"
-                    outline
-                    shadow
-                  >
-                    {heroUnit.heroLink2.title}
-                  </Button>
-                ))}
-            </>
-          )}
+          <Suspense fallback={<HeroCtaFallback heroUnit={heroUnit} />}>
+            <HeroCtaButtons heroUnit={heroUnit} />
+          </Suspense>
         </div>
       </div>
     </section>

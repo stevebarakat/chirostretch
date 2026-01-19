@@ -8,6 +8,12 @@ import {
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
 import { CallToAction } from "@/components/Homepage";
+import {
+  IntroductionSkeleton,
+  FeaturedProductsSkeleton,
+  UpcomingEventsSkeleton,
+  LatestInsightsSkeleton,
+} from "@/components/Homepage/Skeletons";
 
 export const revalidate = 300;
 
@@ -103,7 +109,7 @@ export default async function HomePage() {
       : null;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
       {page.featuredImage && (
         <Hero
           featuredImage={page.featuredImage}
@@ -145,39 +151,50 @@ export default async function HomePage() {
           }
         />
       )}
-      {intro && <Introduction intro={intro} />}
+      {intro && (
+        <Suspense fallback={<IntroductionSkeleton />}>
+          <Introduction intro={intro} />
+        </Suspense>
+      )}
 
-      <FeaturedProducts
-        featuredProductsHeading={
-          page.homepageFeaturedProducts?.featuredProductsHeading
-        }
-        featuredProductsSubheading={
-          page.homepageFeaturedProducts?.featuredProductsSubheading
-        }
-        featuredProductsSource={
-          page.homepageFeaturedProducts?.featuredProductsSource
-        }
-        featuredProductsManual={
-          page.homepageFeaturedProducts?.featuredProductsManual
-        }
-        featuredProductsFromQuery={data.featuredProducts}
-      />
+      <Suspense fallback={<FeaturedProductsSkeleton />}>
+        <FeaturedProducts
+          featuredProductsHeading={
+            page.homepageFeaturedProducts?.featuredProductsHeading
+          }
+          featuredProductsSubheading={
+            page.homepageFeaturedProducts?.featuredProductsSubheading
+          }
+          featuredProductsSource={
+            page.homepageFeaturedProducts?.featuredProductsSource
+          }
+          featuredProductsManual={
+            page.homepageFeaturedProducts?.featuredProductsManual
+          }
+          featuredProductsFromQuery={data.featuredProducts}
+        />
+      </Suspense>
 
-      <UpcomingEvents
-        eventsHeading={page.homepageUpcomingEvents?.eventsHeading}
-        eventsSubheading={page.homepageUpcomingEvents?.eventsSubheading}
-        eventsCtaText={page.homepageUpcomingEvents?.eventsCtaText}
-        eventsCtaLink={page.homepageUpcomingEvents?.eventsCtaLink}
-        events={data.upcomingEvents}
-        eventsLimit={page.homepageUpcomingEvents?.eventsLimit}
-      />
-      <LatestInsights
-        insightsHeading={page.homepageLatestInsights?.insightsHeading}
-        insightsSubheading={page.homepageLatestInsights?.insightsSubheading}
-        insightsCtaText={page.homepageLatestInsights?.insightsCtaText}
-        insightsCtaLink={page.homepageLatestInsights?.insightsCtaLink}
-        posts={data.latestPosts?.nodes}
-      />
-    </Suspense>
+      <Suspense fallback={<UpcomingEventsSkeleton />}>
+        <UpcomingEvents
+          eventsHeading={page.homepageUpcomingEvents?.eventsHeading}
+          eventsSubheading={page.homepageUpcomingEvents?.eventsSubheading}
+          eventsCtaText={page.homepageUpcomingEvents?.eventsCtaText}
+          eventsCtaLink={page.homepageUpcomingEvents?.eventsCtaLink}
+          events={data.upcomingEvents}
+          eventsLimit={page.homepageUpcomingEvents?.eventsLimit}
+        />
+      </Suspense>
+
+      <Suspense fallback={<LatestInsightsSkeleton />}>
+        <LatestInsights
+          insightsHeading={page.homepageLatestInsights?.insightsHeading}
+          insightsSubheading={page.homepageLatestInsights?.insightsSubheading}
+          insightsCtaText={page.homepageLatestInsights?.insightsCtaText}
+          insightsCtaLink={page.homepageLatestInsights?.insightsCtaLink}
+          posts={data.latestPosts?.nodes}
+        />
+      </Suspense>
+    </>
   );
 }

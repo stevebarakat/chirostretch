@@ -37,6 +37,7 @@
 }
 
 .imageWrapper {
+  aspect-ratio: 16 / 9;
   max-height: 500px;
   background-color: var(--color-bg-tertiary);
 }

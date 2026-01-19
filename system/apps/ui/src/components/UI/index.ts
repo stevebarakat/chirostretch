@@ -1,6 +1,7 @@
 export { default as Button, ButtonIcon } from "./Primitives/Button";
 export { BackToTop } from "./Utility/BackToTop";
 export { Container } from "./Primitives/Container";
+export { Skeleton, SkeletonText } from "./Feedback/Skeleton";
 export { Divider } from "./Primitives/Divider";
 export { ErrorState } from "./Feedback/ErrorState";
 export { FlipMotion, FlipMotionItem } from "./Utility/FlipMotion";
