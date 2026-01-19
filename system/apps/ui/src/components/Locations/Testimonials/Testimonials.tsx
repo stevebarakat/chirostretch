@@ -58,6 +58,7 @@ export function Testimonials({ testimonials = [] }: TestimonialsProps) {
                           alt={testimonial.featuredImage.node.altText || testimonial.title || ""}
                           width={60}
                           height={60}
+                          sizes="60px"
                           className={styles.avatarImage}
                         />
                       </div>
@@ -83,6 +84,7 @@ export function Testimonials({ testimonials = [] }: TestimonialsProps) {
                         alt={testimonial.imageAlt}
                         width={60}
                         height={60}
+                        sizes="60px"
                         className={styles.avatarImage}
                       />
                     </div>

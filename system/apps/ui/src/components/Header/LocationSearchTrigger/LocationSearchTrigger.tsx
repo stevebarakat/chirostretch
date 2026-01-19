@@ -1,9 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Search } from "lucide-react";
-import LocationSearchModal from "@/components/Search/LocationSearchModal";
 import styles from "./LocationSearchTrigger.module.css";
+
+const LocationSearchModal = dynamic(
+  () => import("@/components/Search/LocationSearchModal"),
+  { ssr: false }
+);
 
 export default function LocationSearchTrigger() {
   const [isOpen, setIsOpen] = useState(false);

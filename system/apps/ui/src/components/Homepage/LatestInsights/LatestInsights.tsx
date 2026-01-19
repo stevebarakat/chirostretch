@@ -100,10 +100,6 @@ export default function LatestInsights({
                           height={imageHeight}
                           className={styles.image}
                           sizes="(max-width: 767px) 100vw, 50vw"
-                          priority={displayPosts.indexOf(post) === 0}
-                          fetchPriority={
-                            displayPosts.indexOf(post) === 0 ? "high" : "auto"
-                          }
                         />
                       </Link>
                     </ImageWrapper>

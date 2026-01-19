@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./cta.module.css";
 import { Button, ButtonIcon } from "@/components/UI";
 import { Promotion } from "@/components/Promotion";

@@ -27,7 +27,10 @@
       "Bash(git push:*)",
       "Bash(git branch:*)",
       "Bash(git add:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(grep:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }

@@ -1,9 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Search } from "lucide-react";
-import EventSearchModal from "@/components/Search/EventSearchModal";
 import styles from "./EventSearchTrigger.module.css";
+
+const EventSearchModal = dynamic(
+  () => import("@/components/Search/EventSearchModal"),
+  { ssr: false }
+);
 
 export function EventSearchTrigger() {
   const [isOpen, setIsOpen] = useState(false);

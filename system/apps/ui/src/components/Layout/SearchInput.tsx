@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
-import SearchModal from "@/components/Search/SearchModal";
 import styles from "./SearchInput.module.css";
+
+const SearchModal = dynamic(
+  () => import("@/components/Search/SearchModal"),
+  { ssr: false }
+);
 
 function getSearchConfig(pathname: string) {
   const path = pathname.toLowerCase();
