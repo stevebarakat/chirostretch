@@ -15,8 +15,6 @@ export async function POST(request: NextRequest) {
 
     revalidateTag(tag, "default");
 
-    console.log(`[revalidate] tag=${tag} reason=${reason}`);
-
     return NextResponse.json({
       revalidated: true,
       tag,

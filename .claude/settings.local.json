@@ -443,7 +443,10 @@
       "Bash('/Users/sb/Library/Application Support/Local/resources/extraResources/bin/wp-cli/posix/bin/wp' --path=/Users/sb/Sites/chirostretch-cms/app/public menu list --format=table)",
       "Bash(git merge:*)",
       "Bash(git stash:*)",
-      "Bash(pnpm run build:*)"
+      "Bash(pnpm run build:*)",
+      "Bash(git fetch:*)",
+      "Bash(sort:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "ask": []

@@ -177,24 +177,13 @@ async function updateLead(leadId: string, updates: Partial<ZohoLead>): Promise<b
  * Returns true if successful, false if lead not found.
  */
 export async function updateLeadStatus(email: string, status: string): Promise<boolean> {
-  console.log(`[Zoho] Updating lead status for ${email} to "${status}"`);
-
   const lead = await searchLeadByEmail(email);
 
   if (!lead) {
-    console.log(`[Zoho] No lead found for email: ${email}`);
     return false;
   }
 
-  console.log(`[Zoho] Found lead ${lead.id}, updating status`);
-
-  const success = await updateLead(lead.id, { Lead_Status: status });
-
-  if (success) {
-    console.log(`[Zoho] Successfully updated lead ${lead.id} status to "${status}"`);
-  }
-
-  return success;
+  return await updateLead(lead.id, { Lead_Status: status });
 }
 
 /**

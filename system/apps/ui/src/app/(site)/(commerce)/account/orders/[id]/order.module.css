@@ -1,13 +1,13 @@
 .container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  max-width: 800px;
 }
 
 .content {
+  padding: 2rem;
   background: white;
   border-radius: 8px;
-  padding: 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -28,31 +28,31 @@
 
 .status {
   padding: 0.5rem 1rem;
-  border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
+  border-radius: 4px;
 }
 
 .status.pending {
-  background: #fef3c7;
   color: #92400e;
+  background: #fef3c7;
 }
 
 .status.processing {
-  background: #dbeafe;
   color: #1e40af;
+  background: #dbeafe;
 }
 
 .status.completed {
-  background: #d1fae5;
   color: #065f46;
+  background: #d1fae5;
 }
 
 .status.failed,
 .status.cancelled {
-  background: #fee2e2;
   color: #991b1b;
+  background: #fee2e2;
 }
 
 .info {
@@ -69,9 +69,9 @@
 }
 
 .section h2 {
+  margin-bottom: 1rem;
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1rem;
   color: #111827;
 }
 
@@ -94,24 +94,24 @@
 }
 
 .itemName {
+  margin: 0 0 0.25rem;
   font-weight: 500;
-  margin: 0 0 0.25rem 0;
 }
 
 .itemQuantity {
-  color: #6b7280;
-  font-size: 0.875rem;
   margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 
 .itemTotal {
-  font-weight: 600;
   margin: 0;
+  font-weight: 600;
 }
 
 .address {
-  background: #f9fafb;
   padding: 1rem;
+  background: #f9fafb;
   border-radius: 4px;
 }
 
@@ -122,8 +122,8 @@
 
 .contact {
   margin-top: 0.75rem !important;
-  color: #6b7280 !important;
   font-size: 0.875rem;
+  color: #6b7280 !important;
 }
 
 .actions {
@@ -133,9 +133,9 @@
 }
 
 .link {
-  color: #2563eb;
-  text-decoration: none;
   font-weight: 500;
+  text-decoration: none;
+  color: #2563eb;
 }
 
 .link:hover {
@@ -143,6 +143,6 @@
 }
 
 .error {
-  color: #dc2626;
   margin: 1rem 0;
+  color: #dc2626;
 }

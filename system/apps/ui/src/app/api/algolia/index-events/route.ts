@@ -152,8 +152,6 @@ async function handleWebhook(
     const { post_id, action } = await req.json();
     const objectID = `event_${post_id}`;
 
-    console.log("[Algolia Webhook] Events received:", { post_id, action, objectID });
-
     if (action === "delete") {
       await adminClient!.deleteObject({ indexName, objectID });
       return NextResponse.json({ deleted: true, objectID });
@@ -174,7 +172,6 @@ async function handleWebhook(
     };
 
     await adminClient!.saveObject({ indexName, body: record });
-    console.log("[Algolia Webhook] Indexed event:", objectID);
     return NextResponse.json({ indexed: true, objectID });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);

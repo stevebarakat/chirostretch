@@ -80,9 +80,9 @@
 
 .insightContent {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--spacing-md);
-  flex: 1;
 }
 
 @media (max-width: 1024px) {

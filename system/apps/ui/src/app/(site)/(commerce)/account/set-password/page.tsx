@@ -36,8 +36,6 @@ function SetPasswordContent() {
     }
 
     try {
-      console.log(`[Set Password] Validating reset key for user: ${login}`);
-
       const response = await fetch("/api/auth/validate-reset-key", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,7 +44,6 @@ function SetPasswordContent() {
 
       if (!response.ok) {
         const data = await response.json();
-        console.error("[Set Password] Key validation failed:", data);
         setError(
           data.message ||
             "This password reset link has expired or is invalid. Please request a new one."
@@ -55,10 +52,8 @@ function SetPasswordContent() {
         return;
       }
 
-      console.log("[Set Password] Key is valid");
       setValidating(false);
-    } catch (err) {
-      console.error("[Set Password] Validation error:", err);
+    } catch {
       setError("An error occurred while validating your reset link.");
       setValidating(false);
     }
@@ -90,8 +85,6 @@ function SetPasswordContent() {
     }
 
     try {
-      console.log(`[Set Password] Resetting password for user: ${login}`);
-
       const response = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -104,13 +97,11 @@ function SetPasswordContent() {
 
       if (!response.ok) {
         const data = await response.json();
-        console.error("[Set Password] Password reset failed:", data);
         throw new Error(
           data.message || "Failed to reset password. Please try again."
         );
       }
 
-      console.log("[Set Password] Password reset successful");
       setSuccess(true);
 
       // Redirect to home page after 3 seconds
@@ -118,7 +109,6 @@ function SetPasswordContent() {
         router.push("/");
       }, 3000);
     } catch (err) {
-      console.error("[Set Password] Error:", err);
       setError(
         err instanceof Error ? err.message : "An unexpected error occurred"
       );

@@ -15,7 +15,6 @@ function SuccessContent() {
   useEffect(() => {
     // Clear cart on successful order
     clearCart();
-    console.log("[Checkout Success] Cart cleared after successful order");
   }, [clearCart]);
 
   return (

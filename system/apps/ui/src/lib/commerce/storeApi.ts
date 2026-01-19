@@ -74,11 +74,6 @@ export async function storeApiFetch({ method, path, body }: StoreApiOptions) {
     }
   }
 
-  // Debug logging to help troubleshoot cookie issues
-  if (setCookieHeaders.length > 0) {
-    console.log(`[storeApi] Forwarding ${setCookieHeaders.length} Set-Cookie headers from WordPress`);
-  }
-
   return {
     data,
     status: res.status,
@@ -99,13 +94,6 @@ export function createCartResponse(
   // Forward WooCommerce session cookies
   for (const cookieHeader of setCookieHeaders) {
     response.headers.append("Set-Cookie", cookieHeader);
-  }
-
-  // Debug logging
-  if (setCookieHeaders.length > 0) {
-    console.log(`[createCartResponse] Set ${setCookieHeaders.length} cookies in response`);
-  } else {
-    console.warn("[createCartResponse] No cookies to set - this may cause session issues");
   }
 
   return response;

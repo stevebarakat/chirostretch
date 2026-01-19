@@ -160,8 +160,8 @@
   }
 
   & a {
-    color: var(--color-primary-500);
     text-decoration: underline;
+    color: var(--color-primary-500);
     transition: color var(--transition-fast);
   }
 

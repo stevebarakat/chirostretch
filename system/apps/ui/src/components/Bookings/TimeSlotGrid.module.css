@@ -28,14 +28,14 @@
 }
 
 .horizontalScrollContainer {
-  gap: var(--spacing-sm);
   display: flex;
   flex: 1;
+  gap: var(--spacing-sm);
+  max-width: 500px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
   scrollbar-width: none;
-  max-width: 500px;
 }
 
 .section {

@@ -70,7 +70,6 @@ function CheckoutContent() {
       setRedirecting(true);
       const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const paymentUrl = `${WP_URL}/checkout/order-pay/${orderId}/?pay_for_order=true&key=${orderKey}`;
-      console.log(`[Checkout] Redirecting to retry payment: ${paymentUrl}`);
       window.location.href = paymentUrl;
     } else if (paymentError) {
       setError(
@@ -194,14 +193,11 @@ function CheckoutContent() {
       const orderData = await response.json();
 
       // Clear cart immediately after order creation
-      console.log(`[Checkout] Order ${orderData.order_id} created, clearing cart`);
       clearCart();
 
       // Redirect to WordPress payment URL
-      console.log(`[Checkout] Redirecting to payment URL: ${orderData.payment_url}`);
       window.location.href = orderData.payment_url;
     } catch (err) {
-      console.error("[Checkout] Error:", err);
       setError(
         err instanceof Error ? err.message : "An unexpected error occurred"
       );

@@ -32,8 +32,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`[Validate Reset Key] Validating key for user: ${login}`);
-
     const response = await fetch(
       `${WP_URL}/wp-json/chirostretch/v1/auth/validate-reset-key`,
       {
@@ -46,11 +44,9 @@ export async function POST(request: NextRequest) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("[Validate Reset Key] WordPress API error:", data);
       return NextResponse.json(data, { status: response.status });
     }
 
-    console.log(`[Validate Reset Key] Key is valid for user: ${login}`);
     return NextResponse.json(data);
   } catch (error) {
     console.error("[Validate Reset Key] Unexpected error:", error);

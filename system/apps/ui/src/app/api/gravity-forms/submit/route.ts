@@ -231,11 +231,6 @@ async function generateCoupon(
     }
 
     const couponData = (await response.json()) as CouponResponse;
-    console.log("[Lead] Coupon generated:", {
-      code: couponData.coupon_code,
-      existing: couponData.existing,
-    });
-
     return couponData;
   } catch (error) {
     console.error("[Lead] Error generating coupon:", error);
@@ -248,10 +243,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { formId, formData, fieldTypes } = body;
 
-    console.log("[GF Submit] Received:", { formId, formData, fieldTypes });
-
     if (!formId || !formData) {
-      console.log("[GF Submit] Missing formId or formData");
       return NextResponse.json(
         { message: "Form ID and form data are required." },
         { status: 400 }
@@ -267,8 +259,6 @@ export async function POST(request: NextRequest) {
 
     // Transform form data to GraphQL fieldValues format
     const fieldValues = transformFormDataToFieldValues(formData, String(formId), fieldTypes);
-
-    console.log("[GF Submit] fieldValues for GraphQL:", JSON.stringify(fieldValues, null, 2));
 
     // GraphQL mutation for form submission
     const mutation = `
@@ -324,7 +314,6 @@ export async function POST(request: NextRequest) {
     // Check for form validation errors
     const submitResult = result.data?.submitGfForm;
     if (submitResult?.errors && submitResult.errors.length > 0) {
-      console.log("[GF Submit] Validation errors:", submitResult.errors);
       // Transform GF GraphQL errors to the format expected by error mapper
       const validationMessages: Record<string, string> = {};
       for (const error of submitResult.errors) {

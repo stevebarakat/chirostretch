@@ -75,17 +75,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(
-      `[Create Order] Creating order for ${billing.email} with ${line_items.length} items`
-    );
-
-    // Create order via WooCommerce REST API
-    console.log("[Create Order] Creating order with:", {
-      url: `${WP_URL}/wp-json/wc/v3/orders`,
-      billing: billing.email,
-      items: line_items.length,
-    });
-
     const orderResponse = await fetch(
       `${WP_URL}/wp-json/wc/v3/orders?consumer_key=${WC_KEY}&consumer_secret=${WC_SECRET}`,
       {
@@ -119,10 +108,6 @@ export async function POST(request: NextRequest) {
     }
 
     const order = await orderResponse.json();
-
-    console.log(
-      `[Create Order] Order ${order.id} created successfully. Payment URL: ${order.payment_url}`
-    );
 
     // Return order details including payment_url
     return NextResponse.json(

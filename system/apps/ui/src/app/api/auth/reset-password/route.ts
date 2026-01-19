@@ -39,8 +39,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`[Reset Password] Resetting password for user: ${login}`);
-
     const response = await fetch(
       `${WP_URL}/wp-json/chirostretch/v1/auth/reset-password`,
       {
@@ -53,11 +51,9 @@ export async function POST(request: NextRequest) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("[Reset Password] WordPress API error:", data);
       return NextResponse.json(data, { status: response.status });
     }
 
-    console.log(`[Reset Password] Password reset successful for user: ${login}`);
     return NextResponse.json(data);
   } catch (error) {
     console.error("[Reset Password] Unexpected error:", error);

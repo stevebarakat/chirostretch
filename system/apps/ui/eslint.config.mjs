@@ -1,7 +1,6 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
-import reactHooks from "eslint-plugin-react-hooks";
 import noUseEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
 const eslintConfig = defineConfig([
@@ -10,7 +9,6 @@ const eslintConfig = defineConfig([
 
   {
     plugins: {
-      "react-hooks": reactHooks,
       "no-use-effect": noUseEffect,
     },
 
