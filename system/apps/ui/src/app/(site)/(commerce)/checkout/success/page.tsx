@@ -64,7 +64,7 @@ function SuccessContent() {
         </div>
 
         <div className={styles.actions}>
-          <Link href="/products" className={styles.primaryButton}>
+          <Link href="/shop" className={styles.primaryButton}>
             Continue Shopping
           </Link>
           <Link href="/" className={styles.secondaryButton}>
