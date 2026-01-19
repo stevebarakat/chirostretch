@@ -1,5 +1,13 @@
 "use client";
 
+// Radix Tabs is appropriate here because:
+// - This is semantic tab content (WAI-ARIA Tabs widget), not a segmented control
+// - Users expect keyboard navigation (arrow keys, roving tabindex)
+// - Proper ARIA roles/attributes are required for screen readers
+// - Focus management across browsers (especially Safari) is complex
+// - This is a production feature that needs accessibility from day one
+// See: https://react.dev/learn/you-might-not-need-an-effect for when to build vs. use Radix
+// eslint-disable-next-line no-restricted-syntax
 import * as Tabs from "@radix-ui/react-tabs";
 import Image from "next/image";
 import { Check } from "lucide-react";

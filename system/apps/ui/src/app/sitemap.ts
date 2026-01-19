@@ -139,7 +139,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const product of data.products.nodes) {
         if (product.slug) {
           dynamicPages.push({
-            url: `${baseUrl}/products/${product.slug}`,
+            url: `${baseUrl}/shop/${product.slug}`,
             lastModified: product.modified
               ? new Date(product.modified)
               : new Date(),

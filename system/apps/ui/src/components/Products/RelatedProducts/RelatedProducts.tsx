@@ -52,7 +52,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
           return (
             <Link
               key={product.id || product.slug}
-              href={`/products/${product.slug}`}
+              href={`/shop/${product.slug}`}
               className={styles.card}
             >
               {image?.sourceUrl && (

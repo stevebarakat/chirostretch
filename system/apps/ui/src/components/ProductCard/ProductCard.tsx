@@ -185,7 +185,7 @@ export function ProductCard({
               {productSlug && !databaseId && (
                 <Button
                   as="a"
-                  href={`/products/${productSlug}`}
+                  href={`/shop/${productSlug}`}
                   color="secondary"
                   variant="inverse"
                   className={styles.viewItemButton}
@@ -245,7 +245,7 @@ export function ProductCard({
   if (productSlug) {
     return (
       <Link
-        href={`/products/${productSlug}`}
+        href={`/shop/${productSlug}`}
         className={cardClassName}
         key={productId || productSlug}
       >

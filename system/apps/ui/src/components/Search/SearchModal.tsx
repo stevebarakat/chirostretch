@@ -134,7 +134,7 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
     const productHit = hit as ProductHit;
     return (
       <Link
-        href={`/products/${productHit.slug}`}
+        href={`/shop/${productHit.slug}`}
         className={styles.hit}
         onClick={onHitClick}
       >

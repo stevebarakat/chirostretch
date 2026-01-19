@@ -32,7 +32,7 @@ function generateProductStructuredData(
     sku: product.sku,
     offers: {
       "@type": "Offer",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/products/${product.slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/shop/${product.slug}`,
       priceCurrency: "USD",
       price: price?.replace(/[^0-9.]/g, "") || "0",
       availability:
