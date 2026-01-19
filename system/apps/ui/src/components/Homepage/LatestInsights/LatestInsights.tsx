@@ -76,7 +76,7 @@ export default function LatestInsights({
         />
         {displayPosts.length > 0 ? (
           <div className={styles.posts}>
-            {displayPosts.map((post) => {
+            {displayPosts.map((post, i) => {
               if (!post.slug) return null;
 
               const image = post.featuredImage?.node;
@@ -123,7 +123,6 @@ export default function LatestInsights({
                         </Text>
                       )}
                     </div>
-                    {excerpt && <RichText content={excerpt} />}
                     {post.categories?.nodes &&
                       post.categories.nodes.length > 0 && (
                         <div className={styles.categories}>
@@ -133,20 +132,25 @@ export default function LatestInsights({
                               as="Link"
                               href={`/category/${category.slug}`}
                               size="xs"
-                              variant="outline"
-                              color="glass"
+                              variant="inverse"
+                              color={i === 0 ? "secondary" : "primary"}
                             >
                               {category.name}
                             </Button>
                           ))}
                         </div>
                       )}
-                    <Link
+                    {excerpt && <RichText content={excerpt} />}
+
+                    <Button
+                      as="Link"
                       href={`/articles/${post.slug}`}
-                      className={styles.readMore}
+                      color="glass"
+                      size="sm"
+                      variant="outline inverse"
                     >
                       Read more →
-                    </Link>
+                    </Button>
                   </div>
                 </article>
               );

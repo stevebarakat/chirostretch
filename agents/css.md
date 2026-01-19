@@ -8,6 +8,7 @@ CSS is a first-class system. Prefer native browser features over JavaScript.
 - HSL color space
 - No `100vh` — use `60vh` for heroes
 - Animate only `transform` and `opacity`
+- No vendor prefixes — autoprefixer handles them automatically
 
 ## Modern CSS Features (Use by Default)
 

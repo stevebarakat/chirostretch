@@ -20,7 +20,7 @@
 
   &:first-child {
     color: var(--color-text-inverse);
-    background: var(--color-secondary-transparent-700);
+    background: var(--color-secondary-500);
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 
     .image {
@@ -112,19 +112,6 @@
   border: 1px solid var(--color-text-inverse);
   border-radius: var(--radius-sm);
   user-select: none;
-}
-
-.readMore {
-  margin-top: var(--spacing-sm);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  color: var(--color-text-inverse);
-  transition: color var(--transition-base);
-}
-
-.readMore:hover {
-  color: var(--color-text-inverse);
 }
 
 .empty {

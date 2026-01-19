@@ -172,12 +172,12 @@
 .glass.outline {
   color: var(--color-text-inverse);
   background-color: transparent;
-  border-color: var(--color-transparent-white-300);
+  border-color: var(--color-transparent-white-500);
 }
 
 .glass.outline:hover {
   background-color: var(--color-transparent-white-250);
-  border-color: var(--color-transparent-white-400);
+  border-color: var(--color-transparent-white-600);
 }
 
 .primary.inverse.outline {
@@ -218,14 +218,10 @@
 
 .glass.inverse.outline {
   color: var(--color-text-inverse);
-  background-color: transparent;
-  border-color: var(--color-transparent-white-300);
+  border-color: var(--color-transparent-white-800);
+  backdrop-filter: none !important;
 }
 
-.glass.inverse.outline:hover {
-  background-color: var(--color-transparent-white-250);
-  border-color: var(--color-transparent-white-400);
-}
 
 .outlineBorder {
   border: 2px solid;
@@ -261,14 +257,12 @@ a.button.glass.glass {
   transition: background-color var(--transition-base) !important;
   transform: none !important;
   will-change: backdrop-filter !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
 }
 
 .button.glass:hover,
 a.button.glass:hover {
   background: var(--color-transparent-white-300) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
 }
 
@@ -276,15 +270,39 @@ a.button.glass:hover {
 a.glass {
   color: var(--color-text-inverse) !important;
   background: rgba(255, 255, 255, 0.18) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
 }
 
 .glass:hover,
 a.glass:hover {
   background: rgba(255, 255, 255, 0.25) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
+}
+
+.button.glass.inverse,
+a.button.glass.inverse,
+button.button.glass.inverse,
+a.button.glass.glass.inverse {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  will-change: auto !important;
+}
+
+.button.glass.inverse:hover,
+a.button.glass.inverse:hover,
+button.button.glass.inverse:hover,
+a.button.glass.glass.inverse:hover {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+.button.glass.inverse.outline:hover,
+a.button.glass.inverse.outline:hover,
+button.button.glass.inverse.outline:hover,
+a.button.glass.glass.inverse.outline:hover {
+  background-color: var(--color-transparent-white-100) !important;
+  border-color: var(--color-transparent-white-900);
+  backdrop-filter: blur(20px) saturate(110%) !important;
 }
 
 .glass.outlineBorder {
