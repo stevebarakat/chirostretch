@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Container } from "@/components/UI";
+import { Container } from "@/components/Primitives";
 import styles from "./DescriptionList.module.css";
 
 type DescriptionListItem = {

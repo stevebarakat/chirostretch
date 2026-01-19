@@ -16,7 +16,7 @@ import {
   type Practitioner,
   type LocationHours,
 } from "@/lib/graphql/queries";
-import { Container } from "@/components/UI";
+import { Container } from "@/components/Primitives";
 import {
   PractitionerCard,
   ServicesTabs,
@@ -25,7 +25,7 @@ import {
 } from "@/components/Locations";
 import { BookingWidget } from "@/components/Bookings";
 import styles from "./page.module.css";
-import { RawHtml } from "@/components/RawHtml";
+import { RichText } from "@/components/RichText";
 import {
   formatBusinessHours,
   type HourEntry,
@@ -334,7 +334,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
                   <Clock className={styles.titleIcon} />
                   About {location.title}
                 </h2>
-                <RawHtml>{location.content}</RawHtml>
+                <RichText content={location.content} />
               </div>
             )}
 

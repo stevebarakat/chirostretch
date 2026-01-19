@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import { EVENT_BY_SLUG_QUERY, type EventData } from "@/lib/graphql/queries";
-import { Container, Button } from "@/components/UI";
+import { Container, Button } from "@/components/Primitives";
 import { Hero } from "@/components/Hero";
 import styles from "./page.module.css";
 
@@ -345,13 +345,16 @@ export default async function EventPage({ params }: EventPageProps) {
                     <h3 className={styles.sidebarCardTitle}>Categories</h3>
                     <div className={styles.categoryList}>
                       {categories.map((category) => (
-                        <Link
+                        <Button
                           key={category.slug}
+                          as="Link"
                           href={`/events?category=${category.slug}`}
-                          className={styles.categoryTag}
+                          size="xs"
+                          variant="outline"
+                          color="neutral"
                         >
                           {category.name}
-                        </Link>
+                        </Button>
                       ))}
                     </div>
                   </div>

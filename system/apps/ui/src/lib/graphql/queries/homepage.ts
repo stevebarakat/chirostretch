@@ -1,32 +1,19 @@
+import {
+  MEDIA_ITEM_FIELDS,
+  MEDIA_ITEM_EXTENDED_FIELDS,
+  MEDIA_ITEM_BASIC_FIELDS,
+  AUTHOR_FIELDS,
+  TAXONOMY_TERM_FIELDS,
+  PRODUCT_BASIC_PRICING_FIELDS,
+} from "./fragments";
+
 export const HOMEPAGE_QUERY = `
-  # Reusable Fragments
-  fragment MediaDetailsFields on MediaDetails {
-    width
-    height
-  }
-
-  fragment FeaturedImageFields on MediaItem {
-    id
-    sourceUrl
-    altText
-    srcSet
-    sizes
-    mediaDetails {
-      ...MediaDetailsFields
-    }
-  }
-
-  fragment AuthorFields on User {
-    id
-    name
-    slug
-  }
-
-  fragment CategoryFields on Category {
-    id
-    name
-    slug
-  }
+  ${MEDIA_ITEM_FIELDS}
+  ${MEDIA_ITEM_EXTENDED_FIELDS}
+  ${MEDIA_ITEM_BASIC_FIELDS}
+  ${AUTHOR_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PRODUCT_BASIC_PRICING_FIELDS}
 
   query Homepage {
     featuredProducts: products(where: { featured: true }, first: 100) {
@@ -37,24 +24,11 @@ export const HOMEPAGE_QUERY = `
         slug
         averageRating
         reviewCount
-        ... on SimpleProduct {
-          price
-          stockStatus
-        }
-        ... on VariableProduct {
-          price
-          stockStatus
-        }
-        ... on ExternalProduct {
-          price
-        }
-        ... on GroupProduct {
-          price
-        }
+        ...ProductBasicPricingFields
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              ...FeaturedImageFields
+              ...MediaItemFields
             }
           }
         }
@@ -80,9 +54,15 @@ export const HOMEPAGE_QUERY = `
             title
           }
         }
+        eventsCategories {
+          nodes {
+            name
+            slug
+          }
+        }
         featuredImage {
           node {
-            ...FeaturedImageFields
+            ...MediaItemFields
           }
         }
       }
@@ -103,13 +83,13 @@ export const HOMEPAGE_QUERY = `
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              ...FeaturedImageFields
+              ...MediaItemFields
             }
           }
         }
         categories {
           nodes {
-            ...CategoryFields
+            ...TaxonomyTermFields
           }
         }
       }
@@ -120,16 +100,7 @@ export const HOMEPAGE_QUERY = `
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            altText
-            sourceUrl
-            srcSet
-            sizes
-            slug
-            title
-            description
-            mediaDetails {
-              ...MediaDetailsFields
-            }
+            ...MediaItemExtendedFields
           }
         }
       }
@@ -141,13 +112,8 @@ export const HOMEPAGE_QUERY = `
         }
         heroLinkIcon {
           node {
-            sourceUrl
-            altText
+            ...MediaItemBasicFields
             slug
-            mediaDetails {
-              width
-              height
-            }
           }
         }
         heroLink2 {
@@ -157,14 +123,9 @@ export const HOMEPAGE_QUERY = `
         }
         heroLinkIcon2 {
           node {
-            altText
-            sourceUrl
+            ...MediaItemBasicFields
             slug
             sizes
-            mediaDetails {
-              width
-              height
-            }
           }
         }
       }
@@ -184,12 +145,7 @@ export const HOMEPAGE_QUERY = `
           }
           btn1Icon {
             node {
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemBasicFields
             }
           }
         }
@@ -201,12 +157,7 @@ export const HOMEPAGE_QUERY = `
           }
           btn2Icon {
             node {
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemBasicFields
             }
           }
         }
@@ -237,13 +188,7 @@ export const HOMEPAGE_QUERY = `
               ... on NodeWithFeaturedImage {
                 featuredImage {
                   node {
-                    sourceUrl
-                    altText
-                    srcSet
-                    sizes
-                    mediaDetails {
-                      ...MediaDetailsFields
-                    }
+                    ...MediaItemFields
                   }
                 }
               }

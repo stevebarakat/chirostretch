@@ -1,6 +1,7 @@
 export * from "./bookings";
 export * from "./events";
 export * from "./footer-content";
+export * from "./fragments";
 export * from "./franchise";
 export * from "./gravity-forms";
 export * from "./homepage";

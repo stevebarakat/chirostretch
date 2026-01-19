@@ -4,7 +4,7 @@
 import { useRef, useEffect } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { ProductCard } from "@/components/ProductCard";
-import { FlipMotion, FlipMotionItem } from "@/components/UI";
+import { FlipMotion, FlipMotionItem } from "@/components/Primitives";
 import styles from "./InfiniteProductsHits.module.css";
 
 type ProductHit = {

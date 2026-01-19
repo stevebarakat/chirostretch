@@ -4,8 +4,7 @@
 import { useEffect, useState, useCallback, startTransition } from "react";
 import Link from "next/link";
 import { RefreshCcw, Trash2 } from "lucide-react";
-import { Container } from "@/components/UI";
-import { Button } from "@/components/UI";
+import { Container, Button, Text, Input } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
 import type {
   StoreCartItem,
@@ -112,7 +111,7 @@ export default function CartPage() {
     return (
       <Container>
         <div className={styles.cartPage}>
-          <h1 className={styles.title}>Cart</h1>
+          <Text as="h1" className={styles.title}>Cart</Text>
           <div className={styles.loading}>Loading cart...</div>
         </div>
       </Container>
@@ -123,12 +122,10 @@ export default function CartPage() {
     return (
       <Container>
         <div className={styles.cartPage}>
-          <h1 className={styles.title}>Cart</h1>
+          <Text as="h1" className={styles.title}>Cart</Text>
           <div className={styles.emptyCart}>
-            <p>Your cart is empty.</p>
-            <Link href="/shop">
-              <Button>Continue Shopping</Button>
-            </Link>
+            <Text>Your cart is empty.</Text>
+            <Button as="Link" href="/shop">Continue Shopping</Button>
           </div>
         </div>
       </Container>
@@ -139,9 +136,9 @@ export default function CartPage() {
     <Container>
       <div className={styles.cartPage}>
         <div className={styles.header}>
-          <h1 className={styles.title}>
+          <Text as="h1" className={styles.title}>
             Cart ({itemsCount} {itemsCount === 1 ? "item" : "items"})
-          </h1>
+          </Text>
         </div>
 
         <div className={styles.cartContent}>
@@ -169,12 +166,12 @@ export default function CartPage() {
                 <div key={item.key} className={styles.cartItem}>
                   <div className={styles.itemInfo}>
                     <div className={styles.itemDetails}>
-                      <h3 className={styles.itemName}>{item.name}</h3>
+                      <Text as="h3" className={styles.itemName}>{item.name}</Text>
                       {isBooking && (bookingDate || bookingTime) && (
                         <div className={styles.bookingDetails}>
-                          {bookingDate && <span>{bookingDate}</span>}
-                          {bookingDate && bookingTime && <span> at </span>}
-                          {bookingTime && <span>{bookingTime}</span>}
+                          {bookingDate && <Text as="span">{bookingDate}</Text>}
+                          {bookingDate && bookingTime && <Text as="span"> at </Text>}
+                          {bookingTime && <Text as="span">{bookingTime}</Text>}
                         </div>
                       )}
                     </div>
@@ -187,16 +184,17 @@ export default function CartPage() {
                     {!isBooking && (
                       <>
                         <div className={styles.quantityControl}>
-                          <label
+                          <Text
+                            as="label"
                             htmlFor={`quantity-${item.key}`}
                             className={styles.quantityLabel}
                           >
                             Quantity
-                          </label>
-                          <input
+                          </Text>
+                          <Input
                             id={`quantity-${item.key}`}
                             type="number"
-                            min="1"
+                            min={1}
                             value={localQuantities[item.key] || item.quantity}
                             onChange={(e) =>
                               handleQuantityChange(
@@ -215,7 +213,7 @@ export default function CartPage() {
                           className={styles.updateButton}
                         >
                           <RefreshCcw size={18} />
-                          <span className={styles.buttonLabel}>Update</span>
+                          <Text as="span" className={styles.buttonLabel}>Update</Text>
                         </Button>
                       </>
                     )}
@@ -227,7 +225,7 @@ export default function CartPage() {
                       className={styles.removeButton}
                     >
                       <Trash2 size={18} />
-                      <span className={styles.buttonLabel}>Remove</span>
+                      <Text as="span" className={styles.buttonLabel}>Remove</Text>
                     </Button>
                   </div>
                 </div>
@@ -236,57 +234,55 @@ export default function CartPage() {
           </div>
 
           <div className={styles.cartSummary}>
-            <h2 className={styles.summaryTitle}>Order Summary</h2>
+            <Text as="h2" className={styles.summaryTitle}>Order Summary</Text>
 
             {totals && (
               <div className={styles.totals}>
                 <div className={styles.totalRow}>
-                  <span>Subtotal</span>
-                  <span>{formatPrice(totals.total_price)}</span>
+                  <Text as="span">Subtotal</Text>
+                  <Text as="span">{formatPrice(totals.total_price)}</Text>
                 </div>
                 {totals.total_discount &&
                   parseFloat(totals.total_discount.replace(/[^0-9.]/g, "")) >
                     0 && (
                     <div className={styles.totalRow}>
-                      <span>Discount</span>
-                      <span className={styles.discount}>
+                      <Text as="span">Discount</Text>
+                      <Text as="span" className={styles.discount}>
                         -{formatPrice(totals.total_discount)}
-                      </span>
+                      </Text>
                     </div>
                   )}
                 {totals.total_shipping &&
                   parseFloat(totals.total_shipping.replace(/[^0-9.]/g, "")) >
                     0 && (
                     <div className={styles.totalRow}>
-                      <span>Shipping</span>
-                      <span>{formatPrice(totals.total_shipping)}</span>
+                      <Text as="span">Shipping</Text>
+                      <Text as="span">{formatPrice(totals.total_shipping)}</Text>
                     </div>
                   )}
                 {totals.total_tax &&
                   parseFloat(totals.total_tax.replace(/[^0-9.]/g, "")) > 0 && (
                     <div className={styles.totalRow}>
-                      <span>Tax</span>
-                      <span>{formatPrice(totals.total_tax)}</span>
+                      <Text as="span">Tax</Text>
+                      <Text as="span">{formatPrice(totals.total_tax)}</Text>
                     </div>
                   )}
                 <div className={`${styles.totalRow} ${styles.totalRowFinal}`}>
-                  <span>Total</span>
-                  <span className={styles.totalAmount}>
+                  <Text as="span">Total</Text>
+                  <Text as="span" className={styles.totalAmount}>
                     {formatPrice(totals.total_price)}
-                  </span>
+                  </Text>
                 </div>
               </div>
             )}
 
             <div className={styles.checkoutActions}>
-              <Link href="/checkout">
-                <Button fullWidth>Proceed to Checkout</Button>
-              </Link>
-              <Link href="/shop">
-                <Button color="secondary" fullWidth>
-                  Continue Shopping
-                </Button>
-              </Link>
+              <Button as="Link" href="/checkout" fullWidth>
+                Proceed to Checkout
+              </Button>
+              <Button as="Link" href="/shop" color="secondary" fullWidth>
+                Continue Shopping
+              </Button>
             </div>
           </div>
         </div>

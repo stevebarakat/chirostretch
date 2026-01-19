@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
-import { Container } from "@/components/UI";
+import { Container } from "@/components/Primitives";
 import { ArticlesTaxonomySearch } from "@/components/Articles/ArticlesSearch";
 import { ProductsTaxonomySearch } from "@/components/Products/ProductsSearch";
 import styles from "@/app/(site)/archive.module.css";

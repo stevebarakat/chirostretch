@@ -3,9 +3,9 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
-import RawHtml from "../RawHtml/RawHtml";
-import { Button, ButtonIcon } from "@/components/UI";
-import { ImageWrapper } from "@/components/UI";
+import { RichText } from "@/components/RichText";
+import { Button, ButtonIcon } from "@/components/Primitives";
+import { ImageWrapper } from "@/components/Primitives";
 import {
   getSafeImageUrl,
   useImageFallback,
@@ -261,7 +261,7 @@ function HeroContent({
       <div className={styles.content}>
         <h1 className={styles.headline}>{heading}</h1>
         {subheading && (
-          <RawHtml className={styles.description}>{subheading}</RawHtml>
+          <RichText content={subheading} className={styles.description} />
         )}
         <div className={styles.ctaWrapper}>
           <Suspense fallback={<HeroCtaFallback heroUnit={heroUnit} />}>

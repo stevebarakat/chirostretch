@@ -109,6 +109,10 @@ function transformEventToAlgolia(event: Event) {
     venueCity: event.venue?.city || "",
     venueState: event.venue?.state || "",
     organizer: event.organizers?.nodes?.[0]?.title || "",
+    categories: event.eventsCategories?.nodes?.map((c) => ({
+      name: c.name || "",
+      slug: c.slug || "",
+    })) || [],
     image: event.featuredImage?.node?.sourceUrl || "",
     imageAlt: event.featuredImage?.node?.altText || "",
     type: "event" as const,

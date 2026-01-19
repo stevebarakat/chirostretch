@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { clsx } from "clsx";
-import { ImageWrapper } from "@/components/UI";
+import { ImageWrapper } from "@/components/Primitives";
 import styles from "./ImageMagnifier.module.css";
 
 type ImageMagnifierProps = {

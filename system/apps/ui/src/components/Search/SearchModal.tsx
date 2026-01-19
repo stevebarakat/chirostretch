@@ -11,7 +11,7 @@ import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { Modal } from "@/components/UI";
+import { Modal, Text, Input } from "@/components/Primitives";
 import styles from "./SearchModal.module.css";
 
 type SearchModalProps = {
@@ -63,7 +63,7 @@ function SearchBox() {
   }
 
   return (
-    <input
+    <Input
       type="search"
       value={inputValue}
       onChange={handleChange}
@@ -150,9 +150,9 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
           </div>
         )}
         <div className={styles.hitContent}>
-          <h3 className={styles.hitTitle}>{productHit.name}</h3>
+          <Text as="h3" className={styles.hitTitle}>{productHit.name}</Text>
           {productHit.price && (
-            <p className={styles.hitPrice}>{productHit.price}</p>
+            <Text className={styles.hitPrice}>{productHit.price}</Text>
           )}
         </div>
       </Link>
@@ -179,11 +179,11 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
           </div>
         )}
         <div className={styles.hitContent}>
-          <h3 className={styles.hitTitle}>{eventHit.title}</h3>
+          <Text as="h3" className={styles.hitTitle}>{eventHit.title}</Text>
           {eventHit.content && (
-            <p className={styles.hitExcerpt}>
+            <Text className={styles.hitExcerpt}>
               {eventHit.content.replace(/<[^>]*>/g, "").substring(0, 100)}...
-            </p>
+            </Text>
           )}
         </div>
       </Link>
@@ -225,8 +225,8 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
           </div>
         )}
         <div className={styles.hitContent}>
-          <h3 className={styles.hitTitle}>{locationHit.title}</h3>
-          {displayText && <p className={styles.hitExcerpt}>{displayText}</p>}
+          <Text as="h3" className={styles.hitTitle}>{locationHit.title}</Text>
+          {displayText && <Text className={styles.hitExcerpt}>{displayText}</Text>}
         </div>
       </Link>
     );
@@ -251,9 +251,9 @@ function HitComponent({ hit, onHitClick }: HitComponentProps) {
         </div>
       )}
       <div className={styles.hitContent}>
-        <h3 className={styles.hitTitle}>{articleHit.title}</h3>
+        <Text as="h3" className={styles.hitTitle}>{articleHit.title}</Text>
         {articleHit.excerpt && (
-          <p className={styles.hitExcerpt}>{articleHit.excerpt}</p>
+          <Text className={styles.hitExcerpt}>{articleHit.excerpt}</Text>
         )}
       </div>
     </Link>
@@ -271,7 +271,7 @@ function SearchResults({ onHitClick }: SearchResultsProps) {
   if (!query || query.trim() === "") {
     return (
       <div className={styles.noResults}>
-        <p>Start typing to search...</p>
+        <Text>Start typing to search...</Text>
       </div>
     );
   }
@@ -279,7 +279,7 @@ function SearchResults({ onHitClick }: SearchResultsProps) {
   if (hits.length === 0) {
     return (
       <div className={styles.noResults}>
-        <p>No results found for &quot;{query}&quot;.</p>
+        <Text>No results found for &quot;{query}&quot;.</Text>
       </div>
     );
   }
@@ -306,7 +306,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     >
       <div className={styles.content}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Search</h2>
+          <Text as="h2" className={styles.title}>Search</Text>
           <button
             type="button"
             onClick={onClose}
@@ -318,11 +318,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
         {!isAlgoliaConfigured() || !searchClient ? (
           <div className={styles.noResults}>
-            <p>Search is not configured. Please set up Algolia credentials.</p>
-            <p className={styles.configHint}>
+            <Text>Search is not configured. Please set up Algolia credentials.</Text>
+            <Text className={styles.configHint}>
               Add NEXT_PUBLIC_ALGOLIA_APP_ID and NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
               to your environment variables.
-            </p>
+            </Text>
           </div>
         ) : (
           <InstantSearch

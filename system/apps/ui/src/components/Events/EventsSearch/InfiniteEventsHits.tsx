@@ -21,6 +21,7 @@ type EventHit = {
   venueCity?: string;
   venueState?: string;
   organizer?: string;
+  categories?: { name: string; slug: string }[];
   image?: string;
   imageAlt?: string;
 };
@@ -45,6 +46,9 @@ function mapHitToEvent(hit: EventHit): Event {
       ? {
           nodes: [{ title: hit.organizer }],
         }
+      : null,
+    eventsCategories: hit.categories?.length
+      ? { nodes: hit.categories }
       : null,
     featuredImage: hit.image
       ? {

@@ -1,8 +1,7 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
-import { Container } from "@/components/UI";
+import { Container, Button, Text } from "@/components/Primitives";
 import { Logo } from "../Logo";
-import { Button } from "@/components/UI";
 import {
   Instagram,
   Facebook,
@@ -37,7 +36,7 @@ export default function Footer({ logo, tagline }: FooterProps) {
             <div className={styles.logoWrapper}>
               <Logo logo={logo} />
             </div>
-            <p className={styles.tagline}>{tagline || defaultTagline}</p>
+            <Text className={styles.tagline}>{tagline || defaultTagline}</Text>
             <div className={styles.social}>
               <a
                 href="https://instagram.com"
@@ -70,7 +69,7 @@ export default function Footer({ logo, tagline }: FooterProps) {
           </div>
 
           <div className={styles.navColumn}>
-            <h3 className={styles.columnTitle}>EXPLORE</h3>
+            <Text as="h3" className={styles.columnTitle}>EXPLORE</Text>
             <nav className={styles.navList}>
               <Link href="/about" className={styles.navLink}>
                 About
@@ -91,11 +90,11 @@ export default function Footer({ logo, tagline }: FooterProps) {
           </div>
 
           <div className={styles.corporateColumn}>
-            <h3 className={styles.columnTitle}>CORPORATE</h3>
+            <Text as="h3" className={styles.columnTitle}>CORPORATE</Text>
             <div className={styles.corporateItem}>
               <div className={styles.corporateLabel}>
                 <Mail size={20} className={styles.corporateIcon} />
-                <span>INQUIRIES:</span>
+                <Text as="span">INQUIRIES:</Text>
               </div>
               <a href="mailto:info@chirostretch.site" className={styles.corporateLink}>
                 info@chirostretch.site
@@ -104,7 +103,7 @@ export default function Footer({ logo, tagline }: FooterProps) {
             <div className={styles.corporateItem}>
               <div className={styles.corporateLabel}>
                 <Store size={20} className={styles.corporateIcon} />
-                <span>PARTNERSHIP:</span>
+                <Text as="span">PARTNERSHIP:</Text>
               </div>
               <Link href="/franchise" className={styles.corporateLink}>
                 Franchise Opportunities
@@ -114,11 +113,11 @@ export default function Footer({ logo, tagline }: FooterProps) {
 
           <div className={styles.ctaColumn}>
             <div className={styles.ctaBox}>
-              <h3 className={styles.ctaTitle}>Find a Clinic</h3>
-              <p className={styles.ctaDescription}>
+              <Text as="h3" className={styles.ctaTitle}>Find a Clinic</Text>
+              <Text className={styles.ctaDescription}>
                 Locate a ChiroStretch studio near you and start your recovery
                 journey.
-              </p>
+              </Text>
               <Button
                 as="a"
                 href="/locations"
@@ -135,9 +134,9 @@ export default function Footer({ logo, tagline }: FooterProps) {
         </div>
 
         <div className={styles.bottom}>
-          <p className={styles.copyright}>
+          <Text className={styles.copyright}>
             © {new Date().getFullYear()} ChiroStretch. All rights reserved.
-          </p>
+          </Text>
           <div className={styles.legal}>
             <Link href="/privacy-policy" className={styles.legalLink}>
               Privacy Policy

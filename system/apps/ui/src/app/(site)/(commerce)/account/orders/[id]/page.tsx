@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Button } from "@/components/Primitives";
 import styles from "./order.module.css";
 
 type Order = {
@@ -151,9 +152,9 @@ export default function OrderPage() {
         </section>
 
         <div className={styles.actions}>
-          <Link href="/" className={styles.button}>
+          <Button as="Link" href="/">
             Return to Home
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

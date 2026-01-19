@@ -2,8 +2,7 @@ import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
 import type { Practitioner } from "@/lib/graphql/queries/locations";
 import styles from "./PractitionerCard.module.css";
-import { Button } from "@/components/UI";
-import { ImageWrapper } from "@/components/UI";
+import { Button, ImageWrapper, Text } from "@/components/Primitives";
 
 type PractitionerCardProps = {
   practitioner: Practitioner;
@@ -52,21 +51,21 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
           </div>
         )}
         {practitioner.acceptingPatients && (
-          <span className={styles.badge}>Accepting Patients</span>
+          <Text as="span" className={styles.badge}>Accepting Patients</Text>
         )}
       </ImageWrapper>
 
       <div className={styles.content}>
-        <h3 className={styles.name}>{practitioner.title}</h3>
-        <p className={styles.role}>{formattedRole}</p>
+        <Text as="h3" className={styles.name}>{practitioner.title}</Text>
+        <Text className={styles.role}>{formattedRole}</Text>
 
         {practitioner.specialties?.nodes &&
           practitioner.specialties.nodes.length > 0 && (
             <div className={styles.specialties}>
               {practitioner.specialties.nodes.map((specialty) => (
-                <span key={specialty.slug} className={styles.specialty}>
+                <Text as="span" key={specialty.slug} className={styles.specialty}>
                   {specialty.name}
-                </span>
+                </Text>
               ))}
             </div>
           )}

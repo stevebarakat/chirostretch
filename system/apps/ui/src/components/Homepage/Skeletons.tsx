@@ -1,4 +1,4 @@
-import { Container, Skeleton } from "@/components/UI";
+import { Container, Skeleton } from "@/components/Primitives";
 import styles from "./Skeletons.module.css";
 
 export function IntroductionSkeleton() {

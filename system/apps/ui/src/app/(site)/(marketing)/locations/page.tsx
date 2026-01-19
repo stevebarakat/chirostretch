@@ -1,4 +1,4 @@
-import { Container } from "@/components/UI";
+import { Container } from "@/components/Primitives";
 import { LocationsSearch } from "@/components/Locations/LocationsSearch";
 import styles from "./page.module.css";
 

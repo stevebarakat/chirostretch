@@ -31,6 +31,7 @@ type CreateOrderRequest = {
   billing: BillingAddress;
   shipping?: BillingAddress;
   line_items: LineItem[];
+  coupon_code?: string;
 };
 
 /**
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body: CreateOrderRequest = await request.json();
-    const { billing, shipping, line_items } = body;
+    const { billing, shipping, line_items, coupon_code } = body;
 
     // Validate request
     if (!billing || !line_items || line_items.length === 0) {
@@ -96,6 +97,9 @@ export async function POST(request: NextRequest) {
           line_items,
           set_paid: false, // Order is unpaid - payment happens on WordPress
           status: "pending", // Order starts as pending payment
+          ...(coupon_code && {
+            coupon_lines: [{ code: coupon_code }],
+          }),
         }),
       }
     );

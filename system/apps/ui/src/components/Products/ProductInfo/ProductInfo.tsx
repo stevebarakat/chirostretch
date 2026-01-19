@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState } from "react";
-import { Button, Input } from "@/components/UI";
+import { Button, Input, Text } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
 import styles from "./ProductInfo.module.css";
 
@@ -142,22 +142,22 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
   return (
     <div className={styles.info}>
-      <h1 className={styles.title}>{product.name}</h1>
+      <Text as="h1" className={styles.title}>{product.name}</Text>
 
       <div className={styles.priceSection}>
         {displayPrice && (
           <div className={styles.price}>
-            <span className={isOnSale ? styles.salePrice : styles.regularPrice}>
+            <Text as="span" className={isOnSale ? styles.salePrice : styles.regularPrice}>
               {formatPrice(displayPrice)}
-            </span>
+            </Text>
             {isOnSale && product.regularPrice && (
-              <span className={styles.originalPrice}>
+              <Text as="span" className={styles.originalPrice}>
                 {formatPrice(product.regularPrice)}
-              </span>
+              </Text>
             )}
           </div>
         )}
-        {isOnSale && <span className={styles.saleBadge}>On Sale</span>}
+        {isOnSale && <Text as="span" className={styles.saleBadge}>On Sale</Text>}
       </div>
 
       {product.shortDescription && (
@@ -181,13 +181,13 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         ) : (
           <>
             <div className={styles.quantityWrapper}>
-              <label htmlFor="quantity" className={styles.quantityLabel}>
+              <Text as="label" htmlFor="quantity" className={styles.quantityLabel}>
                 Quantity
-              </label>
+              </Text>
               <Input
                 id="quantity"
                 type="number"
-                min="1"
+                min={1}
                 value={quantity}
                 onChange={handleQuantityChange}
                 size="md"
@@ -222,17 +222,17 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       <div className={styles.metadata}>
         {product.sku && (
-          <span className={styles.metadataItem}>
-            <strong>SKU:</strong> {product.sku}
-          </span>
+          <Text as="span" className={styles.metadataItem}>
+            <Text as="strong">SKU:</Text> {product.sku}
+          </Text>
         )}
 
         {product.productCategories?.nodes &&
           product.productCategories.nodes.length > 0 && (
-            <span className={styles.metadataItem}>
-              <strong>Category: </strong>
+            <Text as="span" className={styles.metadataItem}>
+              <Text as="strong">Category: </Text>
               {product.productCategories.nodes.map((category, index) => (
-                <span key={category.id || index}>
+                <Text as="span" key={category.id || index}>
                   {index > 0 && ", "}
                   <a
                     href={`/category/${category.slug}`}
@@ -240,29 +240,29 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                   >
                     {category.name}
                   </a>
-                </span>
+                </Text>
               ))}
-            </span>
+            </Text>
           )}
 
         {product.productTags?.nodes && product.productTags.nodes.length > 0 && (
-          <span className={styles.metadataItem}>
-            <strong>Tag:</strong>{" "}
+          <Text as="span" className={styles.metadataItem}>
+            <Text as="strong">Tag:</Text>{" "}
             {product.productTags.nodes.map((tag, index) => (
-              <span key={tag.id || index}>
+              <Text as="span" key={tag.id || index}>
                 {index > 0 && ", "}
                 <a href={`/tag/${tag.slug}`} className={styles.metadataLink}>
                   {tag.name}
                 </a>
-              </span>
+              </Text>
             ))}
-          </span>
+          </Text>
         )}
       </div>
 
       {!isInStock && (
         <div className={styles.stockStatus}>
-          <span className={styles.outOfStock}>Out of Stock</span>
+          <Text as="span" className={styles.outOfStock}>Out of Stock</Text>
         </div>
       )}
 
@@ -272,7 +272,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <div className={styles.attributes}>
             {product.attributes.nodes.map((attr, index) => (
               <div key={attr.id || index} className={styles.attribute}>
-                <strong>{attr.name}:</strong>{" "}
+                <Text as="strong">{attr.name}:</Text>{" "}
                 {attr.options?.join(", ") || "N/A"}
               </div>
             ))}
@@ -281,7 +281,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       {isVariable && "variations" in product && product.variations?.nodes && (
         <div className={styles.variations}>
-          <strong>Available Variations:</strong>
+          <Text as="strong">Available Variations:</Text>
           <ul>
             {product.variations.nodes.map((variation) => (
               <li key={variation.id || variation.databaseId}>

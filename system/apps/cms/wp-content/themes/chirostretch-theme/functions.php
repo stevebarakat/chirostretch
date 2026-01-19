@@ -251,14 +251,13 @@ function chirostretch_register_menus()
 add_action('after_setup_theme', 'chirostretch_register_menus');
 
 /**
- * Register "Lead" role for new patient form submissions.
- * This role is used by the User Registration add-on for Gravity Forms
- * to create user accounts when patients submit the new patient form.
+ * Remove legacy "Lead" role if it exists (migrated to Zoho CRM).
+ * This cleanup runs once per request but only removes the role if present.
  */
 add_action('after_setup_theme', function () {
-  add_role('lead', 'Lead', array(
-    'read' => true,  // Minimal capabilities - just enough to log in
-  ));
+  if (get_role('lead')) {
+    remove_role('lead');
+  }
 });
 
 /**

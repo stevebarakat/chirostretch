@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { Text, Input, Button } from "@/components/Primitives";
 import styles from "./set-password.module.css";
 
 function SetPasswordContent() {
@@ -131,7 +132,7 @@ function SetPasswordContent() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.loading}>
-            <p>Validating password reset link...</p>
+            <Text>Validating password reset link...</Text>
           </div>
         </div>
       </div>
@@ -157,14 +158,14 @@ function SetPasswordContent() {
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <h1 className={styles.title}>Password Reset Successful!</h1>
-            <p className={styles.subtitle}>
+            <Text as="h1" className={styles.title}>Password Reset Successful!</Text>
+            <Text className={styles.subtitle}>
               Your password has been updated. You can now log in with your new
               password.
-            </p>
-            <p className={styles.redirectMessage}>
+            </Text>
+            <Text className={styles.redirectMessage}>
               Redirecting you to the home page...
-            </p>
+            </Text>
           </div>
         </div>
       </div>
@@ -176,9 +177,9 @@ function SetPasswordContent() {
     return (
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Invalid Reset Link</h1>
+          <Text as="h1" className={styles.title}>Invalid Reset Link</Text>
           <div className={styles.error}>
-            <p>{error}</p>
+            <Text>{error}</Text>
           </div>
           <div className={styles.actions}>
             <Link href="/" className={styles.link}>
@@ -194,23 +195,23 @@ function SetPasswordContent() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1 className={styles.title}>Set Your Password</h1>
-        <p className={styles.subtitle}>
+        <Text as="h1" className={styles.title}>Set Your Password</Text>
+        <Text className={styles.subtitle}>
           Please enter a new password for your account.
-        </p>
+        </Text>
 
         {error && (
           <div className={styles.error}>
-            <p>{error}</p>
+            <Text>{error}</Text>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="password" className={styles.label}>
+            <Text as="label" htmlFor="password" className={styles.label}>
               New Password *
-            </label>
-            <input
+            </Text>
+            <Input
               type="password"
               id="password"
               name="password"
@@ -225,10 +226,10 @@ function SetPasswordContent() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="confirmPassword" className={styles.label}>
+            <Text as="label" htmlFor="confirmPassword" className={styles.label}>
               Confirm Password *
-            </label>
-            <input
+            </Text>
+            <Input
               type="password"
               id="confirmPassword"
               name="confirmPassword"
@@ -242,13 +243,9 @@ function SetPasswordContent() {
             />
           </div>
 
-          <button
-            type="submit"
-            className={styles.submitButton}
-            disabled={loading}
-          >
+          <Button type="submit" disabled={loading} fullWidth>
             {loading ? "Resetting Password..." : "Reset Password"}
-          </button>
+          </Button>
         </form>
 
         <div className={styles.footer}>

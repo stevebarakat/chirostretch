@@ -7,7 +7,7 @@ import { ChevronDown, CircleUser } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { LocationSearchTrigger } from "../LocationSearchTrigger";
 import styles from "../Header.module.css";
-import { VisuallyHidden } from "@/components/UI";
+import { VisuallyHidden } from "@/components/Primitives";
 
 const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 

@@ -11,31 +11,22 @@ const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
 // Form 17 is the New Patient Special form
 const NEW_PATIENT_FORM_ID = "17";
 
+// Known field types for specific forms (field ID -> type)
+// This ensures proper normalization even if frontend doesn't pass fieldTypes
+const FORM_FIELD_TYPES: Record<string, Record<string, string>> = {
+  "17": {
+    "1": "NAME",
+    "3": "EMAIL",
+    "4": "PHONE",
+  },
+};
+
 // Field types that need special value mapping
 const EMAIL_FIELD_TYPES = ["EMAIL"];
 const CONSENT_FIELD_TYPES = ["CONSENT"];
 const CHECKBOX_FIELD_TYPES = ["CHECKBOX"];
 const NAME_FIELD_TYPES = ["NAME"];
 const PHONE_FIELD_TYPES = ["PHONE"];
-
-// Normalize phone number to US format (###) ###-####
-function normalizePhone(phone: string): string {
-  // Strip everything except digits
-  const digits = phone.replace(/\D/g, "");
-
-  // Remove leading 1 if present (US country code)
-  const normalized = digits.startsWith("1") && digits.length === 11
-    ? digits.slice(1)
-    : digits;
-
-  // Format as (###) ###-#### if we have 10 digits
-  if (normalized.length === 10) {
-    return `(${normalized.slice(0, 3)}) ${normalized.slice(3, 6)}-${normalized.slice(6)}`;
-  }
-
-  // Return cleaned digits if not 10 digits (let GF validate)
-  return normalized;
-}
 
 type NameValues = {
   first?: string;
@@ -82,14 +73,19 @@ function extractFieldId(key: string): number | null {
 // Transform form data object to GraphQL fieldValues array
 function transformFormDataToFieldValues(
   formData: Record<string, unknown>,
+  formId: string,
   fieldTypes?: Record<string, string>
 ): FieldValueInput[] {
+  // Merge known form field types with passed fieldTypes (passed types take precedence)
+  const knownTypes = FORM_FIELD_TYPES[formId] || {};
+  const mergedFieldTypes = { ...knownTypes, ...fieldTypes };
+
   return Object.entries(formData)
     .map(([key, value]) => {
       const fieldId = extractFieldId(key);
       if (fieldId === null) return null;
 
-      const fieldType = fieldTypes?.[key]?.toUpperCase();
+      const fieldType = mergedFieldTypes[key]?.toUpperCase();
 
       // Handle email fields
       if (fieldType && EMAIL_FIELD_TYPES.includes(fieldType)) {
@@ -148,11 +144,11 @@ function transformFormDataToFieldValues(
         } as FieldValueInput;
       }
 
-      // Handle phone fields - normalize to US format
+      // Handle phone fields - pass through as-is (GF handles validation)
       if (fieldType && PHONE_FIELD_TYPES.includes(fieldType)) {
         return {
           id: fieldId,
-          value: normalizePhone(String(value || "")),
+          value: String(value || "").trim(),
         } as FieldValueInput;
       }
 
@@ -194,64 +190,6 @@ type CouponResponse = {
   expires?: string;
   existing?: boolean;
 };
-
-type UserRegistrationResponse = {
-  success: boolean;
-  user_id: number;
-  username: string;
-  email: string;
-  display_name?: string;
-  existing?: boolean;
-  message: string;
-};
-
-/**
- * Process User Registration feed for new patient leads
- * Creates a WordPress user account from the Gravity Forms entry
- */
-async function processUserRegistration(
-  entryId: string,
-  formId: string
-): Promise<UserRegistrationResponse | null> {
-  if (!WP_URL) {
-    console.error("[Lead] WP_URL not configured for user registration");
-    return null;
-  }
-
-  try {
-    const response = await fetch(
-      `${WP_URL}/wp-json/chirostretch/v1/user-registration/process`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Internal-Secret": INTERNAL_SECRET,
-        },
-        body: JSON.stringify({
-          entry_id: parseInt(entryId, 10),
-          form_id: parseInt(formId, 10),
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("[Lead] Failed to process user registration:", errorData);
-      return null;
-    }
-
-    const userData = (await response.json()) as UserRegistrationResponse;
-    console.log("[Lead] User registration processed:", {
-      user_id: userData.user_id,
-      existing: userData.existing,
-    });
-
-    return userData;
-  } catch (error) {
-    console.error("[Lead] Error processing user registration:", error);
-    return null;
-  }
-}
 
 /**
  * Generate a coupon for new patient leads via WP REST API
@@ -305,49 +243,6 @@ async function generateCoupon(
   }
 }
 
-type LeadProcessingResult = {
-  user?: UserRegistrationResponse | null;
-  coupon?: CouponResponse | null;
-};
-
-/**
- * Process new patient lead - create user account and generate coupon
- */
-async function processNewPatientLead(data: NewPatientLeadData & { form_id: string }): Promise<LeadProcessingResult> {
-  console.log("[Lead] Processing new patient lead:", {
-    entry_id: data.entry_id,
-    email: data.email,
-    first_name: data.first_name,
-  });
-
-  // First, create the user account via User Registration feed
-  const user = await processUserRegistration(data.entry_id, data.form_id);
-
-  if (user) {
-    console.log("[Lead] User account created/found:", {
-      user_id: user.user_id,
-      existing: user.existing,
-    });
-  } else {
-    console.warn("[Lead] User registration failed or skipped");
-  }
-
-  // Then generate the coupon
-  const coupon = await generateCoupon(data);
-
-  if (coupon) {
-    console.log("[Lead] Lead processing complete:", {
-      entry_id: data.entry_id,
-      coupon_code: coupon.coupon_code,
-      user_id: user?.user_id,
-    });
-  } else {
-    console.warn("[Lead] Lead processed but coupon generation failed");
-  }
-
-  return { user, coupon };
-}
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -371,7 +266,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Transform form data to GraphQL fieldValues format
-    const fieldValues = transformFormDataToFieldValues(formData, fieldTypes);
+    const fieldValues = transformFormDataToFieldValues(formData, String(formId), fieldTypes);
+
+    console.log("[GF Submit] fieldValues for GraphQL:", JSON.stringify(fieldValues, null, 2));
 
     // GraphQL mutation for form submission
     const mutation = `
@@ -450,21 +347,21 @@ export async function POST(request: NextRequest) {
     const entryId = submitResult?.entry?.databaseId;
     const confirmation = submitResult?.confirmation;
 
-    // For form 17 (New Patient Special), process lead and return custom confirmation
+    // For form 17 (New Patient Special), generate coupon and return custom confirmation
+    // Lead creation is now handled via Zoho CRM feed on form submission
     if (String(formId) === NEW_PATIENT_FORM_ID && entryId) {
       const email = String(formData["3"] || "");
       const firstName = String(formData["1"] || "");
 
-      // Process synchronously so we can include coupon in response
-      const leadResult = await processNewPatientLead({
+      // Generate coupon for the new patient
+      const couponResult = await generateCoupon({
         entry_id: String(entryId),
-        form_id: String(formId),
         email,
         first_name: firstName,
       });
 
-      const couponCode = leadResult.coupon?.coupon_code;
-      const couponExpires = leadResult.coupon?.expires;
+      const couponCode = couponResult?.coupon_code;
+      const couponExpires = couponResult?.expires;
 
       // Return structured data - frontend renders with proper components
       return NextResponse.json({

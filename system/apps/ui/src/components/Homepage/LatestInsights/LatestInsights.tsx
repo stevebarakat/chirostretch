@@ -1,10 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SectionHeading } from "@/components/UI";
-import { Button } from "@/components/UI";
-import { ImageWrapper } from "@/components/UI";
+import { SectionHeading, Button, ImageWrapper, Text } from "@/components/Primitives";
 import styles from "./LatestInsights.module.css";
-import { RawHtml } from "@/components/RawHtml";
+import { RichText } from "@/components/RichText";
 
 type PostImage = {
   id?: string;
@@ -109,36 +107,39 @@ export default function LatestInsights({
                       href={`/articles/${post.slug}`}
                       className={styles.titleLink}
                     >
-                      <h3 className={styles.title}>{post.title}</h3>
+                      <Text as="h3" className={styles.title}>{post.title}</Text>
                     </Link>
                     <div className={styles.meta}>
                       {post.author?.node?.name && (
-                        <span className={styles.author}>
+                        <Text as="span" className={styles.author}>
                           By {post.author.node.name}
-                        </span>
+                        </Text>
                       )}
                       {post.date && (
-                        <span className={styles.date}>
+                        <Text as="span" className={styles.date}>
                           {new Date(post.date).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
                           })}
-                        </span>
+                        </Text>
                       )}
                     </div>
-                    {excerpt && <RawHtml>{excerpt}</RawHtml>}
+                    {excerpt && <RichText content={excerpt} />}
                     {post.categories?.nodes &&
                       post.categories.nodes.length > 0 && (
                         <div className={styles.categories}>
                           {post.categories.nodes.map((category) => (
-                            <Link
+                            <Button
                               key={category.id}
+                              as="Link"
                               href={`/category/${category.slug}`}
-                              className={styles.category}
+                              size="xs"
+                              variant="outline"
+                              color="glass"
                             >
                               {category.name}
-                            </Link>
+                            </Button>
                           ))}
                         </div>
                       )}
@@ -155,16 +156,16 @@ export default function LatestInsights({
           </div>
         ) : (
           <div className={styles.empty}>
-            <p>No articles available at this time.</p>
+            <Text>No articles available at this time.</Text>
           </div>
         )}
-        {insightsCtaText && insightsCtaLink && (
+        {/* {insightsCtaText && insightsCtaLink && (
           <div className={styles.cta}>
             <Button as="a" href={insightsCtaLink}>
               {insightsCtaText}
             </Button>
           </div>
-        )}
+        )} */}
       </>
     </section>
   );

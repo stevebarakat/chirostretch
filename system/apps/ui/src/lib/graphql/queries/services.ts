@@ -1,4 +1,8 @@
+import { MEDIA_ITEM_BASIC_FIELDS } from "./fragments";
+
 export const SERVICES_SETTINGS_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+
   query ChiroServicesSettings {
     chiroServicesSettings {
       title
@@ -6,20 +10,14 @@ export const SERVICES_SETTINGS_QUERY = `
       services {
         tabLabel
         tabIcon {
-          sourceUrl
-          altText
+          ...MediaItemBasicFields
         }
         title
         description
         bulletPoints
         infoBox
         image {
-          sourceUrl
-          altText
-          mediaDetails {
-            width
-            height
-          }
+          ...MediaItemBasicFields
         }
       }
     }

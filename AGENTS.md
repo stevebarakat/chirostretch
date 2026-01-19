@@ -86,6 +86,50 @@ Read [agents/css.md](agents/css.md) for:
 - CSS-first decision checklist
 - Anti-patterns to avoid
 
+## GraphQL Queries
+
+All GraphQL queries live in `system/apps/ui/src/lib/graphql/queries/`.
+
+**Fragment System:** Shared fragments in `fragments.ts` eliminate field duplication. Always use them:
+
+```typescript
+import { MEDIA_ITEM_FIELDS, TAXONOMY_TERM_FIELDS } from "./fragments";
+
+export const MY_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+
+  query MyQuery {
+    post {
+      featuredImage {
+        node {
+          ...MediaItemFields
+        }
+      }
+      categories {
+        nodes {
+          ...TaxonomyTermFields
+        }
+      }
+    }
+  }
+`;
+```
+
+**Available Fragments:**
+| Fragment | Use For |
+|----------|---------|
+| `MEDIA_ITEM_FIELDS` | Full image data (sourceUrl, altText, srcSet, sizes, mediaDetails) |
+| `MEDIA_ITEM_BASIC_FIELDS` | Icons and thumbnails (no srcSet/sizes) |
+| `MEDIA_ITEM_EXTENDED_FIELDS` | Hero images (includes slug, title, description) |
+| `TAXONOMY_TERM_FIELDS` | Categories, tags, custom taxonomies |
+| `AUTHOR_FIELDS` | Post/page authors |
+| `PAGE_INFO_FIELDS` | Cursor-based pagination |
+| `PRODUCT_PRICING_FIELDS` | WooCommerce product prices (all product types) |
+| `PRODUCT_BASIC_PRICING_FIELDS` | Price-only for listings |
+
+**Why fragments matter:** Prevents field drift (e.g., adding `eventsCategories` to one query but forgetting another). Single source of truth.
+
 ## WordPress Integration
 
 Read [agents/wordpress.md](agents/wordpress.md) for:
@@ -144,6 +188,30 @@ npm run dev
 # Use --insecure with curl for local HTTPS
 curl --insecure https://localhost:3000/api/health
 ```
+
+## Primitive Components
+
+Use the polymorphic primitives from `@/components/Primitives` instead of raw HTML elements:
+
+**Text** — Use for all text elements instead of raw `<p>`, `<span>`, `<h1>`-`<h6>`, `<label>`, `<strong>`, `<em>`:
+```tsx
+import { Text } from "@/components/Primitives";
+
+<Text as="h2" size="2xl" weight="semibold">Heading</Text>
+<Text as="span" color="muted">Helper text</Text>
+<Text as="label" size="sm" weight="medium">Field label</Text>
+```
+
+**Input** — Use for all form inputs instead of raw `<input>`, `<textarea>`, `<select>`:
+```tsx
+import { Input } from "@/components/Primitives";
+
+<Input type="text" size="md" />
+<Input as="textarea" />
+<Input as="select">{options}</Input>
+```
+
+These ensure consistent typography, spacing, and form styling across the app.
 
 ## Preferred Packages
 

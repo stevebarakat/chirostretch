@@ -1,4 +1,12 @@
+import {
+  MEDIA_ITEM_EXTENDED_FIELDS,
+  MEDIA_ITEM_BASIC_FIELDS,
+} from "./fragments";
+
 export const PAGE_BY_URI_QUERY = `
+  ${MEDIA_ITEM_EXTENDED_FIELDS}
+  ${MEDIA_ITEM_BASIC_FIELDS}
+
   query PageByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
       id
@@ -10,17 +18,7 @@ export const PAGE_BY_URI_QUERY = `
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            slug
-            title
-            description
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemExtendedFields
           }
         }
       }
@@ -32,13 +30,8 @@ export const PAGE_BY_URI_QUERY = `
         }
         heroLinkIcon {
           node {
-            sourceUrl
-            altText
+            ...MediaItemBasicFields
             slug
-            mediaDetails {
-              width
-              height
-            }
           }
         }
         heroLink2 {
@@ -48,13 +41,8 @@ export const PAGE_BY_URI_QUERY = `
         }
         heroLinkIcon2 {
           node {
-            sourceUrl
-            altText
+            ...MediaItemBasicFields
             slug
-            mediaDetails {
-              width
-              height
-            }
           }
         }
       }

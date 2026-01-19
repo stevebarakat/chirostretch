@@ -2,6 +2,7 @@
 
 import { useSearchBox } from "react-instantsearch";
 import { Search, X } from "lucide-react";
+import { Input } from "@/components/Primitives";
 import styles from "./AlgoliaSearchBox.module.css";
 
 type AlgoliaSearchBoxProps = {
@@ -16,7 +17,7 @@ export function AlgoliaSearchBox({
   return (
     <div className={styles.search}>
       <Search className={styles.searchIcon} size={20} aria-hidden="true" />
-      <input
+      <Input
         type="search"
         value={query}
         onChange={(e) => refine(e.target.value)}

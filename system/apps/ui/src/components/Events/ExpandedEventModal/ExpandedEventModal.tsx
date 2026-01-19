@@ -15,8 +15,7 @@ import {
   Users,
   ArrowRight,
 } from "lucide-react";
-import { ImageWrapper } from "@/components/UI";
-import { NoImage } from "@/components/UI";
+import { ImageWrapper, NoImage, Text, Button } from "@/components/Primitives";
 import type { Event } from "../types";
 import styles from "./ExpandedEventModal.module.css";
 
@@ -178,15 +177,22 @@ export function ExpandedEventModal({
             )}
 
             <div className={styles.textContent}>
-              <h2 className={styles.title}>{activeEvent.title}</h2>
+              <Text as="h2" className={styles.title}>{activeEvent.title}</Text>
 
               {activeEvent.eventsCategories?.nodes &&
                 activeEvent.eventsCategories.nodes.length > 0 && (
                   <div className={styles.categories}>
                     {activeEvent.eventsCategories.nodes.map((category) => (
-                      <span key={category.slug} className={styles.category}>
+                      <Button
+                        key={category.slug}
+                        as="Link"
+                        href={`/events?category=${category.slug}`}
+                        size="xs"
+                        variant="outline"
+                        color="neutral"
+                      >
                         {category.name}
-                      </span>
+                      </Button>
                     ))}
                   </div>
                 )}
@@ -195,37 +201,37 @@ export function ExpandedEventModal({
                 {activeEvent.startDate && (
                   <div className={styles.metaItem}>
                     <Calendar size={16} />
-                    <span>{formatDate(activeEvent.startDate)}</span>
+                    <Text as="span">{formatDate(activeEvent.startDate)}</Text>
                   </div>
                 )}
                 {activeEvent.startDate && (
                   <div className={styles.metaItem}>
                     <Clock size={16} />
-                    <span>{formatTime(activeEvent.startDate)}</span>
+                    <Text as="span">{formatTime(activeEvent.startDate)}</Text>
                   </div>
                 )}
                 <div className={styles.metaItem}>
                   <DollarSign size={16} />
-                  <span>{formatCost(activeEvent.cost)}</span>
+                  <Text as="span">{formatCost(activeEvent.cost)}</Text>
                 </div>
                 {(activeEvent.venue?.title || venueLocation) && (
                   <div className={styles.metaItem}>
                     <MapPin size={16} />
-                    <span>
+                    <Text as="span">
                       {activeEvent.venue?.title}
                       {venueLocation && `, ${venueLocation}`}
-                    </span>
+                    </Text>
                   </div>
                 )}
                 {organizer && (
                   <div className={styles.metaItem}>
                     <Users size={16} />
-                    <span>{organizer}</span>
+                    <Text as="span">{organizer}</Text>
                   </div>
                 )}
               </div>
 
-              {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
+              {excerpt && <Text className={styles.excerpt}>{excerpt}</Text>}
 
               <Link
                 href={`${basePath}/${activeEvent.slug}`}

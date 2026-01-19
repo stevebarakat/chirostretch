@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ImageWrapper } from "@/components/UI";
-import { NoImage } from "@/components/UI";
+import { ImageWrapper, NoImage, Text, Button } from "@/components/Primitives";
 import styles from "./ArticleCard.module.css";
 
 type TaxonomyItem = {
@@ -58,51 +57,57 @@ export function ArticleCard({
         )}
       </Link>
       <div className={styles.content}>
-        <h3 className={styles.cardTitle}>
+        <Text as="h3" className={styles.cardTitle}>
           <Link href={articleUrl} className={styles.titleLink}>
             {title}
           </Link>
-        </h3>
+        </Text>
         {cleanedExcerpt && (
-          <p className={styles.excerpt}>
+          <Text className={styles.excerpt}>
             {cleanedExcerpt}
             <Link href={articleUrl} className={styles.readMore}>
               Read more
             </Link>
-          </p>
+          </Text>
         )}
         {hasTaxonomies && (
           <div className={styles.taxonomies}>
             {tags.length > 0 && (
               <div className={styles.taxonomyRow}>
-                <span className={styles.taxonomyLabel}>Tags:</span>
+                <Text as="span" className={styles.taxonomyLabel}>Tags:</Text>
                 <div className={styles.taxonomyList}>
                   {tags.map((tag) => (
-                    <Link
+                    <Button
                       key={tag.slug}
+                      as="Link"
                       href={`/tag/${tag.slug}`}
-                      className={styles.tag}
+                      size="xs"
+                      variant="outline"
+                      color="neutral"
                     >
                       {tag.name}
-                    </Link>
+                    </Button>
                   ))}
                 </div>
               </div>
             )}
             {categories.length > 0 && (
               <div className={styles.taxonomyRow}>
-                <span className={styles.taxonomyLabel}>
+                <Text as="span" className={styles.taxonomyLabel}>
                   {categories.length === 1 ? "Category:" : "Categories:"}
-                </span>
+                </Text>
                 <div className={styles.taxonomyList}>
                   {categories.map((category) => (
-                    <Link
+                    <Button
                       key={category.slug}
+                      as="Link"
                       href={`/category/${category.slug}`}
-                      className={styles.category}
+                      size="xs"
+                      variant="outline"
+                      color="neutral"
                     >
                       {category.name}
-                    </Link>
+                    </Button>
                   ))}
                 </div>
               </div>

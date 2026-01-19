@@ -6,7 +6,7 @@ import {
   type AllProductSlugsResponse,
 } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/UI";
+import { Container } from "@/components/Primitives";
 import { ProductGallery, ProductInfo, RelatedProducts } from "@/components/Products";
 import { CartBadge } from "@/components/Cart";
 import SearchInput from "@/components/Layout/SearchInput";

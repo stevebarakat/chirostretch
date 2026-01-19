@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MapPin } from "lucide-react";
-import { Button } from "@/components/UI";
+import { Button } from "@/components/Primitives";
 import LocationSearchModal from "@/components/Search/LocationSearchModal";
 import styles from "./NewPatientConfirmation.module.css";
 

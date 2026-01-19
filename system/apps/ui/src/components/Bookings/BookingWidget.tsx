@@ -10,7 +10,8 @@ import { TimeSlotGrid } from "./TimeSlotGrid";
 import { useBookingParams } from "./useBookingParams";
 import type { BookableService, AvailableDate, TimeSlot } from "./types";
 import styles from "./BookingWidget.module.css";
-import { Button } from "@/components/UI";
+import { Button } from "@/components/Primitives";
+import { useCartStore } from "@/stores/useCartStore";
 
 type BookingWidgetProps = {
   services: BookableService[];
@@ -204,6 +205,23 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
 
         if (!res.ok || !data.success) {
           throw new Error(data.error || "Failed to add booking to cart");
+        }
+
+        // Sync booking to Zustand store before redirecting
+        const selectedService = services.find((s) => s.id === serviceId);
+        if (selectedService) {
+          const { addToCart } = useCartStore.getState();
+          await addToCart(serviceId, 1, {
+            name: selectedService.name,
+            type: "booking",
+            prices: {
+              price: selectedService.price?.replace(/[^0-9.]/g, "") || "0",
+            },
+            item_data: [
+              { name: "Date", value: date },
+              { name: "Time", value: time },
+            ],
+          });
         }
 
         window.location.href = "/cart";

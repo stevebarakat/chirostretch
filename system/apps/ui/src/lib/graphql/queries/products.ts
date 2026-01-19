@@ -1,4 +1,16 @@
+import {
+  MEDIA_ITEM_FIELDS,
+  MEDIA_ITEM_BASIC_FIELDS,
+  TAXONOMY_TERM_FIELDS,
+  PRODUCT_PRICING_FIELDS,
+  PAGE_INFO_FIELDS,
+} from "./fragments";
+
 export const PRODUCT_BY_SLUG_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${MEDIA_ITEM_BASIC_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+
   query ProductBySlug($slug: ID!) {
     product(id: $slug, idType: SLUG) {
       id
@@ -11,14 +23,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemFields
           }
         }
       }
@@ -37,14 +42,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
         }
         galleryImages {
           nodes {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemFields
           }
         }
       }
@@ -63,14 +61,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
         }
         galleryImages {
           nodes {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemFields
           }
         }
         variations {
@@ -101,29 +92,18 @@ export const PRODUCT_BY_SLUG_QUERY = `
         price
         galleryImages {
           nodes {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemFields
           }
         }
       }
       productCategories {
         nodes {
-          id
-          name
-          slug
+          ...TaxonomyTermFields
         }
       }
       productTags {
         nodes {
-          id
-          name
-          slug
+          ...TaxonomyTermFields
         }
       }
       related(first: 4) {
@@ -140,12 +120,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
           ... on NodeWithFeaturedImage {
             featuredImage {
               node {
-                sourceUrl
-                altText
-                mediaDetails {
-                  width
-                  height
-                }
+                ...MediaItemBasicFields
               }
             }
           }
@@ -171,6 +146,11 @@ export const ALL_PRODUCT_SLUGS_QUERY = `
 `;
 
 export const ALL_PRODUCTS_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PRODUCT_PRICING_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query AllProducts($first: Int, $after: String) {
     products(first: $first, after: $after, where: { typeIn: [SIMPLE, VARIABLE, EXTERNAL, GROUPED] }) {
       nodes {
@@ -178,66 +158,38 @@ export const ALL_PRODUCTS_QUERY = `
         databaseId
         name
         slug
-        ... on SimpleProduct {
-          price
-          regularPrice
-          salePrice
-          stockStatus
-        }
-        ... on VariableProduct {
-          price
-          regularPrice
-          salePrice
-          stockStatus
-        }
-        ... on ExternalProduct {
-          price
-          regularPrice
-          salePrice
-        }
-        ... on GroupProduct {
-          price
-        }
+        ...ProductPricingFields
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
         productCategories {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
         productTags {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }
 `;
 
 export const PRODUCTS_BY_CATEGORY_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PRODUCT_PRICING_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query ProductsByCategory($slug: ID!, $categorySlug: String!, $first: Int, $after: String) {
     productCategory(id: $slug, idType: SLUG) {
       id
@@ -252,59 +204,33 @@ export const PRODUCTS_BY_CATEGORY_QUERY = `
         databaseId
         name
         slug
-        ... on SimpleProduct {
-          price
-          regularPrice
-          salePrice
-          stockStatus
-        }
-        ... on VariableProduct {
-          price
-          regularPrice
-          salePrice
-          stockStatus
-        }
-        ... on ExternalProduct {
-          price
-          regularPrice
-          salePrice
-        }
-        ... on GroupProduct {
-          price
-        }
+        ...ProductPricingFields
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
         productCategories {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }
 `;
 
 export const PRODUCTS_BY_TAG_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PRODUCT_PRICING_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query ProductsByTag($slug: ID!, $tagId: Int!, $first: Int, $after: String) {
     productTag(id: $slug, idType: SLUG) {
       id
@@ -318,53 +244,22 @@ export const PRODUCTS_BY_TAG_QUERY = `
         databaseId
         name
         slug
-        ... on SimpleProduct {
-          price
-          regularPrice
-          salePrice
-          stockStatus
-        }
-        ... on VariableProduct {
-          price
-          regularPrice
-          salePrice
-          stockStatus
-        }
-        ... on ExternalProduct {
-          price
-          regularPrice
-          salePrice
-        }
-        ... on GroupProduct {
-          price
-        }
+        ...ProductPricingFields
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
         productCategories {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }

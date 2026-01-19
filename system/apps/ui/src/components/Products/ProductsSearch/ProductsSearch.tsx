@@ -3,8 +3,8 @@
 import { InstantSearch, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { PageHeader } from "@/components/UI";
-import { ErrorState } from "@/components/UI";
+import { ArchiveHeader } from "@/components/Primitives";
+import { ErrorState } from "@/components/Primitives";
 import { AlgoliaSearchBox } from "@/components/Search";
 import { InfiniteProductsHits } from "./InfiniteProductsHits";
 
@@ -28,7 +28,7 @@ export function ProductsSearch() {
       future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={12} />
-      <PageHeader
+      <ArchiveHeader
         title="Shop"
         subtitle="Browse our collection"
         showCart

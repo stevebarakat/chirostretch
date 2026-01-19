@@ -10,7 +10,7 @@ import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Image from "next/image";
 import { X, Calendar } from "lucide-react";
-import { Modal } from "@/components/UI";
+import { Modal, Text, Input } from "@/components/Primitives";
 import { useEventsContext } from "@/components/Events/EventsContext";
 import styles from "./SearchModal.module.css";
 
@@ -28,7 +28,7 @@ function SearchBox() {
   }
 
   return (
-    <input
+    <Input
       type="search"
       value={inputValue}
       onChange={handleChange}
@@ -93,11 +93,11 @@ function EventHitComponent({ hit, onSelect }: HitComponentProps) {
         )}
       </div>
       <div className={styles.hitContent}>
-        <h3 className={styles.hitTitle}>{hit.title}</h3>
+        <Text as="h3" className={styles.hitTitle}>{hit.title}</Text>
         {hit.startDate && (
-          <p className={styles.hitExcerpt}>{formatDate(hit.startDate)}</p>
+          <Text className={styles.hitExcerpt}>{formatDate(hit.startDate)}</Text>
         )}
-        {locationParts && <p className={styles.hitExcerpt}>{locationParts}</p>}
+        {locationParts && <Text className={styles.hitExcerpt}>{locationParts}</Text>}
       </div>
     </button>
   );
@@ -114,7 +114,7 @@ function SearchResults({ onSelect }: SearchResultsProps) {
   if (!query || query.trim() === "") {
     return (
       <div className={styles.noResults}>
-        <p>Search for events by name, location, or keyword.</p>
+        <Text>Search for events by name, location, or keyword.</Text>
       </div>
     );
   }
@@ -122,7 +122,7 @@ function SearchResults({ onSelect }: SearchResultsProps) {
   if (hits.length === 0) {
     return (
       <div className={styles.noResults}>
-        <p>No events found for &quot;{query}&quot;.</p>
+        <Text>No events found for &quot;{query}&quot;.</Text>
       </div>
     );
   }
@@ -156,7 +156,7 @@ export default function EventSearchModal({
     >
       <div className={styles.content}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Search Events</h2>
+          <Text as="h2" className={styles.title}>Search Events</Text>
           <button
             type="button"
             onClick={onClose}
@@ -168,7 +168,7 @@ export default function EventSearchModal({
         </div>
         {!isAlgoliaConfigured() || !searchClient ? (
           <div className={styles.noResults}>
-            <p>Search is not configured.</p>
+            <Text>Search is not configured.</Text>
           </div>
         ) : (
           <InstantSearch

@@ -1,21 +1,19 @@
+import {
+  MEDIA_ITEM_FIELDS,
+  MEDIA_ITEM_EXTENDED_FIELDS,
+} from "./fragments";
+
 export const FRANCHISE_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${MEDIA_ITEM_EXTENDED_FIELDS}
+
   query FranchiseOpportunities {
     page(id: "/franchise", idType: URI) {
       title
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            altText
-            sourceUrl
-            srcSet
-            sizes
-            slug
-            title
-            description
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemExtendedFields
           }
         }
       }
@@ -31,14 +29,7 @@ export const FRANCHISE_QUERY = `
         aboutSubheading
         aboutImage {
           node {
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemFields
           }
         }
         aboutCtaText
@@ -71,9 +62,7 @@ export const FRANCHISE_QUERY = `
         whyusDescription
         whyusImage {
           node {
-            altText
-            srcSet
-            sourceUrl
+            ...MediaItemFields
           }
         }
       }

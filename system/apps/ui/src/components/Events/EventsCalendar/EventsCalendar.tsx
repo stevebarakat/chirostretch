@@ -19,7 +19,7 @@ import {
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { NoImage } from "@/components/UI";
+import { NoImage, Text } from "@/components/Primitives";
 import type { Event } from "../types";
 import { useCalendarDates, WEEKDAYS } from "./useCalendarDates";
 import styles from "./EventsCalendar.module.css";
@@ -176,9 +176,9 @@ export const EventsCalendar = forwardRef<
         >
           <ChevronLeft size={20} />
         </button>
-        <h2 className={styles.monthYear}>
+        <Text as="h2" className={styles.monthYear}>
           {format(state.focusedMonth, "MMMM yyyy")}
-        </h2>
+        </Text>
         <button
           type="button"
           className={styles.navButton}
@@ -217,9 +217,9 @@ export const EventsCalendar = forwardRef<
                     role="gridcell"
                     aria-label={format(date, "EEEE, MMMM d, yyyy")}
                   >
-                    <span className={styles.dayNumber}>
+                    <Text as="span" className={styles.dayNumber}>
                       {format(date, "d")}
-                    </span>
+                    </Text>
                     <div className={styles.dayEvents}>
                       {dayEvents.map((event) => (
                         <EventCard
@@ -265,9 +265,9 @@ function EventCard({ event, onClick }: EventCardProps) {
       onClick={onClick}
       data-event-slug={event.slug}
     >
-      <span className={styles.eventCity}>{city}</span>
-      <span>-</span>
-      <span className={styles.eventTitle}>{title}</span>
+      <Text as="span" className={styles.eventCity}>{city}</Text>
+      <Text as="span">-</Text>
+      <Text as="span" className={styles.eventTitle}>{title}</Text>
     </button>
   );
 }
@@ -296,7 +296,7 @@ function MobileEventsList({
   const sortedDates = Array.from(grouped.keys()).sort();
 
   if (sortedDates.length === 0) {
-    return <p className={styles.emptyMonth}>No events this month</p>;
+    return <Text className={styles.emptyMonth}>No events this month</Text>;
   }
 
   return (
@@ -306,7 +306,7 @@ function MobileEventsList({
         const date = new Date(dateKey);
         return (
           <div key={dateKey} className={styles.dateGroup}>
-            <h3 className={styles.dateHeader}>{format(date, "MMMM d")}</h3>
+            <Text as="h3" className={styles.dateHeader}>{format(date, "MMMM d")}</Text>
             <div className={styles.dateEvents}>
               {dayEvents.map((event) => (
                 <MobileEventCard
@@ -356,14 +356,14 @@ function MobileEventCard({
         )}
       </div>
       <div className={styles.mobileCardContent}>
-        <h4 className={styles.mobileCardTitle}>{title}</h4>
+        <Text as="h4" className={styles.mobileCardTitle}>{title}</Text>
         {event.startDate && (
-          <p className={styles.mobileCardMeta}>
+          <Text className={styles.mobileCardMeta}>
             {dateStr} · {timeStr}
-          </p>
+          </Text>
         )}
-        {venue && <p className={styles.mobileCardMeta}>{venue}</p>}
-        <p className={styles.mobileCardCost}>{formatCost(event.cost)}</p>
+        {venue && <Text className={styles.mobileCardMeta}>{venue}</Text>}
+        <Text className={styles.mobileCardCost}>{formatCost(event.cost)}</Text>
         <Link
           href={`${basePath}/${event.slug}`}
           className={styles.mobileCardLink}

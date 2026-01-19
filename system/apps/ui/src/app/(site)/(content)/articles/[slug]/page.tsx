@@ -7,7 +7,7 @@ import {
   type PostBySlugResponse,
   type AllPostSlugsResponse,
 } from "@/lib/graphql/queries";
-import { Container } from "@/components/UI";
+import { Container, Button } from "@/components/Primitives";
 import { BlockRenderer, type Block } from "@/components/CMS";
 import styles from "./page.module.css";
 
@@ -91,9 +91,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   <div className={styles.categories}>
                     <span className={styles.taxonomyLabel}>Categories:</span>
                     {post.categories.nodes.map((category) => (
-                      <span key={category.id} className={styles.category}>
+                      <Button
+                        key={category.id}
+                        as="Link"
+                        href={`/category/${category.slug}`}
+                        size="xs"
+                        variant="outline"
+                        color="neutral"
+                      >
                         {category.name}
-                      </span>
+                      </Button>
                     ))}
                   </div>
                 )}
@@ -101,9 +108,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   <div className={styles.tags}>
                     <span className={styles.taxonomyLabel}>Tags:</span>
                     {post.tags.nodes.map((tag) => (
-                      <span key={tag.id} className={styles.tag}>
+                      <Button
+                        key={tag.id}
+                        as="Link"
+                        href={`/tag/${tag.slug}`}
+                        size="xs"
+                        variant="outline"
+                        color="neutral"
+                      >
                         {tag.name}
-                      </span>
+                      </Button>
                     ))}
                   </div>
                 )}

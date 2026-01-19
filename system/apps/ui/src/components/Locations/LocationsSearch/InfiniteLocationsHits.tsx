@@ -6,7 +6,7 @@ import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { LocationCard } from "../LocationCard";
 import Link from "next/link";
 import styles from "./InfiniteLocationsHits.module.css";
-import { FlipMotion, FlipMotionItem } from "@/components/UI";
+import { FlipMotion, FlipMotionItem } from "@/components/Primitives";
 
 type LocationHit = {
   objectID: string;

@@ -4,10 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 // eslint-disable-next-line no-restricted-imports
 import { useEffect } from "react";
-import { ImageWrapper } from "@/components/UI";
-import { NoImage } from "@/components/UI";
-import { StarRating } from "@/components/UI";
-import { Button } from "@/components/UI";
+import { ImageWrapper, NoImage, StarRating, Button, Text } from "@/components/Primitives";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { useCartStore } from "@/stores/useCartStore";
 import styles from "./ProductCard.module.css";
@@ -146,7 +143,7 @@ export function ProductCard({
             priority={priority}
             fetchPriority={priority ? "high" : "auto"}
           />
-          {isOnSale && <span className={styles.saleBadge}>Sale</span>}
+          {isOnSale && <Text as="span" className={styles.saleBadge}>Sale</Text>}
         </ImageWrapper>
       ) : (
         <ImageWrapper className={styles.imageWrapper}>
@@ -158,7 +155,7 @@ export function ProductCard({
         <div className={styles.overlay}>
           <div className={styles.overlayContent}>
             {productName && (
-              <h3 className={styles.name}>{productName}</h3>
+              <Text as="h3" className={styles.name}>{productName}</Text>
             )}
             <div className={styles.contentInner}>
               {(rating > 0 || reviewCountValue > 0) && (
@@ -204,9 +201,9 @@ export function ProductCard({
 
       <div className={styles.content}>
         {productName && (
-          <h3 className={variant === "featured" ? styles.name : styles.title}>
+          <Text as="h3" className={variant === "featured" ? styles.name : styles.title}>
             {productName}
-          </h3>
+          </Text>
         )}
 
         {variant === "featured" ? (
@@ -225,15 +222,15 @@ export function ProductCard({
             {formattedPrice && (
               <div className={styles.priceContainer}>
                 {isOnSale && regularPrice && (
-                  <span className={styles.regularPrice}>
+                  <Text as="span" className={styles.regularPrice}>
                     {formatPrice(regularPrice)}
-                  </span>
+                  </Text>
                 )}
-                <span className={styles.price}>{formattedPrice}</span>
+                <Text as="span" className={styles.price}>{formattedPrice}</Text>
               </div>
             )}
             {isOutOfStock && (
-              <span className={styles.outOfStock}>Out of Stock</span>
+              <Text as="span" className={styles.outOfStock}>Out of Stock</Text>
             )}
           </>
         )}

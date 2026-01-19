@@ -1,5 +1,5 @@
 import styles from "./cta.module.css";
-import { Button, ButtonIcon } from "@/components/UI";
+import { Button, ButtonIcon } from "@/components/Primitives";
 import { Promotion } from "@/components/Promotion";
 
 type IconNode = {

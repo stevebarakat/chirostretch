@@ -1,16 +1,12 @@
 import type { MenuItem } from "./menu";
+import { MEDIA_ITEM_FIELDS } from "./fragments";
 
 export const LAYOUT_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+
   query Layout {
     logo: mediaItem(id: "logo", idType: SLUG) {
-      altText
-      sourceUrl
-      srcSet
-      sizes
-      mediaDetails {
-        width
-        height
-      }
+      ...MediaItemFields
     }
     topMenu: menu(id: "main-menu", idType: SLUG) {
       id

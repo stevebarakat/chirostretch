@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Event } from "../types";
 import styles from "./EventsGrid.module.css";
-import { Divider } from "@/components/UI";
+import { Divider } from "@/components/Primitives";
 
 type EventsGridProps = {
   events: Event[];

@@ -5,6 +5,11 @@ import type {
   WpPageInfo,
   MediaItem,
 } from "../generated/graphql";
+import {
+  MEDIA_ITEM_BASIC_FIELDS,
+  MEDIA_ITEM_EXTENDED_FIELDS,
+  PAGE_INFO_FIELDS,
+} from "./fragments";
 
 // Re-export generated types for convenience
 export type { Location, LocationHours };
@@ -35,6 +40,9 @@ export type Practitioner = {
 };
 
 export const ALL_LOCATIONS_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query AllLocations($first: Int, $after: String) {
     locations(first: $first, after: $after) {
       nodes {
@@ -57,27 +65,22 @@ export const ALL_LOCATIONS_QUERY = `
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemBasicFields
             }
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }
 `;
 
 export const LOCATION_BY_SLUG_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+  ${MEDIA_ITEM_EXTENDED_FIELDS}
+
   query LocationBySlug($slug: ID!) {
     location(id: $slug, idType: SLUG) {
       id
@@ -101,13 +104,8 @@ export const LOCATION_BY_SLUG_QUERY = `
         }
         heroLinkIcon {
           node {
-            altText
-            sourceUrl
+            ...MediaItemBasicFields
             slug
-            mediaDetails {
-              width
-              height
-            }
           }
         }
         heroLink2 {
@@ -117,13 +115,8 @@ export const LOCATION_BY_SLUG_QUERY = `
         }
         heroLinkIcon2 {
           node {
-            sourceUrl
-            altText
+            ...MediaItemBasicFields
             slug
-            mediaDetails {
-              width
-              height
-            }
           }
         }
       }
@@ -139,15 +132,7 @@ export const LOCATION_BY_SLUG_QUERY = `
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            sourceUrl
-            altText
-            description
-            slug
-            title
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemExtendedFields
           }
         }
       }

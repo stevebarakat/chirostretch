@@ -2,6 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import type { BookableService, PractitionerType } from "./types";
+import { Text, Input } from "@/components/Primitives";
 import styles from "./ServiceSelect.module.css";
 
 type ServiceSelectProps = {
@@ -42,9 +43,10 @@ export function ServiceSelect({ services, selectedId, onSelect, loading }: Servi
 
   return (
     <div className={styles.container}>
-      <label className={styles.label}>Service Type</label>
+      <Text as="label" className={styles.label}>Service Type</Text>
       <div className={styles.selectWrapper}>
-        <select
+        <Input
+          as="select"
           className={styles.select}
           value={selectedId?.toString() ?? ""}
           onChange={handleChange}
@@ -56,13 +58,13 @@ export function ServiceSelect({ services, selectedId, onSelect, loading }: Servi
               {service.name} ({formatDuration(service.duration, service.durationUnit)})
             </option>
           ))}
-        </select>
+        </Input>
         <ChevronDown className={styles.icon} size={20} />
       </div>
       {selectedService?.practitionerTypes && selectedService.practitionerTypes.length > 0 && (
-        <p className={styles.practitioner}>
+        <Text className={styles.practitioner}>
           {formatPractitioners(selectedService.practitionerTypes)}
-        </p>
+        </Text>
       )}
     </div>
   );

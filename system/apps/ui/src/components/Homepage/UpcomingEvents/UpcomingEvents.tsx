@@ -1,8 +1,6 @@
 "use client";
 
-import { Container } from "@/components/UI";
-import { SectionHeading } from "@/components/UI";
-import { Button } from "@/components/UI";
+import { Container, SectionHeading, Button, Text } from "@/components/Primitives";
 import { EventsGrid, ExpandedEventModal } from "@/components/Events";
 import type { Event } from "@/components/Events";
 import styles from "./UpcomingEvents.module.css";
@@ -51,9 +49,9 @@ export default function UpcomingEvents({
           </>
         ) : (
           <div style={{ textAlign: "center", padding: "var(--spacing-3xl) 0" }}>
-            <p style={{ color: "var(--color-text-secondary)" }}>
+            <Text color="secondary">
               No upcoming events at this time.
-            </p>
+            </Text>
           </div>
         )}
         {eventsCtaText && eventsCtaLink && (

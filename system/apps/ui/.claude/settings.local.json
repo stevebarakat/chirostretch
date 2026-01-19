@@ -30,7 +30,32 @@
       "Bash(pnpm build:*)",
       "Bash(grep:*)",
       "Bash(npm run type-check:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "WebFetch(domain:docs.gravityforms.com)",
+      "Bash(pnpm tsc:*)",
+      "Bash(wp user list:*)",
+      "Bash(xargs:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm exec tsc:*)",
+      "Bash(git diff:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npm run lint:js:*)",
+      "Bash(git stash:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.zoho.com)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system status)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system diff apps/cms/wp-content/mu-plugins/zoho-lead-status-updater.php apps/cms/wp-content/mu-plugins/zoho-lead-converter.php)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system log --oneline -5)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system log --oneline --all -- apps/cms/wp-content/mu-plugins/zoho-lead-status-updater.php)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system add apps/cms/wp-content/mu-plugins/zoho-lead-converter.php)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system commit -m \"$\\(cat <<''EOF''\nfeat: add Zoho lead converter plugin\n\nConvert leads to Contacts \\(instead of updating Lead Status\\) when\nInitial Consultation is purchased. Uses the Zoho Convert Lead API\nendpoint since the Gravity Forms Add-On only supports create/update.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system checkout main)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system pull)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system merge fix/bookings-widget)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system checkout -b remove/franchise-application)",
+      "Bash(git -C /Users/sb/Dev/chirostretch/system branch:*)",
+      "Bash(npm run typecheck:*)"
     ]
   }
 }

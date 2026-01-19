@@ -1,21 +1,19 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useCartStore } from "@/stores/useCartStore";
 import { useRouter, useSearchParams } from "next/navigation";
+import { checkoutSchema, type CheckoutFormData } from "@/lib/forms/checkout-schema";
+import { Text, Input, Button } from "@/components/Primitives";
 import styles from "./checkout.module.css";
 
-type BillingInfo = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  address_1: string;
-  address_2: string;
-  city: string;
-  state: string;
-  postcode: string;
-  country: string;
+type CouponState = {
+  status: "idle" | "loading" | "valid" | "error";
+  discountAmount?: number;
+  errorMessage?: string;
+  appliedCode?: string;
 };
 
 export default function CheckoutPage() {
@@ -33,18 +31,33 @@ function CheckoutContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [redirecting, setRedirecting] = useState(false);
-  const [billing, setBilling] = useState<BillingInfo>({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    address_1: "",
-    address_2: "",
-    city: "",
-    state: "",
-    postcode: "",
-    country: "US",
+  const [coupon, setCoupon] = useState<CouponState>({ status: "idle" });
+  const [couponInput, setCouponInput] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<CheckoutFormData>({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      address_1: "",
+      address_2: "",
+      city: "",
+      state: "",
+      postcode: "",
+      country: "US",
+      coupon_code: "",
+    },
   });
+
+  const email = watch("email");
 
   // Check for payment failure or retry - redirect to WordPress payment URL
   useEffect(() => {
@@ -54,12 +67,9 @@ function CheckoutContent() {
     const paymentError = searchParams.get("payment_error");
 
     if (payForOrder === "true" && orderId && orderKey) {
-      // User needs to retry payment for existing order
-      // Redirect them back to WordPress payment URL
       setRedirecting(true);
       const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const paymentUrl = `${WP_URL}/checkout/order-pay/${orderId}/?pay_for_order=true&key=${orderKey}`;
-
       console.log(`[Checkout] Redirecting to retry payment: ${paymentUrl}`);
       window.location.href = paymentUrl;
     } else if (paymentError) {
@@ -76,15 +86,51 @@ function CheckoutContent() {
     }
   }, [isHydrated, items.length, router]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setBilling((prev) => ({ ...prev, [name]: value }));
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim()) return;
+
+    setCoupon({ status: "loading" });
+
+    try {
+      const response = await fetch("/api/coupons/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          coupon_code: couponInput.trim(),
+          email: email,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.valid) {
+        setCoupon({
+          status: "valid",
+          discountAmount: data.discount_amount,
+          appliedCode: data.coupon_code,
+        });
+        setValue("coupon_code", data.coupon_code);
+      } else {
+        setCoupon({
+          status: "error",
+          errorMessage: data.message || "Invalid coupon code",
+        });
+      }
+    } catch {
+      setCoupon({
+        status: "error",
+        errorMessage: "Failed to validate coupon. Please try again.",
+      });
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleRemoveCoupon = () => {
+    setCoupon({ status: "idle" });
+    setCouponInput("");
+    setValue("coupon_code", "");
+  };
+
+  const onSubmit = async (data: CheckoutFormData) => {
     setLoading(true);
     setError(null);
 
@@ -104,14 +150,27 @@ function CheckoutContent() {
 
         // Include booking metadata if this is a booking product
         if (item.type === "booking" && Array.isArray(item.item_data)) {
-          lineItem.meta_data = item.item_data.map((data: Record<string, unknown>) => ({
-            key: String(data.name || data.key || ""),
-            value: String(data.value || data.display || ""),
+          lineItem.meta_data = item.item_data.map((d: Record<string, unknown>) => ({
+            key: String(d.name || d.key || ""),
+            value: String(d.value || d.display || ""),
           }));
         }
 
         return lineItem;
       });
+
+      const billing = {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        address_1: data.address_1,
+        address_2: data.address_2 || "",
+        city: data.city,
+        state: data.state,
+        postcode: data.postcode,
+        country: data.country,
+      };
 
       // Create order via REST API
       const response = await fetch("/api/checkout/create-order", {
@@ -119,8 +178,9 @@ function CheckoutContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           billing,
-          shipping: billing, // Use same address for shipping
+          shipping: billing,
           line_items,
+          ...(data.coupon_code && { coupon_code: data.coupon_code }),
         }),
       });
 
@@ -131,16 +191,15 @@ function CheckoutContent() {
         );
       }
 
-      const data = await response.json();
+      const orderData = await response.json();
 
       // Clear cart immediately after order creation
-      // Cart items are now captured in the WooCommerce order
-      console.log(`[Checkout] Order ${data.order_id} created, clearing cart`);
+      console.log(`[Checkout] Order ${orderData.order_id} created, clearing cart`);
       clearCart();
 
       // Redirect to WordPress payment URL
-      console.log(`[Checkout] Redirecting to payment URL: ${data.payment_url}`);
-      window.location.href = data.payment_url;
+      console.log(`[Checkout] Redirecting to payment URL: ${orderData.payment_url}`);
+      window.location.href = orderData.payment_url;
     } catch (err) {
       console.error("[Checkout] Error:", err);
       setError(
@@ -155,8 +214,8 @@ function CheckoutContent() {
     return (
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>Redirecting to Payment...</h1>
-          <p>Please wait while we redirect you to complete your payment.</p>
+          <Text as="h1" className={styles.title}>Redirecting to Payment...</Text>
+          <Text>Please wait while we redirect you to complete your payment.</Text>
         </div>
       </div>
     );
@@ -169,226 +228,288 @@ function CheckoutContent() {
 
   // Show empty state if no items (and not redirecting for payment)
   if (items.length === 0 && !searchParams.get("pay_for_order")) {
-    return null; // Will redirect via useEffect
+    return null;
   }
+
+  // Calculate totals with discount
+  const subtotal = parseFloat(totals?.total_price || "0");
+  const discount = coupon.status === "valid" ? (coupon.discountAmount || 0) : 0;
+  const estimatedTotal = Math.max(0, subtotal - discount);
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.formSection}>
-          <h1 className={styles.title}>Checkout</h1>
+          <Text as="h1" className={styles.title}>Checkout</Text>
 
           {error && (
             <div className={styles.error}>
-              <p>{error}</p>
+              <Text>{error}</Text>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className={styles.form}>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <section className={styles.section}>
-              <h2 className={styles.sectionTitle}>Billing Information</h2>
+              <Text as="h2" className={styles.sectionTitle}>Billing Information</Text>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="first_name" className={styles.label}>
+                  <Text as="label" htmlFor="first_name" className={styles.label}>
                     First Name *
-                  </label>
-                  <input
+                  </Text>
+                  <Input
                     type="text"
                     id="first_name"
-                    name="first_name"
-                    value={billing.first_name}
-                    onChange={handleInputChange}
+                    {...register("first_name")}
                     className={styles.input}
-                    required
+                    error={!!errors.first_name}
                   />
+                  {errors.first_name && (
+                    <Text as="span" className={styles.fieldError}>{errors.first_name.message}</Text>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="last_name" className={styles.label}>
+                  <Text as="label" htmlFor="last_name" className={styles.label}>
                     Last Name *
-                  </label>
-                  <input
+                  </Text>
+                  <Input
                     type="text"
                     id="last_name"
-                    name="last_name"
-                    value={billing.last_name}
-                    onChange={handleInputChange}
+                    {...register("last_name")}
                     className={styles.input}
-                    required
+                    error={!!errors.last_name}
                   />
+                  {errors.last_name && (
+                    <Text as="span" className={styles.fieldError}>{errors.last_name.message}</Text>
+                  )}
                 </div>
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="email" className={styles.label}>
+                <Text as="label" htmlFor="email" className={styles.label}>
                   Email Address *
-                </label>
-                <input
+                </Text>
+                <Input
                   type="email"
                   id="email"
-                  name="email"
-                  value={billing.email}
-                  onChange={handleInputChange}
+                  {...register("email")}
                   className={styles.input}
-                  required
+                  error={!!errors.email}
                 />
+                {errors.email && (
+                  <Text as="span" className={styles.fieldError}>{errors.email.message}</Text>
+                )}
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="phone" className={styles.label}>
+                <Text as="label" htmlFor="phone" className={styles.label}>
                   Phone Number *
-                </label>
-                <input
+                </Text>
+                <Input
                   type="tel"
                   id="phone"
-                  name="phone"
-                  value={billing.phone}
-                  onChange={handleInputChange}
+                  {...register("phone")}
                   className={styles.input}
-                  required
+                  error={!!errors.phone}
                 />
+                {errors.phone && (
+                  <Text as="span" className={styles.fieldError}>{errors.phone.message}</Text>
+                )}
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="address_1" className={styles.label}>
+                <Text as="label" htmlFor="address_1" className={styles.label}>
                   Street Address *
-                </label>
-                <input
+                </Text>
+                <Input
                   type="text"
                   id="address_1"
-                  name="address_1"
-                  value={billing.address_1}
-                  onChange={handleInputChange}
+                  {...register("address_1")}
                   className={styles.input}
+                  error={!!errors.address_1}
                   placeholder="Street address, P.O. box, company name"
-                  required
                 />
+                {errors.address_1 && (
+                  <Text as="span" className={styles.fieldError}>{errors.address_1.message}</Text>
+                )}
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="address_2" className={styles.label}>
+                <Text as="label" htmlFor="address_2" className={styles.label}>
                   Apartment, suite, etc. (optional)
-                </label>
-                <input
+                </Text>
+                <Input
                   type="text"
                   id="address_2"
-                  name="address_2"
-                  value={billing.address_2}
-                  onChange={handleInputChange}
+                  {...register("address_2")}
                   className={styles.input}
                 />
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="city" className={styles.label}>
+                  <Text as="label" htmlFor="city" className={styles.label}>
                     City *
-                  </label>
-                  <input
+                  </Text>
+                  <Input
                     type="text"
                     id="city"
-                    name="city"
-                    value={billing.city}
-                    onChange={handleInputChange}
+                    {...register("city")}
                     className={styles.input}
-                    required
+                    error={!!errors.city}
                   />
+                  {errors.city && (
+                    <Text as="span" className={styles.fieldError}>{errors.city.message}</Text>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="state" className={styles.label}>
+                  <Text as="label" htmlFor="state" className={styles.label}>
                     State *
-                  </label>
-                  <input
+                  </Text>
+                  <Input
                     type="text"
                     id="state"
-                    name="state"
-                    value={billing.state}
-                    onChange={handleInputChange}
+                    {...register("state")}
                     className={styles.input}
+                    error={!!errors.state}
                     placeholder="CA"
-                    required
                   />
+                  {errors.state && (
+                    <Text as="span" className={styles.fieldError}>{errors.state.message}</Text>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="postcode" className={styles.label}>
+                  <Text as="label" htmlFor="postcode" className={styles.label}>
                     ZIP Code *
-                  </label>
-                  <input
+                  </Text>
+                  <Input
                     type="text"
                     id="postcode"
-                    name="postcode"
-                    value={billing.postcode}
-                    onChange={handleInputChange}
+                    {...register("postcode")}
                     className={styles.input}
-                    required
+                    error={!!errors.postcode}
                   />
+                  {errors.postcode && (
+                    <Text as="span" className={styles.fieldError}>{errors.postcode.message}</Text>
+                  )}
                 </div>
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="country" className={styles.label}>
+                <Text as="label" htmlFor="country" className={styles.label}>
                   Country *
-                </label>
-                <select
+                </Text>
+                <Input
+                  as="select"
                   id="country"
-                  name="country"
-                  value={billing.country}
-                  onChange={handleInputChange}
+                  {...register("country")}
                   className={styles.select}
-                  required
                 >
                   <option value="US">United States</option>
                   <option value="CA">Canada</option>
-                </select>
+                </Input>
               </div>
             </section>
 
-            <button
-              type="submit"
-              className={styles.submitButton}
-              disabled={loading}
-            >
+            {/* Coupon Section - visible after email is entered */}
+            {email && email.includes("@") && (
+              <section className={styles.couponSection}>
+                <Text as="h2" className={styles.sectionTitle}>Discount Code</Text>
+
+                {coupon.status === "valid" ? (
+                  <div className={styles.appliedCoupon}>
+                    <div className={styles.couponBadge}>
+                      <Text as="span" className={styles.couponCode}>{coupon.appliedCode}</Text>
+                      <Text as="span" className={styles.discountAmount}>
+                        -${coupon.discountAmount?.toFixed(2)}
+                      </Text>
+                    </div>
+                    <Button
+                      size="sm"
+                      color="neutral"
+                      variant="outline"
+                      onClick={handleRemoveCoupon}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={styles.couponInputRow}>
+                    <Input
+                      type="text"
+                      value={couponInput}
+                      onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                      placeholder="Enter discount code"
+                      className={`${styles.input} ${styles.couponInput}`}
+                      disabled={coupon.status === "loading"}
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleApplyCoupon}
+                      disabled={coupon.status === "loading" || !couponInput.trim()}
+                    >
+                      {coupon.status === "loading" ? "Applying..." : "Apply"}
+                    </Button>
+                  </div>
+                )}
+
+                {coupon.status === "error" && (
+                  <Text className={styles.couponError}>{coupon.errorMessage}</Text>
+                )}
+              </section>
+            )}
+
+            <Button type="submit" disabled={loading} fullWidth>
               {loading ? "Processing..." : "Continue to Payment"}
-            </button>
+            </Button>
           </form>
         </div>
 
         <aside className={styles.orderSummary}>
-          <h2 className={styles.summaryTitle}>Order Summary</h2>
+          <Text as="h2" className={styles.summaryTitle}>Order Summary</Text>
 
           <div className={styles.items}>
             {items.map((item) => (
               <div key={item.key} className={styles.item}>
                 <div className={styles.itemInfo}>
-                  <span className={styles.itemName}>{item.name}</span>
-                  <span className={styles.itemQuantity}>Qty: {item.quantity}</span>
+                  <Text as="span" className={styles.itemName}>{item.name}</Text>
+                  <Text as="span" className={styles.itemQuantity}>Qty: {item.quantity}</Text>
                 </div>
-                <span className={styles.itemPrice}>
+                <Text as="span" className={styles.itemPrice}>
                   ${item.prices?.price || "0.00"}
-                </span>
+                </Text>
               </div>
             ))}
           </div>
 
           <div className={styles.totals}>
             <div className={styles.totalRow}>
-              <span>Subtotal</span>
-              <span>${totals?.total_price || "0.00"}</span>
+              <Text as="span">Subtotal</Text>
+              <Text as="span">${subtotal.toFixed(2)}</Text>
+            </div>
+
+            {coupon.status === "valid" && discount > 0 && (
+              <div className={`${styles.totalRow} ${styles.discountRow}`}>
+                <Text as="span">Discount ({coupon.appliedCode})</Text>
+                <Text as="span" className={styles.discountValue}>-${discount.toFixed(2)}</Text>
+              </div>
+            )}
+
+            <div className={styles.totalRow}>
+              <Text as="span">Tax</Text>
+              <Text as="span">Calculated at next step</Text>
             </div>
             <div className={styles.totalRow}>
-              <span>Tax</span>
-              <span>Calculated at next step</span>
-            </div>
-            <div className={styles.totalRow}>
-              <span>Shipping</span>
-              <span>Calculated at next step</span>
+              <Text as="span">Shipping</Text>
+              <Text as="span">Calculated at next step</Text>
             </div>
             <div className={styles.totalRowFinal}>
-              <strong>Total</strong>
-              <strong>${totals?.total_price || "0.00"}</strong>
+              <Text as="strong">Estimated Total</Text>
+              <Text as="strong">${estimatedTotal.toFixed(2)}</Text>
             </div>
           </div>
         </aside>

@@ -3,7 +3,7 @@
 import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/stores/useCartStore";
-import Link from "next/link";
+import { Button } from "@/components/Primitives";
 import styles from "./success.module.css";
 
 function SuccessContent() {
@@ -64,12 +64,12 @@ function SuccessContent() {
         </div>
 
         <div className={styles.actions}>
-          <Link href="/shop" className={styles.primaryButton}>
+          <Button as="Link" href="/shop">
             Continue Shopping
-          </Link>
-          <Link href="/" className={styles.secondaryButton}>
+          </Button>
+          <Button as="Link" href="/" color="secondary">
             Return to Home
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

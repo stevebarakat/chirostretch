@@ -3,8 +3,8 @@
 import { InstantSearch, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { PageHeader } from "@/components/UI";
-import { ErrorState } from "@/components/UI";
+import { ArchiveHeader } from "@/components/Primitives";
+import { ErrorState } from "@/components/Primitives";
 import { EventsProvider } from "../EventsContext";
 import { EventSearchTrigger } from "./EventSearchTrigger";
 import { InfiniteEventsHits } from "./InfiniteEventsHits";
@@ -30,7 +30,7 @@ export function EventsSearch() {
         future={{ preserveSharedStateOnUnmount: true }}
       >
         <Configure hitsPerPage={100} />
-        <PageHeader
+        <ArchiveHeader
           title="Events"
           subtitle="Discover upcoming events and workshops"
           searchSlot={<EventSearchTrigger />}

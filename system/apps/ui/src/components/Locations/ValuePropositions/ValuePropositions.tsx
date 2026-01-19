@@ -5,6 +5,7 @@ import {
   type ValueProposition,
 } from "@/lib/graphql/queries";
 import { proxyCmsUrl } from "@/utils/image-helpers";
+import { Text } from "@/components/Primitives";
 import styles from "./ValuePropositions.module.css";
 
 const fallbackTitle = "The ChiroStretch Advantage";
@@ -69,8 +70,8 @@ export async function ValuePropositions() {
 
   return (
     <div className={styles.root}>
-      <h2 className={styles.title}>{title}</h2>
-      {description && <p className={styles.description}>{description}</p>}
+      <Text as="h2" className={styles.title}>{title}</Text>
+      {description && <Text className={styles.description}>{description}</Text>}
       <div className={styles.grid}>
         {propositions.map((prop, index) => (
           <div key={index} className={styles.card}>
@@ -93,8 +94,8 @@ export async function ValuePropositions() {
                 <span className={styles.iconFallback}>●</span>
               )}
             </div>
-            <h3 className={styles.cardTitle}>{prop.title}</h3>
-            <p className={styles.cardDescription}>{prop.description}</p>
+            <Text as="h3" className={styles.cardTitle}>{prop.title}</Text>
+            <Text className={styles.cardDescription}>{prop.description}</Text>
           </div>
         ))}
       </div>

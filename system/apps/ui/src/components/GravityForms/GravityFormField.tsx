@@ -2,8 +2,7 @@
 
 import { useController, Control, UseFormRegister } from "react-hook-form";
 import { type GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries";
-import { Input } from "@/components/UI";
-import { FormField } from "@/components/UI";
+import { Input, FormField, Text } from "@/components/Primitives";
 import styles from "./GravityFormField.module.css";
 
 type GravityFormFieldProps = {
@@ -120,17 +119,17 @@ export default function GravityFormField({
     return (
       <div className={styles.field}>
         {field.label && (
-          <label className={styles.label}>
+          <Text as="label" className={styles.label}>
             {field.label}
-            {field.isRequired && <span className={styles.required}>*</span>}
-          </label>
+            {field.isRequired && <Text as="span" className={styles.required}>*</Text>}
+          </Text>
         )}
         {field.description && (
-          <p className={styles.description}>{field.description}</p>
+          <Text className={styles.description}>{field.description}</Text>
         )}
         <div className={styles.checkboxGroup}>
           {field.choices.map((choice) => (
-            <label key={choice.value} className={styles.checkboxLabel}>
+            <Text as="label" key={choice.value} className={styles.checkboxLabel}>
               <input
                 type="checkbox"
                 checked={values.includes(choice.value)}
@@ -144,10 +143,10 @@ export default function GravityFormField({
                 className={styles.checkbox}
               />
               {choice.text}
-            </label>
+            </Text>
           ))}
         </div>
-        {error && <span className={styles.error}>{error}</span>}
+        {error && <Text as="span" className={styles.error}>{error}</Text>}
       </div>
     );
   }
@@ -157,7 +156,7 @@ export default function GravityFormField({
     const isChecked = controllerField.value === "1" || controllerField.value === true;
     return (
       <div className={styles.field}>
-        <label className={styles.checkboxLabel}>
+        <Text as="label" className={styles.checkboxLabel}>
           <input
             type="checkbox"
             checked={isChecked}
@@ -167,15 +166,15 @@ export default function GravityFormField({
             onBlur={controllerField.onBlur}
             className={styles.checkbox}
           />
-          <span>
+          <Text as="span">
             {field.label}
-            {field.isRequired && <span className={styles.required}>*</span>}
-          </span>
-        </label>
+            {field.isRequired && <Text as="span" className={styles.required}>*</Text>}
+          </Text>
+        </Text>
         {field.description && (
-          <p className={styles.description}>{field.description}</p>
+          <Text className={styles.description}>{field.description}</Text>
         )}
-        {error && <span className={styles.error}>{error}</span>}
+        {error && <Text as="span" className={styles.error}>{error}</Text>}
       </div>
     );
   }
@@ -184,17 +183,17 @@ export default function GravityFormField({
     return (
       <div className={styles.field}>
         {field.label && (
-          <label className={styles.label}>
+          <Text as="label" className={styles.label}>
             {field.label}
-            {field.isRequired && <span className={styles.required}>*</span>}
-          </label>
+            {field.isRequired && <Text as="span" className={styles.required}>*</Text>}
+          </Text>
         )}
         {field.description && (
-          <p className={styles.description}>{field.description}</p>
+          <Text className={styles.description}>{field.description}</Text>
         )}
         <div className={styles.radioGroup}>
           {field.choices.map((choice) => (
-            <label key={choice.value} className={styles.radioLabel}>
+            <Text as="label" key={choice.value} className={styles.radioLabel}>
               <input
                 type="radio"
                 {...register(fieldName)}
@@ -202,10 +201,10 @@ export default function GravityFormField({
                 className={styles.radio}
               />
               {choice.text}
-            </label>
+            </Text>
           ))}
         </div>
-        {error && <span className={styles.error}>{error}</span>}
+        {error && <Text as="span" className={styles.error}>{error}</Text>}
       </div>
     );
   }

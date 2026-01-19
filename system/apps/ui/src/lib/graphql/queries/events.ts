@@ -1,4 +1,13 @@
+import {
+  MEDIA_ITEM_FIELDS,
+  MEDIA_ITEM_BASIC_FIELDS,
+  PAGE_INFO_FIELDS,
+} from "./fragments";
+
 export const EVENTS_INDEX_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query getEvents($first: Int, $after: String) {
     events(first: $first, after: $after) {
       nodes {
@@ -33,30 +42,21 @@ export const EVENTS_INDEX_QUERY = `
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }
 `;
 
 export const EVENT_BY_SLUG_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+
   query EventBySlug($slug: ID!) {
     event(id: $slug, idType: SLUG) {
       slug
@@ -90,14 +90,9 @@ export const EVENT_BY_SLUG_QUERY = `
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            sourceUrl
-            altText
+            ...MediaItemBasicFields
             title
             description
-            mediaDetails {
-              width
-              height
-            }
           }
         }
       }
@@ -106,6 +101,8 @@ export const EVENT_BY_SLUG_QUERY = `
 `;
 
 export const ALL_EVENTS_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+
   query getAllEvents($first: Int, $after: String) {
     events(first: $first, after: $after) {
       nodes {
@@ -136,8 +133,7 @@ export const ALL_EVENTS_QUERY = `
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              sourceUrl
-              altText
+              ...MediaItemBasicFields
             }
           }
         }

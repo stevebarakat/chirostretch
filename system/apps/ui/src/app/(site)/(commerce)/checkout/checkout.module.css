@@ -104,28 +104,6 @@
   color: #999;
 }
 
-.submitButton {
-  padding: 1rem 2rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: white;
-  background-color: var(--primary-color, #007bff);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 1rem;
-}
-
-.submitButton:hover:not(:disabled) {
-  background-color: var(--primary-color-dark, #0056b3);
-}
-
-.submitButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 /* Order Summary */
 .orderSummary {
   position: sticky;
@@ -203,4 +181,86 @@
   margin-top: 0.75rem;
   border-top: 2px solid #ddd;
   color: var(--text-primary, #1a1a1a);
+}
+
+/* Form Validation Errors */
+.inputError {
+  border-color: #dc3545;
+}
+
+.inputError:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.fieldError {
+  font-size: 0.8125rem;
+  color: #dc3545;
+  margin-top: 0.25rem;
+}
+
+/* Coupon Section */
+.couponSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.couponInputRow {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.couponInput {
+  flex: 1;
+  text-transform: uppercase;
+}
+
+.appliedCoupon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.couponBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+}
+
+.couponCode {
+  font-weight: 600;
+  color: #155724;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.discountAmount {
+  font-weight: 600;
+  color: #155724;
+}
+
+.couponError {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Discount Row in Order Summary */
+.discountRow {
+  color: #155724;
+}
+
+.discountValue {
+  font-weight: 600;
+  color: #155724;
 }

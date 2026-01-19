@@ -2,14 +2,11 @@ import type { Metadata } from "next";
 import { Poppins, Montserrat } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/tokens.css";
-import "@/styles/forms.css";
 import "@/styles/globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
-import { ModalProvider } from "@/components/Modals";
-import { BackToTop } from "@/components/UI";
-import { getGravityForm } from "next-gravity-forms/server";
+import { BackToTop } from "@/components/Primitives";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   LAYOUT_QUERY,
@@ -98,16 +95,6 @@ export default async function RootLayout({
     footerMenuItems = undefined;
   }
 
-  // Fetch the New Patient Offer form for the global modal
-  // Form ID 17 = New Patient Offer form (configure in WordPress)
-  const NEW_PATIENT_OFFER_FORM_ID = 17;
-  let claimOfferForm = null;
-  try {
-    claimOfferForm = await getGravityForm(NEW_PATIENT_OFFER_FORM_ID);
-  } catch (error) {
-    console.warn("Failed to fetch New Patient Offer form:", error);
-  }
-
   return (
     <html
       lang="en"
@@ -126,12 +113,10 @@ export default async function RootLayout({
       </head>
       <body>
         <CartProvider>
-          <ModalProvider claimOfferForm={claimOfferForm}>
-            <Header logo={logo} topMenuItems={topMenuItems} />
-            {children}
-            <Footer logo={logo} />
-            <BackToTop />
-          </ModalProvider>
+          <Header logo={logo} topMenuItems={topMenuItems} />
+          <main>{children}</main>
+          <Footer logo={logo} />
+          <BackToTop />
         </CartProvider>
       </body>
     </html>

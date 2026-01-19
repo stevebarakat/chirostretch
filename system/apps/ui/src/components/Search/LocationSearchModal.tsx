@@ -10,7 +10,7 @@ import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
 import { X, MapPin } from "lucide-react";
-import { Modal } from "@/components/UI";
+import { Modal, Text, Input } from "@/components/Primitives";
 import styles from "./SearchModal.module.css";
 
 type LocationSearchModalProps = {
@@ -27,7 +27,7 @@ function SearchBox() {
   }
 
   return (
-    <input
+    <Input
       type="search"
       value={inputValue}
       onChange={handleChange}
@@ -70,10 +70,10 @@ function LocationHitComponent({ hit, onHitClick }: HitComponentProps) {
         />
       </div>
       <div className={styles.hitContent}>
-        <h3 className={styles.hitTitle}>{hit.title}</h3>
-        {addressParts && <p className={styles.hitExcerpt}>{addressParts}</p>}
+        <Text as="h3" className={styles.hitTitle}>{hit.title}</Text>
+        {addressParts && <Text className={styles.hitExcerpt}>{addressParts}</Text>}
         {hit.streetAddress && (
-          <p className={styles.hitExcerpt}>{hit.streetAddress}</p>
+          <Text className={styles.hitExcerpt}>{hit.streetAddress}</Text>
         )}
       </div>
     </Link>
@@ -91,7 +91,7 @@ function SearchResults({ onHitClick }: SearchResultsProps) {
   if (!query || query.trim() === "") {
     return (
       <div className={styles.noResults}>
-        <p>Enter a city, state, or zip code to find locations near you.</p>
+        <Text>Enter a city, state, or zip code to find locations near you.</Text>
       </div>
     );
   }
@@ -99,7 +99,7 @@ function SearchResults({ onHitClick }: SearchResultsProps) {
   if (hits.length === 0) {
     return (
       <div className={styles.noResults}>
-        <p>No locations found for &quot;{query}&quot;.</p>
+        <Text>No locations found for &quot;{query}&quot;.</Text>
       </div>
     );
   }
@@ -130,7 +130,7 @@ export default function LocationSearchModal({
     >
       <div className={styles.content}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Find A Location</h2>
+          <Text as="h2" className={styles.title}>Find A Location</Text>
           <button
             type="button"
             onClick={onClose}
@@ -142,7 +142,7 @@ export default function LocationSearchModal({
         </div>
         {!isAlgoliaConfigured() || !searchClient ? (
           <div className={styles.noResults}>
-            <p>Search is not configured.</p>
+            <Text>Search is not configured.</Text>
           </div>
         ) : (
           <InstantSearch

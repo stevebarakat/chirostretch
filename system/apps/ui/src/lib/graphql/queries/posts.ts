@@ -1,4 +1,16 @@
+import {
+  MEDIA_ITEM_FIELDS,
+  AUTHOR_FIELDS,
+  TAXONOMY_TERM_FIELDS,
+  PAGE_INFO_FIELDS,
+} from "./fragments";
+
 export const ALL_POSTS_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${AUTHOR_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query AllPosts($first: Int, $after: String) {
     posts(first: $first, after: $after) {
       nodes {
@@ -12,52 +24,39 @@ export const ALL_POSTS_QUERY = `
         modified
         author {
           node {
-            id
-            name
-            slug
+            ...AuthorFields
           }
         }
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
         categories {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
         tags {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }
 `;
 
 export const POST_BY_SLUG_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${AUTHOR_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+
   query PostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       id
@@ -70,38 +69,24 @@ export const POST_BY_SLUG_QUERY = `
       modified
       author {
         node {
-          id
-          name
-          slug
+          ...AuthorFields
         }
       }
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
-            id
-            sourceUrl
-            altText
-            srcSet
-            sizes
-            mediaDetails {
-              width
-              height
-            }
+            ...MediaItemFields
           }
         }
       }
       categories {
         nodes {
-          id
-          name
-          slug
+          ...TaxonomyTermFields
         }
       }
       tags {
         nodes {
-          id
-          name
-          slug
+          ...TaxonomyTermFields
         }
       }
       blocks
@@ -125,6 +110,11 @@ export const ALL_POST_SLUGS_QUERY = `
 `;
 
 export const POSTS_BY_CATEGORY_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${AUTHOR_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query PostsByCategory($slug: ID!, $categoryName: String!, $first: Int, $after: String) {
     category(id: $slug, idType: SLUG) {
       id
@@ -144,52 +134,40 @@ export const POSTS_BY_CATEGORY_QUERY = `
         modified
         author {
           node {
-            id
-            name
-            slug
+            ...AuthorFields
           }
         }
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
         categories {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
         tags {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }
 `;
 
 export const POSTS_BY_TAG_QUERY = `
+  ${MEDIA_ITEM_FIELDS}
+  ${AUTHOR_FIELDS}
+  ${TAXONOMY_TERM_FIELDS}
+  ${PAGE_INFO_FIELDS}
+
   query PostsByTag($slug: ID!, $tagName: String!, $first: Int, $after: String) {
     tag(id: $slug, idType: SLUG) {
       id
@@ -209,46 +187,29 @@ export const POSTS_BY_TAG_QUERY = `
         modified
         author {
           node {
-            id
-            name
-            slug
+            ...AuthorFields
           }
         }
         ... on NodeWithFeaturedImage {
           featuredImage {
             node {
-              id
-              sourceUrl
-              altText
-              srcSet
-              sizes
-              mediaDetails {
-                width
-                height
-              }
+              ...MediaItemFields
             }
           }
         }
         categories {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
         tags {
           nodes {
-            id
-            name
-            slug
+            ...TaxonomyTermFields
           }
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
-        hasPreviousPage
-        startCursor
+        ...PageInfoFields
       }
     }
   }

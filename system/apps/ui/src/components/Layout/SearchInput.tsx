@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
+import { Input } from "@/components/Primitives";
 import styles from "./SearchInput.module.css";
 
 const SearchModal = dynamic(
@@ -76,7 +77,7 @@ export default function SearchInput() {
     <>
       <div className={styles.search}>
         <Search className={styles.searchIcon} size={20} aria-hidden="true" />
-        <input
+        <Input
           type="search"
           placeholder={placeholder}
           className={styles.searchInput}

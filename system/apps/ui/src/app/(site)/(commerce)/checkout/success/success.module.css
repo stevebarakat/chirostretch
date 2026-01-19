@@ -101,47 +101,9 @@
   justify-content: center;
 }
 
-.primaryButton,
-.secondaryButton {
-  padding: 0.875rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s;
-  display: inline-block;
-}
-
-.primaryButton {
-  background-color: var(--primary-color, #007bff);
-  color: white;
-  border: 2px solid var(--primary-color, #007bff);
-}
-
-.primaryButton:hover {
-  background-color: var(--primary-color-dark, #0056b3);
-  border-color: var(--primary-color-dark, #0056b3);
-}
-
-.secondaryButton {
-  background-color: transparent;
-  color: var(--primary-color, #007bff);
-  border: 2px solid var(--primary-color, #007bff);
-}
-
-.secondaryButton:hover {
-  background-color: rgba(0, 123, 255, 0.05);
-}
-
 @media (max-width: 568px) {
   .actions {
     flex-direction: column;
     width: 100%;
-  }
-
-  .primaryButton,
-  .secondaryButton {
-    width: 100%;
-    text-align: center;
   }
 }
