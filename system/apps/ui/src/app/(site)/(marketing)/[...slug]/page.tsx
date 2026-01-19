@@ -3,9 +3,7 @@ import type { Metadata } from "next";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   PAGE_BY_URI_QUERY,
-  ALL_PAGE_SLUGS_QUERY,
   type PageByUriResponse,
-  type AllPageSlugsResponse,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/Primitives";
 import { BlockRenderer, type Block } from "@/components/CMS";

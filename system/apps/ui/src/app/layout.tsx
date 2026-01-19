@@ -66,7 +66,6 @@ export default async function RootLayout({
 }>) {
   let logo;
   let topMenuItems: MenuItem[] | undefined;
-  let footerMenuItems: MenuItem[] | undefined;
 
   try {
     const data = await wpQuery<LayoutQueryResponse>(
@@ -79,7 +78,6 @@ export default async function RootLayout({
     );
     logo = data?.logo;
     topMenuItems = data?.topMenu?.menuItems?.nodes;
-    footerMenuItems = data?.footerMenu?.menuItems?.nodes;
 
     if (!data?.topMenu) {
       console.warn(
@@ -92,7 +90,6 @@ export default async function RootLayout({
     console.error("Failed to fetch layout data from WordPress:", error);
     logo = undefined;
     topMenuItems = undefined;
-    footerMenuItems = undefined;
   }
 
   return (

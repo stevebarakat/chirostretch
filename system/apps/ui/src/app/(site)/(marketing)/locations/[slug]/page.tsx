@@ -6,11 +6,9 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   LOCATION_BY_SLUG_QUERY,
-  ALL_LOCATION_SLUGS_QUERY,
   BOOKING_PRODUCTS_QUERY,
   ALL_TESTIMONIALS_QUERY,
   type LocationBySlugResponse,
-  type AllLocationSlugsResponse,
   type BookingProductsResponse,
   type AllTestimonialsResponse,
   type Practitioner,

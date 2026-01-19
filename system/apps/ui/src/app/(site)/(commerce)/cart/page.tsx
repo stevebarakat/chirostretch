@@ -2,7 +2,6 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState, useCallback, startTransition } from "react";
-import Link from "next/link";
 import { RefreshCcw, Trash2 } from "lucide-react";
 import { Container, Button, Text, Input } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";

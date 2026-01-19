@@ -3,9 +3,7 @@ import { notFound } from "next/navigation";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   POST_BY_SLUG_QUERY,
-  ALL_POST_SLUGS_QUERY,
   type PostBySlugResponse,
-  type AllPostSlugsResponse,
 } from "@/lib/graphql/queries";
 import { Container, Button } from "@/components/Primitives";
 import { BlockRenderer, type Block } from "@/components/CMS";

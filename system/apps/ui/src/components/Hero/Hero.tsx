@@ -66,7 +66,7 @@ type HeroProps = {
 };
 
 function Hero(props: HeroProps) {
-  const { featuredImage, maxHeight = 750 } = props;
+  const { featuredImage } = props;
   const img = featuredImage?.node;
 
   if (!img?.sourceUrl) {

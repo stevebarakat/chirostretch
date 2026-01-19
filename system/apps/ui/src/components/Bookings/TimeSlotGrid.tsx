@@ -52,9 +52,12 @@ export function TimeSlotGrid({
   // - This is a side effect that syncs UI state with browser scroll API
   useEffect(() => {
     if (!shouldSection || !scrollContainerRef.current) {
-      setCanScrollLeft(false);
-      setCanScrollRight(false);
-      return;
+      // Use setTimeout to defer state updates and avoid synchronous setState in effect
+      const timeoutId = setTimeout(() => {
+        setCanScrollLeft(false);
+        setCanScrollRight(false);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
 
     function updateScrollState() {
@@ -68,12 +71,14 @@ export function TimeSlotGrid({
       setCanScrollRight(scrollLeft + clientWidth < scrollWidth - threshold);
     }
 
-    updateScrollState();
+    // Initial state update deferred to avoid synchronous setState
+    const initialTimeoutId = setTimeout(updateScrollState, 0);
 
     const container = scrollContainerRef.current;
     container.addEventListener("scroll", updateScrollState, { passive: true });
 
     return () => {
+      clearTimeout(initialTimeoutId);
       container.removeEventListener("scroll", updateScrollState);
     };
   }, [shouldSection, slots]);

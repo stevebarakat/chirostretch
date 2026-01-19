@@ -1,5 +1,6 @@
 "use client";
 
+// eslint-disable-next-line no-restricted-imports
 import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/stores/useCartStore";

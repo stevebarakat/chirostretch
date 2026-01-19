@@ -1,9 +1,7 @@
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   PRODUCT_BY_SLUG_QUERY,
-  ALL_PRODUCT_SLUGS_QUERY,
   type ProductBySlugResponse,
-  type AllProductSlugsResponse,
 } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Primitives";

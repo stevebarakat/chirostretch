@@ -61,8 +61,6 @@ function stripHtml(html: string): string {
 export default function LatestInsights({
   insightsHeading,
   insightsSubheading,
-  insightsCtaText,
-  insightsCtaLink,
   posts = [],
 }: LatestInsightsProps) {
   if (!insightsHeading) return null;
