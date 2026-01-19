@@ -10,7 +10,7 @@ import GravityFormFieldComponent from "./GravityFormField";
 import { NewPatientConfirmation, type NewPatientLeadData } from "./NewPatientConfirmation";
 import styles from "./GravityForm.module.css";
 
-type GravityFormEnhancedProps = {
+type GravityFormProps = {
   form: unknown;
   formId?: number;
   onSubmitSuccess?: (response: unknown) => void;
@@ -46,12 +46,12 @@ function groupFieldsByPage(allFields: GravityFormFieldType[]): FieldPage[] {
   return pages;
 }
 
-export function GravityFormEnhanced({
+export function GravityForm({
   form,
   formId,
   onSubmitSuccess,
   submitButtonText,
-}: GravityFormEnhancedProps) {
+}: GravityFormProps) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [leadData, setLeadData] = useState<NewPatientLeadData | null>(null);

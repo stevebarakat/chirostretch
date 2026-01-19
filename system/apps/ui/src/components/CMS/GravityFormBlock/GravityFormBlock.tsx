@@ -3,8 +3,8 @@
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState } from "react";
 import type { Block } from "../BlockRenderer";
-import { GravityFormEnhanced } from "@/components/GravityForms/GravityFormEnhanced";
-import { NewPatientConfirmation, type NewPatientLeadData } from "@/components/GravityForms/NewPatientConfirmation";
+import { GravityForm } from "@/components/GravityForm";
+import { NewPatientConfirmation, type NewPatientLeadData } from "@/components/GravityForm/NewPatientConfirmation";
 import styles from "./GravityFormBlock.module.css";
 
 type GravityFormBlockProps = {
@@ -17,13 +17,13 @@ type GravityFormData = {
   [key: string]: unknown;
 };
 
-type GravityForm = GravityFormData & {
+type GravityFormResponse = GravityFormData & {
   gfForm?: GravityFormData;
 };
 
 type FormState = {
   status: "loading" | "error" | "ready" | "submitted";
-  form: GravityForm | null;
+  form: GravityFormResponse | null;
   error: string | null;
   submissionResponse: SubmissionResponse | null;
 };
@@ -160,7 +160,7 @@ export default function GravityFormBlock({ block }: GravityFormBlockProps) {
   return (
     <div className={styles.formBlock}>
       {formTitle && <h3 className={styles.formTitle}>{formTitle}</h3>}
-      <GravityFormEnhanced
+      <GravityForm
         form={state.form}
         formId={numericFormId}
         onSubmitSuccess={(response) => {
