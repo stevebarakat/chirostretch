@@ -8,8 +8,10 @@ const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
 const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
 
-// Form 17 is the New Patient Special form
+// Form IDs
 const NEW_PATIENT_FORM_ID = "17";
+const FRANCHISE_FORM_ID = "16";
+const CONTACT_FORM_ID = "18";
 
 // Known field types for specific forms (field ID -> type)
 // This ensures proper normalization even if frontend doesn't pass fieldTypes
@@ -18,6 +20,20 @@ const FORM_FIELD_TYPES: Record<string, Record<string, string>> = {
     "1": "NAME",
     "3": "EMAIL",
     "4": "PHONE",
+  },
+  "16": {
+    "1": "TEXT", // First Name
+    "2": "TEXT", // Last Name
+    "3": "EMAIL",
+  },
+  "18": {
+    "1": "SELECT",
+    "2": "NAME",
+    "3": "EMAIL",
+    "4": "PHONE",
+    "5": "TEXT",
+    "6": "TEXTAREA",
+    "7": "SELECT",
   },
 };
 
@@ -144,11 +160,22 @@ function transformFormDataToFieldValues(
         } as FieldValueInput;
       }
 
-      // Handle phone fields - pass through as-is (GF handles validation)
+      // Handle phone fields - normalize to standard US format if possible
       if (fieldType && PHONE_FIELD_TYPES.includes(fieldType)) {
+        let phone = String(value || "").trim();
+        // Extract just digits
+        const digits = phone.replace(/\D/g, "");
+        // If 11 digits starting with 1, strip the country code
+        // If 10 digits, format as (xxx) xxx-xxxx
+        if (digits.length === 11 && digits.startsWith("1")) {
+          const local = digits.slice(1);
+          phone = `(${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6)}`;
+        } else if (digits.length === 10) {
+          phone = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+        }
         return {
           id: fieldId,
-          value: String(value || "").trim(),
+          value: phone,
         } as FieldValueInput;
       }
 
@@ -363,6 +390,39 @@ export async function POST(request: NextRequest) {
           coupon_code: couponCode,
           coupon_expires: couponExpires,
         },
+      });
+    }
+
+    // For form 16 (Franchise Application), return custom confirmation for GA tracking
+    if (String(formId) === FRANCHISE_FORM_ID) {
+      const firstName = String(formData["1"] || "");
+      const email = String(formData["3"] || "");
+
+      return NextResponse.json({
+        success: true,
+        confirmation_type: "franchise_application",
+        entry_id: entryId,
+        first_name: firstName,
+        email,
+      });
+    }
+
+    // For form 18 (Contact), return custom confirmation for GA tracking
+    if (String(formId) === CONTACT_FORM_ID) {
+      // Field 2 is NAME type with first/last subfields
+      const nameField = formData["2"];
+      let firstName = "";
+      if (typeof nameField === "object" && nameField !== null) {
+        firstName = String((nameField as Record<string, unknown>).first || "");
+      } else {
+        firstName = String(nameField || "");
+      }
+
+      return NextResponse.json({
+        success: true,
+        confirmation_type: "contact",
+        entry_id: entryId,
+        first_name: firstName,
       });
     }
 

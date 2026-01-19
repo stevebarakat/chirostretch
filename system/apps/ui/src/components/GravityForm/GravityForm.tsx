@@ -7,7 +7,6 @@ import { FormErrors } from "@/components/Primitives";
 import { useGravityForm } from "@/lib/forms";
 import type { GravityFormField as GravityFormFieldType } from "@/lib/graphql/queries/gravity-forms";
 import GravityFormFieldComponent from "./GravityFormField";
-import { NewPatientConfirmation, type NewPatientLeadData } from "./NewPatientConfirmation";
 import styles from "./GravityForm.module.css";
 
 type GravityFormProps = {
@@ -54,7 +53,6 @@ export function GravityForm({
 }: GravityFormProps) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [leadData, setLeadData] = useState<NewPatientLeadData | null>(null);
 
   const formData = useMemo(() => {
     const data = form as Record<string, unknown>;
@@ -169,11 +167,41 @@ export function GravityForm({
       if (response && typeof response === "object") {
         const res = response as Record<string, unknown>;
 
-        // Handle new patient special confirmation with structured data
+        // Handle new patient special - redirect to thank you page for GA tracking
         if (res.confirmation_type === "new_patient_special" && res.lead) {
-          setLeadData(res.lead as NewPatientLeadData);
-          setSuccessMessage(null);
-        } else if ("confirmation_message" in res && res.confirmation_message) {
+          const lead = res.lead as {
+            first_name?: string;
+            email?: string;
+            coupon_code?: string;
+            coupon_expires?: string;
+          };
+          const params = new URLSearchParams();
+          if (lead.first_name) params.set("name", lead.first_name);
+          if (lead.email) params.set("email", lead.email);
+          if (lead.coupon_code) params.set("coupon", lead.coupon_code);
+          if (lead.coupon_expires) params.set("expires", lead.coupon_expires);
+          window.location.href = `/thank-you/new-patient-special?${params.toString()}`;
+          return;
+        }
+
+        // Handle franchise application - redirect to thank you page for GA tracking
+        if (res.confirmation_type === "franchise_application") {
+          const params = new URLSearchParams();
+          if (res.first_name) params.set("name", res.first_name as string);
+          if (res.email) params.set("email", res.email as string);
+          window.location.href = `/thank-you/franchise?${params.toString()}`;
+          return;
+        }
+
+        // Handle contact form - redirect to thank you page for GA tracking
+        if (res.confirmation_type === "contact") {
+          const params = new URLSearchParams();
+          if (res.first_name) params.set("name", res.first_name as string);
+          window.location.href = `/thank-you/contact?${params.toString()}`;
+          return;
+        }
+
+        if ("confirmation_message" in res && res.confirmation_message) {
           setSuccessMessage(res.confirmation_message as string);
         } else if ("message" in res && res.message) {
           setSuccessMessage(res.message as string);
@@ -304,13 +332,9 @@ export function GravityForm({
   }
 
   const buttonText = submitButtonText || (formData?.submitButton as { text?: string })?.text || "Submit";
-  const isSubmitted = Boolean(leadData || successMessage);
 
   // Show confirmation instead of form after successful submission
-  if (isSubmitted) {
-    if (leadData) {
-      return <NewPatientConfirmation lead={leadData} />;
-    }
+  if (successMessage) {
     return (
       <div className={styles.successMessage} role="alert">
         {successMessage}
