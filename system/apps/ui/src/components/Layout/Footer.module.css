@@ -208,7 +208,7 @@
   stroke-width: 2;
 }
 
-@media (min-width: 768px) {
+@media (width >=768px) {
   .main {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -220,7 +220,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >=1024px) {
   .main {
     grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
     gap: var(--spacing-3xl);
