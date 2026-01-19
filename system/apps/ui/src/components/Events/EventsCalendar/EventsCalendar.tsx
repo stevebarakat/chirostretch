@@ -53,7 +53,7 @@ function calendarReducer(
 }
 
 export type EventsCalendarHandle = {
-  scrollToEvent: (slug: string) => void;
+  scrollToEvent: (slug: string, startDate?: string) => void;
 };
 
 function groupEventsByDate(events: Event[]): Map<string, Event[]> {
@@ -115,22 +115,43 @@ export const EventsCalendar = forwardRef<
   const eventsByDate = useMemo(() => groupEventsByDate(events), [events]);
 
   const scrollToEvent = useCallback(
-    (slug: string) => {
+    (slug: string, providedStartDate?: string) => {
+      // Use provided startDate as fallback when event isn't in loaded events
       const event = events.find((e) => e.slug === slug);
-      if (!event?.startDate) return;
+      const eventStartDate = event?.startDate ?? providedStartDate;
+      if (!eventStartDate) return;
 
-      const eventDate = new Date(event.startDate);
+      const eventDate = new Date(eventStartDate);
       dispatch({ type: "GO_TO_DATE", date: eventDate });
 
-      setTimeout(() => {
-        const element = document.querySelector<HTMLElement>(
+      // Retry logic to handle async rendering
+      let attempts = 0;
+      const maxAttempts = 10;
+
+      const tryScrollToElement = () => {
+        // Find all matching elements and pick the visible one
+        const elements = document.querySelectorAll<HTMLElement>(
           `[data-event-slug="${slug}"]`
         );
+        const element = Array.from(elements).find(
+          (el) => el.offsetParent !== null
+        );
+
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "center" });
-          element.focus();
+          element.classList.add(styles.highlighted);
+          return;
         }
-      }, 100);
+
+        attempts++;
+        if (attempts < maxAttempts) {
+          // Add delay between retries to allow React to complete rendering
+          setTimeout(() => requestAnimationFrame(tryScrollToElement), 50);
+        }
+      };
+
+      // Start after a short delay to let React fully re-render the new month
+      setTimeout(() => requestAnimationFrame(tryScrollToElement), 50);
     },
     [events]
   );

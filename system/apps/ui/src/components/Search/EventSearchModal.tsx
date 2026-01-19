@@ -62,7 +62,7 @@ function formatDate(startDate?: string): string {
 
 type HitComponentProps = {
   hit: EventHit;
-  onSelect: (slug: string) => void;
+  onSelect: (slug: string, startDate?: string) => void;
 };
 
 function EventHitComponent({ hit, onSelect }: HitComponentProps) {
@@ -74,7 +74,7 @@ function EventHitComponent({ hit, onSelect }: HitComponentProps) {
     <button
       type="button"
       className={styles.hit}
-      onClick={() => onSelect(hit.slug)}
+      onClick={() => onSelect(hit.slug, hit.startDate)}
     >
       <div className={styles.hitImage}>
         {hit.image ? (
@@ -104,7 +104,7 @@ function EventHitComponent({ hit, onSelect }: HitComponentProps) {
 }
 
 type SearchResultsProps = {
-  onSelect: (slug: string) => void;
+  onSelect: (slug: string, startDate?: string) => void;
 };
 
 function SearchResults({ onSelect }: SearchResultsProps) {
@@ -142,8 +142,8 @@ export default function EventSearchModal({
 }: EventSearchModalProps) {
   const eventsContext = useEventsContext();
 
-  function handleEventSelect(slug: string) {
-    eventsContext?.scrollToEvent(slug);
+  function handleEventSelect(slug: string, startDate?: string) {
+    eventsContext?.scrollToEvent(slug, startDate);
     onClose();
   }
 

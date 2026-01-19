@@ -2,10 +2,10 @@
 
 import { createContext, useContext, useRef, useCallback, useMemo } from "react";
 
-type ScrollToEventFn = (slug: string) => void;
+type ScrollToEventFn = (slug: string, startDate?: string) => void;
 
 type EventsContextValue = {
-  scrollToEvent: (slug: string) => void;
+  scrollToEvent: (slug: string, startDate?: string) => void;
   registerScrollToEvent: (fn: ScrollToEventFn) => void;
 };
 
@@ -18,8 +18,8 @@ export function EventsProvider({ children }: { children: React.ReactNode }) {
     scrollToEventRef.current = fn;
   }, []);
 
-  const scrollToEvent = useCallback((slug: string) => {
-    scrollToEventRef.current?.(slug);
+  const scrollToEvent = useCallback((slug: string, startDate?: string) => {
+    scrollToEventRef.current?.(slug, startDate);
   }, []);
 
   const value = useMemo(

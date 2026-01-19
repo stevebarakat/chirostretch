@@ -153,20 +153,8 @@
 }
 
 .eventItem.highlighted {
-  background: var(--color-primary-100);
-  box-shadow: 0 0 0 2px var(--color-primary-500);
-  animation: pulse 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 2px var(--color-primary-500);
-  }
-
-  50% {
-    box-shadow: 0 0 0 4px var(--color-primary-300);
-  }
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 1px;
 }
 
 .eventCity {
@@ -228,10 +216,8 @@
 }
 
 .mobileCard.highlighted {
-  background: var(--color-primary-100);
-  border-color: var(--color-primary-500);
-  box-shadow: 0 0 0 2px var(--color-primary-300);
-  animation: pulse 1s ease-in-out infinite;
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 1px;
 }
 
 .mobileCardThumb {
