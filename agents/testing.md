@@ -12,8 +12,8 @@ Test the contract, not the plumbing. Don't test that WordPress fires hooks or Al
 ## Setup
 
 ```bash
-npm test          # Watch mode
-npm run test:run  # Single run (CI)
+pnpm test          # Watch mode
+pnpm test:run      # Single run (CI)
 ```
 
 Config: `vitest.config.ts`
@@ -122,8 +122,8 @@ e2e/
 ## E2E Tests
 
 ```bash
-npm run test:e2e     # Run E2E tests
-npm run test:e2e:ui  # Run with Playwright UI
+pnpm test:e2e        # Run E2E tests
+pnpm test:e2e:ui     # Run with Playwright UI
 ```
 
 Search sanity test: Visit `/locations` → Open search → Type query → Assert results appear.
@@ -134,6 +134,6 @@ Don't test indexing E2E — it's async and flaky.
 
 GitHub Actions runs on push/PR:
 
-1. Lint (`npm run lint`)
-2. Unit tests (`npm run test:run`)
-3. Build (`npm run build`)
+1. Lint (`pnpm lint`)
+2. Unit tests (`pnpm test:run`)
+3. Build (`pnpm build`)

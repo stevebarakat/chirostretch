@@ -20,25 +20,12 @@
 - Add `'use client'` only when using: hooks, event handlers, browser APIs
 - If only children need interactivity, keep parent as Server Component
 
-## Component Rules
+## Component Patterns
 
-- Max 200 lines per component
-- Max 50 lines per function
-- Colocate: `ComponentName.tsx`, `ComponentName.module.css`, `index.ts`
-- Export via `index.ts`
-- Descriptive names: `ProductCard`, not `Card`
-
-## useEffect Checklist
-
-Before adding `useEffect`, ask:
-
-1. Data fetching? → Use Server Component or React Query
-2. Subscriptions/external APIs? → OK, but cleanup properly
-3. DOM measurement? → Probably wrong, use CSS
-4. Derived state? → Use `useMemo` or compute during render
-5. Syncing with props? → Remove it, you don't need it
-
-**useEffect is for synchronizing with external systems, not for UI logic.**
+See [agents/tasks/react-component.md](tasks/react-component.md) for:
+- Component structure and file organization
+- Max lines rules (200/component, 50/function)
+- useEffect checklist and gotchas
 
 ## Refs (React 19)
 
@@ -53,28 +40,12 @@ function Input({ ref, ...props }: ComponentProps<'input'> & { ref?: Ref<HTMLInpu
 }
 ```
 
-## Native UI First
+## CSS-First Patterns
 
-Check if native HTML can solve it before writing JS:
-
-| Task | Native Solution |
-|------|-----------------|
-| Modal | `<dialog>` |
-| Accordion | `<details>` |
-| Dropdown/tooltip | Popover API |
-| Responsive layout | Container queries |
-| Parent-aware styling | `:has()` |
-| Scroll animation | Scroll-driven animations |
-
-## Forbidden JS Patterns
-
-- `ResizeObserver` for layout → container queries
-- `getBoundingClientRect` for layout → CSS handles this
-- `scroll` event listeners for animation → scroll-driven animations
-- Manual focus trapping → `<dialog>`
-- JS-driven accordions/modals/tabs → native HTML
-- Theme toggling only via JS → `light-dark()`
-- Pure class or style toggling → CSS
+See [agents/css.md](css.md) for:
+- Native UI primitives (`<dialog>`, `<details>`, Popover API)
+- CSS solutions for common JS patterns
+- Anti-patterns to avoid
 
 ## Allowed JS Intent
 

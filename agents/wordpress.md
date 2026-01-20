@@ -126,4 +126,6 @@ Must-Use Plugins (mu-plugins) load before regular plugins and cannot be deactiva
 - `headless-password-reset.php` — Password reset REST API
 - `admin-cleanup.php` — UI cleanup (hide Yoast from customers)
 
+For the complete MU-plugin inventory, see `mu-plugins/README.md`.
+
 See [agents/woocommerce.md](woocommerce.md#mu-plugin-patterns) for detailed WooCommerce-specific patterns.

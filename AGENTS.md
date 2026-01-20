@@ -16,28 +16,7 @@ Next.js     → presentation + cart + checkout UI (marketing, browsing, cart, bi
 
 ## Checkout Pattern
 
-ChiroStretch uses a **hybrid checkout approach**:
-
-- **Cart management:** Next.js (localStorage, no sessions)
-- **Checkout UI:** Next.js (billing form, order creation)
-- **Payment processing:** WordPress (Stripe/PayPal via WooCommerce)
-- **Customer accounts:** Auto-created on first purchase (follows Identity Charter)
-
-**Flow:**
-1. User fills out checkout form in Next.js
-2. Next.js creates order via WooCommerce REST API (guest order, unpaid)
-3. Cart clears immediately
-4. User redirected to WordPress for payment
-5. Payment succeeds → customer account auto-created (if new email)
-6. User redirected back to Next.js success page
-
-**Why this pattern:**
-- Next.js owns modern UI/UX (fast, type-safe checkout form)
-- WordPress owns payments (battle-tested, PCI compliant)
-- No payment code in Next.js (reduces attack surface)
-- Event-driven identity creation (purchase = earned identity)
-
-See [agents/tasks/checkout-flow.md](agents/tasks/checkout-flow.md) for complete implementation details.
+Hybrid checkout: Next.js collects billing and creates orders, WordPress processes payments and auto-creates customer accounts. See [agents/tasks/checkout-flow.md](agents/tasks/checkout-flow.md) for implementation details.
 
 ## Non-Negotiables
 
@@ -182,7 +161,7 @@ When implementing specific features:
 
 ```bash
 # Dev server (HTTPS required)
-npm run dev
+pnpm dev
 # https://localhost:3000
 
 # Use --insecure with curl for local HTTPS
@@ -211,7 +190,16 @@ import { Input } from "@/components/Primitives";
 <Input as="select">{options}</Input>
 ```
 
-These ensure consistent typography, spacing, and form styling across the app.
+**Button** — Use for all interactive elements instead of raw `<button>`, `<a>`:
+```tsx
+import { Button } from "@/components/Primitives";
+
+<Button variant="primary">Submit</Button>
+<Button as="a" href="/path">Link styled as button</Button>
+<Button as={Link} href="/path">Next.js Link</Button>
+```
+
+These ensure consistent typography, spacing, and interactive styling across the app.
 
 ## Preferred Packages
 

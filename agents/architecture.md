@@ -61,27 +61,7 @@ Marketing pages
 
 ## Customer Account Auto-Creation
 
-Following the Access & Identity Charter, customer accounts are created automatically on first purchase.
-
-**Pattern:**
-- Users checkout as guests (no account required)
-- Payment completes → `woocommerce_payment_complete` hook fires
-- WordPress mu-plugin creates user account automatically
-- Welcome email sent with password reset link
-- Customer can set password via Next.js `/account/set-password` page
-
-**Key Files:**
-- `woocommerce-auto-customer-accounts.php` — Auto account creation
-- `headless-password-reset.php` — WordPress REST API for password reset
-- `/account/set-password/page.tsx` — Next.js password reset UI
-
-This pattern ensures:
-- No speculative account creation (Identity Charter rule)
-- Frictionless guest checkout
-- Automatic onboarding for return visits
-- Event-driven identity creation (purchase = explicit event)
-
-See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md) for implementation details.
+Customer accounts are auto-created on first purchase per the [Access & Identity Charter](identity-charter.md). See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md#5-customer-auto-creation-mu-plugin) for implementation.
 
 ## Content Boundary
 
@@ -94,21 +74,7 @@ This is intentional. Do not attempt to "standardize" this.
 
 ## Lead Handling (Critical)
 
-Leads are **not users**.
-
-Rules:
-- Do NOT create WP users for leads
-- Do NOT create WC customers for leads
-- Do NOT assign roles or credentials
-
-Leads are stored as data only (Gravity Forms entries, coupon meta).
-
-A lead becomes a user **only** when:
-- They create an account
-- They book
-- They purchase
-
-User creation is event-driven, never speculative.
+Leads are **not users**. See [agents/identity-charter.md](identity-charter.md) for the complete Lead vs User distinction and identity creation rules.
 
 ## Red Flags (Stop Immediately)
 

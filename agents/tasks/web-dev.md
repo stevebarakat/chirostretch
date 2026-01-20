@@ -7,22 +7,9 @@
 - CSS Modules, mobile-first
 - Modern CSS before JS
 
-## CSS-First Decision Tree
+## CSS-First Approach
 
-Before reaching for JavaScript:
-
-| Task | CSS Solution |
-|------|--------------|
-| Responsive component sizing | Container queries (`@container`) |
-| Style based on child/sibling state | `:has()` selector |
-| Tooltips, popovers, dropdowns | Anchor positioning + `popover` |
-| Page/state transitions | View Transitions API |
-| Scroll-linked animations | `animation-timeline: scroll()` |
-| Animate to/from `display: none` | `@starting-style` + `allow-discrete` |
-| Dark mode | `prefers-color-scheme` + custom properties |
-| Show/hide content | `<details>` element |
-
-Only use JS when CSS cannot achieve the behavior.
+See [agents/css.md](../css.md) for the CSS-first decision checklist, modern CSS features, and anti-patterns to avoid.
 
 ## Component Structure
 

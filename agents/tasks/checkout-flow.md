@@ -12,13 +12,6 @@ ChiroStretch uses a **hybrid headless checkout pattern** that balances Next.js U
 5. **Customer account creation** → WordPress (auto-created on payment success)
 6. **Order confirmation** → Next.js (redirect from WordPress)
 
-**Why This Pattern:**
-- Next.js owns UI/UX (fast, modern checkout form)
-- WordPress owns payments (battle-tested, PCI compliance)
-- Clean separation: Next.js initiates intent, WordPress finalizes transactions
-- No payment code in Next.js (reduces attack surface)
-- Auto customer onboarding (frictionless first purchase)
-
 ---
 
 ## Architecture Diagram

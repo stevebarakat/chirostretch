@@ -18,45 +18,7 @@ ChiroStretch uses WooCommerce in a **headless architecture** where WordPress han
 
 ## Headless Checkout Pattern
 
-### Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                          Next.js Frontend                        │
-│                                                                   │
-│  Cart Management:    localStorage + Zustand (no sessions)        │
-│  Product Catalog:    GraphQL queries (WooGraphQL)                │
-│  Checkout UI:        React form + validation                     │
-│  Order Creation:     POST to WooCommerce REST API                │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                       WordPress Backend                          │
-│                                                                   │
-│  Payment Processing: WooCommerce payment gateways                │
-│  Customer Accounts:  Auto-created via hooks                      │
-│  Order Management:   WooCommerce admin + REST API                │
-│  Email Notifications: WordPress + custom templates              │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Why This Pattern
-
-**Next.js Strengths:**
-- Fast, modern UI
-- Type-safe development (TypeScript)
-- Optimized builds and caching
-- Better developer experience
-
-**WordPress Strengths:**
-- Battle-tested payment processing
-- PCI compliance (no card data touches Next.js)
-- Rich plugin ecosystem (Stripe, PayPal, shipping, taxes)
-- Merchant tools (refunds, order management)
-
-**Result:** Best of both worlds — modern UX with proven commerce backend.
+See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md) for the complete hybrid checkout implementation including architecture diagrams, cart management, order creation, and redirect handling.
 
 ---
 
@@ -491,48 +453,7 @@ add_filter('woocommerce_email_recipient_new_order', 'my_function', 10, 2);
 
 ### Auto Customer Account Hook
 
-**File:** `system/apps/cms/wp-content/mu-plugins/woocommerce-auto-customer-accounts.php`
-
-```php
-add_action('woocommerce_payment_complete', 'chs_auto_create_customer_account', 10, 1);
-
-function chs_auto_create_customer_account($order_id) {
-    $order = wc_get_order($order_id);
-
-    // Skip if order already has customer
-    if ($order->get_customer_id() > 0) {
-        return;
-    }
-
-    $billing_email = $order->get_billing_email();
-
-    // Check if user exists
-    $existing_user = get_user_by('email', $billing_email);
-    if ($existing_user) {
-        $order->set_customer_id($existing_user->ID);
-        $order->save();
-        return;
-    }
-
-    // Create new user
-    $user_id = wp_create_user($username, $password, $billing_email);
-    $user = new WP_User($user_id);
-    $user->set_role('customer');
-
-    // Link order to user
-    $order->set_customer_id($user_id);
-    $order->save();
-
-    // Send welcome email with password reset
-    // ...
-}
-```
-
-**Why Hook (Not Webhook):**
-- Fires immediately after payment (no HTTP delay)
-- Runs in same PHP process (transactional)
-- Access to full WordPress API
-- No external API configuration needed
+Customer accounts are auto-created on first purchase via `woocommerce_payment_complete` hook. See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md#5-customer-auto-creation-mu-plugin) for the full implementation.
 
 ### Payment Redirect Hook
 
@@ -564,21 +485,7 @@ add_filter('woocommerce_payment_successful_result', function($result, $order_id)
 
 ### Account Creation Pattern
 
-**Traditional WooCommerce:**
-- User creates account on registration page
-- Or checks "Create account" during checkout
-
-**Headless ChiroStretch:**
-- No upfront registration (frictionless)
-- Account auto-created on first purchase
-- Welcome email with password reset link
-- User sets password via Next.js `/account/set-password`
-
-**Why:**
-- Follows "identity is earned" principle (Access & Identity Charter)
-- No speculative accounts (purchase = explicit event)
-- Better conversion (no registration friction)
-- Still captures customer data (from billing info)
+Accounts are auto-created on first purchase following the [Access & Identity Charter](identity-charter.md). See [agents/tasks/checkout-flow.md](tasks/checkout-flow.md#5-customer-auto-creation-mu-plugin) for implementation.
 
 ### My Account Pages
 
@@ -757,132 +664,12 @@ register_graphql_field('RootQuery', 'bookingProducts', [
 
 ## MU-Plugin Patterns
 
-### When to Use MU-Plugins
+See [agents/wordpress.md](wordpress.md#mu-plugin-patterns) for MU-plugin patterns, naming conventions, and documentation requirements.
 
-**Must-Use Plugins** = Auto-loaded, cannot be deactivated via UI.
-
-**Use for:**
-- Core headless functionality (checkout redirects, password reset API)
-- Behavior modifications (hide UI elements, customize redirects)
-- System integrations (Algolia sync, environment config)
-- Auto-loading utilities (frontend URL helper)
-
-**Do NOT use for:**
-- Feature flags (use regular plugins)
-- Optional functionality (use regular plugins)
-- Experimental code (use regular plugins)
-
-### Common Patterns
-
-#### 1. Hook-Based Modifications
-
-```php
-/**
- * Plugin Name: WooCommerce Headless Checkout Redirect
- */
-add_filter('woocommerce_payment_successful_result', function($result, $order_id) {
-    // Modify redirect after payment
-}, 10, 2);
-```
-
-#### 2. REST API Endpoints
-
-```php
-/**
- * Plugin Name: Headless Password Reset
- */
-add_action('rest_api_init', function() {
-    register_rest_route('chirostretch/v1', '/auth/validate-reset-key', [
-        'methods' => 'POST',
-        'callback' => 'chs_validate_reset_key',
-        'permission_callback' => '__return_true',
-    ]);
-});
-```
-
-#### 3. GraphQL Schema Extensions
-
-```php
-/**
- * Plugin Name: WPGraphQL WooCommerce Bookings
- */
-register_graphql_object_type('BookingProduct', [ /* ... */ ]);
-register_graphql_field('RootQuery', 'bookingProducts', [ /* ... */ ]);
-```
-
-#### 4. Admin UI Cleanup
-
-```php
-/**
- * Plugin Name: Admin Cleanup
- */
-add_action('admin_head-user-edit.php', function() {
-    // Hide Yoast SEO from customer edit pages
-});
-```
-
-#### 5. Environment-Aware Helpers
-
-```php
-/**
- * Plugin Name: ChiroStretch Environment
- */
-function chirostretch_get_frontend_url() {
-    if (defined('NEXTJS_URL')) {
-        return NEXTJS_URL;
-    }
-    return wp_get_environment_type() === 'local'
-        ? 'https://localhost:3000'
-        : 'https://chirostretch.com';
-}
-```
-
-### File Organization
-
-```
-wp-content/mu-plugins/
-├── README.md                                      # Plugin inventory
-├── _env-loader.php                                # Environment-based loading
-├── admin-cleanup.php                              # UI cleanup
-├── business-info-options.php                      # ACF options page
-├── chirostretch-bulk-importer.php                 # WP-CLI import commands
-├── chirostretch-environment.php                   # Frontend URL helper
-├── headless-link-rewriter.php                     # Content URL rewriting
-├── headless-password-reset.php                    # Password reset REST API
-├── location-organizer-sync.php                    # TEC integration
-├── woocommerce-auto-customer-accounts.php         # Auto account creation
-├── woocommerce-headless-checkout-redirect.php     # Payment redirects
-├── wpgraphql-woocommerce-bookings.php             # Bookings GraphQL
-└── ...
-```
-
-### Documentation
-
-**Every MU-plugin should have:**
-- Plugin Name header
-- Description header
-- Version header
-- Inline comments explaining WHY (not just WHAT)
-- Entry in `mu-plugins/README.md`
-
-**Example:**
-```php
-<?php
-/**
- * Plugin Name: WooCommerce Auto Customer Accounts
- * Description: Automatically creates customer accounts for guest orders after payment
- * Version: 1.0.0
- *
- * Pattern:
- * - Fires on woocommerce_payment_complete hook (after payment succeeds)
- * - Creates WordPress user with 'customer' role
- * - Links order to new user
- * - Sends welcome email with password reset link
- *
- * This follows the Access & Identity Charter: identity is earned through
- * explicit events (purchase = earned identity).
- */
-```
+**WooCommerce-specific MU-plugins:**
+- `woocommerce-auto-customer-accounts.php` — Auto account creation on purchase
+- `woocommerce-headless-checkout-redirect.php` — Payment redirects to Next.js
+- `wpgraphql-woocommerce-bookings.php` — Bookings GraphQL schema
 
 ---
 
