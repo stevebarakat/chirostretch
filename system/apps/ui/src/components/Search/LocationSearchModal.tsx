@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  InstantSearch,
-  useSearchBox,
-  useHits,
-  Configure,
-} from "react-instantsearch";
+import { InstantSearchNext } from "react-instantsearch-nextjs";
+import { useSearchBox, useHits, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
@@ -145,10 +141,10 @@ export default function LocationSearchModal({
             <Text>Search is not configured.</Text>
           </div>
         ) : (
-          <InstantSearch
+          <InstantSearchNext
             searchClient={
               searchClient as unknown as Parameters<
-                typeof InstantSearch
+                typeof InstantSearchNext
               >[0]["searchClient"]
             }
             indexName={algoliaConfig.indices.locations}
@@ -157,7 +153,7 @@ export default function LocationSearchModal({
             <Configure hitsPerPage={10} />
             <SearchBox />
             <SearchResults onHitClick={onClose} />
-          </InstantSearch>
+          </InstantSearchNext>
         )}
       </div>
     </Modal>

@@ -40,7 +40,7 @@
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
-  color: white;
+  color: var(--color-white);
 }
 
 .heroSubtitle {
@@ -260,7 +260,7 @@
   padding: var(--spacing-md) var(--spacing-lg);
   max-width: fit-content;
   max-height: fit-content;
-  background: white;
+  background: var(--color-white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
@@ -323,7 +323,7 @@
   align-items: center;
   width: 44px;
   height: 44px;
-  color: white;
+  color: var(--color-white);
   background: var(--color-primary-500);
   border-radius: 50%;
   transition: background-color var(--transition-fast);
@@ -343,7 +343,7 @@
 .bookingSkeleton {
   width: 100%;
   max-width: 480px;
-  background: white;
+  background: var(--color-white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;

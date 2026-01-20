@@ -3,7 +3,7 @@
   z-index: 9999;
   padding-top: 40px;
   width: 100%;
-  color: white;
+  color: var(--color-white);
   background: var(--color-secondary-500);
   border-top: 1px solid var(--nav-border-color);
   border-bottom: 1px solid var(--nav-border-color);
@@ -103,7 +103,7 @@
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
-  color: white;
+  color: var(--color-white);
   background: none;
   cursor: pointer;
   transition: 0.25s ease;
@@ -160,7 +160,7 @@
   font-size: inherit;
   font-weight: 600;
   text-decoration: none;
-  color: white;
+  color: var(--color-white);
   transition: background-color 0.25s ease;
 }
 
@@ -249,7 +249,7 @@
 
   .topMenu {
     flex-direction: column;
-    border-top: 1px solid white;
+    border-top: 1px solid var(--color-white);
 
     button {
       border: none;

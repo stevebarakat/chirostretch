@@ -1,11 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
-import {
-  InstantSearch,
-  useSearchBox,
-  useHits,
-  Configure,
-} from "react-instantsearch";
+import { InstantSearchNext } from "react-instantsearch-nextjs";
+import { useSearchBox, useHits, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
@@ -325,7 +321,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </Text>
           </div>
         ) : (
-          <InstantSearch
+          <InstantSearchNext
             searchClient={searchClient}
             indexName={indexName}
             future={{ preserveSharedStateOnUnmount: true }}
@@ -333,7 +329,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <Configure hitsPerPage={10} />
             <SearchBox />
             <SearchResults onHitClick={onClose} />
-          </InstantSearch>
+          </InstantSearchNext>
         )}
       </div>
     </Modal>

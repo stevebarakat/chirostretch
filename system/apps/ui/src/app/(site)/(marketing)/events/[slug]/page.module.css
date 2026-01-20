@@ -256,7 +256,7 @@
 }
 
 .categoryTag:hover {
-  color: white;
+  color: var(--color-white);
   background: var(--color-primary-500);
 }
 

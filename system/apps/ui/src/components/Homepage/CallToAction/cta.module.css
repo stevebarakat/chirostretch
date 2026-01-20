@@ -3,9 +3,9 @@
   z-index: 10;
   height: auto;
   font-family: var(--secondary-font);
-  color: white;
+  color: var(--color-white);
   background: var(--color-primary-500);
-  border-top: 4px solid white;
+  border-top: 4px solid var(--color-white);
 }
 
 .cta a {
@@ -40,9 +40,9 @@
   justify-content: center;
   align-items: flex-start;
   padding: 2rem clamp(1rem, 7vw, 4rem);
-  color: white;
+  color: var(--color-white);
   background: var(--color-secondary-gradient);
-  border-top: 4px solid white;
+  border-top: 4px solid var(--color-white);
 }
 
 .ctaRightContent {
@@ -96,12 +96,12 @@
 
   .ctaLeftWrap {
     border-top: none;
-    border-right: 2px solid white;
+    border-right: 2px solid var(--color-white);
   }
 
   .ctaRightWrap {
     border-top: none;
-    border-left: 2px solid white;
+    border-left: 2px solid var(--color-white);
   }
 
   .ctaLeftContent {

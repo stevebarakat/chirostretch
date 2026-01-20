@@ -1,6 +1,7 @@
 "use client";
 
-import { InstantSearch, Configure } from "react-instantsearch";
+import { InstantSearchNext } from "react-instantsearch-nextjs";
+import { Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { ArchiveHeader } from "@/components/Primitives";
@@ -20,10 +21,10 @@ export function EventsSearch() {
 
   return (
     <EventsProvider>
-      <InstantSearch
+      <InstantSearchNext
         searchClient={
           searchClient as unknown as Parameters<
-            typeof InstantSearch
+            typeof InstantSearchNext
           >[0]["searchClient"]
         }
         indexName={algoliaConfig.indices.events}
@@ -36,7 +37,7 @@ export function EventsSearch() {
           searchSlot={<EventSearchTrigger />}
         />
         <InfiniteEventsHits />
-      </InstantSearch>
+      </InstantSearchNext>
     </EventsProvider>
   );
 }

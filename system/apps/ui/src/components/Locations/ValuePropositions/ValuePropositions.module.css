@@ -43,7 +43,7 @@
   margin-bottom: var(--spacing-lg);
   width: 48px;
   height: 48px;
-  background-color: color-mix(in srgb, var(--icon-color) 15%, white);
+  background-color: color-mix(in srgb, var(--icon-color) 15%, var(--color-white));
   border-radius: var(--radius-full);
 }
 

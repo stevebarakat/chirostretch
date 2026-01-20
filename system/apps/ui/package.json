@@ -42,6 +42,7 @@
     "react-dom": "^19.2.3",
     "react-hook-form": "^7.71.1",
     "react-instantsearch": "^7.22.1",
+    "react-instantsearch-nextjs": "^1.0.11",
     "recharts": "^3.6.0",
     "server-only": "^0.0.1",
     "sharp": "^0.34.5",
