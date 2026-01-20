@@ -2,12 +2,35 @@
 
 Headless WordPress → Next.js App Router with WooCommerce, Algolia, and Gravity Forms.
 
+## Tech Stack
+
+| Service | Role |
+|---------|------|
+| Next.js | UI (Frontend) |
+| WordPress | CMS (Backend) |
+| WooCommerce | E-commerce |
+| The Events Calendar | Events Management |
+| Gravity Forms | Form Builder |
+| Zoho CRM | Marketing Funnel Integration |
+| Google Analytics | User/Traffic Analysis |
+| Algolia | Site Search Engine |
+
 ## Ownership Model
 
+**Core Application:**
 ```
 WooCommerce → commerce (payments, orders, customer accounts)
-WordPress   → operations (auth, dashboards, workflows)
-Next.js     → presentation + cart + checkout UI (marketing, browsing, cart, billing form)
+WordPress   → content + operations (CMS, auth, dashboards, workflows)
+Next.js     → presentation (UI, cart, checkout form, search)
+```
+
+**Integrations:**
+```
+Algolia          → search (WordPress indexes, Next.js queries)
+Events Calendar  → events data (WordPress plugin)
+Gravity Forms    → forms (WordPress validates/stores, Next.js renders)
+Zoho CRM         → marketing automation (webhook recipient)
+Google Analytics → traffic analysis (Next.js client-side)
 ```
 
 **Guiding rule:** Next.js may initiate intent (browsing, cart, order creation). WordPress finalizes transactions (payment processing, account creation).
