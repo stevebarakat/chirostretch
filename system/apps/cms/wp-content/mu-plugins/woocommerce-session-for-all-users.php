@@ -63,24 +63,13 @@ add_filter('woocommerce_store_api_require_nonce', '__return_false');
  * This ensures a session is initialized before any Store API request is processed.
  */
 add_action('woocommerce_store_api_before_callbacks', function () {
-    error_log('[WC Session] Store API before_callbacks hook fired');
-
     if (!WC()->session) {
-        error_log('[WC Session] No session exists, initializing...');
         WC()->initialize_session();
-    } else {
-        error_log('[WC Session] Session already exists');
     }
 
     // Ensure session cookie is set
     if (WC()->session && !WC()->session->get_customer_id()) {
-        error_log('[WC Session] No customer ID, setting session cookie...');
         WC()->session->set_customer_session_cookie(true);
-        $customer_id = WC()->session->get_customer_id();
-        error_log("[WC Session] Customer ID after set: {$customer_id}");
-    } else if (WC()->session) {
-        $customer_id = WC()->session->get_customer_id();
-        error_log("[WC Session] Customer ID already set: {$customer_id}");
     }
 }, 1);
 
@@ -97,23 +86,13 @@ add_filter('rest_post_dispatch', function ($response, $server, $request) {
         return $response;
     }
 
-    error_log('[WC Session] rest_post_dispatch hook fired for Store API');
-
     if (!WC()->session) {
-        error_log('[WC Session] No session in rest_post_dispatch');
         return $response;
     }
 
     // Use WooCommerce's own method to set the session cookie
-    // This ensures proper hash calculation and cookie attributes
     if (WC()->session->get_customer_id()) {
-        error_log('[WC Session] Setting session cookie via WooCommerce method');
         WC()->session->set_customer_session_cookie(true);
-
-        $customer_id = WC()->session->get_customer_id();
-        error_log("[WC Session] Session cookie set for customer: {$customer_id}");
-    } else {
-        error_log('[WC Session] No customer ID to set in cookie');
     }
 
     return $response;
@@ -169,8 +148,6 @@ add_action('gform_user_registered', function ($user_id, $feed, $entry, $user_pas
         WC()->session->init_session_cookie();
         WC()->session->set_customer_session_cookie(true);
     }
-
-    error_log("[WC Session] Auto-logged in user $user_id after Gravity Forms registration");
 }, 20, 4);
 
 
@@ -184,29 +161,19 @@ add_action('gform_user_registered', function ($user_id, $feed, $entry, $user_pas
  * This timing ensures WooCommerce is fully loaded.
  */
 add_action('wp_loaded', function () {
-    error_log('[WC Session] wp_loaded hook fired');
-
     // Skip admin context
     if (is_admin()) {
-        error_log('[WC Session] Skipping - is_admin()');
         return;
     }
 
     // Skip if WooCommerce is not active
     if (!function_exists('WC')) {
-        error_log('[WC Session] Skipping - WC not available');
         return;
     }
 
-    error_log('[WC Session] Initializing session for front-end request');
-
     // Ensure WooCommerce session exists for ALL users (guests and logged-in)
     if (!WC()->session) {
-        error_log('[WC Session] No session, calling initialize_session()');
         WC()->initialize_session();
-    } else {
-        $customer_id = WC()->session->get_customer_id();
-        error_log("[WC Session] Session already exists: {$customer_id}");
     }
 
     // For logged-in users, associate session with user
@@ -303,36 +270,3 @@ add_action('woocommerce_checkout_create_order', function ($order, $data) {
         $order->set_customer_id(get_current_user_id());
     }
 }, 10, 2);
-
-
-/**
- * Debug: Log session state on WooCommerce init (only in WP_DEBUG mode)
- */
-add_action('woocommerce_init', function () {
-    if (!defined('WP_DEBUG') || !WP_DEBUG) {
-        return;
-    }
-
-    if (!is_user_logged_in()) {
-        return;
-    }
-
-    $user_id = get_current_user_id();
-    $user = get_userdata($user_id);
-    $roles = $user ? implode(', ', $user->roles) : 'unknown';
-
-    $session_exists = WC()->session ? 'yes' : 'no';
-    $session_customer_id = WC()->session ? WC()->session->get_customer_id() : 'n/a';
-    $customer_exists = WC()->customer ? 'yes' : 'no';
-    $customer_id = WC()->customer ? WC()->customer->get_id() : 'n/a';
-
-    error_log(sprintf(
-        '[WC Session Debug] user_id=%d, roles=%s, session=%s, session_customer=%s, customer=%s, customer_id=%s',
-        $user_id,
-        $roles,
-        $session_exists,
-        $session_customer_id,
-        $customer_exists,
-        $customer_id
-    ));
-});

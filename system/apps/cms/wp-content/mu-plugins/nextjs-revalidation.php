@@ -34,8 +34,9 @@ class NextJS_Revalidation {
     ];
 
     public function __construct() {
-        $this->nextjs_url = getenv('NEXTJS_REVALIDATE_URL') ?: 'https://localhost:3000/api/revalidate';
-        $this->secret = getenv('NEXTJS_REVALIDATE_SECRET') ?: 'chirostretch-revalidate-secret-2024';
+        $base_url = defined('WP_NEXT_API_URL') ? WP_NEXT_API_URL : 'http://localhost:3000';
+        $this->nextjs_url = rtrim($base_url, '/') . '/api/revalidate';
+        $this->secret = defined('WP_REVALIDATE_SECRET') ? WP_REVALIDATE_SECRET : '';
 
         $this->init_hooks();
     }
@@ -243,17 +244,17 @@ class NextJS_Revalidation {
             }
         }
 
-        $url = add_query_arg('secret', $this->secret, $this->nextjs_url);
-
         // Send each tag as a separate revalidation request
         // This ensures Next.js invalidates each tag independently
         foreach ($data['tags'] as $tag) {
-            wp_remote_post($url, [
+            wp_remote_post($this->nextjs_url, [
                 'timeout' => 5,
                 'blocking' => false,
                 'sslverify' => false,
+                'httpversion' => '1.1',
                 'headers' => [
                     'Content-Type' => 'application/json',
+                    'X-Revalidate-Secret' => $this->secret,
                 ],
                 'body' => json_encode([
                     'tag' => $tag,

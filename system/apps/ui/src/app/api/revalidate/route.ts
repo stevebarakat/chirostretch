@@ -1,8 +1,16 @@
 import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
+// Health check for WordPress to verify Next.js is running
+export async function GET() {
+  return NextResponse.json({ status: "ok" });
+}
+
 export async function POST(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get("secret");
+  // Accept secret from header (preferred) or query param (legacy)
+  const secret =
+    request.headers.get("x-revalidate-secret") ||
+    request.nextUrl.searchParams.get("secret");
 
   if (secret !== process.env.REVALIDATE_SECRET) {
     return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
