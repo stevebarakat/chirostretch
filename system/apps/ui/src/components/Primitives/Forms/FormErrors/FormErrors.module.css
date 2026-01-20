@@ -34,7 +34,7 @@
 
 .errorLink:hover,
 .errorLink:focus {
-  color: hsl(0 72% 25%);
+  color: hsl(0deg 72% 25%);
 }
 
 .pageNumber {

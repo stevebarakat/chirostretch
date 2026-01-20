@@ -24,7 +24,7 @@
   padding: var(--spacing-xl);
   background: var(--color-bg-primary);
   border-radius: var(--radius-lg);
-  box-shadow: 0 1px 3px hsla(0 0% 0% / 0.1);
+  box-shadow: 0 1px 3px hsl(0deg 0% 0% / 10%);
 }
 
 .detailCardHeader {
@@ -283,7 +283,7 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .detailsSection {
     padding: var(--spacing-2xl) 0;
   }

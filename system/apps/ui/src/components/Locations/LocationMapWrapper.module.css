@@ -9,7 +9,7 @@
   background-color: var(--color-bg-tertiary);
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
   .placeholder {
     height: 250px;
   }

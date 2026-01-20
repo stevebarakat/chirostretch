@@ -8,6 +8,13 @@
   margin-top: var(--spacing-3xl);
 }
 
+.image {
+  width: 100%;
+  height: 100%;
+  background-position: top center;
+  object-fit: cover;
+}
+
 .postCard {
   display: flex;
   flex-direction: column;
@@ -40,13 +47,6 @@
   aspect-ratio: 16 / 9;
   max-height: 500px;
   background-color: var(--color-bg-tertiary);
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  background-position: top center;
-  object-fit: cover;
 }
 
 .content {
@@ -126,7 +126,7 @@
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .postCard {
     flex-direction: row;
   }

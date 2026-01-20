@@ -19,7 +19,7 @@
   color: var(--color-text-secondary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .heading {
     font-size: var(--font-size-4xl);
   }

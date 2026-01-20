@@ -11,7 +11,7 @@
   gap: 3rem;
 }
 
-@media (max-width: 968px) {
+@media (width <= 968px) {
   .content {
     grid-template-columns: 1fr;
   }
@@ -97,7 +97,7 @@
 .select:focus {
   outline: none;
   border-color: var(--primary-color, #007bff);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  box-shadow: 0 0 0 3px rgb(0 123 255 / 10%);
 }
 
 .input::placeholder {
@@ -190,7 +190,7 @@
 
 .inputError:focus {
   border-color: #dc3545;
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  box-shadow: 0 0 0 3px rgb(220 53 69 / 10%);
 }
 
 .fieldError {

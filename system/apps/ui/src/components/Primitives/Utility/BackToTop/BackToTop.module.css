@@ -40,10 +40,10 @@
 .icon {
   width: 1.5rem;
   height: 1.5rem;
-  stroke: currentColor;
+  stroke: currentcolor;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .button {
     right: var(--spacing-md);
     bottom: var(--spacing-md);

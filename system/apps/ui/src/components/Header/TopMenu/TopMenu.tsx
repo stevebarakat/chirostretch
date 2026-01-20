@@ -141,7 +141,7 @@ export default function TopMenu({ menuItems, logo }: TopMenuProps) {
         aria-label="Top navigation"
         style={
           {
-            "--topNavToggle": mobileOpen
+            "--top-nav-toggle": mobileOpen
               ? "translateX(0)"
               : "translateX(-100%)",
           } as React.CSSProperties

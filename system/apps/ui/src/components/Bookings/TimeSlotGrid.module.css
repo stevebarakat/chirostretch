@@ -16,7 +16,7 @@
   gap: var(--spacing-sm);
 }
 
-@media (max-width: 400px) {
+@media (width <= 400px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }

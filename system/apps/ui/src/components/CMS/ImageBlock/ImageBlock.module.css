@@ -66,11 +66,11 @@
   font-size: var(--font-size-sm, 0.875rem);
   line-height: 1.5;
   text-align: center;
-  color: var(--color-text-secondary, hsl(0, 0%, 40%));
+  color: var(--color-text-secondary, hsl(0deg 0% 40%));
   text-wrap: balance;
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .alignLeft {
     float: none;
     max-width: 100%;

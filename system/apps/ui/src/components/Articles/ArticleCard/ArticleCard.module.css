@@ -115,7 +115,7 @@
   }
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
   .card {
     flex-direction: row;
   }
@@ -130,7 +130,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .imageLink {
     width: 320px;
   }

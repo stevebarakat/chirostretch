@@ -446,7 +446,8 @@
       "Bash(pnpm run build:*)",
       "Bash(git fetch:*)",
       "Bash(sort:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(code:*)"
     ],
     "deny": [],
     "ask": []

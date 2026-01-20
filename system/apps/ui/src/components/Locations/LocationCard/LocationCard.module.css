@@ -43,7 +43,7 @@
   -webkit-box-orient: vertical;
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .description {
     -webkit-line-clamp: 5;
   }

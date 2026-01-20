@@ -93,7 +93,7 @@
 
 .tabIconFallback {
   font-size: 0.75rem;
-  color: currentColor;
+  color: currentcolor;
 }
 
 .content {
@@ -159,14 +159,14 @@
 .checkIcon {
   width: 20px;
   height: 20px;
-  color: hsl(142 76% 36%);
+  color: hsl(142deg 76% 36%);
   flex-shrink: 0;
 }
 
 .tip {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-lg);
-  background: hsla(200 80% 50% / 0.08);
+  background: hsl(200deg 80% 50% / 8%);
   border-left: 3px solid var(--color-primary-500);
   border-radius: var(--radius-md);
 }
@@ -191,7 +191,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .contentGrid {
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);

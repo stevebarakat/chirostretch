@@ -184,7 +184,7 @@
   text-decoration: underline;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .title {
     font-size: var(--font-size-4xl);
   }

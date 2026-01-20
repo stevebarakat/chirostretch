@@ -12,9 +12,23 @@
 }
 
 .modal::backdrop {
-  background: hsla(0, 0%, 0%, 0.5);
+  background: hsl(0deg 0% 0% / 50%);
   backdrop-filter: blur(4px);
   animation: fade-in var(--transition-base);
+}
+
+.content {
+  position: relative;
+  margin: auto;
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  box-sizing: border-box;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
 }
 
 .modal[open] {
@@ -47,20 +61,6 @@
   }
 }
 
-.content {
-  position: relative;
-  margin: auto;
-  padding: var(--spacing-xl);
-  width: 100%;
-  max-width: 32rem;
-  max-height: 90vh;
-  box-sizing: border-box;
-  background: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  overflow-y: auto;
-}
-
 .closeButton {
   display: flex;
   position: absolute;
@@ -91,6 +91,6 @@
 }
 
 .closeButton svg {
-  stroke: currentColor;
+  stroke: currentcolor;
 }
 

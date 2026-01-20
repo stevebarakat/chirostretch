@@ -194,7 +194,7 @@
   background-color: var(--color-bg-secondary);
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .title {
     font-size: var(--font-size-3xl);
   }

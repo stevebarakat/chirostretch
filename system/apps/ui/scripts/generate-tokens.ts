@@ -29,30 +29,38 @@ function generateColorScale(base: { h: number; s: number; l: number }, name: str
 
   return Object.entries(scale)
     .map(([weight, color]) =>
-      `  --color-${name}-${weight}: hsl(${color.h}, ${color.s}%, ${color.l}%);`
+      `  --color-${name}-${weight}: hsl(${color.h}deg ${color.s}% ${color.l}%);`
     )
     .join('\n');
 }
 
-// Generate transparent variations
-function generateTransparentScale(base: { h: number; s: number; l: number }, name: string) {
-  const alphas = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-  return alphas
+// Generate a curated set of transparent variations (light, medium, dark opacities)
+function generateTransparentVariants(base: { h: number; s: number; l: number }, name: string) {
+  // Keep a practical set: 50 (5%), 100 (10%), 200 (20%), 500 (50%), 800 (80%), 900 (90%)
+  // This covers common use cases without generating all 11 variants
+  const variants = [
+    { weight: 50, alpha: 0.05 },
+    { weight: 100, alpha: 0.1 },
+    { weight: 200, alpha: 0.2 },
+    { weight: 500, alpha: 0.5 },
+    { weight: 800, alpha: 0.8 },
+    { weight: 900, alpha: 0.9 },
+  ];
+
+  return variants
     .map(
-      (alpha) =>
-        `  --color-${name}-transparent-${alpha}: hsla(${base.h}, ${base.s}%, ${base.l}%, ${alpha / 1000});`
+      (v) =>
+        `  --color-${name}-transparent-${v.weight}: hsl(${base.h}deg ${base.s}% ${base.l}% / ${v.alpha * 100}%);`
     )
     .join('\n');
 }
 
 // Generate gradient for primary and secondary colors
 function generateGradient(base: { h: number; s: number; l: number }, name: string) {
-  return `  --color-${name}-gradient: linear-gradient(
-    to bottom,
-    hsl(${base.h} ${base.s}% ${base.l}%) 0%,
-    hsl(${base.h} ${Math.max(0, base.s - 5)}% ${base.l - 7}%) 50%,
-    hsl(${base.h} ${base.s}% ${base.l}%) 100%
-  );`;
+  return `  --color-${name}-gradient: linear-gradient(to bottom,
+    hsl(${base.h}deg ${base.s}% ${base.l}%) 0%,
+    hsl(${base.h}deg ${Math.max(0, base.s - 5)}% ${base.l - 7}%) 50%,
+    hsl(${base.h}deg ${base.s}% ${base.l}%) 100%);`;
 }
 
 // Main generation function
@@ -69,84 +77,98 @@ function generateTokens() {
   --font-secondary: var(--font-montserrat);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Primary Color Scale (Generated from env: ${process.env.DESIGN_TOKEN_PRIMARY}) */
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 ${generateColorScale(primary, 'primary')}
+
 ${generateGradient(primary, 'primary')}
 
-${generateTransparentScale(primary, 'primary')}
+${generateTransparentVariants(primary, 'primary')}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Secondary Color Scale (Generated from env: ${process.env.DESIGN_TOKEN_SECONDARY}) */
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 ${generateColorScale(secondary, 'secondary')}
+
 ${generateGradient(secondary, 'secondary')}
 
-${generateTransparentScale(secondary, 'secondary')}
+${generateTransparentVariants(secondary, 'secondary')}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Neutral Scale (Grayscale) */
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 ${generateColorScale(neutral, 'neutral')}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Transparent Overlays */
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  --color-transparent-white-50: hsla(0, 0%, 100%, 0.05);
-  --color-transparent-white-100: hsla(0, 0%, 100%, 0.1);
-  --color-transparent-white-150: hsla(0, 0%, 100%, 0.15);
-  --color-transparent-white-200: hsla(0, 0%, 100%, 0.2);
-  --color-transparent-white-250: hsla(0, 0%, 100%, 0.25);
-  --color-transparent-white-300: hsla(0, 0%, 100%, 0.3);
-  --color-transparent-white-400: hsla(0, 0%, 100%, 0.4);
-  --color-transparent-white-500: hsla(0, 0%, 100%, 0.5);
-  --color-transparent-white-600: hsla(0, 0%, 100%, 0.6);
-  --color-transparent-white-700: hsla(0, 0%, 100%, 0.7);
-  --color-transparent-white-800: hsla(0, 0%, 100%, 0.8);
-  --color-transparent-white-900: hsla(0, 0%, 100%, 0.9);
-  --color-transparent-white-950: hsla(0, 0%, 100%, 0.95);
-
-  --color-transparent-black-50: hsla(0, 0%, 0%, 0.05);
-  --color-transparent-black-100: hsla(0, 0%, 0%, 0.1);
-  --color-transparent-black-150: hsla(0, 0%, 0%, 0.15);
-  --color-transparent-black-200: hsla(0, 0%, 0%, 0.2);
-  --color-transparent-black-250: hsla(0, 0%, 0%, 0.25);
-  --color-transparent-black-300: hsla(0, 0%, 0%, 0.3);
-  --color-transparent-black-400: hsla(0, 0%, 0%, 0.4);
-  --color-transparent-black-500: hsla(0, 0%, 0%, 0.5);
-  --color-transparent-black-600: hsla(0, 0%, 0%, 0.6);
-  --color-transparent-black-700: hsla(0, 0%, 0%, 0.7);
-  --color-transparent-black-800: hsla(0, 0%, 0%, 0.8);
-  --color-transparent-black-900: hsla(0, 0%, 0%, 0.9);
-  --color-transparent-black-950: hsla(0, 0%, 0%, 0.95);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  --color-transparent-white-50: hsl(0deg 0% 100% / 5%);
+  --color-transparent-white-100: hsl(0deg 0% 100% / 10%);
+  --color-transparent-white-150: hsl(0deg 0% 100% / 15%);
+  --color-transparent-white-200: hsl(0deg 0% 100% / 20%);
+  --color-transparent-white-250: hsl(0deg 0% 100% / 25%);
+  --color-transparent-white-300: hsl(0deg 0% 100% / 30%);
+  --color-transparent-white-400: hsl(0deg 0% 100% / 40%);
+  --color-transparent-white-500: hsl(0deg 0% 100% / 50%);
+  --color-transparent-white-600: hsl(0deg 0% 100% / 60%);
+  --color-transparent-white-700: hsl(0deg 0% 100% / 70%);
+  --color-transparent-white-800: hsl(0deg 0% 100% / 80%);
+  --color-transparent-white-900: hsl(0deg 0% 100% / 90%);
+  --color-transparent-white-950: hsl(0deg 0% 100% / 95%);
+
+  --color-transparent-black-50: hsl(0deg 0% 0% / 5%);
+  --color-transparent-black-100: hsl(0deg 0% 0% / 10%);
+  --color-transparent-black-150: hsl(0deg 0% 0% / 15%);
+  --color-transparent-black-200: hsl(0deg 0% 0% / 20%);
+  --color-transparent-black-250: hsl(0deg 0% 0% / 25%);
+  --color-transparent-black-300: hsl(0deg 0% 0% / 30%);
+  --color-transparent-black-400: hsl(0deg 0% 0% / 40%);
+  --color-transparent-black-500: hsl(0deg 0% 0% / 50%);
+  --color-transparent-black-600: hsl(0deg 0% 0% / 60%);
+  --color-transparent-black-700: hsl(0deg 0% 0% / 70%);
+  --color-transparent-black-800: hsl(0deg 0% 0% / 80%);
+  --color-transparent-black-900: hsl(0deg 0% 0% / 90%);
+  --color-transparent-black-950: hsl(0deg 0% 0% / 95%);
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Semantic Colors */
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  --color-success-500: hsl(${success.h}, ${success.s}%, ${success.l}%);
-  --color-success-600: hsl(${success.h}, ${success.s + 1}%, ${success.l - 7}%);
-  --color-success-700: hsl(${success.h}, ${success.s + 2}%, ${success.l - 13}%);
-  --color-success-800: hsl(${success.h}, ${success.s + 2}%, ${success.l - 18}%);
-  --color-success-50: hsl(${success.h}, ${success.s + 5}%, 96%);
-  --color-success-100: hsl(${success.h}, ${success.s - 1}%, 90%);
-  --color-success-200: hsl(${success.h}, ${success.s - 1}%, 80%);
-  --color-success-300: hsl(${success.h}, ${success.s - 1}%, 70%);
-  --color-success-400: hsl(${success.h}, ${success.s - 1}%, 60%);
-
-  --color-warning-500: hsl(${warning.h}, ${warning.s}%, ${warning.l}%);
-  --color-warning-600: hsl(${warning.h}, ${warning.s + 2}%, ${warning.l - 7}%);
-  --color-warning-700: hsl(${warning.h}, ${warning.s + 4}%, ${warning.l - 14}%);
-  --color-warning-50: hsl(${warning.h}, ${warning.s}%, 96%);
-  --color-warning-100: hsl(${warning.h}, ${warning.s - 4}%, 90%);
-
-  --color-error-500: hsl(${error.h}, ${error.s - 2}%, 60%);
-  --color-error-600: hsl(${error.h}, ${error.s}%, ${error.l}%);
-  --color-error-700: hsl(${error.h}, ${error.s + 2}%, ${error.l - 7}%);
-  --color-error-50: hsl(${error.h}, ${error.s + 7}%, 96%);
-  --color-error-100: hsl(${error.h}, ${error.s + 4}%, 90%);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  --color-success-500: hsl(${success.h}deg ${success.s}% ${success.l}%);
+  --color-success-600: hsl(${success.h}deg ${success.s + 1}% ${success.l - 7}%);
+  --color-success-700: hsl(${success.h}deg ${success.s + 2}% ${success.l - 13}%);
+  --color-success-800: hsl(${success.h}deg ${success.s + 2}% ${success.l - 18}%);
+  --color-success-50: hsl(${success.h}deg ${success.s + 5}% 96%);
+  --color-success-100: hsl(${success.h}deg ${success.s - 1}% 90%);
+  --color-success-200: hsl(${success.h}deg ${success.s - 1}% 80%);
+  --color-success-300: hsl(${success.h}deg ${success.s - 1}% 70%);
+  --color-success-400: hsl(${success.h}deg ${success.s - 1}% 60%);
+
+  --color-warning-500: hsl(${warning.h}deg ${warning.s}% ${warning.l}%);
+  --color-warning-600: hsl(${warning.h}deg ${warning.s + 2}% ${warning.l - 7}%);
+  --color-warning-700: hsl(${warning.h}deg ${warning.s + 4}% ${warning.l - 14}%);
+  --color-warning-50: hsl(${warning.h}deg ${warning.s}% 96%);
+  --color-warning-100: hsl(${warning.h}deg ${warning.s - 4}% 90%);
+
+  --color-error-500: hsl(${error.h}deg ${error.s - 2}% 60%);
+  --color-error-600: hsl(${error.h}deg ${error.s}% ${error.l}%);
+  --color-error-700: hsl(${error.h}deg ${error.s + 2}% ${error.l - 7}%);
+  --color-error-50: hsl(${error.h}deg ${error.s + 7}% 96%);
+  --color-error-100: hsl(${error.h}deg ${error.s + 4}% 90%);
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Semantic Token Aliases */
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   --color-text-primary: var(--color-neutral-900);
   --color-text-secondary: var(--color-neutral-700);
@@ -159,14 +181,16 @@ ${generateColorScale(neutral, 'neutral')}
   --color-bg-secondary: var(--color-neutral-100);
   --color-bg-tertiary: var(--color-neutral-200);
   --color-bg-inverse: var(--color-neutral-900);
-  --color-bg-overlay: hsla(0, 0%, 0%, 0.4);
+  --color-bg-overlay: hsl(0deg 0% 0% / 40%);
 
   --color-border-primary: var(--color-neutral-300);
   --color-border-secondary: var(--color-neutral-200);
   --color-border-focus: var(--color-primary-500);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   /* Spacing, Typography, Effects (Static - not env-driven) */
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   --spacing-xs: 4px;
   --spacing-sm: 8px;

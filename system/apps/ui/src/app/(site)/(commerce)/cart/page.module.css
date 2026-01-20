@@ -218,7 +218,7 @@
   text-decoration: none;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .cartContent {
     grid-template-columns: 1fr 400px;
   }

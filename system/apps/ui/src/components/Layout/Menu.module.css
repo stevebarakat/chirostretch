@@ -7,10 +7,6 @@
   display: inline-block;
 }
 
-.itemHeader .link {
-  font-weight: var(--font-weight-normal);
-}
-
 .link {
   display: block;
   padding: var(--spacing-xs) 0;
@@ -25,7 +21,7 @@
   color: var(--color-primary-600);
 }
 
-.itemHeader .button {
+.itemHeader .link {
   font-weight: var(--font-weight-normal);
 }
 
@@ -45,6 +41,10 @@
 
 .button:hover {
   color: var(--color-primary-600);
+}
+
+.itemHeader .button {
+  font-weight: var(--font-weight-normal);
 }
 
 .icon {
@@ -101,7 +101,7 @@
   background-color: var(--color-bg-secondary);
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .dropdown {
     position: static;
     margin-top: 0;

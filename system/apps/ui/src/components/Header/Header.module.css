@@ -7,6 +7,7 @@
   background: var(--color-secondary-500);
   border-top: 1px solid var(--nav-border-color);
   border-bottom: 1px solid var(--nav-border-color);
+
   --nav-border-color: var(--color-transparent-white-500);
 }
 
@@ -41,15 +42,29 @@
   display: none;
 }
 
+.topMenuDropdown li {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+.topMenuDropdown li + li {
+  border-top: 1px solid var(--nav-border-color);
+}
+
 .topBar ul li {
   position: relative;
   list-style: none;
   align-items: center;
   border-right: 1px solid var(--nav-border-color);
+}
 
-  &:first-of-type {
-    border-left: 1px solid var(--nav-border-color);
-  }
+.topMenuDropdown li:first-of-type {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+.topBar ul li:first-of-type {
+  border-left: 1px solid var(--nav-border-color);
 }
 
 .topNav {
@@ -121,16 +136,6 @@
   display: block;
 }
 
-.topMenuDropdown li,
-.topMenuDropdown li:first-of-type {
-  border-right: none !important;
-  border-left: none !important;
-}
-
-.topMenuDropdown li + li {
-  border-top: 1px solid var(--nav-border-color);
-}
-
 .siteHeader ul {
   list-style: none;
   margin: 0;
@@ -163,7 +168,7 @@
   background-color: var(--color-transparent-white-100);
 }
 
-@media (max-width: 700px) {
+@media (width <= 700px) {
   /* Hide header bar on mobile */
   .headerBar {
     display: none;
@@ -215,7 +220,7 @@
     min-height: 100vh;
     background: var(--color-secondary-600);
     transition: transform 0.25s;
-    transform: var(--topNavToggle);
+    transform: var(--top-nav-toggle);
   }
 
   .topNavContainer {
@@ -230,6 +235,15 @@
   }
 
   .topBar ul li:first-of-type {
+    border-left: none;
+  }
+
+  .topMenuDropdown li {
+    border-right: none;
+    border-left: none;
+  }
+
+  .topMenuDropdown li:first-of-type {
     border-left: none;
   }
 
@@ -283,14 +297,5 @@
 
   .topMenuDropdown li:last-child .topMenuLink {
     border-bottom: 1px solid var(--nav-border-color);
-  }
-
-  .topMenuDropdown li {
-    border-right: none;
-    border-left: none;
-  }
-
-  .topMenuDropdown li:first-of-type {
-    border-left: none;
   }
 }

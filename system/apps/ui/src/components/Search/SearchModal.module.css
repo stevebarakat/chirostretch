@@ -9,7 +9,7 @@
   max-height: 80vh;
   background-color: var(--color-bg-primary);
   border-radius: var(--radius-lg);
-  box-shadow: 0 10px 40px hsla(0, 0%, 0%, 0.2);
+  box-shadow: 0 10px 40px hsl(0deg 0% 0% / 20%);
   overflow: hidden;
 }
 
@@ -141,7 +141,7 @@
   color: var(--color-text-secondary);
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .modal :global(.content) {
     margin-top: 0;
     max-width: 100%;

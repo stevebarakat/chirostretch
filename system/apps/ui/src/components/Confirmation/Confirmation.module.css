@@ -21,7 +21,7 @@
   color: white;
   background: linear-gradient(135deg, var(--color-success-500), var(--color-success-600));
   border-radius: var(--radius-full);
-  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+  box-shadow: 0 4px 14px rgb(34 197 94 / 40%);
 }
 
 .heading {
@@ -43,7 +43,7 @@
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .container {
     padding: var(--spacing-4xl) var(--spacing-3xl);
   }

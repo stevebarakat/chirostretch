@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   padding: var(--spacing-lg);
-  background: hsla(0, 0%, 0%, 0.5);
+  background: hsl(0deg 0% 0% / 50%);
   inset: 0;
 
   /* backdrop-filter: blur(8px); */
@@ -55,7 +55,7 @@
 }
 
 .closeButton svg {
-  stroke: currentColor;
+  stroke: currentcolor;
 }
 
 .content {
@@ -63,7 +63,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .content {
     flex-direction: row;
   }
@@ -76,7 +76,7 @@
   background-color: var(--color-bg-tertiary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .imageWrapper {
     width: 50%;
   }
@@ -211,7 +211,7 @@
   color: var(--color-primary-600);
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .overlay {
     padding: 0;
   }

@@ -1,5 +1,6 @@
 .hero {
   --max-height: calc(100vh - var(--header-height));
+
   display: flex;
   position: relative;
   justify-content: flex-start;
@@ -10,7 +11,7 @@
   color: white;
 }
 
-@media (min-width: 2500px) {
+@media (width >= 2500px) {
   .hero {
     height: var(--max-height);
     max-height: var(--max-height) !important;
@@ -33,8 +34,8 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
+    rgb(0 0 0 / 40%) 0%,
+    rgb(0 0 0 / 20%) 50%,
     transparent 100%
   );
   pointer-events: none;
@@ -55,7 +56,7 @@
 .headline {
   margin: 0;
   max-width: 23ch;
-  font-family: var(--secondaryFont);
+  font-family: var(--secondary-font);
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 800;
   line-height: 1;
@@ -80,7 +81,7 @@
   margin-top: 1.5rem;
 }
 
-@media (min-width: 700px) {
+@media (width >= 700px) {
   .description {
     line-height: 2.25rem;
   }
@@ -90,7 +91,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .content {
     padding: 2rem 1.5rem;
   }

@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   background: var(--color-bg-primary);
-  border: 1px solid hsl(0 0% 90%);
+  border: 1px solid hsl(0deg 0% 90%);
   border-radius: var(--radius-lg);
-  box-shadow: 0 2px 8px hsl(0 0% 0% / 0.08);
+  box-shadow: 0 2px 8px hsl(0deg 0% 0% / 8%);
   overflow: hidden;
 }
 
@@ -27,19 +27,19 @@
   gap: var(--spacing-sm);
   width: 100%;
   height: 100%;
-  background: hsl(0 0% 96%);
+  background: hsl(0deg 0% 96%);
 }
 
 .placeholderIcon {
   width: 80px;
   height: 80px;
-  color: hsl(0 0% 80%);
+  color: hsl(0deg 0% 80%);
 }
 
 .placeholderText {
   font-size: var(--font-size-sm);
   font-style: italic;
-  color: hsl(0 0% 70%);
+  color: hsl(0deg 0% 70%);
 }
 
 .badge {
@@ -57,7 +57,7 @@
   color: var(--color-success-800);
   background: var(--color-success-100);
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 6px hsl(0 0% 0% / 0.1);
+  box-shadow: 0 2px 6px hsl(0deg 0% 0% / 10%);
 }
 
 .badge::before {
@@ -156,7 +156,7 @@
   transform: translateX(4px);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .content {
     padding: var(--spacing-md);
   }
