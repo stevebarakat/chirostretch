@@ -2,12 +2,12 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createWebhookRequest } from "@/test/helpers/request";
 
 // Hoist mock functions
-const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, mockFetchGraphQL } = vi.hoisted(() => ({
+const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, mockWpQuery } = vi.hoisted(() => ({
   mockSaveObject: vi.fn(),
   mockDeleteObject: vi.fn(),
   mockSaveObjects: vi.fn(),
   mockClearObjects: vi.fn(),
-  mockFetchGraphQL: vi.fn(),
+  mockWpQuery: vi.fn(),
 }));
 
 // Mock Algolia client
@@ -23,8 +23,8 @@ vi.mock("@/lib/search/client", () => ({
 }));
 
 // Mock GraphQL client
-vi.mock("@/lib/graphql/client", () => ({
-  fetchGraphQL: mockFetchGraphQL,
+vi.mock("@/lib/cms/graphql", () => ({
+  wpQuery: mockWpQuery,
 }));
 
 import { POST } from "./route";
@@ -75,7 +75,7 @@ describe("Algolia Events Webhook", () => {
     });
 
     it("calls saveObject when action=update", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         event: {
           id: "graphql-id",
           databaseId: 789,
@@ -104,7 +104,7 @@ describe("Algolia Events Webhook", () => {
     });
 
     it("skips indexing when event not found", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({ event: null });
+      mockWpQuery.mockResolvedValueOnce({ event: null });
 
       const req = createWebhookRequest(
         { post_id: 999, action: "update" },
@@ -143,7 +143,7 @@ describe("Algolia Events Webhook", () => {
     });
 
     it("objectID uses post_id from webhook, not GraphQL databaseId", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         event: {
           id: "different-id",
           databaseId: 99999,
@@ -174,7 +174,7 @@ describe("Algolia Events Webhook", () => {
 
   describe("Record Builder Sanity", () => {
     it("transforms event data correctly", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         event: {
           id: "graphql-id",
           databaseId: 100,
@@ -227,7 +227,7 @@ describe("Algolia Events Webhook", () => {
     });
 
     it("handles missing optional fields gracefully", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         event: {
           id: "id",
           databaseId: 200,

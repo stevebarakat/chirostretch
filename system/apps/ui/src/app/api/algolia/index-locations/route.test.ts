@@ -2,12 +2,12 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createWebhookRequest } from "@/test/helpers/request";
 
 // Hoist mock functions so they're available before module loading
-const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, mockFetchGraphQL } = vi.hoisted(() => ({
+const { mockSaveObject, mockDeleteObject, mockSaveObjects, mockClearObjects, mockWpQuery } = vi.hoisted(() => ({
   mockSaveObject: vi.fn(),
   mockDeleteObject: vi.fn(),
   mockSaveObjects: vi.fn(),
   mockClearObjects: vi.fn(),
-  mockFetchGraphQL: vi.fn(),
+  mockWpQuery: vi.fn(),
 }));
 
 // Mock Algolia client
@@ -23,8 +23,8 @@ vi.mock("@/lib/search/client", () => ({
 }));
 
 // Mock GraphQL client
-vi.mock("@/lib/graphql/client", () => ({
-  fetchGraphQL: mockFetchGraphQL,
+vi.mock("@/lib/cms/graphql", () => ({
+  wpQuery: mockWpQuery,
 }));
 
 // Import route handler after mocks are set up
@@ -50,7 +50,7 @@ describe("Algolia Locations Webhook", () => {
     });
 
     it("accepts requests with valid webhook secret", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "cG9zdDoxMjM=",
           databaseId: 123,
@@ -90,17 +90,15 @@ describe("Algolia Locations Webhook", () => {
     });
 
     it("calls saveObject when action=update", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "cG9zdDo3ODk=",
           databaseId: 789,
           title: "Union Square",
           slug: "union-square",
           content: "<p>A great location</p>",
-          locationDetails: {
-            city: "San Francisco",
-            state: "CA",
-          },
+          city: "San Francisco",
+          state: "CA",
         },
       });
 
@@ -119,7 +117,7 @@ describe("Algolia Locations Webhook", () => {
     });
 
     it("calls saveObject when action=create", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "cG9zdDoxMDA=",
           databaseId: 100,
@@ -142,7 +140,7 @@ describe("Algolia Locations Webhook", () => {
     });
 
     it("skips indexing when location not found in WordPress", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({ location: null });
+      mockWpQuery.mockResolvedValueOnce({ location: null });
 
       const req = createWebhookRequest(
         { post_id: 999, action: "update" },
@@ -177,7 +175,7 @@ describe("Algolia Locations Webhook", () => {
     });
 
     it("uses consistent location_${post_id} format for index", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "some-graphql-id",
           databaseId: 42,
@@ -205,7 +203,7 @@ describe("Algolia Locations Webhook", () => {
     it("objectID is derived from post_id, not GraphQL id", async () => {
       // The GraphQL id is base64 encoded and different from post_id
       // This test ensures we use post_id for stability
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "cG9zdDoxMjM0NTY3ODk=", // Different from post_id
           databaseId: 123456789,
@@ -234,7 +232,7 @@ describe("Algolia Locations Webhook", () => {
 
   describe("Record Builder Sanity", () => {
     it("transforms location data correctly", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "graphql-id",
           databaseId: 123,
@@ -247,16 +245,13 @@ describe("Algolia Locations Webhook", () => {
               altText: "Downtown office",
             },
           },
-          locationDetails: {
-            city: "San Francisco",
-            state: "CA",
-            streetAddress: "123 Main St",
-            zip: "94102",
-            phone: "555-1234",
-            email: "sf@example.com",
-            shortDescription: "Our flagship location",
-            services: ["Chiropractic", "Massage"],
-          },
+          city: "San Francisco",
+          state: "CA",
+          streetAddress: "123 Main St",
+          zip: "94102",
+          phone: "555-1234",
+          email: "sf@example.com",
+          shortDescription: "Our flagship location",
         },
       });
 
@@ -280,7 +275,6 @@ describe("Algolia Locations Webhook", () => {
           phone: "555-1234",
           email: "sf@example.com",
           shortDescription: "Our flagship location",
-          services: ["Chiropractic", "Massage"],
           image: "https://example.com/image.jpg",
           imageAlt: "Downtown office",
           type: "location",
@@ -289,7 +283,7 @@ describe("Algolia Locations Webhook", () => {
     });
 
     it("handles missing optional fields gracefully", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "id",
           databaseId: 456,
@@ -315,14 +309,13 @@ describe("Algolia Locations Webhook", () => {
           slug: "minimal",
           city: "",
           state: "",
-          services: [],
           type: "location",
         }),
       });
     });
 
     it("strips HTML from content field", async () => {
-      mockFetchGraphQL.mockResolvedValueOnce({
+      mockWpQuery.mockResolvedValueOnce({
         location: {
           id: "id",
           databaseId: 789,

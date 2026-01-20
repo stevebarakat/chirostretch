@@ -23,7 +23,7 @@ vi.mock("@/lib/search/client", () => ({
 }));
 
 // Mock GraphQL client
-vi.mock("@app/_lib/wp/graphql", () => ({
+vi.mock("@/lib/cms/graphql", () => ({
   wpQuery: mockWpQuery,
 }));
 
@@ -226,7 +226,7 @@ describe("Algolia Products Webhook", () => {
           stockStatus: "IN_STOCK",
           image: "https://example.com/roller.jpg",
           imageAlt: "Foam roller product image",
-          categories: "Recovery, Equipment",
+          categories: ["Recovery", "Equipment"],
           excerpt: "High-density foam roller",
           type: "product",
         }),
@@ -262,7 +262,7 @@ describe("Algolia Products Webhook", () => {
           name: "Simple Product",
           slug: "simple-product",
           price: "",
-          categories: "",
+          categories: [],
           excerpt: "",
           type: "product",
         }),

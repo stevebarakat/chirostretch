@@ -1,7 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { renderHook, act } from "@testing-library/react";
 import {
   getSafeImageUrl,
   proxyCmsUrl,
+  useImageFallback,
   FALLBACK_IMAGES,
 } from "./image-helpers";
 
@@ -166,8 +168,141 @@ describe("proxyCmsUrl", () => {
   });
 });
 
-// Note: useImageFallback hook testing would require @testing-library/react
-// For now, we test the pure utility functions above which cover the main logic
 describe("useImageFallback", () => {
-  it.todo("should be tested with @testing-library/react");
+  const initialUrl = "https://example.com/image.jpg";
+  const fallbackUrl = "/images/fallback.jpg";
+
+  beforeEach(() => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  describe("initial state", () => {
+    it("returns initial URL as currentUrl", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      expect(result.current.currentUrl).toBe(initialUrl);
+    });
+
+    it("starts with hasError as false", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      expect(result.current.hasError).toBe(false);
+    });
+
+    it("provides handleError callback", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      expect(typeof result.current.handleError).toBe("function");
+    });
+  });
+
+  describe("handleError behavior", () => {
+    it("switches to fallback URL when handleError is called", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      act(() => {
+        result.current.handleError();
+      });
+
+      expect(result.current.currentUrl).toBe(fallbackUrl);
+    });
+
+    it("sets hasError to true when handleError is called", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      act(() => {
+        result.current.handleError();
+      });
+
+      expect(result.current.hasError).toBe(true);
+    });
+
+    it("logs error message when handleError is called", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      act(() => {
+        result.current.handleError();
+      });
+
+      expect(console.error).toHaveBeenCalledWith(
+        "Image failed to load:",
+        initialUrl
+      );
+    });
+
+    it("does not switch URL again after error has occurred", () => {
+      const { result } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      // First error - should switch to fallback
+      act(() => {
+        result.current.handleError();
+      });
+
+      expect(result.current.currentUrl).toBe(fallbackUrl);
+
+      // Second error - should stay on fallback
+      act(() => {
+        result.current.handleError();
+      });
+
+      expect(result.current.currentUrl).toBe(fallbackUrl);
+      expect(result.current.hasError).toBe(true);
+    });
+  });
+
+  describe("edge cases", () => {
+    it("handles when initialUrl equals fallbackUrl", () => {
+      const sameUrl = "/images/same.jpg";
+      const { result } = renderHook(() => useImageFallback(sameUrl, sameUrl));
+
+      expect(result.current.currentUrl).toBe(sameUrl);
+
+      act(() => {
+        result.current.handleError();
+      });
+
+      // Should not switch since currentUrl already equals fallbackUrl
+      expect(result.current.currentUrl).toBe(sameUrl);
+      expect(result.current.hasError).toBe(false);
+    });
+
+    it("handles empty string URLs", () => {
+      const { result } = renderHook(() => useImageFallback("", fallbackUrl));
+
+      expect(result.current.currentUrl).toBe("");
+
+      act(() => {
+        result.current.handleError();
+      });
+
+      expect(result.current.currentUrl).toBe(fallbackUrl);
+    });
+
+    it("maintains stable handleError reference across renders", () => {
+      const { result, rerender } = renderHook(() =>
+        useImageFallback(initialUrl, fallbackUrl)
+      );
+
+      const firstHandleError = result.current.handleError;
+
+      rerender();
+
+      // handleError should be memoized with useCallback
+      expect(result.current.handleError).toBe(firstHandleError);
+    });
+  });
 });

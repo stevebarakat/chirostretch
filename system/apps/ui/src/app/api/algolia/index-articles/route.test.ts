@@ -23,7 +23,7 @@ vi.mock("@/lib/search/client", () => ({
 }));
 
 // Mock GraphQL client
-vi.mock("@app/_lib/wp/graphql", () => ({
+vi.mock("@/lib/cms/graphql", () => ({
   wpQuery: mockWpQuery,
 }));
 
@@ -214,7 +214,7 @@ describe("Algolia Articles Webhook", () => {
           excerpt: "Improve your posture with these simple tips",
           image: "https://example.com/posture.jpg",
           imageAlt: "Good posture illustration",
-          categories: "Health, Wellness",
+          categories: ["Health", "Wellness"],
           type: "article",
         }),
       });
@@ -278,7 +278,7 @@ describe("Algolia Articles Webhook", () => {
           title: "Minimal Article",
           slug: "minimal",
           excerpt: "",
-          categories: "",
+          categories: [],
           type: "article",
         }),
       });
