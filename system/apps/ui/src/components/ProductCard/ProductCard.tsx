@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// eslint-disable-next-line no-restricted-imports
-import { useEffect } from "react";
 import { ImageWrapper, NoImage, StarRating, Button, Text } from "@/components/Primitives";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { useCartStore } from "@/stores/useCartStore";
@@ -59,16 +57,7 @@ export function ProductCard({
   className,
 }: ProductCardProps) {
   const addToCart = useCartStore((state) => state.addToCart);
-  const fetchCart = useCartStore((state) => state.fetchCart);
   const loading = useCartStore((state) => state.loading);
-
-  // Reason this component must use useEffect:
-  // - Syncing with external API (cart data) on component mount
-  // - Server Components cannot handle client-side API calls
-  // - This ensures cart state is available for add-to-cart functionality
-  useEffect(() => {
-    fetchCart();
-  }, [fetchCart]);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();

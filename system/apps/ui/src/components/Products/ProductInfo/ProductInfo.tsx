@@ -1,7 +1,7 @@
 "use client";
 
 // eslint-disable-next-line no-restricted-imports
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Input, Text } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
 import { toast } from "@/lib/toast";
@@ -85,7 +85,6 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = useCartStore((state) => state.addToCart);
-  const fetchCart = useCartStore((state) => state.fetchCart);
   const loading = useCartStore((state) => state.loading);
 
   const isOnSale =
@@ -95,14 +94,6 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const isInStock = product.stockStatus === "IN_STOCK";
   const isVariable = product.__typename === "VariableProduct";
   const isExternal = product.__typename === "ExternalProduct";
-
-  // Reason this component must use useEffect:
-  // - Syncing with external API (cart data) on component mount
-  // - Server Components cannot handle client-side API calls
-  // - This ensures cart state is available for add-to-cart functionality
-  useEffect(() => {
-    fetchCart();
-  }, [fetchCart]);
 
   const handleAddToCart = async () => {
     if (!product.databaseId) {
