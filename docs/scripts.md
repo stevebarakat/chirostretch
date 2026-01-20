@@ -16,7 +16,7 @@ Demo data generators for local development.
 Safe for CI, preview, and local environments.
 
 ```bash
-npm run generate:demo
+pnpm generate:demo
 ```
 
 ## search/algolia

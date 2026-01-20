@@ -1,5 +1,7 @@
 # WordPress Integration
 
+For comprehensive WordPress Admin structure, ACF naming conventions, and route mapping, see [docs/wordpress-admin-structure.md](../docs/wordpress-admin-structure.md).
+
 ## Custom Post Types
 
 **MU-plugin:** Registers CPTs, defines slugs, rewrite rules, GraphQL exposure

@@ -63,5 +63,5 @@
 <!-- How was this tested? -->
 
 - [ ] Local dev tested
-- [ ] Build passes (`npm run build`)
-- [ ] Tests pass (`npm run test:run`)
+- [ ] Build passes (`pnpm build`)
+- [ ] Tests pass (`pnpm test:run`)

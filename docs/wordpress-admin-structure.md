@@ -2,6 +2,8 @@
 
 This document defines how the WordPress Admin is structured for the ChiroStretch headless architecture.
 
+For MU-plugin coding patterns and CPT registration, see [agents/wordpress.md](../agents/wordpress.md).
+
 > **Purpose of WordPress Admin**
 > WordPress is responsible for **content creation, global configuration, and system governance**.
 > It is **not** responsible for layout, UI composition, or presentation logic.

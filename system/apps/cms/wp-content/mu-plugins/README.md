@@ -42,6 +42,7 @@ const CHS_NON_PRODUCTION_PLUGINS = [
 
 - **_env-loader.php** - Environment-based plugin loader
 - **nextjs-revalidation.php** - Triggers Next.js ISR revalidation on content changes
+- **algolia-sync.php** - Auto-syncs content to Algolia on save/delete (locations, articles, events, products)
 
 ### Content Types
 

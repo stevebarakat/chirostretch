@@ -4,10 +4,9 @@ This project uses Algolia for search functionality across products, events, arti
 
 ## Environment Variables
 
-Add the following environment variables to your `.env.local` file:
+### Next.js (`.env.local`)
 
 ```env
-# Algolia Configuration
 NEXT_PUBLIC_ALGOLIA_APP_ID=your_app_id
 NEXT_PUBLIC_ALGOLIA_SEARCH_KEY=your_search_only_api_key
 ALGOLIA_ADMIN_API_KEY=your_admin_api_key
@@ -17,6 +16,14 @@ NEXT_PUBLIC_ALGOLIA_INDEX_PRODUCTS=products
 NEXT_PUBLIC_ALGOLIA_INDEX_EVENTS=events
 NEXT_PUBLIC_ALGOLIA_INDEX_ARTICLES=articles
 NEXT_PUBLIC_ALGOLIA_INDEX_LOCATIONS=locations
+```
+
+### WordPress (`wp-config.php`)
+
+```php
+define('ALGOLIA_APP_ID', 'your_app_id');
+define('ALGOLIA_ADMIN_API_KEY', 'your_admin_api_key');
+define('ALGOLIA_INDEX_PREFIX', ''); // Optional prefix for index names
 ```
 
 ## Initial Setup
@@ -49,23 +56,23 @@ NEXT_PUBLIC_ALGOLIA_INDEX_LOCATIONS=locations
 
    ```bash
    # Index products
-   curl -X POST http://localhost:3000/api/algolia/index-products
+   curl --insecure -X POST https://localhost:3000/api/algolia/index-products
 
    # Index events
-   curl -X POST http://localhost:3000/api/algolia/index-events
+   curl --insecure -X POST https://localhost:3000/api/algolia/index-events
 
    # Index articles
-   curl -X POST http://localhost:3000/api/algolia/index-articles
+   curl --insecure -X POST https://localhost:3000/api/algolia/index-articles
 
    # Index locations
-   curl -X POST http://localhost:3000/api/algolia/index-locations
+   curl --insecure -X POST https://localhost:3000/api/algolia/index-locations
    ```
 
    **Check index status:**
 
    ```bash
    # See how many records are in each index
-   curl http://localhost:3000/api/algolia/check-status
+   curl --insecure https://localhost:3000/api/algolia/check-status
    ```
 
 ## How It Works
@@ -82,6 +89,24 @@ NEXT_PUBLIC_ALGOLIA_INDEX_LOCATIONS=locations
 - Results are displayed with images, titles, and excerpts
 - Clicking a result navigates to the corresponding page
 
-## Re-indexing
+## Automatic Sync (Recommended)
 
-To update your Algolia indices when content changes, call the indexing API routes again. You can set up webhooks or cron jobs to automatically re-index when content is updated in WordPress.
+The MU-plugin `algolia-sync.php` automatically syncs content to Algolia when saved or deleted in WordPress.
+
+**Supported content types:**
+- Locations (`location` CPT)
+- Articles (posts)
+- Events (`tribe_events` from The Events Calendar)
+- Products (WooCommerce)
+
+**How it works:**
+1. Editor saves/publishes content in WordPress
+2. MU-plugin transforms post to Algolia record
+3. Record pushed directly to Algolia via REST API
+4. On trash/delete, record removed from Algolia
+
+**No action required** — indexing happens automatically on save.
+
+## Manual Re-indexing
+
+For bulk operations or initial setup, use the API routes:
