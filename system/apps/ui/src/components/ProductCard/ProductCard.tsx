@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { ImageWrapper, NoImage, StarRating, Button, Text } from "@/components/Primitives";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { useCartStore } from "@/stores/useCartStore";
+import { toast } from "@/lib/toast";
 import styles from "./ProductCard.module.css";
 
 type ProductImage = {
@@ -75,6 +76,7 @@ export function ProductCard({
 
     if (!databaseId) {
       console.error("Cannot add to cart: missing databaseId");
+      toast.error("Unable to add this item to cart.");
       return;
     }
 
@@ -88,8 +90,10 @@ export function ProductCard({
           sale_price: salePrice,
         },
       });
+      toast.success(`Added ${name || "item"} to cart`);
     } catch (error) {
       console.error("Failed to add product to cart:", error);
+      toast.error("Failed to add to cart. Please try again.");
     }
   };
   const productName = name || "Product";

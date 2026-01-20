@@ -6,7 +6,7 @@ import "@/styles/globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
-import { BackToTop } from "@/components/Primitives";
+import { BackToTop, ToastProvider, ToastListener } from "@/components/Primitives";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   LAYOUT_QUERY,
@@ -109,12 +109,15 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://algolia.net" />
       </head>
       <body>
-        <CartProvider>
-          <Header logo={logo} topMenuItems={topMenuItems} />
-          <main>{children}</main>
-          <Footer logo={logo} />
-          <BackToTop />
-        </CartProvider>
+        <ToastProvider>
+          <CartProvider>
+            <Header logo={logo} topMenuItems={topMenuItems} />
+            <main>{children}</main>
+            <Footer logo={logo} />
+            <BackToTop />
+          </CartProvider>
+          <ToastListener />
+        </ToastProvider>
       </body>
     </html>
   );

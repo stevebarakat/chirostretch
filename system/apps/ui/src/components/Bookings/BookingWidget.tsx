@@ -10,7 +10,7 @@ import { TimeSlotGrid } from "./TimeSlotGrid";
 import { useBookingParams } from "./useBookingParams";
 import type { BookableService, AvailableDate, TimeSlot } from "./types";
 import styles from "./BookingWidget.module.css";
-import { Button } from "@/components/Primitives";
+import { Button, Alert } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
 
 type BookingWidgetProps = {
@@ -41,6 +41,9 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
   const [loadingDates, setLoadingDates] = useState(false);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+  const [timeSlotsError, setTimeSlotsError] = useState<string | null>(null);
+  const [confirmError, setConfirmError] = useState<string | null>(null);
 
   // Reason this component must use useEffect:
   // - Syncing with external API (booking availability endpoint) when service/date changes
@@ -54,6 +57,7 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
 
     async function fetchAvailability() {
       setLoadingDates(true);
+      setAvailabilityError(null);
       try {
         const endDate = addDays(startDate, DAYS_TO_SHOW);
         const res = await fetch(
@@ -97,6 +101,7 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
         setAvailableDates(dates);
       } catch (error) {
         console.error("Error fetching availability:", error);
+        setAvailabilityError("Unable to load availability. Showing all dates as available.");
         // Set all dates as available on error (fallback)
         const dates: AvailableDate[] = Array.from(
           { length: DAYS_TO_SHOW },
@@ -131,6 +136,7 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
 
     async function fetchTimeSlots() {
       setLoadingSlots(true);
+      setTimeSlotsError(null);
       try {
         const res = await fetch(
           `/api/bookings/slots?productId=${serviceId}&startDate=${date}&endDate=${date}`
@@ -167,6 +173,7 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
         setTimeSlots(slots);
       } catch (error) {
         console.error("Error fetching time slots:", error);
+        setTimeSlotsError("Unable to load time slots. Please try again.");
         setTimeSlots([]);
       } finally {
         setLoadingSlots(false);
@@ -186,6 +193,7 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
     if (!isComplete || !serviceId || !date || !time) return;
 
     setConfirming(true);
+    setConfirmError(null);
     try {
       if (onConfirm) {
         onConfirm({ serviceId, date, time });
@@ -228,7 +236,7 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
       }
     } catch (error) {
       console.error("Error confirming booking:", error);
-      alert(
+      setConfirmError(
         error instanceof Error
           ? error.message
           : "Failed to confirm booking. Please try again."
@@ -255,6 +263,10 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
           loading={loadingDates}
         />
 
+        {availabilityError && (
+          <Alert variant="warning">{availabilityError}</Alert>
+        )}
+
         {serviceId && (
           <DateStrip
             availableDates={availableDates}
@@ -267,6 +279,10 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
           />
         )}
 
+        {timeSlotsError && (
+          <Alert variant="warning">{timeSlotsError}</Alert>
+        )}
+
         {serviceId && date && (
           <TimeSlotGrid
             slots={timeSlots}
@@ -275,6 +291,11 @@ export function BookingWidget({ services, onConfirm }: BookingWidgetProps) {
             loading={loadingSlots}
           />
         )}
+
+        {confirmError && (
+          <Alert variant="error">{confirmError}</Alert>
+        )}
+
         <Button
           fullWidth
           onClick={handleConfirm}

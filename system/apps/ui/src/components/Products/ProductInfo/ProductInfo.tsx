@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { Button, Input, Text } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
+import { toast } from "@/lib/toast";
 import styles from "./ProductInfo.module.css";
 
 type ProductVariation = {
@@ -106,6 +107,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const handleAddToCart = async () => {
     if (!product.databaseId) {
       console.error("Cannot add to cart: missing databaseId", product);
+      toast.error("Unable to add this item to cart.");
       return;
     }
 
@@ -119,8 +121,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           sale_price: product.salePrice,
         },
       });
+      toast.success(`Added ${product.name || "item"} to cart`);
     } catch (error) {
       console.error("Failed to add product to cart:", error);
+      toast.error("Failed to add to cart. Please try again.");
     }
   };
 

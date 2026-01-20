@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-restricted-imports
 import { useEffect, useState, useCallback, startTransition } from "react";
 import { RefreshCcw, Trash2 } from "lucide-react";
-import { Container, Button, Text, Input } from "@/components/Primitives";
+import { Container, Button, Text, Input, Alert } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
 import type {
   StoreCartItem,
@@ -25,6 +25,7 @@ export default function CartPage() {
     Record<string, number>
   >({});
   const [mounted, setMounted] = useState(false);
+  const [cartError, setCartError] = useState<string | null>(null);
 
   const loadCart = useCallback(async () => {
     await fetchCart();
@@ -64,11 +65,20 @@ export default function CartPage() {
 
   const handleUpdateQuantity = async (key: string) => {
     const quantity = localQuantities[key];
+    const savedItem = items.find((item) => item.key === key);
+    const previousQuantity = savedItem?.quantity;
+
     if (quantity && quantity > 0) {
+      setCartError(null);
       try {
         await updateCartItem(key, quantity);
       } catch (error) {
         console.error("Failed to update quantity:", error);
+        setCartError("Failed to update quantity. Please try again.");
+        // Revert to previous quantity on failure
+        if (previousQuantity !== undefined) {
+          setLocalQuantities((prev) => ({ ...prev, [key]: previousQuantity }));
+        }
       }
     }
   };
@@ -86,10 +96,12 @@ export default function CartPage() {
   };
 
   const handleRemoveItem = async (key: string) => {
+    setCartError(null);
     try {
       await removeCartItem(key);
     } catch (error) {
       console.error("Failed to remove item:", error);
+      setCartError("Failed to remove item. Please try again.");
     }
   };
 
@@ -139,6 +151,10 @@ export default function CartPage() {
             Cart ({itemsCount} {itemsCount === 1 ? "item" : "items"})
           </Text>
         </div>
+
+        {cartError && (
+          <Alert variant="error">{cartError}</Alert>
+        )}
 
         <div className={styles.cartContent}>
           <div className={styles.cartItems}>

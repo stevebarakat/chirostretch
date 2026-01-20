@@ -28,6 +28,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-toast": "^1.2.15",
     "algoliasearch": "^5.46.3",
     "cloudinary-build-url": "^0.2.4",
     "clsx": "^2.1.1",
