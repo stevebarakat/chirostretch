@@ -103,6 +103,26 @@ Before adding `useEffect`, ask:
 4. Derived state? → `useMemo` or compute during render
 5. Syncing with props? → Remove it
 
+## useEffectEvent
+
+When an effect needs current values but shouldn't re-run when they change:
+
+```tsx
+const onMessage = useEffectEvent((msg) => {
+  console.log('Message for', user.name); // Always current
+});
+
+useEffect(() => {
+  const connection = createConnection();
+  connection.on('message', onMessage);
+  return () => connection.disconnect();
+}, []); // No dependency on user.name
+```
+
+- Effect runs once, event handler always sees latest state
+- Solves the "dependency array vs stale closure" tradeoff
+- Replaces many `useCallback` + dependency hacks
+
 ## Gotchas
 
 - Don't use `forwardRef` — React 19 treats `ref` as normal prop

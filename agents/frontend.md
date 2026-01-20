@@ -40,6 +40,42 @@ function Input({ ref, ...props }: ComponentProps<'input'> & { ref?: Ref<HTMLInpu
 }
 ```
 
+## React 19.2 Patterns
+
+### Activity Component
+
+Use `<Activity />` to keep hidden UI alive without remounting:
+
+```tsx
+// Tabs that preserve state when switching
+<Activity mode={activeTab === 'reports' ? 'visible' : 'hidden'}>
+  <Reports />
+</Activity>
+<Activity mode={activeTab === 'settings' ? 'visible' : 'hidden'}>
+  <Settings />
+</Activity>
+```
+
+- Hidden components pause effects but retain state
+- Switching back resumes instantly (no refetch, no scroll reset)
+- Prefer over conditional rendering for tabs, wizards, page transitions
+
+### cacheSignal (Server Components)
+
+Use `cacheSignal()` to abort server-side fetches when results are no longer needed:
+
+```tsx
+import { cache, cacheSignal } from 'react';
+
+const fetchData = cache(async (id) => {
+  const signal = cacheSignal();
+  const res = await fetch(`/api/data/${id}`, { signal });
+  return res.json();
+});
+```
+
+Automatically cancels fetch if user navigates away before completion.
+
 ## CSS-First Patterns
 
 See [agents/css.md](css.md) for:

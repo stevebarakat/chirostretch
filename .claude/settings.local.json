@@ -447,7 +447,8 @@
       "Bash(git fetch:*)",
       "Bash(sort:*)",
       "Bash(pnpm install:*)",
-      "Bash(code:*)"
+      "Bash(code:*)",
+      "Bash(git branch:*)"
     ],
     "deny": [],
     "ask": []
