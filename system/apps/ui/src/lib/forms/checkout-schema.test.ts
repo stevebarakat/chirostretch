@@ -53,6 +53,7 @@ describe("checkoutSchema", () => {
 
   describe("required fields", () => {
     it("rejects missing first_name", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { first_name: _, ...data } = validData;
       const result = checkoutSchema.safeParse(data);
       expect(result.success).toBe(false);
@@ -67,6 +68,7 @@ describe("checkoutSchema", () => {
     });
 
     it("rejects missing last_name", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { last_name: _, ...data } = validData;
       const result = checkoutSchema.safeParse(data);
       expect(result.success).toBe(false);
@@ -81,6 +83,7 @@ describe("checkoutSchema", () => {
     });
 
     it("rejects missing address_1", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { address_1: _, ...data } = validData;
       const result = checkoutSchema.safeParse(data);
       expect(result.success).toBe(false);
@@ -97,6 +100,7 @@ describe("checkoutSchema", () => {
     });
 
     it("rejects missing city", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { city: _, ...data } = validData;
       const result = checkoutSchema.safeParse(data);
       expect(result.success).toBe(false);
@@ -113,6 +117,7 @@ describe("checkoutSchema", () => {
 
   describe("email validation", () => {
     it("rejects missing email", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { email: _, ...data } = validData;
       const result = checkoutSchema.safeParse(data);
       expect(result.success).toBe(false);

@@ -4,7 +4,7 @@ import {
   extractGravityFormErrorMessage,
   type GravityFormErrorResponse,
 } from "./error-mapper";
-import type { UseFormSetError, Path } from "react-hook-form";
+import type { UseFormSetError } from "react-hook-form";
 
 // Create a mock setError function
 function createMockSetError<T extends Record<string, unknown>>() {

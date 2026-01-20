@@ -1,6 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, useRef } from "react";
+// Toast notifications don't have native HTML equivalents (unlike dialog/details/popover)
+// Radix UI provides necessary accessibility and behavior for toast notifications
+// eslint-disable-next-line no-restricted-syntax
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import { ToastItem, type ToastVariant } from "./Toast";
 import styles from "./Toast.module.css";

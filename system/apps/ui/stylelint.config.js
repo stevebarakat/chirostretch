@@ -163,5 +163,13 @@ module.exports = {
     ],
     "custom-property-pattern": null,
   },
-  ignoreFiles: ["**/node_modules/**", "**/.next/**", "**/dist/**"],
+  ignoreFiles: [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/coverage/**",
+    "**/test-results/**",
+    "**/playwright-report/**",
+    "**/blob-report/**",
+  ],
 };

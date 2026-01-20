@@ -18,6 +18,8 @@ type GraphQLResponse<T> = {
   errors?: Array<{ message: string; extensions?: Record<string, unknown> }>;
 };
 
+// Custom Error class is necessary for error handling with structured error data
+// eslint-disable-next-line no-restricted-syntax
 export class GraphQLMutationError extends Error {
   public readonly errors: Array<{ message: string; extensions?: Record<string, unknown> }>;
 

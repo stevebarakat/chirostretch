@@ -88,8 +88,8 @@ test.describe("Gravity Forms", () => {
         '[class*="error"], [class*="invalid"], [aria-invalid="true"], [data-invalid]'
       );
 
-      // At least one error indicator should be visible after submitting empty required fields
-      const hasErrors = await errorIndicators.first().isVisible().catch(() => false);
+      // Check if errors are visible (for debugging, but not asserting)
+      await errorIndicators.first().isVisible().catch(() => false);
 
       // This test passes if either:
       // 1. Validation errors are shown (expected behavior)
@@ -162,12 +162,6 @@ test.describe("Gravity Forms", () => {
       const locationLinks = page.locator('a[href^="/locations/"]');
       await expect(locationLinks.first()).toBeVisible({ timeout: 10000 });
       await locationLinks.first().click();
-
-      // Look for the success message element structure
-      // (it may be hidden until form submission)
-      const successElement = page.locator(
-        '[class*="success"], [role="alert"]'
-      );
 
       // Just verify the page loaded and has expected structure
       await expect(page.locator("main")).toBeVisible();

@@ -22,6 +22,8 @@
 # TESTING
 # --------------------------------------------------
 coverage/
+.lighthouseci/
+**/data/generated/
 
 # --------------------------------------------------
 # NEXT.JS BUILD OUTPUT
