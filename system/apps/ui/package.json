@@ -23,7 +23,8 @@
     "generate:demo": "pnpm exec tsx scripts/cms/seed/index.ts",
     "analyze": "ANALYZE=true next build",
     "codegen": "graphql-codegen --config codegen.ts",
-    "codegen:watch": "graphql-codegen --config codegen.ts --watch"
+    "codegen:watch": "graphql-codegen --config codegen.ts --watch",
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

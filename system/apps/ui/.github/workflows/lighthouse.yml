@@ -1,0 +1,135 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Allow manual triggers
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "URL to test (defaults to preview URL)"
+        required: false
+        type: string
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  lighthouse:
+    name: Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+    # Only run on main or when manually triggered
+    # Skip on PRs without preview deployments
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_BASE_URL: ${{ inputs.url || secrets.PREVIEW_URL || 'https://chirostretch.com' }}
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
+          retention-days: 14
+
+      - name: Format Lighthouse Score
+        if: always()
+        id: format_score
+        run: |
+          # Extract scores from the latest report
+          if [ -f .lighthouseci/manifest.json ]; then
+            PERF=$(cat .lighthouseci/manifest.json | jq -r '.[0].summary.performance // 0')
+            A11Y=$(cat .lighthouseci/manifest.json | jq -r '.[0].summary.accessibility // 0')
+            BP=$(cat .lighthouseci/manifest.json | jq -r '.[0].summary."best-practices" // 0')
+            SEO=$(cat .lighthouseci/manifest.json | jq -r '.[0].summary.seo // 0')
+
+            # Convert to percentages
+            PERF_PCT=$(echo "$PERF * 100" | bc | cut -d. -f1)
+            A11Y_PCT=$(echo "$A11Y * 100" | bc | cut -d. -f1)
+            BP_PCT=$(echo "$BP * 100" | bc | cut -d. -f1)
+            SEO_PCT=$(echo "$SEO * 100" | bc | cut -d. -f1)
+
+            echo "Performance: ${PERF_PCT}%"
+            echo "Accessibility: ${A11Y_PCT}%"
+            echo "Best Practices: ${BP_PCT}%"
+            echo "SEO: ${SEO_PCT}%"
+
+            echo "performance=${PERF_PCT}" >> $GITHUB_OUTPUT
+            echo "accessibility=${A11Y_PCT}" >> $GITHUB_OUTPUT
+            echo "best_practices=${BP_PCT}" >> $GITHUB_OUTPUT
+            echo "seo=${SEO_PCT}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment PR with Lighthouse Scores
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const performance = '${{ steps.format_score.outputs.performance }}' || 'N/A';
+            const accessibility = '${{ steps.format_score.outputs.accessibility }}' || 'N/A';
+            const bestPractices = '${{ steps.format_score.outputs.best_practices }}' || 'N/A';
+            const seo = '${{ steps.format_score.outputs.seo }}' || 'N/A';
+
+            const getEmoji = (score) => {
+              const num = parseInt(score);
+              if (isNaN(num)) return '⚪';
+              if (num >= 90) return '🟢';
+              if (num >= 50) return '🟡';
+              return '🔴';
+            };
+
+            const body = `## Lighthouse Performance Report
+
+            | Metric | Score |
+            |--------|-------|
+            | ${getEmoji(performance)} Performance | ${performance}% |
+            | ${getEmoji(accessibility)} Accessibility | ${accessibility}% |
+            | ${getEmoji(bestPractices)} Best Practices | ${bestPractices}% |
+            | ${getEmoji(seo)} SEO | ${seo}% |
+
+            [View full report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
