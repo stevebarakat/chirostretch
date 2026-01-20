@@ -137,6 +137,22 @@
   --color-error-50: hsl(0deg 93% 96%);
   --color-error-100: hsl(0deg 90% 90%);
 
+  --color-info-50: hsl(210deg 80% 96%);
+  --color-info-100: hsl(210deg 80% 90%);
+  --color-info-500: hsl(210deg 80% 50%);
+  --color-info-600: hsl(210deg 80% 45%);
+  --color-info-700: hsl(210deg 80% 35%);
+
+  /* Status colors (for order states) */
+  --color-status-pending: var(--color-warning-600);
+  --color-status-pending-bg: var(--color-warning-50);
+  --color-status-processing: var(--color-info-600);
+  --color-status-processing-bg: var(--color-info-100);
+  --color-status-completed: var(--color-success-700);
+  --color-status-completed-bg: var(--color-success-50);
+  --color-status-failed: var(--color-error-600);
+  --color-status-failed-bg: var(--color-error-50);
+
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
   /* Semantic Token Aliases */

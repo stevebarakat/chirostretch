@@ -4,6 +4,7 @@ import ImageBlock from "../ImageBlock";
 import ChartBlock from "../ChartBlock";
 import { normalizeChartBlock } from "../ChartBlock/parseChartData";
 import GravityFormBlock from "../GravityFormBlock";
+import styles from "./BlockRenderer.module.css";
 
 export type Block = {
   name: string;
@@ -136,9 +137,9 @@ export default function BlockRenderer({
 
           case "core/columns":
             return (
-              <div key={key} style={{ display: "flex", gap: "1rem" }}>
+              <div key={key} className={styles.columns}>
                 {block.innerBlocks?.map((col, colIndex) => (
-                  <div key={`col-${colIndex}`} style={{ flex: 1 }}>
+                  <div key={`col-${colIndex}`} className={styles.column}>
                     {col.innerBlocks && col.innerBlocks.length > 0 && (
                       <BlockRenderer blocks={col.innerBlocks} />
                     )}

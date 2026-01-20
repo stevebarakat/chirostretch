@@ -5,7 +5,7 @@ import {
   useMemo,
   useCallback,
   useImperativeHandle,
-  forwardRef,
+  type Ref,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -99,12 +99,14 @@ function formatCost(cost?: string | null): string {
 export type EventsCalendarProps = {
   events: Event[];
   basePath?: string;
+  ref?: Ref<EventsCalendarHandle>;
 };
 
-export const EventsCalendar = forwardRef<
-  EventsCalendarHandle,
-  EventsCalendarProps
->(function EventsCalendar({ events, basePath = "/events" }, ref) {
+export function EventsCalendar({
+  events,
+  basePath = "/events",
+  ref,
+}: EventsCalendarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [state, dispatch] = useReducer(calendarReducer, {
@@ -247,7 +249,7 @@ export const EventsCalendar = forwardRef<
       </div>
     </div>
   );
-});
+}
 
 type EventCardProps = {
   event: Event;

@@ -1,0 +1,8 @@
+.columns {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.column {
+  flex: 1;
+}

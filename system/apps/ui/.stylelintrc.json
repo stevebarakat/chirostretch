@@ -11,6 +11,8 @@
       {
         "ignorePseudoClasses": ["global", "local"]
       }
-    ]
+    ],
+    "color-no-hex": [true, { "severity": "warning" }],
+    "color-named": ["never", { "severity": "warning" }]
   }
 }

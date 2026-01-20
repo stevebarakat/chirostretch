@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Confirmation } from "@/components/Confirmation";
 import { Container } from "@/components/Primitives";
 import { NewPatientContent } from "./NewPatientContent";
+import styles from "./page.module.css";
 
 const VALID_TYPES = ["new-patient-special", "contact", "franchise"] as const;
 type ThankYouType = (typeof VALID_TYPES)[number];
@@ -77,14 +78,14 @@ export default async function ThankYouPage({ params, searchParams }: PageProps) 
           heading={`Thank You, ${name}!`}
           subtext="Your franchise application has been received"
         >
-          <p style={{ marginBottom: "var(--spacing-lg)", color: "var(--color-text-secondary)" }}>
+          <p className={styles.franchiseDescription}>
             Our franchise team will review your application and contact you within 3 business days
             to discuss next steps.
           </p>
           {query.email && (
-            <p style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-tertiary)" }}>
+            <p className={styles.emailNote}>
               We&apos;ll reach out to you at{" "}
-              <strong style={{ color: "var(--color-text-primary)" }}>{query.email}</strong>
+              <strong className={styles.emailHighlight}>{query.email}</strong>
             </p>
           )}
         </Confirmation>
@@ -96,7 +97,7 @@ export default async function ThankYouPage({ params, searchParams }: PageProps) 
   return (
     <Container>
       <Confirmation heading={`Thank You, ${name}!`} subtext="We've received your message">
-        <p style={{ color: "var(--color-text-secondary)" }}>We&apos;ll be in touch soon.</p>
+        <p className={styles.contactDescription}>We&apos;ll be in touch soon.</p>
       </Confirmation>
     </Container>
   );

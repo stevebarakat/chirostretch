@@ -217,7 +217,7 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
     background: var(--color-secondary-600);
     transition: transform 0.25s;
     transform: var(--top-nav-toggle);

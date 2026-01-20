@@ -145,7 +145,7 @@
   .modal :global(.content) {
     margin-top: 0;
     max-width: 100%;
-    max-height: 100vh;
+    max-height: 100dvh;
     border-radius: 0;
   }
 }

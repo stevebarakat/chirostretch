@@ -1,0 +1,17 @@
+.franchiseDescription {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-secondary);
+}
+
+.emailNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.emailHighlight {
+  color: var(--color-text-primary);
+}
+
+.contactDescription {
+  color: var(--color-text-secondary);
+}

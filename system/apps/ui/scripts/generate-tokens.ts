@@ -71,6 +71,7 @@ function generateTokens() {
   const success = parseHSL(process.env.DESIGN_TOKEN_SUCCESS || '142,71,45');
   const warning = parseHSL(process.env.DESIGN_TOKEN_WARNING || '38,92,50');
   const error = parseHSL(process.env.DESIGN_TOKEN_ERROR || '0,86,53');
+  const info = parseHSL(process.env.DESIGN_TOKEN_INFO || '210,80,50');
 
   const css = `:root {
   --font-primary: var(--font-poppins);
@@ -164,6 +165,22 @@ ${generateColorScale(neutral, 'neutral')}
   --color-error-700: hsl(${error.h}deg ${error.s + 2}% ${error.l - 7}%);
   --color-error-50: hsl(${error.h}deg ${error.s + 7}% 96%);
   --color-error-100: hsl(${error.h}deg ${error.s + 4}% 90%);
+
+  --color-info-50: hsl(${info.h}deg ${info.s}% 96%);
+  --color-info-100: hsl(${info.h}deg ${info.s}% 90%);
+  --color-info-500: hsl(${info.h}deg ${info.s}% ${info.l}%);
+  --color-info-600: hsl(${info.h}deg ${info.s}% ${info.l - 5}%);
+  --color-info-700: hsl(${info.h}deg ${info.s}% ${info.l - 15}%);
+
+  /* Status colors (for order states) */
+  --color-status-pending: var(--color-warning-600);
+  --color-status-pending-bg: var(--color-warning-50);
+  --color-status-processing: var(--color-info-600);
+  --color-status-processing-bg: var(--color-info-100);
+  --color-status-completed: var(--color-success-700);
+  --color-status-completed-bg: var(--color-success-50);
+  --color-status-failed: var(--color-error-600);
+  --color-status-failed-bg: var(--color-error-50);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 

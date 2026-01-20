@@ -7,7 +7,7 @@
 .content {
   padding: 2rem;
   background: white;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
 }
 
@@ -17,7 +17,7 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
 .header h1 {
@@ -31,28 +31,28 @@
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .status.pending {
-  color: #92400e;
-  background: #fef3c7;
+  color: var(--color-status-pending);
+  background: var(--color-status-pending-bg);
 }
 
 .status.processing {
-  color: #1e40af;
-  background: #dbeafe;
+  color: var(--color-status-processing);
+  background: var(--color-status-processing-bg);
 }
 
 .status.completed {
-  color: #065f46;
-  background: #d1fae5;
+  color: var(--color-status-completed);
+  background: var(--color-status-completed-bg);
 }
 
 .status.failed,
 .status.cancelled {
-  color: #991b1b;
-  background: #fee2e2;
+  color: var(--color-status-failed);
+  background: var(--color-status-failed-bg);
 }
 
 .info {
@@ -61,7 +61,7 @@
 
 .info p {
   margin: 0.5rem 0;
-  color: #4b5563;
+  color: var(--color-text-secondary);
 }
 
 .section {
@@ -72,12 +72,12 @@
   margin-bottom: 1rem;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--color-text-primary);
 }
 
 .items {
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
   overflow: hidden;
 }
 
@@ -86,7 +86,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
 .item:last-child {
@@ -101,7 +101,7 @@
 .itemQuantity {
   margin: 0;
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--color-text-tertiary);
 }
 
 .itemTotal {
@@ -111,31 +111,31 @@
 
 .address {
   padding: 1rem;
-  background: #f9fafb;
-  border-radius: 4px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
 }
 
 .address p {
   margin: 0.25rem 0;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .contact {
   margin-top: 0.75rem !important;
   font-size: 0.875rem;
-  color: #6b7280 !important;
+  color: var(--color-text-tertiary) !important;
 }
 
 .actions {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border-secondary);
 }
 
 .link {
   font-weight: 500;
   text-decoration: none;
-  color: #2563eb;
+  color: var(--color-primary-600);
 }
 
 .link:hover {
@@ -144,5 +144,5 @@
 
 .error {
   margin: 1rem 0;
-  color: #dc2626;
+  color: var(--color-error-600);
 }
