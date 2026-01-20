@@ -2,10 +2,10 @@ import { defineConfig, devices } from "@playwright/test";
 
 /**
  * E2E tests require the dev server to be running manually:
- *   npm run dev
+ *   pnpm run dev
  *
  * Then run tests:
- *   npm run test:e2e
+ *   pnpm run test:e2e
  *
  * The dev server uses a custom hostname (chirostretch-copy.local) with HTTPS,
  * so we don't auto-start it from Playwright.
@@ -30,5 +30,5 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
-  // No webServer config - start `npm run dev` manually before running tests
+  // No webServer config - start `pnpm run dev` manually before running tests
 });

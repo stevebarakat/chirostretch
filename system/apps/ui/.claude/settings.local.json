@@ -56,7 +56,12 @@
       "Bash(git -C /Users/sb/Dev/chirostretch/system checkout -b remove/franchise-application)",
       "Bash(git -C /Users/sb/Dev/chirostretch/system branch:*)",
       "Bash(npm run typecheck:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(ipconfig getifaddr:*)",
+      "Bash(wc:*)",
+      "Bash(pnpm tokens:generate:*)",
+      "Bash(pnpm lint:css:*)",
+      "Bash(git check-ignore:*)"
     ]
   }
 }

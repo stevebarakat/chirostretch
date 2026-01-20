@@ -56,6 +56,9 @@ importers:
       react-instantsearch:
         specifier: ^7.22.1
         version: 7.22.1(algoliasearch@5.46.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react-instantsearch-nextjs:
+        specifier: ^1.0.11
+        version: 1.0.11(next@16.1.3(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-instantsearch@7.22.1(algoliasearch@5.46.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
       recharts:
         specifier: ^3.6.0
         version: 3.6.0(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react-is@16.13.1)(react@19.2.3)(redux@5.0.1)
@@ -4336,6 +4339,12 @@ packages:
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
       react: '>= 16.8.0 < 20'
+
+  react-instantsearch-nextjs@1.0.11:
+    resolution: {integrity: sha512-XB//YjM5WjBJLTvT3rCGWv40J0dJ4JPTmO5Sr2y34szI9/oIaAZaHmnN6aCI2/4ZiZ3Nfa4LCJ5Aegdzhy/1eA==}
+    peerDependencies:
+      next: '>= 13.4 < 17'
+      react-instantsearch: '>= 7.1.0 < 8'
 
   react-instantsearch@7.22.1:
     resolution: {integrity: sha512-sTZ8z2JcSyveP0RmClmP9KFkJMQ9ZZmZKI05uSmfx7fP21N8Ry9CCyn2EvalGFm2gTPaB7VMFZrC9q7HXvG9wA==}
@@ -9706,6 +9715,11 @@ snapshots:
       use-sync-external-store: 1.6.0(react@19.2.3)
       zod: 4.3.5
       zod-to-json-schema: 3.24.6(zod@4.3.5)
+
+  react-instantsearch-nextjs@1.0.11(next@16.1.3(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-instantsearch@7.22.1(algoliasearch@5.46.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)):
+    dependencies:
+      next: 16.1.3(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react-instantsearch: 7.22.1(algoliasearch@5.46.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
 
   react-instantsearch@7.22.1(algoliasearch@5.46.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:

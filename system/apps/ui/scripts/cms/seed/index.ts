@@ -1,4 +1,4 @@
-#!/usr/bin/env npx ts-node
+#!/usr/bin/env pnpm exec tsx
 
 import * as fs from "fs";
 import * as path from "path";
