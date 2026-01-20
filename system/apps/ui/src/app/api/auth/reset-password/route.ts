@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import {
+  executeMutation,
+  RESET_PASSWORD,
+  ResetPasswordResult,
+  GraphQLMutationError,
+} from "@/lib/graphql/mutations";
 
 /**
  * Reset Password
  *
- * Proxies request to WordPress API to reset a user's password.
+ * Proxies request to WordPress GraphQL to reset a user's password.
  *
  * Flow:
  * 1. Receive login, key, and new password from set-password page
  * 2. Validate password strength (8+ characters)
- * 3. Call WordPress reset password endpoint
+ * 3. Call WordPress resetPassword mutation
  * 4. Return success/error result
  */
 export async function POST(request: NextRequest) {
@@ -31,32 +35,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!WP_URL) {
-      console.error("[Reset Password] Missing NEXT_PUBLIC_BACKEND_URL");
+    const data = await executeMutation<ResetPasswordResult>(RESET_PASSWORD, {
+      key,
+      login,
+      password,
+    });
+
+    const result = data.resetPassword;
+
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Server configuration error" },
-        { status: 500 }
+        {
+          error: result.error || "reset_failed",
+          message: result.message || "Failed to reset password",
+        },
+        { status: 400 }
       );
     }
 
-    const response = await fetch(
-      `${WP_URL}/wp-json/chirostretch/v1/auth/reset-password`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login, key, password }),
-      }
-    );
+    return NextResponse.json({
+      success: true,
+      message: result.message || "Password has been reset successfully.",
+    });
+  } catch (error) {
+    console.error("[Reset Password] Error:", error);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(data, { status: response.status });
+    if (error instanceof GraphQLMutationError) {
+      return NextResponse.json(
+        {
+          error: "graphql_error",
+          message: error.message,
+        },
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error("[Reset Password] Unexpected error:", error);
     return NextResponse.json(
       {
         error: "Server error",

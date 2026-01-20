@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-const WC_KEY = process.env.WC_CONSUMER_KEY;
-const WC_SECRET = process.env.WC_CONSUMER_SECRET;
+import {
+  executeMutation,
+  CREATE_CHECKOUT_ORDER,
+  CreateCheckoutOrderResult,
+  CheckoutAddressInput,
+  CheckoutLineItemInput,
+  GraphQLMutationError,
+} from "@/lib/graphql/mutations";
 
 type BillingAddress = {
   first_name: string;
@@ -35,32 +39,53 @@ type CreateOrderRequest = {
 };
 
 /**
+ * Transform REST-style billing address to GraphQL input
+ */
+function transformAddress(address: BillingAddress): CheckoutAddressInput {
+  return {
+    firstName: address.first_name,
+    lastName: address.last_name,
+    email: address.email,
+    phone: address.phone,
+    address1: address.address_1,
+    address2: address.address_2,
+    city: address.city,
+    state: address.state,
+    postcode: address.postcode,
+    country: address.country,
+  };
+}
+
+/**
+ * Transform REST-style line items to GraphQL input
+ */
+function transformLineItems(items: LineItem[]): CheckoutLineItemInput[] {
+  return items.map((item) => ({
+    productId: item.product_id,
+    quantity: item.quantity,
+    variationId: item.variation_id,
+    metaData: item.meta_data?.map((meta) => ({
+      key: meta.key,
+      value: String(meta.value),
+    })),
+  }));
+}
+
+/**
  * Create Order API Route
  *
- * Creates an unpaid order in WooCommerce via REST API and returns
+ * Creates an unpaid order in WooCommerce via GraphQL mutation and returns
  * the payment_url where the user will be redirected to complete payment.
  *
  * Flow:
  * 1. Receive billing/shipping info + cart items from checkout form
- * 2. Call WooCommerce REST API to create order
+ * 2. Call GraphQL createCheckoutOrder mutation
  * 3. Return order.payment_url for redirect
  * 4. User completes payment on WordPress
  * 5. WordPress redirects back to Next.js success page
  */
 export async function POST(request: NextRequest) {
   try {
-    // Validate environment variables
-    if (!WP_URL || !WC_KEY || !WC_SECRET) {
-      console.error("[Create Order] Missing required environment variables");
-      return NextResponse.json(
-        {
-          error: "Server configuration error",
-          message: "WooCommerce API credentials not configured",
-        },
-        { status: 500 }
-      );
-    }
-
     const body: CreateOrderRequest = await request.json();
     const { billing, shipping, line_items, coupon_code } = body;
 
@@ -75,53 +100,59 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const orderResponse = await fetch(
-      `${WP_URL}/wp-json/wc/v3/orders?consumer_key=${WC_KEY}&consumer_secret=${WC_SECRET}`,
+    // Transform to GraphQL input format
+    const graphqlBilling = transformAddress(billing);
+    const graphqlShipping = shipping ? transformAddress(shipping) : undefined;
+    const graphqlLineItems = transformLineItems(line_items);
+
+    const data = await executeMutation<CreateCheckoutOrderResult>(
+      CREATE_CHECKOUT_ORDER,
       {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          billing,
-          shipping: shipping || billing, // Use billing as shipping if not provided
-          line_items,
-          set_paid: false, // Order is unpaid - payment happens on WordPress
-          status: "pending", // Order starts as pending payment
-          ...(coupon_code && {
-            coupon_lines: [{ code: coupon_code }],
-          }),
-        }),
-      }
+        billing: graphqlBilling,
+        shipping: graphqlShipping,
+        lineItems: graphqlLineItems,
+        couponCode: coupon_code,
+      },
+      { includeInternalSecret: true }
     );
 
-    if (!orderResponse.ok) {
-      const error = await orderResponse.json();
-      console.error("[Create Order] WooCommerce API error:", error);
+    const result = data.createCheckoutOrder;
 
+    if (!result.success) {
+      console.error("[Create Order] GraphQL mutation failed:", result.error, result.message);
       return NextResponse.json(
         {
-          error: "Failed to create order",
-          message: error.message || "WooCommerce API error",
-          details: error,
+          error: result.error || "order_creation_failed",
+          message: result.message || "Failed to create order",
         },
-        { status: orderResponse.status }
+        { status: 400 }
       );
     }
-
-    const order = await orderResponse.json();
 
     // Return order details including payment_url
     return NextResponse.json(
       {
-        order_id: order.id,
-        order_key: order.order_key,
-        payment_url: order.payment_url, // WordPress checkout URL for payment
-        total: order.total,
-        status: order.status,
+        order_id: result.orderId,
+        order_key: result.orderKey,
+        payment_url: result.paymentUrl,
+        total: result.total,
+        status: result.status,
       },
       { status: 201 }
     );
   } catch (error) {
-    console.error("[Create Order] Unexpected error:", error);
+    console.error("[Create Order] Error:", error);
+
+    if (error instanceof GraphQLMutationError) {
+      return NextResponse.json(
+        {
+          error: "graphql_error",
+          message: error.message,
+          details: error.errors,
+        },
+        { status: 400 }
+      );
+    }
 
     return NextResponse.json(
       {

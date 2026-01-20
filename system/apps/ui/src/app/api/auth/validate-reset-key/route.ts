@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import {
+  executeMutation,
+  VALIDATE_PASSWORD_RESET_KEY,
+  ValidatePasswordResetKeyResult,
+  GraphQLMutationError,
+} from "@/lib/graphql/mutations";
 
 /**
  * Validate Password Reset Key
  *
- * Proxies request to WordPress API to validate that a password reset key
+ * Proxies request to WordPress GraphQL to validate that a password reset key
  * is valid and hasn't expired.
  *
  * Flow:
  * 1. Receive login and key from set-password page
- * 2. Call WordPress validation endpoint
+ * 2. Call WordPress validatePasswordResetKey mutation
  * 3. Return validation result
  */
 export async function POST(request: NextRequest) {
@@ -24,32 +28,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!WP_URL) {
-      console.error("[Validate Reset Key] Missing NEXT_PUBLIC_BACKEND_URL");
+    const data = await executeMutation<ValidatePasswordResetKeyResult>(
+      VALIDATE_PASSWORD_RESET_KEY,
+      { login, key }
+    );
+
+    const result = data.validatePasswordResetKey;
+
+    if (!result.valid) {
       return NextResponse.json(
-        { error: "Server configuration error" },
-        { status: 500 }
+        {
+          valid: false,
+          error: result.error || "invalid_key",
+          message: result.message || "Invalid password reset link",
+        },
+        { status: 400 }
       );
     }
 
-    const response = await fetch(
-      `${WP_URL}/wp-json/chirostretch/v1/auth/validate-reset-key`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login, key }),
-      }
-    );
+    return NextResponse.json({
+      valid: true,
+      user_login: result.userLogin,
+    });
+  } catch (error) {
+    console.error("[Validate Reset Key] Error:", error);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(data, { status: response.status });
+    if (error instanceof GraphQLMutationError) {
+      return NextResponse.json(
+        {
+          valid: false,
+          error: "graphql_error",
+          message: error.message,
+        },
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error("[Validate Reset Key] Unexpected error:", error);
     return NextResponse.json(
       {
         error: "Server error",

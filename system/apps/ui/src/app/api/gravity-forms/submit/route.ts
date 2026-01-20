@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  executeMutation,
+  GENERATE_NEW_PATIENT_COUPON,
+  GenerateNewPatientCouponResult,
+} from "@/lib/graphql/mutations";
 
 // Ensure this route is dynamic
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WPGRAPHQL_ENDPOINT;
-const WP_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-const INTERNAL_SECRET = process.env.CHIROSTRETCH_INTERNAL_SECRET || "";
 
 // Form IDs
 const NEW_PATIENT_FORM_ID = "17";
@@ -219,7 +222,7 @@ type CouponResponse = {
 };
 
 /**
- * Generate a coupon for new patient leads via WP REST API
+ * Generate a coupon for new patient leads via GraphQL mutation
  */
 async function generateCoupon(
   data: NewPatientLeadData
@@ -229,36 +232,32 @@ async function generateCoupon(
     return null;
   }
 
-  if (!WP_URL) {
-    console.error("[Lead] WP_URL not configured");
-    return null;
-  }
-
   try {
-    const response = await fetch(
-      `${WP_URL}/wp-json/chirostretch/v1/coupons/new-patient`,
+    const result = await executeMutation<GenerateNewPatientCouponResult>(
+      GENERATE_NEW_PATIENT_COUPON,
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Internal-Secret": INTERNAL_SECRET,
-        },
-        body: JSON.stringify({
-          email: data.email,
-          first_name: data.first_name,
-          entry_id: data.entry_id,
-        }),
-      }
+        email: data.email,
+        firstName: data.first_name,
+        entryId: data.entry_id,
+      },
+      { includeInternalSecret: true }
     );
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("[Lead] Failed to generate coupon:", errorText);
+    const coupon = result.generateNewPatientCoupon;
+
+    if (!coupon.success) {
+      console.error("[Lead] Failed to generate coupon:", coupon.error || coupon.message);
       return null;
     }
 
-    const couponData = (await response.json()) as CouponResponse;
-    return couponData;
+    return {
+      success: true,
+      coupon_code: coupon.couponCode || "",
+      discount_amount: coupon.discountAmount || 0,
+      final_price: coupon.finalPrice || 29,
+      expires: coupon.expires || undefined,
+      existing: coupon.existing || false,
+    };
   } catch (error) {
     console.error("[Lead] Error generating coupon:", error);
     return null;

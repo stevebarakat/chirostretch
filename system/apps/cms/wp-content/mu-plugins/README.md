@@ -77,9 +77,59 @@ const CHS_NON_PRODUCTION_PLUGINS = [
 
 ### GraphQL & Headless
 
-- **graphql-mutations.php** - Custom GraphQL mutations
-- **headless-password-reset.php** - Password reset URL rewriting for headless frontend
+- **graphql-mutations.php** - Custom GraphQL mutations for CPT management (location, staff)
+- **graphql-auth-coupon-mutations.php** - GraphQL mutations for password reset and coupon operations
+- **headless-password-reset.php** - Password reset URL rewriting for headless frontend (REST endpoints - deprecated, use GraphQL)
 - **headless-link-rewriter.php** - Rewrites internal WordPress URLs to frontend URLs in GraphQL/REST responses
+
+### REST API (Deprecated)
+
+The following REST endpoints are deprecated in favor of GraphQL mutations:
+
+| REST Endpoint | GraphQL Mutation | Status |
+|---------------|------------------|--------|
+| `POST /chirostretch/v1/auth/request-reset` | `requestPasswordReset` | Deprecated |
+| `POST /chirostretch/v1/auth/validate-reset-key` | `validatePasswordResetKey` | Deprecated |
+| `POST /chirostretch/v1/auth/reset-password` | `resetPassword` | Deprecated |
+| `POST /chirostretch/v1/coupons/new-patient` | `generateNewPatientCoupon` | Deprecated |
+| `POST /chirostretch/v1/coupons/validate` | `validateCoupon` | Deprecated |
+| `POST /wp-json/wc/v3/orders` | `createCheckoutOrder` | Migrated to GraphQL |
+
+### GraphQL Auth & Coupon Mutations
+
+The `graphql-auth-coupon-mutations.php` plugin provides:
+
+**Public Mutations (no auth required):**
+- `requestPasswordReset(email)` - Generate reset key, returns user data for email
+- `validatePasswordResetKey(key, login)` - Validate reset link
+- `resetPassword(key, login, password)` - Set new password
+
+**Protected Mutations (requires X-Internal-Secret header):**
+- `generateNewPatientCoupon(email, firstName?, userId?, entryId?)` - Create coupon for new patient
+- `validateCoupon(couponCode, email)` - Validate coupon with email verification
+- `createCheckoutOrder(billing, shipping?, lineItems, couponCode?, customerNote?)` - Create WooCommerce order
+
+Example GraphQL mutations:
+```graphql
+mutation ResetPassword($key: String!, $login: String!, $password: String!) {
+  resetPassword(input: { key: $key, login: $login, password: $password }) {
+    success
+    message
+    error
+  }
+}
+
+mutation CreateCheckoutOrder($billing: CheckoutAddressInput!, $lineItems: [CheckoutLineItemInput]!) {
+  createCheckoutOrder(input: { billing: $billing, lineItems: $lineItems }) {
+    success
+    orderId
+    orderKey
+    paymentUrl
+    total
+    status
+  }
+}
+```
 
 ### Bulk Operations
 
