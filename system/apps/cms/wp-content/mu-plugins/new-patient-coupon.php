@@ -88,7 +88,10 @@ function chirostretch_generate_new_patient_coupon(WP_REST_Request $request) {
 
         // Store in GF entry meta even for existing coupons
         if ($entry_id && function_exists('gform_update_meta')) {
-            gform_update_meta($entry_id, 'coupon_code', strtoupper($coupon_code));
+            $meta_stored = gform_update_meta($entry_id, 'coupon_code', strtoupper($coupon_code));
+            if (!$meta_stored) {
+                error_log("[ChiroStretch Coupon] Failed to store coupon_code meta for entry {$entry_id}");
+            }
             if ($expiry_date) {
                 gform_update_meta($entry_id, 'coupon_expires', $expiry_date->date('F j, Y'));
             }
@@ -144,7 +147,10 @@ function chirostretch_generate_new_patient_coupon(WP_REST_Request $request) {
 
     // Store coupon code in GF entry meta for notifications
     if ($entry_id && function_exists('gform_update_meta')) {
-        gform_update_meta($entry_id, 'coupon_code', strtoupper($coupon_code));
+        $meta_stored = gform_update_meta($entry_id, 'coupon_code', strtoupper($coupon_code));
+        if (!$meta_stored) {
+            error_log("[ChiroStretch Coupon] Failed to store coupon_code meta for entry {$entry_id}");
+        }
         gform_update_meta($entry_id, 'coupon_expires', $expiry->format('F j, Y'));
         gform_update_meta($entry_id, 'coupon_final_price', '29');
         // Trigger the "Coupon Generated" notification
@@ -163,39 +169,39 @@ function chirostretch_generate_new_patient_coupon(WP_REST_Request $request) {
 }
 
 /**
- * Register custom merge tags for Gravity Forms notifications
+ * Register merge tag filters after Gravity Forms is fully loaded.
+ * This ensures filters work in all contexts: admin, frontend, REST, and cron.
  */
-add_filter('gform_custom_merge_tags', function($merge_tags, $form_id, $fields, $element_id) {
-    $merge_tags[] = ['label' => 'Coupon Code', 'tag' => '{coupon_code}'];
-    $merge_tags[] = ['label' => 'Coupon Expires', 'tag' => '{coupon_expires}'];
-    $merge_tags[] = ['label' => 'Coupon Final Price', 'tag' => '{coupon_final_price}'];
-    return $merge_tags;
-}, 10, 4);
+add_action('gform_loaded', function() {
+    /**
+     * Register custom merge tags for Gravity Forms notifications
+     */
+    add_filter('gform_custom_merge_tags', function($merge_tags, $form_id, $fields, $element_id) {
+        $merge_tags[] = ['label' => 'Coupon Code', 'tag' => '{coupon_code}'];
+        $merge_tags[] = ['label' => 'Coupon Expires', 'tag' => '{coupon_expires}'];
+        $merge_tags[] = ['label' => 'Coupon Final Price', 'tag' => '{coupon_final_price}'];
+        return $merge_tags;
+    }, 10, 4);
 
-/**
- * Replace custom merge tags with entry meta values
- */
-add_filter('gform_replace_merge_tags', function($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
-    if (!$entry) {
-        return $text;
-    }
-
-    $entry_id = rgar($entry, 'id');
-
-    $replacements = [
-        '{coupon_code}' => gform_get_meta($entry_id, 'coupon_code') ?: '',
-        '{coupon_expires}' => gform_get_meta($entry_id, 'coupon_expires') ?: '',
-        '{coupon_final_price}' => gform_get_meta($entry_id, 'coupon_final_price') ?: '29',
-    ];
-
-    foreach ($replacements as $tag => $value) {
-        if (strpos($text, $tag) !== false) {
-            $text = str_replace($tag, $value, $text);
+    /**
+     * Replace custom merge tags with entry meta values
+     */
+    add_filter('gform_replace_merge_tags', function($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
+        if (!$entry || empty($entry['id'])) {
+            return $text;
         }
-    }
 
-    return $text;
-}, 10, 7);
+        $entry_id = $entry['id'];
+
+        $replacements = [
+            '{coupon_code}' => (string) gform_get_meta($entry_id, 'coupon_code') ?: '',
+            '{coupon_expires}' => (string) gform_get_meta($entry_id, 'coupon_expires') ?: '',
+            '{coupon_final_price}' => (string) gform_get_meta($entry_id, 'coupon_final_price') ?: '29',
+        ];
+
+        return strtr($text, $replacements);
+    }, 10, 7);
+});
 
 /**
  * Trigger coupon notification after storing meta
@@ -205,29 +211,40 @@ add_filter('gform_replace_merge_tags', function($text, $form, $entry, $url_encod
  */
 function chirostretch_trigger_coupon_notification($entry_id, $form_id = null) {
     if (!class_exists('GFAPI')) {
+        error_log("[ChiroStretch Coupon] GFAPI class not available for entry {$entry_id}");
         return false;
     }
 
     $entry = GFAPI::get_entry($entry_id);
     if (is_wp_error($entry)) {
+        error_log("[ChiroStretch Coupon] Failed to get entry {$entry_id}: " . $entry->get_error_message());
         return false;
     }
+
+    // Debug: Log entry meta before sending notification
+    $coupon_code = gform_get_meta($entry_id, 'coupon_code');
+    $coupon_expires = gform_get_meta($entry_id, 'coupon_expires');
+    $coupon_final_price = gform_get_meta($entry_id, 'coupon_final_price');
+    error_log("[ChiroStretch Coupon] Entry {$entry_id} meta - coupon_code: " . ($coupon_code ?: '(empty)') . ", expires: " . ($coupon_expires ?: '(empty)') . ", final_price: " . ($coupon_final_price ?: '(empty)'));
 
     $form_id = $form_id ?: $entry['form_id'];
     $form = GFAPI::get_form($form_id);
     if (!$form) {
+        error_log("[ChiroStretch Coupon] Failed to get form {$form_id}");
         return false;
     }
 
-    // Find notification with name "Coupon Generated" (configured in GF admin)
+    // Find notification with name "Auto-Reply" (configured in GF admin)
     $notifications = $form['notifications'] ?? [];
     foreach ($notifications as $notification) {
-        if ($notification['name'] === 'Coupon Generated' && $notification['isActive']) {
+        if ($notification['name'] === 'Auto-Reply' && $notification['isActive']) {
+            error_log("[ChiroStretch Coupon] Sending 'Auto-Reply' notification for entry {$entry_id}");
             GFCommon::send_notification($notification, $form, $entry);
             return true;
         }
     }
 
+    error_log("[ChiroStretch Coupon] No active 'Auto-Reply' notification found for form {$form_id}");
     return false;
 }
 
