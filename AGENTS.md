@@ -1,18 +1,18 @@
 # ChiroStretch
 
-Headless WordPress → Next.js App Router with WooCommerce, Algolia, and Gravity Forms.
+Headless WordPress → Next.js App Router.
 
 ## Tech Stack
 
 | Service | Role |
 |---------|------|
-| Next.js | UI (Frontend) |
-| WordPress | CMS (Backend) |
+| Next.js | User Interface (Frontend) |
+| WordPress | Content Management System (Backend) |
 | WooCommerce | E-commerce |
 | The Events Calendar | Events Management |
 | Gravity Forms | Form Builder |
 | Zoho CRM | Marketing Funnel Integration |
-| Google Analytics | User/Traffic Analysis |
+| Google Analytics | User Behavior / Site Traffic |
 | Algolia | Site Search Engine |
 
 ## Ownership Model
