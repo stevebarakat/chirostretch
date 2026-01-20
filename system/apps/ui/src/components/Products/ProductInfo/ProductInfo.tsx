@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line no-restricted-imports
 import { useState } from "react";
 import { Button, Input, Text } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
