@@ -75,7 +75,7 @@
     "happy-dom": "^20.3.4",
     "next-gravity-forms": "^2.1.12",
     "postcss": "^8.5.6",
-    "postcss-preset-env": "^11.1.1",
+    "postcss-preset-env": "^10.6.1",
     "seedrandom": "^3.0.5",
     "stylelint": "^17.0.0",
     "stylelint-config-standard": "^40.0.0",
