@@ -2,6 +2,7 @@
   "name": "chirostretch",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "tokens:generate": "tsx scripts/generate-tokens.ts",
     "prebuild": "pnpm tokens:generate",
@@ -24,7 +25,8 @@
     "analyze": "ANALYZE=true next build",
     "codegen": "graphql-codegen --config codegen.ts",
     "codegen:watch": "graphql-codegen --config codegen.ts --watch",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "lhci autorun",
+    "algolia:reindex": "curl -X POST http://localhost:3000/api/algolia/index-products && curl -X POST http://localhost:3000/api/algolia/index-events && curl -X POST http://localhost:3000/api/algolia/index-articles && curl -X POST http://localhost:3000/api/algolia/index-locations"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -75,7 +77,7 @@
     "happy-dom": "^20.3.4",
     "next-gravity-forms": "^2.1.12",
     "postcss": "^8.5.6",
-    "postcss-preset-env": "^10.6.1",
+    "postcss-preset-env": "^11.1.1",
     "seedrandom": "^3.0.5",
     "stylelint": "^17.0.0",
     "stylelint-config-standard": "^40.0.0",
