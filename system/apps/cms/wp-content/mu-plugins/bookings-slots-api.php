@@ -187,6 +187,12 @@ function chirostretch_cancel_incart_booking($cart_item_key, $cart) {
 add_action('woocommerce_cart_emptied', 'chirostretch_cancel_all_incart_bookings');
 
 function chirostretch_cancel_all_incart_bookings() {
+    // Bail early if WooCommerce Bookings post type isn't registered yet
+    // (woocommerce_cart_emptied can fire during session init before post types are ready)
+    if (!post_type_exists('wc_booking')) {
+        return;
+    }
+
     // Find all in-cart bookings and cancel them
     $bookings = get_posts([
         'post_type' => 'wc_booking',
