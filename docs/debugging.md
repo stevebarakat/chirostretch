@@ -432,24 +432,17 @@ Look for `href="/some-page"` (relative) and `data-internal-link="true"` on inter
 
 ### Adding New Excluded Paths
 
-Edit `chirostretch_headless_excluded_path_prefixes()` in `cms/wp-content/mu-plugins/headless-link-rewriter.php`:
+Use the `chirostretch_headless_excluded_paths` filter in another mu-plugin or theme:
 
 ```php
-function chirostretch_headless_excluded_path_prefixes(): array
-{
-  return [
-    '/wp-admin',
-    '/wp-login.php',
-    '/wp-json',
-    '/wp-content',
-    '/wp-includes',
-    '/my-account',
-    '/checkout',
-    '/cart',
-    '/new-excluded-path', // Add here
-  ];
-}
+add_filter('chirostretch_headless_excluded_paths', function($paths) {
+  $paths[] = '/booking-callback';
+  $paths[] = '/payment-return';
+  return $paths;
+});
 ```
+
+This avoids modifying the core plugin file directly.
 
 ### Troubleshooting
 

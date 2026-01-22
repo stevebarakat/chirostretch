@@ -60,10 +60,16 @@ function chirostretch_headless_get_url_context(): array
 /**
  * Paths that should NOT be rewritten to the headless frontend.
  * Keep WordPress-owned routes (e.g. WooCommerce My Account / Checkout) on WP.
+ *
+ * Extend via filter:
+ *   add_filter('chirostretch_headless_excluded_paths', function($paths) {
+ *     $paths[] = '/booking-callback';
+ *     return $paths;
+ *   });
  */
 function chirostretch_headless_excluded_path_prefixes(): array
 {
-  return [
+  $defaults = [
     '/wp-admin',
     '/wp-login.php',
     '/wp-json',
@@ -73,6 +79,8 @@ function chirostretch_headless_excluded_path_prefixes(): array
     '/checkout',
     '/cart',
   ];
+
+  return apply_filters('chirostretch_headless_excluded_paths', $defaults);
 }
 
 /**
