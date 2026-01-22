@@ -394,6 +394,76 @@ add_action('init', function() {
 
 ---
 
+## URL Rewriting (Headless Links)
+
+The `headless-link-rewriter.php` mu-plugin rewrites WordPress URLs to point to the Next.js frontend in API responses and sitemaps.
+
+### How It Works
+
+1. **GraphQL/REST content**: Internal `<a href>` links in `content` and `excerpt` fields are rewritten from absolute WP URLs to relative paths (e.g., `href="/articles/my-post"`) with `data-internal-link="true"` added
+2. **Sitemaps**: URLs in `wp-sitemap.xml` point to the frontend domain
+3. **Excluded paths**: WooCommerce routes stay on WordPress
+
+### Excluded Paths
+
+These paths are NOT rewritten (they remain on WordPress):
+- `/wp-admin`, `/wp-login.php`, `/wp-json`, `/wp-content`, `/wp-includes`
+- `/my-account`, `/checkout`, `/cart`
+
+### Verifying URL Rewriting
+
+**Check sitemap URLs:**
+```bash
+curl --insecure https://chirostretch-copy.local/wp-sitemap-posts-page-1.xml
+```
+
+Expected:
+- `/shop/`, `/events/`, `/articles/` → `https://localhost:3000/...` (frontend)
+- `/cart/`, `/checkout/`, `/my-account/` → `https://chirostretch-copy.local/...` (WordPress)
+
+**Check GraphQL content links:**
+```bash
+curl --insecure https://chirostretch-copy.local/graphql -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"query":"{ posts(first: 1) { nodes { content } } }"}'
+```
+
+Look for `href="/some-page"` (relative) and `data-internal-link="true"` on internal links.
+
+### Adding New Excluded Paths
+
+Edit `chirostretch_headless_excluded_path_prefixes()` in `cms/wp-content/mu-plugins/headless-link-rewriter.php`:
+
+```php
+function chirostretch_headless_excluded_path_prefixes(): array
+{
+  return [
+    '/wp-admin',
+    '/wp-login.php',
+    '/wp-json',
+    '/wp-content',
+    '/wp-includes',
+    '/my-account',
+    '/checkout',
+    '/cart',
+    '/new-excluded-path', // Add here
+  ];
+}
+```
+
+### Troubleshooting
+
+**Links not being rewritten:**
+1. Verify content contains absolute WP URLs (not already relative)
+2. Check that `chirostretch_get_frontend_url()` returns the correct frontend URL
+3. Ensure content is accessed via GraphQL/REST (rewrites only apply to API requests)
+
+**Wrong domain in sitemap:**
+1. Verify `HEADLESS_FRONTEND_URL` or equivalent is set correctly
+2. Check that the mu-plugin is loaded (WordPress > Tools > Site Health > Info > mu-plugins)
+
+---
+
 ## Log Locations
 
 | Service | Log Location |
