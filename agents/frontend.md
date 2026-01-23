@@ -195,6 +195,21 @@ src/
 
 Do not delete this file — it's required infrastructure, not dead code.
 
+**Critical:** Never make same-origin fetch calls from proxy. This causes a deadlock:
+
+```ts
+// ❌ WRONG — causes infinite loading in development
+const response = await fetch(`${request.url.origin}/api/redirects`);
+```
+
+```ts
+// ✅ CORRECT — call the function directly
+import { fetchRedirects } from "@/lib/redirects/fetch";
+const rules = await fetchRedirects();
+```
+
+The proxy intercepts all matching requests. A same-origin fetch creates a new request that waits for the proxy, which is waiting for the fetch — deadlock.
+
 See: [Next.js Proxy docs](https://nextjs.org/docs/app/getting-started/proxy)
 
 ## Route Groups
