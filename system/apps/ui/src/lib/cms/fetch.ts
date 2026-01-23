@@ -19,6 +19,7 @@ export const CACHE_TAGS = {
   options: "options",
   layout: "layout",
   media: "media",
+  redirects: "redirects",
 } as const;
 
 export type CacheTag = (typeof CACHE_TAGS)[keyof typeof CACHE_TAGS];

@@ -1,4 +1,4 @@
-export default {
+const postcssConfig = {
   plugins: {
     "postcss-preset-env": {
       stage: 3,
@@ -9,3 +9,5 @@ export default {
     autoprefixer: {},
   },
 };
+
+export default postcssConfig;
