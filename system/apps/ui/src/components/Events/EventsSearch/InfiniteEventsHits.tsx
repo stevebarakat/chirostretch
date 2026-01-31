@@ -2,7 +2,11 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import { useInfiniteHits, useSearchBox } from "react-instantsearch";
+import {
+  useInfiniteHits,
+  useSearchBox,
+  useInstantSearch,
+} from "react-instantsearch";
 import { EventsCalendar, type EventsCalendarHandle } from "../EventsCalendar";
 import { ExpandedEventModal } from "../ExpandedEventModal";
 import { useEventsContext } from "../EventsContext";
@@ -64,9 +68,11 @@ function mapHitToEvent(hit: EventHit): Event {
 export function InfiniteEventsHits() {
   const { hits, isLastPage, showMore } = useInfiniteHits<EventHit>();
   const { query } = useSearchBox();
+  const { status } = useInstantSearch();
   const sentinelRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<EventsCalendarHandle>(null);
   const eventsContext = useEventsContext();
+  const isLoading = status === "loading" || status === "stalled";
 
   // Register scrollToEvent when calendar ref becomes available
   // Reason: Syncing calendar's scrollToEvent function with context for cross-component access
@@ -99,7 +105,7 @@ export function InfiniteEventsHits() {
     return () => observer.disconnect();
   }, [isLastPage, showMore]);
 
-  if (hits.length === 0 && query) {
+  if (hits.length === 0 && query && !isLoading) {
     return (
       <div className={styles.empty}>
         <p>No events found for &ldquo;{query}&rdquo;</p>
@@ -107,10 +113,18 @@ export function InfiniteEventsHits() {
     );
   }
 
-  if (hits.length === 0) {
+  if (hits.length === 0 && !isLoading) {
     return (
       <div className={styles.empty}>
         <p>No events available.</p>
+      </div>
+    );
+  }
+
+  if (hits.length === 0 && isLoading) {
+    return (
+      <div className={styles.empty}>
+        <p>Loading events...</p>
       </div>
     );
   }
