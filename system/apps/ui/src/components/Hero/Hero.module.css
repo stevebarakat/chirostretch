@@ -25,10 +25,6 @@
   overflow: hidden;
 }
 
-.imageWrapper img {
-  position: relative;
-}
-
 .overlay {
   position: absolute;
   inset: 0;
