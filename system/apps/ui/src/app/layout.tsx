@@ -84,8 +84,6 @@ export default async function RootLayout({
         "Top menu not found. Expected menu slug: 'main-menu'. Make sure a menu with this slug exists in WordPress."
       );
     }
-
-
   } catch (error) {
     console.error("Failed to fetch layout data from WordPress:", error);
     logo = undefined;

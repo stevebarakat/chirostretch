@@ -209,7 +209,7 @@
   position: relative;
   min-height: 100%;
   background-color: var(--color-bg-primary);
-  border: 12px solid var(--color-secondary-400);
+  border: 12px solid var(--color-white);
   box-shadow: var(--shadow-md);
   cursor: pointer;
 }
