@@ -69,16 +69,21 @@ export default function Footer({ logo, tagline }: FooterProps) {
           </div>
 
           <div className={styles.navColumn}>
-            <Text as="h3" className={styles.columnTitle}>EXPLORE</Text>
+            <Text as="h3" className={styles.columnTitle}>
+              EXPLORE
+            </Text>
             <nav className={styles.navList}>
-              <Link href="/about" className={styles.navLink}>
-                About
+              <Link href="/articles" className={styles.navLink}>
+                Articles
+              </Link>
+              <Link href="/events" className={styles.navLink}>
+                Events
               </Link>
               <Link href="/locations" className={styles.navLink}>
                 Locations
               </Link>
-              <Link href="/services" className={styles.navLink}>
-                Services
+              <Link href="/shop" className={styles.navLink}>
+                Shop
               </Link>
               <Link href="/franchise" className={styles.navLink}>
                 Franchise
@@ -90,13 +95,18 @@ export default function Footer({ logo, tagline }: FooterProps) {
           </div>
 
           <div className={styles.corporateColumn}>
-            <Text as="h3" className={styles.columnTitle}>CORPORATE</Text>
+            <Text as="h3" className={styles.columnTitle}>
+              CORPORATE
+            </Text>
             <div className={styles.corporateItem}>
               <div className={styles.corporateLabel}>
                 <Mail size={20} className={styles.corporateIcon} />
                 <Text as="span">INQUIRIES:</Text>
               </div>
-              <a href="mailto:info@chirostretch.site" className={styles.corporateLink}>
+              <a
+                href="mailto:info@chirostretch.site"
+                className={styles.corporateLink}
+              >
                 info@chirostretch.site
               </a>
             </div>
@@ -113,7 +123,9 @@ export default function Footer({ logo, tagline }: FooterProps) {
 
           <div className={styles.ctaColumn}>
             <div className={styles.ctaBox}>
-              <Text as="h3" className={styles.ctaTitle}>Find a Clinic</Text>
+              <Text as="h3" className={styles.ctaTitle}>
+                Find a Clinic
+              </Text>
               <Text className={styles.ctaDescription}>
                 Locate a ChiroStretch studio near you and start your recovery
                 journey.

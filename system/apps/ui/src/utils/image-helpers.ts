@@ -19,19 +19,13 @@ const PRODUCTION_CMS_URL = "https://cms.chirostretch.site";
 
 /**
  * Local development hostnames that need to be rewritten
+ * Note: No global flag to avoid lastIndex state issues
  */
 const LOCAL_DEV_PATTERNS = [
-  /https?:\/\/chirostretch-copy\.local/g,
-  /https?:\/\/localhost:8080/g,
-  /https?:\/\/127\.0\.0\.1:8080/g,
+  /https?:\/\/chirostretch-copy\.local/,
+  /https?:\/\/localhost:8080/,
+  /https?:\/\/127\.0\.0\.1:8080/,
 ];
-
-/**
- * Checks if an image URL is from a local development environment
- */
-function isLocalDevUrl(url: string): boolean {
-  return LOCAL_DEV_PATTERNS.some((pattern) => pattern.test(url));
-}
 
 /**
  * Replaces local development URLs with production CMS URLs.
@@ -41,8 +35,6 @@ export function rewriteImageUrl(url: string | undefined | null): string {
   if (!url) return "";
   let result = url;
   for (const pattern of LOCAL_DEV_PATTERNS) {
-    // Reset lastIndex for global regex patterns
-    pattern.lastIndex = 0;
     result = result.replace(pattern, PRODUCTION_CMS_URL);
   }
   return result;

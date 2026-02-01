@@ -30,7 +30,7 @@ export function ButtonIcon({ icon }: ButtonIconProps) {
       }
     >
       <Image
-        src={icon.sourceUrl}
+        src={proxyUrl}
         alt={icon.altText || ""}
         width={icon.mediaDetails?.width || 20}
         height={icon.mediaDetails?.height || 20}
