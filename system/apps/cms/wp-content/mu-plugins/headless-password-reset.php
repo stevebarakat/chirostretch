@@ -204,6 +204,10 @@ function chirostretch_reset_password(WP_REST_Request $request): WP_REST_Response
  */
 function chirostretch_get_frontend_url(): string {
     // 1. Try constant first (defined in wp-config.php)
+    // Supports both naming conventions for flexibility
+    if (defined('NEXT_PUBLIC_FRONTEND_URL') && NEXT_PUBLIC_FRONTEND_URL) {
+        return rtrim(NEXT_PUBLIC_FRONTEND_URL, '/');
+    }
     if (defined('CHIROSTRETCH_FRONTEND_URL') && CHIROSTRETCH_FRONTEND_URL) {
         return rtrim(CHIROSTRETCH_FRONTEND_URL, '/');
     }

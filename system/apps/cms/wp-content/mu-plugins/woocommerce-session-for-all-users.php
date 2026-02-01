@@ -41,8 +41,10 @@ add_filter('woocommerce_cookie_samesite', function () {
  * CORS headers for REST API requests
  */
 add_action('rest_api_init', function () {
-    // Get the frontend URL from environment or use default
-    $frontend_url = getenv('NEXTJS_URL') ?: 'https://localhost:3000';
+    // Get the frontend URL from centralized helper
+    $frontend_url = function_exists('chirostretch_get_frontend_url')
+        ? chirostretch_get_frontend_url()
+        : (getenv('NEXT_PUBLIC_FRONTEND_URL') ?: 'https://localhost:3000');
 
     header("Access-Control-Allow-Origin: {$frontend_url}");
     header("Access-Control-Allow-Credentials: true");
@@ -100,7 +102,9 @@ add_filter('rest_post_dispatch', function ($response, $server, $request) {
 
 add_filter('woocommerce_store_api_cors_allowed_origins', function ($origins) {
     // Allow Next.js frontend origin
-    $frontend_url = getenv('NEXTJS_URL') ?: 'https://localhost:3000';
+    $frontend_url = function_exists('chirostretch_get_frontend_url')
+        ? chirostretch_get_frontend_url()
+        : (getenv('NEXT_PUBLIC_FRONTEND_URL') ?: 'https://localhost:3000');
 
     if (!in_array($frontend_url, $origins, true)) {
         $origins[] = $frontend_url;
