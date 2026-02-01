@@ -1,0 +1,30 @@
+name: Deploy WordPress to Cloudways
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'system/apps/cms/wp-content/**'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudways via rsync
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.CLOUDWAYS_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.CLOUDWAYS_HOST }}
+          REMOTE_USER: ${{ secrets.CLOUDWAYS_USER }}
+          REMOTE_PORT: ${{ secrets.CLOUDWAYS_PORT }}
+          SOURCE: "system/apps/cms/wp-content/"
+          TARGET: "${{ secrets.CLOUDWAYS_WP_PATH }}/wp-content/"
+          EXCLUDE: ".git*, .DS_Store, *.md"
+          SCRIPT_AFTER: |
+            echo "Deployment complete: $(date)"
+            echo "Clearing WordPress object cache..."
+            cd ${{ secrets.CLOUDWAYS_WP_PATH }} && wp cache flush --allow-root 2>/dev/null || true
