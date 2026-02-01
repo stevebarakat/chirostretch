@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SectionHeading, Button, ImageWrapper, Text } from "@/components/Primitives";
+import { rewriteImageUrl } from "@/utils/image-helpers";
 import styles from "./LatestInsights.module.css";
 import { RichText } from "@/components/RichText";
 
@@ -80,18 +81,19 @@ export default function LatestInsights({
               if (!post.slug) return null;
 
               const image = post.featuredImage?.node;
+              const imageUrl = rewriteImageUrl(image?.sourceUrl);
               const imageWidth = image?.mediaDetails?.width || 800;
               const imageHeight = image?.mediaDetails?.height || 450;
               const excerpt = post.excerpt ? stripHtml(post.excerpt) : "";
 
               return (
                 <article key={post.id || post.slug} className={styles.postCard}>
-                  {image?.sourceUrl && (
+                  {imageUrl && (
                     <ImageWrapper className={styles.imageWrapper}>
                       <Link href={`/articles/${post.slug}`}>
                         <Image
-                          src={image.sourceUrl}
-                          alt={image.altText || post.title || "Article image"}
+                          src={imageUrl}
+                          alt={image?.altText || post.title || "Article image"}
                           width={imageWidth}
                           height={imageHeight}
                           className={styles.image}

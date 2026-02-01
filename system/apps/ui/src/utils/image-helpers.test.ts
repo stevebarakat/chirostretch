@@ -3,6 +3,7 @@ import { renderHook, act } from "@testing-library/react";
 import {
   getSafeImageUrl,
   proxyCmsUrl,
+  rewriteImageUrl,
   useImageFallback,
   FALLBACK_IMAGES,
 } from "./image-helpers";
@@ -52,16 +53,32 @@ describe("getSafeImageUrl", () => {
     });
   });
 
-  describe("localhost URL replacement", () => {
-    it("replaces localhost:8080 with production URL", () => {
+  describe("local development URL replacement", () => {
+    it("replaces localhost:8080 with production CMS URL", () => {
       const url = "http://localhost:8080/wp-content/uploads/image.jpg";
       const result = getSafeImageUrl(url);
       expect(result).toBe(
-        "https://www.northfloridachiropracticphysicaltherapy.com/wp-content/uploads/image.jpg"
+        "https://cms.chirostretch.site/wp-content/uploads/image.jpg"
       );
     });
 
-    it("does not modify non-localhost URLs", () => {
+    it("replaces chirostretch-copy.local with production CMS URL", () => {
+      const url = "https://chirostretch-copy.local/wp-content/uploads/image.jpg";
+      const result = getSafeImageUrl(url);
+      expect(result).toBe(
+        "https://cms.chirostretch.site/wp-content/uploads/image.jpg"
+      );
+    });
+
+    it("replaces 127.0.0.1:8080 with production CMS URL", () => {
+      const url = "http://127.0.0.1:8080/wp-content/uploads/image.jpg";
+      const result = getSafeImageUrl(url);
+      expect(result).toBe(
+        "https://cms.chirostretch.site/wp-content/uploads/image.jpg"
+      );
+    });
+
+    it("does not modify non-local URLs", () => {
       const url = "https://example.com/image.jpg";
       const result = getSafeImageUrl(url);
       expect(result).toBe("https://example.com/image.jpg");
@@ -154,17 +171,75 @@ describe("proxyCmsUrl", () => {
       expect(proxyCmsUrl(url)).toBe(url);
     });
 
-    it("does not match HTTP (non-HTTPS) CMS URLs", () => {
-      const url =
-        "http://cms.chirostretch.site/wp-content/uploads/2025/01/image.jpg";
-      expect(proxyCmsUrl(url)).toBe(url);
-    });
-
     it("does not match different domain with same path structure", () => {
       const url =
         "https://other-cms.site/wp-content/uploads/2025/01/image.jpg";
       expect(proxyCmsUrl(url)).toBe(url);
     });
+  });
+
+  describe("local development URL rewriting", () => {
+    it("proxies chirostretch-copy.local upload URLs", () => {
+      const url =
+        "https://chirostretch-copy.local/wp-content/uploads/2025/01/image.jpg";
+      expect(proxyCmsUrl(url)).toBe("/cms-assets/2025/01/image.jpg");
+    });
+
+    it("proxies HTTP chirostretch-copy.local URLs", () => {
+      const url =
+        "http://chirostretch-copy.local/wp-content/uploads/2025/01/image.jpg";
+      expect(proxyCmsUrl(url)).toBe("/cms-assets/2025/01/image.jpg");
+    });
+
+    it("proxies localhost:8080 upload URLs", () => {
+      const url =
+        "http://localhost:8080/wp-content/uploads/2025/01/image.jpg";
+      expect(proxyCmsUrl(url)).toBe("/cms-assets/2025/01/image.jpg");
+    });
+
+    it("proxies 127.0.0.1:8080 upload URLs", () => {
+      const url =
+        "http://127.0.0.1:8080/wp-content/uploads/2025/01/image.jpg";
+      expect(proxyCmsUrl(url)).toBe("/cms-assets/2025/01/image.jpg");
+    });
+  });
+});
+
+describe("rewriteImageUrl", () => {
+  it("returns empty string for null", () => {
+    expect(rewriteImageUrl(null)).toBe("");
+  });
+
+  it("returns empty string for undefined", () => {
+    expect(rewriteImageUrl(undefined)).toBe("");
+  });
+
+  it("rewrites chirostretch-copy.local to production CMS", () => {
+    expect(
+      rewriteImageUrl("https://chirostretch-copy.local/wp-content/uploads/image.jpg")
+    ).toBe("https://cms.chirostretch.site/wp-content/uploads/image.jpg");
+  });
+
+  it("rewrites localhost:8080 to production CMS", () => {
+    expect(
+      rewriteImageUrl("http://localhost:8080/wp-content/uploads/image.jpg")
+    ).toBe("https://cms.chirostretch.site/wp-content/uploads/image.jpg");
+  });
+
+  it("rewrites 127.0.0.1:8080 to production CMS", () => {
+    expect(
+      rewriteImageUrl("http://127.0.0.1:8080/wp-content/uploads/image.jpg")
+    ).toBe("https://cms.chirostretch.site/wp-content/uploads/image.jpg");
+  });
+
+  it("does not modify production CMS URLs", () => {
+    const url = "https://cms.chirostretch.site/wp-content/uploads/image.jpg";
+    expect(rewriteImageUrl(url)).toBe(url);
+  });
+
+  it("does not modify other URLs", () => {
+    const url = "https://example.com/image.jpg";
+    expect(rewriteImageUrl(url)).toBe(url);
   });
 });
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
 import type { Practitioner } from "@/lib/graphql/queries/locations";
+import { rewriteImageUrl } from "@/utils/image-helpers";
 import styles from "./PractitionerCard.module.css";
 import { Button, ImageWrapper, Text } from "@/components/Primitives";
 
@@ -29,14 +30,16 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
     ? `${practitioner.credentials} • ${roleLabel.toUpperCase()}`
     : roleLabel.toUpperCase();
 
+  const headshotUrl = rewriteImageUrl(practitioner.headshot?.sourceUrl);
+
   return (
     <div className={styles.card}>
       <ImageWrapper className={styles.imageWrapper}>
-        {practitioner.headshot?.sourceUrl ? (
+        {headshotUrl ? (
           <Image
-            src={practitioner.headshot.sourceUrl}
+            src={headshotUrl}
             alt={
-              practitioner.headshot.altText ||
+              practitioner.headshot?.altText ||
               practitioner.title ||
               "Practitioner photo"
             }

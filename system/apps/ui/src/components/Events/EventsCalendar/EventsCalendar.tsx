@@ -20,6 +20,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NoImage, Text } from "@/components/Primitives";
+import { rewriteImageUrl } from "@/utils/image-helpers";
 import type { Event } from "../types";
 import { useCalendarDates, WEEKDAYS } from "./useCalendarDates";
 import styles from "./EventsCalendar.module.css";
@@ -334,6 +335,7 @@ function MobileEventCard({
 }) {
   const title = stripCitySuffix(event.title);
   const image = event.featuredImage?.node;
+  const imageUrl = rewriteImageUrl(image?.sourceUrl);
   const dateStr = formatEventDate(event.startDate);
   const timeStr = formatEventTime(event.startDate);
   const venue = event.venue?.title;
@@ -345,10 +347,10 @@ function MobileEventCard({
       tabIndex={-1}
     >
       <div className={styles.mobileCardThumb}>
-        {image?.sourceUrl ? (
+        {imageUrl ? (
           <Image
-            src={image.sourceUrl}
-            alt={image.altText || title}
+            src={imageUrl}
+            alt={image?.altText || title}
             width={100}
             height={100}
             className={styles.mobileCardImage}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { rewriteImageUrl } from "@/utils/image-helpers";
 import type { Event } from "../types";
 import styles from "./EventsGrid.module.css";
 import { Divider } from "@/components/Primitives";
@@ -31,6 +32,7 @@ export function EventsGrid({ events }: EventsGridProps) {
         if (!event.slug) return null;
 
         const image = event.featuredImage?.node;
+        const imageUrl = rewriteImageUrl(image?.sourceUrl);
         const day = formatCompactDate(event.startDate);
         const city = event.venue?.city;
 
@@ -41,8 +43,8 @@ export function EventsGrid({ events }: EventsGridProps) {
             className={styles.card}
             onClick={() => handleCardClick(event.slug!)}
             style={
-              image?.sourceUrl
-                ? { backgroundImage: `url(${image.sourceUrl})` }
+              imageUrl
+                ? { backgroundImage: `url(${imageUrl})` }
                 : undefined
             }
           >

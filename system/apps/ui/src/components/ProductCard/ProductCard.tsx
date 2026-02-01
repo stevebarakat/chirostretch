@@ -6,6 +6,7 @@ import { ImageWrapper, NoImage, StarRating, Button, Text } from "@/components/Pr
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { useCartStore } from "@/stores/useCartStore";
 import { toast } from "@/lib/toast";
+import { rewriteImageUrl } from "@/utils/image-helpers";
 import styles from "./ProductCard.module.css";
 
 type ProductImage = {
@@ -90,7 +91,7 @@ export function ProductCard({
   const productId = id;
 
   const imageSource = image || featuredImage?.node;
-  const imageUrl = imageSource?.sourceUrl || "";
+  const imageUrl = rewriteImageUrl(imageSource?.sourceUrl);
   const hasValidImage = imageUrl.length > 0;
   const imageAlt = imageSource?.altText || productName;
   const imageSizes = imageSource?.sizes;
