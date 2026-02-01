@@ -15,16 +15,21 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Get frontend URL from environment or helper function
+ * Get frontend URL from constant, environment, or helper function
  */
 function chs_get_headless_checkout_url() {
-    // Use existing helper if available
+    // Use existing helper if available (defined in headless-password-reset.php)
     if (function_exists('chirostretch_get_frontend_url')) {
         return chirostretch_get_frontend_url();
     }
 
-    // Fallback to environment variable
-    $frontend_url = getenv('NEXTJS_URL');
+    // Fallback: check constant directly (wp-config.php)
+    if (defined('NEXT_PUBLIC_FRONTEND_URL') && NEXT_PUBLIC_FRONTEND_URL) {
+        return rtrim(NEXT_PUBLIC_FRONTEND_URL, '/');
+    }
+
+    // Fallback: environment variable
+    $frontend_url = getenv('NEXT_PUBLIC_FRONTEND_URL');
     if ($frontend_url) {
         return rtrim($frontend_url, '/');
     }
