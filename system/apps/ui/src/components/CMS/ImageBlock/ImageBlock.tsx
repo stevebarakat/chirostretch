@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { clsx } from "clsx";
 import { ImageWrapper } from "@/components/Primitives";
+import { rewriteImageUrl } from "@/utils/image-helpers";
 import styles from "./ImageBlock.module.css";
 
 type ImageBlockProps = {
@@ -99,7 +100,10 @@ export default function ImageBlock({
   scale,
   objectFit,
 }: ImageBlockProps) {
-  if (!url || !isValidUrl(url)) return null;
+  // Rewrite local dev URLs to production CMS URLs
+  const imageUrl = rewriteImageUrl(url);
+
+  if (!imageUrl || !isValidUrl(imageUrl)) return null;
 
   const alignClassMap: Record<string, string> = {
     left: styles.alignLeft,
@@ -169,7 +173,7 @@ export default function ImageBlock({
         }}
       >
         <ImageWrapper className={styles.imageWrapper}>
-          <Image src={url} alt={alt} fill sizes={sizes} style={imageStyle} />
+          <Image src={imageUrl} alt={alt} fill sizes={sizes} style={imageStyle} />
         </ImageWrapper>
         {caption && (
           <figcaption className={styles.caption}>{caption}</figcaption>
@@ -181,7 +185,7 @@ export default function ImageBlock({
   return (
     <figure className={figureClasses}>
       <Image
-        src={url}
+        src={imageUrl}
         alt={alt}
         width={finalWidth}
         height={finalHeight}
