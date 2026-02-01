@@ -5,10 +5,12 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T | null>,
   handler: (event: MouseEvent | TouchEvent) => void
 ) {
-  // Store handler in a ref so we always call the latest version
-  // without needing it as a dependency (which would cause infinite re-renders)
   const handlerRef = useRef(handler);
-  handlerRef.current = handler;
+
+  // Update ref in effect to avoid "Cannot update ref during render" (react-hooks/refs)
+  useEffect(() => {
+    handlerRef.current = handler;
+  });
 
   // Reason this hook must use useEffect:
   // - Syncing with external browser API (DOM event listeners)
