@@ -5,7 +5,6 @@ import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { RichText } from "@/components/RichText";
 import { Button, ButtonIcon } from "@/components/Primitives";
-import { ImageWrapper } from "@/components/Primitives";
 import {
   getSafeImageUrl,
   useImageFallback,
@@ -240,7 +239,7 @@ function HeroContent({
 
   return (
     <section className={styles.hero} style={style}>
-      <ImageWrapper className={styles.imageWrapper}>
+      <div className={styles.imageWrapper}>
         <Image
           priority
           fetchPriority="high"
@@ -257,7 +256,7 @@ function HeroContent({
           }}
         />
         <div className={styles.overlay} />
-      </ImageWrapper>
+      </div>
       <div className={styles.content}>
         <h1 className={styles.headline}>{heading}</h1>
         {subheading && (

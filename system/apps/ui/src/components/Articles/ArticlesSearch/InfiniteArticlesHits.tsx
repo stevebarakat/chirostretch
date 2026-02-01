@@ -2,11 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import {
-  useInfiniteHits,
-  useSearchBox,
-  useInstantSearch,
-} from "react-instantsearch";
+import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { ArticleCard } from "../ArticleCard";
 import styles from "./InfiniteArticlesHits.module.css";
 
@@ -35,9 +31,7 @@ function buildTaxonomyItems(
 export function InfiniteArticlesHits() {
   const { hits, isLastPage, showMore } = useInfiniteHits<ArticleHit>();
   const { query } = useSearchBox();
-  const { status } = useInstantSearch();
   const sentinelRef = useRef<HTMLLIElement>(null);
-  const isLoading = status === "loading" || status === "stalled";
 
   // Reason this component must use useEffect:
   // - Syncing with browser API (IntersectionObserver) for infinite scroll
@@ -62,7 +56,8 @@ export function InfiniteArticlesHits() {
     return () => observer.disconnect();
   }, [isLastPage, showMore]);
 
-  if (hits.length === 0 && query && !isLoading) {
+  // Show empty state only when there's a query with no results
+  if (hits.length === 0 && query) {
     return (
       <div className={styles.empty}>
         <p>No articles found for &ldquo;{query}&rdquo;</p>
@@ -70,24 +65,9 @@ export function InfiniteArticlesHits() {
     );
   }
 
-  if (hits.length === 0 && !isLoading) {
-    return (
-      <div className={styles.empty}>
-        <p>No articles available.</p>
-      </div>
-    );
-  }
-
-  if (hits.length === 0 && isLoading) {
-    return (
-      <div className={styles.empty}>
-        <p>Loading articles...</p>
-      </div>
-    );
-  }
-
+  // Always render the grid - even if empty initially during hydration
   return (
-    <ul className={styles.grid}>
+    <ul className={styles.grid} suppressHydrationWarning>
       {hits.map((hit) => (
         <li key={hit.objectID}>
           <ArticleCard

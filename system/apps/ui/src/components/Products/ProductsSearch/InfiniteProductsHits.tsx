@@ -2,11 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import {
-  useInfiniteHits,
-  useSearchBox,
-  useInstantSearch,
-} from "react-instantsearch";
+import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { ProductCard } from "@/components/ProductCard";
 import { FlipMotion, FlipMotionItem } from "@/components/Primitives";
 import styles from "./InfiniteProductsHits.module.css";
@@ -28,9 +24,7 @@ type ProductHit = {
 export function InfiniteProductsHits() {
   const { hits, isLastPage, showMore } = useInfiniteHits<ProductHit>();
   const { query } = useSearchBox();
-  const { status } = useInstantSearch();
   const sentinelRef = useRef<HTMLLIElement>(null);
-  const isLoading = status === "loading" || status === "stalled";
 
   // Reason this component must use useEffect:
   // - Syncing with browser API (IntersectionObserver) for infinite scroll
@@ -55,26 +49,11 @@ export function InfiniteProductsHits() {
     return () => observer.disconnect();
   }, [isLastPage, showMore]);
 
-  if (hits.length === 0 && query && !isLoading) {
+  // Show empty state only when there's a query with no results
+  if (hits.length === 0 && query) {
     return (
       <div className={styles.empty}>
         <p>No products found for &ldquo;{query}&rdquo;</p>
-      </div>
-    );
-  }
-
-  if (hits.length === 0 && !isLoading) {
-    return (
-      <div className={styles.empty}>
-        <p>No products available.</p>
-      </div>
-    );
-  }
-
-  if (hits.length === 0 && isLoading) {
-    return (
-      <div className={styles.empty}>
-        <p>Loading products...</p>
       </div>
     );
   }

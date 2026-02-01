@@ -1,7 +1,6 @@
 "use client";
 
-import { InstantSearchNext } from "react-instantsearch-nextjs";
-import { Configure } from "react-instantsearch";
+import { InstantSearch, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { ArchiveHeader } from "@/components/Primitives";
@@ -19,14 +18,10 @@ export function ProductsSearch() {
   }
 
   return (
-    <InstantSearchNext
-      searchClient={
-        searchClient as unknown as Parameters<
-          typeof InstantSearchNext
-        >[0]["searchClient"]
-      }
+    <InstantSearch
+      searchClient={searchClient}
       indexName={algoliaConfig.indices.products}
-      future={{ preserveSharedStateOnUnmount: true }}
+      future={{ preserveSharedStateOnUnmount: false }}
     >
       <Configure hitsPerPage={12} />
       <ArchiveHeader
@@ -36,6 +31,6 @@ export function ProductsSearch() {
         searchSlot={<AlgoliaSearchBox placeholder="Search products..." />}
       />
       <InfiniteProductsHits />
-    </InstantSearchNext>
+    </InstantSearch>
   );
 }

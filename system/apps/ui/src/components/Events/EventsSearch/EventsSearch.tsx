@@ -28,7 +28,7 @@ export function EventsSearch() {
           >[0]["searchClient"]
         }
         indexName={algoliaConfig.indices.events}
-        future={{ preserveSharedStateOnUnmount: true }}
+        future={{ preserveSharedStateOnUnmount: false }}
       >
         <Configure hitsPerPage={100} />
         <ArchiveHeader
