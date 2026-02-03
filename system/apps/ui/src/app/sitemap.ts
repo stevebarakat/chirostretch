@@ -94,13 +94,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
   try {
-    const data = await wpQuery<SitemapResponse>(SITEMAP_QUERY, {}, {
-      revalidate: 3600,
-      tags: [CACHE_TAGS.pages, CACHE_TAGS.posts, CACHE_TAGS.products, CACHE_TAGS.locations],
-    });
+    const data = await wpQuery<SitemapResponse>(
+      SITEMAP_QUERY,
+      {},
+      {
+        revalidate: 3600,
+        tags: [
+          CACHE_TAGS.pages,
+          CACHE_TAGS.posts,
+          CACHE_TAGS.products,
+          CACHE_TAGS.locations,
+        ],
+      }
+    );
 
     const dynamicPages: MetadataRoute.Sitemap = [];
 

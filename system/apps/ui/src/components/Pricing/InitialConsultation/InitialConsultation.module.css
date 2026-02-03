@@ -1,0 +1,137 @@
+.wrapper {
+  padding-block-end: var(--spacing-3xl);
+  padding-inline: var(--spacing-md);
+}
+
+.card {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding: 2px;
+  border-radius: 24px;
+  background: var(--color-primary-500);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background: var(--color-bg-inverse);
+  color: var(--color-text-inverse);
+}
+
+@media (width >=768px) {
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-2xl);
+  }
+}
+
+.content {
+  flex: 1;
+}
+
+.badge {
+  display: inline-block;
+  margin-block-end: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-500);
+}
+
+.title {
+  margin-block-end: var(--spacing-md);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.description {
+  margin-block-end: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+  color: var(--color-neutral-400);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-neutral-300);
+}
+
+.checkIcon {
+  flex-shrink: 0;
+  color: var(--color-primary-500);
+}
+
+.priceBox {
+  padding: var(--spacing-xl);
+  background: var(--color-white);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-2xl);
+  text-align: center;
+  min-width: 240px;
+}
+
+.valueLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-tertiary);
+}
+
+.price {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.priceNote {
+  margin-block-start: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+}
+
+.ctaButton {
+  margin-block-start: var(--spacing-xl);
+  width: 100%;
+  padding-block: var(--spacing-md);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-xl);
+  transition: transform var(--transition-fast);
+}
+
+.ctaButton:hover {
+  transform: scale(1.02);
+}

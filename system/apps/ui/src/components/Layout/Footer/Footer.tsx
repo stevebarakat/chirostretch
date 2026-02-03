@@ -82,6 +82,9 @@ export default function Footer({ logo, tagline }: FooterProps) {
               <Link href="/locations" className={styles.navLink}>
                 Locations
               </Link>
+              <Link href="/pricing" className={styles.navLink}>
+                Pricing
+              </Link>
               <Link href="/shop" className={styles.navLink}>
                 Shop
               </Link>

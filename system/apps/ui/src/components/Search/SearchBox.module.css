@@ -9,7 +9,7 @@
 
 .searchIcon {
   position: absolute;
-  left: var(--spacing-md);
+  left: var(--spacing-sm);
   z-index: 1;
   color: var(--color-text-tertiary);
   pointer-events: none;
