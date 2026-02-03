@@ -1,1 +1,4 @@
-export { default as Footer } from "./Footer";
+export { Footer } from "./Footer";
+export { Header } from "./Header";
+export { Menu } from "./Menu";
+export { SearchInput } from "./SearchInput";
