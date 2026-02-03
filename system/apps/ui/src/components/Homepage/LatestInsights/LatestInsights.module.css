@@ -1,5 +1,5 @@
 .section {
-  padding: var(--spacing-4xl) 0;
+  padding: var(--spacing-4xl) 0 0;
 }
 
 .posts {
@@ -19,16 +19,15 @@
   display: flex;
   flex-direction: column;
   background-color: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: transform var(--transition-base),
+  transition:
+    transform var(--transition-base),
     box-shadow var(--transition-base);
 
   &:first-child {
     color: var(--color-text-inverse);
     background: var(--color-secondary-500);
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 
     .image {
       object-position: top center;
@@ -39,7 +38,6 @@
     flex-direction: row-reverse;
     color: var(--color-text-inverse);
     background: var(--color-primary-transparent-900);
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
 }
 

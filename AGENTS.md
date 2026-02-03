@@ -222,7 +222,15 @@ import { Button } from "@/components/Primitives";
 <Button as={Link} href="/path">Next.js Link</Button>
 ```
 
-These ensure consistent typography, spacing, and interactive styling across the app.
+**Flex** — Use for flexbox layout instead of raw `<div>` with custom flex classes:
+```tsx
+import { Flex } from "@/components/Primitives";
+
+<Flex gap="md" align="center" justify="between">...</Flex>
+<Flex as="nav" direction="column" gap="sm" wrap="wrap">...</Flex>
+```
+
+These ensure consistent typography, spacing, layout, and interactive styling across the app.
 
 ## Preferred Packages
 

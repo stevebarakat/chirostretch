@@ -1,5 +1,6 @@
 export { default as Button, ButtonIcon } from "./Base/Button";
 export { BackToTop } from "./Utility/BackToTop";
+export { Flex } from "./Utility/Flex";
 export { Container } from "./Layout/Container";
 export { Skeleton, SkeletonText } from "./Feedback/Skeleton";
 export { Divider } from "./Layout/Divider";

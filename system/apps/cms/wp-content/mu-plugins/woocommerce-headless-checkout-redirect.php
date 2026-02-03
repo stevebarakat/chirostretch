@@ -20,21 +20,28 @@ if (!defined('ABSPATH')) {
 function chs_get_headless_checkout_url() {
     // Use existing helper if available (defined in headless-password-reset.php)
     if (function_exists('chirostretch_get_frontend_url')) {
-        return chirostretch_get_frontend_url();
+        $url = chirostretch_get_frontend_url();
+        error_log("[Headless Checkout] Using helper function, URL: {$url}");
+        return $url;
     }
 
     // Fallback: check constant directly (wp-config.php)
     if (defined('NEXT_PUBLIC_FRONTEND_URL') && NEXT_PUBLIC_FRONTEND_URL) {
-        return rtrim(NEXT_PUBLIC_FRONTEND_URL, '/');
+        $url = rtrim(NEXT_PUBLIC_FRONTEND_URL, '/');
+        error_log("[Headless Checkout] Using constant, URL: {$url}");
+        return $url;
     }
 
     // Fallback: environment variable
     $frontend_url = getenv('NEXT_PUBLIC_FRONTEND_URL');
     if ($frontend_url) {
+        error_log("[Headless Checkout] Using env var, URL: {$frontend_url}");
         return rtrim($frontend_url, '/');
     }
 
     // Default for local development
+    error_log("[Headless Checkout] WARNING: No frontend URL configured, using localhost fallback");
+    error_log("[Headless Checkout] Define NEXT_PUBLIC_FRONTEND_URL in wp-config.php");
     return 'https://localhost:3000';
 }
 

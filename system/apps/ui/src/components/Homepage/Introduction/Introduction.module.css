@@ -50,6 +50,17 @@
   }
 }
 
+.introHeader {
+  display: block;
+  font-family: var(--secondary-font);
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.1rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding-bottom: 0.5rem;
+}
+
 .introSubHeader {
   display: block;
   padding-bottom: 1.25rem;
@@ -57,12 +68,13 @@
   font-weight: 800;
   letter-spacing: -0.05rem;
   text-transform: uppercase;
-  color: var(--primary-color);
+  color: var(--color-primary-600);
 }
 
 .introDescription {
   display: block;
   padding: 0;
+  text-align: center;
   font-size: clamp(1rem, 5vw, 1.5rem);
   line-height: clamp(1.25, 5vw, 1.75);
 }
@@ -99,35 +111,9 @@
   text-align: center;
 }
 
-.stat {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  width: fit-content;
-  font-family: var(--primary-font);
-  font-size: 3rem;
-  font-weight: 900;
-}
-
-.stat span:last-child {
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-align: center;
-}
-
-.introHeader {
-  display: block;
-  font-family: var(--secondary-font);
-  font-size: 2.25rem;
-  font-weight: 700;
-  letter-spacing: -0.1rem;
-  text-align: center;
-}
-
 @media (width >= 1100px) {
   .intro {
     grid-template-columns: repeat(2, 1fr);
-    padding: 4rem 0;
   }
 
   .introHeader {
@@ -153,6 +139,7 @@
   .introDescription {
     font-size: 1.25rem;
     line-height: 2.5rem;
+    text-align: left;
   }
 
   .introLeftWrap {
@@ -168,10 +155,5 @@
     border-top: none;
     border-left: 2px solid var(--color-white);
     box-shadow: none;
-  }
-
-  .stats {
-    justify-content: flex-start;
-    padding-top: 2rem;
   }
 }

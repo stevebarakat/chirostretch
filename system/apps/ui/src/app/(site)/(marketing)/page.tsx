@@ -7,6 +7,7 @@ import {
 } from "@/lib/graphql/queries";
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
+import { Stats } from "@/components/Stats";
 import { CallToAction } from "@/components/Homepage";
 import {
   IntroductionSkeleton,
@@ -14,32 +15,62 @@ import {
   UpcomingEventsSkeleton,
   LatestInsightsSkeleton,
 } from "@/components/Homepage/Skeletons";
+import { Button } from "@/components/Primitives";
+import { Flex } from "@/components/Primitives";
 
 export const revalidate = 300;
 
 // Cache the homepage query to deduplicate requests between generateMetadata() and the page component
 const getHomepageData = cache(async () => {
-  return await wpQuery<HomepageQueryResponse>(HOMEPAGE_QUERY, {}, {
-    tags: [CACHE_TAGS.pages, CACHE_TAGS.products, CACHE_TAGS.events],
-  });
+  return await wpQuery<HomepageQueryResponse>(
+    HOMEPAGE_QUERY,
+    {},
+    {
+      tags: [CACHE_TAGS.pages, CACHE_TAGS.products, CACHE_TAGS.events],
+    }
+  );
 });
 
 // Below-the-fold sections (dynamically imported for code splitting)
-const Introduction = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.Introduction })), {
-  ssr: true,
-});
+const Introduction = dynamic(
+  () =>
+    import("@/components/Homepage").then((mod) => ({
+      default: mod.Introduction,
+    })),
+  {
+    ssr: true,
+  }
+);
 
-const FeaturedProducts = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.FeaturedProducts })), {
-  ssr: true,
-});
+const FeaturedProducts = dynamic(
+  () =>
+    import("@/components/Homepage").then((mod) => ({
+      default: mod.FeaturedProducts,
+    })),
+  {
+    ssr: true,
+  }
+);
 
-const UpcomingEvents = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.UpcomingEvents })), {
-  ssr: true,
-});
+const UpcomingEvents = dynamic(
+  () =>
+    import("@/components/Homepage").then((mod) => ({
+      default: mod.UpcomingEvents,
+    })),
+  {
+    ssr: true,
+  }
+);
 
-const LatestInsights = dynamic(() => import("@/components/Homepage").then(mod => ({ default: mod.LatestInsights })), {
-  ssr: true,
-});
+const LatestInsights = dynamic(
+  () =>
+    import("@/components/Homepage").then((mod) => ({
+      default: mod.LatestInsights,
+    })),
+  {
+    ssr: true,
+  }
+);
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomepageData();
@@ -111,10 +142,7 @@ export default async function HomePage() {
   return (
     <>
       {page.featuredImage && (
-        <Hero
-          featuredImage={page.featuredImage}
-          heroUnit={page.heroUnit}
-        />
+        <Hero featuredImage={page.featuredImage} heroUnit={page.heroUnit} />
       )}
       {page.homepageCta?.headings?.headline && (
         <CallToAction
@@ -194,6 +222,17 @@ export default async function HomePage() {
           insightsCtaLink={page.homepageLatestInsights?.insightsCtaLink}
           posts={data.latestPosts?.nodes}
         />
+      </Suspense>
+      <Suspense fallback="loading...">
+        <Flex
+          gap="md"
+          align="center"
+          justify="between"
+          style={{ background: "var(--color-secondary-500)" }}
+        >
+          <Stats stats={intro?.stats} />
+          <Button>Franchise Oppertunities</Button>
+        </Flex>
       </Suspense>
     </>
   );

@@ -1,7 +1,5 @@
-
-
-
 <?php
+
 /**
  * Plugin Name: ChiroStretch – QL Events Fix
  * Description: Hotfix for ql-events: graphql_data_is_private filter should tolerate array/object payloads.
