@@ -12,7 +12,6 @@ export { ImageWrapper } from "./Media/ImageWrapper";
 export { Input } from "./Base/Input";
 export { Modal } from "./Feedback/Modal";
 export { NoImage } from "./Media/NoImage";
-export { ArchiveHeader } from "./Layout/ArchiveHeader";
 export { SectionHeading } from "./Layout/SectionHeading";
 export { StarRating } from "./Display/StarRating";
 export { Text } from "./Base/Text";

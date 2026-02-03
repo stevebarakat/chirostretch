@@ -3,7 +3,7 @@
 import { InstantSearch, Configure } from "react-instantsearch";
 import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
-import { ArchiveHeader } from "@/components/Primitives";
+import { ArchiveHeader } from "@/components/Layout";
 import { ErrorState } from "@/components/Primitives";
 import { SearchBox } from "@/components/Search";
 import { InfiniteArticlesHits } from "./InfiniteArticlesHits";
