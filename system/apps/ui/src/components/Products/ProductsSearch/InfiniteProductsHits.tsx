@@ -1,8 +1,9 @@
 "use client";
 
 // eslint-disable-next-line no-restricted-imports
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch";
+import { useInfiniteScroll } from "@/hooks";
 import { ProductCard } from "@/components/ProductCard";
 import { FlipMotion, FlipMotionItem } from "@/components/Primitives";
 import styles from "./InfiniteProductsHits.module.css";
@@ -26,28 +27,7 @@ export function InfiniteProductsHits() {
   const { query } = useSearchBox();
   const sentinelRef = useRef<HTMLLIElement>(null);
 
-  // Reason this component must use useEffect:
-  // - Syncing with browser API (IntersectionObserver) for infinite scroll
-  // - IntersectionObserver is a browser API that requires DOM access
-  // - This is a side effect that sets up and cleans up an observer when dependencies change
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isLastPage) {
-            showMore();
-          }
-        });
-      },
-      { rootMargin: "400px" }
-    );
-
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, [isLastPage, showMore]);
+  useInfiniteScroll({ sentinelRef, isLastPage, showMore });
 
   // Show empty state only when there's a query with no results
   if (hits.length === 0 && query) {
