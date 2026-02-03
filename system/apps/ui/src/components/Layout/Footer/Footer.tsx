@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
 import { Container, Button, Text } from "@/components/Primitives";
-import { Logo } from "../Logo";
+import { Logo } from "@/components/Logo";
 import {
   Instagram,
   Facebook,
@@ -133,7 +133,8 @@ export default function Footer({ logo, tagline }: FooterProps) {
               <Button
                 as="a"
                 href="/locations"
-                color="secondary"
+                fullWidth
+                color="primary"
                 variant="inverse"
                 icon={<MapPin size={20} />}
                 iconPosition="left"

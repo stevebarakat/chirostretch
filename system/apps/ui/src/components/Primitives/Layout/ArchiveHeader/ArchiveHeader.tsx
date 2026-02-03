@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import SearchInput from "@/components/Layout/SearchInput";
+import { SearchInput } from "@/components/Layout/SearchInput";
 import { CartBadge } from "@/components/Cart";
 import styles from "./ArchiveHeader.module.css";
 

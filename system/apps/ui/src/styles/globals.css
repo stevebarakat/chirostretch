@@ -80,9 +80,6 @@ a {
   transition: color var(--transition-base);
 }
 
-a:hover {
-  color: var(--color-text-link-hover);
-}
 
 strong {
   font-weight: var(--font-weight-semibold);

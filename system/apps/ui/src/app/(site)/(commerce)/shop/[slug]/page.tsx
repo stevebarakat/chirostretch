@@ -5,9 +5,13 @@ import {
 } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Primitives";
-import { ProductGallery, ProductInfo, RelatedProducts } from "@/components/Products";
+import {
+  ProductGallery,
+  ProductInfo,
+  RelatedProducts,
+} from "@/components/Products";
 import { CartBadge } from "@/components/Cart";
-import SearchInput from "@/components/Layout/SearchInput";
+import { SearchInput } from "@/components/Layout/SearchInput";
 import styles from "./page.module.css";
 
 export const revalidate = 300;

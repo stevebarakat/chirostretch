@@ -43,6 +43,10 @@ function Input({
   ...props
 }: InputComponentProps) {
   const Component = (as ?? "input") as InputElement;
+  const fallbackId = React.useId();
+  const providedId = "id" in props ? props.id : undefined;
+  const providedName = "name" in props ? props.name : undefined;
+  const id = providedId ?? (providedName ? undefined : fallbackId);
 
   const inputClasses = clsx(
     styles.input,
@@ -53,12 +57,16 @@ function Input({
     className
   );
 
+  const ariaInvalid = error === true ? true : undefined;
+
   if (Component === "textarea") {
     return (
       <textarea
         ref={ref as React.Ref<HTMLTextAreaElement>}
         className={inputClasses}
+        aria-invalid={ariaInvalid}
         {...(props as React.ComponentPropsWithoutRef<"textarea">)}
+        id={id}
       />
     );
   }
@@ -68,7 +76,9 @@ function Input({
       <select
         ref={ref as React.Ref<HTMLSelectElement>}
         className={inputClasses}
+        aria-invalid={ariaInvalid}
         {...(props as React.ComponentPropsWithoutRef<"select">)}
+        id={id}
       />
     );
   }
@@ -77,10 +87,11 @@ function Input({
     <input
       ref={ref as React.Ref<HTMLInputElement>}
       className={inputClasses}
+      aria-invalid={ariaInvalid}
       {...(props as React.ComponentPropsWithoutRef<"input">)}
+      id={id}
     />
   );
 }
 
 export default Input;
-

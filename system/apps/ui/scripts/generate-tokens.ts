@@ -1,22 +1,25 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load environment variables from .env.local
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: ".env.local" });
 
 // Parse HSL from env var format "200,70,52" -> {h: 200, s: 70, l: 52}
 function parseHSL(envValue: string): { h: number; s: number; l: number } {
-  const [h, s, l] = envValue.split(',').map(Number);
+  const [h, s, l] = envValue.split(",").map(Number);
   return { h, s, l };
 }
 
 // Generate color scale (50-950) from base HSL
-function generateColorScale(base: { h: number; s: number; l: number }, name: string) {
+function generateColorScale(
+  base: { h: number; s: number; l: number },
+  name: string
+) {
   const scale = {
     50: { ...base, s: Math.min(100, base.s + 30), l: 98 },
     100: { ...base, s: Math.min(100, base.s + 25), l: 95 },
@@ -32,14 +35,18 @@ function generateColorScale(base: { h: number; s: number; l: number }, name: str
   };
 
   return Object.entries(scale)
-    .map(([weight, color]) =>
-      `  --color-${name}-${weight}: hsl(${color.h}deg ${color.s}% ${color.l}%);`
+    .map(
+      ([weight, color]) =>
+        `  --color-${name}-${weight}: hsl(${color.h}deg ${color.s}% ${color.l}%);`
     )
-    .join('\n');
+    .join("\n");
 }
 
 // Generate a curated set of transparent variations (light, medium, dark opacities)
-function generateTransparentVariants(base: { h: number; s: number; l: number }, name: string) {
+function generateTransparentVariants(
+  base: { h: number; s: number; l: number },
+  name: string
+) {
   // Keep a practical set: 50 (5%), 100 (10%), 200 (20%), 500 (50%), 800 (80%), 900 (90%)
   // This covers common use cases without generating all 11 variants
   const variants = [
@@ -54,13 +61,18 @@ function generateTransparentVariants(base: { h: number; s: number; l: number }, 
   return variants
     .map(
       (v) =>
-        `  --color-${name}-transparent-${v.weight}: hsl(${base.h}deg ${base.s}% ${base.l}% / ${v.alpha * 100}%);`
+        `  --color-${name}-transparent-${v.weight}: hsl(${base.h}deg ${
+          base.s
+        }% ${base.l}% / ${v.alpha * 100}%);`
     )
-    .join('\n');
+    .join("\n");
 }
 
 // Generate gradient for primary and secondary colors
-function generateGradient(base: { h: number; s: number; l: number }, name: string) {
+function generateGradient(
+  base: { h: number; s: number; l: number },
+  name: string
+) {
   return `  --color-${name}-gradient: linear-gradient(to bottom,
     hsl(${base.h}deg ${base.s}% ${base.l}%) 0%,
     hsl(${base.h}deg ${Math.max(0, base.s - 5)}% ${base.l - 7}%) 50%,
@@ -69,13 +81,13 @@ function generateGradient(base: { h: number; s: number; l: number }, name: strin
 
 // Main generation function
 function generateTokens() {
-  const primary = parseHSL(process.env.DESIGN_TOKEN_PRIMARY || '200,70,52');
-  const secondary = parseHSL(process.env.DESIGN_TOKEN_SECONDARY || '324,80,44');
-  const neutral = parseHSL(process.env.DESIGN_TOKEN_NEUTRAL || '0,0,45');
-  const success = parseHSL(process.env.DESIGN_TOKEN_SUCCESS || '142,71,45');
-  const warning = parseHSL(process.env.DESIGN_TOKEN_WARNING || '38,92,50');
-  const error = parseHSL(process.env.DESIGN_TOKEN_ERROR || '0,86,53');
-  const info = parseHSL(process.env.DESIGN_TOKEN_INFO || '210,80,50');
+  const primary = parseHSL(process.env.DESIGN_TOKEN_PRIMARY || "200,70,52");
+  const secondary = parseHSL(process.env.DESIGN_TOKEN_SECONDARY || "324,80,44");
+  const neutral = parseHSL(process.env.DESIGN_TOKEN_NEUTRAL || "0,0,45");
+  const success = parseHSL(process.env.DESIGN_TOKEN_SUCCESS || "142,71,45");
+  const warning = parseHSL(process.env.DESIGN_TOKEN_WARNING || "38,92,50");
+  const error = parseHSL(process.env.DESIGN_TOKEN_ERROR || "0,86,53");
+  const info = parseHSL(process.env.DESIGN_TOKEN_INFO || "210,80,50");
 
   const css = `:root {
   --font-primary: var(--font-poppins);
@@ -83,32 +95,36 @@ function generateTokens() {
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-  /* Primary Color Scale (Generated from env: ${process.env.DESIGN_TOKEN_PRIMARY}) */
+  /* Primary Color Scale (Generated from env: ${
+    process.env.DESIGN_TOKEN_PRIMARY
+  }) */
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-${generateColorScale(primary, 'primary')}
+${generateColorScale(primary, "primary")}
 
-${generateGradient(primary, 'primary')}
+${generateGradient(primary, "primary")}
 
-${generateTransparentVariants(primary, 'primary')}
-
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-  /* Secondary Color Scale (Generated from env: ${process.env.DESIGN_TOKEN_SECONDARY}) */
+${generateTransparentVariants(primary, "primary")}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-${generateColorScale(secondary, 'secondary')}
 
-${generateGradient(secondary, 'secondary')}
+  /* Secondary Color Scale (Generated from env: ${
+    process.env.DESIGN_TOKEN_SECONDARY
+  }) */
 
-${generateTransparentVariants(secondary, 'secondary')}
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+${generateColorScale(secondary, "secondary")}
+
+${generateGradient(secondary, "secondary")}
+
+${generateTransparentVariants(secondary, "secondary")}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
   /* Neutral Scale (Grayscale) */
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-${generateColorScale(neutral, 'neutral')}
+${generateColorScale(neutral, "neutral")}
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -158,8 +174,12 @@ ${generateColorScale(neutral, 'neutral')}
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   --color-success-500: hsl(${success.h}deg ${success.s}% ${success.l}%);
   --color-success-600: hsl(${success.h}deg ${success.s + 1}% ${success.l - 7}%);
-  --color-success-700: hsl(${success.h}deg ${success.s + 2}% ${success.l - 13}%);
-  --color-success-800: hsl(${success.h}deg ${success.s + 2}% ${success.l - 18}%);
+  --color-success-700: hsl(${success.h}deg ${success.s + 2}% ${
+    success.l - 13
+  }%);
+  --color-success-800: hsl(${success.h}deg ${success.s + 2}% ${
+    success.l - 18
+  }%);
   --color-success-50: hsl(${success.h}deg ${success.s + 5}% 96%);
   --color-success-100: hsl(${success.h}deg ${success.s - 1}% 90%);
   --color-success-200: hsl(${success.h}deg ${success.s - 1}% 80%);
@@ -168,7 +188,9 @@ ${generateColorScale(neutral, 'neutral')}
 
   --color-warning-500: hsl(${warning.h}deg ${warning.s}% ${warning.l}%);
   --color-warning-600: hsl(${warning.h}deg ${warning.s + 2}% ${warning.l - 7}%);
-  --color-warning-700: hsl(${warning.h}deg ${warning.s + 4}% ${warning.l - 14}%);
+  --color-warning-700: hsl(${warning.h}deg ${warning.s + 4}% ${
+    warning.l - 14
+  }%);
   --color-warning-50: hsl(${warning.h}deg ${warning.s}% 96%);
   --color-warning-100: hsl(${warning.h}deg ${warning.s - 4}% 90%);
 
@@ -204,7 +226,6 @@ ${generateColorScale(neutral, 'neutral')}
   --color-text-tertiary: var(--color-neutral-500);
   --color-text-inverse: var(--color-neutral-50);
   --color-text-link: var(--color-primary-600);
-  --color-text-link-hover: var(--color-primary-700);
 
   --color-bg-primary: var(--color-neutral-50);
   --color-bg-secondary: var(--color-neutral-100);
@@ -298,19 +319,19 @@ ${generateColorScale(neutral, 'neutral')}
 `;
 
   // Write to Next.js location
-  const nextjsPath = path.join(__dirname, '../src/styles/tokens.css');
+  const nextjsPath = path.join(__dirname, "../src/styles/tokens.css");
   fs.mkdirSync(path.dirname(nextjsPath), { recursive: true });
   fs.writeFileSync(nextjsPath, css);
-  console.log('✅ Generated tokens.css for Next.js');
+  console.log("✅ Generated tokens.css for Next.js");
 
   // Copy to WordPress theme
   const wpPath = path.join(
     __dirname,
-    '../../cms/wp-content/themes/chirostretch-theme/css/tokens.css'
+    "../../cms/wp-content/themes/chirostretch-theme/css/tokens.css"
   );
   fs.mkdirSync(path.dirname(wpPath), { recursive: true });
   fs.writeFileSync(wpPath, css);
-  console.log('✅ Copied tokens.css to WordPress theme');
+  console.log("✅ Copied tokens.css to WordPress theme");
 }
 
 generateTokens();

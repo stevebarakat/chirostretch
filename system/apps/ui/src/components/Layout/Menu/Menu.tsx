@@ -32,7 +32,10 @@ export default function Menu({
     }
   };
 
-  const itemClassName = clsx(styles.item, variant === "header" && styles.itemHeader);
+  const itemClassName = clsx(
+    styles.item,
+    variant === "header" && styles.itemHeader
+  );
 
   if (!hasDropdown) {
     return (
@@ -60,7 +63,10 @@ export default function Menu({
         />
       </button>
       {hasDropdown && (
-        <ul className={clsx(styles.dropdown, isOpen && styles.dropdownOpen)} role="menu">
+        <ul
+          className={clsx(styles.dropdown, isOpen && styles.dropdownOpen)}
+          role="menu"
+        >
           {dropdownItems.map((childItem) => (
             <li key={childItem.id} className={styles.dropdownItem}>
               <Link

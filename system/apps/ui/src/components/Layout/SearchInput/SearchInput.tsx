@@ -7,10 +7,9 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/Primitives";
 import styles from "./SearchInput.module.css";
 
-const SearchModal = dynamic(
-  () => import("@/components/Search/SearchModal"),
-  { ssr: false }
-);
+const SearchModal = dynamic(() => import("@/components/Search/SearchModal"), {
+  ssr: false,
+});
 
 function getSearchConfig(pathname: string) {
   const path = pathname.toLowerCase();
@@ -79,6 +78,7 @@ export default function SearchInput() {
         <Search className={styles.searchIcon} size={20} aria-hidden="true" />
         <Input
           type="search"
+          name={ariaLabel}
           placeholder={placeholder}
           className={styles.searchInput}
           aria-label={ariaLabel}

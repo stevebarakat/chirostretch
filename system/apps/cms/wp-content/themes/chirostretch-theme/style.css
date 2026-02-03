@@ -422,18 +422,23 @@ h6 {
 h1 {
   font-size: var(--font-size-4xl);
 }
+
 h2 {
   font-size: var(--font-size-3xl);
 }
+
 h3 {
   font-size: var(--font-size-2xl);
 }
+
 h4 {
   font-size: var(--font-size-xl);
 }
+
 h5 {
   font-size: var(--font-size-lg);
 }
+
 h6 {
   font-size: var(--font-size-base);
 }
@@ -448,9 +453,11 @@ p {
   h1 {
     font-size: var(--font-size-5xl);
   }
+
   h2 {
     font-size: var(--font-size-4xl);
   }
+
   h3 {
     font-size: var(--font-size-3xl);
   }
@@ -584,12 +591,6 @@ a {
 
 a:visited {
   color: var(--color-text-link);
-}
-
-a:hover,
-a:focus,
-a:active {
-  color: var(--color-text-link-hover);
 }
 
 a:focus {

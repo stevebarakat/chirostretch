@@ -101,7 +101,7 @@
   background-color: var(--color-bg-secondary);
 }
 
-@media (width <= 767px) {
+@media (width <=767px) {
   .dropdown {
     position: static;
     margin-top: 0;

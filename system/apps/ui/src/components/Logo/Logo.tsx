@@ -35,10 +35,7 @@ export default function Logo({ isMobile = false, logo }: LogoProps) {
     );
 
   return (
-    <div
-      className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}
-      style={{ paddingLeft: "var(--spacing-md)" }}
-    >
+    <div className={isMobile ? `${styles.mobile} ${styles.logo}` : styles.logo}>
       <Link href="/" aria-label="ChiroStretch - Go to homepage">
         <Image
           priority

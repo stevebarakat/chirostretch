@@ -15,8 +15,8 @@ import {
   UpcomingEventsSkeleton,
   LatestInsightsSkeleton,
 } from "@/components/Homepage/Skeletons";
-import { Button } from "@/components/Primitives";
-import { Flex } from "@/components/Primitives";
+import { Button, Container, Flex } from "@/components/Primitives";
+import { ArrowRight } from "lucide-react";
 
 export const revalidate = 300;
 
@@ -224,15 +224,14 @@ export default async function HomePage() {
         />
       </Suspense>
       <Suspense fallback="loading...">
-        <Flex
-          gap="md"
-          align="center"
-          justify="between"
-          style={{ background: "var(--color-secondary-500)" }}
-        >
-          <Stats stats={intro?.stats} />
-          <Button>Franchise Oppertunities</Button>
-        </Flex>
+        <Container>
+          <Flex gap="md" align="center" justify="evenly">
+            <Stats stats={intro?.stats} />
+            <Button variant="outline">
+              Franchise Opportunities <ArrowRight />
+            </Button>
+          </Flex>
+        </Container>
       </Suspense>
     </>
   );
