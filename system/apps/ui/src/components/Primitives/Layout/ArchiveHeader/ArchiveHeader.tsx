@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { SearchInput } from "@/components/Layout/SearchInput";
+import { SearchTrigger } from "@/components/Layout/SearchTrigger";
 import { CartBadge } from "@/components/Cart";
 import styles from "./ArchiveHeader.module.css";
 
@@ -25,7 +25,7 @@ export default function ArchiveHeader({
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
       <div className={styles.rightContent}>
-        {searchSlot ?? <SearchInput />}
+        {searchSlot ?? <SearchTrigger />}
         {showCart && (
           <div className={styles.cartWrapper}>
             <CartBadge />

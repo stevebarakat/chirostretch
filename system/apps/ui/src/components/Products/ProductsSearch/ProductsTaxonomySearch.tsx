@@ -6,7 +6,7 @@ import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { ArchiveHeader } from "@/components/Primitives";
 import { ErrorState } from "@/components/Primitives";
-import { AlgoliaSearchBox } from "@/components/Search";
+import { SearchBox } from "@/components/Search";
 import { InfiniteProductsHits } from "./InfiniteProductsHits";
 
 type ProductsTaxonomySearchProps = {
@@ -49,7 +49,7 @@ export function ProductsTaxonomySearch({
         title={title}
         subtitle={subtitle || `Browse ${title} products`}
         showCart
-        searchSlot={<AlgoliaSearchBox placeholder="Search products..." />}
+        searchSlot={<SearchBox placeholder="Search products..." />}
       />
       <InfiniteProductsHits />
     </InstantSearchNext>

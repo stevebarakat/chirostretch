@@ -6,7 +6,7 @@ import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { ArchiveHeader } from "@/components/Primitives";
 import { ErrorState } from "@/components/Primitives";
-import { AlgoliaSearchBox } from "@/components/Search";
+import { SearchBox } from "@/components/Search";
 import { InfiniteArticlesHits } from "./InfiniteArticlesHits";
 
 type ArticlesTaxonomySearchProps = {
@@ -48,7 +48,7 @@ export function ArticlesTaxonomySearch({
       <ArchiveHeader
         title={title}
         subtitle={subtitle || `Browse ${title} articles`}
-        searchSlot={<AlgoliaSearchBox placeholder="Search articles..." />}
+        searchSlot={<SearchBox placeholder="Search articles..." />}
       />
       <InfiniteArticlesHits />
     </InstantSearchNext>

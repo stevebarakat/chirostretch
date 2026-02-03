@@ -11,7 +11,7 @@ import {
   RelatedProducts,
 } from "@/components/Products";
 import { CartBadge } from "@/components/Cart";
-import { SearchInput } from "@/components/Layout/SearchInput";
+import { SearchTrigger } from "@/components/Layout/SearchTrigger";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Container>
         <div className={styles.productPage}>
           <div className={styles.productSummary}>
-            <SearchInput />
+            <SearchTrigger />
             <CartBadge />
           </div>
           <div className={styles.productLayout}>

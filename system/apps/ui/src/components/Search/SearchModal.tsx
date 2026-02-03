@@ -7,7 +7,8 @@ import { algoliaConfig } from "@/config/algolia.config";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { Modal, Text, Input } from "@/components/Primitives";
+import { Modal, Text } from "@/components/Primitives";
+import { SearchBox } from "./SearchBox";
 import styles from "./SearchModal.module.css";
 
 type SearchModalProps = {
@@ -46,28 +47,6 @@ function getIndexName(pathname: string): string {
   }
 
   return algoliaConfig.indices.locations;
-}
-
-function SearchBox() {
-  const { query, refine } = useSearchBox();
-  // Use query directly as controlled value instead of syncing in effect
-  const inputValue = query || "";
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    refine(value);
-  }
-
-  return (
-    <Input
-      type="search"
-      value={inputValue}
-      onChange={handleChange}
-      placeholder="Start typing to search..."
-      className={styles.searchBox}
-      autoFocus
-    />
-  );
 }
 
 type ProductHit = {
@@ -327,7 +306,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             future={{ preserveSharedStateOnUnmount: true }}
           >
             <Configure hitsPerPage={10} />
-            <SearchBox />
+            <SearchBox
+              placeholder="Start typing to search..."
+              autoFocus
+              inputClassName={styles.searchBox}
+            />
             <SearchResults onHitClick={onClose} />
           </InstantSearchNext>
         )}

@@ -5,7 +5,7 @@ import { searchClient, isAlgoliaConfigured } from "@/lib/search/client";
 import { algoliaConfig } from "@/config/algolia.config";
 import { ArchiveHeader } from "@/components/Primitives";
 import { ErrorState } from "@/components/Primitives";
-import { AlgoliaSearchBox } from "@/components/Search";
+import { SearchBox } from "@/components/Search";
 import { InfiniteArticlesHits } from "./InfiniteArticlesHits";
 
 export function ArticlesSearch() {
@@ -27,7 +27,7 @@ export function ArticlesSearch() {
       <ArchiveHeader
         title="Articles"
         subtitle="Insights, tips, and updates from our team"
-        searchSlot={<AlgoliaSearchBox placeholder="Search articles..." />}
+        searchSlot={<SearchBox placeholder="Search articles..." />}
       />
       <InfiniteArticlesHits />
     </InstantSearch>

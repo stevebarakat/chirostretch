@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { Input } from "@/components/Primitives";
-import styles from "./SearchInput.module.css";
+import styles from "@/components/Search/SearchBox.module.css";
 
 const SearchModal = dynamic(() => import("@/components/Search/SearchModal"), {
   ssr: false,
@@ -59,7 +59,7 @@ function getSearchConfig(pathname: string) {
   };
 }
 
-export default function SearchInput() {
+export default function SearchTrigger() {
   const pathname = usePathname();
   const { placeholder, ariaLabel } = getSearchConfig(pathname);
   const [isModalOpen, setIsModalOpen] = useState(false);

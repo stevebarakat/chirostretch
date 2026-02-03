@@ -2,28 +2,36 @@
 
 import { useSearchBox } from "react-instantsearch";
 import { Search, X } from "lucide-react";
+import { clsx } from "clsx";
 import { Input } from "@/components/Primitives";
-import styles from "./AlgoliaSearchBox.module.css";
+import styles from "./SearchBox.module.css";
 
-type AlgoliaSearchBoxProps = {
+type SearchBoxProps = {
   placeholder?: string;
+  autoFocus?: boolean;
+  className?: string;
+  inputClassName?: string;
 };
 
-export function AlgoliaSearchBox({
+export function SearchBox({
   placeholder = "Search...",
-}: AlgoliaSearchBoxProps) {
+  autoFocus = false,
+  className,
+  inputClassName,
+}: SearchBoxProps) {
   const { query, refine, clear } = useSearchBox();
 
   return (
-    <div className={styles.search}>
+    <div className={clsx(styles.search, className)}>
       <Search className={styles.searchIcon} size={20} aria-hidden="true" />
       <Input
         type="search"
         value={query}
         onChange={(e) => refine(e.target.value)}
         placeholder={placeholder}
-        className={styles.searchInput}
+        className={clsx(styles.searchInput, inputClassName)}
         aria-label={placeholder}
+        autoFocus={autoFocus}
       />
       {query && (
         <button
