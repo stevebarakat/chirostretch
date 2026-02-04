@@ -1,3 +1,4 @@
+export { EventRegistration } from "./EventRegistration";
 export { EventsCalendar } from "./EventsCalendar";
 export { EventsGrid } from "./EventsGrid";
 export { EventsSearch } from "./EventsSearch";
