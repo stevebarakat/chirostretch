@@ -16,6 +16,7 @@
                 "class": "",
                 "id": ""
             },
+            "acfe_flexible_advanced": 0,
             "layouts": {
                 "layout_66d2bd0816d97": {
                     "key": "layout_66d2bd0816d97",
@@ -38,10 +39,15 @@
                                 "id": ""
                             },
                             "layout": "block",
+                            "acfe_seamless_style": 1,
                             "show_in_graphql": 1,
                             "graphql_description": "",
-                            "graphql_field_name": "stat",
+                            "graphql_field_name": "",
                             "graphql_non_null": 0,
+                            "acfe_group_modal": 0,
+                            "acfe_group_modal_close": 0,
+                            "acfe_group_modal_button": "",
+                            "acfe_group_modal_size": "large",
                             "sub_fields": [
                                 {
                                     "key": "field_66d2bd722107d",
@@ -164,12 +170,7 @@
                                     "new_lines": "wpautop",
                                     "esc_html": 0
                                 }
-                            ],
-                            "acfe_seamless_style": 0,
-                            "acfe_group_modal": 0,
-                            "acfe_group_modal_close": 0,
-                            "acfe_group_modal_button": "",
-                            "acfe_group_modal_size": "large"
+                            ]
                         }
                     ],
                     "min": "",
@@ -189,9 +190,8 @@
             "button_label": "Add Stat",
             "show_in_graphql": 1,
             "graphql_description": "",
-            "graphql_field_name": "stats",
+            "graphql_field_name": "",
             "graphql_non_null": 0,
-            "acfe_flexible_advanced": false,
             "acfe_flexible_stylised_button": false,
             "acfe_flexible_hide_empty_message": false,
             "acfe_flexible_empty_message": "",
@@ -262,5 +262,5 @@
     "graphql_types": "",
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1770204410
+    "modified": 1770227976
 }
