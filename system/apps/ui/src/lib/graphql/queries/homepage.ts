@@ -220,18 +220,6 @@ export const HOMEPAGE_QUERY = `
           headline
         }
       }
-      stats {
-        stats {
-          ... on StatsStatsStatLayout {
-            stat {
-              description
-              number
-              prefix
-              suffix
-            }
-          }
-        }
-      }
     }
     customSEO {
       customSeoSettings {
