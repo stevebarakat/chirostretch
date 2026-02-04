@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { useRef, useEffect } from "react";
-import { useInfiniteHits, useSearchBox } from "react-instantsearch";
+import { useInfiniteHits, useInstantSearch } from "react-instantsearch";
 import { useInfiniteScroll } from "@/hooks";
 import { EventsCalendar, type EventsCalendarHandle } from "../EventsCalendar";
 import { ExpandedEventModal } from "../ExpandedEventModal";
@@ -64,31 +64,31 @@ function mapHitToEvent(hit: EventHit): Event {
 
 export function InfiniteEventsHits() {
   const { hits, isLastPage, showMore } = useInfiniteHits<EventHit>();
-  const { query } = useSearchBox();
+  const { status, indexUiState } = useInstantSearch();
   const sentinelRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<EventsCalendarHandle>(null);
   const eventsContext = useEventsContext();
 
+  const query = indexUiState.query || "";
+  const events = hits.map(mapHitToEvent);
+
   // Register scrollToEvent when calendar ref becomes available
-  // Reason: Syncing calendar's scrollToEvent function with context for cross-component access
   useEffect(() => {
     if (calendarRef.current && eventsContext) {
       eventsContext.registerScrollToEvent(calendarRef.current.scrollToEvent);
     }
-  }, [eventsContext, hits]);
+  }, [eventsContext, events]);
 
   useInfiniteScroll({ sentinelRef, isLastPage, showMore });
 
-  // Show empty state only when there's a query with no results
-  if (hits.length === 0 && query) {
+  // Show empty state only when there's a query with no results and search is idle
+  if (hits.length === 0 && query && status === "idle") {
     return (
       <div className={styles.empty}>
         <p>No events found for &ldquo;{query}&rdquo;</p>
       </div>
     );
   }
-
-  const events = hits.map(mapHitToEvent);
 
   return (
     <div className={styles.container}>
