@@ -12,10 +12,10 @@
   background: var(--color-secondary-300);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  animation: fadeIn 0.8s ease-out forwards;
+  animation: fade-in 0.8s ease-out forwards;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
     transform: translateY(20px);

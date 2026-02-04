@@ -170,7 +170,6 @@
 }
 
 @media (width <=700px) {
-
   /* Hide header bar on mobile */
   .headerBar {
     display: none;

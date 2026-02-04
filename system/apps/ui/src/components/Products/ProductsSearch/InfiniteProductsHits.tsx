@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line no-restricted-imports
 import { useRef } from "react";
 import { useInfiniteHits, useSearchBox } from "react-instantsearch";
 import { useInfiniteScroll } from "@/hooks";

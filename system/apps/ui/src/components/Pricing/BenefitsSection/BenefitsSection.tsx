@@ -26,6 +26,27 @@ const BENEFITS = [
   },
 ];
 
+/**
+ * BenefitsSection component
+ *
+ * Renders a section highlighting the key benefits and value proposition of the wellness model.
+ * Displays a two-column layout with benefit items on the left and a branded image on the right.
+ *
+ * @component
+ * @returns {JSX.Element} A section element containing benefits list and decorative imagery
+ *
+ * @example
+ * ```tsx
+ * <BenefitsSection />
+ * ```
+ *
+ * @remarks
+ * - Uses the BENEFITS constant to map and display benefit items with icons
+ * - Dynamically applies icon variant styling based on the benefit's iconVariant property
+ * - Includes decorative blur elements for visual enhancement
+ * - Responsive layout that adapts to mobile and desktop viewports
+ * - Image is lazy-loaded with optimized sizes for different screen sizes
+ */
 export function BenefitsSection() {
   return (
     <section className={styles.section}>
@@ -76,7 +97,7 @@ export function BenefitsSection() {
               className={`${styles.decorativeBlur} ${styles.decorativeBlurBottom}`}
             />
             <Image
-              src="/images/chiro-branding.webp"
+              src="/images/wellnell-model.webp"
               alt="ChiroStretch wellness center with modern minimalist design"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
