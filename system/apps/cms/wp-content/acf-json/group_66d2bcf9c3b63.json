@@ -44,10 +44,6 @@
                             "graphql_description": "",
                             "graphql_field_name": "",
                             "graphql_non_null": 0,
-                            "acfe_group_modal": 0,
-                            "acfe_group_modal_close": 0,
-                            "acfe_group_modal_button": "",
-                            "acfe_group_modal_size": "large",
                             "sub_fields": [
                                 {
                                     "key": "field_66d2bd722107d",
@@ -170,7 +166,11 @@
                                     "new_lines": "wpautop",
                                     "esc_html": 0
                                 }
-                            ]
+                            ],
+                            "acfe_group_modal": 0,
+                            "acfe_group_modal_close": 0,
+                            "acfe_group_modal_button": "",
+                            "acfe_group_modal_size": "large"
                         }
                     ],
                     "min": "",
@@ -262,5 +262,5 @@
     "graphql_types": "",
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1770227976
+    "modified": 1770228973
 }
