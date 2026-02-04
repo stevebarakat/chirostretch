@@ -5,17 +5,18 @@ import {
   GitMerge,
   Dumbbell,
   Activity,
-  HandMetal,
+  BowArrow,
 } from "lucide-react";
 import { Button, Text } from "@/components/Primitives";
 import styles from "./SingleSessionCard.module.css";
+import Image from "next/image";
 
 const ICON_MAP = {
   medical_services: Stethoscope,
   self_improvement: Sparkles,
   dynamic_form: GitMerge,
   accessibility_new: Activity,
-  wash: HandMetal,
+  wash: BowArrow,
   rehab: Dumbbell,
 };
 
@@ -26,6 +27,7 @@ type SingleSessionCardProps = {
   unit: string;
   icon?: keyof typeof ICON_MAP;
   imagePlaceholder?: string;
+  image?: string;
   featured?: boolean;
   badge?: string;
 };
@@ -37,6 +39,7 @@ export function SingleSessionCard({
   unit,
   icon = "medical_services",
   imagePlaceholder,
+  image,
   featured,
   badge,
 }: SingleSessionCardProps) {
@@ -70,6 +73,13 @@ export function SingleSessionCard({
       {imagePlaceholder ? (
         <div className={styles.imagePlaceholder}>{imagePlaceholder}</div>
       ) : null}
+
+      {image ? (
+        <div className={styles.imagePlaceholder}>
+          <Image src={image} alt="" fill style={{ objectFit: "cover" }} />
+        </div>
+      ) : null}
+
       <Button
         as="Link"
         href="/locations"

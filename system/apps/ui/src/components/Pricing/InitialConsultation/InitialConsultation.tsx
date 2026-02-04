@@ -41,7 +41,6 @@ export function InitialConsultation() {
                 as="Link"
                 href="/locations"
                 color="secondary"
-                variant="inverse"
                 fullWidth
                 className={styles.ctaButton}
               >

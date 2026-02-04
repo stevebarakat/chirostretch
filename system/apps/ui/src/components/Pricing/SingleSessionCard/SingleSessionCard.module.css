@@ -6,7 +6,8 @@
   border: 1px solid var(--color-border-secondary);
   border-radius: 24px;
   text-align: left;
-  transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow var(--transition-slow);
 }
 
@@ -18,7 +19,8 @@
 .cardFeatured {
   border-width: 2px;
   border-color: var(--color-primary-500);
-  box-shadow: 0 10px 15px -3px var(--color-primary-transparent-200),
+  box-shadow:
+    0 10px 15px -3px var(--color-primary-transparent-200),
     0 4px 6px -4px var(--color-primary-transparent-200);
 }
 
@@ -88,6 +90,7 @@
 }
 
 .imagePlaceholder {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,6 +104,8 @@
   font-style: italic;
   color: var(--color-text-tertiary);
   text-align: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .button {
@@ -110,7 +115,9 @@
   border-radius: var(--radius-xl);
   border: 2px solid var(--color-border-secondary);
   color: var(--color-text-secondary);
-  transition: border-color var(--transition-fast), color var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .button:hover {

@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_66d2bcfa2107b",
-            "label": "",
+            "label": "Stats",
             "name": "stats",
             "aria-label": "",
             "type": "flexible_content",
@@ -19,8 +19,8 @@
             "layouts": {
                 "layout_66d2bd0816d97": {
                     "key": "layout_66d2bd0816d97",
-                    "name": "",
-                    "label": "",
+                    "name": "stat",
+                    "label": "Stat",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -135,7 +135,7 @@
                                         "id": ""
                                     },
                                     "default_value": "Settlement Claims",
-                                    "maxlength": 22,
+                                    "maxlength": 30,
                                     "allow_in_bindings": 0,
                                     "placeholder": "",
                                     "prepend": "",
@@ -164,11 +164,24 @@
                                     "new_lines": "wpautop",
                                     "esc_html": 0
                                 }
-                            ]
+                            ],
+                            "acfe_seamless_style": 0,
+                            "acfe_group_modal": 0,
+                            "acfe_group_modal_close": 0,
+                            "acfe_group_modal_button": "",
+                            "acfe_group_modal_size": "large"
                         }
                     ],
                     "min": "",
-                    "max": ""
+                    "max": "",
+                    "acfe_flexible_render_template": false,
+                    "acfe_flexible_render_style": false,
+                    "acfe_flexible_render_script": false,
+                    "acfe_flexible_thumbnail": false,
+                    "acfe_flexible_settings": false,
+                    "acfe_flexible_settings_size": false,
+                    "acfe_flexible_modal_edit_size": false,
+                    "acfe_flexible_category": false
                 }
             },
             "min": "",
@@ -177,7 +190,38 @@
             "show_in_graphql": 1,
             "graphql_description": "",
             "graphql_field_name": "stats",
-            "graphql_non_null": 0
+            "graphql_non_null": 0,
+            "acfe_flexible_advanced": false,
+            "acfe_flexible_stylised_button": false,
+            "acfe_flexible_hide_empty_message": false,
+            "acfe_flexible_empty_message": "",
+            "acfe_flexible_layouts_templates": false,
+            "acfe_flexible_layouts_previews": false,
+            "acfe_flexible_layouts_placeholder": false,
+            "acfe_flexible_layouts_thumbnails": false,
+            "acfe_flexible_modal_settings": {
+                "acfe_flexible_modal_settings_enabled": false,
+                "acfe_flexible_modal_settings_size": "large",
+                "acfe_flexible_modal_settings_close": true,
+                "acfe_flexible_modal_settings_close_label": ""
+            },
+            "acfe_flexible_async": [],
+            "acfe_flexible_add_actions": [],
+            "acfe_flexible_close_button_label": "",
+            "acfe_flexible_remove_button": [],
+            "acfe_flexible_remove_top_actions": [],
+            "acfe_flexible_layouts_state": false,
+            "acfe_flexible_modal_edit": {
+                "acfe_flexible_modal_edit_enabled": false,
+                "acfe_flexible_modal_edit_size": "large"
+            },
+            "acfe_flexible_modal": {
+                "acfe_flexible_modal_enabled": false,
+                "acfe_flexible_modal_title": false,
+                "acfe_flexible_modal_size": "xlarge",
+                "acfe_flexible_modal_col": "4",
+                "acfe_flexible_modal_categories": false
+            }
         }
     ],
     "location": [
@@ -186,6 +230,13 @@
                 "param": "page",
                 "operator": "==",
                 "value": "2877"
+            }
+        ],
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "6538"
             }
         ]
     ],
@@ -201,9 +252,15 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
     "show_in_graphql": 1,
     "graphql_field_name": "stats",
-    "map_graphql_types_from_location_rules": 0,
+    "map_graphql_types_from_location_rules": 1,
     "graphql_types": "",
-    "modified": 1767163977
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1770204410
 }

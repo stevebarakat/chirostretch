@@ -1,0 +1,122 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+  "version": 3,
+  "settings": {
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1100px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "defaultDuotone": false,
+      "palette": [
+        {
+          "slug": "primary",
+          "name": "Primary",
+          "color": "hsl(200deg 70% 52%)"
+        },
+        {
+          "slug": "primary-700",
+          "name": "Primary 700",
+          "color": "hsl(200deg 60% 38%)"
+        },
+        {
+          "slug": "secondary",
+          "name": "Secondary",
+          "color": "hsl(324deg 80% 59%)"
+        },
+        {
+          "slug": "secondary-700",
+          "name": "Secondary 700",
+          "color": "hsl(324deg 70% 45%)"
+        },
+        { "slug": "surface", "name": "Surface", "color": "hsl(0deg 30% 98%)" },
+
+        
+        {
+          "slug": "surface-2",
+          "name": "Surface 2",
+          "color": "hsl(0deg 25% 95%)"
+        },
+        { "slug": "border", "name": "Border", "color": "hsl(0deg 15% 78%)" },
+        { "slug": "text", "name": "Text", "color": "hsl(0deg 0% 15%)" },
+        {
+          "slug": "text-muted",
+          "name": "Text Muted",
+          "color": "hsl(0deg 0% 38%)"
+        },
+        {
+          "slug": "success",
+          "name": "Success",
+          "color": "hsl(142deg 71% 45%)"
+        },
+        { "slug": "warning", "name": "Warning", "color": "hsl(38deg 92% 50%)" },
+        { "slug": "error", "name": "Error", "color": "hsl(0deg 84% 60%)" },
+        { "slug": "info", "name": "Info", "color": "hsl(210deg 80% 50%)" }
+      ]
+    },
+    "spacing": {
+      "units": ["px", "rem", "%", "vw", "vh"],
+      "blockGap": "1.25rem",
+      "spacingSizes": [
+        { "slug": "xs", "name": "XS", "size": "4px" },
+        { "slug": "sm", "name": "SM", "size": "8px" },
+        { "slug": "md", "name": "MD", "size": "16px" },
+        { "slug": "lg", "name": "LG", "size": "24px" },
+        { "slug": "xl", "name": "XL", "size": "32px" },
+        { "slug": "2xl", "name": "2XL", "size": "48px" },
+        { "slug": "3xl", "name": "3XL", "size": "64px" }
+      ]
+    },
+    "typography": {
+      "fontSizes": [
+        { "slug": "xs", "name": "XS", "size": "0.75rem" },
+        { "slug": "sm", "name": "SM", "size": "0.875rem" },
+        { "slug": "base", "name": "Base", "size": "1rem" },
+        { "slug": "lg", "name": "LG", "size": "1.125rem" },
+        { "slug": "xl", "name": "XL", "size": "1.25rem" },
+        { "slug": "2xl", "name": "2XL", "size": "1.5rem" },
+        { "slug": "3xl", "name": "3XL", "size": "1.875rem" },
+        { "slug": "4xl", "name": "4XL", "size": "2.25rem" }
+      ],
+      "fontFamilies": [
+        {
+          "name": "Poppins",
+          "slug": "poppins",
+          "fontFamily": "Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        },
+        {
+          "name": "Montserrat",
+          "slug": "montserrat",
+          "fontFamily": "Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        }
+      ]
+    },
+    "border": {
+      "radius": true
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|surface",
+      "text": "var:preset|color|text"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|poppins",
+      "fontSize": "var:preset|font-size|base",
+      "lineHeight": "1.5"
+    },
+    "elements": {
+      "link": {
+        "color": { "text": "var:preset|color|primary-700" }
+      },
+      "heading": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|montserrat",
+          "lineHeight": "1.2"
+        }
+      }
+    }
+  }
+}

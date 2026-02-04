@@ -45,6 +45,7 @@
     "motion": "^12.29.2",
     "next": "^16.1.6",
     "react": "^19.2.4",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.1",
     "react-instantsearch": "^7.23.0",

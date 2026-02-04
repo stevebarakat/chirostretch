@@ -126,45 +126,22 @@
 
 .imageWrapper {
   position: relative;
+  aspect-ratio: 1 / 1;
+
+  max-height: 500px;
+  border: 1px solid var(--color-border-primary);
+  padding: var(--spacing-md);
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  box-shadow: var(--shadow-lg);
 }
 
-.decorativeBlur {
-  position: absolute;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.5;
-  pointer-events: none;
-}
 
-.decorativeBlurTop {
-  top: -16px;
-  left: -16px;
-  background: var(--color-primary-500);
-}
-
-.decorativeBlurBottom {
-  bottom: -16px;
-  right: -16px;
-  width: 128px;
-  height: 128px;
-  background: var(--color-secondary-500);
-}
-
-.imagePlaceholder {
+.image {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: 400px;
-  background: var(--color-bg-secondary);
-  border-radius: 32px;
-  box-shadow: var(--shadow-lg);
-  font-size: var(--font-size-sm);
-  font-style: italic;
-  color: var(--color-text-tertiary);
+  object-fit: cover;
 }

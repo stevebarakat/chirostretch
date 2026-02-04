@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CreditCard, CalendarCheck, Users } from "lucide-react";
 import { Text } from "@/components/Primitives";
 import styles from "./BenefitsSection.module.css";
@@ -63,7 +64,7 @@ export function BenefitsSection() {
                       </Text>
                     </div>
                   </div>
-                )
+                ),
               )}
             </div>
           </div>
@@ -74,9 +75,13 @@ export function BenefitsSection() {
             <div
               className={`${styles.decorativeBlur} ${styles.decorativeBlurBottom}`}
             />
-            <div className={styles.imagePlaceholder}>
-              Wellness center branding, minimalist luxury
-            </div>
+            <Image
+              src="/images/chiro-branding.webp"
+              alt="ChiroStretch wellness center with modern minimalist design"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={styles.image}
+            />
           </div>
         </div>
       </div>

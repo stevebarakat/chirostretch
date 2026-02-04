@@ -14,6 +14,7 @@ const SINGLE_SESSIONS = [
     price: 65,
     unit: "15 Min Session",
     icon: "medical_services" as const,
+    image: "/images/chiro-adjustment.webp",
     featured: false,
   },
   {
@@ -23,6 +24,7 @@ const SINGLE_SESSIONS = [
     price: 125,
     unit: "60 Min Session",
     icon: "self_improvement" as const,
+    image: "/images/signature-massage.webp",
     featured: true,
     badge: "Most Popular",
   },
@@ -33,6 +35,7 @@ const SINGLE_SESSIONS = [
     price: 110,
     unit: "45 Min Session",
     icon: "dynamic_form" as const,
+    image: "/images/combo.webp",
     featured: false,
   },
   {
@@ -42,6 +45,7 @@ const SINGLE_SESSIONS = [
     price: 135,
     unit: "60 Min Session",
     icon: "rehab" as const,
+    image: "/images/injury-rehab.webp",
     featured: false,
   },
   {
@@ -167,6 +171,7 @@ export function PricingTabs() {
               unit={session.unit}
               icon={session.icon}
               imagePlaceholder={session.imagePlaceholder}
+              image={session.image}
               featured={session.featured}
               badge={session.badge}
             />

@@ -23,6 +23,10 @@
   align-items: center;
   padding: 2rem clamp(1rem, 7vw, 4rem);
   background: var(--color-primary-500);
+
+  @media (width <=1000px) {
+    justify-content: center;
+  }
 }
 
 .ctaLeftContent {
@@ -81,7 +85,7 @@
   gap: 0.5rem;
 }
 
-@media (width >= 1000px) {
+@media (width >=1000px) {
   .grid {
     grid-template-columns: 1fr 1fr;
   }

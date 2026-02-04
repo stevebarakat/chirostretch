@@ -2,6 +2,11 @@
   position: relative;
   padding-block: var(--spacing-3xl);
   overflow: hidden;
+  background: url("/images/office.webp") center/cover no-repeat;
+  background-color: var(--color-bg-primary);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .content {

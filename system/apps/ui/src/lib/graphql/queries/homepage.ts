@@ -222,7 +222,7 @@ export const HOMEPAGE_QUERY = `
       }
       stats {
         stats {
-          ... on StatsStatsLayout {
+          ... on StatsStatsStatLayout {
             stat {
               description
               number

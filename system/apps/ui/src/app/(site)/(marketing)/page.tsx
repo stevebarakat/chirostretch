@@ -27,7 +27,7 @@ const getHomepageData = cache(async () => {
     {},
     {
       tags: [CACHE_TAGS.pages, CACHE_TAGS.products, CACHE_TAGS.events],
-    }
+    },
   );
 });
 
@@ -39,7 +39,7 @@ const Introduction = dynamic(
     })),
   {
     ssr: true,
-  }
+  },
 );
 
 const FeaturedProducts = dynamic(
@@ -49,7 +49,7 @@ const FeaturedProducts = dynamic(
     })),
   {
     ssr: true,
-  }
+  },
 );
 
 const UpcomingEvents = dynamic(
@@ -59,7 +59,7 @@ const UpcomingEvents = dynamic(
     })),
   {
     ssr: true,
-  }
+  },
 );
 
 const LatestInsights = dynamic(
@@ -69,7 +69,7 @@ const LatestInsights = dynamic(
     })),
   {
     ssr: true,
-  }
+  },
 );
 
 export async function generateMetadata(): Promise<Metadata> {

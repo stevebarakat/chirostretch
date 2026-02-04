@@ -6,7 +6,8 @@
   background-color: var(--color-bg-secondary);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform var(--transition-base),
+  transition:
+    transform var(--transition-base),
     box-shadow var(--transition-base);
 }
 
@@ -172,7 +173,9 @@
   background: var(--color-secondary-500);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
+  transition:
+    opacity 300ms ease-in-out,
+    visibility 300ms ease-in-out;
   backdrop-filter: blur(8px);
 }
 
@@ -192,7 +195,9 @@
   height: 100%;
   box-sizing: border-box;
   opacity: 0;
-  transition: opacity 300ms ease-in-out 150ms, transform 300ms ease-in-out 150ms;
+  transition:
+    opacity 300ms ease-in-out 150ms,
+    transform 300ms ease-in-out 150ms;
   transform: translateY(8px);
 }
 
@@ -209,7 +214,7 @@
   position: relative;
   min-height: 100%;
   background-color: var(--color-bg-primary);
-  border: 12px solid var(--color-white);
+  border: 8px solid var(--color-white);
   box-shadow: var(--shadow-md);
   cursor: pointer;
 }
