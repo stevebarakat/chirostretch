@@ -1,3 +1,5 @@
+import { parseHtml } from "@/components/CMS/parseHtml";
+
 type RichTextProps = {
   content: string;
   as?: "div" | "span" | "p";
@@ -9,10 +11,5 @@ export default function RichText({
   as: Element = "div",
   className,
 }: RichTextProps) {
-  return (
-    <Element
-      className={className}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
-  );
+  return <Element className={className}>{parseHtml(content)}</Element>;
 }

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/Primitives";
 import { Button } from "@/components/Primitives";
 import { ImageWrapper } from "@/components/Primitives";
+import { parseHtml } from "@/components/CMS/parseHtml";
 import styles from "./AboutSection.module.css";
 
 type AcfLink = {
@@ -46,10 +47,9 @@ export default function AboutSection({
             {aboutHeading && <h2 className={styles.heading}>{aboutHeading}</h2>}
 
             {aboutSubheading && (
-              <div
-                className={styles.description}
-                dangerouslySetInnerHTML={{ __html: aboutSubheading }}
-              ></div>
+              <div className={styles.description}>
+                {parseHtml(aboutSubheading)}
+              </div>
             )}
 
             <div className={styles.ctaWrapper}>

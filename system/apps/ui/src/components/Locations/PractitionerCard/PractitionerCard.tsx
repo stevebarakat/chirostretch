@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
 import type { Practitioner } from "@/lib/graphql/queries/locations";
 import { rewriteImageUrl } from "@/utils/image-helpers";
+import { parseHtml } from "@/components/CMS/parseHtml";
 import styles from "./PractitionerCard.module.css";
 import { Button, ImageWrapper, Text } from "@/components/Primitives";
 
@@ -74,10 +75,9 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
           )}
 
         {practitioner.bio && (
-          <div
-            className={styles.bio}
-            dangerouslySetInnerHTML={{ __html: practitioner.bio }}
-          />
+          <div className={styles.bio}>
+            {parseHtml(practitioner.bio)}
+          </div>
         )}
 
         <div className={styles.actions}>

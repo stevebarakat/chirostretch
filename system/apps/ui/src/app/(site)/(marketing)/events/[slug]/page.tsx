@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { getSafeImageUrl } from "@/utils/image-helpers";
+import { parseHtml } from "@/components/CMS";
 import styles from "./page.module.css";
 
 type EventPageProps = {
@@ -204,10 +205,9 @@ export default async function EventPage({ params }: EventPageProps) {
               Back to Events
             </Link>
 
-            <div
-              className={styles.eventContent}
-              dangerouslySetInnerHTML={{ __html: event.content }}
-            />
+            <div className={styles.eventContent}>
+              {parseHtml(event.content)}
+            </div>
 
             <div className={styles.actionBar}>
               <button type="button" className={styles.actionButton}>

@@ -6,7 +6,7 @@ import {
   type PageByUriResponse,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/Primitives";
-import { BlockRenderer, type Block } from "@/components/CMS";
+import { BlockRenderer, type Block, parseHtml } from "@/components/CMS";
 import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";
@@ -149,10 +149,9 @@ export default async function WordPressPage({ params }: PageProps) {
               />
             </div>
           ) : page.content ? (
-            <div
-              className={styles.content}
-              dangerouslySetInnerHTML={{ __html: page.content }}
-            />
+            <div className={styles.content}>
+              {parseHtml(page.content)}
+            </div>
           ) : null}
         </article>
       </Container>

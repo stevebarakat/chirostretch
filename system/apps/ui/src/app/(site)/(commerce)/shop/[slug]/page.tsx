@@ -12,6 +12,7 @@ import {
 } from "@/components/Products";
 import { CartBadge } from "@/components/Cart";
 import { SearchTrigger } from "@/components/Layout/SearchTrigger";
+import { parseHtml } from "@/components/CMS";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -99,7 +100,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {product.description && (
             <div className={styles.productDescription}>
               <h2>Description</h2>
-              <div dangerouslySetInnerHTML={{ __html: product.description }} />
+              <div>{parseHtml(product.description)}</div>
             </div>
           )}
           {product.related &&

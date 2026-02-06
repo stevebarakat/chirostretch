@@ -4,6 +4,7 @@ import ImageBlock from "../ImageBlock";
 import ChartBlock from "../ChartBlock";
 import { normalizeChartBlock } from "../ChartBlock/parseChartData";
 import GravityFormBlock from "../GravityFormBlock";
+import { parseHtml } from "../parseHtml";
 import styles from "./BlockRenderer.module.css";
 
 export type Block = {
@@ -160,10 +161,7 @@ export default function BlockRenderer({
           default:
             if (block.innerHTML) {
               return (
-                <div
-                  key={key}
-                  dangerouslySetInnerHTML={{ __html: block.innerHTML }}
-                />
+                <div key={key}>{parseHtml(block.innerHTML)}</div>
               );
             }
             if (block.innerBlocks && block.innerBlocks.length > 0) {

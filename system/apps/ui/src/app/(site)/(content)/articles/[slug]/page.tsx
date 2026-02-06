@@ -6,7 +6,7 @@ import {
   type PostBySlugResponse,
 } from "@/lib/graphql/queries";
 import { Container, Button } from "@/components/Primitives";
-import { BlockRenderer, type Block } from "@/components/CMS";
+import { BlockRenderer, type Block, parseHtml } from "@/components/CMS";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
@@ -136,10 +136,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <BlockRenderer blocks={post.blocks as Block[]} />
             </div>
           ) : post.content ? (
-            <div
-              className={styles.content}
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className={styles.content}>
+              {parseHtml(post.content)}
+            </div>
           ) : null}
         </article>
       </Container>
