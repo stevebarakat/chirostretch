@@ -22,14 +22,14 @@ type ProductHit = {
 };
 
 export function InfiniteProductsHits() {
-  const { hits, isLastPage, showMore } = useInfiniteHits<ProductHit>();
+  const { items, isLastPage, showMore } = useInfiniteHits<ProductHit>();
   const { query } = useSearchBox();
   const sentinelRef = useRef<HTMLLIElement>(null);
 
   useInfiniteScroll({ sentinelRef, isLastPage, showMore });
 
   // Show empty state only when there's a query with no results
-  if (hits.length === 0 && query) {
+  if (items.length === 0 && query) {
     return (
       <div className={styles.empty}>
         <p>No products found for &ldquo;{query}&rdquo;</p>
@@ -40,7 +40,7 @@ export function InfiniteProductsHits() {
   return (
     <>
       <FlipMotion className={styles.grid} enableExit={false}>
-        {hits.map((hit) => {
+        {items.map((hit) => {
           const databaseId = parseInt(hit.objectID.replace("product_", ""), 10);
 
           return (

@@ -24,14 +24,14 @@ type LocationHit = {
 };
 
 export function InfiniteLocationsHits() {
-  const { hits, isLastPage, showMore } = useInfiniteHits<LocationHit>();
+  const { items, isLastPage, showMore } = useInfiniteHits<LocationHit>();
   const { query } = useSearchBox();
   const sentinelRef = useRef<HTMLLIElement>(null);
 
   useInfiniteScroll({ sentinelRef, isLastPage, showMore });
 
   // Show empty state only when there's a query with no results
-  if (hits.length === 0 && query) {
+  if (items.length === 0 && query) {
     return (
       <div className={styles.empty}>
         <p>No locations found for &ldquo;{query}&rdquo;</p>
@@ -42,7 +42,7 @@ export function InfiniteLocationsHits() {
   return (
     <>
       <FlipMotion className={styles.grid}>
-        {hits.map((hit) => (
+        {items.map((hit) => (
           <FlipMotionItem key={hit.objectID} itemId={hit.objectID}>
             <Link href={`/locations/${hit.slug}`} className={styles.cardLink}>
               <LocationCard

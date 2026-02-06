@@ -29,14 +29,14 @@ function buildTaxonomyItems(
 }
 
 export function InfiniteArticlesHits() {
-  const { hits, isLastPage, showMore } = useInfiniteHits<ArticleHit>();
+  const { items, isLastPage, showMore } = useInfiniteHits<ArticleHit>();
   const { query } = useSearchBox();
   const sentinelRef = useRef<HTMLLIElement>(null);
 
   useInfiniteScroll({ sentinelRef, isLastPage, showMore });
 
   // Show empty state only when there's a query with no results
-  if (hits.length === 0 && query) {
+  if (items.length === 0 && query) {
     return (
       <div className={styles.empty}>
         <p>No articles found for &ldquo;{query}&rdquo;</p>
@@ -47,7 +47,7 @@ export function InfiniteArticlesHits() {
   // Always render the grid - even if empty initially during hydration
   return (
     <ul className={styles.grid} suppressHydrationWarning>
-      {hits.map((hit) => (
+      {items.map((hit) => (
         <li key={hit.objectID}>
           <ArticleCard
             title={hit.title}

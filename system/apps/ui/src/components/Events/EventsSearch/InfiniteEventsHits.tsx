@@ -63,14 +63,14 @@ function mapHitToEvent(hit: EventHit): Event {
 }
 
 export function InfiniteEventsHits() {
-  const { hits, isLastPage, showMore } = useInfiniteHits<EventHit>();
+  const { items, isLastPage, showMore } = useInfiniteHits<EventHit>();
   const { status, indexUiState } = useInstantSearch();
   const sentinelRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<EventsCalendarHandle>(null);
   const eventsContext = useEventsContext();
 
   const query = indexUiState.query || "";
-  const events = hits.map(mapHitToEvent);
+  const events = items.map(mapHitToEvent);
 
   // Register scrollToEvent when calendar ref becomes available
   useEffect(() => {
@@ -82,7 +82,7 @@ export function InfiniteEventsHits() {
   useInfiniteScroll({ sentinelRef, isLastPage, showMore });
 
   // Show empty state only when there's a query with no results and search is idle
-  if (hits.length === 0 && query && status === "idle") {
+  if (items.length === 0 && query && status === "idle") {
     return (
       <div className={styles.empty}>
         <p>No events found for &ldquo;{query}&rdquo;</p>
