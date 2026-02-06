@@ -11,8 +11,6 @@ import { Stats } from "@/components/Stats";
 import { CallToAction } from "@/components/Homepage";
 import {
   IntroductionSkeleton,
-  FeaturedProductsSkeleton,
-  UpcomingEventsSkeleton,
   LatestInsightsSkeleton,
 } from "@/components/Homepage/Skeletons";
 import { Button, Container, Flex } from "@/components/Primitives";
@@ -36,26 +34,6 @@ const Introduction = dynamic(
   () =>
     import("@/components/Homepage").then((mod) => ({
       default: mod.Introduction,
-    })),
-  {
-    ssr: true,
-  },
-);
-
-const FeaturedProducts = dynamic(
-  () =>
-    import("@/components/Homepage").then((mod) => ({
-      default: mod.FeaturedProducts,
-    })),
-  {
-    ssr: true,
-  },
-);
-
-const UpcomingEvents = dynamic(
-  () =>
-    import("@/components/Homepage").then((mod) => ({
-      default: mod.UpcomingEvents,
     })),
   {
     ssr: true,
@@ -109,7 +87,32 @@ export default async function HomePage() {
   const { page } = data;
 
   const { rightSide, leftSide } = page.homepageIntroduction || {};
-  const stats = (page.stats?.stats || []).filter(Boolean);
+  const stats = [
+    {
+      stat: {
+        prefix: "",
+        number: 3,
+        suffix: ".6M",
+        description: "Patients Served Yearly",
+      },
+    },
+    {
+      stat: {
+        prefix: "",
+        number: 12,
+        suffix: "00+",
+        description: "Franchise Locations",
+      },
+    },
+    {
+      stat: {
+        prefix: "",
+        number: 50,
+        suffix: "0K",
+        description: "Investors Worldwide",
+      },
+    },
+  ];
   const promo = data.currentPromo?.promo;
 
   const intro =
@@ -185,43 +188,8 @@ export default async function HomePage() {
         </Suspense>
       )}
 
-      <Suspense fallback={<FeaturedProductsSkeleton />}>
-        <FeaturedProducts
-          featuredProductsHeading={
-            page.homepageFeaturedProducts?.featuredProductsHeading
-          }
-          featuredProductsSubheading={
-            page.homepageFeaturedProducts?.featuredProductsSubheading
-          }
-          featuredProductsSource={
-            page.homepageFeaturedProducts?.featuredProductsSource
-          }
-          featuredProductsManual={
-            page.homepageFeaturedProducts?.featuredProductsManual
-          }
-          featuredProductsFromQuery={data.featuredProducts}
-        />
-      </Suspense>
-
-      <Suspense fallback={<UpcomingEventsSkeleton />}>
-        <UpcomingEvents
-          eventsHeading={page.homepageUpcomingEvents?.eventsHeading}
-          eventsSubheading={page.homepageUpcomingEvents?.eventsSubheading}
-          eventsCtaText={page.homepageUpcomingEvents?.eventsCtaText}
-          eventsCtaLink={page.homepageUpcomingEvents?.eventsCtaLink}
-          events={data.upcomingEvents}
-          eventsLimit={page.homepageUpcomingEvents?.eventsLimit}
-        />
-      </Suspense>
-
       <Suspense fallback={<LatestInsightsSkeleton />}>
-        <LatestInsights
-          insightsHeading={page.homepageLatestInsights?.insightsHeading}
-          insightsSubheading={page.homepageLatestInsights?.insightsSubheading}
-          insightsCtaText={page.homepageLatestInsights?.insightsCtaText}
-          insightsCtaLink={page.homepageLatestInsights?.insightsCtaLink}
-          posts={data.latestPosts?.nodes}
-        />
+        <LatestInsights posts={data.latestPosts?.nodes} />
       </Suspense>
       <Suspense fallback="loading...">
         <Container>

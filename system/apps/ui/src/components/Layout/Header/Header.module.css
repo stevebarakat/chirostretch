@@ -7,7 +7,6 @@
   background: var(--color-secondary-500);
   border-top: 1px solid var(--nav-border-color);
   border-bottom: 1px solid var(--nav-border-color);
-
   --nav-border-color: var(--color-transparent-white-500);
 }
 

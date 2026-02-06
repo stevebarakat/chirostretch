@@ -47,18 +47,21 @@
   color: var(--color-white);
   background: var(--color-secondary-gradient);
   border-top: 4px solid var(--color-white);
+
+  @media (width <=1000px) {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .ctaRightContent {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 42.18rem;
 }
 
 .ctaHeader {
   display: block;
-  padding-bottom: 1rem;
+  padding-bottom: var(--spacing-sm);
   font-size: clamp(2rem, 6vw, 6rem);
   font-weight: 800;
   line-height: 1;
@@ -67,8 +70,7 @@
 
 .ctaSubHeader {
   display: block;
-  padding-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: clamp(1rem, 3vw, 3rem);
   font-weight: 400;
   letter-spacing: -0.05rem;
   text-transform: uppercase;

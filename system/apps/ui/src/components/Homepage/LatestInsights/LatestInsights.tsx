@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SectionHeading, Button, ImageWrapper, Text } from "@/components/Primitives";
+import { Button, ImageWrapper, Text } from "@/components/Primitives";
 import { rewriteImageUrl } from "@/utils/image-helpers";
 import styles from "./LatestInsights.module.css";
 import { RichText } from "@/components/RichText";
+import { ArrowRight } from "lucide-react";
 
 type PostImage = {
   id?: string;
@@ -48,10 +49,6 @@ type Post = {
 };
 
 type LatestInsightsProps = {
-  insightsHeading?: string;
-  insightsSubheading?: string;
-  insightsCtaText?: string;
-  insightsCtaLink?: string;
   posts?: Post[];
 };
 
@@ -59,22 +56,12 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, "").trim();
 }
 
-export default function LatestInsights({
-  insightsHeading,
-  insightsSubheading,
-  posts = [],
-}: LatestInsightsProps) {
-  if (!insightsHeading) return null;
-
+export default function LatestInsights({ posts = [] }: LatestInsightsProps) {
   const displayPosts = posts.slice(0, 2);
 
   return (
-    <section id="latest-insights" className={styles.section}>
+    <section id="latest-insights">
       <>
-        <SectionHeading
-          heading={insightsHeading}
-          subheading={insightsSubheading}
-        />
         {displayPosts.length > 0 ? (
           <div className={styles.posts}>
             {displayPosts.map((post, i) => {
@@ -107,7 +94,9 @@ export default function LatestInsights({
                       href={`/articles/${post.slug}`}
                       className={styles.titleLink}
                     >
-                      <Text as="h3" className={styles.title}>{post.title}</Text>
+                      <Text as="h3" className={styles.title}>
+                        {post.title}
+                      </Text>
                     </Link>
                     <div className={styles.meta}>
                       {post.author?.node?.name && (
@@ -151,7 +140,7 @@ export default function LatestInsights({
                       size="sm"
                       variant="outline inverse"
                     >
-                      Read more →
+                      Read more <ArrowRight />
                     </Button>
                   </div>
                 </article>
@@ -163,13 +152,6 @@ export default function LatestInsights({
             <Text>No articles available at this time.</Text>
           </div>
         )}
-        {/* {insightsCtaText && insightsCtaLink && (
-          <div className={styles.cta}>
-            <Button as="a" href={insightsCtaLink}>
-              {insightsCtaText}
-            </Button>
-          </div>
-        )} */}
       </>
     </section>
   );

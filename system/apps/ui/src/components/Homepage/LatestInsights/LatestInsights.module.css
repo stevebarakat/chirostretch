@@ -1,11 +1,6 @@
-.section {
-  padding: var(--spacing-4xl) 0 0;
-}
-
 .posts {
   display: flex;
   flex-direction: column;
-  margin-top: var(--spacing-3xl);
 }
 
 .image {
