@@ -50,7 +50,9 @@
             "preview_size": "medium",
             "show_in_graphql": 1,
             "graphql_description": "",
-            "graphql_field_name": "heroLinkIcon"
+            "graphql_field_name": "heroLinkIcon",
+            "uploader": "",
+            "acfe_thumbnail": 0
         },
         {
             "key": "field_6943eff70ebf1",
@@ -100,7 +102,59 @@
             "preview_size": "medium",
             "show_in_graphql": 1,
             "graphql_description": "",
-            "graphql_field_name": "heroLinkIcon2"
+            "graphql_field_name": "heroLinkIcon2",
+            "uploader": "",
+            "acfe_thumbnail": 0
+        },
+        {
+            "key": "field_6985cbed9c48f",
+            "label": "Heading",
+            "name": "heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "heading",
+            "graphql_non_null": 0
+        },
+        {
+            "key": "field_6985cc0a9c490",
+            "label": "Subheading",
+            "name": "subheading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "subheading",
+            "graphql_non_null": 0
         }
     ],
     "location": [
@@ -141,6 +195,10 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
     "show_in_graphql": 1,
     "graphql_field_name": "heroUnit",
     "map_graphql_types_from_location_rules": 1,
@@ -149,5 +207,7 @@
         "Page",
         "Post"
     ],
-    "modified": 1767408509
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1770376212
 }

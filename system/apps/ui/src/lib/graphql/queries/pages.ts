@@ -23,6 +23,8 @@ export const PAGE_BY_URI_QUERY = `
         }
       }
       heroUnit {
+        heading
+        subheading
         heroLink {
           target
           title
@@ -91,6 +93,8 @@ export type PageByUriResponse = {
       };
     };
     heroUnit?: {
+      heading?: string;
+      subheading?: string;
       heroLink?: {
         target?: string;
         title?: string;

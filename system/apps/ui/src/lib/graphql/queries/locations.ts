@@ -97,6 +97,8 @@ export const LOCATION_BY_SLUG_QUERY = `
       shortDescription
       servicesOffered
       heroUnit {
+        heading
+        subheading
         heroLink {
           target
           title

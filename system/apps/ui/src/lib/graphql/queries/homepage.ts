@@ -105,6 +105,8 @@ export const HOMEPAGE_QUERY = `
         }
       }
       heroUnit {
+        heading
+        subheading
         heroLink {
           target
           title
@@ -349,6 +351,8 @@ type HomepageQueryResponse = {
       };
     };
     heroUnit?: {
+      heading?: string;
+      subheading?: string;
       heroLink?: {
         target?: string;
         title?: string;

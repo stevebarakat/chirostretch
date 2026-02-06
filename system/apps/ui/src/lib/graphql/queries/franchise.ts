@@ -18,6 +18,8 @@ export const FRANCHISE_QUERY = `
         }
       }
       heroUnit {
+        heading
+        subheading
         heroLink {
           target
           title
@@ -89,6 +91,8 @@ type FranchiseOpportunitiesQueryResponse = {
       };
     };
     heroUnit?: {
+      heading?: string;
+      subheading?: string;
       heroLink?: {
         target?: string;
         title?: string;

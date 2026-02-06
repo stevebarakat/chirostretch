@@ -26,6 +26,8 @@ type IconNode = {
 };
 
 type HeroUnit = {
+  heading?: string;
+  subheading?: string;
   heroLink?: {
     target?: string;
     title?: string;
@@ -220,8 +222,8 @@ function HeroContent({
   title,
 }: HeroProps) {
   const img = featuredImage?.node;
-  const heading = img?.title || title;
-  const subheading = img?.description || description;
+  const heading = heroUnit?.heading || img?.title || title;
+  const subheading = heroUnit?.subheading || img?.description || description;
 
   const style = {
     maxHeight: `${maxHeight}px`,

@@ -175,6 +175,8 @@ export const EVENT_ORGANIZER_FIELDS = `
  */
 export const HERO_UNIT_FIELDS = `
   fragment HeroUnitFields on Page_Herounit {
+    heading
+    subheading
     heroLink {
       target
       title
