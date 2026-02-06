@@ -13,7 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { getSafeImageUrl } from "@/utils/image-helpers";
-import { parseHtml } from "@/components/CMS";
+import { parseHtml } from "@/components/Blocks";
 import styles from "./page.module.css";
 
 type EventPageProps = {

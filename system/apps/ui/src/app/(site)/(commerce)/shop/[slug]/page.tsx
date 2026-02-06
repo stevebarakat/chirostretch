@@ -12,7 +12,7 @@ import {
 } from "@/components/Products";
 import { CartBadge } from "@/components/Cart";
 import { SearchTrigger } from "@/components/Layout/SearchTrigger";
-import { parseHtml } from "@/components/CMS";
+import { parseHtml } from "@/components/Blocks";
 import styles from "./page.module.css";
 
 export const revalidate = 300;

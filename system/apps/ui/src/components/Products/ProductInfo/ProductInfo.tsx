@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Input, Text } from "@/components/Primitives";
 import { useCartStore } from "@/stores/useCartStore";
 import { toast } from "@/lib/toast";
-import { parseHtml } from "@/components/CMS/parseHtml";
+import { parseHtml } from "@/components/Blocks/parseHtml";
 import styles from "./ProductInfo.module.css";
 
 type ProductVariation = {

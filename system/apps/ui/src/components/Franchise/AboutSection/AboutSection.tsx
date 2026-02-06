@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/Primitives";
 import { Button } from "@/components/Primitives";
 import { ImageWrapper } from "@/components/Primitives";
-import { parseHtml } from "@/components/CMS/parseHtml";
+import { parseHtml } from "@/components/Blocks/parseHtml";
 import styles from "./AboutSection.module.css";
 
 type AcfLink = {

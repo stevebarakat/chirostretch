@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight, Ban } from "lucide-react";
 import type { Practitioner } from "@/lib/graphql/queries/locations";
 import { rewriteImageUrl } from "@/utils/image-helpers";
-import { parseHtml } from "@/components/CMS/parseHtml";
+import { parseHtml } from "@/components/Blocks/parseHtml";
 import styles from "./PractitionerCard.module.css";
 import { Button, ImageWrapper, Text } from "@/components/Primitives";
 

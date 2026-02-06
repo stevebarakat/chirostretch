@@ -6,7 +6,7 @@ import {
   type PostBySlugResponse,
 } from "@/lib/graphql/queries";
 import { Container, Button } from "@/components/Primitives";
-import { BlockRenderer, type Block, parseHtml } from "@/components/CMS";
+import { BlockRenderer, type Block, parseHtml } from "@/components/Blocks";
 import styles from "./page.module.css";
 
 export const revalidate = 300;

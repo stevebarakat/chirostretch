@@ -6,7 +6,7 @@ import {
   type PageByUriResponse,
 } from "@/lib/graphql/queries";
 import { Container } from "@/components/Primitives";
-import { BlockRenderer, type Block, parseHtml } from "@/components/CMS";
+import { BlockRenderer, type Block, parseHtml } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
 import { getSiteConfig } from "@/config";
 import styles from "./page.module.css";

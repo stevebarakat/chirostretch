@@ -1,4 +1,4 @@
-import { parseHtml } from "@/components/CMS/parseHtml";
+import { parseHtml } from "@/components/Blocks/parseHtml";
 
 type RichTextProps = {
   content: string;
