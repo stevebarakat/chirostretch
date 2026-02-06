@@ -1,3 +1,4 @@
+<!-- Scope: system architecture, ownership model, and deployment topology. Do not merge content from other agent docs. -->
 # System Architecture
 
 ## Ownership Model

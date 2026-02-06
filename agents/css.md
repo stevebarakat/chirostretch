@@ -1,3 +1,4 @@
+<!-- Scope: CSS conventions, tokens, and styling rules. Do not merge content from other agent docs. -->
 # CSS Philosophy
 
 CSS is a first-class system. Prefer native browser features over JavaScript.

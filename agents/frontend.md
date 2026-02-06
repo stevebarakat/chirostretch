@@ -1,3 +1,4 @@
+<!-- Scope: Next.js frontend stack, component patterns, and rendering rules. Do not merge content from other agent docs. -->
 # Frontend Constraints
 
 ## Stack

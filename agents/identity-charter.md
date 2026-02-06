@@ -1,3 +1,4 @@
+<!-- Scope: authentication, authorization, and identity management. Do not merge content from other agent docs. -->
 # Access & Identity Charter
 
 ## Core Principle

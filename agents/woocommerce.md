@@ -1,3 +1,4 @@
+<!-- Scope: WooCommerce headless integration, checkout, and order management. Do not merge content from other agent docs. -->
 # WooCommerce Integration Patterns
 
 ## Overview

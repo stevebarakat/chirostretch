@@ -1,3 +1,4 @@
+<!-- Scope: task runbook for creating React components. -->
 # React Component
 
 ## Assumptions

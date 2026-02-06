@@ -1,3 +1,4 @@
+<!-- Scope: task runbook for checkout flow changes. -->
 # Checkout Flow Implementation
 
 ## Overview

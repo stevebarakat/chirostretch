@@ -1,3 +1,4 @@
+<!-- Scope: task runbook for creating WordPress blocks with ACF + headless rendering. -->
 # WordPress Block (Headless)
 
 ## Assumptions

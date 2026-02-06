@@ -1,3 +1,4 @@
+<!-- Scope: testing philosophy, coverage rules, and test patterns. Do not merge content from other agent docs. -->
 # Testing Strategy
 
 ## Philosophy

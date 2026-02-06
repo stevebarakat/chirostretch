@@ -1,3 +1,4 @@
+<!-- Scope: task runbook for registering WordPress custom post types. -->
 # WordPress Custom Post Type
 
 ## Assumptions

@@ -1,3 +1,4 @@
+<!-- Scope: task runbook for building/updating Algolia indexes. -->
 # Algolia Indexing
 
 ## Assumptions
