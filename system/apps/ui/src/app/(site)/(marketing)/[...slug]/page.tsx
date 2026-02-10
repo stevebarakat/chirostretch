@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
@@ -34,6 +35,10 @@ type PageProps = {
   params: Promise<{ slug: string[] }>;
 };
 
+const getPageData = cache(async (uri: string) => {
+  return await wpQuery<PageByUriResponse>(PAGE_BY_URI_QUERY, { uri }, { tags: [CACHE_TAGS.pages] });
+});
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -55,11 +60,7 @@ export async function generateMetadata({
 
   try {
     const uri = `/${slug.join("/")}/`;
-    const data = await wpQuery<PageByUriResponse>(
-      PAGE_BY_URI_QUERY,
-      { uri },
-      { tags: [CACHE_TAGS.pages] }
-    );
+    const data = await getPageData(uri);
 
     if (!data?.page) {
       return {
@@ -108,11 +109,7 @@ export default async function WordPressPage({ params }: PageProps) {
   }
 
   const uri = `/${slug.join("/")}/`;
-  const data = await wpQuery<PageByUriResponse>(
-    PAGE_BY_URI_QUERY,
-    { uri },
-    { tags: [CACHE_TAGS.pages] }
-  );
+  const data = await getPageData(uri);
 
   if (!data?.page) {
     notFound();
