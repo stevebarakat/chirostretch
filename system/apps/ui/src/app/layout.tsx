@@ -5,7 +5,8 @@ import "@/styles/tokens.css";
 import "@/styles/globals.css";
 import { Header, Footer } from "@/components/Layout";
 import { CartProvider } from "@/components/Cart";
-import { BackToTop, ToastProvider, ToastListener } from "@/components/Primitives";
+import { ToastProvider, ToastListener } from "@/components/Primitives";
+import { ChatWidget } from "@/components/ai/ChatWidget";
 import { wpQuery, CACHE_TAGS } from "@/lib/cms/graphql";
 import {
   LAYOUT_QUERY,
@@ -111,7 +112,7 @@ export default async function RootLayout({
             <Header logo={logo} topMenuItems={topMenuItems} />
             <main>{children}</main>
             <Footer logo={logo} />
-            <BackToTop />
+            <ChatWidget />
           </CartProvider>
           <ToastListener />
         </ToastProvider>
