@@ -140,14 +140,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* SWIPER (prefer wrapper scoping) */
-
-/*
-.cs-swiper :is(
-  .swiper-horizontal > .swiper-pagination-bullets,
-  .swiper-pagination-horizontal.swiper-pagination-bullets
-) .swiper-pagination-bullet {
-  width: 2rem;
-  height: 2rem;
+input[type="search"] {
+  padding-right: var(--spacing-xl) !important;
+  padding-left: var(--spacing-xl) !important;
 }
-*/

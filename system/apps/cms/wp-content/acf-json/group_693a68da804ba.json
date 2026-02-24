@@ -50,9 +50,7 @@
             "preview_size": "medium",
             "show_in_graphql": 1,
             "graphql_description": "",
-            "graphql_field_name": "heroLinkIcon",
-            "uploader": "",
-            "acfe_thumbnail": 0
+            "graphql_field_name": "heroLinkIcon"
         },
         {
             "key": "field_6943eff70ebf1",
@@ -102,16 +100,14 @@
             "preview_size": "medium",
             "show_in_graphql": 1,
             "graphql_description": "",
-            "graphql_field_name": "heroLinkIcon2",
-            "uploader": "",
-            "acfe_thumbnail": 0
+            "graphql_field_name": "heroLinkIcon2"
         },
         {
             "key": "field_6985cbed9c48f",
             "label": "Heading",
             "name": "heading",
             "aria-label": "",
-            "type": "text",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -121,11 +117,11 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
             "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
             "show_in_graphql": 1,
             "graphql_description": "",
             "graphql_field_name": "heading",
@@ -195,10 +191,6 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
     "show_in_graphql": 1,
     "graphql_field_name": "heroUnit",
     "map_graphql_types_from_location_rules": 1,
@@ -207,7 +199,5 @@
         "Page",
         "Post"
     ],
-    "acfe_meta": "",
-    "acfe_note": "",
-    "modified": 1770376212
+    "modified": 1771922605
 }

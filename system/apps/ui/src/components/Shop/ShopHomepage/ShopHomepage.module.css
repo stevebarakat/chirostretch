@@ -47,6 +47,7 @@
   font-weight: 800;
   line-height: var(--line-height-tight);
   margin-bottom: var(--spacing-md);
+  color: var(--color-text-inverse);
 }
 
 .heroDesc {
@@ -54,6 +55,7 @@
   opacity: 0.9;
   margin-bottom: var(--spacing-lg);
   line-height: var(--line-height-relaxed);
+  color: var(--color-text-inverse);
 }
 
 .promoPrice {
@@ -558,7 +560,7 @@
 }
 
 /* Responsive */
-@media (width <= 900px) {
+@media (width <=900px) {
   .heroInner {
     grid-template-columns: 1fr;
   }
@@ -580,7 +582,7 @@
   }
 }
 
-@media (width <= 600px) {
+@media (width <=600px) {
   .sellersGrid {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);

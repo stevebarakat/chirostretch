@@ -398,6 +398,7 @@ type ShopProduct = {
   databaseId?: number;
   name?: string;
   slug?: string;
+  shortDescription?: string;
   price?: string;
   regularPrice?: string;
   salePrice?: string;
@@ -454,4 +455,93 @@ export type ProductsByTagResponse = {
       startCursor?: string | null;
     };
   };
+};
+
+export const SHOP_DEAL_PRODUCT_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+  ${PRODUCT_PRICING_FIELDS}
+
+  query ShopDealProduct($first: Int) {
+    products(
+      first: $first,
+      where: {
+        typeIn: [SIMPLE, VARIABLE],
+        onSale: true,
+        orderby: [{ field: DATE, order: DESC }]
+      }
+    ) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        shortDescription
+        ...ProductPricingFields
+        ... on NodeWithFeaturedImage {
+          featuredImage { node { ...MediaItemBasicFields } }
+        }
+      }
+    }
+  }
+`;
+
+export const SHOP_POPULAR_PRODUCTS_QUERY = `
+  ${MEDIA_ITEM_BASIC_FIELDS}
+  ${PRODUCT_PRICING_FIELDS}
+
+  query ShopPopularProducts($first: Int) {
+    products(
+      first: $first,
+      where: {
+        typeIn: [SIMPLE, VARIABLE],
+        orderby: [{ field: TOTAL_SALES, order: DESC }]
+      }
+    ) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        ...ProductPricingFields
+        ... on NodeWithFeaturedImage {
+          featuredImage { node { ...MediaItemBasicFields } }
+        }
+      }
+    }
+  }
+`;
+
+export const SHOP_CATEGORIES_QUERY = `
+  query ShopCategories($first: Int) {
+    productCategories(
+      first: $first,
+      where: { orderby: COUNT, order: DESC, hideEmpty: true }
+    ) {
+      nodes {
+        id
+        name
+        slug
+        count
+      }
+    }
+  }
+`;
+
+export type ShopCategoryNode = {
+  id?: string;
+  name?: string;
+  slug?: string;
+  count?: number;
+};
+
+export type ShopDealProductResponse = {
+  products?: { nodes?: ShopProduct[] };
+};
+
+export type ShopPopularProductsResponse = {
+  products?: { nodes?: ShopProduct[] };
+};
+
+export type ShopCategoriesResponse = {
+  productCategories?: { nodes?: ShopCategoryNode[] };
 };

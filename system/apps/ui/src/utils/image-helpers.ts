@@ -33,6 +33,7 @@ const LOCAL_DEV_PATTERNS = [
  */
 export function rewriteImageUrl(url: string | undefined | null): string {
   if (!url) return "";
+  if (process.env.NODE_ENV === "development") return url;
   let result = url;
   for (const pattern of LOCAL_DEV_PATTERNS) {
     result = result.replace(pattern, PRODUCTION_CMS_URL);

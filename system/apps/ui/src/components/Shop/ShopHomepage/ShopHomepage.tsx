@@ -1,46 +1,58 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/stores/useCartStore";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { toast } from "@/lib/toast";
+import { rewriteImageUrl } from "@/utils/image-helpers";
+import type { ShopCategoryNode } from "@/lib/graphql/queries/products";
 import styles from "./ShopHomepage.module.css";
 
-/*
- * Product data is hardcoded for now.
- * TODO: Replace with WooCommerce GraphQL queries once catalog is finalized.
- */
-
-const SALE_ITEM = {
-  name: "Ergo Support Office Cushion",
-  slug: "ergo-support-office-cushion",
-  databaseId: 0, // placeholder — update with real ID
-  regularPrice: "3900",
-  salePrice: "2900",
-  description:
-    "Memory foam ergonomic cushion designed for all-day seated comfort. Reduces lower back strain and promotes proper pelvic alignment.",
+type ShopProductProp = {
+  id?: string;
+  databaseId?: number;
+  name?: string;
+  slug?: string;
+  shortDescription?: string;
+  price?: string;
+  regularPrice?: string;
+  salePrice?: string;
+  featuredImage?: {
+    node?: {
+      sourceUrl?: string;
+      altText?: string;
+      mediaDetails?: { width?: number; height?: number };
+    };
+  };
 };
 
-const BEST_SELLERS = [
-  { name: "ComfortAlign Posture Corrector", slug: "comfortalign-posture-corrector", databaseId: 0, price: "3500" },
-  { name: "Deep Tissue Massage Ball Set", slug: "deep-tissue-massage-ball-set", databaseId: 0, price: "1800" },
-  { name: "Cervical Spine Support Pillow", slug: "cervical-spine-support-pillow", databaseId: 0, price: "5500" },
-  { name: "ProFlex Stretch Strap", slug: "proflex-stretch-strap", databaseId: 0, price: "2200" },
-];
-
-const CATEGORIES = [
-  { label: "Alignment & Posture", slug: "alignment-posture", count: 6 },
-  { label: "Myofascial Release", slug: "myofascial-release", count: 5 },
-  { label: "Mobility & Stretch", slug: "mobility-stretch", count: 2 },
-  { label: "Sleep & Recovery", slug: "sleep-recovery", count: 2 },
-  { label: "Topical Relief", slug: "topical-relief", count: 2 },
-];
+type ShopHomepageProps = {
+  dealProduct?: ShopProductProp | null;
+  popularProducts?: ShopProductProp[];
+  categories?: ShopCategoryNode[];
+};
 
 const BUNDLE_ITEMS = [
-  { name: "ComfortAlign Posture Corrector", slug: "comfortalign-posture-corrector", databaseId: 0, price: "3500" },
-  { name: "Deep Tissue Massage Ball Set", slug: "deep-tissue-massage-ball-set", databaseId: 0, price: "1800" },
-  { name: "ChiroStretch Herbal Cream", slug: "chirostretch-herbal-cream", databaseId: 0, price: "1700" },
+  {
+    name: "ComfortAlign Posture Corrector",
+    slug: "comfortalign-posture-corrector",
+    databaseId: 0,
+    price: "3500",
+  },
+  {
+    name: "Deep Tissue Massage Ball Set",
+    slug: "deep-tissue-massage-ball-set",
+    databaseId: 0,
+    price: "1800",
+  },
+  {
+    name: "ChiroStretch Herbal Cream",
+    slug: "chirostretch-herbal-cream",
+    databaseId: 0,
+    price: "1700",
+  },
 ];
 
 const BUNDLE_TOTAL = "6500";
@@ -51,7 +63,11 @@ const TRUST_BADGES = [
   { icon: "🔒", title: "Secure Checkout", desc: "256-bit SSL encryption" },
   { icon: "↩️", title: "Easy Returns", desc: "30-day return policy" },
   { icon: "⭐", title: "4.8/5 Stars", desc: "200+ verified reviews" },
-  { icon: "🏥", title: "Practitioner Approved", desc: "Chiropractor recommended" },
+  {
+    icon: "🏥",
+    title: "Practitioner Approved",
+    desc: "Chiropractor recommended",
+  },
 ];
 
 function QuickAddButton({
@@ -95,22 +111,26 @@ function QuickAddButton({
   );
 }
 
-export default function ShopHomepage() {
+export default function ShopHomepage({
+  dealProduct,
+  popularProducts = [],
+  categories = [],
+}: ShopHomepageProps) {
   const addToCart = useCartStore((s) => s.addToCart);
   const loading = useCartStore((s) => s.loading);
 
   const handleAddDeal = async () => {
-    if (!SALE_ITEM.databaseId) return;
+    if (!dealProduct?.databaseId) return;
     try {
-      await addToCart(SALE_ITEM.databaseId, 1, {
-        name: SALE_ITEM.name,
+      await addToCart(dealProduct.databaseId, 1, {
+        name: dealProduct.name ?? "",
         prices: {
-          price: SALE_ITEM.salePrice,
-          regular_price: SALE_ITEM.regularPrice,
-          sale_price: SALE_ITEM.salePrice,
+          price: dealProduct.salePrice ?? dealProduct.price ?? "0",
+          regular_price: dealProduct.regularPrice ?? "0",
+          sale_price: dealProduct.salePrice ?? "0",
         },
       });
-      toast.success(`Added ${SALE_ITEM.name} to cart`);
+      toast.success(`Added ${dealProduct.name} to cart`);
     } catch {
       toast.error("Failed to add to cart. Please try again.");
     }
@@ -131,140 +151,195 @@ export default function ShopHomepage() {
     }
   };
 
+  const dealImage = dealProduct?.featuredImage?.node;
+
   return (
     <main>
-      {/* Announcement Bar */}
-      <div className={styles.announcement}>
-        Free shipping on orders over $50 —{" "}
-        <strong>Save $10</strong> on the Ergo Support Office Cushion today!
-      </div>
-
       {/* Hero Promo */}
-      <section className={styles.hero}>
-        <div className={styles.heroInner}>
-          <div>
-            <div className={styles.promoBadge}>Limited Time Offer</div>
-            <h1 className={styles.heroTitle}>
-              Your Spine Deserves Better Support
-            </h1>
-            <p className={styles.heroDesc}>
-              The Ergo Support Office Cushion — ergonomic design meets everyday
-              comfort. On sale now.
-            </p>
-            <div className={styles.promoPrice}>
-              <del>{formatPrice(SALE_ITEM.regularPrice)}</del>{" "}
-              {formatPrice(SALE_ITEM.salePrice)}{" "}
-              <span className={styles.saveBadge}>SAVE $10</span>
+      {dealProduct && (
+        <section className={styles.hero}>
+          <div className={styles.heroInner}>
+            <div>
+              <div className={styles.promoBadge}>Limited Time Offer</div>
+              <h1 className={styles.heroTitle}>
+                Your Spine Deserves Better Support
+              </h1>
+              <p className={styles.heroDesc}>
+                {dealProduct.name} — on sale now.
+              </p>
+              <div className={styles.promoPrice}>
+                {dealProduct.regularPrice && dealProduct.salePrice ? (
+                  <>
+                    <del>{formatPrice(dealProduct.regularPrice)}</del>{" "}
+                    {formatPrice(dealProduct.salePrice)}{" "}
+                    <span className={styles.saveBadge}>SALE</span>
+                  </>
+                ) : (
+                  formatPrice(dealProduct.price ?? "0")
+                )}
+              </div>
+              <div className={styles.heroCtas}>
+                <Link
+                  href={`/shop/${dealProduct.slug}`}
+                  className={`${styles.btn} ${styles.btnWhite}`}
+                >
+                  Shop the Deal →
+                </Link>
+                <Link
+                  href="/products"
+                  className={`${styles.btn} ${styles.btnGhost}`}
+                >
+                  Browse All Products
+                </Link>
+              </div>
             </div>
-            <div className={styles.heroCtas}>
-              <Link
-                href={`/shop/${SALE_ITEM.slug}`}
-                className={`${styles.btn} ${styles.btnWhite}`}
-              >
-                Shop the Deal →
-              </Link>
-              <Link
-                href="/products"
-                className={`${styles.btn} ${styles.btnGhost}`}
-              >
-                Browse All Products
-              </Link>
+            <div className={styles.heroImage}>
+              {dealImage?.sourceUrl && (
+                <Image
+                  src={rewriteImageUrl(dealImage.sourceUrl)}
+                  alt={dealImage.altText ?? dealProduct.name ?? ""}
+                  width={dealImage.mediaDetails?.width ?? 600}
+                  height={dealImage.mediaDetails?.height ?? 600}
+                  priority
+                />
+              )}
             </div>
           </div>
-          <div className={styles.heroImage}>
-            {/* TODO: product image */}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Today's Deal */}
-      <section className={styles.deal}>
-        <div className={styles.dealInner}>
-          <div className={styles.sectionLabel}>Today&apos;s Deal</div>
-          <h2 className={styles.sectionTitle}>Don&apos;t Miss This</h2>
-          <p className={styles.sectionSub}>Limited stock at this price.</p>
-          <div className={styles.dealCard}>
-            <div className={styles.dealImage}>
-              {/* TODO: product image */}
-            </div>
-            <div>
-              <div className={styles.dealBadge}>🔥 Sale — Save 26%</div>
-              <h3 className={styles.dealName}>{SALE_ITEM.name}</h3>
-              <p className={styles.dealDesc}>{SALE_ITEM.description}</p>
-              <div className={styles.dealUrgency}>
-                ⏰ Sale price ends soon — limited quantity available
+      {dealProduct && (
+        <section className={styles.deal}>
+          <div className={styles.dealInner}>
+            <div className={styles.sectionLabel}>Today&apos;s Deal</div>
+            <h2 className={styles.sectionTitle}>Don&apos;t Miss This</h2>
+            <p className={styles.sectionSub}>Limited stock at this price.</p>
+            <div className={styles.dealCard}>
+              <div className={styles.dealImage}>
+                {dealImage?.sourceUrl && (
+                  <Image
+                    src={rewriteImageUrl(dealImage.sourceUrl)}
+                    alt={dealImage.altText ?? dealProduct.name ?? ""}
+                    width={dealImage.mediaDetails?.width ?? 280}
+                    height={dealImage.mediaDetails?.height ?? 280}
+                  />
+                )}
               </div>
-              <div className={styles.dealPricing}>
-                <del>{formatPrice(SALE_ITEM.regularPrice)}</del>{" "}
-                {formatPrice(SALE_ITEM.salePrice)}
+              <div>
+                <div className={styles.dealBadge}>🔥 Sale</div>
+                <h3 className={styles.dealName}>{dealProduct.name}</h3>
+                {dealProduct.shortDescription ? (
+                  <p
+                    className={styles.dealDesc}
+                    dangerouslySetInnerHTML={{
+                      __html: dealProduct.shortDescription,
+                    }}
+                  />
+                ) : null}
+                <div className={styles.dealUrgency}>
+                  ⏰ Sale price ends soon — limited quantity available
+                </div>
+                <div className={styles.dealPricing}>
+                  {dealProduct.regularPrice && dealProduct.salePrice ? (
+                    <>
+                      <del>{formatPrice(dealProduct.regularPrice)}</del>{" "}
+                      {formatPrice(dealProduct.salePrice)}
+                    </>
+                  ) : (
+                    formatPrice(dealProduct.price ?? "0")
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.btn} ${styles.btnGreen}`}
+                  onClick={handleAddDeal}
+                  disabled={loading || !dealProduct.databaseId}
+                >
+                  {loading ? "Adding…" : "Add to Cart →"}
+                </button>
               </div>
-              <button
-                type="button"
-                className={`${styles.btn} ${styles.btnGreen}`}
-                onClick={handleAddDeal}
-                disabled={loading || !SALE_ITEM.databaseId}
-              >
-                {loading ? "Adding…" : "Add to Cart →"}
-              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Best Sellers */}
-      <section className={styles.sellers}>
-        <div className={styles.sellersInner}>
-          <div className={styles.sectionLabel}>Best Sellers</div>
-          <h2 className={styles.sectionTitle}>What Everyone&apos;s Buying</h2>
-          <p className={styles.sectionSub}>
-            Our most popular products based on real customer orders.
-          </p>
-          <div className={styles.sellersGrid}>
-            {BEST_SELLERS.map((product, i) => (
-              <Link
-                key={product.slug}
-                href={`/shop/${product.slug}`}
-                className={styles.sellCard}
-              >
-                <div className={styles.sellRank}>{i + 1}</div>
-                <div className={styles.sellImage}>
-                  {/* TODO: product image */}
-                </div>
-                <div className={styles.sellInfo}>
-                  <h3 className={styles.sellName}>{product.name}</h3>
-                  <div className={styles.sellPrice}>
-                    {formatPrice(product.price)}
+      {popularProducts.length > 0 && (
+        <section className={styles.sellers}>
+          <div className={styles.sellersInner}>
+            <div className={styles.sectionLabel}>Best Sellers</div>
+            <h2 className={styles.sectionTitle}>What Everyone&apos;s Buying</h2>
+            <p className={styles.sectionSub}>
+              Our most popular products based on real customer orders.
+            </p>
+            <div className={styles.sellersGrid}>
+              {popularProducts.map((product, i) => (
+                <Link
+                  key={product.slug ?? i}
+                  href={`/shop/${product.slug}`}
+                  className={styles.sellCard}
+                >
+                  <div className={styles.sellRank}>{i + 1}</div>
+                  <div className={styles.sellImage}>
+                    {product.featuredImage?.node?.sourceUrl && (
+                      <Image
+                        src={rewriteImageUrl(
+                          product.featuredImage.node.sourceUrl,
+                        )}
+                        alt={
+                          product.featuredImage.node.altText ??
+                          product.name ??
+                          ""
+                        }
+                        width={
+                          product.featuredImage.node.mediaDetails?.width ?? 200
+                        }
+                        height={
+                          product.featuredImage.node.mediaDetails?.height ?? 200
+                        }
+                      />
+                    )}
                   </div>
-                  <QuickAddButton
-                    databaseId={product.databaseId}
-                    name={product.name}
-                    price={product.price}
-                  />
-                </div>
-              </Link>
-            ))}
+                  <div className={styles.sellInfo}>
+                    <h3 className={styles.sellName}>{product.name}</h3>
+                    <div className={styles.sellPrice}>
+                      {formatPrice(product.price ?? product.salePrice ?? "0")}
+                    </div>
+                    <QuickAddButton
+                      databaseId={product.databaseId ?? 0}
+                      name={product.name ?? ""}
+                      price={product.price ?? product.salePrice ?? "0"}
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Category Quick-Links */}
-      <section className={styles.categories}>
-        <div className={styles.categoriesInner}>
-          <div className={styles.sectionLabel}>Quick Browse</div>
-          <h2 className={styles.sectionTitle}>Shop by Category</h2>
-          <div className={styles.catPills}>
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/category/${cat.slug}`}
-                className={styles.catPill}
-              >
-                {cat.label} ({cat.count})
-              </Link>
-            ))}
+      {categories.length > 0 && (
+        <section className={styles.categories}>
+          <div className={styles.categoriesInner}>
+            <div className={styles.sectionLabel}>Quick Browse</div>
+            <h2 className={styles.sectionTitle}>Shop by Category</h2>
+            <div className={styles.catPills}>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/category/${cat.slug}`}
+                  className={styles.catPill}
+                >
+                  {cat.name}
+                  {cat.count != null ? ` (${cat.count})` : ""}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Bundle */}
       <section className={styles.bundle}>
@@ -282,12 +357,11 @@ export default function ShopHomepage() {
               <div className={`${styles.sectionLabel} ${styles.bundleLabel}`}>
                 Bundle &amp; Save
               </div>
-              <h2 className={styles.bundleTitle}>
-                Complete Your Recovery Kit
-              </h2>
+              <h2 className={styles.bundleTitle}>Complete Your Recovery Kit</h2>
               <p className={styles.bundleDesc}>
-                Get the posture corrector, massage balls, and herbal relief cream
-                together — everything you need for a full recovery routine.
+                Get the posture corrector, massage balls, and herbal relief
+                cream together — everything you need for a full recovery
+                routine.
               </p>
               <div className={styles.bundlePrice}>
                 {formatPrice(BUNDLE_TOTAL)}{" "}
@@ -327,10 +401,7 @@ export default function ShopHomepage() {
         <p className={styles.ctaSub}>
           Browse the full ChiroStretch product catalogue — across 5 categories.
         </p>
-        <Link
-          href="/products"
-          className={`${styles.btn} ${styles.btnBlue}`}
-        >
+        <Link href="/products" className={`${styles.btn} ${styles.btnBlue}`}>
           Browse All Products →
         </Link>
       </section>
