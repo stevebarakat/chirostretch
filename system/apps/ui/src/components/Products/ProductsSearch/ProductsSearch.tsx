@@ -8,7 +8,15 @@ import { ErrorState } from "@/components/Primitives";
 import { SearchBox } from "@/components/Search";
 import { InfiniteProductsHits } from "./InfiniteProductsHits";
 
-export function ProductsSearch() {
+type ProductsSearchProps = {
+  title?: string;
+  subtitle?: string;
+};
+
+export function ProductsSearch({
+  title = "Products",
+  subtitle = "Browse our full collection",
+}: ProductsSearchProps) {
   if (!isAlgoliaConfigured() || !searchClient) {
     return (
       <ErrorState>
@@ -25,8 +33,8 @@ export function ProductsSearch() {
     >
       <Configure hitsPerPage={12} />
       <ArchiveHeader
-        title="Shop"
-        subtitle="Browse our collection"
+        title={title}
+        subtitle={subtitle}
         showCart
         searchSlot={<SearchBox placeholder="Search products..." />}
       />

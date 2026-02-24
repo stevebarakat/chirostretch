@@ -5,7 +5,7 @@ import Link from "next/link";
 import Hamburger from "hamburger-react";
 import { ChevronDown, CircleUser } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { LocationSearchTrigger } from "../LocationSearchTrigger";
+import { HeaderAction } from "../HeaderAction";
 import styles from "../Header.module.css";
 import { VisuallyHidden } from "@/components/Primitives";
 
@@ -161,7 +161,7 @@ export default function TopMenu({ menuItems, logo }: TopMenuProps) {
             ))}
           </ul>
           <div className={styles.topBarMobileOnly}>
-            <LocationSearchTrigger />
+            <HeaderAction />
           </div>
         </div>
         <AuthMenuItem onNavigate={() => setMobileOpen(false)} />

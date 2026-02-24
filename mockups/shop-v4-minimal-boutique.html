@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChiroStretch Shop — Minimal Clinic Boutique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: hsl(200, 72%, 45%);
+    --blue-light: hsl(200, 40%, 96%);
+    --blue-muted: hsl(200, 30%, 60%);
+    --pink: hsl(324, 72%, 52%);
+    --pink-muted: hsl(324, 30%, 65%);
+    --gray-50: #fafbfc; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+    --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
+    --gray-600: #4b5563; --gray-700: #374151; --gray-900: #111827;
+    --white: #fff;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--gray-900); background: var(--white); -webkit-font-smoothing: antialiased; font-weight: 400; }
+
+  /* NAV — airy and minimal */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 2rem 6vw;
+    position: sticky; top: 0; background: var(--white); z-index: 100;
+  }
+  .logo { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; color: var(--gray-900); letter-spacing: 0.04em; }
+  .logo span { color: var(--blue-muted); }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+  nav a { text-decoration: none; color: var(--gray-500); transition: color 0.2s; }
+  nav a:hover { color: var(--gray-900); }
+
+  /* HERO — understated */
+  .hero {
+    padding: 8rem 6vw 6rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .hero .overline {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue-muted); margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; line-height: 1.25; color: var(--gray-900); margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: normal; font-weight: 600; }
+  .hero p {
+    font-size: 0.95rem; color: var(--gray-500); line-height: 1.7; max-width: 480px; margin: 0 auto;
+  }
+  .hero-divider {
+    width: 40px; height: 2px; background: var(--gray-300); margin: 3rem auto 0;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 6vw; }
+  .inner { max-width: 1100px; margin: 0 auto; }
+  .section-overline {
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--blue-muted); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-heading); font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.4rem;
+  }
+  .section-sub { font-size: 0.85rem; color: var(--gray-400); margin-bottom: 3rem; }
+
+  /* CURATED COLLECTION — large cards */
+  .curated-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .curated-card { text-decoration: none; color: inherit; }
+  .curated-card:hover .curated-img { transform: scale(1.02); }
+  .curated-img {
+    aspect-ratio: 3/4; border-radius: 8px; margin-bottom: 1.25rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: rgba(255,255,255,0.4);
+    transition: transform 0.3s ease;
+  }
+  .curated-card h3 { font-family: var(--font-heading); font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .curated-card .price { font-size: 0.85rem; color: var(--gray-500); font-weight: 400; }
+  .curated-card .tag {
+    display: inline-block; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-muted); margin-bottom: 0.5rem;
+  }
+
+  /* HORIZONTAL CATEGORY SCROLL */
+  .cat-scroll { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; }
+  .cat-scroll::-webkit-scrollbar { height: 2px; }
+  .cat-scroll::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
+  .cat-item {
+    scroll-snap-align: start; min-width: 200px; flex-shrink: 0;
+    text-decoration: none; color: inherit;
+  }
+  .cat-item .cat-img {
+    aspect-ratio: 3/2; border-radius: 6px; margin-bottom: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: rgba(255,255,255,0.4);
+    transition: opacity 0.2s;
+  }
+  .cat-item:hover .cat-img { opacity: 0.9; }
+  .cat-item h4 { font-family: var(--font-heading); font-size: 0.82rem; font-weight: 500; }
+  .cat-item .count { font-size: 0.72rem; color: var(--gray-400); }
+
+  /* PRACTITIONER SECTION */
+  .practitioner { background: var(--gray-50); }
+  .pract-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .pract-badges { display: flex; gap: 1.5rem; margin-top: 2rem; }
+  .pract-badge {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    padding: 1.25rem 1.5rem; background: var(--white); border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04); text-align: center;
+  }
+  .pract-badge .icon { font-size: 1.5rem; }
+  .pract-badge h4 { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; }
+  .pract-badge p { font-size: 0.68rem; color: var(--gray-400); line-height: 1.4; }
+  .pract-text h2 { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 400; margin-bottom: 0.75rem; }
+  .pract-text p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.7; }
+  .pract-img {
+    aspect-ratio: 4/5; border-radius: 8px;
+    background: linear-gradient(135deg, var(--blue-light), hsl(200,30%,88%));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: var(--gray-400);
+  }
+
+  /* FEATURED DEEP DIVE */
+  .deep-dive { border-top: 1px solid var(--gray-200); }
+  .dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .dd-img {
+    aspect-ratio: 1; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: rgba(255,255,255,0.4);
+  }
+  .dd-content .overline { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink-muted); margin-bottom: 0.75rem; }
+  .dd-content h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.75rem; }
+  .dd-content p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.7; margin-bottom: 1.5rem; }
+  .dd-features { list-style: none; margin-bottom: 2rem; }
+  .dd-features li { font-size: 0.82rem; color: var(--gray-600); padding: 0.4rem 0; border-bottom: 1px solid var(--gray-100); display: flex; gap: 0.5rem; }
+  .dd-features li::before { content: '—'; color: var(--blue-muted); }
+  .btn-minimal {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+    color: var(--gray-900); text-decoration: none; letter-spacing: 0.04em;
+    border-bottom: 1.5px solid var(--gray-900); padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-minimal:hover { color: var(--blue); border-color: var(--blue); }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    text-align: center;
+    padding: 6rem 6vw;
+    border-top: 1px solid var(--gray-200);
+  }
+  .footer-cta .overline { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 1rem; }
+  .footer-cta h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 300; margin-bottom: 0.5rem; }
+  .footer-cta p { font-size: 0.85rem; color: var(--gray-400); margin-bottom: 2rem; }
+  .btn-clean {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2.25rem; border-radius: 4px;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.82rem;
+    text-decoration: none; border: 1.5px solid var(--gray-900); color: var(--gray-900);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-clean:hover { background: var(--gray-900); color: var(--white); }
+
+  footer { padding: 2.5rem 6vw; text-align: center; font-size: 0.72rem; color: var(--gray-400); letter-spacing: 0.04em; }
+
+  @media (max-width: 900px) {
+    .curated-grid { grid-template-columns: 1fr; }
+    .pract-grid, .dd-grid { grid-template-columns: 1fr; }
+    section { padding: 3.5rem 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Chiro<span>Stretch</span></div>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#" style="color:var(--gray-900);">Shop</a></li>
+    <li><a href="#">Products</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="overline">The ChiroStretch Collection</div>
+  <h1>Tools for <em>thoughtful</em> movement</h1>
+  <p>Practitioner-selected products for alignment, recovery, and daily wellness — designed with intention, crafted for results.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- CURATED COLLECTION -->
+<section>
+  <div class="inner">
+    <div class="section-overline">Curated Selection</div>
+    <h2 class="section-title">This Month's Edit</h2>
+    <p class="section-sub">Three products our team reaches for every day.</p>
+    <div class="curated-grid">
+      <a href="#" class="curated-card">
+        <div class="curated-img" style="background:linear-gradient(160deg, hsl(200,30%,75%), hsl(200,35%,60%));">Product photo</div>
+        <div class="tag">Alignment</div>
+        <h3>ComfortAlign Posture Corrector</h3>
+        <div class="price">$35.00</div>
+      </a>
+      <a href="#" class="curated-card">
+        <div class="curated-img" style="background:linear-gradient(160deg, hsl(324,25%,72%), hsl(324,30%,58%));">Product photo</div>
+        <div class="tag">Recovery</div>
+        <h3>Cervical Spine Support Pillow</h3>
+        <div class="price">$55.00</div>
+      </a>
+      <a href="#" class="curated-card">
+        <div class="curated-img" style="background:linear-gradient(160deg, hsl(170,25%,68%), hsl(180,30%,55%));">Product photo</div>
+        <div class="tag">Mobility</div>
+        <h3>ProFlex Stretch Strap</h3>
+        <div class="price">$22.00</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL CATEGORY SCROLL -->
+<section style="background:var(--gray-50);">
+  <div class="inner">
+    <div class="section-overline">Categories</div>
+    <h2 class="section-title">Browse by Category</h2>
+    <p class="section-sub">Find what your body needs.</p>
+    <div class="cat-scroll">
+      <a href="#" class="cat-item">
+        <div class="cat-img" style="background:linear-gradient(135deg, hsl(200,35%,65%), hsl(200,40%,52%));">Photo</div>
+        <h4>Alignment &amp; Posture</h4>
+        <span class="count">6 products</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-img" style="background:linear-gradient(135deg, hsl(324,30%,62%), hsl(324,35%,50%));">Photo</div>
+        <h4>Myofascial Release</h4>
+        <span class="count">5 products</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-img" style="background:linear-gradient(135deg, hsl(170,30%,58%), hsl(180,35%,48%));">Photo</div>
+        <h4>Mobility &amp; Stretch</h4>
+        <span class="count">2 products</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-img" style="background:linear-gradient(135deg, hsl(250,28%,62%), hsl(260,32%,50%));">Photo</div>
+        <h4>Sleep &amp; Recovery</h4>
+        <span class="count">2 products</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-img" style="background:linear-gradient(135deg, hsl(140,30%,55%), hsl(150,35%,45%));">Photo</div>
+        <h4>Topical Relief</h4>
+        <span class="count">2 products</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDED BY PRACTITIONERS -->
+<section class="practitioner">
+  <div class="inner">
+    <div class="pract-grid">
+      <div class="pract-text">
+        <div class="section-overline">Why ChiroStretch</div>
+        <h2>Recommended by Practitioners</h2>
+        <p>Every product in our collection is reviewed and recommended by licensed chiropractors and movement specialists. We don't carry anything we wouldn't use in our own practice.</p>
+        <div class="pract-badges">
+          <div class="pract-badge">
+            <div class="icon">🏥</div>
+            <h4>Clinic Tested</h4>
+            <p>Used in practice</p>
+          </div>
+          <div class="pract-badge">
+            <div class="icon">📋</div>
+            <h4>Evidence-Based</h4>
+            <p>Research supported</p>
+          </div>
+          <div class="pract-badge">
+            <div class="icon">✓</div>
+            <h4>Quality Assured</h4>
+            <p>Materials verified</p>
+          </div>
+        </div>
+      </div>
+      <div class="pract-img">Clinic environment photo</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED DEEP DIVE -->
+<section class="deep-dive">
+  <div class="inner">
+    <div class="dd-grid">
+      <div class="dd-img" style="background:linear-gradient(135deg, hsl(200,30%,72%), hsl(200,35%,58%));">Product photo</div>
+      <div class="dd-content">
+        <div class="overline">Product Spotlight</div>
+        <h2>Cervical Spine Support Pillow</h2>
+        <p>Engineered for proper cervical alignment during sleep. The contoured design cradles your neck while keeping your spine neutral — so you wake up without stiffness or pain.</p>
+        <ul class="dd-features">
+          <li>Memory foam with cooling gel layer</li>
+          <li>Contoured for side and back sleepers</li>
+          <li>Hypoallergenic removable cover</li>
+          <li>Recommended by cervical spine specialists</li>
+        </ul>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:1.5rem;">$55.00</div>
+        <a href="#" class="btn-minimal">View Product →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div class="overline">The Full Collection</div>
+  <h2>See all 17 products</h2>
+  <p>Browse the complete ChiroStretch catalogue at your own pace.</p>
+  <a href="#" class="btn-clean">View All Products →</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 ChiroStretch &nbsp;·&nbsp; Global Mobility. Smarter Movement. Better Living.</p>
+</footer>
+
+</body>
+</html>

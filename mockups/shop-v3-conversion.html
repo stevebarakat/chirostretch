@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChiroStretch Shop — Conversion-Focused Storefront</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: hsl(200, 72%, 45%);
+    --blue-light: hsl(200, 60%, 94%);
+    --blue-dark: hsl(200, 72%, 28%);
+    --pink: hsl(324, 72%, 52%);
+    --pink-light: hsl(324, 60%, 94%);
+    --green: hsl(150, 60%, 40%);
+    --orange: hsl(25, 90%, 55%);
+    --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+    --gray-300: #d1d5db; --gray-500: #6b7280; --gray-700: #374151; --gray-900: #111827;
+    --white: #fff;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--gray-900); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 4vw; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; background: var(--white); z-index: 100; }
+  .logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.35rem; color: var(--blue); }
+  .logo span { color: var(--pink); }
+  nav ul { list-style: none; display: flex; gap: 2rem; font-size: 0.875rem; font-weight: 500; }
+  nav a { text-decoration: none; color: var(--gray-700); }
+
+  /* TOP BAR */
+  .top-bar {
+    background: var(--blue-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .top-bar strong { color: hsl(50, 100%, 70%); }
+
+  /* HERO PROMO */
+  .hero-promo {
+    background: linear-gradient(135deg, hsl(324,60%,48%), hsl(324,70%,38%));
+    color: var(--white);
+    padding: 4rem 4vw;
+  }
+  .hero-promo .inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+  .promo-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 0.35rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero-promo h1 { font-family: var(--font-heading); font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+  .hero-promo p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 1.5rem; line-height: 1.6; }
+  .hero-promo .promo-price { font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; }
+  .hero-promo .promo-price del { opacity: 0.5; font-weight: 400; font-size: 1.3rem; margin-right: 0.5rem; }
+  .hero-promo .promo-price .save { background: hsl(50,100%,70%); color: var(--gray-900); font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px; margin-left: 0.5rem; font-weight: 700; }
+  .promo-img {
+    aspect-ratio: 1; border-radius: 16px;
+    background: linear-gradient(135deg, hsl(324,50%,55%), hsl(324,60%,42%));
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4); font-size: 0.85rem;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem; border-radius: 6px; font-family: var(--font-body);
+    font-weight: 700; font-size: 0.9rem; text-decoration: none; cursor: pointer; border: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .btn-white { background: var(--white); color: var(--pink); }
+  .btn-pink { background: var(--pink); color: var(--white); }
+  .btn-blue { background: var(--blue); color: var(--white); }
+  .btn-green { background: var(--green); color: var(--white); }
+
+  section { padding: 4.5rem 4vw; }
+  .inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.5rem; }
+  .section-title { font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 0.4rem; }
+  .section-sub { font-size: 0.95rem; color: var(--gray-500); margin-bottom: 2.5rem; }
+
+  /* TODAY'S DEAL */
+  .deal-section { background: hsl(50, 100%, 96%); border-bottom: 3px solid hsl(50, 90%, 70%); }
+  .deal-card {
+    display: grid; grid-template-columns: 280px 1fr; gap: 2.5rem; align-items: center;
+    background: var(--white); border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .deal-img {
+    aspect-ratio: 1; border-radius: 10px;
+    background: linear-gradient(135deg, hsl(200,45%,55%), hsl(200,55%,42%));
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4); font-size: 0.85rem;
+  }
+  .deal-badge {
+    display: inline-block; background: var(--orange); color: var(--white);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 0.75rem;
+  }
+  .deal-card h3 { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .deal-card .desc { color: var(--gray-500); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
+  .deal-card .pricing { font-size: 1.5rem; font-weight: 800; color: var(--green); margin-bottom: 1rem; }
+  .deal-card .pricing del { color: var(--gray-300); font-weight: 400; font-size: 1.1rem; margin-right: 0.4rem; }
+  .deal-urgency { font-size: 0.8rem; color: var(--orange); font-weight: 600; margin-bottom: 1rem; }
+
+  /* BEST SELLERS */
+  .sellers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .sell-card { background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid var(--gray-200); transition: box-shadow 0.2s, transform 0.15s; text-decoration: none; color: inherit; position: relative; }
+  .sell-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); transform: translateY(-2px); }
+  .sell-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+  .sell-rank { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--blue); color: var(--white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  .sell-info { padding: 1rem; }
+  .sell-info h3 { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .sell-info .price { font-weight: 700; }
+  .sell-info .quick-add {
+    display: block; width: 100%; margin-top: 0.75rem; padding: 0.6rem;
+    background: var(--blue); color: var(--white); border: none; border-radius: 6px;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .sell-info .quick-add:hover { background: var(--blue-dark); }
+
+  /* CATEGORY PILLS */
+  .cat-pills { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .cat-pill {
+    padding: 0.65rem 1.5rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+    text-decoration: none; border: 2px solid var(--gray-200); color: var(--gray-700);
+    transition: all 0.15s;
+  }
+  .cat-pill:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+  /* BUNDLE */
+  .bundle-section { background: linear-gradient(135deg, hsl(200,50%,15%), hsl(200,60%,22%)); color: var(--white); }
+  .bundle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .bundle-products { display: flex; gap: 1rem; }
+  .bundle-prod {
+    flex: 1; aspect-ratio: 1; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-size: 0.75rem; color: rgba(255,255,255,0.5); padding: 1rem;
+  }
+  .bundle-plus { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; opacity: 0.5; }
+  .bundle-section h2 { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .bundle-section p { opacity: 0.85; line-height: 1.6; margin-bottom: 1.5rem; }
+  .bundle-section .bundle-price { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
+
+  /* TRUST */
+  .trust-bar {
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 2rem 4vw;
+  }
+  .trust-grid { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; text-align: center; }
+  .trust-item .icon { font-size: 1.5rem; margin-bottom: 0.35rem; }
+  .trust-item h4 { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; }
+  .trust-item p { font-size: 0.75rem; color: var(--gray-500); }
+
+  /* CTA */
+  .cta-section { text-align: center; }
+  .cta-section h2 { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .cta-section p { color: var(--gray-500); margin-bottom: 2rem; }
+
+  footer { border-top: 1px solid var(--gray-200); padding: 2.5rem 4vw; text-align: center; font-size: 0.8rem; color: var(--gray-500); }
+
+  @media (max-width: 900px) {
+    .hero-promo .inner { grid-template-columns: 1fr; }
+    .promo-img { display: none; }
+    .deal-card { grid-template-columns: 1fr; }
+    .sellers-grid { grid-template-columns: repeat(2, 1fr); }
+    .bundle-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">Free shipping on orders over $50 — <strong>Save $10</strong> on the Ergo Support Office Cushion today!</div>
+
+<nav>
+  <div class="logo">Chiro<span>Stretch</span></div>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#" style="color:var(--blue);">Shop</a></li>
+    <li><a href="#">Products</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO PROMO -->
+<section class="hero-promo">
+  <div class="inner">
+    <div>
+      <div class="promo-badge">Limited Time Offer</div>
+      <h1>Your Spine Deserves Better Support</h1>
+      <p>The Ergo Support Office Cushion — ergonomic design meets everyday comfort. On sale now.</p>
+      <div class="promo-price"><del>$39.00</del> $29.00 <span class="save">SAVE $10</span></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#" class="btn btn-white">Shop the Deal →</a>
+        <a href="#" class="btn" style="background:rgba(255,255,255,0.15);color:var(--white);">Browse All Products</a>
+      </div>
+    </div>
+    <div class="promo-img">Product photo</div>
+  </div>
+</section>
+
+<!-- TODAY'S DEAL -->
+<section class="deal-section">
+  <div class="inner">
+    <div class="section-label">Today's Deal</div>
+    <h2 class="section-title">Don't Miss This</h2>
+    <p class="section-sub">Limited stock at this price.</p>
+    <div class="deal-card">
+      <div class="deal-img">Product photo</div>
+      <div>
+        <div class="deal-badge">🔥 Sale — Save 26%</div>
+        <h3>Ergo Support Office Cushion</h3>
+        <p class="desc">Memory foam ergonomic cushion designed for all-day seated comfort. Reduces lower back strain and promotes proper pelvic alignment.</p>
+        <div class="deal-urgency">⏰ Sale price ends soon — limited quantity available</div>
+        <div class="pricing"><del>$39.00</del> $29.00</div>
+        <a href="#" class="btn btn-green">Add to Cart →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section>
+  <div class="inner">
+    <div class="section-label">Best Sellers</div>
+    <h2 class="section-title">What Everyone's Buying</h2>
+    <p class="section-sub">Our most popular products based on real customer orders.</p>
+    <div class="sellers-grid">
+      <a href="#" class="sell-card">
+        <div class="sell-rank">1</div>
+        <div class="sell-img" style="background:linear-gradient(135deg, hsl(200,45%,55%), hsl(200,55%,42%));">Photo</div>
+        <div class="sell-info">
+          <h3>ComfortAlign Posture Corrector</h3>
+          <div class="price">$35.00</div>
+          <button class="quick-add">+ Quick Add</button>
+        </div>
+      </a>
+      <a href="#" class="sell-card">
+        <div class="sell-rank">2</div>
+        <div class="sell-img" style="background:linear-gradient(135deg, hsl(324,40%,50%), hsl(324,50%,38%));">Photo</div>
+        <div class="sell-info">
+          <h3>Deep Tissue Massage Ball Set</h3>
+          <div class="price">$18.00</div>
+          <button class="quick-add">+ Quick Add</button>
+        </div>
+      </a>
+      <a href="#" class="sell-card">
+        <div class="sell-rank">3</div>
+        <div class="sell-img" style="background:linear-gradient(135deg, hsl(250,35%,50%), hsl(260,40%,40%));">Photo</div>
+        <div class="sell-info">
+          <h3>Cervical Spine Support Pillow</h3>
+          <div class="price">$55.00</div>
+          <button class="quick-add">+ Quick Add</button>
+        </div>
+      </a>
+      <a href="#" class="sell-card">
+        <div class="sell-rank">4</div>
+        <div class="sell-img" style="background:linear-gradient(135deg, hsl(170,40%,45%), hsl(180,45%,35%));">Photo</div>
+        <div class="sell-info">
+          <h3>ProFlex Stretch Strap</h3>
+          <div class="price">$22.00</div>
+          <button class="quick-add">+ Quick Add</button>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY PILLS -->
+<section style="background:var(--gray-50);padding:3rem 4vw;">
+  <div class="inner">
+    <div class="section-label">Quick Browse</div>
+    <h2 class="section-title" style="margin-bottom:1.5rem;">Shop by Category</h2>
+    <div class="cat-pills">
+      <a href="#" class="cat-pill">🧍 Alignment & Posture (6)</a>
+      <a href="#" class="cat-pill">💆 Myofascial Release (5)</a>
+      <a href="#" class="cat-pill">🤸 Mobility & Stretch (2)</a>
+      <a href="#" class="cat-pill">😴 Sleep & Recovery (2)</a>
+      <a href="#" class="cat-pill">🧴 Topical Relief (2)</a>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE -->
+<section class="bundle-section">
+  <div class="inner">
+    <div class="bundle-grid">
+      <div class="bundle-products">
+        <div class="bundle-prod" style="background:hsl(200,40%,30%);">ComfortAlign Posture Corrector</div>
+        <div class="bundle-plus">+</div>
+        <div class="bundle-prod" style="background:hsl(324,40%,30%);">Deep Tissue Massage Ball Set</div>
+        <div class="bundle-plus">+</div>
+        <div class="bundle-prod" style="background:hsl(140,35%,30%);">ChiroStretch Herbal Cream</div>
+      </div>
+      <div>
+        <div class="section-label" style="color:hsl(324,60%,65%);">Bundle &amp; Save</div>
+        <h2>Complete Your Recovery Kit</h2>
+        <p>Get the posture corrector, massage balls, and herbal relief cream together — everything you need for a full recovery routine.</p>
+        <div class="bundle-price">$65.00 <span style="font-size:0.85rem;opacity:0.6;font-weight:400;margin-left:0.25rem;">(Save $6)</span></div>
+        <a href="#" class="btn btn-pink">Add Bundle to Cart →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BADGES -->
+<div class="trust-bar">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="icon">🚚</div>
+      <h4>Free Shipping 50+</h4>
+      <p>On orders over $50</p>
+    </div>
+    <div class="trust-item">
+      <div class="icon">🔒</div>
+      <h4>Secure Checkout</h4>
+      <p>256-bit SSL encryption</p>
+    </div>
+    <div class="trust-item">
+      <div class="icon">↩️</div>
+      <h4>Easy Returns</h4>
+      <p>30-day return policy</p>
+    </div>
+    <div class="trust-item">
+      <div class="icon">⭐</div>
+      <h4>4.8/5 Stars</h4>
+      <p>200+ verified reviews</p>
+    </div>
+    <div class="trust-item">
+      <div class="icon">🏥</div>
+      <h4>Practitioner Approved</h4>
+      <p>Chiropractor recommended</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Want to See Everything?</h2>
+  <p>Browse the full ChiroStretch product catalogue — 17 products across 5 categories.</p>
+  <a href="#" class="btn btn-blue">Browse All Products →</a>
+</section>
+
+<footer>
+  <p>&copy; 2026 ChiroStretch. Global Mobility. Smarter Movement. Better Living.</p>
+</footer>
+
+</body>
+</html>

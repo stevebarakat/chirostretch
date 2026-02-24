@@ -1,0 +1,35 @@
+.main {
+  padding: var(--spacing-4xl) 0;
+  min-height: 60vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-3xl);
+}
+
+.empty {
+  padding: var(--spacing-4xl) 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+@media (width >= 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (width >= 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

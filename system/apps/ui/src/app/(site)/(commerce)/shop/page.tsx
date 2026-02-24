@@ -1,18 +1,10 @@
-import { Container } from "@/components/Primitives";
-import { ProductsSearch } from "@/components/Products";
-import styles from "./page.module.css";
+import { ShopHomepage } from "@/components/Shop";
 
 export const metadata = {
   title: "Shop",
-  description: "Browse our collection",
+  description: "Curated products for spinal health, recovery, and everyday comfort",
 };
 
 export default function ShopPage() {
-  return (
-    <main className={styles.main}>
-      <Container>
-        <ProductsSearch />
-      </Container>
-    </main>
-  );
+  return <ShopHomepage />;
 }

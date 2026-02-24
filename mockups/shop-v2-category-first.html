@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChiroStretch Shop — Category-First Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: hsl(200, 72%, 45%);
+    --blue-light: hsl(200, 60%, 94%);
+    --blue-dark: hsl(200, 72%, 28%);
+    --pink: hsl(324, 72%, 52%);
+    --pink-light: hsl(324, 60%, 94%);
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --white: #fff;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--gray-900); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4vw; border-bottom: 1px solid var(--gray-200);
+    position: sticky; top: 0; background: var(--white); z-index: 100;
+  }
+  .logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.35rem; color: var(--blue); letter-spacing: -0.02em; }
+  .logo span { color: var(--pink); }
+  nav ul { list-style: none; display: flex; gap: 2rem; font-size: 0.875rem; font-weight: 500; color: var(--gray-700); }
+  nav a { text-decoration: none; color: inherit; }
+  nav a:hover { color: var(--blue); }
+
+  /* COMPACT HERO */
+  .hero-compact {
+    background: var(--blue-dark);
+    color: var(--white);
+    padding: 3rem 4vw;
+  }
+  .hero-compact .inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  }
+  .hero-compact h1 {
+    font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700;
+  }
+  .hero-compact p { opacity: 0.8; font-size: 0.95rem; margin-top: 0.25rem; }
+  .search-bar {
+    display: flex; align-items: center; background: var(--white); border-radius: 8px; overflow: hidden;
+    width: 380px; max-width: 100%;
+  }
+  .search-bar input {
+    border: none; padding: 0.85rem 1rem; flex: 1; font-family: var(--font-body); font-size: 0.9rem;
+    outline: none; color: var(--gray-900);
+  }
+  .search-bar button {
+    background: var(--pink); color: var(--white); border: none; padding: 0.85rem 1.25rem;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; cursor: pointer;
+  }
+
+  /* SECTIONS */
+  section { padding: 4.5rem 4vw; }
+  .inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.5rem; }
+  .section-title { font-family: var(--font-heading); font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: 0.4rem; }
+  .section-sub { font-size: 0.95rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 2.5rem; max-width: 520px; }
+
+  /* CATEGORY TILES */
+  .cat-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+  }
+  .cat-tile {
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    color: var(--white);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 260px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cat-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+  .cat-tile.large { grid-column: span 2; min-height: 300px; }
+  .cat-tile::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%, transparent); }
+  .cat-tile .icon { position: relative; font-size: 2rem; margin-bottom: 0.75rem; }
+  .cat-tile h3 { position: relative; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; }
+  .cat-tile .meta { position: relative; font-size: 0.8rem; opacity: 0.85; margin-top: 0.35rem; }
+  .cat-tile .arrow {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: background 0.2s;
+  }
+  .cat-tile:hover .arrow { background: rgba(255,255,255,0.35); }
+
+  /* FEATURED CAROUSEL */
+  .featured-section { background: var(--gray-50); }
+  .carousel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .prod-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .prod-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); transform: translateY(-2px); }
+  .prod-img {
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; color: rgba(255,255,255,0.5); font-weight: 500;
+  }
+  .prod-info { padding: 1.25rem; }
+  .prod-info .cat-tag {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--blue); margin-bottom: 0.5rem;
+  }
+  .prod-info h3 { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .prod-info .price { font-weight: 700; color: var(--gray-900); }
+  .prod-info .sale-price { color: var(--pink); }
+  .prod-info .orig-price { text-decoration: line-through; color: var(--gray-500); font-weight: 400; margin-left: 0.35rem; font-size: 0.85rem; }
+
+  /* EXPLAINER */
+  .explainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  .explainer-item .num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--blue-light); color: var(--blue);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .explainer-item h3 { font-family: var(--font-heading); font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .explainer-item p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section { text-align: center; padding: 4rem 4vw; }
+  .cta-section h2 { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .cta-section p { color: var(--gray-500); margin-bottom: 2rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2rem; border-radius: 6px; font-family: var(--font-body);
+    font-weight: 600; font-size: 0.9rem; text-decoration: none; cursor: pointer; border: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .btn-blue { background: var(--blue); color: var(--white); }
+  .btn-pink { background: var(--pink); color: var(--white); }
+
+  footer { border-top: 1px solid var(--gray-200); padding: 2.5rem 4vw; text-align: center; font-size: 0.8rem; color: var(--gray-500); }
+
+  @media (max-width: 900px) {
+    .cat-tiles { grid-template-columns: 1fr; }
+    .cat-tile.large { grid-column: span 1; }
+    .carousel { grid-template-columns: repeat(2, 1fr); }
+    .explainer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Chiro<span>Stretch</span></div>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#" style="color:var(--blue);">Shop</a></li>
+    <li><a href="#">Products</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+<!-- COMPACT HERO WITH SEARCH -->
+<div class="hero-compact">
+  <div class="inner">
+    <div>
+      <h1>What does your body need?</h1>
+      <p>Browse by category or search for the right solution.</p>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products…">
+      <button>Search</button>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY TILES -->
+<section>
+  <div class="inner">
+    <div class="section-label">Shop by Need</div>
+    <h2 class="section-title">Find What Works for You</h2>
+    <p class="section-sub">Select a category that matches your concern — we'll show you exactly what can help.</p>
+    <div class="cat-tiles">
+      <a href="#" class="cat-tile large" style="background:linear-gradient(135deg, hsl(200,55%,45%), hsl(210,60%,32%));">
+        <span class="arrow">→</span>
+        <div class="icon">🧍</div>
+        <h3>Alignment &amp; Posture</h3>
+        <div class="meta">6 products — Back braces, cushions, posture correctors</div>
+      </a>
+      <a href="#" class="cat-tile" style="background:linear-gradient(135deg, hsl(324,55%,48%), hsl(340,55%,35%));">
+        <span class="arrow">→</span>
+        <div class="icon">💆</div>
+        <h3>Myofascial Release</h3>
+        <div class="meta">5 products</div>
+      </a>
+      <a href="#" class="cat-tile" style="background:linear-gradient(135deg, hsl(170,50%,40%), hsl(180,50%,30%));">
+        <span class="arrow">→</span>
+        <div class="icon">🤸</div>
+        <h3>Mobility &amp; Stretch Tools</h3>
+        <div class="meta">2 products</div>
+      </a>
+      <a href="#" class="cat-tile" style="background:linear-gradient(135deg, hsl(250,45%,48%), hsl(260,50%,35%));">
+        <span class="arrow">→</span>
+        <div class="icon">😴</div>
+        <h3>Sleep &amp; Recovery</h3>
+        <div class="meta">2 products</div>
+      </a>
+      <a href="#" class="cat-tile" style="background:linear-gradient(135deg, hsl(140,45%,40%), hsl(150,50%,28%));">
+        <span class="arrow">→</span>
+        <div class="icon">🧴</div>
+        <h3>Topical Relief</h3>
+        <div class="meta">2 products</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured-section">
+  <div class="inner">
+    <div class="section-label">Featured</div>
+    <h2 class="section-title">Popular Right Now</h2>
+    <p class="section-sub">Top-selling products our customers love.</p>
+    <div class="carousel">
+      <a href="#" class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg, hsl(200,40%,55%), hsl(200,50%,42%));">Photo</div>
+        <div class="prod-info">
+          <div class="cat-tag">Alignment &amp; Posture</div>
+          <h3>ComfortAlign Posture Corrector</h3>
+          <div class="price">$35.00</div>
+        </div>
+      </a>
+      <a href="#" class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg, hsl(324,40%,50%), hsl(324,50%,38%));">Photo</div>
+        <div class="prod-info">
+          <div class="cat-tag">Myofascial Release</div>
+          <h3>Deep Tissue Massage Ball Set</h3>
+          <div class="price">$18.00</div>
+        </div>
+      </a>
+      <a href="#" class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg, hsl(250,35%,50%), hsl(260,40%,40%));">Photo</div>
+        <div class="prod-info">
+          <div class="cat-tag">Sleep &amp; Recovery</div>
+          <h3>Cervical Spine Support Pillow</h3>
+          <div class="price">$55.00</div>
+        </div>
+      </a>
+      <a href="#" class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg, hsl(200,45%,50%), hsl(210,50%,38%));">Photo</div>
+        <div class="prod-info">
+          <div class="cat-tag">Alignment &amp; Posture</div>
+          <h3>Ergo Support Office Cushion</h3>
+          <div class="price"><span class="sale-price">$29.00</span><span class="orig-price">$39.00</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEW TO CHIROSTRETCH -->
+<section>
+  <div class="inner">
+    <div class="section-label">Getting Started</div>
+    <h2 class="section-title">New to ChiroStretch?</h2>
+    <p class="section-sub">Here's how we help you move better, recover smarter, and live fully.</p>
+    <div class="explainer">
+      <div class="explainer-item">
+        <div class="num">1</div>
+        <h3>Identify Your Need</h3>
+        <p>Browse our categories to find tools that match your specific pain point, posture goal, or recovery routine.</p>
+      </div>
+      <div class="explainer-item">
+        <div class="num">2</div>
+        <h3>Practitioner-Backed</h3>
+        <p>Every product is selected by chiropractors and movement professionals for real therapeutic benefit.</p>
+      </div>
+      <div class="explainer-item">
+        <div class="num">3</div>
+        <h3>Feel the Difference</h3>
+        <p>Integrate our tools into your daily routine and experience lasting improvement in mobility and comfort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" style="background:var(--gray-50);">
+  <h2>See Everything We Offer</h2>
+  <p>17 products designed for better movement — browse the full catalogue.</p>
+  <a href="#" class="btn btn-blue">Browse All Products →</a>
+</section>
+
+<footer>
+  <p>&copy; 2026 ChiroStretch. Global Mobility. Smarter Movement. Better Living.</p>
+</footer>
+
+</body>
+</html>

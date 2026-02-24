@@ -1,5 +1,5 @@
 import { TopMenu } from "./TopMenu";
-import { LocationSearchTrigger } from "./LocationSearchTrigger";
+import { HeaderAction } from "./HeaderAction";
 import styles from "./Header.module.css";
 import type { MenuItem } from "@/lib/graphql/queries";
 import { Logo } from "@/components/Logo";
@@ -27,7 +27,7 @@ export default function Header({ logo, topMenuItems }: HeaderProps) {
       <div className={styles.headerBar}>
         <div className={styles.headerContainer}>
           <Logo isMobile={false} logo={logo} />
-          <LocationSearchTrigger />
+          <HeaderAction />
         </div>
       </div>
     </header>
