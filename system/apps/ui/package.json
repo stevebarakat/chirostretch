@@ -27,7 +27,10 @@
     "codegen": "graphql-codegen --config codegen.ts",
     "codegen:watch": "graphql-codegen --config codegen.ts --watch",
     "lighthouse": "lhci autorun",
-    "algolia:reindex": "curl -X POST https://localhost:3000/api/algolia/index-products && curl -X POST https://localhost:3000/api/algolia/index-events && curl -X POST https://localhost:3000/api/algolia/index-articles && curl -X POST https://localhost:3000/api/algolia/index-locations"
+    "algolia:reindex": "curl -X POST https://localhost:3000/api/algolia/index-products && curl -X POST https://localhost:3000/api/algolia/index-events && curl -X POST https://localhost:3000/api/algolia/index-articles && curl -X POST https://localhost:3000/api/algolia/index-locations",
+    "ai:ingest": "tsx scripts/ai/ingest.ts",
+    "ai:ingest:full": "tsx scripts/ai/ingest.ts --full",
+    "ai:reset": "tsx scripts/ai/reset.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -55,7 +58,9 @@
     "sharp": "^0.34.5",
     "swiper": "^12.1.0",
     "zod": "^4.3.6",
-    "zustand": "^5.0.10"
+    "zustand": "^5.0.10",
+    "openai": "^4",
+    "pg": "^8"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^6.1.1",
@@ -86,7 +91,8 @@
     "stylelint-order": "^7.0.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "@types/pg": "^8"
   },
   "volta": {
     "node": "20.18.0",

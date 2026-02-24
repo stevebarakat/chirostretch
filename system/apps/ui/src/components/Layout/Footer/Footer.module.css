@@ -219,9 +219,16 @@
   }
 }
 
+@media (width <=1400px) {
+  .bottom {
+    justify-content: center;
+  }
+}
+
 @media (width >=1024px) {
   .main {
     grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
     gap: var(--spacing-3xl);
   }
+
 }
