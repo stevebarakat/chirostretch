@@ -62,8 +62,11 @@ type HeroProps = {
     };
   };
   description?: string;
-  maxHeight?: number;
+  height?: number;
   title?: string;
+  backdrop?: boolean;
+  descriptionColor?: string;
+  align?: "flex-start" | "center" | "flex-end";
 };
 
 function Hero(props: HeroProps) {
@@ -169,6 +172,20 @@ function HeroCtaButtons({ heroUnit }: { heroUnit?: HeroUnit }) {
   );
 }
 
+function HeroCta({ heroUnit }: { heroUnit?: HeroUnit }) {
+  if (!heroUnit?.heroLink?.url || !heroUnit?.heroLink?.title) {
+    return null;
+  }
+
+  return (
+    <div className={styles.ctaWrapper}>
+      <Suspense fallback={<HeroCtaFallback heroUnit={heroUnit} />}>
+        <HeroCtaButtons heroUnit={heroUnit} />
+      </Suspense>
+    </div>
+  );
+}
+
 // Fallback buttons for Suspense (static links without search params)
 function HeroCtaFallback({ heroUnit }: { heroUnit?: HeroUnit }) {
   const icon1 = heroUnit?.heroLinkIcon?.node;
@@ -218,21 +235,35 @@ function HeroContent({
   featuredImage,
   heroUnit,
   description,
-  maxHeight = 750,
+  height = 750,
   title,
+  backdrop = true,
+  descriptionColor,
+  align = "flex-start",
 }: HeroProps) {
   const img = featuredImage?.node;
   const heading = heroUnit?.heading || img?.title || title;
   const subheading = heroUnit?.subheading || img?.description || description;
 
-  const style = {
-    maxHeight: `${maxHeight}px`,
+  const heroStyle = {
+    height: `${height}px`,
+    maxHeight: `${height}px`,
+    justifyContent: align,
+  } as React.CSSProperties;
+
+  const textAlign =
+    align === "center" ? "center" : align === "flex-end" ? "right" : "left";
+
+  const contentStyle = {
+    alignItems: align,
+    textAlign,
+    ...(descriptionColor && { "--description-color": descriptionColor }),
   } as React.CSSProperties;
 
   const initialUrl = getSafeImageUrl(img?.sourceUrl || "", "hero");
   const { currentUrl, handleError } = useImageFallback(
     initialUrl,
-    FALLBACK_IMAGES.hero
+    FALLBACK_IMAGES.hero,
   );
 
   if (!img?.sourceUrl) {
@@ -240,7 +271,7 @@ function HeroContent({
   }
 
   return (
-    <section className={styles.hero} style={style}>
+    <section className={styles.hero} style={heroStyle}>
       <div className={styles.imageWrapper}>
         <Image
           priority
@@ -257,18 +288,17 @@ function HeroContent({
             objectPosition: "center",
           }}
         />
-        <div className={styles.overlay} />
+        {backdrop && <div className={styles.overlay} />}
       </div>
-      <div className={styles.content}>
-        <h1 className={styles.headline}>{heading}</h1>
+      <div className={styles.content} style={contentStyle}>
+        <h1
+          className={styles.headline}
+          dangerouslySetInnerHTML={{ __html: heading ?? "" }}
+        />
         {subheading && (
           <RichText content={subheading} className={styles.description} />
         )}
-        <div className={styles.ctaWrapper}>
-          <Suspense fallback={<HeroCtaFallback heroUnit={heroUnit} />}>
-            <HeroCtaButtons heroUnit={heroUnit} />
-          </Suspense>
-        </div>
+        <HeroCta heroUnit={heroUnit} />
       </div>
     </section>
   );
