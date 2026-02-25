@@ -1,0 +1,19 @@
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  width: 100%;
+  background: var(--color-black-gradient);
+  color: var(--color-white);
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+.bar strong {
+  color: hsl(50deg 100% 70%);
+}
