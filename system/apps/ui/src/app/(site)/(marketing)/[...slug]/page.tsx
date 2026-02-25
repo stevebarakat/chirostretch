@@ -127,7 +127,7 @@ export default async function WordPressPage({ params }: PageProps) {
         <Hero
           featuredImage={heroImage}
           heroUnit={page.heroUnit}
-          maxHeight={550}
+          height={550}
         />
       )}
       <Container>

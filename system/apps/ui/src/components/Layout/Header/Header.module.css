@@ -1,8 +1,7 @@
 .siteHeader {
   position: relative;
   z-index: 9999;
-  /* 40px topBar + 34px announcement bar */
-  padding-top: 74px;
+  padding-top: 40px;
   width: 100%;
   color: var(--color-white);
   background: var(--color-secondary-500);
@@ -11,15 +10,22 @@
   --nav-border-color: var(--color-transparent-white-500);
 }
 
+:global([data-announcement="true"]) .siteHeader {
+  padding-top: 74px;
+
+  @media (width <=700px) {
+    padding-top: 0;
+  }
+}
+
 .headerBar {
   position: relative;
   height: var(--header-height);
-  padding-left: var(--spacing-md);
 }
 
 .topBar {
   position: fixed;
-  top: 34px;
+  top: 0;
   left: 0;
   z-index: 10000;
   width: 100%;
@@ -27,6 +33,10 @@
   border-bottom: 1px solid var(--nav-border-color);
   box-shadow: var(--shadow-md);
   user-select: none;
+}
+
+:global([data-announcement="true"]) .topBar {
+  top: 34px;
 }
 
 .topBarContainer {
@@ -151,6 +161,7 @@
   width: var(--header-width);
   max-width: 100%;
   height: 100%;
+  padding: 0 var(--spacing-2xl);
 }
 
 .accountLink {
@@ -170,8 +181,8 @@
 }
 
 @media (width <=700px) {
-  /* Hide header bar on mobile */
   .headerBar {
+    /* Hide header bar on mobile */
     display: none;
   }
 
@@ -195,6 +206,7 @@
     display: flex;
     align-items: center;
     height: calc(var(--header-height));
+    padding-left: var(--spacing-md);
   }
 
   .topBarHamburger {
@@ -222,6 +234,11 @@
     background: var(--color-secondary-600);
     transition: transform 0.25s;
     transform: var(--top-nav-toggle);
+  }
+
+  :global([data-announcement="true"]) .topNav {
+    top: 34px;
+    min-height: calc(100dvh - 34px);
   }
 
   .topNavContainer {

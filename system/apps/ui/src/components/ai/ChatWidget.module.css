@@ -43,10 +43,10 @@
   background: var(--color-white);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  animation: slideUp 0.2s ease;
+  animation: slide-up 0.2s ease;
 }
 
-@keyframes slideUp {
+@keyframes slide-up {
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -158,12 +158,11 @@
   background: var(--color-neutral-100);
   color: var(--color-text-primary);
   border-bottom-left-radius: var(--radius-sm);
-
-  .messageText {
-    color: var(--color-text-primary);
-  }
 }
 
+.messageBubbleAssistant .messageText {
+  color: var(--color-text-primary);
+}
 
 /* ── Citations ──────────────────────────────────────────────────────────────── */
 
@@ -230,7 +229,6 @@
 }
 
 @keyframes bounce {
-
   0%,
   80%,
   100% {

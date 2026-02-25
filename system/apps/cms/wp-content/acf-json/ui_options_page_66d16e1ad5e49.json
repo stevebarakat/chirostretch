@@ -1,0 +1,28 @@
+{
+    "key": "ui_options_page_66d16e1ad5e49",
+    "title": "Current Promo",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Current Promo",
+    "menu_slug": "current-promo",
+    "parent_slug": "none",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "",
+    "position": 0,
+    "redirect": 0,
+    "description": "",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-awards"
+    },
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "wpseo_manage_options",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "show_in_graphql": 1,
+    "graphql_type_name": "CurrentPromo",
+    "modified": 1772004716
+}

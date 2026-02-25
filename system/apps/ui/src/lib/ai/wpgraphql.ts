@@ -131,7 +131,7 @@ export async function fetchAllPages(): Promise<WPPage[]> {
   let after: string | null = null;
 
   do {
-    const data = await graphqlFetch<{ pages: PagedResponse<WPPage> }>(
+    const data: { pages: PagedResponse<WPPage> } = await graphqlFetch(
       PAGES_QUERY,
       { first: 50, after }
     );
@@ -148,7 +148,7 @@ export async function fetchAllLocations(): Promise<WPLocation[]> {
   let after: string | null = null;
 
   do {
-    const data = await graphqlFetch<{ locations: PagedResponse<WPLocation> }>(
+    const data: { locations: PagedResponse<WPLocation> } = await graphqlFetch(
       LOCATIONS_QUERY,
       { first: 50, after }
     );

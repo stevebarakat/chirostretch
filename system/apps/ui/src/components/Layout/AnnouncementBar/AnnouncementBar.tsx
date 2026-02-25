@@ -1,9 +1,15 @@
 import styles from "./AnnouncementBar.module.css";
 
 type AnnouncementBarProps = {
-  message: React.ReactNode;
+  message: string;
+  highlight?: string;
 };
 
-export default function AnnouncementBar({ message }: AnnouncementBarProps) {
-  return <div className={styles.bar}>{message}</div>;
+export default function AnnouncementBar({ message, highlight }: AnnouncementBarProps) {
+  return (
+    <div className={styles.bar}>
+      {message}
+      {highlight && <> <strong>{highlight}</strong></>}
+    </div>
+  );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import styles from "./ChatWidget.module.css";
 
@@ -29,19 +29,6 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages, isOpen]);
-
-  useEffect(() => {
-    if (isOpen) {
-      inputRef.current?.focus();
-    }
-  }, [isOpen]);
 
   async function sendMessage() {
     const text = input.trim();
@@ -84,6 +71,7 @@ export function ChatWidget() {
       ]);
     } finally {
       setIsLoading(false);
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }
 
@@ -99,7 +87,17 @@ export function ChatWidget() {
       {/* Toggle button */}
       <button
         className={styles.toggleButton}
-        onClick={() => setIsOpen((o) => !o)}
+        onClick={() => {
+          const next = !isOpen;
+          setIsOpen(next);
+          if (next) {
+            // Scroll to bottom when panel opens
+            setTimeout(
+              () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
+              0,
+            );
+          }
+        }}
         aria-label={isOpen ? "Close chat" : "Open chat assistant"}
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
@@ -179,7 +177,8 @@ export function ChatWidget() {
 
           <div className={styles.inputArea}>
             <textarea
-              ref={inputRef}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               className={styles.input}
               value={input}
               onChange={(e) => setInput(e.target.value)}

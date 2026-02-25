@@ -62,8 +62,23 @@ export const LAYOUT_QUERY = `
         }
       }
     }
+    siteSettings {
+      announcementBar {
+        enabled
+        message
+        highlight
+        showOn
+      }
+    }
   }
 `;
+
+export type AnnouncementBarData = {
+  enabled?: boolean;
+  message?: string;
+  highlight?: string;
+  showOn?: "all" | "shop" | ("all" | "shop")[];
+};
 
 export type LayoutQueryResponse = {
   logo?: {
@@ -96,5 +111,8 @@ export type LayoutQueryResponse = {
     menuItems?: {
       nodes: MenuItem[];
     };
+  };
+  siteSettings?: {
+    announcementBar?: AnnouncementBarData;
   };
 };

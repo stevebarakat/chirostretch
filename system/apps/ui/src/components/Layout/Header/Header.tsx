@@ -1,9 +1,9 @@
 import { TopMenu } from "./TopMenu";
 import { HeaderAction } from "./HeaderAction";
 import styles from "./Header.module.css";
-import type { MenuItem } from "@/lib/graphql/queries";
+import type { MenuItem, AnnouncementBarData } from "@/lib/graphql/queries";
 import { Logo } from "@/components/Logo";
-import AnnouncementBar from "@/components/Layout/AnnouncementBar/AnnouncementBar";
+import AnnouncementBarWrapper from "@/components/Layout/AnnouncementBar/AnnouncementBarWrapper";
 
 type HeaderProps = {
   logo?: {
@@ -17,19 +17,13 @@ type HeaderProps = {
     };
   };
   topMenuItems?: MenuItem[];
+  announcement?: AnnouncementBarData;
 };
 
-export default function Header({ logo, topMenuItems }: HeaderProps) {
+export default function Header({ logo, topMenuItems, announcement }: HeaderProps) {
   return (
     <header className={styles.siteHeader}>
-      <AnnouncementBar
-        message={
-          <>
-            Free shipping on orders over $50 —{" "}
-            <strong>Save big on today&apos;s deal!</strong>
-          </>
-        }
-      />
+      <AnnouncementBarWrapper announcement={announcement} />
       <div className={styles.topBar}>
         <TopMenu menuItems={topMenuItems} logo={logo} />
       </div>

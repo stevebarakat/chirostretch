@@ -12,6 +12,7 @@ import {
   LAYOUT_QUERY,
   type LayoutQueryResponse,
   type MenuItem,
+  type AnnouncementBarData,
 } from "@/lib/graphql/queries";
 import { getSiteConfig } from "@/config";
 
@@ -66,6 +67,7 @@ export default async function RootLayout({
 }>) {
   let logo;
   let topMenuItems: MenuItem[] | undefined;
+  let announcementBar: AnnouncementBarData | undefined;
 
   try {
     const data = await wpQuery<LayoutQueryResponse>(
@@ -78,6 +80,7 @@ export default async function RootLayout({
     );
     logo = data?.logo;
     topMenuItems = data?.topMenu?.menuItems?.nodes;
+    announcementBar = data?.siteSettings?.announcementBar;
 
     if (!data?.topMenu) {
       console.warn(
@@ -95,6 +98,14 @@ export default async function RootLayout({
       lang="en"
       className={`${poppins.variable} ${montserrat.variable}`}
       data-scroll-behavior="smooth"
+      data-announcement={
+        announcementBar?.enabled &&
+        (announcementBar.showOn === "all" ||
+          (Array.isArray(announcementBar.showOn) && announcementBar.showOn[0] === "all") ||
+          !announcementBar.showOn)
+          ? "true"
+          : undefined
+      }
     >
       <head>
         <link rel="dns-prefetch" href={WP_URL} />
@@ -109,7 +120,7 @@ export default async function RootLayout({
       <body>
         <ToastProvider>
           <CartProvider>
-            <Header logo={logo} topMenuItems={topMenuItems} />
+            <Header logo={logo} topMenuItems={topMenuItems} announcement={announcementBar} />
             <main>{children}</main>
             <Footer logo={logo} />
             <ChatWidget />

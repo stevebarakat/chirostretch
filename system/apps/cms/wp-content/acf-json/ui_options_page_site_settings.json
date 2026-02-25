@@ -1,0 +1,28 @@
+{
+    "key": "ui_options_page_site_settings",
+    "title": "Site Settings",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Site Settings",
+    "menu_slug": "site-settings",
+    "parent_slug": "none",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "Site Settings",
+    "position": 3,
+    "redirect": false,
+    "description": "",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-admin-settings"
+    },
+    "update_button": "Save Site Settings",
+    "updated_message": "Site settings saved.",
+    "capability": "manage_options",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "show_in_graphql": 1,
+    "graphql_type_name": "SiteSettings",
+    "modified": 1772002486
+}
