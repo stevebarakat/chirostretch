@@ -29,8 +29,8 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(to right,
-      rgb(0 0 0 / 40%) 0%,
-      rgb(0 0 0 / 20%) 50%,
+      rgb(0 0 0 / 80%) 0%,
+      rgb(0 0 0 / 40%) 80%,
       transparent 100%);
   pointer-events: none;
 }
