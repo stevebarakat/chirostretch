@@ -1,4 +1,5 @@
 "use client";
+// eslint-disable-next-line no-restricted-imports -- Required to toggle <html> data attribute for announcement layout
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import AnnouncementBar from "./AnnouncementBar";

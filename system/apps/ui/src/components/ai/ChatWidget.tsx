@@ -177,7 +177,6 @@ export function ChatWidget() {
 
           <div className={styles.inputArea}>
             <textarea
-              // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               className={styles.input}
               value={input}
