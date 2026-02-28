@@ -379,7 +379,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "Appointments are booked per location. To book, visit a location page and use the booking widget on that page.",
             "new_lines": "",
             "maxlength": "",
             "placeholder": "",
