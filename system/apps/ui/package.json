@@ -29,7 +29,9 @@
     "lighthouse": "lhci autorun",
     "algolia:reindex": "curl -X POST https://localhost:3000/api/algolia/index-products && curl -X POST https://localhost:3000/api/algolia/index-events && curl -X POST https://localhost:3000/api/algolia/index-articles && curl -X POST https://localhost:3000/api/algolia/index-locations",
     "ai:ingest": "tsx scripts/ai/ingest.ts",
+    "ai:ingest:prod": "tsx scripts/ai/ingest.ts",
     "ai:ingest:full": "tsx scripts/ai/ingest.ts --full",
+    "ai:ingest:prod:full": "tsx scripts/ai/ingest.ts --full",
     "ai:reset": "tsx scripts/ai/reset.ts"
   },
   "dependencies": {

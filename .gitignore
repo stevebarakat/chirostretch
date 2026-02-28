@@ -35,7 +35,7 @@ build/
 # --------------------------------------------------
 # GENERATED DESIGN TOKENS (built from .env.local)
 # --------------------------------------------------
-system/apps/ui/src/styles/tokens.css
+# (tokens.css is a committed artifact in this repo; do not ignore it)
 
 # --------------------------------------------------
 # MISC
@@ -98,3 +98,8 @@ system/apps/cms/wp-content/uploads/
 system/apps/cms/wp-content/plugins/
 system/apps/cms/wp-config.php
 system/apps/cms/wp-config-*.php
+
+# Docker runtime volumes (DO NOT COMMIT)
+docker/html/
+docker/mysql/
+docker/**/wp-content/uploads/

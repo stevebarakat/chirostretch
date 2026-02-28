@@ -7,8 +7,46 @@
  */
 
 import { config } from "dotenv";
-config({ path: ".env" });
-config({ path: ".env.local", override: true });
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+// Load env files in a way that works no matter where the script is invoked from.
+// Priority:
+// 1) Nearest directory (walking up from process.cwd) containing .env.local/.env
+// 2) UI app root derived from this file path (system/apps/ui)
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function findNearestEnvRoot(startDir: string): string | null {
+  let dir = startDir;
+  for (let i = 0; i < 8; i++) {
+    const hasEnvLocal = fs.existsSync(path.join(dir, ".env.local"));
+    const hasEnv = fs.existsSync(path.join(dir, ".env"));
+    if (hasEnvLocal || hasEnv) return dir;
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  return null;
+}
+
+// This file lives at: system/apps/ui/scripts/ai/ingest.ts
+// UI app root is:      system/apps/ui
+const uiRootFromFile = path.resolve(__dirname, "..", "..");
+const repoRootFromFile = path.resolve(uiRootFromFile, "..", "..", "..");
+
+const envRoot = findNearestEnvRoot(process.cwd()) ?? uiRootFromFile;
+const repoRoot = repoRootFromFile;
+
+// Prefer env files at envRoot first (Next.js convention)
+config({ path: path.join(envRoot, ".env") });
+config({ path: path.join(envRoot, ".env.local"), override: true });
+
+// Fallback: also load repo-root env files if present (useful when running from monorepo root)
+config({ path: path.join(repoRoot, ".env"), override: false });
+config({ path: path.join(repoRoot, ".env.local"), override: false });
 import {
   fetchAllPages,
   fetchAllLocations,
@@ -29,7 +67,7 @@ const isFull = process.argv.includes("--full");
 
 function buildPageText(page: WPPage): string {
   return normalizeWhitespace(
-    `${page.title}\n\n${stripHtml(page.content ?? "")}`
+    `${page.title}\n\n${stripHtml(page.content ?? "")}`,
   );
 }
 
@@ -167,7 +205,9 @@ async function ingestLocations(): Promise<{
 }
 
 async function main() {
-  console.log(`\nChiroStretch AI Ingestion — ${isFull ? "FULL" : "incremental"} mode\n`);
+  console.log(
+    `\nChiroStretch AI Ingestion — ${isFull ? "FULL" : "incremental"} mode\n`,
+  );
 
   const pageResult = await ingestPages();
   const locationResult = await ingestLocations();
