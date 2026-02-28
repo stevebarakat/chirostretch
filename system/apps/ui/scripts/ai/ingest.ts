@@ -121,7 +121,7 @@ async function ingestPages(): Promise<{ upserted: number; skipped: number }> {
     const chunkTexts = chunks.map((c) => c.chunkText);
     const embeddings = await embedTexts(chunkTexts);
 
-    const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL ?? "";
+    const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL?.replace(/^https?:\/\/localhost(:\d+)?/, "") || "https://www.chirostretch.site";
     const url = `${frontendUrl}${page.uri ?? `/${page.databaseId}`}`;
 
     const records: ChunkRecord[] = chunks.map((chunk, i) => ({
@@ -181,7 +181,7 @@ async function ingestLocations(): Promise<{
     const chunkTexts = chunks.map((c) => c.chunkText);
     const embeddings = await embedTexts(chunkTexts);
 
-    const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL ?? "";
+    const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL?.replace(/^https?:\/\/localhost(:\d+)?/, "") || "https://www.chirostretch.site";
     const url = `${frontendUrl}/locations/${loc.slug}`;
 
     const records: ChunkRecord[] = chunks.map((chunk, i) => ({

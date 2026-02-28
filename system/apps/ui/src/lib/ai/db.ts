@@ -10,7 +10,13 @@ export function getPool(): pg.Pool {
     if (!connectionString) {
       throw new Error("DATABASE_URL environment variable is not set.");
     }
-    _pool = new Pool({ connectionString });
+    const isRemote = !connectionString.includes("localhost") && !connectionString.includes("127.0.0.1");
+    // Strip sslmode from URL so pg doesn't override our ssl config
+    const cleanUrl = connectionString.replace(/[?&]sslmode=[^&]+/, "");
+    _pool = new Pool({
+      connectionString: cleanUrl,
+      ssl: isRemote ? { rejectUnauthorized: false } : false,
+    });
   }
   return _pool;
 }

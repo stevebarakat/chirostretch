@@ -4,7 +4,7 @@ let _client: OpenAI | null = null;
 
 function getClient(): OpenAI {
   if (!_client) {
-    _client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    _client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY?.trim() });
   }
   return _client;
 }

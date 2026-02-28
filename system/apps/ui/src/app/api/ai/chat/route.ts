@@ -122,7 +122,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(responseBody);
   } catch (err) {
-    console.error("[ai/chat] Error:", err);
+    const message = err instanceof Error ? err.message : String(err);
+    const code = (err as { code?: string }).code;
+    console.error(`[ai/chat] Error: ${message}${code ? ` (code: ${code})` : ""}`);
     return NextResponse.json(
       { error: "An error occurred while generating the response." },
       { status: 500 }
