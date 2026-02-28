@@ -366,6 +366,30 @@
             "rows": ""
         },
         {
+            "key": "field_location_booking_instructions",
+            "label": "Booking Instructions",
+            "name": "booking_instructions",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": "",
+            "rows": "",
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "bookingInstructions",
+            "graphql_non_null": 0
+        },
+        {
             "key": "field_location_staff",
             "label": "Staff Members",
             "name": "staff",
