@@ -4,7 +4,7 @@
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-  /* Primary Color Scale (Generated from env: 200,70,52) */
+  /* Primary Color Scale (Generated from env: undefined) */
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   --color-primary-50: hsl(200deg 100% 98%);
@@ -33,7 +33,7 @@
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-  /* Secondary Color Scale (Generated from env: 324,80,59) */
+  /* Secondary Color Scale (Generated from env: undefined) */
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   --color-secondary-50: hsl(324deg 100% 98%);
@@ -41,24 +41,24 @@
   --color-secondary-200: hsl(324deg 100% 88%);
   --color-secondary-300: hsl(324deg 95% 78%);
   --color-secondary-400: hsl(324deg 85% 65%);
-  --color-secondary-500: hsl(324deg 80% 59%);
-  --color-secondary-600: hsl(324deg 75% 52%);
-  --color-secondary-700: hsl(324deg 70% 45%);
-  --color-secondary-800: hsl(324deg 65% 37%);
-  --color-secondary-900: hsl(324deg 60% 29%);
-  --color-secondary-950: hsl(324deg 55% 22%);
+  --color-secondary-500: hsl(324deg 80% 44%);
+  --color-secondary-600: hsl(324deg 75% 37%);
+  --color-secondary-700: hsl(324deg 70% 30%);
+  --color-secondary-800: hsl(324deg 65% 22%);
+  --color-secondary-900: hsl(324deg 60% 14%);
+  --color-secondary-950: hsl(324deg 55% 7%);
 
   --color-secondary-gradient: linear-gradient(to bottom,
-    hsl(324deg 80% 59%) 0%,
-    hsl(324deg 75% 52%) 50%,
-    hsl(324deg 80% 59%) 100%);
+    hsl(324deg 80% 44%) 0%,
+    hsl(324deg 75% 37%) 50%,
+    hsl(324deg 80% 44%) 100%);
 
-  --color-secondary-transparent-50: hsl(324deg 80% 59% / 5%);
-  --color-secondary-transparent-100: hsl(324deg 80% 59% / 10%);
-  --color-secondary-transparent-200: hsl(324deg 80% 59% / 20%);
-  --color-secondary-transparent-500: hsl(324deg 80% 59% / 50%);
-  --color-secondary-transparent-800: hsl(324deg 80% 59% / 80%);
-  --color-secondary-transparent-900: hsl(324deg 80% 59% / 90%);
+  --color-secondary-transparent-50: hsl(324deg 80% 44% / 5%);
+  --color-secondary-transparent-100: hsl(324deg 80% 44% / 10%);
+  --color-secondary-transparent-200: hsl(324deg 80% 44% / 20%);
+  --color-secondary-transparent-500: hsl(324deg 80% 44% / 50%);
+  --color-secondary-transparent-800: hsl(324deg 80% 44% / 80%);
+  --color-secondary-transparent-900: hsl(324deg 80% 44% / 90%);
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
