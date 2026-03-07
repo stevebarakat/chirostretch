@@ -49,11 +49,6 @@ const nextConfig: NextConfig = {
         pathname: "/wp-content/uploads/**",
       },
 
-      {
-        protocol: "https",
-        hostname: "cms.chirostretch.site",
-      },
-
       // Unsplash (placeholder images)
       {
         protocol: "https",
@@ -78,7 +73,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/cms-assets/:path*",
-        destination: "https://cms.chirostretch.site/wp-content/uploads/:path*",
+        destination: "http://chirostretch-copy.local/wp-content/uploads/:path*",
       },
     ];
   },

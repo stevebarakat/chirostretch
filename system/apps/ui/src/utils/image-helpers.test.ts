@@ -44,7 +44,7 @@ describe("getSafeImageUrl", () => {
 
     it("uses featured fallback when specified", () => {
       expect(getSafeImageUrl(undefined, "featured")).toBe(
-        FALLBACK_IMAGES.featured
+        FALLBACK_IMAGES.featured,
       );
     });
 
@@ -58,15 +58,16 @@ describe("getSafeImageUrl", () => {
       const url = "http://localhost:8080/wp-content/uploads/image.jpg";
       const result = getSafeImageUrl(url);
       expect(result).toBe(
-        "https://cms.chirostretch.site/wp-content/uploads/image.jpg"
+        "https://chirostretch-copy.local/wp-content/uploads/image.jpg",
       );
     });
 
     it("replaces chirostretch-copy.local with production CMS URL", () => {
-      const url = "https://chirostretch-copy.local/wp-content/uploads/image.jpg";
+      const url =
+        "https://chirostretch-copy.local/wp-content/uploads/image.jpg";
       const result = getSafeImageUrl(url);
       expect(result).toBe(
-        "https://cms.chirostretch.site/wp-content/uploads/image.jpg"
+        "https://chirostretch-copy.local/wp-content/uploads/image.jpg",
       );
     });
 
@@ -74,7 +75,7 @@ describe("getSafeImageUrl", () => {
       const url = "http://127.0.0.1:8080/wp-content/uploads/image.jpg";
       const result = getSafeImageUrl(url);
       expect(result).toBe(
-        "https://cms.chirostretch.site/wp-content/uploads/image.jpg"
+        "https://chirostretch-copy.local/wp-content/uploads/image.jpg",
       );
     });
 
@@ -127,14 +128,14 @@ describe("proxyCmsUrl", () => {
   describe("CMS URL rewriting", () => {
     it("rewrites CMS upload URLs to local proxy", () => {
       const url =
-        "https://cms.chirostretch.site/wp-content/uploads/2025/12/icon.svg";
+        "https://chirostretch-copy.local/wp-content/uploads/2025/12/icon.svg";
       const result = proxyCmsUrl(url);
       expect(result).toBe("/cms-assets/2025/12/icon.svg");
     });
 
     it("handles nested upload paths", () => {
       const url =
-        "https://cms.chirostretch.site/wp-content/uploads/2025/01/subfolder/image.png";
+        "https://chirostretch-copy.local/wp-content/uploads/2025/01/subfolder/image.png";
       const result = proxyCmsUrl(url);
       expect(result).toBe("/cms-assets/2025/01/subfolder/image.png");
     });
@@ -143,7 +144,7 @@ describe("proxyCmsUrl", () => {
       const extensions = ["jpg", "png", "webp", "svg", "gif", "pdf"];
 
       extensions.forEach((ext) => {
-        const url = `https://cms.chirostretch.site/wp-content/uploads/2025/01/file.${ext}`;
+        const url = `https://chirostretch-copy.local/wp-content/uploads/2025/01/file.${ext}`;
         const result = proxyCmsUrl(url);
         expect(result).toBe(`/cms-assets/2025/01/file.${ext}`);
       });
@@ -167,13 +168,12 @@ describe("proxyCmsUrl", () => {
     });
 
     it("does not match non-uploads CMS paths", () => {
-      const url = "https://cms.chirostretch.site/wp-json/api/data";
+      const url = "https://chirostretch-copy.local/wp-json/api/data";
       expect(proxyCmsUrl(url)).toBe(url);
     });
 
     it("does not match different domain with same path structure", () => {
-      const url =
-        "https://other-cms.site/wp-content/uploads/2025/01/image.jpg";
+      const url = "https://other-cms.site/wp-content/uploads/2025/01/image.jpg";
       expect(proxyCmsUrl(url)).toBe(url);
     });
   });
@@ -192,14 +192,12 @@ describe("proxyCmsUrl", () => {
     });
 
     it("proxies localhost:8080 upload URLs", () => {
-      const url =
-        "http://localhost:8080/wp-content/uploads/2025/01/image.jpg";
+      const url = "http://localhost:8080/wp-content/uploads/2025/01/image.jpg";
       expect(proxyCmsUrl(url)).toBe("/cms-assets/2025/01/image.jpg");
     });
 
     it("proxies 127.0.0.1:8080 upload URLs", () => {
-      const url =
-        "http://127.0.0.1:8080/wp-content/uploads/2025/01/image.jpg";
+      const url = "http://127.0.0.1:8080/wp-content/uploads/2025/01/image.jpg";
       expect(proxyCmsUrl(url)).toBe("/cms-assets/2025/01/image.jpg");
     });
   });
@@ -216,24 +214,26 @@ describe("rewriteImageUrl", () => {
 
   it("rewrites chirostretch-copy.local to production CMS", () => {
     expect(
-      rewriteImageUrl("https://chirostretch-copy.local/wp-content/uploads/image.jpg")
-    ).toBe("https://cms.chirostretch.site/wp-content/uploads/image.jpg");
+      rewriteImageUrl(
+        "https://chirostretch-copy.local/wp-content/uploads/image.jpg",
+      ),
+    ).toBe("https://chirostretch-copy.local/wp-content/uploads/image.jpg");
   });
 
   it("rewrites localhost:8080 to production CMS", () => {
     expect(
-      rewriteImageUrl("http://localhost:8080/wp-content/uploads/image.jpg")
-    ).toBe("https://cms.chirostretch.site/wp-content/uploads/image.jpg");
+      rewriteImageUrl("http://localhost:8080/wp-content/uploads/image.jpg"),
+    ).toBe("https://chirostretch-copy.local/wp-content/uploads/image.jpg");
   });
 
   it("rewrites 127.0.0.1:8080 to production CMS", () => {
     expect(
-      rewriteImageUrl("http://127.0.0.1:8080/wp-content/uploads/image.jpg")
-    ).toBe("https://cms.chirostretch.site/wp-content/uploads/image.jpg");
+      rewriteImageUrl("http://127.0.0.1:8080/wp-content/uploads/image.jpg"),
+    ).toBe("https://chirostretch-copy.local/wp-content/uploads/image.jpg");
   });
 
   it("does not modify production CMS URLs", () => {
-    const url = "https://cms.chirostretch.site/wp-content/uploads/image.jpg";
+    const url = "https://chirostretch-copy.local/wp-content/uploads/image.jpg";
     expect(rewriteImageUrl(url)).toBe(url);
   });
 
@@ -254,7 +254,7 @@ describe("useImageFallback", () => {
   describe("initial state", () => {
     it("returns initial URL as currentUrl", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       expect(result.current.currentUrl).toBe(initialUrl);
@@ -262,7 +262,7 @@ describe("useImageFallback", () => {
 
     it("starts with hasError as false", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       expect(result.current.hasError).toBe(false);
@@ -270,7 +270,7 @@ describe("useImageFallback", () => {
 
     it("provides handleError callback", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       expect(typeof result.current.handleError).toBe("function");
@@ -280,7 +280,7 @@ describe("useImageFallback", () => {
   describe("handleError behavior", () => {
     it("switches to fallback URL when handleError is called", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       act(() => {
@@ -292,7 +292,7 @@ describe("useImageFallback", () => {
 
     it("sets hasError to true when handleError is called", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       act(() => {
@@ -304,7 +304,7 @@ describe("useImageFallback", () => {
 
     it("logs error message when handleError is called", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       act(() => {
@@ -313,13 +313,13 @@ describe("useImageFallback", () => {
 
       expect(console.error).toHaveBeenCalledWith(
         "Image failed to load:",
-        initialUrl
+        initialUrl,
       );
     });
 
     it("does not switch URL again after error has occurred", () => {
       const { result } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       // First error - should switch to fallback
@@ -369,7 +369,7 @@ describe("useImageFallback", () => {
 
     it("maintains stable handleError reference across renders", () => {
       const { result, rerender } = renderHook(() =>
-        useImageFallback(initialUrl, fallbackUrl)
+        useImageFallback(initialUrl, fallbackUrl),
       );
 
       const firstHandleError = result.current.handleError;

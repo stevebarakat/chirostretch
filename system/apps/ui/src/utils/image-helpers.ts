@@ -15,7 +15,7 @@ export const FALLBACK_IMAGES = {
 /**
  * Production CMS URL for URL rewriting
  */
-const PRODUCTION_CMS_URL = "https://cms.chirostretch.site";
+const PRODUCTION_CMS_URL = "https://chirostretch-copy.local";
 
 /**
  * Local development hostnames that need to be rewritten
@@ -81,7 +81,7 @@ export function useImageFallback(initialUrl: string, fallbackUrl: string) {
 }
 
 const CMS_UPLOAD_PATTERN =
-  /^https:\/\/cms\.chirostretch\.site\/wp-content\/uploads\/(.+)$/;
+  /^https?:\/\/chirostretch-copy\.local\/wp-content\/uploads\/(.+)$/;
 
 /**
  * Pattern to match local development WordPress upload URLs
@@ -91,7 +91,7 @@ const LOCAL_DEV_UPLOAD_PATTERN =
 
 /**
  * Proxies CMS upload URLs through Next.js to avoid CORS issues with mask-image.
- * URLs like https://cms.chirostretch.site/wp-content/uploads/2025/12/icon.svg
+ * URLs like https://chirostretch-copy.local/wp-content/uploads/2025/12/icon.svg
  * become /cms-assets/2025/12/icon.svg
  *
  * Also handles local development URLs by converting them to the proxy path.

@@ -126,7 +126,7 @@ jobs:
       - name: Run GraphQL Codegen (validates queries against schema)
         run: pnpm codegen
         env:
-          NEXT_PUBLIC_WPGRAPHQL_ENDPOINT: ${{ secrets.WPGRAPHQL_ENDPOINT || 'https://cms.chirostretch.site/graphql' }}
+          NEXT_PUBLIC_WPGRAPHQL_ENDPOINT: ${{ secrets.WPGRAPHQL_ENDPOINT || 'https://chirostretch-copy.local/graphql' }}
 
   build:
     name: Build
@@ -173,8 +173,8 @@ jobs:
         run: pnpm build
         env:
           # Add required build-time env vars
-          NEXT_PUBLIC_WPGRAPHQL_ENDPOINT: ${{ secrets.WPGRAPHQL_ENDPOINT || 'https://cms.chirostretch.site/graphql' }}
-          NEXT_PUBLIC_BACKEND_URL: ${{ secrets.BACKEND_URL || 'https://cms.chirostretch.site' }}
+          NEXT_PUBLIC_WPGRAPHQL_ENDPOINT: ${{ secrets.WPGRAPHQL_ENDPOINT || 'https://chirostretch-copy.local/graphql' }}
+          NEXT_PUBLIC_BACKEND_URL: ${{ secrets.BACKEND_URL || 'https://chirostretch-copy.local' }}
           NEXT_PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID || 'placeholder' }}
           NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY || 'placeholder' }}
 
