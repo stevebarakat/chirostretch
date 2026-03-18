@@ -1,1 +1,1 @@
-export { SingleSessionCard } from "./SingleSessionCard";
+export { SingleSessionCard, ICON_MAP } from "./SingleSessionCard";

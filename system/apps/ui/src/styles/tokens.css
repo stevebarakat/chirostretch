@@ -19,18 +19,10 @@
   --color-primary-900: hsl(200deg 50% 22%);
   --color-primary-950: hsl(200deg 45% 15%);
 
-  --color-primary-gradient: linear-gradient(
-    to bottom,
+  --color-primary-gradient: linear-gradient(to bottom,
     hsl(200deg 70% 52%) 0%,
     hsl(200deg 65% 45%) 50%,
-    hsl(200deg 70% 52%) 100%
-  );
-
-  --color-black-gradient: linear-gradient(
-    to bottom,
-    hsl(0deg 0 10) 0%,
-    hsl(0deg 0 0) 100%
-  );
+    hsl(200deg 70% 52%) 100%);
 
   --color-primary-transparent-50: hsl(200deg 70% 52% / 5%);
   --color-primary-transparent-100: hsl(200deg 70% 52% / 10%);
@@ -56,12 +48,10 @@
   --color-secondary-900: hsl(324deg 60% 29%);
   --color-secondary-950: hsl(324deg 55% 22%);
 
-  --color-secondary-gradient: linear-gradient(
-    to bottom,
+  --color-secondary-gradient: linear-gradient(to bottom,
     hsl(324deg 80% 59%) 0%,
     hsl(324deg 75% 52%) 50%,
-    hsl(324deg 80% 59%) 100%
-  );
+    hsl(324deg 80% 59%) 100%);
 
   --color-secondary-transparent-50: hsl(324deg 80% 59% / 5%);
   --color-secondary-transparent-100: hsl(324deg 80% 59% / 10%);
@@ -236,17 +226,14 @@
   --radius-full: 9999px;
 
   --shadow-color: var(--color-transparent-black-100);
-  --shadow-sm:
-    0.3px 0.5px 0.7px var(--shadow-color),
+  --shadow-sm: 0.3px 0.5px 0.7px var(--shadow-color),
     0.4px 0.8px 1px -1.2px var(--shadow-color),
     1px 2px 2.5px -2.5px var(--shadow-color);
-  --shadow-md:
-    0.3px 0.5px 0.7px var(--shadow-color),
+  --shadow-md: 0.3px 0.5px 0.7px var(--shadow-color),
     0.8px 1.6px 2px -0.8px var(--shadow-color),
     2.1px 4.1px 5.2px -1.7px var(--shadow-color),
     5px 10px 12.6px -2.5px var(--shadow-color);
-  --shadow-lg:
-    0.3px 0.5px 0.7px var(--shadow-color),
+  --shadow-lg: 0.3px 0.5px 0.7px var(--shadow-color),
     1.5px 2.9px 3.7px -0.4px var(--shadow-color),
     2.7px 5.4px 6.8px -0.7px var(--shadow-color),
     4.5px 8.9px 11.2px -1.1px var(--shadow-color),

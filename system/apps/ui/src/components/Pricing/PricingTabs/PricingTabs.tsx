@@ -3,10 +3,26 @@
 import { useState } from "react";
 import { SingleSessionCard } from "../SingleSessionCard";
 import { ValuePackageCard } from "../ValuePackageCard";
+import { PRICING_META } from "../pricingMeta";
+import { ICON_MAP } from "../SingleSessionCard";
 import { Container } from "@/components/Primitives";
+import { parsePrice } from "@/lib/utils/formatPrice";
+import type { PricingBookingProduct } from "@/lib/graphql/queries/bookings";
 import styles from "./PricingTabs.module.css";
 
-const SINGLE_SESSIONS = [
+const DURATION_UNIT_LABELS: Record<string, string> = {
+  minute: "Min",
+  hour: "Hour",
+  day: "Day",
+  month: "Month",
+};
+
+function formatDuration(duration: number, unit: string): string {
+  const label = DURATION_UNIT_LABELS[unit] ?? unit;
+  return `${duration} ${label} Session`;
+}
+
+const FALLBACK_SESSIONS = [
   {
     title: "Chiro Adjustment",
     description:
@@ -55,8 +71,6 @@ const SINGLE_SESSIONS = [
     price: 70,
     unit: "30 Min Session",
     icon: "accessibility_new" as const,
-    imagePlaceholder:
-      "Effective release for localized tension and posture correction.",
     featured: false,
   },
   {
@@ -65,11 +79,28 @@ const SINGLE_SESSIONS = [
     price: 75,
     unit: "30 Min Session",
     icon: "wash" as const,
-    imagePlaceholder:
-      "Perfect for a mid-day refresh or acute muscle stiffness.",
     featured: false,
   },
 ];
+
+function buildSessionCards(products: PricingBookingProduct[]) {
+  return products
+    .map((product) => {
+      const meta = PRICING_META[product.slug] ?? {};
+      return {
+        title: product.name,
+        description: product.shortDescription?.replace(/<[^>]*>/g, "") ?? "",
+        price: parsePrice(product.price),
+        unit: formatDuration(product.bookingDuration, product.bookingDurationUnit),
+        icon: (meta.icon ?? "medical_services") as keyof typeof ICON_MAP,
+        image: undefined,
+        featured: !!meta.badge || !!product.featured,
+        badge: meta.badge,
+        order: meta.order ?? 99,
+      };
+    })
+    .sort((a, b) => a.order - b.order);
+}
 
 const VALUE_PACKAGES = [
   {
@@ -111,8 +142,17 @@ const VALUE_PACKAGES = [
   },
 ];
 
-export function PricingTabs() {
+type PricingTabsProps = {
+  sessions?: PricingBookingProduct[];
+};
+
+export function PricingTabs({ sessions }: PricingTabsProps) {
   const [mode, setMode] = useState<"single" | "packs">("packs");
+
+  const sessionCards =
+    sessions && sessions.length > 0
+      ? buildSessionCards(sessions)
+      : FALLBACK_SESSIONS;
 
   return (
     <section className={styles.section}>
@@ -162,7 +202,7 @@ export function PricingTabs() {
               : [styles.gridSingle, styles.hidden].join(" ")
           }
         >
-          {SINGLE_SESSIONS.map((session) => (
+          {sessionCards.map((session) => (
             <SingleSessionCard
               key={session.title}
               title={session.title}
@@ -170,7 +210,6 @@ export function PricingTabs() {
               price={session.price}
               unit={session.unit}
               icon={session.icon}
-              imagePlaceholder={session.imagePlaceholder}
               image={session.image}
               featured={session.featured}
               badge={session.badge}

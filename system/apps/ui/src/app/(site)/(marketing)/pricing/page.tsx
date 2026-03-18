@@ -5,6 +5,12 @@ import {
   PAGE_BY_URI_QUERY,
   type PageByUriResponse,
 } from "@/lib/graphql/queries";
+import {
+  PRICING_BOOKING_PRODUCTS_QUERY,
+  type PricingBookingProductsResponse,
+} from "@/lib/graphql/queries/bookings";
+import { INITIAL_CONSULTATION_SLUG } from "@/components/Pricing/pricingMeta";
+import { parsePrice } from "@/lib/utils/formatPrice";
 import { Hero } from "@/components/Hero";
 import {
   InitialConsultation,
@@ -24,6 +30,18 @@ const getPricingPageData = cache(async () => {
   );
 });
 
+const getPricingProducts = cache(async () => {
+  try {
+    return await wpQuery<PricingBookingProductsResponse>(
+      PRICING_BOOKING_PRODUCTS_QUERY,
+      {},
+      { tags: [CACHE_TAGS.products] },
+    );
+  } catch {
+    return null;
+  }
+});
+
 export const metadata: Metadata = {
   title: "Pricing Plans | ChiroStretch",
   description:
@@ -31,8 +49,19 @@ export const metadata: Metadata = {
 };
 
 export default async function PricingPage() {
-  const data = await getPricingPageData();
+  const [data, productsData] = await Promise.all([
+    getPricingPageData(),
+    getPricingProducts(),
+  ]);
   const page = data?.page;
+  const allProducts = productsData?.bookingProducts ?? [];
+
+  const consultation = allProducts.find(
+    (p) => p.slug === INITIAL_CONSULTATION_SLUG,
+  );
+  const sessions = allProducts.filter(
+    (p) => p.slug !== INITIAL_CONSULTATION_SLUG,
+  );
 
   return (
     <main className={styles.main}>
@@ -46,8 +75,12 @@ export default async function PricingPage() {
           descriptionColor="var(--color-text-primary)"
         />
       )}
-      <InitialConsultation />
-      <PricingTabs />
+      <InitialConsultation
+        price={consultation ? parsePrice(consultation.price) : undefined}
+        regularPrice={consultation ? parsePrice(consultation.regularPrice) : undefined}
+        description={consultation?.shortDescription ?? undefined}
+      />
+      <PricingTabs sessions={sessions} />
       <BenefitsSection />
       <PricingFAQ />
     </main>

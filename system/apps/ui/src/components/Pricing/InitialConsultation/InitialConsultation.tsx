@@ -8,7 +8,26 @@ const BENEFITS = [
   "60 Minutes Total Treatment Time",
 ];
 
-export function InitialConsultation() {
+const DEFAULT_PRICE = 149;
+const DEFAULT_REGULAR_PRICE = 249;
+const DEFAULT_DESCRIPTION =
+  "Start your recovery journey with a comprehensive 1-hour physical evaluation, diagnostic testing, and your first adjustment or stretch therapy session.";
+
+type InitialConsultationProps = {
+  price?: number;
+  regularPrice?: number;
+  description?: string;
+};
+
+export function InitialConsultation({
+  price,
+  regularPrice,
+  description,
+}: InitialConsultationProps) {
+  const displayPrice = price || DEFAULT_PRICE;
+  const displayRegularPrice = regularPrice || DEFAULT_REGULAR_PRICE;
+  const displayDescription = description?.replace(/<[^>]*>/g, "") || DEFAULT_DESCRIPTION;
+
   return (
     <section className={styles.wrapper}>
       <Container>
@@ -19,9 +38,7 @@ export function InitialConsultation() {
               Initial Consultation &amp; Assessment
             </h2>
             <Text as="p" className={styles.description}>
-              Start your recovery journey with a comprehensive 1-hour physical
-              evaluation, diagnostic testing, and your first adjustment or
-              stretch therapy session.
+              {displayDescription}
             </Text>
             <ul className={styles.list}>
               {BENEFITS.map((item) => (
@@ -33,8 +50,8 @@ export function InitialConsultation() {
             </ul>
           </div>
           <div className={styles.priceBox}>
-            <p className={styles.valueLabel}>Value: $249</p>
-            <div className={styles.price}>$149</div>
+            <p className={styles.valueLabel}>Value: ${displayRegularPrice}</p>
+            <div className={styles.price}>${displayPrice}</div>
             <p className={styles.priceNote}>1 Hour Comprehensive</p>
             <Button
               as="Link"

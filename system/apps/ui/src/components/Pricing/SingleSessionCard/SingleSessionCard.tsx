@@ -11,7 +11,7 @@ import { Button, Text } from "@/components/Primitives";
 import styles from "./SingleSessionCard.module.css";
 import Image from "next/image";
 
-const ICON_MAP = {
+export const ICON_MAP = {
   medical_services: Stethoscope,
   self_improvement: Sparkles,
   dynamic_form: GitMerge,

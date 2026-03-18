@@ -14,6 +14,24 @@ export const BOOKING_PRODUCTS_QUERY = `
   }
 `;
 
+// Pricing page query - fetches booking products with additional fields for pricing cards
+export const PRICING_BOOKING_PRODUCTS_QUERY = `
+  query PricingBookingProducts {
+    bookingProducts(first: 20) {
+      databaseId
+      name
+      slug
+      price
+      regularPrice
+      shortDescription
+      featured
+      bookingDuration
+      bookingDurationUnit
+      bookingCost
+    }
+  }
+`;
+
 // Single Bookable Product Query
 export const BOOKING_PRODUCT_QUERY = `
   query BookingProduct($id: Int!) {
@@ -62,8 +80,17 @@ export type BookingProduct = {
   bookingCost: number;
 };
 
+export type PricingBookingProduct = BookingProduct & {
+  regularPrice?: string;
+  featured?: boolean;
+};
+
 export type BookingProductsResponse = {
   bookingProducts: BookingProduct[];
+};
+
+export type PricingBookingProductsResponse = {
+  bookingProducts: PricingBookingProduct[];
 };
 
 export type BookingProductResponse = {
