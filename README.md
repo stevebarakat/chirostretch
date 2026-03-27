@@ -29,6 +29,7 @@ See [docs/local-development.md](docs/local-development.md) for complete setup in
 |-----|----------|---------|
 | **UI** | `system/apps/ui/` | Next.js frontend (App Router, Server Components) |
 | **CMS** | `system/apps/cms/` | WordPress (content, auth, WooCommerce) |
+| **Infra** | `system/infra/` | Infrastructure as code (Terraform — DNS, hosting config) |
 
 ## Required Environment Variables
 

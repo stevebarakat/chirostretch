@@ -12,13 +12,15 @@ How ChiroStretch ships to production.
 
 ## Domain Mapping
 
+DNS records are managed via Terraform in [`system/infra/dns/cloudflare/`](../system/infra/dns/cloudflare/). Do not edit DNS records manually in the Cloudflare dashboard — use `terraform apply` instead. See the [infrastructure README](../system/infra/README.md) for details.
+
 ### Production Domains
 
 | Service | Domain | Provider |
 |---------|--------|----------|
 | Next.js UI | chirostretch.com | Vercel |
-| WordPress CMS | cms.chirostretch.com | WPEngine |
-| GraphQL | cms.chirostretch.com/graphql | WPEngine |
+| WordPress CMS | cms.chirostretch.com | Cloudways |
+| GraphQL | cms.chirostretch.com/graphql | Cloudways |
 
 ### Local Domains
 

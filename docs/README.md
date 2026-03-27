@@ -15,6 +15,7 @@ Documentation hub for the ChiroStretch headless WordPress + Next.js platform.
 | Document | Description |
 |----------|-------------|
 | [Deployment](deployment.md) | Environments, domain mapping, deployment checklist |
+| [Infrastructure](../system/infra/README.md) | Terraform-managed infrastructure (DNS, Cloudflare) |
 | [Debugging](debugging.md) | Common errors, troubleshooting guides, incident response |
 | [Authentication](auth.md) | JWT flow, token refresh, server-to-server calls |
 
