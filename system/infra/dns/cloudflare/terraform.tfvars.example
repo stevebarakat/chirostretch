@@ -1,0 +1,8 @@
+# Copy this file to terraform.tfvars and fill in your values.
+# Do NOT commit terraform.tfvars — it is gitignored.
+
+cloudflare_api_token = "your-cloudflare-api-token"
+zone_name            = "chirostretch.site"
+apex_ipv4            = "76.76.21.21"
+www_cname_target     = "a21402165e18c7fa.vercel-dns-017.com"
+cms_ipv4             = "68.183.54.30"
