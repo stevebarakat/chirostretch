@@ -16,8 +16,6 @@ import {
 import { Button, Container, Flex } from "@/components/Primitives";
 import { ArrowRight } from "lucide-react";
 
-export const dynamic = "force-dynamic";
-
 // Cache the homepage query to deduplicate requests between generateMetadata() and the page component
 const getHomepageData = cache(async () => {
   return await wpQuery<HomepageQueryResponse>(
