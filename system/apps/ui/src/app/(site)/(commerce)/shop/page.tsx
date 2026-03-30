@@ -11,6 +11,8 @@ import {
 } from "@/lib/graphql/queries/products";
 import { ShopHomepage } from "@/components/Shop";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Shop",
   description: "Curated products for spinal health, recovery, and everyday comfort",
