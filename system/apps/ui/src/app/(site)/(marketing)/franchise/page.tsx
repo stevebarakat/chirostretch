@@ -3,16 +3,16 @@ import {
   FRANCHISE_QUERY,
   type FranchiseOpportunitiesQueryResponse,
 } from "@/lib/graphql/queries";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 // Critical above-the-fold sections (server-rendered)
 import { Hero } from "@/components/Hero";
 import { AboutSection } from "@/components/Franchise";
 
 // Below-the-fold sections (dynamically imported for code splitting)
-const WhyUsSection = dynamic(() => import("@/components/Franchise").then(mod => ({ default: mod.WhyUsSection })), {
+const WhyUsSection = dynamicImport(() => import("@/components/Franchise").then(mod => ({ default: mod.WhyUsSection })), {
   ssr: true,
 });
 

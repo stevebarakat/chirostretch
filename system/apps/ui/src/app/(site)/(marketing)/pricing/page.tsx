@@ -20,7 +20,7 @@ import {
 } from "@/components/Pricing";
 import styles from "./page.module.css";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const getPricingPageData = cache(async () => {
   return await wpQuery<PageByUriResponse>(
