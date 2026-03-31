@@ -5,7 +5,9 @@ import {
   HOMEPAGE_QUERY,
   type HomepageQueryResponse,
 } from "@/lib/graphql/queries";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
+
+export const dynamic = "force-dynamic";
 import { Hero } from "@/components/Hero";
 import { Stats } from "@/components/Stats";
 import { CallToAction } from "@/components/Homepage";
@@ -28,7 +30,7 @@ const getHomepageData = cache(async () => {
 });
 
 // Below-the-fold sections (dynamically imported for code splitting)
-const Introduction = dynamic(
+const Introduction = dynamicImport(
   () =>
     import("@/components/Homepage").then((mod) => ({
       default: mod.Introduction,
@@ -38,7 +40,7 @@ const Introduction = dynamic(
   },
 );
 
-const LatestInsights = dynamic(
+const LatestInsights = dynamicImport(
   () =>
     import("@/components/Homepage").then((mod) => ({
       default: mod.LatestInsights,
