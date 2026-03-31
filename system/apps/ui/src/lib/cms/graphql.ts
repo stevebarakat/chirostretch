@@ -25,23 +25,10 @@ export async function wpQuery<T>(
   try {
     return await fetchWP<T>({ query, variables, revalidate, tags });
   } catch (error) {
-    const cause =
-      error instanceof Error && "cause" in error ? error.cause : null;
-    const isENotFound =
-      (error instanceof Error &&
-        "code" in error &&
-        error.code === "ENOTFOUND") ||
-      (cause instanceof Error && "code" in cause && cause.code === "ENOTFOUND");
-
-    if (isENotFound) {
-      throw new Error(
-        `Cannot resolve WordPress GraphQL endpoint hostname: ${wpGraphqlUrl}. Please check your NEXT_PUBLIC_WPGRAPHQL_ENDPOINT environment variable and ensure the WordPress server is running and accessible.`
-      );
-    }
-    throw new Error(
-      `Failed to connect to WordPress GraphQL endpoint: ${
-        error instanceof Error ? error.message : String(error)
-      }`
+    console.error(
+      "WordPress GraphQL fetch failed:",
+      error instanceof Error ? error.message : String(error)
     );
+    return {} as T;
   }
 }
